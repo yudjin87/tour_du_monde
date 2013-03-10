@@ -52,22 +52,6 @@ void ComponentManagerTest::addComponent_shouldSetCheckedFlagToFalse()
 }
 
 //------------------------------------------------------------------------------
-void ComponentManagerTest::addComponents_shouldSetCheckedFlagToFalse()
-{
-    IComponent *p_componentA = createComponent("A");
-    ComponentManager manager(lg);
-    manager.check();
-
-    QVERIFY(manager.isChecked());
-
-    QList<IComponent *> components;
-    components.push_back(p_componentA);
-    manager.addComponents(components);
-
-    QCOMPARE(manager.isChecked(), false);
-}
-
-//------------------------------------------------------------------------------
 void ComponentManagerTest::check_shouldCallResolving()
 {
     MockComponentDependencies *dependencies = new MockComponentDependencies();

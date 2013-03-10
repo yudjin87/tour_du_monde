@@ -100,16 +100,13 @@ public:
      *   If manager already has component with same name as @a ip_component - the last one will
      *   not be added to the manager. The same for the null pointer - it will be ignored.
      *
+     *   Returns @a true if component was succesfully added. If it is a null point or already
+     *   existed one - returns @a false. Note, that ComponentManager does not take ownership
+     *   for component, which was not successfully added.
+     *
      * @sa IComponentDependencies::addComponent()
      */
-    void addComponent(IComponent *ip_component);
-
-    /*!
-     * @details
-     *   This method has been added for convinience.
-     * @sa addComponent()
-     */
-    void addComponents(const QList<IComponent *> &components);
+    bool addComponent(IComponent *ip_component);
 
     /*!
      * @details

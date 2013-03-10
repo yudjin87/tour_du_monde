@@ -12,7 +12,6 @@ public:
 private slots:
     void addComponent_shouldAddComponentToTheStoppedComponents();
     void addComponent_shouldSetCheckedFlagToFalse();
-    void addComponents_shouldSetCheckedFlagToFalse();
 
     void check_shouldCallResolving();
     void check_shouldSetCheckedFlag();

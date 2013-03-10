@@ -27,6 +27,7 @@
 #include "InstallComponentsCommand.h"
 
 #include <componentsystem/FileComponentProvider.h>
+#include <componentsystem/IComponent.h>
 #include <componentsystem/IComponentManager.h>
 #include <framework/AbstractApplication.h>
 #include <utils/IServiceLocator.h>
@@ -62,15 +63,18 @@ void InstallComponentsCommand::execute()
     state = fileDialog.saveState();
     settings.setValue("Install_component_dialog", state);
 
+    IComponentManager *manager = locator.locate<IComponentManager>();
+
     QList<IComponent *> components;
     foreach(const QString &fileName, fileDialog.selectedFiles()) {
         FileComponentProvider provider(fileName);
         IComponent *component = provider.loadComponent();
-        components.push_back(component);
+        if (manager->addComponent(component))
+            components.push_back(component);
+        else
+            delete component;
     }
 
-    IComponentManager *manager = locator.locate<IComponentManager>();
-    manager->addComponents(components);
     manager->startupComponents(components, m_app);
 }
 

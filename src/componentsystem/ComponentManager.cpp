@@ -104,19 +104,11 @@ ComponentManager::~ComponentManager()
 }
 
 //------------------------------------------------------------------------------
-void ComponentManager::addComponent(IComponent *ip_component)
+bool ComponentManager::addComponent(IComponent *ip_component)
 {
-    addComponentInternal(ip_component);
+    bool result = addComponentInternal(ip_component);
     resetCheck();
-}
-
-//------------------------------------------------------------------------------
-void ComponentManager::addComponents(const QList<IComponent *> &components)
-{
-    foreach(IComponent *component, components)
-        addComponentInternal(component);
-
-    resetCheck();
+    return result;
 }
 
 //------------------------------------------------------------------------------
