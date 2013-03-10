@@ -219,10 +219,13 @@ DependenciesSolvingResult ComponentManager::startupComponents(const QList<ICompo
     check();
 
     DependenciesSolvingResult solvingResult = mp_components->completeListWithChildren(components);
-    //m_orphanComponents = solvingResult.orphans();
 
     QSet<IComponent *> skippedComponents;
     QList<IComponent *> componentsToStart = solvingResult.ordered();
+
+    // Try to start orphan components from the previous starts, because they parrents
+    // may appear
+    componentsToStart.append(m_orphanComponents.toList());
     foreach(IComponent *comp, componentsToStart) {
         if (comp->started() || skippedComponents.contains(comp))
             continue;
@@ -249,6 +252,8 @@ DependenciesSolvingResult ComponentManager::startupComponents(const QList<ICompo
             m_log.log(info, ILogger::Info);
         }
     }
+
+    m_orphanComponents += solvingResult.orphans().toSet();
 
     return solvingResult;
 }
