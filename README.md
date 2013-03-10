@@ -8,7 +8,10 @@ Carousel is a managed component library for desktop applications that helps to e
 Read the BUILD.txt to generate MSVC/Xcode solutions using cmake.
 
 Supported compilers (tested ones):
-1.  msvc-10
-2.  msvc-11
-3.  mingw
-4.  gcc-4.4.5
+
+<ol>
+<li>msvc-10</li>
+<li>msvc-11</li>
+<li>mingw</li>
+<li>gcc-4.4.5</li>
+</ol>
