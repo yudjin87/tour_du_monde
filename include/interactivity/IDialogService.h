@@ -104,6 +104,7 @@ protected:
  */
 struct IDialogConstructor
 {
+    virtual ~IDialogConstructor(){}
     /*!
      * @details
      *   Returns new instance of the dialog,
