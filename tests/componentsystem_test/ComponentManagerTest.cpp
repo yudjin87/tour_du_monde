@@ -556,4 +556,32 @@ void ComponentManagerTest::startupComponents_shouldStartOrphanComponentsWhenPare
 }
 
 //------------------------------------------------------------------------------
+void ComponentManagerTest::startupComponents_shouldNotStartOrphanComponentsWhenOtherParentsAppeared()
+{
+    // A <- B,  C, D
+    MockComponent *p_componentD = createComponent("D");
+    MockComponent *p_componentC = createComponent("C");
+    MockChildComponent *p_componentB = createParentComponent("B", "A"); //dependent from A;
+
+    MockComponentInitialiser *initialiser = new MockComponentInitialiser();
+    ComponentManager manager(initialiser, lg);
+    manager.addComponent(p_componentB);
+    manager.addComponent(p_componentC);
+
+    manager.startupAllComponents();
+
+    QCOMPARE(manager.orphanComponents().size(), 1); // B is orphan
+    QVERIFY(!p_componentB->started());
+
+    QList<IComponent *> comps;
+    comps.push_back(p_componentD);
+    manager.addComponent(p_componentD);
+    manager.startupComponents(comps);
+
+    // B is still orphan because it's parent was not added
+    QCOMPARE(manager.orphanComponents().size(), 1);
+    QVERIFY(!p_componentB->started());
+}
+
+//------------------------------------------------------------------------------
 

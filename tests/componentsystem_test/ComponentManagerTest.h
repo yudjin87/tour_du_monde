@@ -34,6 +34,7 @@ private slots:
     void startupAllComponents_shouldNotStartChildComponentsIfInitialiserReturnFalseForParentOne();
     void startupAllComponents_shouldStartOrphanComponentIfParentAppeared();
     void startupComponents_shouldStartOrphanComponentsWhenParentsAppeared();
+    void startupComponents_shouldNotStartOrphanComponentsWhenOtherParentsAppeared();
 
     void shutdownAllComponents_shouldEmit();
     void shutdownAllComponents_shouldRemoveThemFromStartedList();

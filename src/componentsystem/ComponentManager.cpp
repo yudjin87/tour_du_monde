@@ -203,21 +203,20 @@ DependenciesSolvingResult ComponentManager::startupAllComponents(QObject *ip_ini
 }
 
 //------------------------------------------------------------------------------
-DependenciesSolvingResult ComponentManager::startupComponents(const QList<IComponent *> &components, QObject *ip_initializationData)
+DependenciesSolvingResult ComponentManager::startupComponents(QList<IComponent *> components, QObject *ip_initializationData)
 {
     if (components.empty())
         return DependenciesSolvingResult();
 
     check();
 
+    // Try to resolve orphan components from the previous starts, because they parents
+    // may appear
+    components.append(m_orphanComponents.toList());
     DependenciesSolvingResult solvingResult = mp_components->completeListWithChildren(components);
 
     QSet<IComponent *> skippedComponents;
     QList<IComponent *> componentsToStart = solvingResult.ordered();
-
-    // Try to start orphan components from the previous starts, because they parrents
-    // may appear
-    componentsToStart.append(m_orphanComponents.toList());
     foreach(IComponent *comp, componentsToStart) {
         if (comp->started() || skippedComponents.contains(comp))
             continue;

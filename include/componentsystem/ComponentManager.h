@@ -272,7 +272,7 @@ public:
      * @note components should be added to the manager before starting.
      * @sa addComponent(), check(), startupAllComponents()
      */
-    DependenciesSolvingResult startupComponents(const QList<IComponent *> &components, QObject *ip_initializationData = nullptr);
+    DependenciesSolvingResult startupComponents(QList<IComponent *> components, QObject *ip_initializationData = nullptr);
 
 
 protected slots:
