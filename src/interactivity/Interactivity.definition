@@ -1,0 +1,10 @@
+ <component name="Interactivity">
+     <productName>Interactivity</productName>
+     <description>The Interactivity component is a main component of GUI based
+application. If your components add new commands or menus, or
+dockable widgets - they should be a child to Interactivity
+component. This mean a dependency of component parent name:
+"Interactivity".
+     </description>
+     <location>./Interactivity</location>
+ </component>

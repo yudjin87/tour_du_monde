@@ -1,0 +1,7 @@
+ <component name="Geodatabase">
+     <productName>Geodatabase</productName>
+     <location>./Geodatabase</location>
+     <parents>
+         <parentComponent name="Geometry"/>
+     </parents>
+ </component>

@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/componentManagement">
+        <file>images/install_component.png</file>
+    </qresource>
+</RCC>

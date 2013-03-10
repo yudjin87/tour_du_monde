@@ -1,0 +1,8 @@
+PROJECT_SOURCES = $$CPP_SOURCE_TREE/interactivityUI
+PROJECT_HEADERS = $$HPP_SOURCE_TREE/interactivityUI
+
+
+SOURCES += \
+
+HEADERS += \
+

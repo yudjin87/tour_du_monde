@@ -1,0 +1,9 @@
+ <component name="Carto">
+     <productName>Carto</productName>
+     <location>./Carto</location>
+     <parents>
+         <parentComponent name="Display"/>
+         <parentComponent name="Geodatabase"/>
+         <parentComponent name="Geometry"/>
+     </parents>
+ </component>

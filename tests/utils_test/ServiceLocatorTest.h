@@ -1,0 +1,34 @@
+#ifndef SERVICELOCATORTEST_H
+#define SERVICELOCATORTEST_H
+
+#include <QtCore/QObject>
+
+class ServiceLocatorTest: public QObject
+{
+    Q_OBJECT
+public:
+    ServiceLocatorTest();
+
+private Q_SLOTS:
+    // Instances
+    void canRegisterInstance();
+    void shouldNotRegisterInstanceOfExistingType();
+    void canRegisterInstanceOfExistingTypeWithTag();
+    void shouldNotRegisterInstanceOfExistingTypeWithExistingTag();
+
+    void canLocateToRegisterInstanceByType();
+    void canLocateToRegisterInstanceByTypeAndTag();
+
+    // Types
+    void canRegisterFactoryMethodForType();
+    void canBindConcreteClassForType();
+    void shouldNotBindConcreteClassForExistingType();
+    void canBindConcreteClassForExistingTypeWithTag();
+    void shouldNotBindConcreteClassForExistingTypeWithExistingTag();
+
+    void canBuildRegisteredWithFactoryMethodInterfaceByType();
+    void canBuildBindedInterfaceByType();
+    void canBuildBindedInterfaceByTypeAndTag();
+};
+
+#endif // SERVICELOCATORTEST_H

@@ -1,0 +1,9 @@
+ <component name="AddShapeCommand">
+     <productName>AddShapeCommand</productName>
+     <parents>
+         <parentComponent name="Dom"/>
+         <parentComponent name="Geodatabase"/>
+         <parentComponent name="Display"/>
+         <parentComponent name="Carto"/>
+     </parents>
+ </component>

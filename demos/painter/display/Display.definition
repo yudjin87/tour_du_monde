@@ -1,0 +1,7 @@
+ <component name="Display">
+     <productName>Display</productName>
+     <location>./Display</location>
+     <parents>
+         <parentComponent name="Interactivity"/>
+     </parents>
+ </component>

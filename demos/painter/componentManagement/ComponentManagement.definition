@@ -1,0 +1,7 @@
+ <component name="ComponentManagement">
+     <productName>ComponentManagement</productName>
+     <location>./ComponentManagement</location>
+     <parents>
+         <parentComponent name="Interactivity"/>
+     </parents>
+ </component>

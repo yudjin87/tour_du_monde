@@ -1,0 +1,6 @@
+TEST_PROJECT_SOURCES = $$CPP_SOURCE_TREE/interactivityUI.test
+
+SOURCES += \
+
+HEADERS += \
+

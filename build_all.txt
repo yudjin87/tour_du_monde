@@ -1,0 +1,65 @@
+###############################################################################
+# This cmake file generates makefiles for specified platform for
+# all configurations and performs building using nmake on Windows
+# and make on Apple systems.
+# To perform building run (from VS Command Prompt on Windows) the 
+# following:
+#
+# cmake -P build_all.txt
+# cmake -DMINGW=TRUE -P build_all.txt
+#
+# Note, this module does not generate IDE projects
+include(cmake/build_utils.cmake)
+
+###############################################################################
+# Determine a generator according to the platform.
+# Also determine build system path. It is important to generate build 
+# system without removing cache and other intermediate cmake's stuff - 
+# it is improve building speed. So, to avoid generating NMake cache files 
+# and MSVC ones we have to use specified directories for them.
+if(WIN32)
+  if(MINGW)
+    set(BUILD_TREE_PATH "mingw-build")
+    set(GENERATOR_NAME "MinGW Makefiles")
+  else()
+    set(BUILD_TREE_PATH "nmake-build")
+    set(GENERATOR_NAME "NMake Makefiles")
+  endif()
+elseif(APPLE OR UNIX)
+  set(BUILD_TREE_PATH "make-build")
+  set(GENERATOR_NAME "Unix Makefiles")
+else()
+  message(FATAL_ERROR "Undefined platform: " ${CMAKE_SYSTEM_NAME})   
+endif()
+message(STATUS "Building system: " ${GENERATOR_NAME})
+
+###############################################################################
+# Set default configurations and populate them with static mode.
+set(CONFIGURATIONS "debug" "release")
+foreach(__CONF ${CONFIGURATIONS})
+  list(APPEND CONFIGURATIONS "${__CONF}_static")
+endforeach(__CONF)
+
+file(MAKE_DIRECTORY ${BUILD_TREE_PATH})
+
+##############################################################################
+# Generate a build system and perform building for all configurations.
+foreach(__CONF ${CONFIGURATIONS})
+  message(STATUS "Build type: " ${__CONF})
+
+  if(${__CONF} MATCHES "static")
+    set(WITH_TESTS ON)
+  else()
+    set(WITH_TESTS OFF)
+  endif()
+  
+  set(BUILD_RESULT 0)
+  crsl_generate_project(${GENERATOR_NAME} ${__CONF} ${BUILD_TREE_PATH} ${WITH_TESTS} BUILD_RESULT)
+	
+  if(BUILD_RESULT GREATER 0)
+    message(FATAL_ERROR "CMake configuration for generator '${GENERATOR_NAME}' failed.")   
+	return()
+  endif()
+
+  crsl_build_project(${__CONF} ${BUILD_TREE_PATH})
+endforeach(__CONF)

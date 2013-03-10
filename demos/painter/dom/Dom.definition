@@ -1,0 +1,8 @@
+ <component name="Dom">
+     <productName>Dom</productName>
+     <location>./Dom</location>
+     <parents>
+         <parentComponent name="Display"/>
+         <parentComponent name="Carto"/>
+     </parents>
+ </component>

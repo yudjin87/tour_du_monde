@@ -1,0 +1,10 @@
+ <component name="MyComponent">
+     <productName>My super product</productName>
+     <description>Ultra feature</description>
+     <location>./MyComponent</location>
+     <parents>
+         <parentComponent name="ComponentA"/>
+         <parentComponent name="ComponentC"/>
+         <parentComponent name="ComponentB"/>
+     </parents>
+ </component>

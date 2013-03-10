@@ -1,0 +1,49 @@
+docs/
+win32/
+win64/
+mac32/
+mac64/
+mingw32/
+mingw64/
+unix32/
+unix64/
+linux32/
+linux64/
+intermediate/
+lib/
+bin/
+.obj/
+
+Makefile
+Makefile.*
+*.pdb
+*.obj
+*.exp
+*.lib
+*.dll
+*.rc
+*.so*
+*.[ao]
+
+#cmake binary trees
+build/
+*-build/
+
+#QtCreator user files
+*.user*
+
+#QtCreator qutosaves
+*.autosave
+
+#MinGW
+object_script.*
+
+#MS VS skipped files
+*.opensdf
+*.sdf
+*.suo
+*.vcxproj.user
+ipch/
+
+#Generated (by Qt MOC) files in MS VS
+GeneratedFiles/

@@ -1,0 +1,72 @@
+##############################################################################
+ CMakeLists.txt is the main CMake file, that generates building system according 
+ to the specified generator and building type (debug/release, shared/static, etc).
+ 
+ Here is at glance how file system structure is organized:
+##############################################################################
+ +/carousel
+     +/build              <= Stuff for the generated IDE projects;
+     +/cmake              <= Utility modules; 
+     +/src                <= source folder;
+         +/booting
+         +/componentsystem
+         +/interactivity
+         +/...
+         +/CMakeLists.txt <= Nested cmake file. Each directory has such;
+     +/make-build         <= Stuff for the NMake/UNIX makefiles, that
+     +/nmake-build        <= appear after build_all_using_make.txt running;
+     +/win32              <= Binaries output for makefiles and IDEs;
+         +/debug
+             +/bin
+             +/lib
+         +/debug_static
+         +/release
+         +/release_static
+     +/CMakeLists.txt     <= Main CMake file;
+ +/carousel-build         <= Stuff for the QtCreator's cmake;
+##############################################################################
+ 
+ To generate out-of-source IDE (MSVC, Xcode, etc.) project run from the 'build' folder
+
+   cmake .. 
+
+ with static configurations by default or
+
+   cmake .. -DCMAKE_BUILD_TYPE=debug
+
+ with shared configurations. Regardless of keyword 'debug' it will generate
+ all existing shared configurations (now there are two of them: debug and release).
+
+ You also can generate solution with tests just adding the -DCRSL_TEST=OFF
+ parameter (which is ON by default):
+
+   cmake .. [params] -DCRSL_TEST=OFF
+
+ On MacOS you should specify generator for Xcode explicitly, e.g. run
+
+   cmake .. [params] -G "Xcode"
+
+ because cmake will generate Unix makefiles by default on MacOS.
+ More generators:
+
+   cmake .. [params] -G "Visual Studio 10"
+   cmake .. [params] -G "Visual Studio 10 Win64"
+   cmake .. [params] -G "Visual Studio 11"
+   cmake .. [params] -G "Visual Studio 11 Win64"
+
+  
+##############################################################################  
+ To build all binaries run (from VS Command Prompt on Windows) 
+
+   cmake -P build_all_using_make.txt
+
+ directly from the root. It produces specified build system
+ (for nmake on Windows and for make on UNIX) and perform the
+ build. To completely use the cmake's power it is recomended to
+ create building systems in different folders to do not mix 
+ cmake's working stuff.
+ 
+##############################################################################
+ For more information use Ctrl+F at the page
+ http://www.cmake.org/cmake/help/v2.8.8/cmake.html
+##############################################################################
