@@ -32,7 +32,7 @@ MockComponentConfigurationDelegate::MockComponentConfigurationDelegate()
     , m_deconfigureCalled(false)
     , m_configureCalls(0)
     , m_deconfigureCalls(0)
-    , mp_wasDestructorCalled(false)
+    , mp_wasDestructorCalled(nullptr)
 {
 }
 
