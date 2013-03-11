@@ -21,14 +21,16 @@ UI_SOURCES_DIR  = $${PAINTER_WD}/intermediate/ui/$${TARGET}
 
 #CONFIG += plugin
 #########################################################
-# Compiler flags
-!win32:QMAKE_CXXFLAGS += -std=c++0x
+# c++0x is skipped for the MSVC compiler.
+!win32-msvc*:QMAKE_CXXFLAGS += -std=c++0x
 
 #########################################################
 # Format binary path for the carousel outputs:
-win32:BIN_OUTPUT_PATH=win
+win32-g*:BIN_OUTPUT_PATH=mingw
+win32-msvc*:BIN_OUTPUT_PATH=win
 macx:BIN_OUTPUT_PATH=mac
 unix:BIN_OUTPUT_PATH=linux
+
 
 contains(QMAKE_HOST.arch, x86_64) {
     BIN_OUTPUT_PATH=$${BIN_OUTPUT_PATH}32
@@ -55,7 +57,7 @@ CAROUSEL_BIN = $${PAINTER_WD}/../../$${BIN_OUTPUT_PATH}/bin
 #########################################################
 # MSVC compiler shows this warning, but with virtual inheritance
 # that problem is solved, so just disable it.
-win32:QMAKE_CXXFLAGS += /wd4250
+win32-msvc*:QMAKE_CXXFLAGS += /wd4250
 
 #########################################################
 # Copies the given files to the destination directory
@@ -63,10 +65,10 @@ defineTest(copyExtraFiles) {
     files = $$1
     DDIR = $$2
 
-    win32:DDIR ~= s,/,\\,g
+    win32-msvc*:DDIR ~= s,/,\\,g
 
     # Create directory for copying
-    win32 { # for Windows we also should check whether this directory exists
+    win32-msvc* { # for Windows we also should check whether this directory exists
         QMAKE_POST_LINK += $$QMAKE_CHK_DIR_EXISTS $$quote($$DDIR) $$QMAKE_MKDIR $$quote($$DDIR) $$escape_expand(\\n\\t)
     } else {
         QMAKE_POST_LINK += $$QMAKE_MKDIR $$quote($$DDIR) $$escape_expand(\\n\\t)
@@ -74,7 +76,7 @@ defineTest(copyExtraFiles) {
 
     for(FILE, files) {
         # Replace slashes in paths with backslashes for Windows
-        win32:FILE ~= s,/,\\,g
+        win32-msvc*:FILE ~= s,/,\\,g
 
         QMAKE_POST_LINK += $$QMAKE_COPY $$quote($$FILE) $$quote($$DDIR) $$escape_expand(\\n\\t)
     }
