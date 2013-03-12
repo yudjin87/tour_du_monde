@@ -24,18 +24,30 @@ Components integrate to the application by the **Providers**. Different provider
 		return provider;
 	}
 
-DirectoryComponentProvider can discover and load components	on **run-time**. It uses to load custom components (which may appear as custom installed plugins) from the specified library path. For example, this directoryProvider will discovered and load (if it is possible) all components from the **./components** directory at the **startup-time**:
+DirectoryComponentProvider can discover and load components	on **run-time**. It uses to load custom components (which may appear as custom installed plugins) from the specified library path. For example, this directoryProvider will discover and load (if it is possible) all components from the **./components** directory at the **startup-time**:
 
 	IComponentProvider *Bootloader::_createComponentProvider()
 	{
 		DirectoryComponentProvider *directoryProvider = new DirectoryComponentProvider("./components");
 
-		return provider;
+		return directoryProvider;
 	}	
 
 You also can use FileComponentProvider to load component by demand (e.g., user wants to load just-downloaded component) on **run-time**.
 
 External components can be loaded in right order (if they have a dependencies) from the defining paths or can be configured statically in the code (internal components).
+
+Providers
+---------
+
+Installers
+----------
+
+Bootloaders
+-----------
+
+Service Locator
+---------------
 
 Build
 =====
