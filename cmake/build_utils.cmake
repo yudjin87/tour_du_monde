@@ -20,11 +20,16 @@ endfunction(crsl_generate_project)
 # Generates projects for building.
 # __BUILD_TYPE      - name of building configuration (debug, release_static);
 # __BUILD_TREE_PATH - path where Makefiles or other projects have been generated;
-function(crsl_build_project __BUILD_TYPE __BUILD_TREE_PATH)
+# __NATIVE_PARAMS   - pass remaining options to the native tool.
+function(crsl_build_project __BUILD_TYPE __BUILD_TREE_PATH __NATIVE_PARAMS)
   message(STATUS "Build type: " ${__BUILD_TYPE})
+
+  message(STATUS "CMAKE_GENERATOR: " ${__NATIVE_PARAMS})
+  
   execute_process(COMMAND ${CMAKE_COMMAND}
     --build .  
     --config ${__BUILD_TYPE}
+    -- ${__NATIVE_PARAMS}
     WORKING_DIRECTORY ${__BUILD_TREE_PATH})
   
 endfunction(crsl_build_project)
