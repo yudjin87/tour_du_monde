@@ -76,12 +76,12 @@ static {# everything below takes effect with CONFIG+=static
 DESTDIR         = $${CAROUSEL_WD}/$${BIN_OUTPUT_PATH}/bin
 
 # Store intermedia stuff somewhere else
-OBJECTS_DIR     = $${CAROUSEL_WD}/intermediate/obj/$${TARGET}
-MOC_DIR         = $${CAROUSEL_WD}/intermediate/moc/$${TARGET}
-RCC_DIR         = $${CAROUSEL_WD}/intermediate/rcc/$${TARGET}
-UI_DIR          = $${CAROUSEL_WD}/intermediate/ui/$${TARGET}
-UI_HEADERS_DIR  = $${CAROUSEL_WD}/intermediate/ui/$${TARGET}
-UI_SOURCES_DIR  = $${CAROUSEL_WD}/intermediate/ui/$${TARGET}
+OBJECTS_DIR     = $${CAROUSEL_WD}/$${BIN_OUTPUT_PATH}/intermediate/obj/$${TARGET}
+MOC_DIR         = $${CAROUSEL_WD}/$${BIN_OUTPUT_PATH}/intermediate/moc/$${TARGET}
+RCC_DIR         = $${CAROUSEL_WD}/$${BIN_OUTPUT_PATH}/intermediate/rcc/$${TARGET}
+UI_DIR          = $${CAROUSEL_WD}/$${BIN_OUTPUT_PATH}/intermediate/ui/$${TARGET}
+UI_HEADERS_DIR  = $${CAROUSEL_WD}/$${BIN_OUTPUT_PATH}/intermediate/ui/$${TARGET}
+UI_SOURCES_DIR  = $${CAROUSEL_WD}/$${BIN_OUTPUT_PATH}/intermediate/ui/$${TARGET}
 
 #########################################################
 # Compiler flags
@@ -103,8 +103,8 @@ defineTest(copyExtraFiles) {
         DDIR = $$DESTDIR
 
         # Replace slashes in paths with backslashes for Windows
-        win32:FILE ~= s,/,\\,g
-        win32:DDIR ~= s,/,\\,g
+        win32-msvc*:FILE ~= s,/,\\,g
+        win32-msvc*:DDIR ~= s,/,\\,g
 
         QMAKE_POST_LINK += $$QMAKE_COPY $$quote($$FILE) $$quote($$DDIR) $$escape_expand(\\n\\t)
     }
