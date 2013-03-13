@@ -91,7 +91,7 @@ else()
   set(CRSL_PROJECT_NAME "carousel")
 endif()
 
-project(${CRSL_PROJECT_NAME} CXX)
+project(${CRSL_PROJECT_NAME} CXX C)
 message(STATUS "Project name: ${CRSL_PROJECT_NAME}" )
 
 ###############################################################################
