@@ -23,17 +23,17 @@ endfunction(crsl_generate_project)
 # __NATIVE_PARAMS   - pass remaining options to the native tool.
 function(crsl_build_project __BUILD_TYPE __BUILD_TREE_PATH __NATIVE_PARAMS)
   message(STATUS "Build type: " ${__BUILD_TYPE})
-  
-  if (${__NATIVE_PARAMS})
+ 
+  if (${__NATIVE_PARAMS} STREQUAL "")
     execute_process(COMMAND ${CMAKE_COMMAND}
       --build .  
       --config ${__BUILD_TYPE}
-      -- ${__NATIVE_PARAMS}
       WORKING_DIRECTORY ${__BUILD_TREE_PATH})
   else()
       execute_process(COMMAND ${CMAKE_COMMAND}
       --build .  
       --config ${__BUILD_TYPE}
+      -- ${__NATIVE_PARAMS}
       WORKING_DIRECTORY ${__BUILD_TREE_PATH})
   endif()
   
