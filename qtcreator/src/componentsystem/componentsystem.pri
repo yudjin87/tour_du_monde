@@ -17,6 +17,7 @@ SOURCES += \
     $$PROJECT_SOURCES/FileComponentProvider.cpp \
     $$PROJECT_SOURCES/ProxyComponent.cpp \
     $$PROJECT_SOURCES/XmlDefinitionParser.cpp \
+    $$PROJECT_SOURCES/DefinitionConstuctor.cpp \
 
 HEADERS += \
     $$PROJECT_HEADERS/BaseComponent.h \
@@ -45,5 +46,6 @@ HEADERS += \
     $$PROJECT_HEADERS/IDirectoryComponentProvider.h \
     $$PROJECT_HEADERS/ProxyComponent.h \
     $$PROJECT_HEADERS/XmlDefinitionParser.h \
-    $$PROJECT_HEADERS/ComponentExport.h
+    $$PROJECT_HEADERS/ComponentExport.h \
+    $$PROJECT_HEADERS/DefinitionConstuctor.h \
 

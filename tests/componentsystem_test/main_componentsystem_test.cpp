@@ -11,6 +11,7 @@
 #include "ComponentDependenciesTest.h"
 #include "DirectoryWatchingComponentProviderTest.h"
 #include "FileComponentProviderTest.h"
+#include "DefinitionConstuctorTest.h"
 
 #include <QtCore/QCoreApplication>
 #include <QtTest/QtTest>
@@ -60,6 +61,9 @@ int main(int argc, char *argv[])
 
     FileComponentProviderTest fileComponentProviderTest;
     QTest::qExec(&fileComponentProviderTest, argc, argv);
+
+    DefinitionConstuctorTest definitionConstuctorTest;
+    QTest::qExec(&definitionConstuctorTest, argc, argv);
 
     // clean stuff
     QSettings settings;
