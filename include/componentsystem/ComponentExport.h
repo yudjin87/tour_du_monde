@@ -29,7 +29,7 @@
 
 #include <QtCore/QPointer>
 
-// This header has been writte by influence of the similiar QtCore/qplugin.h
+// This header has been written by influence of the similiar QtCore/qplugin.h
 
 //------------------------------------------------------------------------------
 #ifdef __cplusplus
