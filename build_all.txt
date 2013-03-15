@@ -65,5 +65,5 @@ foreach(__CONF ${CONFIGURATIONS})
 	return()
   endif()
 
-  crsl_build_project(${__CONF} ${BUILD_TREE_PATH} ${BUILD_TOOL_OPTIONS})
+  crsl_build_project(${__CONF} ${BUILD_TREE_PATH} "${BUILD_TOOL_OPTIONS}")
 endforeach(__CONF)

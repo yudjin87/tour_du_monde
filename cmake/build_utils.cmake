@@ -24,7 +24,7 @@ endfunction(crsl_generate_project)
 function(crsl_build_project __BUILD_TYPE __BUILD_TREE_PATH __NATIVE_PARAMS)
   message(STATUS "Build type: " ${__BUILD_TYPE})
  
-  if (${__NATIVE_PARAMS} STREQUAL "")
+  if ("${__NATIVE_PARAMS}" STREQUAL "")
     execute_process(COMMAND ${CMAKE_COMMAND}
       --build .  
       --config ${__BUILD_TYPE}
