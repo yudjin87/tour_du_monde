@@ -38,8 +38,8 @@ DomComponent::DomComponent()
     : BaseComponent("Dom")
     , mp_docController(nullptr)
 {
-    mp_definition->addParent("Display");
-    mp_definition->addParent("Carto");
+    addParent("Display");
+    addParent("Carto");
 }
 
 //------------------------------------------------------------------------------

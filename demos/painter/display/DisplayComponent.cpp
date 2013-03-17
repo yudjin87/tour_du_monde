@@ -41,7 +41,7 @@
 DisplayComponent::DisplayComponent(QObject *parent)
     : BaseComponent("Display", parent)
 {
-    mp_definition->addParent("Interactivity");
+    addParent("Interactivity");
 }
 
 //------------------------------------------------------------------------------

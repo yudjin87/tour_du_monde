@@ -38,10 +38,10 @@ AddShapeCommandComponent::AddShapeCommandComponent(QObject *parent /*= nullptr*/
     IInteractiveExtension *interactiveExtension = new AddShapeCommandInteractiveExtension(this);
     registerExtension<IInteractiveExtension>(interactiveExtension);
 
-    mp_definition->addParent("Dom");
-    mp_definition->addParent("Geodatabase");
-    mp_definition->addParent("Display");
-    mp_definition->addParent("Carto");
+    addParent("Dom");
+    addParent("Geodatabase");
+    addParent("Display");
+    addParent("Carto");
 }
 
 //------------------------------------------------------------------------------

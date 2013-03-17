@@ -129,6 +129,12 @@ bool BaseComponent::_onStartup(QObject *)
 }
 
 //------------------------------------------------------------------------------
+void BaseComponent::addParent(const QString &parent)
+{
+    mp_definition->addParent(parent);
+}
+
+//------------------------------------------------------------------------------
 void BaseComponent::registerExtensionInstance(void *ip_instance, const QString &i_forTypeId)
 {
     mp_typeObjectsMap->registerInstance(ip_instance, i_forTypeId);

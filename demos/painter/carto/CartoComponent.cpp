@@ -35,9 +35,9 @@
 CartoComponent::CartoComponent()
     : BaseComponent("Carto")
 {
-    mp_definition->addParent("Display");
-    mp_definition->addParent("Geodatabase");
-    mp_definition->addParent("Geometry");
+    addParent("Display");
+    addParent("Geodatabase");
+    addParent("Geometry");
 }
 
 //------------------------------------------------------------------------------

@@ -176,6 +176,8 @@ protected:
      */
     virtual bool _onStartup(QObject *ip_initData);
 
+    void addParent(const QString &parent);
+
 private:
     Q_DISABLE_COPY(BaseComponent)
     void registerExtensionInstance(void *ip_instance, const QString &i_forTypeId);
