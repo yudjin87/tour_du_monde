@@ -97,6 +97,8 @@ public:
      * @details
      *   The name of the component. This name should be unique and used for the resolving component
      *   dependencies.
+     *
+     *   It is a shortcut for the definition()->name().
      */
     virtual const QString &name() const = 0;
 

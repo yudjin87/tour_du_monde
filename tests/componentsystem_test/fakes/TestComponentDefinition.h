@@ -27,9 +27,9 @@
 #ifndef TESTCOMPONENTDEFINITION_H
 #define TESTCOMPONENTDEFINITION_H
 
-#include <componentsystem/IComponentDefinition.h>
+#include <componentsystem/ComponentDefinition.h>
 
-class TestComponentDefinition : public IComponentDefinition
+class TestComponentDefinition : public ComponentDefinition
 {
     Q_OBJECT
 public:

@@ -24,35 +24,19 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef FILECOMPONENTPROVIDERTEST_H
-#define FILECOMPONENTPROVIDERTEST_H
+#include "MockDefaultConstructor.h"
 
-#include <QtCore/QObject>
-
-class FileComponentProviderTest : public QObject
+//------------------------------------------------------------------------------
+MockDefaultConstructor::MockDefaultConstructor()
 {
-    Q_OBJECT
-public:
-    explicit FileComponentProviderTest(QObject *parent = 0);
+}
 
-private Q_SLOTS:
-    void shouldSetupFileName();
-    void shouldNotSetupUnexistingFileName();
+//------------------------------------------------------------------------------
+bool MockDefaultConstructor::construct(IComponentDefinition *definition, const IDefinitionParser *parser)
+{
+    bool result = DefinitionConstuctor::construct(definition, parser);
+    emit constructCalled();
+    return result;
+}
 
-    void initialize_shouldReturnTrue();
-    void initialize_shouldReturnFalseIfLoadingReturnsNull();
-    void initialize_shouldCallLoadComponent();
-
-    void loadComponent_shouldReturnNullIfPathIsEmpty();
-    void loadComponent_shouldLoadComponent();
-    void loadComponent_shouldCallReadOnParser();
-    void loadComponent_shouldCallConstructOnConstructor();
-    void loadComponent_shouldPopulateWithComponent();
-    void loadComponent_shouldNotPopulateComponentIfItsInitializationFault();
-    void loadComponent_shouldReturnNullIfComponentItsInitializationFault();
-
-private:
-    const QString definitionPath;
-};
-
-#endif // FILECOMPONENTPROVIDERTEST_H
+//------------------------------------------------------------------------------

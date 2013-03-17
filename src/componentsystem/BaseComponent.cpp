@@ -30,26 +30,35 @@
 #include <utils/TypeObjectsMap.h>
 //------------------------------------------------------------------------------
 BaseComponent::BaseComponent(const char *ip_name, QObject *parent)
-    : mp_definition(nullptr)
+    : mp_definition(new ComponentDefinition(ip_name))
     , m_isStarted(false)
-    , m_name(ip_name)
     , mp_typeObjectsMap(new TypeObjectsMap<void *>())
 {
-    mp_definition = new ComponentDefinition(this);
     setParent(parent);
-    setObjectName(m_name);
+    setObjectName(mp_definition->componentName());
+    mp_definition->setComponent(this);
 }
 
 //------------------------------------------------------------------------------
 BaseComponent::BaseComponent(const QString &i_name, QObject *parent)
-    : mp_definition(nullptr)
+    : mp_definition(new ComponentDefinition(i_name))
     , m_isStarted(false)
-    , m_name(i_name)
     , mp_typeObjectsMap(new TypeObjectsMap<void *>())
 {
-    mp_definition = new ComponentDefinition(this);
     setParent(parent);
-    setObjectName(m_name);
+    setObjectName(mp_definition->componentName());
+    mp_definition->setComponent(this);
+}
+
+//------------------------------------------------------------------------------
+BaseComponent::BaseComponent(ComponentDefinition *definition, QObject *parent)
+    : mp_definition(definition)
+    , m_isStarted(false)
+    , mp_typeObjectsMap(new TypeObjectsMap<void *>())
+{
+    setParent(parent);
+    setObjectName(mp_definition->componentName());
+    mp_definition->setComponent(this);
 }
 
 //------------------------------------------------------------------------------
@@ -77,7 +86,7 @@ IComponentDefinition *BaseComponent::definition() const
 //------------------------------------------------------------------------------
 const QString &BaseComponent::name() const
 {
-    return m_name;
+    return mp_definition->componentName();
 }
 
 //------------------------------------------------------------------------------

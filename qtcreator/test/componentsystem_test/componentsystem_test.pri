@@ -34,6 +34,7 @@ SOURCES += \
     $$TEST_PROJECT_SOURCES/Utils.cpp \
     $$TEST_PROJECT_SOURCES/XmlDefinitionParserTest.cpp \
     $$TEST_PROJECT_SOURCES/DefinitionConstuctorTest.cpp \
+    $$TEST_PROJECT_SOURCES/fakes/MockDefaultConstructor.cpp
 
 HEADERS += \
     $$TEST_PROJECT_SOURCES/BaseComponentTest.h \
@@ -68,4 +69,5 @@ HEADERS += \
     $$TEST_PROJECT_SOURCES/Utils.h \
     $$TEST_PROJECT_SOURCES/XmlDefinitionParserTest.h \
     $$TEST_PROJECT_SOURCES/DefinitionConstuctorTest.h \
+    $$TEST_PROJECT_SOURCES/fakes/MockDefaultConstructor.h
 

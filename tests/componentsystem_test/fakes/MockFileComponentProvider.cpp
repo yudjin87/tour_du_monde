@@ -26,11 +26,14 @@
 
 #include "MockFileComponentProvider.h"
 
+#include <componentsystem/ComponentDefinition.h>
+
 #include <QtCore/QtAlgorithms>
 //------------------------------------------------------------------------------
 MockFileComponentProvider::MockFileComponentProvider(FakeDefinitionParser *parser)
     : FileComponentProvider()
     , parser(parser)
+    , constructor(nullptr)
     , loadCalled(0)
     , initializeCalled(false)
     , initializeReturnValue(true)
@@ -42,6 +45,7 @@ MockFileComponentProvider::MockFileComponentProvider(FakeDefinitionParser *parse
 MockFileComponentProvider::MockFileComponentProvider(const QString &path, FakeDefinitionParser *parser)
     : FileComponentProvider(path)
     , parser(parser)
+    , constructor(nullptr)
     , loadCalled(0)
     , initializeCalled(false)
     , initializeReturnValue(true)
@@ -85,9 +89,17 @@ bool MockFileComponentProvider::initialize()
 }
 
 //------------------------------------------------------------------------------
-ProxyComponent *MockFileComponentProvider::createProxy()
+ProxyComponent *MockFileComponentProvider::createProxy(ComponentDefinition *definition)
 {
-    return new MockProxyComponent();
+    return new MockProxyComponent(definition);
+}
+
+//------------------------------------------------------------------------------
+DefinitionConstuctor *MockFileComponentProvider::createDefinitionConstuctor()
+{
+    if (constructor == nullptr)
+        constructor = new MockDefaultConstructor();
+    return constructor;
 }
 
 //------------------------------------------------------------------------------
@@ -95,14 +107,19 @@ bool MockProxyComponent::initializeReturnValue = true;
 
 //------------------------------------------------------------------------------
 MockProxyComponent::MockProxyComponent(QObject *parent)
-    : ProxyComponent(parent)
+    : ProxyComponent(new ComponentDefinition(), parent)
 {
 }
 
 //------------------------------------------------------------------------------
-bool MockProxyComponent::initialize(const IDefinitionParser &parser)
+MockProxyComponent::MockProxyComponent(ComponentDefinition *definition, QObject *parent)
+    : ProxyComponent(definition, parent)
 {
-    Q_UNUSED(parser)
+}
+
+//------------------------------------------------------------------------------
+bool MockProxyComponent::initialize()
+{
     return initializeReturnValue;
 }
 

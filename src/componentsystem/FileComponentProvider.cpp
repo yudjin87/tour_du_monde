@@ -25,6 +25,8 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "FileComponentProvider.h"
+#include "ComponentDefinition.h"
+#include "DefinitionConstuctor.h"
 #include "XmlDefinitionParser.h"
 #include "ProxyComponent.h"
 
@@ -34,6 +36,7 @@
 
 //------------------------------------------------------------------------------
 typedef QScopedPointer<IDefinitionParser> IDefinitionParserPtr;
+typedef QScopedPointer<DefinitionConstuctor> DefinitionConstuctorPtr;
 
 //------------------------------------------------------------------------------
 FileComponentProvider::FileComponentProvider(QObject *parent)
@@ -93,10 +96,15 @@ IComponent *FileComponentProvider::loadComponent()
     if (!parser->read(&file))
         return nullptr;
 
-    ProxyComponent *proxy = createProxy();
+    ComponentDefinition *definition = createDefintion();
+    DefinitionConstuctorPtr constructor(createDefinitionConstuctor());
+    if (!constructor->construct(definition, parser.data()))
+        return nullptr;
+
+    ProxyComponent *proxy = createProxy(definition);
     proxy->setDefinitionLocation(m_path);
-    if (!proxy->initialize(*parser.data())) {
-        delete proxy;
+    if (!proxy->initialize()) {
+        delete proxy;        
         return nullptr;
     }
 
@@ -120,9 +128,21 @@ IDefinitionParser *FileComponentProvider::createParser()
 }
 
 //------------------------------------------------------------------------------
-ProxyComponent *FileComponentProvider::createProxy()
+ProxyComponent *FileComponentProvider::createProxy(ComponentDefinition *definition)
 {
-    return new ProxyComponent();
+    return new ProxyComponent(definition);
+}
+
+//------------------------------------------------------------------------------
+ComponentDefinition *FileComponentProvider::createDefintion()
+{
+    return new ComponentDefinition();
+}
+
+//------------------------------------------------------------------------------
+DefinitionConstuctor *FileComponentProvider::createDefinitionConstuctor()
+{
+    return new DefinitionConstuctor();
 }
 
 //------------------------------------------------------------------------------

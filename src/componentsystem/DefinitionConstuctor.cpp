@@ -26,7 +26,7 @@
 
 #include "DefinitionConstuctor.h"
 
-#include "ComponentDefinition.h"
+#include "IComponentDefinition.h"
 #include "IDefinitionParser.h"
 
 #include <QtCore/QDir>
@@ -54,7 +54,7 @@ DefinitionConstuctor::~DefinitionConstuctor()
 }
 
 //------------------------------------------------------------------------------
-bool DefinitionConstuctor::construct(ComponentDefinition *definition, const IDefinitionParser *parser)
+bool DefinitionConstuctor::construct(IComponentDefinition *definition, const IDefinitionParser *parser)
 {
     QString name = parser->componentName();
     if (name.trimmed().isEmpty())

@@ -32,15 +32,15 @@
 #include <QtCore/QString>
 
 class IDefinitionParser;
-class ComponentDefinition;
+class IComponentDefinition;
 
 class COMP_API DefinitionConstuctor
 {
 public:
     DefinitionConstuctor();
-    ~DefinitionConstuctor();
+    virtual ~DefinitionConstuctor();
 
-    bool construct(ComponentDefinition *definition, const IDefinitionParser *parser);
+    virtual bool construct(IComponentDefinition *definition, const IDefinitionParser *parser);
 };
 
 #endif // DEFINITIONCONSTUCTOR_H

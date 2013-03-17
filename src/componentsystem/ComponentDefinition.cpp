@@ -33,6 +33,7 @@
 ComponentDefinition::ComponentDefinition()
     : mp_component(nullptr)
     , m_availability(IComponentDefinition::Enabled)
+    , m_componentName("Undefined_ProxyComponent")
     , m_description("")
     , m_productName("")
     , m_componentLocation("")
@@ -41,27 +42,15 @@ ComponentDefinition::ComponentDefinition()
 }
 
 //------------------------------------------------------------------------------
-ComponentDefinition::ComponentDefinition(IComponent *component)
-    : mp_component(component)
+ComponentDefinition::ComponentDefinition(const QString &componentName)
+    : mp_component(nullptr)
     , m_availability(IComponentDefinition::Enabled)
+    , m_componentName(componentName)
     , m_description("")
     , m_productName("")
     , m_componentLocation("")
     , m_parents()
-{
-    QObject::setParent(component);
-    loadAvailability();
-}
-
-//------------------------------------------------------------------------------
-ComponentDefinition::ComponentDefinition(Availability availability, IComponent *component)
-    : mp_component(component)
-    , m_availability(availability)
-    , m_description("")
-    , m_productName("")
-    , m_parents()
-{
-    QObject::setParent(component);
+{    
     loadAvailability();
 }
 
@@ -101,7 +90,7 @@ const QString &ComponentDefinition::componentLocation() const
 //------------------------------------------------------------------------------
 const QString &ComponentDefinition::componentName() const
 {
-    return mp_component->name();
+    return m_componentName;
 }
 
 //------------------------------------------------------------------------------
@@ -127,6 +116,19 @@ void ComponentDefinition::setAvailability(IComponentDefinition::Availability i_n
 {
     m_availability = i_newMode;
     onAvailabilityChanged(i_newMode);
+}
+
+//------------------------------------------------------------------------------
+void ComponentDefinition::setComponent(IComponent *component)
+{
+    mp_component = component;
+    QObject::setParent(component);
+}
+
+//------------------------------------------------------------------------------
+void ComponentDefinition::setComponentName(const QString &name)
+{
+    m_componentName = name;
 }
 
 //------------------------------------------------------------------------------

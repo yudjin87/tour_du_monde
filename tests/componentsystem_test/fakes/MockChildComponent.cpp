@@ -3,56 +3,34 @@
 #include <componentsystem/ComponentDefinition.h>
 
 //------------------------------------------------------------------------------
-MockChildComponent::MockChildComponent()
-    : BaseComponent("MockChildComponent")
-    , mp_def(nullptr)
+MockChildComponent::MockChildComponent(const QString &i_name)
+    : BaseComponent(i_name)
 {
-    mp_def = new ComponentDefinition(this);
-}
-
-//------------------------------------------------------------------------------
-MockChildComponent::~MockChildComponent()
-{
-    delete mp_def;
-    mp_def = nullptr;
-}
-
-//------------------------------------------------------------------------------
-IComponentDefinition *MockChildComponent::definition() const
-{
-    return mp_def;
 }
 
 //------------------------------------------------------------------------------
 QStringList &MockChildComponent::parents()
 {
-    return const_cast<QStringList &>(mp_def->parents());
+    return const_cast<QStringList &>(definition()->parents());
 }
 
 //------------------------------------------------------------------------------
 const QStringList &MockChildComponent::parents() const
 {
-    return mp_def->parents();
-}
-
-//------------------------------------------------------------------------------
-void MockChildComponent::setName(const QString &i_name)
-{
-    m_name = i_name;
-    setObjectName(m_name);
+    return definition()->parents();
 }
 
 //------------------------------------------------------------------------------
 bool MockChildComponent::_onStartup(QObject *)
 {
-    emit whenStarted(m_name);
+    emit whenStarted(name());
     return true;
 }
 
 //------------------------------------------------------------------------------
 void MockChildComponent::_onShutdown()
 {
-    emit whenShutdown(m_name);
+    emit whenShutdown(name());
 }
 
 //------------------------------------------------------------------------------

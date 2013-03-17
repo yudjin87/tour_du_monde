@@ -28,6 +28,7 @@
 #define MOCKFILECOMPONENTPROVIDER_H
 
 #include "FakeDefinitionParser.h"
+#include "MockDefaultConstructor.h"
 
 #include <componentsystem/FileComponentProvider.h>
 #include <componentsystem/ProxyComponent.h>
@@ -48,10 +49,13 @@ public:
 
     bool initialize();
 
-    ProxyComponent *createProxy();
+    ProxyComponent *createProxy(ComponentDefinition *definition);
+
+    DefinitionConstuctor *createDefinitionConstuctor();
 
 public:
     FakeDefinitionParser *parser;
+    MockDefaultConstructor *constructor;
     int loadCalled;
     bool initializeCalled;
     bool initializeReturnValue;
@@ -62,8 +66,9 @@ class MockProxyComponent : public ProxyComponent
 {
 public:
     MockProxyComponent(QObject *parent = nullptr);
+    MockProxyComponent(ComponentDefinition *definition, QObject *parent = nullptr);
 
-    bool initialize(const IDefinitionParser &parser);
+    bool initialize();
 
     static bool initializeReturnValue;
 };

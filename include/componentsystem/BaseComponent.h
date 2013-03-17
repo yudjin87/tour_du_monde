@@ -72,6 +72,8 @@ public:
      * @details
      *   The name of the component. This name should be unique and used for the resolving component
      *   dependencies.
+     *
+     *   It is a shortcut for the definition()->name().
      */
     const QString &name() const;
 
@@ -118,6 +120,15 @@ protected:
      *   name for the your component (not per instance, but per class!).
      */
     explicit BaseComponent(const QString &i_name, QObject *parent = nullptr);
+
+    /*!
+     * @details
+     *   Initializes a new instance of the BaseComponent class using specified component
+     *   definition.
+     * @param definition
+     *   This paramter cannot be null.
+     */
+    explicit BaseComponent(ComponentDefinition *definition, QObject *parent = nullptr);
 
     /*!
      * @details
@@ -169,12 +180,9 @@ private:
     Q_DISABLE_COPY(BaseComponent)
     void registerExtensionInstance(void *ip_instance, const QString &i_forTypeId);
 
-protected:
+private:
     ComponentDefinition *mp_definition;
     bool m_isStarted;
-    QString m_name;
-
-private:
     TypeObjectsMap<void *> *mp_typeObjectsMap;
 };
 

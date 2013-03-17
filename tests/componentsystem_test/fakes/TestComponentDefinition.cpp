@@ -67,6 +67,7 @@ IComponent *TestComponentDefinition::component() const
     return nullptr;
 }
 
+//------------------------------------------------------------------------------
 const QStringList &TestComponentDefinition::parents() const
 {
     return m_dependencies;

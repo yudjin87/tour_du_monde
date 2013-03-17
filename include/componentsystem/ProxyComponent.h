@@ -41,28 +41,16 @@ public:
      *   Initializes a new instance of the ProxyComponent class with
      *   default component loader and specified parent.
      */
-    explicit ProxyComponent(QObject *parent = nullptr);
+    explicit ProxyComponent(ComponentDefinition *definition, QObject *parent = nullptr);
 
     /*!
      * @details
      *   Initializes a new instance of the ProxyComponent class with
      *   component loader and parent.
      */
-    ProxyComponent(IComponentLoader *loader, QObject *parent = nullptr);
+    ProxyComponent(ComponentDefinition *definition, IComponentLoader *loader, QObject *parent = nullptr);
 
     ~ProxyComponent();
-
-    /*!
-     * @details
-     *   Gets the component definition that can specify component dependencies
-     *   and also describes the component.
-     *
-     *   The definition constructs from the parser in initialize() method, so some
-     *   parameters might be different from the loaded component.
-     *
-     *   Note, that component takes ownership for its defition.
-     */
-    IComponentDefinition *definition() const;
 
     /*!
      * @details
@@ -72,11 +60,7 @@ public:
      */
     void *getExtension(const QString &i_byTypeId) const;
 
-    /*!
-     * @details
-     *   The name of the component, loaded from the description xml.
-     */
-    const QString &name() const;
+    IComponent *loadedComponent() const;
 
     /*!
      * @details
@@ -86,13 +70,7 @@ public:
      *
      *   @a parser should already read properties.
      */
-    virtual bool initialize(const IDefinitionParser &parser);
-
-    /*!
-     * @details
-     *   Returns a loaded from the library component. Component is loaded only after startup.
-     */
-    IComponent *loadedComponent() const;
+    virtual bool initialize();
 
     /*!
      * @details
@@ -129,6 +107,5 @@ private:
     bool m_initialized;
     QString m_definitionLocation;
 };
-
 
 #endif // PROXYCOMPONENT_H

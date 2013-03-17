@@ -28,37 +28,27 @@
 
 #include "ComponentDefinition.h"
 #include "ComponentLoader.h"
-#include "IDefinitionParser.h"
 
 #include <QtCore/QDir>
 #include <QtCore/QFileInfo>
 
-#ifdef Q_OS_WIN32
-static const QString libraryPattern("%1%2.dll");
-#endif // Q_WS_WIN
-#ifdef Q_OS_MAC
-static const QString libraryPattern("%1lib%2.dylib");
-#endif // Q_WS_MAC
-#ifdef Q_OS_LINUX
-static const QString libraryPattern("%1lib%2.so");
-#endif // Q_WS_X11
-
-
 //------------------------------------------------------------------------------
-ProxyComponent::ProxyComponent(QObject *parent)
-    : BaseComponent("Undefined_ProxyComponent", parent)
+ProxyComponent::ProxyComponent(ComponentDefinition *definition, QObject *parent)
+    : BaseComponent(definition, parent)
     , mp_loader(new ComponentLoader())
     , mp_component(nullptr)
     , m_initialized(false)
+    , m_definitionLocation("")
 {
 }
 
 //------------------------------------------------------------------------------
-ProxyComponent::ProxyComponent(IComponentLoader *loader, QObject *parent)
-    : BaseComponent("Undefined_ProxyComponent", parent)
+ProxyComponent::ProxyComponent(ComponentDefinition *definition, IComponentLoader *loader, QObject *parent)
+    : BaseComponent(definition, parent)
     , mp_loader(loader)
     , mp_component(nullptr)
     , m_initialized(false)
+    , m_definitionLocation("")
 {
 }
 
@@ -79,47 +69,24 @@ ProxyComponent::~ProxyComponent()
 }
 
 //------------------------------------------------------------------------------
-IComponentDefinition *ProxyComponent::definition() const
+bool ProxyComponent::initialize()
 {
-    return mp_definition;
-}
+    if (m_initialized)
+        return true;
 
-//------------------------------------------------------------------------------
-const QString &ProxyComponent::name() const
-{
-    return BaseComponent::name();
-}
-
-//------------------------------------------------------------------------------
-bool ProxyComponent::initialize(const IDefinitionParser &parser)
-{
     if (mp_loader == nullptr)
         return false;
 
-    m_name = parser.componentName();
-    if (m_name.trimmed().isEmpty())
+    if (definition()->componentName().trimmed().isEmpty())
         return false;
 
-    setObjectName(m_name);
-
-    mp_definition->setDescription(parser.description());
-    mp_definition->setProductName(parser.productName());
-
-    const QString &componentLocation = parser.componentLocation().trimmed().isEmpty()
-            ? m_name
-            : parser.componentLocation();
-
-    // Get the correct library file name, e.g. libComponent.so or
-    // Component.dll
-    QFileInfo fileInfo(componentLocation);
-    QString fileDir = fileInfo.filePath().replace(fileInfo.fileName(), "");
-    QString filePath = libraryPattern.arg(fileDir).arg(fileInfo.fileName());
+    setObjectName(definition()->componentName());
 
     // Get the absolute library file name, using definition's location
     // as a pivot for relative component path
     QFileInfo definitionFileName(m_definitionLocation);
     QDir definitionDirPath(definitionFileName.absoluteDir());
-    QString libraryAbsolutePath = definitionDirPath.absoluteFilePath(filePath);
+    QString libraryAbsolutePath = definitionDirPath.absoluteFilePath(definition()->componentLocation());
     QString cleanPath = QDir::cleanPath(libraryAbsolutePath);
 
     // Library file should exist and should be readable
@@ -127,13 +94,9 @@ bool ProxyComponent::initialize(const IDefinitionParser &parser)
     if (!checkFile.isReadable())
         return false;
 
-    mp_definition->setComponentLocation(cleanPath);
+    definition()->loadAvailability();
+
     mp_loader->setFileName(cleanPath);
-    foreach(const QString &parentName, parser.parents())
-        mp_definition->addParent(parentName);
-
-    mp_definition->loadAvailability();
-
     m_initialized = true;
 
     return true;

@@ -64,9 +64,10 @@ void FileComponentProviderTest::shouldNotSetupUnexistingFileName()
 //------------------------------------------------------------------------------
 void FileComponentProviderTest::initialize_shouldReturnTrue()
 {
-    AutoFileComponentProvider provider(definitionPath);
-
+    MockFileComponentProvider provider(definitionPath);
+    MockProxyComponent::initializeReturnValue = true;
     provider.initialize();
+    MockProxyComponent::initializeReturnValue = false;
 
     QCOMPARE(provider.isInitialized(), true);
 }
@@ -104,9 +105,10 @@ void FileComponentProviderTest::loadComponent_shouldReturnNullIfPathIsEmpty()
 //------------------------------------------------------------------------------
 void FileComponentProviderTest::loadComponent_shouldLoadComponent()
 {
-    AutoFileComponentProvider provider(definitionPath);
-
+    MockFileComponentProvider provider(definitionPath);
+    MockProxyComponent::initializeReturnValue = true;
     IComponent *result = provider.loadComponent();
+    MockProxyComponent::initializeReturnValue = false;
 
     QVERIFY(result != nullptr);
 }
@@ -123,10 +125,24 @@ void FileComponentProviderTest::loadComponent_shouldCallReadOnParser()
 }
 
 //------------------------------------------------------------------------------
+void FileComponentProviderTest::loadComponent_shouldCallConstructOnConstructor()
+{
+    MockFileComponentProvider provider(definitionPath);
+    provider.constructor = new MockDefaultConstructor();
+    QSignalSpy spy(provider.constructor, SIGNAL(constructCalled()));
+
+    provider.loadComponent();
+
+    QCOMPARE(spy.size(), 1);
+}
+
+//------------------------------------------------------------------------------
 void FileComponentProviderTest::loadComponent_shouldPopulateWithComponent()
 {
     MockFileComponentProvider provider(definitionPath);
+    MockProxyComponent::initializeReturnValue = true;
     provider.loadComponent();
+    MockProxyComponent::initializeReturnValue = false;
 
     QCOMPARE(provider.components().size(), 1);
 }

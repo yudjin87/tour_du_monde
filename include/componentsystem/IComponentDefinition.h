@@ -95,6 +95,9 @@ public:
     IComponentDefinition(){}
 
 public slots:
+
+    virtual void addParent(const QString &parent) = 0;
+
     /*!
      * @details
      *   Gets the value specified whether this component is enabled, disabled, or unavailable.
@@ -156,6 +159,24 @@ public slots:
      * @sa availability
      */
     virtual void setAvailability(Availability i_newMode) = 0;
+
+    /*!
+     * @details
+     *   Sets the component description.
+     */
+    virtual void setDescription(const QString &description) = 0;
+
+    /*!
+     * @details
+     *   Sets the product name.
+     */
+    virtual void setProductName(const QString &productName) = 0;
+
+    /*!
+     * @details
+     *   Sets the component location.
+     */
+    virtual void setComponentLocation(const QString &componentLocation) = 0;
 
 signals:
     /*!

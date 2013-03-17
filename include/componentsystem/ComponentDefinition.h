@@ -61,17 +61,7 @@ public:
      *   If availability was changed during last application's start, it will be
      *   loaded and ovewrite default value.
      */
-    ComponentDefinition(IComponent *component);
-
-    /*!
-     * @details
-     *   Initialises a new instance of the ComponentDefinition class using
-     *   component, description, product name, dependencies and default availability.
-     *
-     *   If availability was changed during last application's start, it will be
-     *   loaded and ovewrite default value.
-     */
-    ComponentDefinition(Availability availability, IComponent *component);
+    ComponentDefinition(const QString &componentName);
 
     ~ComponentDefinition();
 
@@ -103,7 +93,7 @@ public slots:
 
     /*!
      * @details
-     *   Returns the component name. It is a shortcut for the component()->name().
+     *   Returns the component name.
      */
     const QString &componentName() const;
 
@@ -140,27 +130,29 @@ public slots:
      */
     void setAvailability(Availability i_newMode);
 
+    void setComponent(IComponent *component);
+
     /*!
      * @details
-     *   Sets the component description. This methodis not exposed by the IComponentDefinition interface
-     *   because it is used for internal purposes, e.g. set up value after loading it from
-     *   the definition file.
+     *   Sets the component description.
+     */
+    void setComponentName(const QString &name);
+
+    /*!
+     * @details
+     *   Sets the component description.
      */
     void setDescription(const QString &description);
 
     /*!
      * @details
-     *   Sets the product name. This methodis not exposed by the IComponentDefinition interface
-     *   because it is used for internal purposes, e.g. set up value after loading it from
-     *   the definition file.
+     *   Sets the product name.
      */
     void setProductName(const QString &productName);
 
     /*!
      * @details
-     *   Sets the component location. This methodis not exposed by the IComponentDefinition interface
-     *   because it is used for internal purposes, e.g. set up value after loading it from
-     *   the definition file.
+     *   Sets the component location.
      */
     void setComponentLocation(const QString &componentLocation);
 
@@ -179,6 +171,7 @@ private:
 private:
     IComponent *mp_component;
     Availability m_availability;
+    QString m_componentName;
     QString m_description;
     QString m_productName;
     QString m_componentLocation;
