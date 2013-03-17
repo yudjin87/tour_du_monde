@@ -16,6 +16,7 @@ set(__SOURCES
     ${CRSL_TARGET_SOURCES}/ComponentManager.cpp 
     ${CRSL_TARGET_SOURCES}/ComponentProvider.cpp 
     ${CRSL_TARGET_SOURCES}/CompositeComponentProvider.cpp 
+    ${CRSL_TARGET_SOURCES}/DefinitionConstuctor.cpp 
     ${CRSL_TARGET_SOURCES}/DependenciesSolvingResult.cpp 
     ${CRSL_TARGET_SOURCES}/DependencySolver.cpp 
     ${CRSL_TARGET_SOURCES}/DirectoryComponentProvider.cpp 
@@ -31,12 +32,14 @@ set(__HEADERS
     ${CRSL_TARGET_HEADERS}/BaseComponent.h 
     ${CRSL_TARGET_HEADERS}/ComponentDefinition.h 
     ${CRSL_TARGET_HEADERS}/ComponentDependencies.h 
+    ${CRSL_TARGET_HEADERS}/ComponentExport.h 
     ${CRSL_TARGET_HEADERS}/ComponentInitialiser.h 
     ${CRSL_TARGET_HEADERS}/ComponentLoader.h 
     ${CRSL_TARGET_HEADERS}/ComponentManager.h 
     ${CRSL_TARGET_HEADERS}/ComponentProvider.h 
     ${CRSL_TARGET_HEADERS}/componentsystem_global.h 
     ${CRSL_TARGET_HEADERS}/CompositeComponentProvider.h 
+    ${CRSL_TARGET_HEADERS}/DefinitionConstuctor.h 
     ${CRSL_TARGET_HEADERS}/DependenciesSolvingResult.h 
     ${CRSL_TARGET_HEADERS}/DependencySolver.h 
     ${CRSL_TARGET_HEADERS}/DirectoryComponentProvider.h 
