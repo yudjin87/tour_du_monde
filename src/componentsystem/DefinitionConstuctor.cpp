@@ -44,8 +44,7 @@ static const QString libraryPattern("%1lib%2.so");
 #endif // Q_WS_X11
 
 //------------------------------------------------------------------------------
-DefinitionConstuctor::DefinitionConstuctor(const QString &definitionLocation)
-    : m_definitionLocation(definitionLocation)
+DefinitionConstuctor::DefinitionConstuctor()
 {
 }
 
@@ -73,19 +72,10 @@ bool DefinitionConstuctor::construct(ComponentDefinition *definition, const IDef
     QFileInfo fileInfo(componentLocation);
     QString fileDir = fileInfo.filePath().replace(fileInfo.fileName(), "");
     QString filePath = libraryPattern.arg(fileDir).arg(fileInfo.fileName());
+    definition->setComponentLocation(filePath);
 
-    // Get the absolute library file name, using definition's location
-    // as a pivot for the relative path of the component
-    QFileInfo definitionFileName(m_definitionLocation);
-    QDir definitionDirPath(definitionFileName.absoluteDir());
-    QString libraryAbsolutePath = definitionDirPath.absoluteFilePath(filePath);
-    QString cleanPath = QDir::cleanPath(libraryAbsolutePath);
-
-    definition->setComponentLocation(cleanPath);
     foreach(const QString &parentName, parser->parents())
         definition->addParent(parentName);
-
-    definition->loadAvailability();
 
     return true;
 }

@@ -49,6 +49,12 @@ class COMP_API ComponentDefinition : public IComponentDefinition
 public:
     /*!
      * @details
+     *   Initialises a new instance of the ComponentDefinition class.
+     */
+    ComponentDefinition();
+
+    /*!
+     * @details
      *   Initialises a new instance of the ComponentDefinition class using
      *   specified component and IComponentDefinition::Enabled availability.
      *

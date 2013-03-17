@@ -25,9 +25,14 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "DefinitionConstuctorTest.h"
+#include "fakes/FakeDefinitionParser.h"
+
+#include "Utils.h"
 
 #include <componentsystem/DefinitionConstuctor.h>
+#include <componentsystem/ComponentDefinition.h>
 
+#include <QtCore/QDir>
 #include <QtTest/QTest>
 
 //------------------------------------------------------------------------------
@@ -39,53 +44,61 @@ DefinitionConstuctorTest::DefinitionConstuctorTest(QObject *parent)
 //------------------------------------------------------------------------------
 void DefinitionConstuctorTest::construct_ShouldConstructDefinitionFromParser()
 {
-//    ProxyComponent component; FakeDefinitionParser p; p.m_componentName = "MyComponent";
-//    component.setDefinitionLocation(definitionLocation);
-//    component.initialize(p);
+    FakeDefinitionParser parser;
+    parser.m_componentName = "TestComponent2";
+    parser.m_description = "ABCD";
+    parser.m_productName = "Carousel";
+    parser.m_parents.append("ComponentA");
+    parser.m_parents.append("Component2");
+    QDir absolutePath = QCoreApplication::applicationDirPath();
+    QString fileName = absolutePath.relativeFilePath(pathToComponent("TestComponent2"));
 
-    //    QCOMPARE(component.name(), QString("MyComponent"));
+    ComponentDefinition definition;
+    DefinitionConstuctor constuctor;
+    bool result = constuctor.construct(&definition, &parser);
+
+    QVERIFY(result);
+    QCOMPARE(definition.description(), QString("ABCD"));
+    QCOMPARE(definition.productName(), QString("Carousel"));
+    QCOMPARE(definition.componentLocation(), fileName);
+    QCOMPARE(definition.parents().size(), 2);
+    QVERIFY(definition.parents().contains("ComponentA"));
+    QVERIFY(definition.parents().contains("Component2"));
 }
 
 //------------------------------------------------------------------------------
 void DefinitionConstuctorTest::construct_ShouldReturnFalseIfComponentNameIsEmpty()
 {
-}
+    FakeDefinitionParser parser;
+    parser.m_componentName = " ";
 
-//------------------------------------------------------------------------------
-void DefinitionConstuctorTest::construct_ShouldSetupAbsoluteFileName()
-{
-//    FakeComponentLoader *loader = new FakeComponentLoader();
-//    ProxyComponent component(loader, nullptr);
-//    FakeDefinitionParser p;
-//    component.setDefinitionLocation(definitionLocation);
-//    component.initialize(p);
+    ComponentDefinition definition;
+    DefinitionConstuctor constuctor;
+    bool result = constuctor.construct(&definition, &parser);
 
-//#ifdef Q_OS_WIN32
-//    QString fileName = pathToComponent("TestComponent2");
-//    QCOMPARE(loader->fileName().toLower(), fileName.toLower());
-//#else
-//    QString fileName = pathToComponent("TestComponent2");
-//    QCOMPARE(loader->fileName(), fileName);
-    //#endif // Q_WS_WIN
+    QVERIFY(!result);
 }
 
 //------------------------------------------------------------------------------
 void DefinitionConstuctorTest::construct_ShouldSetupFileNameAsComponentNameIfLocationIsAbsent()
 {
-//    FakeComponentLoader *loader = new FakeComponentLoader();
-//    ProxyComponent component(loader, nullptr);
-//    FakeDefinitionParser p;
-//    p.m_componentLocation = "";
-//    component.setDefinitionLocation(definitionLocation);
-//    component.initialize(p);
+    FakeDefinitionParser parser;
+    parser.m_componentName = "TestComponent2";
+    parser.m_componentLocation = "";
 
-//#ifdef Q_OS_WIN32
-//    QString fileName = pathToComponent("TestComponent2");
-//    QCOMPARE(loader->fileName().toLower(), fileName.toLower());
-//#else
-//    QString fileName = pathToComponent("TestComponent2");
-//    QCOMPARE(loader->fileName(), fileName);
-    //#endif // Q_WS_WIN
+    QDir absolutePath = QCoreApplication::applicationDirPath();
+    absolutePath.cd("components");
+    QString fileName = absolutePath.relativeFilePath(pathToComponent("TestComponent2"));
+
+    ComponentDefinition definition;
+    DefinitionConstuctor constuctor;
+    constuctor.construct(&definition, &parser);
+
+#ifdef Q_OS_WIN32
+    QCOMPARE(definition.componentLocation().toLower(), fileName.toLower());
+#else
+    QCOMPARE(definition.componentLocation(), fileName);
+#endif // Q_WS_WIN
 }
 
 //------------------------------------------------------------------------------

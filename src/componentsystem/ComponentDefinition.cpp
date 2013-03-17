@@ -30,6 +30,17 @@
 #include <QtCore/QSettings>
 
 //------------------------------------------------------------------------------
+ComponentDefinition::ComponentDefinition()
+    : mp_component(nullptr)
+    , m_availability(IComponentDefinition::Enabled)
+    , m_description("")
+    , m_productName("")
+    , m_componentLocation("")
+    , m_parents()
+{
+}
+
+//------------------------------------------------------------------------------
 ComponentDefinition::ComponentDefinition(IComponent *component)
     : mp_component(component)
     , m_availability(IComponentDefinition::Enabled)

@@ -37,13 +37,10 @@ class ComponentDefinition;
 class COMP_API DefinitionConstuctor
 {
 public:
-    DefinitionConstuctor(const QString &definitionLocation);
+    DefinitionConstuctor();
     ~DefinitionConstuctor();
 
     bool construct(ComponentDefinition *definition, const IDefinitionParser *parser);
-
-private:
-    QString m_definitionLocation;
 };
 
 #endif // DEFINITIONCONSTUCTOR_H

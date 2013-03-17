@@ -39,7 +39,6 @@ private Q_SLOTS:
     void construct_ShouldConstructDefinitionFromParser();
     void construct_ShouldReturnFalseIfComponentNameIsEmpty();
 
-    void construct_ShouldSetupAbsoluteFileName();
     void construct_ShouldSetupFileNameAsComponentNameIfLocationIsAbsent();
 };
 
