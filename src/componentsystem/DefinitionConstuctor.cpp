@@ -60,6 +60,7 @@ bool DefinitionConstuctor::construct(IComponentDefinition *definition, const IDe
     if (name.trimmed().isEmpty())
         return false;
 
+    definition->setComponentName(name);
     definition->setDescription(parser->description());
     definition->setProductName(parser->productName());
 

@@ -164,6 +164,12 @@ public slots:
      * @details
      *   Sets the component description.
      */
+    virtual void setComponentName(const QString &name) = 0;
+
+    /*!
+     * @details
+     *   Sets the component description.
+     */
     virtual void setDescription(const QString &description) = 0;
 
     /*!

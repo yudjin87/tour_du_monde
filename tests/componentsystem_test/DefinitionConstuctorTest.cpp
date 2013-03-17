@@ -58,6 +58,7 @@ void DefinitionConstuctorTest::construct_ShouldConstructDefinitionFromParser()
     bool result = constuctor.construct(&definition, &parser);
 
     QVERIFY(result);
+    QCOMPARE(definition.componentName(), QString("TestComponent2"));
     QCOMPARE(definition.description(), QString("ABCD"));
     QCOMPARE(definition.productName(), QString("Carousel"));
     QCOMPARE(definition.componentLocation(), fileName);
