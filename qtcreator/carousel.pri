@@ -6,8 +6,15 @@
 #       +/demos
 #       +/docs
 #       +/include                  <= HPP_SOURCE_TREE
-#       +/intermediate
-#       +/mac64
+#       +/product                  <= Binaries output (for different configurations and platforms)
+#           +/mingw-x64-debug      <= BIN_OUTPUT_PATH
+#              +/bin               <= Binaries
+#              +/intermediate      <= Intermediate files
+#              +/unittest          <= Unittest applications
+#           +/mingw-x64-release
+#           +/msvc10-x32-debug-static
+#           +/msvc11-x64-release-static
+#           +/...
 #       +/msvc                     <= Source tree for the MSVC
 #       +/qtcreator                <= IDE_SOURCE_TREE
 #           +/carousel.pro
@@ -18,14 +25,6 @@
 #       +/tests                    <= CPP_TESTS_TREE
 #           +/booting_test         <= TEST_PROJECT_SOURCES
 #           +/...
-#       +/win32                    <= Binaries output (for different configurations and platforms)
-#           +/debug
-#              +/bin               <= BIN_OUTPUT_PATH
-#           +/debug_static
-#              +/bin
-#              +/unittest          <= Static configurations have unittest applications
-#           +/release
-#           +/release_static
 #========================================================
 #
 
