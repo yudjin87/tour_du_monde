@@ -40,7 +40,7 @@ message(STATUS "Building system: " ${GENERATOR_NAME})
 # Set default configurations and populate them with static mode.
 set(CONFIGURATIONS "debug" "release")
 foreach(__CONF ${CONFIGURATIONS})
-  list(APPEND CONFIGURATIONS "${__CONF}_static")
+  list(APPEND CONFIGURATIONS "${__CONF}-static")
 endforeach(__CONF)
 
 file(MAKE_DIRECTORY ${BUILD_TREE_PATH})

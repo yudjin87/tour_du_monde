@@ -15,7 +15,7 @@ include(cmake/utils.cmake)
 # Set a default build type which will be applied if cmake is runned without
 # any specific one. For some generators cmake can set up 'Debug' build type,
 # so we need to lower it.
-set(CRSL_DEFAULT_BUILD_TYPE "debug_static")
+set(CRSL_DEFAULT_BUILD_TYPE "debug-static")
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE ${CRSL_DEFAULT_BUILD_TYPE})
   message(STATUS "Setting build type to '${CMAKE_BUILD_TYPE}' as none was specified")
@@ -30,7 +30,7 @@ endif()
 # are used at least for the unit tests.
 set(__SHARED_CONFIGS "debug" "release")
 foreach(__CONF ${__SHARED_CONFIGS})
-  list(APPEND __STATIC_CONFIGS "${__CONF}_static")
+  list(APPEND __STATIC_CONFIGS "${__CONF}-static")
 endforeach(__CONF)	
 
 ###############################################################################
@@ -43,7 +43,7 @@ endforeach(__CONF)
 if(CMAKE_BUILD_TYPE MATCHES "static")
   set(BUILD_SHARED_LIBS OFF)
   set(CRSL_LIB_TYPE STATIC)
-  set(CRSL_CONFIG_APPENDIX "_STATIC")
+  set(CRSL_CONFIG_APPENDIX "-STATIC")
   set(CRSL_CONFIGS ${__STATIC_CONFIGS})
   add_definitions(-DSTATIC_BUILD)
 else()
@@ -98,7 +98,12 @@ message(STATUS "Project name: ${CRSL_PROJECT_NAME}" )
 # Specify target platform's bit and operation system
 crsl_get_target_platform_bits(CRSL_TARGET_PLATFORM_BITS)
 crsl_get_target_os(CRSL_TARGET_OS)
+crsl_get_compiler(CRSL_COMPILER)
 message(STATUS "Target system: " ${CRSL_TARGET_OS}${CRSL_TARGET_PLATFORM_BITS})
+message(STATUS "Compiler: " ${CRSL_COMPILER})
+
+set(CRSL_BUILD_CONFIG ${CRSL_COMPILER}-x${CRSL_TARGET_PLATFORM_BITS}-${CMAKE_BUILD_TYPE})
+message(STATUS "Full build configuration: " ${CRSL_BUILD_CONFIG})
 
 ###############################################################################
 # Setup compiler/linker flags and defines for all building configurations.

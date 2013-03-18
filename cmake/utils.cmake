@@ -29,7 +29,7 @@ endfunction(crsl_get_target_platform_bits)
 # outputs.
 function(crsl_get_target_os __RESULT)
   if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-	set(${__RESULT} "osx" PARENT_SCOPE)
+        set(${__RESULT} "osx" PARENT_SCOPE)
   elseif(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
     if(MINGW)
       set(${__RESULT} "mingw" PARENT_SCOPE)
@@ -39,10 +39,33 @@ function(crsl_get_target_os __RESULT)
   elseif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
    set(${__RESULT} "linux" PARENT_SCOPE)
   else()
-	set(${__RESULT} "Unknown OS" PARENT_SCOPE)
-	message(FATAL_ERROR "Unknown operation system :" ${CMAKE_SYSTEM_NAME}) 
+        set(${__RESULT} "Unknown OS" PARENT_SCOPE)
+        message(FATAL_ERROR "Unknown operation system :" ${CMAKE_SYSTEM_NAME})
   endif()
 endfunction(crsl_get_target_os)
+
+###############################################################################
+# Returns short name of the compiler to __RESULT .It used for the binaries
+# outputs.
+function(crsl_get_compiler __RESULT)
+  string(TOLOWER ${CMAKE_CXX_COMPILER_ID} __CMPLR)
+
+  if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+    set(__SUFIX "")
+    # Unfortunately, I couldnot use \\d or even {0,2} to get NNN.NNN pattern
+    # string(REGEX MATCH "(([0-9]+)\\.*)(([0-9]+))" __VERSION ${CMAKE_CXX_COMPILER_VERSION})
+    string(REGEX MATCH "([0-9]+)" __VERSION ${CMAKE_CXX_COMPILER_VERSION})
+    if(${__VERSION} EQUAL 17)
+      set(__SUFIX "11")
+    elseif(${__VERSION} EQUAL 16)
+      set(__SUFIX "10")
+    elseif()
+      set(__SUFIX "-undefined-version")
+    endif()
+  endif()
+
+  set(${__RESULT} "${__CMPLR}${__SUFIX}" PARENT_SCOPE)
+endfunction(crsl_get_compiler)
 
 ###############################################################################
 # Forms and sets up default pathes for the runtime binaries and 
@@ -50,10 +73,12 @@ endfunction(crsl_get_target_os)
 # This function set up as default CMAKE_<TYPE>_OUTPUT_DIRECTORY'es
 # variables and configuration-dependent variables for the MSVC
 # generators.
-macro(crsl_use_default_project_output_path __TARGET_NAME __ROOT __OS __BITS __BUILD __PREFIX)
-  set(__OUTPUT_DIR ${__ROOT}/${__OS}${__BITS}/${__BUILD}/${__PREFIX})
-  set(__LIBRARIES_DIR ${__ROOT}/${__OS}${__BITS}/${__BUILD}/${__PREFIX})
+macro(crsl_use_default_project_output_path __TARGET_NAME __ROOT __COMPILER __BITS __BUILD __PREFIX)
+  set(__OUTPUT_DIR ${__ROOT}/${__COMPILER}${__BITS}-${__BUILD}/${__PREFIX})
+  set(__LIBRARIES_DIR ${__ROOT}/${__COMPILER}${__BITS}-${__BUILD}/${__PREFIX})
 
+  #message(STATUS "${__BUILD} output: ${__BUILD}")
+  message(STATUS "${__TARGET_NAME} output: ${__OUTPUT_DIR}")
   set_target_properties(${__TARGET_NAME} PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${__OUTPUT_DIR})
   set_target_properties(${__TARGET_NAME} PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${__LIBRARIES_DIR})
   set_target_properties(${__TARGET_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${__OUTPUT_DIR})
@@ -62,8 +87,8 @@ macro(crsl_use_default_project_output_path __TARGET_NAME __ROOT __OS __BITS __BU
   # configurations. CMake expects that thise variables will be in
   # upper case.
   foreach(CONF ${CMAKE_CONFIGURATION_TYPES})
-    set(__MS_VC_OUTPUT_DIR ${__ROOT}/${__OS}${__BITS}/${CONF}/${__PREFIX})
-    set(__MS_VC_LIBRARIES_DIR ${__ROOT}/${__OS}${__BITS}/${CONF}/${__PREFIX})
+    set(__MS_VC_OUTPUT_DIR ${__ROOT}/${__COMPILER}${__BITS}-${CONF}/${__PREFIX})
+    set(__MS_VC_LIBRARIES_DIR ${__ROOT}/${__COMPILER}${__BITS}-${CONF}/${__PREFIX})
 
     string(TOUPPER ${CONF} CONF)
     set_target_properties(${__TARGET_NAME} PROPERTIES LIBRARY_OUTPUT_DIRECTORY_${CONF} ${__MS_VC_OUTPUT_DIR})

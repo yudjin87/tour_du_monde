@@ -47,32 +47,34 @@ CPP_TESTS_TREE = $$CAROUSEL_WD/tests
 INCLUDEPATH += $$HPP_SOURCE_TREE
 
 # Format binary output path:
-
-win32-g*:BIN_OUTPUT_PATH=mingw
-win32-msvc*:BIN_OUTPUT_PATH=win
-macx:BIN_OUTPUT_PATH=mac
-unix:BIN_OUTPUT_PATH=linux
+win32-g*:BUILD_CONFIG=mingw
+win32-msvc2008:BUILD_CONFIG=msvc09
+win32-msvc2010:BUILD_CONFIG=msvc10
+win32-msvc2012:BUILD_CONFIG=msvc11
+macx:BUILD_CONFIG=clang
+unix:BUILD_CONFIG=gnu
 
 contains(QMAKE_HOST.arch, x86_64) {
-    BIN_OUTPUT_PATH=$${BIN_OUTPUT_PATH}32
+    BUILD_CONFIG=$${BUILD_CONFIG}-x64
 } else {
-    BIN_OUTPUT_PATH=$${BIN_OUTPUT_PATH}32
+    BUILD_CONFIG=$${BUILD_CONFIG}-x32
 }
 
 CONFIG(release, debug|release) {
-    BIN_OUTPUT_PATH=$${BIN_OUTPUT_PATH}/release
+    BUILD_CONFIG=$${BUILD_CONFIG}-release
 }
 CONFIG(debug, debug|release) {
-    BIN_OUTPUT_PATH=$${BIN_OUTPUT_PATH}/debug
+    BUILD_CONFIG=$${BUILD_CONFIG}-debug
 }
 
 static {# everything below takes effect with CONFIG+=static
     DEFINES += STATIC_BUILD
-    BIN_OUTPUT_PATH=$${BIN_OUTPUT_PATH}_static
+    BUILD_CONFIG=$${BUILD_CONFIG}-static
 } else {
     DEFINES -= STATIC_BUILD
 }
 
+BIN_OUTPUT_PATH = product/$${BUILD_CONFIG}
 DESTDIR         = $${CAROUSEL_WD}/$${BIN_OUTPUT_PATH}/bin
 
 # Store intermedia stuff somewhere else
