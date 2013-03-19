@@ -25,5 +25,5 @@ string(TOUPPER ${CRSL_PROJECT_NAME} PROJECT_NAME_UPPER)
 add_definitions(-D${PROJECT_NAME_UPPER}_LIBRARY)
 
 macro(crsl_setup_output_path __PREFIX)
-  crsl_use_default_project_output_path("${CRSL_PROJECT_NAME}" "${CAROUSEL_WD}/product" "${CRSL_COMPILER}" "-x${CRSL_TARGET_PLATFORM_BITS}" ${CMAKE_BUILD_TYPE} "${__PREFIX}")
+  crsl_use_default_project_output_path("${CRSL_PROJECT_NAME}" "${CAROUSEL_WD}/product" "${CRSL_COMPILER}" "-x${CRSL_TARGET_PLATFORM_BITS}" "${CRSL_DEFAULT_BUILD_TYPE}" "${__PREFIX}")
 endmacro(crsl_setup_output_path)

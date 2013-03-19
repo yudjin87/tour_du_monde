@@ -21,6 +21,7 @@ if(NOT CMAKE_BUILD_TYPE)
   message(STATUS "Setting build type to '${CMAKE_BUILD_TYPE}' as none was specified")
 else()
   string(TOLOWER ${CMAKE_BUILD_TYPE} CMAKE_BUILD_TYPE)
+  set(CRSL_DEFAULT_BUILD_TYPE ${CMAKE_BUILD_TYPE})
   message(STATUS "Build type is '${CMAKE_BUILD_TYPE}'")  
 endif()
 
