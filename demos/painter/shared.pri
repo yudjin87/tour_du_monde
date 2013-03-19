@@ -10,7 +10,45 @@ INCLUDEPATH += $$PAINTER_WD
 
 CONFIG(dll, staticlib|dll):DEFINES += LIB_IMPORT
 
-DESTDIR         = $${PAINTER_WD}/bin
+#CONFIG += plugin
+#########################################################
+# c++0x is skipped for the MSVC compiler.
+!win32-msvc*:QMAKE_CXXFLAGS += -std=c++0x
+
+# Format binary output path:
+win32-g*:BUILD_CONFIG=mingw
+win32-msvc2008:BUILD_CONFIG=msvc09
+win32-msvc2010:BUILD_CONFIG=msvc10
+win32-msvc2012:BUILD_CONFIG=msvc11
+macx:BUILD_CONFIG=clang
+unix:BUILD_CONFIG=gnu
+
+contains(QMAKE_HOST.arch, x86_64) {
+    BUILD_CONFIG=$${BUILD_CONFIG}-x64
+} else {
+    BUILD_CONFIG=$${BUILD_CONFIG}-x32
+}
+
+CONFIG(release, debug|release) {
+    BUILD_CONFIG=$${BUILD_CONFIG}-release
+}
+CONFIG(debug, debug|release) {
+    BUILD_CONFIG=$${BUILD_CONFIG}-debug
+}
+
+static {# everything below takes effect with CONFIG+=static
+    DEFINES += STATIC_BUILD
+    BUILD_CONFIG=$${BUILD_CONFIG}-static
+} else {
+    DEFINES -= STATIC_BUILD
+}
+
+BIN_OUTPUT_PATH = product/$${BUILD_CONFIG}
+CAROUSEL_BIN    = $${PAINTER_WD}/../../$${BIN_OUTPUT_PATH}/bin
+
+BIN_OUTPUT_PATH = $${PAINTER_WD}/$${BIN_OUTPUT_PATH}
+DESTDIR         = $${BIN_OUTPUT_PATH}/bin
+
 # Store intermedia stuff somewhere else
 OBJECTS_DIR     = $${PAINTER_WD}/intermediate/obj/$${TARGET}
 MOC_DIR         = $${PAINTER_WD}/intermediate/moc/$${TARGET}
@@ -18,41 +56,6 @@ RCC_DIR         = $${PAINTER_WD}/intermediate/rcc/$${TARGET}
 UI_DIR          = $${PAINTER_WD}/intermediate/ui/$${TARGET}
 UI_HEADERS_DIR  = $${PAINTER_WD}/intermediate/ui/$${TARGET}
 UI_SOURCES_DIR  = $${PAINTER_WD}/intermediate/ui/$${TARGET}
-
-#CONFIG += plugin
-#########################################################
-# c++0x is skipped for the MSVC compiler.
-!win32-msvc*:QMAKE_CXXFLAGS += -std=c++0x
-
-#########################################################
-# Format binary path for the carousel outputs:
-win32-g*:BIN_OUTPUT_PATH=mingw
-win32-msvc*:BIN_OUTPUT_PATH=win
-macx:BIN_OUTPUT_PATH=mac
-unix:BIN_OUTPUT_PATH=linux
-
-
-contains(QMAKE_HOST.arch, x86_64) {
-    BIN_OUTPUT_PATH=$${BIN_OUTPUT_PATH}32
-} else {
-    BIN_OUTPUT_PATH=$${BIN_OUTPUT_PATH}32
-}
-
-CONFIG(release, debug|release) {
-    BIN_OUTPUT_PATH=$${BIN_OUTPUT_PATH}/release
-}
-CONFIG(debug, debug|release) {
-    BIN_OUTPUT_PATH=$${BIN_OUTPUT_PATH}/debug
-}
-
-static {# everything below takes effect with CONFIG+=static
-    DEFINES += STATIC_BUILD
-    BIN_OUTPUT_PATH=$${BIN_OUTPUT_PATH}_static
-} else {
-    DEFINES -= STATIC_BUILD
-}
-
-CAROUSEL_BIN = $${PAINTER_WD}/../../$${BIN_OUTPUT_PATH}/bin
 
 #########################################################
 # MSVC compiler shows this warning, but with virtual inheritance

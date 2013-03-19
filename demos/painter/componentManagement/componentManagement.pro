@@ -15,7 +15,7 @@ win32 {
                                -lFramework \
 }
 
-DESTDIR = $${PAINTER_WD}/bin/components
+DESTDIR = $${DESTDIR}/components
 
 FORMS +=
 
