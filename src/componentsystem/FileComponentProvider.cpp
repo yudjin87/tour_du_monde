@@ -98,8 +98,10 @@ IComponent *FileComponentProvider::loadComponent()
 
     ComponentDefinition *definition = createDefintion();
     DefinitionConstuctorPtr constructor(createDefinitionConstuctor());
-    if (!constructor->construct(definition, parser.data()))
+    if (!constructor->construct(definition, parser.data())) {
+        delete definition;
         return nullptr;
+    }
 
     ProxyComponent *proxy = createProxy(definition);
     proxy->setDefinitionLocation(m_path);

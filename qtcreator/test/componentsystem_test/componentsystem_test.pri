@@ -28,7 +28,6 @@ SOURCES += \
     $$TEST_PROJECT_SOURCES/fakes/MockDirectoryWatchingComponentProvider.cpp \
     $$TEST_PROJECT_SOURCES/fakes/MockFileComponentProvider.cpp \
     $$TEST_PROJECT_SOURCES/fakes/MockFileSystemWatcher.cpp \
-    $$TEST_PROJECT_SOURCES/fakes/TestComponentDefinition.cpp \
     $$TEST_PROJECT_SOURCES/fakes/TestDescriptionComponent.cpp\
     $$TEST_PROJECT_SOURCES/FileComponentProviderTest.cpp \
     $$TEST_PROJECT_SOURCES/main_componentsystem_test.cpp \
@@ -64,7 +63,6 @@ HEADERS += \
     $$TEST_PROJECT_SOURCES/fakes/MockDirectoryWatchingComponentProvider.h \
     $$TEST_PROJECT_SOURCES/fakes/MockFileComponentProvider.h \
     $$TEST_PROJECT_SOURCES/fakes/MockFileSystemWatcher.h \
-    $$TEST_PROJECT_SOURCES/fakes/TestComponentDefinition.h \
     $$TEST_PROJECT_SOURCES/fakes/TestDescriptionComponent.h \
     $$TEST_PROJECT_SOURCES/FileComponentProviderTest.h \
     $$TEST_PROJECT_SOURCES/ProxyComponentTest.h \

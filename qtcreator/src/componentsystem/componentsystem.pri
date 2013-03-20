@@ -37,7 +37,6 @@ HEADERS += \
     $$PROJECT_HEADERS/DirectoryWatchingComponentProvider.h \
     $$PROJECT_HEADERS/FileComponentProvider.h \
     $$PROJECT_HEADERS/IComponent.h \
-    $$PROJECT_HEADERS/IComponentDefinition.h \
     $$PROJECT_HEADERS/IComponentDependencies.h \
     $$PROJECT_HEADERS/IComponentExtension.h \
     $$PROJECT_HEADERS/IComponentInitialiser.h \

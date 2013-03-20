@@ -78,7 +78,7 @@ BaseComponent::~BaseComponent()
 }
 
 //------------------------------------------------------------------------------
-IComponentDefinition *BaseComponent::definition() const
+ComponentDefinition *BaseComponent::definition() const
 {
     return mp_definition;
 }

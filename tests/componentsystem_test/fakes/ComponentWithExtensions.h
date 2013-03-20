@@ -44,7 +44,7 @@ public:
     IComponentExtension2 *mp_extension2;
 };
 
-class IComponentExtension1 : public IComponentExtension{};
-class IComponentExtension2 : public IComponentExtension{};
+class IComponentExtension1 : public IComponentExtension {};
+class IComponentExtension2 : public IComponentExtension {};
 
 #endif // COMPONENTWITHEXTENSIONS_H

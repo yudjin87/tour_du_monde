@@ -44,19 +44,19 @@ ComponentDefinitionTest::ComponentDefinitionTest(QObject *parent)
 void ComponentDefinitionTest::shouldSetAvailabilityEnabledByDefault()
 {
     ComponentDefinition definition("");
-    QCOMPARE(definition.availability(), IComponentDefinition::Enabled);
+    QCOMPARE(definition.availability(), ComponentDefinition::Enabled);
 }
 
 //------------------------------------------------------------------------------
 void ComponentDefinitionTest::shouldSetLoadedAvailability()
 {
     QSettings settings;
-    settings.setValue(QString("components_availability/%1").arg("Comp1"), static_cast<int>(IComponentDefinition::Disabled));
+    settings.setValue(QString("components_availability/%1").arg("Comp1"), static_cast<int>(ComponentDefinition::Disabled));
     settings.sync();
 
     ComponentDefinition definition("Comp1");
 
-    QCOMPARE(definition.availability(), IComponentDefinition::Disabled);
+    QCOMPARE(definition.availability(), ComponentDefinition::Disabled);
 
     settings.clear();
 }
@@ -67,7 +67,7 @@ void ComponentDefinitionTest::shouldEmitWhenAvailabilitySet()
     ComponentDefinition definition("Comp1");
     QSignalSpy spy(&definition, SIGNAL(availabilityChanged(Availability)));
 
-    definition.setAvailability(IComponentDefinition::Disabled);
+    definition.setAvailability(ComponentDefinition::Disabled);
 
     QCOMPARE(spy.count(), 1);
 }
@@ -76,7 +76,7 @@ void ComponentDefinitionTest::shouldEmitWhenAvailabilitySet()
 void ComponentDefinitionTest::shouldEmitWhenAvailabilityLoaded()
 {
     QSettings settings;
-    settings.setValue(QString("components_availability/%1").arg("Comp1"), static_cast<int>(IComponentDefinition::Disabled));
+    settings.setValue(QString("components_availability/%1").arg("Comp1"), static_cast<int>(ComponentDefinition::Disabled));
     settings.sync();
 
     ComponentDefinition definition("Comp1");
@@ -98,7 +98,7 @@ void ComponentDefinitionTest::shouldNotSetAvailabilityIfDidNotLoad()
 
     ComponentDefinition definition("Comp1");
 
-    QCOMPARE(definition.availability(), IComponentDefinition::Enabled);
+    QCOMPARE(definition.availability(), ComponentDefinition::Enabled);
 }
 
 //------------------------------------------------------------------------------

@@ -27,11 +27,17 @@
 #ifndef COMPONENTDEFINITION_H
 #define COMPONENTDEFINITION_H
 
-#include "componentsystem/IComponentDefinition.h"
+#include "componentsystem/componentsystem_global.h"
+
+#include <QtCore/QObject>
+#include <QtCore/QString>
+#include <QtCore/QStringList>
+
+class IComponent;
 
 /*!
  * @brief
- *   It is a default implementation of the IComponentDefinition interface.
+ *   This class describes the component meta information.
  * @details
  *   This class is used in the Components dialog to provide to user information about
  *   the component. It also allow for user to enable or disable your component.
@@ -43,10 +49,49 @@
  *   if your component uses some services from another one - it is guaranteed
  *   that your component will be started up after all dependent components will.
  */
-class COMP_API ComponentDefinition : public IComponentDefinition
+class COMP_API ComponentDefinition : public QObject
 {
     Q_OBJECT
+    Q_ENUMS(Availability)
+
+    /*!
+     * @details
+     *   Gets or sets the value specified whether this component is enabled, disabled, or unavailable.
+     *   When the availability is enabled, the component is checked in the Components dialog.
+     */
+    Q_PROPERTY(Availability availability READ availability WRITE setAvailability NOTIFY availabilityChanged)
+
 public:
+    /*!
+     * @details
+     *   Component availability states.
+     */
+    enum Availability
+    {
+        /*!
+         * @details
+         *   Enabled for use.
+         */
+        Enabled,
+
+        /*!
+         * @details
+         *   Disabled by the user. If component is disabled, child
+         *   components that have dependency from this component,
+         *   cannot be started.
+         */
+        Disabled,
+
+        /*!
+         * @details
+         *   Unavailable - not licensed. If component is unavailable, child
+         *   components that have dependency from this component,
+         *   cannot be started.
+         */
+        Unavailable
+    };
+
+
     /*!
      * @details
      *   Initialises a new instance of the ComponentDefinition class.
@@ -56,7 +101,7 @@ public:
     /*!
      * @details
      *   Initialises a new instance of the ComponentDefinition class using
-     *   specified component and IComponentDefinition::Enabled availability.
+     *   specified component and ComponentDefinition::Enabled availability.
      *
      *   If availability was changed during last application's start, it will be
      *   loaded and ovewrite default value.
@@ -155,6 +200,14 @@ public slots:
      *   Sets the component location.
      */
     void setComponentLocation(const QString &componentLocation);
+
+signals:
+    /*!
+     * @details
+     *   This signal is emited when extension's availability changed.
+     * @sa setAvailability
+     */
+    void availabilityChanged(Availability);
 
 protected:
     /*!

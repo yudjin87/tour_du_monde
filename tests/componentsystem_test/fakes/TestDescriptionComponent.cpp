@@ -22,7 +22,7 @@ bool TestDescriptionComponent::_onStartup(QObject *)
 }
 
 //------------------------------------------------------------------------------
-IComponentDefinition *TestDescriptionComponent::definition() const
+ComponentDefinition *TestDescriptionComponent::definition() const
 {
     return &const_cast<TestDescriptionComponent *>(this)->m_definition;
 }

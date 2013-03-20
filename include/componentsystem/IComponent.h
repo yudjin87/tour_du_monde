@@ -28,13 +28,14 @@
 #define ICOMPONENT_H
 
 #include "componentsystem/componentsystem_global.h"
+#include "componentsystem/IComponentExtension.h"
 
 #include <QtCore/QObject>
 #include <QtCore/QString>
 
 #include <typeinfo>
 
-class IComponentDefinition;
+class ComponentDefinition;
 /*!
  * @brief
  *   The abstract IComponent class defines contract for the components deployed in the application.
@@ -48,7 +49,7 @@ class IComponentDefinition;
  *   The IComponent also stores its extensions, that could be handled by other components
  *   pr by carousel core (like IInteractiveExtension).
  *
- *   See IComponentDefinition interface, if your component will have a dependencies from the
+ *   See ComponentDefinition interface, if your component will have a dependencies from the
  *   other application components.
  *
  *   Consider deriving from the BaseComponent class instead of implement this interface directly.
@@ -66,7 +67,7 @@ public:
      *
      *   Note, that component takes ownership for its defition.
      */
-    virtual IComponentDefinition *definition() const = 0;
+    virtual ComponentDefinition *definition() const = 0;
 
     /*!
      * @details
@@ -130,6 +131,7 @@ public:
 template<typename TExtension>
 TExtension *IComponent::extension()
 {
+    // TODO: take IComponentExtension into account
     return const_cast<TExtension *>(
                 static_cast<const IComponent *>(this)->extension<TExtension>());
 }

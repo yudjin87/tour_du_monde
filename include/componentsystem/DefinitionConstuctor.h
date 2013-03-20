@@ -32,7 +32,7 @@
 #include <QtCore/QString>
 
 class IDefinitionParser;
-class IComponentDefinition;
+class ComponentDefinition;
 
 class COMP_API DefinitionConstuctor
 {
@@ -40,7 +40,7 @@ public:
     DefinitionConstuctor();
     virtual ~DefinitionConstuctor();
 
-    virtual bool construct(IComponentDefinition *definition, const IDefinitionParser *parser);
+    virtual bool construct(ComponentDefinition *definition, const IDefinitionParser *parser);
 };
 
 #endif // DEFINITIONCONSTUCTOR_H

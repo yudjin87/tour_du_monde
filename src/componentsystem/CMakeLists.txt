@@ -46,7 +46,6 @@ set(__HEADERS
     ${CRSL_TARGET_HEADERS}/DirectoryWatchingComponentProvider.h 
     ${CRSL_TARGET_HEADERS}/FileComponentProvider.h 
     ${CRSL_TARGET_HEADERS}/IComponent.h 
-    ${CRSL_TARGET_HEADERS}/IComponentDefinition.h 
     ${CRSL_TARGET_HEADERS}/IComponentDependencies.h 
     ${CRSL_TARGET_HEADERS}/IComponentExtension.h 
     ${CRSL_TARGET_HEADERS}/IComponentInitialiser.h 

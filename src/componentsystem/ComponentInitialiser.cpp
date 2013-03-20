@@ -27,7 +27,7 @@
 #include "ComponentInitialiser.h"
 
 #include "IComponent.h"
-#include "IComponentDefinition.h"
+#include "ComponentDefinition.h"
 
 #include <logging/ILogger.h>
 
@@ -54,8 +54,8 @@ bool ComponentInitialiser::startupComponent(IComponent *component, QObject *ip_i
 {
     m_log.log("Ensure before startup that component is availabled", ILogger::Info);
 
-    IComponentDefinition *definition = component->definition();
-    if (definition->availability() != IComponentDefinition::Enabled) {
+    ComponentDefinition *definition = component->definition();
+    if (definition->availability() != ComponentDefinition::Enabled) {
         m_log.log(QString("Can not startup unavailable component: '%1'").arg(component->name()), ILogger::Info);
         return false;
     }

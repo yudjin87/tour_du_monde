@@ -37,7 +37,7 @@ class MockDefaultConstructor : public QObject, public DefinitionConstuctor
 public:
     MockDefaultConstructor();
 
-    bool construct(IComponentDefinition *definition, const IDefinitionParser *parser);
+    bool construct(ComponentDefinition *definition, const IDefinitionParser *parser);
 
 signals:
     void constructCalled();

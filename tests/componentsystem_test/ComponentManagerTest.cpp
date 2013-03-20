@@ -195,7 +195,7 @@ void ComponentManagerTest::startupAllComponents_shouldEmit()
 void ComponentManagerTest::startupAllComponents_shouldStartComponents()
 {
     TestDescriptionComponent *descriptionComponent = new TestDescriptionComponent();
-    descriptionComponent->m_definition.setAvailability(IComponentDefinition::Enabled);
+    descriptionComponent->m_definition.setAvailability(ComponentDefinition::Enabled);
 
     ComponentManager manager(lg);
     manager.addComponent(descriptionComponent);
@@ -472,7 +472,7 @@ void ComponentManagerTest::shutdownComponent_shouldPassComponentsInReverseOrder(
 void ComponentManagerTest::startupAllComponents_shouldNotStartComponentIfInitialiserReturnFalse()
 {
     TestDescriptionComponent *descriptionComponent = new TestDescriptionComponent();
-    descriptionComponent->m_definition.setAvailability(IComponentDefinition::Disabled);
+    descriptionComponent->m_definition.setAvailability(ComponentDefinition::Disabled);
 
     ComponentManager manager(lg);
     manager.addComponent(descriptionComponent);
@@ -487,7 +487,7 @@ void ComponentManagerTest::startupAllComponents_shouldNotStartChildComponentsIfI
 {
     // A <- B <- C
     TestDescriptionComponent *p_componentA = new TestDescriptionComponent("A");
-    p_componentA->m_definition.setAvailability(IComponentDefinition::Disabled);
+    p_componentA->m_definition.setAvailability(ComponentDefinition::Disabled);
     MockChildComponent *p_componentB = createParentComponent("B", "A"); //dependent from A;
     MockChildComponent *p_componentC = createParentComponent("C", "B"); //dependent from B;
 

@@ -31,14 +31,13 @@
 
 template<typename TValue>
 class TypeObjectsMap;
-class ComponentDefinition;
 
 /*!
  * @brief
  *   It is a base unit of the carousel, that can contain UI and/or logic features, provides or
  *   exposes some services for the other components.
  * @details
- *   See IComponentDefinition interface, if your component will be have a dependencies from the
+ *   See ComponentDefinition interface, if your component will be have a dependencies from the
  *   other application components.
  *
  *   The BaseComponent also serves as a base class for the custom Components. It sets objectName
@@ -58,7 +57,7 @@ public:
      *
      *   Note, that component takes ownership for its defition.
      */
-    IComponentDefinition *definition() const;
+    ComponentDefinition *definition() const;
 
     /*!
      * @details

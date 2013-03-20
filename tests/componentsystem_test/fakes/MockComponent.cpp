@@ -1,6 +1,6 @@
 #include "MockComponent.h"
 
-#include <componentsystem/IComponentDefinition.h>
+#include <componentsystem/ComponentDefinition.h>
 
 //------------------------------------------------------------------------------
 MockComponent::MockComponent(bool i_returnValue)

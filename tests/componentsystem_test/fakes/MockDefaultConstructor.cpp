@@ -32,7 +32,7 @@ MockDefaultConstructor::MockDefaultConstructor()
 }
 
 //------------------------------------------------------------------------------
-bool MockDefaultConstructor::construct(IComponentDefinition *definition, const IDefinitionParser *parser)
+bool MockDefaultConstructor::construct(ComponentDefinition *definition, const IDefinitionParser *parser)
 {
     bool result = DefinitionConstuctor::construct(definition, parser);
     emit constructCalled();

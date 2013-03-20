@@ -32,7 +32,7 @@
 //------------------------------------------------------------------------------
 ComponentDefinition::ComponentDefinition()
     : mp_component(nullptr)
-    , m_availability(IComponentDefinition::Enabled)
+    , m_availability(ComponentDefinition::Enabled)
     , m_componentName("Undefined_ProxyComponent")
     , m_description("")
     , m_productName("")
@@ -44,7 +44,7 @@ ComponentDefinition::ComponentDefinition()
 //------------------------------------------------------------------------------
 ComponentDefinition::ComponentDefinition(const QString &componentName)
     : mp_component(nullptr)
-    , m_availability(IComponentDefinition::Enabled)
+    , m_availability(ComponentDefinition::Enabled)
     , m_componentName(componentName)
     , m_description("")
     , m_productName("")
@@ -70,7 +70,7 @@ void ComponentDefinition::addParent(const QString &parent)
 }
 
 //------------------------------------------------------------------------------
-IComponentDefinition::Availability ComponentDefinition::availability() const
+ComponentDefinition::Availability ComponentDefinition::availability() const
 {
     return m_availability;
 }
@@ -112,7 +112,7 @@ const QString &ComponentDefinition::productName() const
 }
 
 //------------------------------------------------------------------------------
-void ComponentDefinition::setAvailability(IComponentDefinition::Availability i_newMode)
+void ComponentDefinition::setAvailability(ComponentDefinition::Availability i_newMode)
 {
     m_availability = i_newMode;
     onAvailabilityChanged(i_newMode);
@@ -150,7 +150,7 @@ void ComponentDefinition::setComponentLocation(const QString &componentLocation)
 }
 
 //------------------------------------------------------------------------------
-void ComponentDefinition::onAvailabilityChanged(IComponentDefinition::Availability i_newMode)
+void ComponentDefinition::onAvailabilityChanged(ComponentDefinition::Availability i_newMode)
 {
     emit availabilityChanged(i_newMode);
 }
@@ -161,7 +161,7 @@ void ComponentDefinition::loadAvailability()
     QSettings settings;
     QVariant value = settings.value(QString("components_availability/%1").arg(componentName()));
     if (value.isValid())
-        setAvailability(static_cast<IComponentDefinition::Availability>(value.toInt()));
+        setAvailability(static_cast<ComponentDefinition::Availability>(value.toInt()));
 }
 
 //------------------------------------------------------------------------------

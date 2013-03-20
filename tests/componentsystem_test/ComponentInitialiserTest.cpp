@@ -70,7 +70,7 @@ void ComponentInitialiserTest::shouldReturnTrueWhenStartupComponent()
 void ComponentInitialiserTest::shouldNotStartupDisabledComponent()
 {
     TestDescriptionComponent disabledDomponent;
-    disabledDomponent.m_definition.setAvailability(IComponentDefinition::Disabled);
+    disabledDomponent.m_definition.setAvailability(ComponentDefinition::Disabled);
     QSignalSpy spy(&disabledDomponent, SIGNAL(whenStarted(QString)));
 
     ComponentInitialiser initialser(lg);
@@ -83,7 +83,7 @@ void ComponentInitialiserTest::shouldNotStartupDisabledComponent()
 void ComponentInitialiserTest::shouldNotStartupUnavailableComponent()
 {
     TestDescriptionComponent disabledDomponent;
-    disabledDomponent.m_definition.setAvailability(IComponentDefinition::Unavailable);
+    disabledDomponent.m_definition.setAvailability(ComponentDefinition::Unavailable);
     QSignalSpy spy(&disabledDomponent, SIGNAL(whenStarted(QString)));
 
     ComponentInitialiser initialser(lg);
@@ -96,7 +96,7 @@ void ComponentInitialiserTest::shouldNotStartupUnavailableComponent()
 void ComponentInitialiserTest::shouldReturnFalseWhenStartupDisabledComponent()
 {
     TestDescriptionComponent disabledComponent;
-    disabledComponent.m_definition.setAvailability(IComponentDefinition::Disabled);
+    disabledComponent.m_definition.setAvailability(ComponentDefinition::Disabled);
 
     ComponentInitialiser initialser(lg);
     bool result = initialser.startupComponent(&disabledComponent, this);
@@ -108,7 +108,7 @@ void ComponentInitialiserTest::shouldReturnFalseWhenStartupDisabledComponent()
 void ComponentInitialiserTest::shouldReturnFalseWhenStartupUnavailableComponent()
 {
     TestDescriptionComponent unavailableComponent;
-    unavailableComponent.m_definition.setAvailability(IComponentDefinition::Unavailable);
+    unavailableComponent.m_definition.setAvailability(ComponentDefinition::Unavailable);
 
     ComponentInitialiser initialser(lg);
     bool result = initialser.startupComponent(&unavailableComponent, this);
