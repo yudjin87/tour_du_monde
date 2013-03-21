@@ -94,7 +94,7 @@ void ProxyComponentTest::initializeCallShouldInvokeLoadAvailability()
     settings.setValue(QString("components_availability/%1").arg(def->componentName()), ComponentDefinition::Disabled);
     settings.sync();
 
-    QSignalSpy spy(component.definition(), SIGNAL(availabilityChanged(Availability)));
+    QSignalSpy spy(const_cast<ComponentDefinition *>(component.definition()), SIGNAL(availabilityChanged(Availability)));
 
     component.initialize();
 

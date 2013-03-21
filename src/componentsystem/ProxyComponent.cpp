@@ -94,7 +94,7 @@ bool ProxyComponent::initialize()
     if (!checkFile.isReadable())
         return false;
 
-    definition()->loadAvailability();
+    loadAvailability();
 
     mp_loader->setFileName(cleanPath);
     m_initialized = true;

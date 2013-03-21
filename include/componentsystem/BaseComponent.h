@@ -57,7 +57,7 @@ public:
      *
      *   Note, that component takes ownership for its defition.
      */
-    ComponentDefinition *definition() const;
+    const ComponentDefinition *definition() const;
 
     /*!
      * @details
@@ -176,6 +176,8 @@ protected:
     virtual bool _onStartup(QObject *ip_initData);
 
     void addParent(const QString &parent);
+
+    void loadAvailability();
 
 private:
     Q_DISABLE_COPY(BaseComponent)

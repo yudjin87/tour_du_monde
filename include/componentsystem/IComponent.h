@@ -67,7 +67,7 @@ public:
      *
      *   Note, that component takes ownership for its defition.
      */
-    virtual ComponentDefinition *definition() const = 0;
+    virtual const ComponentDefinition *definition() const = 0;
 
     /*!
      * @details

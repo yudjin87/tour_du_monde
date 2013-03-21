@@ -78,7 +78,7 @@ BaseComponent::~BaseComponent()
 }
 
 //------------------------------------------------------------------------------
-ComponentDefinition *BaseComponent::definition() const
+const ComponentDefinition *BaseComponent::definition() const
 {
     return mp_definition;
 }
@@ -132,6 +132,12 @@ bool BaseComponent::_onStartup(QObject *)
 void BaseComponent::addParent(const QString &parent)
 {
     mp_definition->addParent(parent);
+}
+
+//------------------------------------------------------------------------------
+void BaseComponent::loadAvailability()
+{
+    mp_definition->loadAvailability();
 }
 
 //------------------------------------------------------------------------------
