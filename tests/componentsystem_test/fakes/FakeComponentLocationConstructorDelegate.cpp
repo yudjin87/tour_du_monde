@@ -24,43 +24,19 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "ComponentInitialiser.h"
-
-#include "IComponent.h"
-#include "ComponentDefinition.h"
-
-#include <logging/ILogger.h>
+#include "FakeComponentLocationConstructorDelegate.h"
 
 //------------------------------------------------------------------------------
-ComponentInitialiser::ComponentInitialiser(ILogger &log, QObject *parent)
-    : m_log(log)
-{
-    QObject::setParent(parent);
-}
-
-//------------------------------------------------------------------------------
-ComponentInitialiser::~ComponentInitialiser()
+FakeComponentLocationConstructorDelegate::FakeComponentLocationConstructorDelegate(const QString &returningValue)
+    : toReturn(returningValue)
 {
 }
 
 //------------------------------------------------------------------------------
-void ComponentInitialiser::shutdownComponent(IComponent *component)
+QString FakeComponentLocationConstructorDelegate::constructLocation(const QString &ending)
 {
-    component->shutdown();
-}
-
-//------------------------------------------------------------------------------
-bool ComponentInitialiser::startupComponent(IComponent *component, QObject *ip_initializationData)
-{
-    m_log.log("Ensure before startup that component is availabled", ILogger::Info);
-
-    const ComponentDefinition *definition = component->definition();
-    if (definition->availability() != ComponentDefinition::Enabled) {
-        m_log.log(QString("Can not startup unavailable component: '%1'").arg(component->name()), ILogger::Info);
-        return false;
-    }
-
-    return component->startup(ip_initializationData);
+    Q_UNUSED(ending);
+    return toReturn;
 }
 
 //------------------------------------------------------------------------------

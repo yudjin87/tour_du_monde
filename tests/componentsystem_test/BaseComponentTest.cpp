@@ -4,7 +4,7 @@
 #include "fakes/MockComponent.h"
 
 #include <componentsystem/BaseComponent.h>
-#include <componentsystem/IComponentDefinition.h>
+#include <componentsystem/ComponentDefinition.h>
 #include <utils/IServiceLocator.h>
 
 #include <QtTest/QtTest>

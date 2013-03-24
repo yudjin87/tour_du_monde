@@ -38,7 +38,7 @@ class ILogger;
  * @brief
  *   The ComponentManager holds information about the components that can be used by the application.
  * @details
- *   Each component (described in a IComponent and IComponentDefinition classes, stores the name,
+ *   Each component (described in a IComponent and ComponentDefinition classes, stores the name,
  *   description and availability of the component) that was statically registered or dynamically discovered
  *   by providers will be added to the ComponentManager after boot loading sequence in
  *   CarouselBootloader::_configureComponentManager() method. Components also can be added and

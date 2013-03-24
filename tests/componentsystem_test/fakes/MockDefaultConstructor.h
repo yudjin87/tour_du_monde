@@ -24,27 +24,23 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef COMPONENTWITHEXTENSIONS_H
-#define COMPONENTWITHEXTENSIONS_H
+#ifndef MOCKDEFAULTCONSTRUCTOR_H
+#define MOCKDEFAULTCONSTRUCTOR_H
 
-#include <componentsystem/BaseComponent.h>
-#include <componentsystem/IComponentExtension.h>
+#include <componentsystem/DefinitionConstuctor.h>
 
-class IComponentExtension1;
-class IComponentExtension2;
+#include <QtCore/QObject>
 
-class ComponentWithExtensions : public BaseComponent
+class MockDefaultConstructor : public QObject, public DefinitionConstuctor
 {
+    Q_OBJECT
 public:
-    ComponentWithExtensions();
-    ~ComponentWithExtensions();
+    MockDefaultConstructor();
 
-public:
-    IComponentExtension1 *mp_extension1;
-    IComponentExtension2 *mp_extension2;
+    bool construct(ComponentDefinition *definition, const IDefinitionParser *parser);
+
+signals:
+    void constructCalled();
 };
 
-class IComponentExtension1 : public IComponentExtension {};
-class IComponentExtension2 : public IComponentExtension {};
-
-#endif // COMPONENTWITHEXTENSIONS_H
+#endif // MOCKDEFAULTCONSTRUCTOR_H

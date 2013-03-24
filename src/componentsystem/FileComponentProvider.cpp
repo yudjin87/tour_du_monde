@@ -25,6 +25,9 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "FileComponentProvider.h"
+#include "AbsolutePathComponentLocationConstructorDelegate.h"
+#include "ComponentDefinition.h"
+#include "DefinitionConstuctor.h"
 #include "XmlDefinitionParser.h"
 #include "ProxyComponent.h"
 
@@ -34,6 +37,7 @@
 
 //------------------------------------------------------------------------------
 typedef QScopedPointer<IDefinitionParser> IDefinitionParserPtr;
+typedef QScopedPointer<DefinitionConstuctor> DefinitionConstuctorPtr;
 
 //------------------------------------------------------------------------------
 FileComponentProvider::FileComponentProvider(QObject *parent)
@@ -93,10 +97,17 @@ IComponent *FileComponentProvider::loadComponent()
     if (!parser->read(&file))
         return nullptr;
 
-    ProxyComponent *proxy = createProxy();
-    proxy->setDefinitionLocation(m_path);
-    if (!proxy->initialize(*parser.data())) {
-        delete proxy;
+    ComponentDefinition *definition = createDefintion();
+    DefinitionConstuctorPtr constructor(createDefinitionConstuctor());
+    constructor->setLocationConstructorDelegate(new AbsolutePathComponentLocationConstructorDelegate(m_path));
+    if (!constructor->construct(definition, parser.data())) {
+        delete definition;
+        return nullptr;
+    }
+
+    ProxyComponent *proxy = createProxy(definition);
+    if (!proxy->initialize()) {
+        delete proxy;        
         return nullptr;
     }
 
@@ -120,9 +131,21 @@ IDefinitionParser *FileComponentProvider::createParser()
 }
 
 //------------------------------------------------------------------------------
-ProxyComponent *FileComponentProvider::createProxy()
+ProxyComponent *FileComponentProvider::createProxy(ComponentDefinition *definition)
 {
-    return new ProxyComponent();
+    return new ProxyComponent(definition);
+}
+
+//------------------------------------------------------------------------------
+ComponentDefinition *FileComponentProvider::createDefintion()
+{
+    return new ComponentDefinition();
+}
+
+//------------------------------------------------------------------------------
+DefinitionConstuctor *FileComponentProvider::createDefinitionConstuctor()
+{
+    return new DefinitionConstuctor();
 }
 
 //------------------------------------------------------------------------------

@@ -27,7 +27,7 @@
 #include "ComponentDependencies.h"
 #include "DependencySolver.h"
 #include "IComponent.h"
-#include "IComponentDefinition.h"
+#include "ComponentDefinition.h"
 
 //------------------------------------------------------------------------------
 ComponentDependencies::ComponentDependencies(QObject *parent)
@@ -137,7 +137,7 @@ DependenciesSolvingResult ComponentDependencies::completeListWithParents(const Q
                 unresolvedList.push_back(child);
             }
 
-            const IComponentDefinition *definition = child->definition();
+            const ComponentDefinition *definition = child->definition();
             QStringList parents = definition->parents();
             foreach (const QString &dependencyName, parents) {
                 solver.addComponent(dependencyName);
@@ -196,7 +196,7 @@ DependenciesSolvingResult ComponentDependencies::getParentComponents(const IComp
     if (ip_forChild == nullptr)
         return DependenciesSolvingResult();
 
-    const IComponentDefinition *definition = ip_forChild->definition();
+    const ComponentDefinition *definition = ip_forChild->definition();
     if (definition == nullptr)
         return DependenciesSolvingResult();
 
@@ -223,7 +223,7 @@ DependenciesSolvingResult ComponentDependencies::getChildComponents(const ICompo
     QList<IComponent *> components_to_return;
 
     foreach(IComponent *p_com, m_components) {
-        const IComponentDefinition *definition = p_com->definition();
+        const ComponentDefinition *definition = p_com->definition();
         QStringList parents = definition->parents();
         if (parents.contains(ip_forParent->name()))
             components_to_return.push_back(p_com);
@@ -244,7 +244,7 @@ DependenciesSolvingResult ComponentDependencies::solveDependencies(const QList<I
     foreach (IComponent *p_com, i_components) {
         solver.addComponent(p_com->name());
 
-        const IComponentDefinition *definition = p_com->definition();
+        const ComponentDefinition *definition = p_com->definition();
         QStringList parents = definition->parents();
         foreach (const QString &dependency, parents)
             solver.addDependency(p_com->name(), dependency);

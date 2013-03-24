@@ -24,52 +24,19 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "TestComponentDefinition.h"
+#include "MockDefaultConstructor.h"
 
 //------------------------------------------------------------------------------
-TestComponentDefinition::TestComponentDefinition()
-    : m_setAvailabilityCalled(false)
-    , m_productName("Test mock")
-    , m_description("Configured mock for testing")
+MockDefaultConstructor::MockDefaultConstructor()
 {
 }
 
 //------------------------------------------------------------------------------
-const QString &TestComponentDefinition::productName() const
+bool MockDefaultConstructor::construct(ComponentDefinition *definition, const IDefinitionParser *parser)
 {
-    return m_productName;
-}
-
-//------------------------------------------------------------------------------
-const QString &TestComponentDefinition::description() const
-{
-    return m_description;
-}
-
-//------------------------------------------------------------------------------
-IComponentDefinition::Availability TestComponentDefinition::availability() const
-{
-    return m_availability;
-}
-
-//------------------------------------------------------------------------------
-void TestComponentDefinition::setAvailability(Availability i_new_mode)
-{
-    m_setAvailabilityCalled = true;
-    m_availability = i_new_mode;
-
-    emit availabilityChanged(m_availability);
-}
-
-//------------------------------------------------------------------------------
-IComponent *TestComponentDefinition::component() const
-{
-    return nullptr;
-}
-
-const QStringList &TestComponentDefinition::parents() const
-{
-    return m_dependencies;
+    bool result = DefinitionConstuctor::construct(definition, parser);
+    emit constructCalled();
+    return result;
 }
 
 //------------------------------------------------------------------------------

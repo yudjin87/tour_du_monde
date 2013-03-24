@@ -38,11 +38,7 @@ public:
 private slots:
     void shouldReturnSpecifiedNameUntilComponentLoaded();
 
-    void initializeCallShouldSetupComponentName();
-    void initializeCallShouldSetupLoaderFileName();
-    void initializeCallShouldSetupLoaderFileNameAsComponentNameIfLocationIsAbsent();
-    void initializeCallShouldSetupAbsoluteFileNameToLoader();
-    void initializeCallShouldSetupComponentDefinition();
+    void initializeCallShouldSetupLibraryFileNameToLoader();
     void initializeCallShouldInvokeLoadAvailability();
     void initializeCallShouldReturnTrue();
     void initializeCallShouldReturnFalseIfLibraryFileDoesNotExist();
@@ -61,6 +57,7 @@ private slots:
 
 private:
     const QString definitionLocation;
+    QString componentFileName;
 };
 
 #endif // PROXYCOMPONENTTEST_H

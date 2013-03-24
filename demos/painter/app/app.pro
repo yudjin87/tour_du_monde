@@ -6,6 +6,8 @@ TARGET = painter
 
 TEMPLATE = app
 
+DESTDIR = $${BIN_OUTPUT_PATH}/bin
+
 LIBS += -L$${CAROUSEL_BIN} -lComponentSystem \
                            -lBooting \
                            -lFramework \

@@ -8,6 +8,7 @@ SOURCES += \
     $$TEST_PROJECT_SOURCES/ComponentLoaderTest.cpp \
     $$TEST_PROJECT_SOURCES/ComponentManagerTest.cpp \
     $$TEST_PROJECT_SOURCES/CompositeComponentProviderTest.cpp \
+    $$TEST_PROJECT_SOURCES/DefinitionConstuctorTest.cpp \
     $$TEST_PROJECT_SOURCES/DependencySolverTest.cpp \
     $$TEST_PROJECT_SOURCES/DirectoryComponentProviderTest.cpp \
     $$TEST_PROJECT_SOURCES/DirectoryWatchingComponentProviderTest.cpp \
@@ -22,17 +23,18 @@ SOURCES += \
     $$TEST_PROJECT_SOURCES/fakes/MockComponentManager.cpp \
     $$TEST_PROJECT_SOURCES/fakes/MockComponentProvider.cpp \
     $$TEST_PROJECT_SOURCES/fakes/MockCompositeComponentProvider.cpp \
+    $$TEST_PROJECT_SOURCES/fakes/MockDefaultConstructor.cpp \
     $$TEST_PROJECT_SOURCES/fakes/MockDirectoryComponentProvider.cpp \
     $$TEST_PROJECT_SOURCES/fakes/MockDirectoryWatchingComponentProvider.cpp \
     $$TEST_PROJECT_SOURCES/fakes/MockFileComponentProvider.cpp \
     $$TEST_PROJECT_SOURCES/fakes/MockFileSystemWatcher.cpp \
-    $$TEST_PROJECT_SOURCES/fakes/TestComponentDefinition.cpp \
     $$TEST_PROJECT_SOURCES/fakes/TestDescriptionComponent.cpp\
     $$TEST_PROJECT_SOURCES/FileComponentProviderTest.cpp \
     $$TEST_PROJECT_SOURCES/main_componentsystem_test.cpp \
     $$TEST_PROJECT_SOURCES/ProxyComponentTest.cpp \
     $$TEST_PROJECT_SOURCES/Utils.cpp \
     $$TEST_PROJECT_SOURCES/XmlDefinitionParserTest.cpp \
+    $$TEST_PROJECT_SOURCES/fakes/FakeComponentLocationConstructorDelegate.cpp
 
 HEADERS += \
     $$TEST_PROJECT_SOURCES/BaseComponentTest.h \
@@ -42,6 +44,7 @@ HEADERS += \
     $$TEST_PROJECT_SOURCES/ComponentLoaderTest.h \
     $$TEST_PROJECT_SOURCES/ComponentManagerTest.h \
     $$TEST_PROJECT_SOURCES/CompositeComponentProviderTest.h \
+    $$TEST_PROJECT_SOURCES/DefinitionConstuctorTest.h \
     $$TEST_PROJECT_SOURCES/DependencySolverTest.h \
     $$TEST_PROJECT_SOURCES/DirectoryComponentProviderTest.h \
     $$TEST_PROJECT_SOURCES/DirectoryWatchingComponentProviderTest.h \
@@ -56,14 +59,15 @@ HEADERS += \
     $$TEST_PROJECT_SOURCES/fakes/MockComponentManager.h \
     $$TEST_PROJECT_SOURCES/fakes/MockComponentProvider.h \
     $$TEST_PROJECT_SOURCES/fakes/MockCompositeComponentProvider.h \
+    $$TEST_PROJECT_SOURCES/fakes/MockDefaultConstructor.h \
     $$TEST_PROJECT_SOURCES/fakes/MockDirectoryComponentProvider.h \
     $$TEST_PROJECT_SOURCES/fakes/MockDirectoryWatchingComponentProvider.h \
     $$TEST_PROJECT_SOURCES/fakes/MockFileComponentProvider.h \
     $$TEST_PROJECT_SOURCES/fakes/MockFileSystemWatcher.h \
-    $$TEST_PROJECT_SOURCES/fakes/TestComponentDefinition.h \
     $$TEST_PROJECT_SOURCES/fakes/TestDescriptionComponent.h \
     $$TEST_PROJECT_SOURCES/FileComponentProviderTest.h \
     $$TEST_PROJECT_SOURCES/ProxyComponentTest.h \
     $$TEST_PROJECT_SOURCES/Utils.h \
     $$TEST_PROJECT_SOURCES/XmlDefinitionParserTest.h \
+    $$TEST_PROJECT_SOURCES/fakes/FakeComponentLocationConstructorDelegate.h
 

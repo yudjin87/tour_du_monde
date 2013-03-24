@@ -24,43 +24,32 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "ComponentInitialiser.h"
+#include "AbsolutePathComponentLocationConstructorDelegate.h"
 
-#include "IComponent.h"
-#include "ComponentDefinition.h"
-
-#include <logging/ILogger.h>
+#include <QtCore/QDir>
+#include <QtCore/QFileInfo>
 
 //------------------------------------------------------------------------------
-ComponentInitialiser::ComponentInitialiser(ILogger &log, QObject *parent)
-    : m_log(log)
-{
-    QObject::setParent(parent);
-}
-
-//------------------------------------------------------------------------------
-ComponentInitialiser::~ComponentInitialiser()
+AbsolutePathComponentLocationConstructorDelegate::AbsolutePathComponentLocationConstructorDelegate(const QString &definitionLocation)
+    : m_definitionLocation(definitionLocation)
 {
 }
 
 //------------------------------------------------------------------------------
-void ComponentInitialiser::shutdownComponent(IComponent *component)
+AbsolutePathComponentLocationConstructorDelegate::~AbsolutePathComponentLocationConstructorDelegate()
 {
-    component->shutdown();
 }
 
 //------------------------------------------------------------------------------
-bool ComponentInitialiser::startupComponent(IComponent *component, QObject *ip_initializationData)
+QString AbsolutePathComponentLocationConstructorDelegate::constructLocation(const QString &ending)
 {
-    m_log.log("Ensure before startup that component is availabled", ILogger::Info);
-
-    const ComponentDefinition *definition = component->definition();
-    if (definition->availability() != ComponentDefinition::Enabled) {
-        m_log.log(QString("Can not startup unavailable component: '%1'").arg(component->name()), ILogger::Info);
-        return false;
-    }
-
-    return component->startup(ip_initializationData);
+    // Get the absolute library file name, using definition's location
+    // as a pivot for relative component path
+    QFileInfo definitionFileName(m_definitionLocation);
+    QDir definitionDirPath(definitionFileName.absoluteDir());
+    QString libraryAbsolutePath = definitionDirPath.absoluteFilePath(ending);
+    QString cleanPath = QDir::cleanPath(libraryAbsolutePath);
+    return cleanPath;
 }
 
 //------------------------------------------------------------------------------

@@ -24,34 +24,36 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef TESTCOMPONENTDEFINITION_H
-#define TESTCOMPONENTDEFINITION_H
+#ifndef DEFINITIONCONSTUCTOR_H
+#define DEFINITIONCONSTUCTOR_H
 
-#include <componentsystem/IComponentDefinition.h>
+#include "componentsystem/componentsystem_global.h"
 
-class TestComponentDefinition : public IComponentDefinition
+#include <QtCore/QString>
+
+#include <functional>
+
+class IDefinitionParser;
+class ComponentDefinition;
+
+class IComponentLocationConstructorDelegate;
+
+class COMP_API DefinitionConstuctor
 {
-    Q_OBJECT
 public:
-    TestComponentDefinition();
-    const QString &productName() const;
-    const QString &description() const;
-    Availability availability() const;
-    void setAvailability(Availability i_new_mode);
-    IComponent *component() const;
-    const QStringList &parents() const;
-    const QString &componentName() const {throw "Not implemented";}
-    const QString &componentLocation() const {throw "Not implemented";}
-    void loadAvailability() {throw "Not implemented";}
+    DefinitionConstuctor();
+    virtual ~DefinitionConstuctor();
 
-public:
-    bool m_setAvailabilityCalled;
-    QStringList m_dependencies;
+    virtual bool construct(ComponentDefinition *definition, const IDefinitionParser *parser);
+
+    /*!
+     * @details
+     *   Note, that it takes ownership for the delegate.
+     */
+    virtual void setLocationConstructorDelegate(IComponentLocationConstructorDelegate *delegate);
 
 private:
-    Availability m_availability;
-    QString m_productName;
-    QString m_description;
+    IComponentLocationConstructorDelegate *mp_delegate;
 };
 
-#endif // TESTCOMPONENTDEFINITION_H
+#endif // DEFINITIONCONSTUCTOR_H

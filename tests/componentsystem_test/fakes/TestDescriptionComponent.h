@@ -1,8 +1,7 @@
 #ifndef TESTCONFIGUREDCOMPONENT_H
 #define TESTCONFIGUREDCOMPONENT_H
 
-#include "TestComponentDefinition.h"
-
+#include <componentsystem/ComponentDefinition.h>
 #include <componentsystem/BaseComponent.h>
 
 //------------------------------------------------------------------------------
@@ -15,13 +14,13 @@ public:
 
 protected:
     bool _onStartup(QObject *ip_initData);
-    IComponentDefinition *definition() const;
+    ComponentDefinition *definition() const;
 
 signals:
     void whenStarted(QString name);
 
 public:
-    TestComponentDefinition m_definition;
+    ComponentDefinition m_definition;
 };
 
 //------------------------------------------------------------------------------

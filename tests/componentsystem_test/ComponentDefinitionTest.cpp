@@ -43,34 +43,31 @@ ComponentDefinitionTest::ComponentDefinitionTest(QObject *parent)
 //------------------------------------------------------------------------------
 void ComponentDefinitionTest::shouldSetAvailabilityEnabledByDefault()
 {
-    MockComponent component;
-    ComponentDefinition definition(&component);
-    QCOMPARE(definition.availability(), IComponentDefinition::Enabled);
+    ComponentDefinition definition("");
+    QCOMPARE(definition.availability(), ComponentDefinition::Enabled);
 }
 
 //------------------------------------------------------------------------------
 void ComponentDefinitionTest::shouldSetLoadedAvailability()
 {
-    MockComponent component(QString("Comp1"));
     QSettings settings;
-    settings.setValue(QString("components_availability/%1").arg(component.name()), static_cast<int>(IComponentDefinition::Disabled));
+    settings.setValue(QString("components_availability/%1").arg("Comp1"), static_cast<int>(ComponentDefinition::Disabled));
     settings.sync();
 
-    ComponentDefinition definition(&component);
+    ComponentDefinition definition("Comp1");
 
-    QCOMPARE(definition.availability(), IComponentDefinition::Disabled);
+    QCOMPARE(definition.availability(), ComponentDefinition::Disabled);
 
     settings.clear();
 }
 
 //------------------------------------------------------------------------------
 void ComponentDefinitionTest::shouldEmitWhenAvailabilitySet()
-{
-    MockComponent component;
-    ComponentDefinition definition(&component);
+{    
+    ComponentDefinition definition("Comp1");
     QSignalSpy spy(&definition, SIGNAL(availabilityChanged(Availability)));
 
-    definition.setAvailability(IComponentDefinition::Disabled);
+    definition.setAvailability(ComponentDefinition::Disabled);
 
     QCOMPARE(spy.count(), 1);
 }
@@ -78,12 +75,11 @@ void ComponentDefinitionTest::shouldEmitWhenAvailabilitySet()
 //------------------------------------------------------------------------------
 void ComponentDefinitionTest::shouldEmitWhenAvailabilityLoaded()
 {
-    MockComponent component;
     QSettings settings;
-    settings.setValue(QString("components_availability/%1").arg(component.name()), static_cast<int>(IComponentDefinition::Disabled));
+    settings.setValue(QString("components_availability/%1").arg("Comp1"), static_cast<int>(ComponentDefinition::Disabled));
     settings.sync();
 
-    ComponentDefinition definition(&component);
+    ComponentDefinition definition("Comp1");
     QSignalSpy spy(&definition, SIGNAL(availabilityChanged(Availability)));
 
     definition.loadAvailability();
@@ -96,14 +92,13 @@ void ComponentDefinitionTest::shouldEmitWhenAvailabilityLoaded()
 //------------------------------------------------------------------------------
 void ComponentDefinitionTest::shouldNotSetAvailabilityIfDidNotLoad()
 {
-    MockComponent component(QString("Comp1"));
     QSettings settings;
     settings.setValue("components_availability/empty", 0);
     settings.sync();
 
-    ComponentDefinition definition(&component);
+    ComponentDefinition definition("Comp1");
 
-    QCOMPARE(definition.availability(), IComponentDefinition::Enabled);
+    QCOMPARE(definition.availability(), ComponentDefinition::Enabled);
 }
 
 //------------------------------------------------------------------------------

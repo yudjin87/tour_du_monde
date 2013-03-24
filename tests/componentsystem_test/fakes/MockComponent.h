@@ -12,7 +12,6 @@ public:
 
     ~MockComponent();
 
-    void setName(const QString &i_name);
     QObject *data() const;
 
     void setRegistrator(QList<MockComponent *> *ip_registrator);

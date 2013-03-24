@@ -24,27 +24,23 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef COMPONENTWITHEXTENSIONS_H
-#define COMPONENTWITHEXTENSIONS_H
+#ifndef FILEDEFINITIONCONSTUCTORTEST_H
+#define FILEDEFINITIONCONSTUCTORTEST_H
 
-#include <componentsystem/BaseComponent.h>
-#include <componentsystem/IComponentExtension.h>
+#include <QtCore/QObject>
 
-class IComponentExtension1;
-class IComponentExtension2;
-
-class ComponentWithExtensions : public BaseComponent
+class DefinitionConstuctorTest : public QObject
 {
+    Q_OBJECT
 public:
-    ComponentWithExtensions();
-    ~ComponentWithExtensions();
+    explicit DefinitionConstuctorTest(QObject *parent = 0);
+    
+private Q_SLOTS:
+    void construct_ShouldConstructDefinitionFromParser();
+    void construct_ShouldUseDelegateIfAny();
+    void construct_ShouldReturnFalseIfComponentNameIsEmpty();
 
-public:
-    IComponentExtension1 *mp_extension1;
-    IComponentExtension2 *mp_extension2;
+    void construct_ShouldSetupFileNameAsComponentNameIfLocationIsAbsent();
 };
 
-class IComponentExtension1 : public IComponentExtension {};
-class IComponentExtension2 : public IComponentExtension {};
-
-#endif // COMPONENTWITHEXTENSIONS_H
+#endif // FILEDEFINITIONCONSTUCTORTEST_H

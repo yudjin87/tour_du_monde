@@ -10,7 +10,7 @@ DEFINES += DISPLAY_LIB_IMPORT
 
 LIBS += -L$${CAROUSEL_BIN} -lInteractivity \
 
-DESTDIR = $${PAINTER_WD}/bin/externalSource
+DESTDIR = $${DESTDIR}/externalSource
 
 win32 {
     LIBS += -L$${CAROUSEL_BIN} -lComponentSystem \

@@ -12,7 +12,7 @@ LIBS += -L$${CAROUSEL_BIN} -lUtils \
                            -lComponentSystem \
                            -lFramework \
 
-DESTDIR = $${PAINTER_WD}/bin/externalSource
+DESTDIR = $${DESTDIR}/externalSource
 
 HEADERS += \
     geometry_api.h \

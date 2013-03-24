@@ -46,7 +46,7 @@ void *createShapeFileWorkspaceFactory(IServiceLocator *locator)
 GeodatabaseComponent::GeodatabaseComponent()
     : BaseComponent("Geodatabase")
 {
-    mp_definition->addParent("Geometry");
+    addParent("Geometry");
 }
 
 //------------------------------------------------------------------------------

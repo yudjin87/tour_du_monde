@@ -1,18 +1,7 @@
 docs/
-win32/
-win64/
-mac32/
-mac64/
-mingw32/
-mingw64/
-unix32/
-unix64/
-linux32/
-linux64/
+product/
 intermediate/
-lib/
 bin/
-.obj/
 
 Makefile
 Makefile.*

@@ -27,11 +27,17 @@
 #ifndef COMPONENTDEFINITION_H
 #define COMPONENTDEFINITION_H
 
-#include "componentsystem/IComponentDefinition.h"
+#include "componentsystem/componentsystem_global.h"
+
+#include <QtCore/QObject>
+#include <QtCore/QString>
+#include <QtCore/QStringList>
+
+class IComponent;
 
 /*!
  * @brief
- *   It is a default implementation of the IComponentDefinition interface.
+ *   This class describes the component meta information.
  * @details
  *   This class is used in the Components dialog to provide to user information about
  *   the component. It also allow for user to enable or disable your component.
@@ -43,29 +49,64 @@
  *   if your component uses some services from another one - it is guaranteed
  *   that your component will be started up after all dependent components will.
  */
-class COMP_API ComponentDefinition : public IComponentDefinition
+class COMP_API ComponentDefinition : public QObject
 {
     Q_OBJECT
+    Q_ENUMS(Availability)
+
+    /*!
+     * @details
+     *   Gets or sets the value specified whether this component is enabled, disabled, or unavailable.
+     *   When the availability is enabled, the component is checked in the Components dialog.
+     */
+    Q_PROPERTY(Availability availability READ availability WRITE setAvailability NOTIFY availabilityChanged)
+
 public:
     /*!
      * @details
-     *   Initialises a new instance of the ComponentDefinition class using
-     *   specified component and IComponentDefinition::Enabled availability.
-     *
-     *   If availability was changed during last application's start, it will be
-     *   loaded and ovewrite default value.
+     *   Component availability states.
      */
-    ComponentDefinition(IComponent *component);
+    enum Availability
+    {
+        /*!
+         * @details
+         *   Enabled for use.
+         */
+        Enabled,
+
+        /*!
+         * @details
+         *   Disabled by the user. If component is disabled, child
+         *   components that have dependency from this component,
+         *   cannot be started.
+         */
+        Disabled,
+
+        /*!
+         * @details
+         *   Unavailable - not licensed. If component is unavailable, child
+         *   components that have dependency from this component,
+         *   cannot be started.
+         */
+        Unavailable
+    };
+
+
+    /*!
+     * @details
+     *   Initialises a new instance of the ComponentDefinition class.
+     */
+    ComponentDefinition();
 
     /*!
      * @details
      *   Initialises a new instance of the ComponentDefinition class using
-     *   component, description, product name, dependencies and default availability.
+     *   specified component and ComponentDefinition::Enabled availability.
      *
      *   If availability was changed during last application's start, it will be
      *   loaded and ovewrite default value.
      */
-    ComponentDefinition(Availability availability, IComponent *component);
+    ComponentDefinition(const QString &componentName);
 
     ~ComponentDefinition();
 
@@ -97,7 +138,7 @@ public slots:
 
     /*!
      * @details
-     *   Returns the component name. It is a shortcut for the component()->name().
+     *   Returns the component name.
      */
     const QString &componentName() const;
 
@@ -134,29 +175,39 @@ public slots:
      */
     void setAvailability(Availability i_newMode);
 
+    void setComponent(IComponent *component);
+
     /*!
      * @details
-     *   Sets the component description. This methodis not exposed by the IComponentDefinition interface
-     *   because it is used for internal purposes, e.g. set up value after loading it from
-     *   the definition file.
+     *   Sets the component description.
+     */
+    void setComponentName(const QString &name);
+
+    /*!
+     * @details
+     *   Sets the component description.
      */
     void setDescription(const QString &description);
 
     /*!
      * @details
-     *   Sets the product name. This methodis not exposed by the IComponentDefinition interface
-     *   because it is used for internal purposes, e.g. set up value after loading it from
-     *   the definition file.
+     *   Sets the product name.
      */
     void setProductName(const QString &productName);
 
     /*!
      * @details
-     *   Sets the component location. This methodis not exposed by the IComponentDefinition interface
-     *   because it is used for internal purposes, e.g. set up value after loading it from
-     *   the definition file.
+     *   Sets the component location.
      */
     void setComponentLocation(const QString &componentLocation);
+
+signals:
+    /*!
+     * @details
+     *   This signal is emited when extension's availability changed.
+     * @sa setAvailability
+     */
+    void availabilityChanged(Availability);
 
 protected:
     /*!
@@ -173,6 +224,7 @@ private:
 private:
     IComponent *mp_component;
     Availability m_availability;
+    QString m_componentName;
     QString m_description;
     QString m_productName;
     QString m_componentLocation;

@@ -2,16 +2,21 @@
 
 #include "../Utils.h"
 
+#include <QtCore/QCoreApplication>
+#include <QtCore/QDir>
+
 //------------------------------------------------------------------------------
 FakeDefinitionParser::FakeDefinitionParser()
     : QObject()
     , m_componentName("TestComponent2")
-    , m_componentLocation(pathToComponent("TestComponent2", false))
+    , m_componentLocation("")
     , m_description("")
     , m_productName("")
     , m_error("")
     , m_parents()
 {
+    QDir absolutePath = QCoreApplication::applicationDirPath();
+    m_componentLocation = absolutePath.relativeFilePath(pathToComponent("TestComponent2", false));
 }
 
 //------------------------------------------------------------------------------

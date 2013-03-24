@@ -29,6 +29,8 @@
 
 #include "componentsystem/ComponentProvider.h"
 
+class DefinitionConstuctor;
+class ComponentDefinition;
 class IDefinitionParser;
 class ProxyComponent;
 
@@ -98,7 +100,17 @@ protected:
      *
      *   Note that it takes ownership for the proxy.
      */
-    virtual ProxyComponent *createProxy();
+    virtual ProxyComponent *createProxy(ComponentDefinition *definition);
+
+    /*!
+     * @details
+     */
+    virtual ComponentDefinition *createDefintion();
+
+    /*!
+     * @details
+     */
+    virtual DefinitionConstuctor *createDefinitionConstuctor();
 
 private:
     QString m_path;

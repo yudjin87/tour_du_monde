@@ -26,8 +26,6 @@
 
 #include "ComponentWithExtensions.h"
 
-#include <componentsystem/IComponentDefinition.h>
-
 //------------------------------------------------------------------------------
 class ComponentExtension1 : public IComponentExtension1
 {

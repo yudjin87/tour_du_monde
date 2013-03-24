@@ -38,7 +38,7 @@ ComponentManagementComponent::ComponentManagementComponent(QObject *parent /*= n
     IInteractiveExtension *interactiveExtension = new ComponentManagementInteractiveExtension(this);
     registerExtension<IInteractiveExtension>(interactiveExtension);
 
-    mp_definition->addParent("Interactivity");
+    addParent("Interactivity");
 }
 
 //------------------------------------------------------------------------------

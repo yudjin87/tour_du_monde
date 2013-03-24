@@ -46,6 +46,7 @@ private Q_SLOTS:
     void loadComponent_shouldReturnNullIfPathIsEmpty();
     void loadComponent_shouldLoadComponent();
     void loadComponent_shouldCallReadOnParser();
+    void loadComponent_shouldCallConstructOnConstructor();
     void loadComponent_shouldPopulateWithComponent();
     void loadComponent_shouldNotPopulateComponentIfItsInitializationFault();
     void loadComponent_shouldReturnNullIfComponentItsInitializationFault();

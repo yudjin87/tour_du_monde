@@ -24,27 +24,24 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef COMPONENTWITHEXTENSIONS_H
-#define COMPONENTWITHEXTENSIONS_H
+#ifndef ICOMPONENTLOCATIONCONSTRUCTORDELEGATE_H
+#define ICOMPONENTLOCATIONCONSTRUCTORDELEGATE_H
 
-#include <componentsystem/BaseComponent.h>
-#include <componentsystem/IComponentExtension.h>
+#include "componentsystem/componentsystem_global.h"
 
-class IComponentExtension1;
-class IComponentExtension2;
+#include <QtCore/QString>
 
-class ComponentWithExtensions : public BaseComponent
+class COMP_API IComponentLocationConstructorDelegate
 {
 public:
-    ComponentWithExtensions();
-    ~ComponentWithExtensions();
+    IComponentLocationConstructorDelegate(){}
+    virtual ~IComponentLocationConstructorDelegate(){}
 
-public:
-    IComponentExtension1 *mp_extension1;
-    IComponentExtension2 *mp_extension2;
+    /*!
+     * @details
+     *   Completes component location bases at the final part of them.
+     */
+    virtual QString constructLocation(const QString &ending) = 0;
 };
 
-class IComponentExtension1 : public IComponentExtension {};
-class IComponentExtension2 : public IComponentExtension {};
-
-#endif // COMPONENTWITHEXTENSIONS_H
+#endif // ICOMPONENTLOCATIONCONSTRUCTORDELEGATE_H

@@ -8,7 +8,7 @@ TEMPLATE = lib
 
 DEFINES += ADDSHAPECOMMAND_LIB_IMPORT
 
-DESTDIR = $${PAINTER_WD}/bin/externalSource
+DESTDIR = $${DESTDIR}/externalSource
 
 win32 {
     LIBS += -L$${CAROUSEL_BIN} -lComponentSystem \

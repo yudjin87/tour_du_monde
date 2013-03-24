@@ -27,7 +27,7 @@
 #ifndef XMLDEFINITIONPARSER_H
 #define XMLDEFINITIONPARSER_H
 
-#include "IDefinitionParser.h"
+#include "componentsystem/IDefinitionParser.h"
 
 #include <QtCore/QObject>
 #include <QtCore/QString>

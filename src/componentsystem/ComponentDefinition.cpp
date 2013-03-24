@@ -30,27 +30,27 @@
 #include <QtCore/QSettings>
 
 //------------------------------------------------------------------------------
-ComponentDefinition::ComponentDefinition(IComponent *component)
-    : mp_component(component)
-    , m_availability(IComponentDefinition::Enabled)
+ComponentDefinition::ComponentDefinition()
+    : mp_component(nullptr)
+    , m_availability(ComponentDefinition::Enabled)
+    , m_componentName("Undefined_ProxyComponent")
     , m_description("")
     , m_productName("")
     , m_componentLocation("")
     , m_parents()
 {
-    QObject::setParent(component);
-    loadAvailability();
 }
 
 //------------------------------------------------------------------------------
-ComponentDefinition::ComponentDefinition(Availability availability, IComponent *component)
-    : mp_component(component)
-    , m_availability(availability)
+ComponentDefinition::ComponentDefinition(const QString &componentName)
+    : mp_component(nullptr)
+    , m_availability(ComponentDefinition::Enabled)
+    , m_componentName(componentName)
     , m_description("")
     , m_productName("")
+    , m_componentLocation("")
     , m_parents()
-{
-    QObject::setParent(component);
+{    
     loadAvailability();
 }
 
@@ -70,7 +70,7 @@ void ComponentDefinition::addParent(const QString &parent)
 }
 
 //------------------------------------------------------------------------------
-IComponentDefinition::Availability ComponentDefinition::availability() const
+ComponentDefinition::Availability ComponentDefinition::availability() const
 {
     return m_availability;
 }
@@ -90,7 +90,7 @@ const QString &ComponentDefinition::componentLocation() const
 //------------------------------------------------------------------------------
 const QString &ComponentDefinition::componentName() const
 {
-    return mp_component->name();
+    return m_componentName;
 }
 
 //------------------------------------------------------------------------------
@@ -112,10 +112,23 @@ const QString &ComponentDefinition::productName() const
 }
 
 //------------------------------------------------------------------------------
-void ComponentDefinition::setAvailability(IComponentDefinition::Availability i_newMode)
+void ComponentDefinition::setAvailability(ComponentDefinition::Availability i_newMode)
 {
     m_availability = i_newMode;
     onAvailabilityChanged(i_newMode);
+}
+
+//------------------------------------------------------------------------------
+void ComponentDefinition::setComponent(IComponent *component)
+{
+    mp_component = component;
+    QObject::setParent(component);
+}
+
+//------------------------------------------------------------------------------
+void ComponentDefinition::setComponentName(const QString &name)
+{
+    m_componentName = name;
 }
 
 //------------------------------------------------------------------------------
@@ -137,7 +150,7 @@ void ComponentDefinition::setComponentLocation(const QString &componentLocation)
 }
 
 //------------------------------------------------------------------------------
-void ComponentDefinition::onAvailabilityChanged(IComponentDefinition::Availability i_newMode)
+void ComponentDefinition::onAvailabilityChanged(ComponentDefinition::Availability i_newMode)
 {
     emit availabilityChanged(i_newMode);
 }
@@ -148,7 +161,7 @@ void ComponentDefinition::loadAvailability()
     QSettings settings;
     QVariant value = settings.value(QString("components_availability/%1").arg(componentName()));
     if (value.isValid())
-        setAvailability(static_cast<IComponentDefinition::Availability>(value.toInt()));
+        setAvailability(static_cast<ComponentDefinition::Availability>(value.toInt()));
 }
 
 //------------------------------------------------------------------------------

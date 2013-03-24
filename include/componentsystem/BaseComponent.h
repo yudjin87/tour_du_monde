@@ -31,14 +31,13 @@
 
 template<typename TValue>
 class TypeObjectsMap;
-class ComponentDefinition;
 
 /*!
  * @brief
  *   It is a base unit of the carousel, that can contain UI and/or logic features, provides or
  *   exposes some services for the other components.
  * @details
- *   See IComponentDefinition interface, if your component will be have a dependencies from the
+ *   See ComponentDefinition interface, if your component will be have a dependencies from the
  *   other application components.
  *
  *   The BaseComponent also serves as a base class for the custom Components. It sets objectName
@@ -58,7 +57,7 @@ public:
      *
      *   Note, that component takes ownership for its defition.
      */
-    IComponentDefinition *definition() const;
+    const ComponentDefinition *definition() const;
 
     /*!
      * @details
@@ -72,6 +71,8 @@ public:
      * @details
      *   The name of the component. This name should be unique and used for the resolving component
      *   dependencies.
+     *
+     *   It is a shortcut for the definition()->name().
      */
     const QString &name() const;
 
@@ -121,6 +122,15 @@ protected:
 
     /*!
      * @details
+     *   Initializes a new instance of the BaseComponent class using specified component
+     *   definition.
+     * @param definition
+     *   This paramter cannot be null.
+     */
+    explicit BaseComponent(ComponentDefinition *definition, QObject *parent = nullptr);
+
+    /*!
+     * @details
      *   Registers an extension instance.
      *   It might be necessary to specify typename @a TExtension explicitly due to the static binding:
      * @code
@@ -165,16 +175,17 @@ protected:
      */
     virtual bool _onStartup(QObject *ip_initData);
 
+    void addParent(const QString &parent);
+
+    void loadAvailability();
+
 private:
     Q_DISABLE_COPY(BaseComponent)
     void registerExtensionInstance(void *ip_instance, const QString &i_forTypeId);
 
-protected:
+private:
     ComponentDefinition *mp_definition;
     bool m_isStarted;
-    QString m_name;
-
-private:
     TypeObjectsMap<void *> *mp_typeObjectsMap;
 };
 

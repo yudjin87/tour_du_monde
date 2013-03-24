@@ -61,7 +61,7 @@ class QMainWindow;
  * @endcode
  *   but make sure, that your component that used IInteractionService is a @a child for the
  *   InteractiveServiceComponent.
- * @sa IComponentDefinition::parents()
+ * @sa ComponentDefinition::parents()
  */
 class INTERACTIVITY_API IInteractionService : public QObject
 {
