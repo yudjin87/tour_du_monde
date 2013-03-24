@@ -29,7 +29,6 @@
 #include "ComponentDefinition.h"
 #include "ComponentLoader.h"
 
-#include <QtCore/QDir>
 #include <QtCore/QFileInfo>
 
 //------------------------------------------------------------------------------
@@ -38,7 +37,6 @@ ProxyComponent::ProxyComponent(ComponentDefinition *definition, QObject *parent)
     , mp_loader(new ComponentLoader())
     , mp_component(nullptr)
     , m_initialized(false)
-    , m_definitionLocation("")
 {
 }
 
@@ -48,7 +46,6 @@ ProxyComponent::ProxyComponent(ComponentDefinition *definition, IComponentLoader
     , mp_loader(loader)
     , mp_component(nullptr)
     , m_initialized(false)
-    , m_definitionLocation("")
 {
 }
 
@@ -82,21 +79,16 @@ bool ProxyComponent::initialize()
 
     setObjectName(definition()->componentName());
 
-    // Get the absolute library file name, using definition's location
-    // as a pivot for relative component path
-    QFileInfo definitionFileName(m_definitionLocation);
-    QDir definitionDirPath(definitionFileName.absoluteDir());
-    QString libraryAbsolutePath = definitionDirPath.absoluteFilePath(definition()->componentLocation());
-    QString cleanPath = QDir::cleanPath(libraryAbsolutePath);
+    const QString &libraryPath = definition()->componentLocation();
 
     // Library file should exist and should be readable
-    QFileInfo checkFile(cleanPath);
+    QFileInfo checkFile(libraryPath);
     if (!checkFile.isReadable())
         return false;
 
     loadAvailability();
 
-    mp_loader->setFileName(cleanPath);
+    mp_loader->setFileName(libraryPath);
     m_initialized = true;
 
     return true;
@@ -106,12 +98,6 @@ bool ProxyComponent::initialize()
 IComponent *ProxyComponent::loadedComponent() const
 {
     return mp_component;
-}
-
-//------------------------------------------------------------------------------
-void ProxyComponent::setDefinitionLocation(const QString &definitionLocation)
-{
-    m_definitionLocation = definitionLocation;
 }
 
 //------------------------------------------------------------------------------

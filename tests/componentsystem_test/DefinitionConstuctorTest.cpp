@@ -26,6 +26,7 @@
 
 #include "DefinitionConstuctorTest.h"
 #include "fakes/FakeDefinitionParser.h"
+#include "fakes/FakeComponentLocationConstructorDelegate.h"
 
 #include "Utils.h"
 
@@ -68,6 +69,20 @@ void DefinitionConstuctorTest::construct_ShouldConstructDefinitionFromParser()
     QCOMPARE(definition.parents().size(), 2);
     QVERIFY(definition.parents().contains("ComponentA"));
     QVERIFY(definition.parents().contains("Component2"));
+}
+
+//------------------------------------------------------------------------------
+void DefinitionConstuctorTest::construct_ShouldUseDelegateIfAny()
+{
+    FakeDefinitionParser parser;
+    parser.m_componentName = "TestComponent2";
+
+    ComponentDefinition definition;
+    DefinitionConstuctor constuctor;
+    constuctor.setLocationConstructorDelegate(new FakeComponentLocationConstructorDelegate("/some/where"));
+    constuctor.construct(&definition, &parser);
+
+    QCOMPARE(definition.componentLocation(), QString("/some/where"));
 }
 
 //------------------------------------------------------------------------------

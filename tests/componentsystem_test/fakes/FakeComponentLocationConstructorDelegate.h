@@ -24,36 +24,20 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef DEFINITIONCONSTUCTOR_H
-#define DEFINITIONCONSTUCTOR_H
+#ifndef FAKECOMPONENTLOCATIONCONSTRUCTORDELEGATE_H
+#define FAKECOMPONENTLOCATIONCONSTRUCTORDELEGATE_H
 
-#include "componentsystem/componentsystem_global.h"
+#include <componentsystem/IComponentLocationConstructorDelegate.h>
 
-#include <QtCore/QString>
-
-#include <functional>
-
-class IDefinitionParser;
-class ComponentDefinition;
-
-class IComponentLocationConstructorDelegate;
-
-class COMP_API DefinitionConstuctor
+class FakeComponentLocationConstructorDelegate : public IComponentLocationConstructorDelegate
 {
 public:
-    DefinitionConstuctor();
-    virtual ~DefinitionConstuctor();
+    FakeComponentLocationConstructorDelegate(const QString &returningValue);
 
-    virtual bool construct(ComponentDefinition *definition, const IDefinitionParser *parser);
+    QString constructLocation(const QString &ending);
 
-    /*!
-     * @details
-     *   Note, that it takes ownership for the delegate.
-     */
-    virtual void setLocationConstructorDelegate(IComponentLocationConstructorDelegate *delegate);
-
-private:
-    IComponentLocationConstructorDelegate *mp_delegate;
+public:
+    QString toReturn;
 };
 
-#endif // DEFINITIONCONSTUCTOR_H
+#endif // FAKECOMPONENTLOCATIONCONSTRUCTORDELEGATE_H

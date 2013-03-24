@@ -18,6 +18,7 @@ SOURCES += \
     $$PROJECT_SOURCES/FileComponentProvider.cpp \
     $$PROJECT_SOURCES/ProxyComponent.cpp \
     $$PROJECT_SOURCES/XmlDefinitionParser.cpp \
+    $$PROJECT_SOURCES/AbsolutePathComponentLocationConstructorDelegate.cpp
 
 HEADERS += \
     $$PROJECT_HEADERS/BaseComponent.h \
@@ -47,4 +48,6 @@ HEADERS += \
     $$PROJECT_HEADERS/IDirectoryComponentProvider.h \
     $$PROJECT_HEADERS/ProxyComponent.h \
     $$PROJECT_HEADERS/XmlDefinitionParser.h \
+    $$PROJECT_HEADERS/IComponentLocationConstructorDelegate.h \
+    $$PROJECT_HEADERS/AbsolutePathComponentLocationConstructorDelegate.h
 

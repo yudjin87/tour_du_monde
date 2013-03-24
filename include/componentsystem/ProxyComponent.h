@@ -72,16 +72,6 @@ public:
      */
     virtual bool initialize();
 
-    /*!
-     * @details
-     *   Sets the path to the definition file.
-     *
-     *   To get the absolute library file name a definition's file path is used
-     *   as a pivot for relative component path. The DirectoryComponentProvider
-     *   should set up this property.
-     */
-    void setDefinitionLocation(const QString &definitionLocation);
-
 protected:
     /*!
      * @details
@@ -105,7 +95,6 @@ private:
     IComponentLoader *mp_loader;
     IComponent *mp_component;
     bool m_initialized;
-    QString m_definitionLocation;
 };
 
 #endif // PROXYCOMPONENT_H

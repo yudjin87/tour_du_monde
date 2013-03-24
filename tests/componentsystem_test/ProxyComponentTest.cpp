@@ -46,8 +46,7 @@ ProxyComponentTest::ProxyComponentTest(QObject *parent)
     : QObject(parent)
     , definitionLocation(pathToComponentDefinition("TestComponent2"))
 {
-    QDir absolutePath = QCoreApplication::applicationDirPath();
-    componentFileName = absolutePath.relativeFilePath(pathToComponent("TestComponent2"));
+    componentFileName = pathToComponent("TestComponent2");
 
     QSettings::setPath(QSettings::NativeFormat, QSettings::UserScope, ".");
 }
@@ -60,35 +59,31 @@ void ProxyComponentTest::shouldReturnSpecifiedNameUntilComponentLoaded()
 }
 
 //------------------------------------------------------------------------------
-void ProxyComponentTest::initializeCallShouldSetupAbsoluteFileNameToLoader()
+void ProxyComponentTest::initializeCallShouldSetupLibraryFileNameToLoader()
 {
-    ComponentDefinition *def = new ComponentDefinition();  QFileInfo file(componentFileName);
-    def->setComponentLocation(file.fileName());
+    ComponentDefinition *def = new ComponentDefinition();
+    def->setComponentLocation(componentFileName);
 
     FakeComponentLoader *loader = new FakeComponentLoader();
     ProxyComponent component(def, loader, nullptr);
-    component.setDefinitionLocation(definitionLocation);
     component.initialize();
 
 #ifdef Q_OS_WIN32
-    QString fileName = pathToComponent("TestComponent2");
-    QCOMPARE(loader->fileName().toLower(), fileName.toLower());
+    QCOMPARE(loader->fileName().toLower(), componentFileName.toLower());
 #else
-    QString fileName = pathToComponent("TestComponent2");
-    QCOMPARE(loader->fileName(), fileName);
+    QCOMPARE(loader->fileName(), componentFileName);
 #endif // Q_WS_WIN
 }
 
 //------------------------------------------------------------------------------
 void ProxyComponentTest::initializeCallShouldInvokeLoadAvailability()
 {
-    ComponentDefinition *def = new ComponentDefinition();  QFileInfo file(componentFileName);
-    def->setComponentLocation(file.fileName());
+    ComponentDefinition *def = new ComponentDefinition();
+    def->setComponentLocation(componentFileName);
     def->setComponentName("TestComponent2");
 
     FakeComponentLoader *loader = new FakeComponentLoader();
     ProxyComponent component(def, loader, nullptr);
-    component.setDefinitionLocation(definitionLocation);
 
     QSettings settings;
     settings.setValue(QString("components_availability/%1").arg(def->componentName()), ComponentDefinition::Disabled);
@@ -105,12 +100,11 @@ void ProxyComponentTest::initializeCallShouldInvokeLoadAvailability()
 //------------------------------------------------------------------------------
 void ProxyComponentTest::initializeCallShouldReturnTrue()
 {
-    ComponentDefinition *def = new ComponentDefinition();  QFileInfo file(componentFileName);
-    def->setComponentLocation(file.fileName());
+    ComponentDefinition *def = new ComponentDefinition();
+    def->setComponentLocation(componentFileName);
     def->setComponentName("TestComponent2");
     FakeComponentLoader *loader = new FakeComponentLoader();
     ProxyComponent component(def, loader, nullptr);
-    component.setDefinitionLocation(definitionLocation);
     QVERIFY(component.initialize());
 }
 
@@ -122,7 +116,6 @@ void ProxyComponentTest::initializeCallShouldReturnFalseIfLibraryFileDoesNotExis
     def->setComponentName("TestComponent2");
     FakeComponentLoader *loader = new FakeComponentLoader();
     ProxyComponent component(def, loader, nullptr);
-    component.setDefinitionLocation(definitionLocation);
     QVERIFY(!component.initialize());
 }
 
@@ -131,7 +124,9 @@ void ProxyComponentTest::extensionShouldReturnRealComponentExtension()
 {
     FakeComponentLoader *loader = new FakeComponentLoader(new ComponentWithExtensions());
 
-    ProxyComponent component(new ComponentDefinition(), loader, nullptr);
+    ComponentDefinition *def = new ComponentDefinition();
+    def->setComponentLocation(componentFileName);
+    ProxyComponent component(def, loader, nullptr);
     component.initialize();
 
     component.startup(this);
@@ -154,7 +149,9 @@ void ProxyComponentTest::extensionShouldReturnNullUntilRealComponentIsCreated()
 void ProxyComponentTest::startupShouldLoadComponent()
 {
     FakeComponentLoader *loader = new FakeComponentLoader();
-    ProxyComponent component(new ComponentDefinition(), loader, nullptr);
+    ComponentDefinition *def = new ComponentDefinition();
+    def->setComponentLocation(componentFileName);
+    ProxyComponent component(def, loader, nullptr);
     component.initialize();
 
     component.startup(this);
@@ -190,7 +187,9 @@ void ProxyComponentTest::startupShouldCallStartupOnTheLoadedComponent()
 {
     FakeComponentLoader *loader = new FakeComponentLoader();
     ((MockComponent *)(loader->mockComponent))->m_returnValue = true;
-    ProxyComponent component(new ComponentDefinition(), loader, nullptr);
+    ComponentDefinition *def = new ComponentDefinition();
+    def->setComponentLocation(componentFileName);
+    ProxyComponent component(def, loader, nullptr);
     component.initialize();
 
     component.startup(this);
@@ -203,7 +202,9 @@ void ProxyComponentTest::startupShouldReturnResultOfTheLoadedComponentStartup()
 {
     FakeComponentLoader *loader = new FakeComponentLoader();
     ((MockComponent *)(loader->mockComponent))->m_returnValue = true;
-    ProxyComponent component(new ComponentDefinition(), loader, nullptr);
+    ComponentDefinition *def = new ComponentDefinition();
+    def->setComponentLocation(componentFileName);
+    ProxyComponent component(def, loader, nullptr);
     component.initialize();
 
     bool result = component.startup(this);
@@ -216,7 +217,9 @@ void ProxyComponentTest::shutdownShouldUnloadComponent()
 {
     FakeComponentLoader *loader = new FakeComponentLoader();
     ((MockComponent *)(loader->mockComponent))->m_returnValue = true;
-    ProxyComponent component(new ComponentDefinition(), loader, nullptr);
+    ComponentDefinition *def = new ComponentDefinition();
+    def->setComponentLocation(componentFileName);
+    ProxyComponent component(def, loader, nullptr);
     component.initialize();
     component.startup(this);
 
@@ -230,7 +233,9 @@ void ProxyComponentTest::shutdownShouldShutdownLoadedComponent()
 {
     FakeComponentLoader *loader = new FakeComponentLoader();
     ((MockComponent *)(loader->mockComponent))->m_returnValue = true;
-    ProxyComponent component(new ComponentDefinition(), loader, nullptr);
+    ComponentDefinition *def = new ComponentDefinition();
+    def->setComponentLocation(componentFileName);
+    ProxyComponent component(def, loader, nullptr);
     component.initialize();
     component.startup(this);
 

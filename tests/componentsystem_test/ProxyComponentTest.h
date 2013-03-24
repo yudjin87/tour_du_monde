@@ -38,7 +38,7 @@ public:
 private slots:
     void shouldReturnSpecifiedNameUntilComponentLoaded();
 
-    void initializeCallShouldSetupAbsoluteFileNameToLoader();
+    void initializeCallShouldSetupLibraryFileNameToLoader();
     void initializeCallShouldInvokeLoadAvailability();
     void initializeCallShouldReturnTrue();
     void initializeCallShouldReturnFalseIfLibraryFileDoesNotExist();

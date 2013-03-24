@@ -25,6 +25,7 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "FileComponentProvider.h"
+#include "AbsolutePathComponentLocationConstructorDelegate.h"
 #include "ComponentDefinition.h"
 #include "DefinitionConstuctor.h"
 #include "XmlDefinitionParser.h"
@@ -98,13 +99,13 @@ IComponent *FileComponentProvider::loadComponent()
 
     ComponentDefinition *definition = createDefintion();
     DefinitionConstuctorPtr constructor(createDefinitionConstuctor());
+    constructor->setLocationConstructorDelegate(new AbsolutePathComponentLocationConstructorDelegate(m_path));
     if (!constructor->construct(definition, parser.data())) {
         delete definition;
         return nullptr;
     }
 
     ProxyComponent *proxy = createProxy(definition);
-    proxy->setDefinitionLocation(m_path);
     if (!proxy->initialize()) {
         delete proxy;        
         return nullptr;

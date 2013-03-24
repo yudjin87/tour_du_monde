@@ -24,36 +24,34 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef DEFINITIONCONSTUCTOR_H
-#define DEFINITIONCONSTUCTOR_H
+#ifndef ABSOLUTEPATHCOMPONENTLOCATIONCONSTRUCTORDELEGATE_H
+#define ABSOLUTEPATHCOMPONENTLOCATIONCONSTRUCTORDELEGATE_H
 
-#include "componentsystem/componentsystem_global.h"
+#include "componentsystem/IComponentLocationConstructorDelegate.h"
 
-#include <QtCore/QString>
-
-#include <functional>
-
-class IDefinitionParser;
-class ComponentDefinition;
-
-class IComponentLocationConstructorDelegate;
-
-class COMP_API DefinitionConstuctor
+class COMP_API AbsolutePathComponentLocationConstructorDelegate : public IComponentLocationConstructorDelegate
 {
 public:
-    DefinitionConstuctor();
-    virtual ~DefinitionConstuctor();
-
-    virtual bool construct(ComponentDefinition *definition, const IDefinitionParser *parser);
+    /*!
+     * @details
+     *   Initializes a new instance of the AbsolutePathComponentLocationConstructorDelegate
+     *   class uses the path to the definition file.
+     *
+    *   To get the absolute library file name a definition's file path is used
+    *   as a pivot for relative component path.
+     */
+    AbsolutePathComponentLocationConstructorDelegate(const QString &definitionLocation);
+    ~AbsolutePathComponentLocationConstructorDelegate();
 
     /*!
      * @details
-     *   Note, that it takes ownership for the delegate.
+     *   Completes component location and returns the absolute path
+     *   to the component.
      */
-    virtual void setLocationConstructorDelegate(IComponentLocationConstructorDelegate *delegate);
+    QString constructLocation(const QString &ending);
 
 private:
-    IComponentLocationConstructorDelegate *mp_delegate;
+    QString m_definitionLocation;
 };
 
-#endif // DEFINITIONCONSTUCTOR_H
+#endif // ABSOLUTEPATHCOMPONENTLOCATIONCONSTRUCTORDELEGATE_H

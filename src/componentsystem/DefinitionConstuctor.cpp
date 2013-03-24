@@ -27,6 +27,7 @@
 #include "DefinitionConstuctor.h"
 
 #include "ComponentDefinition.h"
+#include "IComponentLocationConstructorDelegate.h"
 #include "IDefinitionParser.h"
 
 #include <QtCore/QDir>
@@ -45,12 +46,15 @@ static const QString libraryPattern("%1lib%2.so");
 
 //------------------------------------------------------------------------------
 DefinitionConstuctor::DefinitionConstuctor()
+    : mp_delegate(nullptr)
 {
 }
 
 //------------------------------------------------------------------------------
 DefinitionConstuctor::~DefinitionConstuctor()
 {
+    delete mp_delegate;
+    mp_delegate = nullptr;
 }
 
 //------------------------------------------------------------------------------
@@ -73,12 +77,25 @@ bool DefinitionConstuctor::construct(ComponentDefinition *definition, const IDef
     QFileInfo fileInfo(componentLocation);
     QString fileDir = fileInfo.filePath().replace(fileInfo.fileName(), "");
     QString filePath = libraryPattern.arg(fileDir).arg(fileInfo.fileName());
+
+    if (mp_delegate != nullptr)
+        filePath = mp_delegate->constructLocation(filePath);
+
     definition->setComponentLocation(filePath);
 
     foreach(const QString &parentName, parser->parents())
         definition->addParent(parentName);
 
     return true;
+}
+
+//------------------------------------------------------------------------------
+void DefinitionConstuctor::setLocationConstructorDelegate(IComponentLocationConstructorDelegate *delegate)
+{
+    if (mp_delegate != nullptr)
+        delete mp_delegate;
+
+    mp_delegate = delegate;
 }
 
 //------------------------------------------------------------------------------
