@@ -18,7 +18,7 @@ SOURCES += \
     $$PROJECT_SOURCES/FileComponentProvider.cpp \
     $$PROJECT_SOURCES/ProxyComponent.cpp \
     $$PROJECT_SOURCES/XmlDefinitionParser.cpp \
-    $$PROJECT_SOURCES/ComponentInstaller.cpp
+    $$PROJECT_SOURCES/ComponentInstaller.cpp \
     $$PROJECT_SOURCES/AbsolutePathComponentLocationConstructorDelegate.cpp
 
 HEADERS += \
@@ -50,7 +50,7 @@ HEADERS += \
     $$PROJECT_HEADERS/ProxyComponent.h \
     $$PROJECT_HEADERS/XmlDefinitionParser.h \
     $$PROJECT_HEADERS/ComponentExport.h \
-    $$PROJECT_HEADERS/ComponentInstaller.h
+    $$PROJECT_HEADERS/ComponentInstaller.h \
     $$PROJECT_HEADERS/IComponentLocationConstructorDelegate.h \
     $$PROJECT_HEADERS/AbsolutePathComponentLocationConstructorDelegate.h
 
