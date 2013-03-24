@@ -51,6 +51,9 @@ void DefinitionConstuctorTest::construct_ShouldConstructDefinitionFromParser()
     parser.m_parents.append("ComponentA");
     parser.m_parents.append("Component2");
     QDir absolutePath = QCoreApplication::applicationDirPath();
+
+    // Decorated relative name, something like following
+    // components/libTestComponent2.so
     QString fileName = absolutePath.relativeFilePath(pathToComponent("TestComponent2"));
 
     ComponentDefinition definition;
