@@ -8,10 +8,12 @@ include(cmake/target_utils)
 ######################################################################
 # Sources
 set(__SOURCES
+    ${CRSL_TARGET_SOURCES}/AbsolutePathComponentLocationConstructorDelegate.cpp 
     ${CRSL_TARGET_SOURCES}/BaseComponent.cpp 
     ${CRSL_TARGET_SOURCES}/ComponentDefinition.cpp 
     ${CRSL_TARGET_SOURCES}/ComponentDependencies.cpp 
     ${CRSL_TARGET_SOURCES}/ComponentInitialiser.cpp 
+    ${CRSL_TARGET_SOURCES}/ComponentInstaller.cpp 
     ${CRSL_TARGET_SOURCES}/ComponentLoader.cpp 
     ${CRSL_TARGET_SOURCES}/ComponentManager.cpp 
     ${CRSL_TARGET_SOURCES}/ComponentProvider.cpp 
@@ -29,11 +31,14 @@ set(__SOURCES
 ######################################################################
 # Headers
 set(__HEADERS
+    ${CRSL_TARGET_HEADERS}/AbsolutePathComponentLocationConstructorDelegate.h 
     ${CRSL_TARGET_HEADERS}/BaseComponent.h 
     ${CRSL_TARGET_HEADERS}/ComponentDefinition.h 
     ${CRSL_TARGET_HEADERS}/ComponentDependencies.h 
     ${CRSL_TARGET_HEADERS}/ComponentExport.h 
+    ${CRSL_TARGET_HEADERS}/ComponentExport.h 
     ${CRSL_TARGET_HEADERS}/ComponentInitialiser.h 
+    ${CRSL_TARGET_HEADERS}/ComponentInstaller.h 
     ${CRSL_TARGET_HEADERS}/ComponentLoader.h 
     ${CRSL_TARGET_HEADERS}/ComponentManager.h 
     ${CRSL_TARGET_HEADERS}/ComponentProvider.h 
@@ -50,6 +55,7 @@ set(__HEADERS
     ${CRSL_TARGET_HEADERS}/IComponentExtension.h 
     ${CRSL_TARGET_HEADERS}/IComponentInitialiser.h 
     ${CRSL_TARGET_HEADERS}/IComponentLoader.h 
+    ${CRSL_TARGET_HEADERS}/IComponentLocationConstructorDelegate.h 
     ${CRSL_TARGET_HEADERS}/IComponentManager.h 
     ${CRSL_TARGET_HEADERS}/IComponentProvider.h 
     ${CRSL_TARGET_HEADERS}/IDefinitionParser.h 

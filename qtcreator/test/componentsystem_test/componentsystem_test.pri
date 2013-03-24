@@ -14,6 +14,7 @@ SOURCES += \
     $$TEST_PROJECT_SOURCES/DirectoryWatchingComponentProviderTest.cpp \
     $$TEST_PROJECT_SOURCES/fakes/ComponentWithExtensions.cpp \
     $$TEST_PROJECT_SOURCES/fakes/FakeComponentLoader.cpp \
+    $$TEST_PROJECT_SOURCES/fakes/FakeComponentLocationConstructorDelegate.cpp \
     $$TEST_PROJECT_SOURCES/fakes/FakeDefinitionParser.cpp \
     $$TEST_PROJECT_SOURCES/fakes/MockChildComponent.cpp \
     $$TEST_PROJECT_SOURCES/fakes/MockComponent.cpp \
@@ -34,7 +35,6 @@ SOURCES += \
     $$TEST_PROJECT_SOURCES/ProxyComponentTest.cpp \
     $$TEST_PROJECT_SOURCES/Utils.cpp \
     $$TEST_PROJECT_SOURCES/XmlDefinitionParserTest.cpp \
-    $$TEST_PROJECT_SOURCES/fakes/FakeComponentLocationConstructorDelegate.cpp
 
 HEADERS += \
     $$TEST_PROJECT_SOURCES/BaseComponentTest.h \
@@ -50,6 +50,7 @@ HEADERS += \
     $$TEST_PROJECT_SOURCES/DirectoryWatchingComponentProviderTest.h \
     $$TEST_PROJECT_SOURCES/fakes/ComponentWithExtensions.h \
     $$TEST_PROJECT_SOURCES/fakes/FakeComponentLoader.h \
+    $$TEST_PROJECT_SOURCES/fakes/FakeComponentLocationConstructorDelegate.h \
     $$TEST_PROJECT_SOURCES/fakes/FakeDefinitionParser.h \
     $$TEST_PROJECT_SOURCES/fakes/MockChildComponent.h \
     $$TEST_PROJECT_SOURCES/fakes/MockComponent.h \
@@ -69,5 +70,4 @@ HEADERS += \
     $$TEST_PROJECT_SOURCES/ProxyComponentTest.h \
     $$TEST_PROJECT_SOURCES/Utils.h \
     $$TEST_PROJECT_SOURCES/XmlDefinitionParserTest.h \
-    $$TEST_PROJECT_SOURCES/fakes/FakeComponentLocationConstructorDelegate.h
 

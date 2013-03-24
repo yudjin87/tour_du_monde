@@ -2,10 +2,12 @@ PROJECT_SOURCES = $$CPP_SOURCE_TREE/componentsystem
 PROJECT_HEADERS = $$HPP_SOURCE_TREE/componentsystem
 
 SOURCES += \
+    $$PROJECT_SOURCES/AbsolutePathComponentLocationConstructorDelegate.cpp \
     $$PROJECT_SOURCES/BaseComponent.cpp \
     $$PROJECT_SOURCES/ComponentDefinition.cpp \
     $$PROJECT_SOURCES/ComponentDependencies.cpp \
     $$PROJECT_SOURCES/ComponentInitialiser.cpp \
+    $$PROJECT_SOURCES/ComponentInstaller.cpp \
     $$PROJECT_SOURCES/ComponentLoader.cpp \
     $$PROJECT_SOURCES/ComponentManager.cpp \
     $$PROJECT_SOURCES/ComponentProvider.cpp \
@@ -18,15 +20,16 @@ SOURCES += \
     $$PROJECT_SOURCES/FileComponentProvider.cpp \
     $$PROJECT_SOURCES/ProxyComponent.cpp \
     $$PROJECT_SOURCES/XmlDefinitionParser.cpp \
-    $$PROJECT_SOURCES/ComponentInstaller.cpp \
-    $$PROJECT_SOURCES/AbsolutePathComponentLocationConstructorDelegate.cpp
 
 HEADERS += \
+    $$PROJECT_HEADERS/AbsolutePathComponentLocationConstructorDelegate.h \
     $$PROJECT_HEADERS/BaseComponent.h \
     $$PROJECT_HEADERS/ComponentDefinition.h \
     $$PROJECT_HEADERS/ComponentDependencies.h \
     $$PROJECT_HEADERS/ComponentExport.h \
+    $$PROJECT_HEADERS/ComponentExport.h \
     $$PROJECT_HEADERS/ComponentInitialiser.h \
+    $$PROJECT_HEADERS/ComponentInstaller.h \
     $$PROJECT_HEADERS/ComponentLoader.h \
     $$PROJECT_HEADERS/ComponentManager.h \
     $$PROJECT_HEADERS/ComponentProvider.h \
@@ -43,14 +46,11 @@ HEADERS += \
     $$PROJECT_HEADERS/IComponentExtension.h \
     $$PROJECT_HEADERS/IComponentInitialiser.h \
     $$PROJECT_HEADERS/IComponentLoader.h \
+    $$PROJECT_HEADERS/IComponentLocationConstructorDelegate.h \
     $$PROJECT_HEADERS/IComponentManager.h \
     $$PROJECT_HEADERS/IComponentProvider.h \
     $$PROJECT_HEADERS/IDefinitionParser.h \
     $$PROJECT_HEADERS/IDirectoryComponentProvider.h \
     $$PROJECT_HEADERS/ProxyComponent.h \
     $$PROJECT_HEADERS/XmlDefinitionParser.h \
-    $$PROJECT_HEADERS/ComponentExport.h \
-    $$PROJECT_HEADERS/ComponentInstaller.h \
-    $$PROJECT_HEADERS/IComponentLocationConstructorDelegate.h \
-    $$PROJECT_HEADERS/AbsolutePathComponentLocationConstructorDelegate.h
 
