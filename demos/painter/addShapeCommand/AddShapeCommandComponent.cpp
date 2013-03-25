@@ -32,6 +32,9 @@
 #include <framework/AbstractApplication.h>
 
 //------------------------------------------------------------------------------
+static const QByteArray productName("AddShapeCommand");
+
+//------------------------------------------------------------------------------
 AddShapeCommandComponent::AddShapeCommandComponent(QObject *parent /*= nullptr*/)
     : BaseComponent("AddShapeCommand", parent)
 {
@@ -42,6 +45,7 @@ AddShapeCommandComponent::AddShapeCommandComponent(QObject *parent /*= nullptr*/
     addParent("Geodatabase");
     addParent("Display");
     addParent("Carto");
+    setProductName(productName);
 }
 
 //------------------------------------------------------------------------------

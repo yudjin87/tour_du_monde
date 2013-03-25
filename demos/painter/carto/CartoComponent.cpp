@@ -32,12 +32,16 @@
 #include <utils/IServiceLocator.h>
 
 //------------------------------------------------------------------------------
+static const QByteArray productName("Carto");
+
+//------------------------------------------------------------------------------
 CartoComponent::CartoComponent()
     : BaseComponent("Carto")
 {
     addParent("Display");
     addParent("Geodatabase");
     addParent("Geometry");
+    setProductName(productName);
 }
 
 //------------------------------------------------------------------------------

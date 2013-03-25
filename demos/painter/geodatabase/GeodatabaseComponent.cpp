@@ -36,6 +36,9 @@
 #include <functional>
 
 //------------------------------------------------------------------------------
+static const QByteArray productName("Geodatabase");
+
+//------------------------------------------------------------------------------
 // TODO: will be removed when c++11 is supported (with lambdas)
 void *createShapeFileWorkspaceFactory(IServiceLocator *locator)
 {
@@ -47,6 +50,7 @@ GeodatabaseComponent::GeodatabaseComponent()
     : BaseComponent("Geodatabase")
 {
     addParent("Geometry");
+    setProductName(productName);
 }
 
 //------------------------------------------------------------------------------

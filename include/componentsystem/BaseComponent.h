@@ -28,6 +28,7 @@
 #define BASECOMPONENT_H
 
 #include "componentsystem/IComponent.h"
+#include "componentsystem/ComponentDefinition.h"
 
 template<typename TValue>
 class TypeObjectsMap;
@@ -178,6 +179,20 @@ protected:
     void addParent(const QString &parent);
 
     void loadAvailability();
+
+    void setAvailability(ComponentDefinition::Availability newMode);
+
+    /*!
+     * @details
+     *   Sets the component description.
+     */
+    void setDescription(const QString &description);
+
+    /*!
+     * @details
+     *   Sets the product name.
+     */
+    void setProductName(const QString &productName);
 
 private:
     Q_DISABLE_COPY(BaseComponent)

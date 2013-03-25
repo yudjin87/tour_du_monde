@@ -38,10 +38,14 @@
 #include <QtGui/QMainWindow>
 
 //------------------------------------------------------------------------------
+static const QByteArray productName("Display");
+
+//------------------------------------------------------------------------------
 DisplayComponent::DisplayComponent(QObject *parent)
     : BaseComponent("Display", parent)
 {
     addParent("Interactivity");
+    setProductName(productName);
 }
 
 //------------------------------------------------------------------------------

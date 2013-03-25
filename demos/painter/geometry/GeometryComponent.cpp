@@ -32,9 +32,13 @@
 #include <utils/IServiceLocator.h>
 
 //------------------------------------------------------------------------------
+static const QByteArray productName("Geometry");
+
+//------------------------------------------------------------------------------
 GeometryComponent::GeometryComponent()
     : BaseComponent("Geometry")
 {
+    setProductName(productName);
 }
 
 //------------------------------------------------------------------------------

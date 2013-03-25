@@ -38,6 +38,9 @@
 #include <QtGui/QGraphicsScene>
 
 //------------------------------------------------------------------------------
+static const QByteArray productName("ShapesView");
+
+//------------------------------------------------------------------------------
 CartoUIComponent::CartoUIComponent(QObject *parent /*= nullptr*/)
     : BaseComponent("ShapesView", parent)
 {
@@ -48,6 +51,7 @@ CartoUIComponent::CartoUIComponent(QObject *parent /*= nullptr*/)
     addParent("Geodatabase");
     addParent("Display");
     addParent("Carto");
+    setProductName(productName);
 }
 
 //------------------------------------------------------------------------------

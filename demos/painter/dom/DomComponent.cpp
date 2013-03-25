@@ -32,6 +32,8 @@
 #include <framework/AbstractApplication.h>
 #include <utils/IServiceLocator.h>
 
+//------------------------------------------------------------------------------
+static const QByteArray productName("Dom");
 
 //------------------------------------------------------------------------------
 DomComponent::DomComponent()
@@ -40,6 +42,7 @@ DomComponent::DomComponent()
 {
     addParent("Display");
     addParent("Carto");
+    setProductName(productName);
 }
 
 //------------------------------------------------------------------------------

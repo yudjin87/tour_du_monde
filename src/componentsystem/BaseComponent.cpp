@@ -141,6 +141,24 @@ void BaseComponent::loadAvailability()
 }
 
 //------------------------------------------------------------------------------
+void BaseComponent::setAvailability(ComponentDefinition::Availability newMode)
+{
+    mp_definition->setAvailability(newMode);
+}
+
+//------------------------------------------------------------------------------
+void BaseComponent::setDescription(const QString &description)
+{
+    mp_definition->setDescription(description);
+}
+
+//------------------------------------------------------------------------------
+void BaseComponent::setProductName(const QString &productName)
+{
+    mp_definition->setProductName(productName);
+}
+
+//------------------------------------------------------------------------------
 void BaseComponent::registerExtensionInstance(void *ip_instance, const QString &i_forTypeId)
 {
     mp_typeObjectsMap->registerInstance(ip_instance, i_forTypeId);

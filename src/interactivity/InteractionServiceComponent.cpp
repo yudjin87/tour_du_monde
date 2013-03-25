@@ -50,10 +50,20 @@ private:
 };
 
 //------------------------------------------------------------------------------
+static const QByteArray description(
+        "The Interactivity component is a main component of GUI based\r\n"
+        "application. If your components add new commands or menus, or\r\n"
+        "dockable widgets - they should be a child to Interactivity\r\n"
+        "component. This mean a dependency of component parent name:\r\n"
+        "\"Interactivity\".");
+
+//------------------------------------------------------------------------------
 InteractionServiceComponent::InteractionServiceComponent(QObject *parent)
     : BaseComponent("Interactivity", parent)
     , d(new InteractionServiceComponentPrivate())
 {
+    setProductName("Interactivity");
+    setDescription(description);
 }
 
 //------------------------------------------------------------------------------
@@ -86,7 +96,7 @@ InteractionServiceComponent::InteractionServiceComponentPrivate::InteractionServ
 InteractionServiceComponent::InteractionServiceComponentPrivate::~InteractionServiceComponentPrivate()
 {
     if (mp_service != nullptr
-     || mp_dialogService != nullptr )
+            || mp_dialogService != nullptr )
         qWarning("Logic error: onShutdown() was not called.");
 }
 
@@ -94,7 +104,7 @@ InteractionServiceComponent::InteractionServiceComponentPrivate::~InteractionSer
 void InteractionServiceComponent::InteractionServiceComponentPrivate::onShutdown()
 {
     if (mp_service == nullptr
-     || mp_dialogService == nullptr )
+            || mp_dialogService == nullptr )
         qWarning("Logic error: onStartup() should be called before onShutdown().");
 
     delete mp_service;
@@ -107,7 +117,7 @@ void InteractionServiceComponent::InteractionServiceComponentPrivate::onShutdown
 bool InteractionServiceComponent::InteractionServiceComponentPrivate::onStartup(QObject *ip_initData)
 {
     if (mp_service != nullptr
-     || mp_dialogService != nullptr )
+            || mp_dialogService != nullptr )
         qWarning("Logic error: onShutdown() was not called.");
 
     if (ip_initData == nullptr)

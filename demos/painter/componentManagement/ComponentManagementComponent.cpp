@@ -32,6 +32,9 @@
 #include <framework/AbstractApplication.h>
 
 //------------------------------------------------------------------------------
+static const QByteArray productName("ComponentManagement");
+
+//------------------------------------------------------------------------------
 ComponentManagementComponent::ComponentManagementComponent(QObject *parent /*= nullptr*/)
     : BaseComponent("ComponentManagement", parent)
 {
@@ -39,6 +42,7 @@ ComponentManagementComponent::ComponentManagementComponent(QObject *parent /*= n
     registerExtension<IInteractiveExtension>(interactiveExtension);
 
     addParent("Interactivity");
+    setProductName(productName);
 }
 
 //------------------------------------------------------------------------------
