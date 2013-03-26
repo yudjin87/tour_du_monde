@@ -31,6 +31,15 @@
 
 #include <QtCore/QString>
 
+/*!
+ * @brief
+ *   The IComponentLocationConstructorDelegate class is used to constuct
+ *   a location to the library for a component.
+ * @details
+ *   This interface provides functionality for format component location
+ *   for the DefinitionConstructor. It may be absolute path for file system
+ *   or relative path for the web address and so on.
+ */
 class COMP_API IComponentLocationConstructorDelegate
 {
 public:

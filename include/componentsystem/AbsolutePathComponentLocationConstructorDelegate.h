@@ -29,6 +29,14 @@
 
 #include "componentsystem/IComponentLocationConstructorDelegate.h"
 
+/*!
+ * @brief
+ *   The AbsolutePathComponentLocationConstructorDelegate class is used
+ *   to constuct an absolute path to the library for a component.
+ * @details
+ *   It uses definition's file path as a pivot, and a componen location path
+ *   from the definition to format an absolute path.
+ */
 class COMP_API AbsolutePathComponentLocationConstructorDelegate : public IComponentLocationConstructorDelegate
 {
 public:
@@ -37,8 +45,8 @@ public:
      *   Initializes a new instance of the AbsolutePathComponentLocationConstructorDelegate
      *   class uses the path to the definition file.
      *
-    *   To get the absolute library file name a definition's file path is used
-    *   as a pivot for relative component path.
+     *   To get the absolute library file name a definition's file path is used
+     *   as a pivot for relative component path.
      */
     AbsolutePathComponentLocationConstructorDelegate(const QString &definitionLocation);
     ~AbsolutePathComponentLocationConstructorDelegate();
@@ -48,7 +56,7 @@ public:
      *   Completes component location and returns the absolute path
      *   to the component.
      */
-    QString constructLocation(const QString &ending);
+    QString constructLocation(const QString &relativePathToComponent);
 
 private:
     QString m_definitionLocation;

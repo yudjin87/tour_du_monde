@@ -41,13 +41,13 @@ AbsolutePathComponentLocationConstructorDelegate::~AbsolutePathComponentLocation
 }
 
 //------------------------------------------------------------------------------
-QString AbsolutePathComponentLocationConstructorDelegate::constructLocation(const QString &ending)
+QString AbsolutePathComponentLocationConstructorDelegate::constructLocation(const QString &relativePathToComponent)
 {
     // Get the absolute library file name, using definition's location
     // as a pivot for relative component path
     QFileInfo definitionFileName(m_definitionLocation);
     QDir definitionDirPath(definitionFileName.absoluteDir());
-    QString libraryAbsolutePath = definitionDirPath.absoluteFilePath(ending);
+    QString libraryAbsolutePath = definitionDirPath.absoluteFilePath(relativePathToComponent);
     QString cleanPath = QDir::cleanPath(libraryAbsolutePath);
     return cleanPath;
 }
