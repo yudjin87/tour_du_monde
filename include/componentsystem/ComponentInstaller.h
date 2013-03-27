@@ -27,4 +27,40 @@
 #ifndef COMPONENTINSTALLER_H
 #define COMPONENTINSTALLER_H
 
+#include "componentsystem/componentsystem_global.h"
+#include "componentsystem/DependenciesSolvingResult.h"
+
+#include <QtCore/QString>
+
+class DirectoryComponentProvider;
+class IComponent;
+
+/*!
+ * @brief
+ * @details
+ */
+class COMP_API ComponentInstaller
+{
+public:
+    ComponentInstaller(const QString &sourceDirectory);
+
+    const QString &installDirectory() const;
+    void setInstallDirectory(const QString &destinationDirectory);
+
+    void addExistedComponent(const IComponent *component);
+
+    void addDefinitionToInstall(const QString &definitionPath);
+    void addDefinitionsToInstall(const QStringList &definitionPathes);
+
+    DependenciesSolvingResult install();
+
+    QStringList installedComponentPathes() const;
+
+protected:
+    virtual DirectoryComponentProvider *createProvider(const QString &sourceDirectory);
+
+private:
+    QString m_sourceDirectory;
+};
+
 #endif // COMPONENTINSTALLER_H

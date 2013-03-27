@@ -24,5 +24,61 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-
 #include "ComponentInstaller.h"
+
+//------------------------------------------------------------------------------
+ComponentInstaller::ComponentInstaller(const QString &sourceDirectory)
+    : m_sourceDirectory(sourceDirectory)
+{
+}
+
+//------------------------------------------------------------------------------
+const QString &ComponentInstaller::installDirectory() const
+{
+    return m_sourceDirectory;
+}
+
+//------------------------------------------------------------------------------
+void ComponentInstaller::setInstallDirectory(const QString &destinationDirectory)
+{
+    Q_UNUSED(destinationDirectory)
+}
+
+//------------------------------------------------------------------------------
+void ComponentInstaller::addExistedComponent(const IComponent *component)
+{
+    Q_UNUSED(component)
+}
+
+//------------------------------------------------------------------------------
+void ComponentInstaller::addDefinitionToInstall(const QString &definitionPath)
+{
+    Q_UNUSED(definitionPath)
+}
+
+//------------------------------------------------------------------------------
+void ComponentInstaller::addDefinitionsToInstall(const QStringList &definitionPathes)
+{
+    Q_UNUSED(definitionPathes)
+}
+
+//------------------------------------------------------------------------------
+DependenciesSolvingResult ComponentInstaller::install()
+{
+    return DependenciesSolvingResult();
+}
+
+//------------------------------------------------------------------------------
+QStringList ComponentInstaller::installedComponentPathes() const
+{
+    return QStringList();
+}
+
+//------------------------------------------------------------------------------
+DirectoryComponentProvider *ComponentInstaller::createProvider(const QString &sourceDirectory)
+{
+    Q_UNUSED(sourceDirectory)
+    return nullptr;
+}
+
+//------------------------------------------------------------------------------
