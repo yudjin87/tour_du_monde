@@ -24,28 +24,37 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef COMPONENTINSTALLER_H
-#define COMPONENTINSTALLER_H
+#ifndef ICOMPONENTINSTALLER_H
+#define ICOMPONENTINSTALLER_H
 
-#include "componentsystem/IComponentInstaller.h"
+#include "componentsystem/componentsystem_global.h"
+#include "componentsystem/DependenciesSolvingResult.h"
+
+#include <QtCore/QString>
+
+class IComponent;
 
 /*!
  * @brief
  * @details
  */
-class COMP_API ComponentInstaller : public IComponentInstaller
+class COMP_API IComponentInstaller
 {
 public:
-    ComponentInstaller();
+    IComponentInstaller(){}
+    virtual ~IComponentInstaller(){}
 
-    const QString &installDirectory() const;
-    void setInstallDirectory(const QString &destinationDirectory);
+    virtual const QString &installDirectory() const = 0;
+    virtual void setInstallDirectory(const QString &destinationDirectory) = 0;
 
-    void addExistedComponent(const IComponent *component);
+    virtual void addExistedComponent(const IComponent *component) = 0;
 
-    DependenciesSolvingResult install(const QStringList &componentNames);
+    DependenciesSolvingResult install();
 
     QStringList installedComponentPathes() const;
+
+private:
+    Q_DISABLE_COPY(IComponentInstaller)
 };
 
-#endif // COMPONENTINSTALLER_H
+#endif // ICOMPONENTINSTALLER_H

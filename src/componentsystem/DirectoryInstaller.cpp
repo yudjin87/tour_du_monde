@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- 
+
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -24,28 +24,20 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef COMPONENTINSTALLER_H
-#define COMPONENTINSTALLER_H
+#include "DirectoryInstaller.h"
 
-#include "componentsystem/IComponentInstaller.h"
-
-/*!
- * @brief
- * @details
- */
-class COMP_API ComponentInstaller : public IComponentInstaller
+//------------------------------------------------------------------------------
+DirectoryInstaller::DirectoryInstaller(const QString &sourceDirectory)
+    : ComponentInstaller()
+    , m_sourceDirectory(sourceDirectory)
 {
-public:
-    ComponentInstaller();
+}
 
-    const QString &installDirectory() const;
-    void setInstallDirectory(const QString &destinationDirectory);
+//------------------------------------------------------------------------------
+DirectoryComponentProvider *DirectoryInstaller::createProvider(const QString &sourceDirectory)
+{
+    Q_UNUSED(sourceDirectory)
+    return nullptr;
+}
 
-    void addExistedComponent(const IComponent *component);
-
-    DependenciesSolvingResult install(const QStringList &componentNames);
-
-    QStringList installedComponentPathes() const;
-};
-
-#endif // COMPONENTINSTALLER_H
+//------------------------------------------------------------------------------

@@ -22,9 +22,11 @@ set(__SOURCES
     ${CRSL_TARGET_SOURCES}/DependenciesSolvingResult.cpp 
     ${CRSL_TARGET_SOURCES}/DependencySolver.cpp 
     ${CRSL_TARGET_SOURCES}/DirectoryComponentProvider.cpp 
+    ${CRSL_TARGET_SOURCES}/DirectoryInstaller.cpp 
     ${CRSL_TARGET_SOURCES}/DirectoryWatchingComponentProvider.cpp 
     ${CRSL_TARGET_SOURCES}/FileComponentProvider.cpp 
     ${CRSL_TARGET_SOURCES}/ProxyComponent.cpp 
+    ${CRSL_TARGET_SOURCES}/WebInstaller.cpp 
     ${CRSL_TARGET_SOURCES}/XmlDefinitionParser.cpp 
 )
 
@@ -48,12 +50,14 @@ set(__HEADERS
     ${CRSL_TARGET_HEADERS}/DependenciesSolvingResult.h 
     ${CRSL_TARGET_HEADERS}/DependencySolver.h 
     ${CRSL_TARGET_HEADERS}/DirectoryComponentProvider.h 
+    ${CRSL_TARGET_HEADERS}/DirectoryInstaller.h 
     ${CRSL_TARGET_HEADERS}/DirectoryWatchingComponentProvider.h 
     ${CRSL_TARGET_HEADERS}/FileComponentProvider.h 
     ${CRSL_TARGET_HEADERS}/IComponent.h 
     ${CRSL_TARGET_HEADERS}/IComponentDependencies.h 
     ${CRSL_TARGET_HEADERS}/IComponentExtension.h 
     ${CRSL_TARGET_HEADERS}/IComponentInitialiser.h 
+    ${CRSL_TARGET_HEADERS}/IComponentInstaller.h 
     ${CRSL_TARGET_HEADERS}/IComponentLoader.h 
     ${CRSL_TARGET_HEADERS}/IComponentLocationConstructorDelegate.h 
     ${CRSL_TARGET_HEADERS}/IComponentManager.h 
@@ -61,6 +65,7 @@ set(__HEADERS
     ${CRSL_TARGET_HEADERS}/IDefinitionParser.h 
     ${CRSL_TARGET_HEADERS}/IDirectoryComponentProvider.h 
     ${CRSL_TARGET_HEADERS}/ProxyComponent.h 
+    ${CRSL_TARGET_HEADERS}/WebInstaller.h 
     ${CRSL_TARGET_HEADERS}/XmlDefinitionParser.h 
 )
 

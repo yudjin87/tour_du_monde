@@ -27,8 +27,7 @@
 #include "ComponentInstaller.h"
 
 //------------------------------------------------------------------------------
-ComponentInstaller::ComponentInstaller(const QString &sourceDirectory)
-    : m_sourceDirectory(sourceDirectory)
+ComponentInstaller::ComponentInstaller()
 {
 }
 
@@ -51,20 +50,9 @@ void ComponentInstaller::addExistedComponent(const IComponent *component)
 }
 
 //------------------------------------------------------------------------------
-void ComponentInstaller::addDefinitionToInstall(const QString &definitionPath)
+DependenciesSolvingResult ComponentInstaller::install(const QStringList &componentNames)
 {
-    Q_UNUSED(definitionPath)
-}
-
-//------------------------------------------------------------------------------
-void ComponentInstaller::addDefinitionsToInstall(const QStringList &definitionPathes)
-{
-    Q_UNUSED(definitionPathes)
-}
-
-//------------------------------------------------------------------------------
-DependenciesSolvingResult ComponentInstaller::install()
-{
+    Q_UNUSED(componentNames)
     return DependenciesSolvingResult();
 }
 
@@ -72,13 +60,6 @@ DependenciesSolvingResult ComponentInstaller::install()
 QStringList ComponentInstaller::installedComponentPathes() const
 {
     return QStringList();
-}
-
-//------------------------------------------------------------------------------
-DirectoryComponentProvider *ComponentInstaller::createProvider(const QString &sourceDirectory)
-{
-    Q_UNUSED(sourceDirectory)
-    return nullptr;
 }
 
 //------------------------------------------------------------------------------

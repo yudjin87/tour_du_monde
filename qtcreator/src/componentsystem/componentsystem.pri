@@ -16,9 +16,11 @@ SOURCES += \
     $$PROJECT_SOURCES/DependenciesSolvingResult.cpp \
     $$PROJECT_SOURCES/DependencySolver.cpp \
     $$PROJECT_SOURCES/DirectoryComponentProvider.cpp \
+    $$PROJECT_SOURCES/DirectoryInstaller.cpp \
     $$PROJECT_SOURCES/DirectoryWatchingComponentProvider.cpp \
     $$PROJECT_SOURCES/FileComponentProvider.cpp \
     $$PROJECT_SOURCES/ProxyComponent.cpp \
+    $$PROJECT_SOURCES/WebInstaller.cpp \
     $$PROJECT_SOURCES/XmlDefinitionParser.cpp \
 
 HEADERS += \
@@ -39,12 +41,14 @@ HEADERS += \
     $$PROJECT_HEADERS/DependenciesSolvingResult.h \
     $$PROJECT_HEADERS/DependencySolver.h \
     $$PROJECT_HEADERS/DirectoryComponentProvider.h \
+    $$PROJECT_HEADERS/DirectoryInstaller.h \
     $$PROJECT_HEADERS/DirectoryWatchingComponentProvider.h \
     $$PROJECT_HEADERS/FileComponentProvider.h \
     $$PROJECT_HEADERS/IComponent.h \
     $$PROJECT_HEADERS/IComponentDependencies.h \
     $$PROJECT_HEADERS/IComponentExtension.h \
     $$PROJECT_HEADERS/IComponentInitialiser.h \
+    $$PROJECT_HEADERS/IComponentInstaller.h \
     $$PROJECT_HEADERS/IComponentLoader.h \
     $$PROJECT_HEADERS/IComponentLocationConstructorDelegate.h \
     $$PROJECT_HEADERS/IComponentManager.h \
@@ -52,5 +56,6 @@ HEADERS += \
     $$PROJECT_HEADERS/IDefinitionParser.h \
     $$PROJECT_HEADERS/IDirectoryComponentProvider.h \
     $$PROJECT_HEADERS/ProxyComponent.h \
+    $$PROJECT_HEADERS/WebInstaller.h \
     $$PROJECT_HEADERS/XmlDefinitionParser.h \
 
