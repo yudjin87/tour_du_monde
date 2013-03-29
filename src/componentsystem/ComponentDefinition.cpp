@@ -36,6 +36,7 @@ ComponentDefinition::ComponentDefinition()
     , m_componentName("Undefined_ProxyComponent")
     , m_description("")
     , m_productName("")
+    , m_definitionLocation("")
     , m_componentLocation("")
     , m_parents()
 {
@@ -48,6 +49,7 @@ ComponentDefinition::ComponentDefinition(const QString &componentName)
     , m_componentName(componentName)
     , m_description("")
     , m_productName("")
+    , m_definitionLocation("")
     , m_componentLocation("")
     , m_parents()
 {    
@@ -61,6 +63,8 @@ ComponentDefinition::~ComponentDefinition()
     m_parents.clear();
     m_description = "";
     m_productName = "";
+    m_componentLocation = "";
+    m_definitionLocation = "";
 }
 
 //------------------------------------------------------------------------------
@@ -91,6 +95,12 @@ const QString &ComponentDefinition::componentLocation() const
 const QString &ComponentDefinition::componentName() const
 {
     return m_componentName;
+}
+
+//------------------------------------------------------------------------------
+const QString &ComponentDefinition::definitionLocation() const
+{
+    return m_definitionLocation;
 }
 
 //------------------------------------------------------------------------------
@@ -147,6 +157,12 @@ void ComponentDefinition::setProductName(const QString &productName)
 void ComponentDefinition::setComponentLocation(const QString &componentLocation)
 {
     m_componentLocation = componentLocation;
+}
+
+//------------------------------------------------------------------------------
+void ComponentDefinition::setDefinitionLocation(const QString &definitionLocation)
+{
+    m_definitionLocation = definitionLocation;
 }
 
 //------------------------------------------------------------------------------

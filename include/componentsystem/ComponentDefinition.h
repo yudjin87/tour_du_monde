@@ -144,6 +144,15 @@ public slots:
 
     /*!
      * @details
+     *   Returns the definition location (for loaded components). It might be absolute or
+     *   relative path.
+     *
+     *   Returns empty string for explicitly loaded components (static components).
+     */
+    const QString &definitionLocation() const;
+
+    /*!
+     * @details
      *   Gets the detailed description text that is displayed for this component in the
      *   About this component box in the Components dialog.
      */
@@ -197,9 +206,15 @@ public slots:
 
     /*!
      * @details
-     *   Sets the component location.
+     *   Sets the component file location.
      */
     void setComponentLocation(const QString &componentLocation);
+
+    /*!
+     * @details
+     *   Sets the definition file location.
+     */
+    void setDefinitionLocation(const QString &definitionLocation);
 
 signals:
     /*!
@@ -228,6 +243,7 @@ private:
     QString m_description;
     QString m_productName;
     QString m_componentLocation;
+    QString m_definitionLocation;
     QStringList m_parents;
 };
 

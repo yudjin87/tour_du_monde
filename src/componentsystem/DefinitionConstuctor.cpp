@@ -44,6 +44,8 @@ static const QString libraryPattern("%1lib%2.dylib");
 static const QString libraryPattern("%1lib%2.so");
 #endif // Q_WS_X11
 
+static const QString definitionPattern("%1%2.definition");
+
 //------------------------------------------------------------------------------
 DefinitionConstuctor::DefinitionConstuctor()
     : mp_delegate(nullptr)
@@ -77,11 +79,15 @@ bool DefinitionConstuctor::construct(ComponentDefinition *definition, const IDef
     QFileInfo fileInfo(componentLocation);
     QString fileDir = fileInfo.filePath().replace(fileInfo.fileName(), "");
     QString filePath = libraryPattern.arg(fileDir).arg(fileInfo.fileName());
+    QString defFilePath = definitionPattern.arg(fileDir).arg(name);
 
-    if (mp_delegate != nullptr)
+    if (mp_delegate != nullptr) {
         filePath = mp_delegate->constructLocation(filePath);
+        defFilePath = mp_delegate->constructLocation(defFilePath);
+    }
 
     definition->setComponentLocation(filePath);
+    definition->setDefinitionLocation(defFilePath);
 
     foreach(const QString &parentName, parser->parents())
         definition->addParent(parentName);

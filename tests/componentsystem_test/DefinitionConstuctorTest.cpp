@@ -56,6 +56,7 @@ void DefinitionConstuctorTest::construct_ShouldConstructDefinitionFromParser()
     // Decorated relative name, something like following
     // components/libTestComponent2.so
     QString fileName = absolutePath.relativeFilePath(pathToComponent("TestComponent2"));
+    QString definitionFileName = absolutePath.relativeFilePath(pathToComponentDefinition("TestComponent2"));
 
     ComponentDefinition definition;
     DefinitionConstuctor constuctor;
@@ -66,6 +67,7 @@ void DefinitionConstuctorTest::construct_ShouldConstructDefinitionFromParser()
     QCOMPARE(definition.description(), QString("ABCD"));
     QCOMPARE(definition.productName(), QString("Carousel"));
     QCOMPARE(definition.componentLocation(), fileName);
+    QCOMPARE(definition.definitionLocation(), definitionFileName);
     QCOMPARE(definition.parents().size(), 2);
     QVERIFY(definition.parents().contains("ComponentA"));
     QVERIFY(definition.parents().contains("Component2"));
@@ -83,6 +85,7 @@ void DefinitionConstuctorTest::construct_ShouldUseDelegateIfAny()
     constuctor.construct(&definition, &parser);
 
     QCOMPARE(definition.componentLocation(), QString("/some/where"));
+    QCOMPARE(definition.definitionLocation(), QString("/some/where"));
 }
 
 //------------------------------------------------------------------------------
