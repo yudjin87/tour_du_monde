@@ -105,6 +105,7 @@ void ProxyComponent::_onShutdown()
 {
     mp_component->shutdown();
     bool result = mp_loader->deleteInstance();
+    Q_UNUSED(result)
     Q_ASSERT(result);
 
     mp_component = nullptr;
