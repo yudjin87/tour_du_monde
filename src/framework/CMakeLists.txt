@@ -1,5 +1,3 @@
-cmake_minimum_required(VERSION 2.8)
-
 ###############################################################################
 # framework project
 set(CRSL_PROJECT_NAME "Framework")

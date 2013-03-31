@@ -1,6 +1,4 @@
-cmake_minimum_required(VERSION 2.8)
-
-###############################################################################
+##############################################################################
 # booting project
 set(CRSL_PROJECT_NAME "Booting")
 include(cmake/target_utils)

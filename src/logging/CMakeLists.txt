@@ -1,5 +1,3 @@
-cmake_minimum_required(VERSION 2.8)
-
 ###############################################################################
 # logging project
 set(CRSL_PROJECT_NAME "Logging")

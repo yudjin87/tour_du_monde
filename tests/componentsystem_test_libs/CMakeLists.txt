@@ -1,5 +1,3 @@
-cmake_minimum_required(VERSION 2.8)
-
 ###############################################################################
 # This is a top-level solution folder that groups
 # concrete projects together
