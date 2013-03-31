@@ -157,6 +157,7 @@ QStringList ComponentInstaller::install()
         QString componentPath = createComponentDirectory(comp->name());
 
         QString definitionFileName = componentPath + QDir::separator() + comp->name() + ".definition";
+        definitionFileName = QDir::toNativeSeparators(definitionFileName);
         QFile::copy(comp->definition()->definitionLocation(), definitionFileName);
 
         QFileInfo library(comp->definition()->componentLocation());
