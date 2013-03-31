@@ -36,8 +36,8 @@ ComponentDefinition::ComponentDefinition()
     , m_componentName("Undefined_ProxyComponent")
     , m_description("")
     , m_productName("")
-    , m_definitionLocation("")
     , m_componentLocation("")
+    , m_definitionLocation("")
     , m_parents()
 {
 }
@@ -49,8 +49,8 @@ ComponentDefinition::ComponentDefinition(const QString &componentName)
     , m_componentName(componentName)
     , m_description("")
     , m_productName("")
-    , m_definitionLocation("")
     , m_componentLocation("")
+    , m_definitionLocation("")
     , m_parents()
 {    
     loadAvailability();
