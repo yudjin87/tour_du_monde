@@ -30,9 +30,12 @@
 #include "componentsystem/componentsystem_global.h"
 #include "componentsystem/DependenciesSolvingResult.h"
 
+#include <QtCore/QList>
 #include <QtCore/QString>
+#include <QtCore/QStringList>
 
 class IComponent;
+class DependenciesSolvingResult;
 
 /*!
  * @brief
@@ -44,14 +47,19 @@ public:
     IComponentInstaller(){}
     virtual ~IComponentInstaller(){}
 
+    virtual bool installComponentInSeparateDir() const = 0;
+    virtual void setInstallComponentInSeparateDir(bool separate) = 0;
+
     virtual const QString &installDirectory() const = 0;
     virtual void setInstallDirectory(const QString &destinationDirectory) = 0;
 
-    virtual void addExistedComponent(const IComponent *component) = 0;
+    virtual void addExistedComponent(IComponent *component) = 0;
 
-    DependenciesSolvingResult install();
+    virtual QList<IComponent *> existedComponents() const = 0;
 
-    QStringList installedComponentPathes() const;
+    virtual DependenciesSolvingResult tryToInstall(const QStringList &componentNames) = 0;
+
+    virtual QStringList install() = 0;
 
 private:
     Q_DISABLE_COPY(IComponentInstaller)

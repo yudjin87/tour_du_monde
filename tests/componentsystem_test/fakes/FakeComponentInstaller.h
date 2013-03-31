@@ -24,27 +24,31 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef MOCKCOMPONENTDEPENDENCIES_H
-#define MOCKCOMPONENTDEPENDENCIES_H
+#ifndef FAKECOMPONENTINSTALLER_H
+#define FAKECOMPONENTINSTALLER_H
 
-#include <componentsystem/ComponentDependencies.h>
+#include "MockComponentDependencies.h"
 
-class MockComponentDependencies : public ComponentDependencies
+#include <componentsystem/ComponentInstaller.h>
+
+class FakeComponentInstaller : public ComponentInstaller
 {
-    Q_OBJECT
 public:
-    explicit MockComponentDependencies(QObject *parent = 0);
-    
-    bool addComponent(IComponent *ip_component);
+    FakeComponentInstaller();
+    FakeComponentInstaller(const QString &destinationDirectory);
 
-    DependenciesSolvingResult completeListWithChildren(const QList<IComponent *> &i_forChildren) const;
-
-signals:
-    void onCompleteListWithChildren(IComponent *) const;
-    void onAdded(IComponent *) const;
+protected:
+    QList<IComponent *> discoverComponents();
+    QList<IComponent *> loadComponents(const QList<IComponent *> &componentsToInstall);
+    IComponentDependencies* createDependencies();
 
 public:
-    mutable int completeListWithChildrenCalled;
+    QList<IComponent *> discovered;
+    QList<IComponent *> loaded;
+    QList<IComponent *> passedComponents;
+    bool discoverCalled;
+    bool loadCalled;
+    MockComponentDependencies *dependencies;
 };
 
-#endif // MOCKCOMPONENTDEPENDENCIES_H
+#endif // FAKECOMPONENTINSTALLER_H

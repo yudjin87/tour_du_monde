@@ -24,30 +24,45 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "MockComponentDependencies.h"
+#include "FakeComponentInstaller.h"
 
 //------------------------------------------------------------------------------
-MockComponentDependencies::MockComponentDependencies(QObject *parent)
-    : ComponentDependencies(parent)
-    , completeListWithChildrenCalled(0)
+FakeComponentInstaller::FakeComponentInstaller()
+    : ComponentInstaller(ComponentInstaller::defaultInstallDir())
+    , discoverCalled(false)
+    , loadCalled(false)
+    , dependencies(new MockComponentDependencies())
 {
 }
 
 //------------------------------------------------------------------------------
-bool MockComponentDependencies::addComponent(IComponent *ip_component)
+FakeComponentInstaller::FakeComponentInstaller(const QString &destinationDirectory)
+    : ComponentInstaller(destinationDirectory)
+    , discoverCalled(false)
+    , loadCalled(false)
+    , dependencies(new MockComponentDependencies())
 {
-    emit onAdded(ip_component);
-    return ComponentDependencies::addComponent(ip_component);
 }
 
 //------------------------------------------------------------------------------
-DependenciesSolvingResult MockComponentDependencies::completeListWithChildren(const QList<IComponent *> &i_forChildren) const
+QList<IComponent *> FakeComponentInstaller::discoverComponents()
 {
-    foreach(IComponent *comp, i_forChildren)
-        emit onCompleteListWithChildren(comp);
+    discoverCalled = true;
+    return discovered;
+}
 
-    ++completeListWithChildrenCalled;
-    return ComponentDependencies::completeListWithChildren(i_forChildren);
+//------------------------------------------------------------------------------
+QList<IComponent *> FakeComponentInstaller::loadComponents(const QList<IComponent *> &componentsToInstall)
+{
+    loadCalled = true;
+    passedComponents = componentsToInstall;
+    return loaded;
+}
+
+//------------------------------------------------------------------------------
+IComponentDependencies *FakeComponentInstaller::createDependencies()
+{
+    return dependencies;
 }
 
 //------------------------------------------------------------------------------

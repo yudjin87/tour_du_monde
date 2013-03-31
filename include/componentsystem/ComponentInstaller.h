@@ -29,6 +29,10 @@
 
 #include "componentsystem/IComponentInstaller.h"
 
+#include <QtCore/QList>
+
+class IComponentDependencies;
+
 /*!
  * @brief
  * @details
@@ -36,16 +40,62 @@
 class COMP_API ComponentInstaller : public IComponentInstaller
 {
 public:
-    ComponentInstaller();
+    ComponentInstaller(const QString &destinationDirectory = ComponentInstaller::defaultInstallDir());
+    ~ComponentInstaller();
+
+    bool installComponentInSeparateDir() const;
+    void setInstallComponentInSeparateDir(bool separate);
 
     const QString &installDirectory() const;
     void setInstallDirectory(const QString &destinationDirectory);
 
-    void addExistedComponent(const IComponent *component);
+    void addExistedComponent(IComponent *component);
 
-    DependenciesSolvingResult install(const QStringList &componentNames);
+    QList<IComponent *> existedComponents() const;
 
-    QStringList installedComponentPathes() const;
+    DependenciesSolvingResult tryToInstall(const QStringList &componentNames);
+
+    QStringList install();
+
+    static QString defaultInstallDir();
+
+protected:
+    /*!
+     * @details
+     *   When overriden in derived classes discovers the components from the file system
+     *   or web. The installed components must be from the discovered set.
+     *
+     *   The ComponentInstaller takes ownership for discovered components.
+     */
+    virtual QList<IComponent *> discoverComponents() = 0;
+
+    /*!
+     * @details
+     *   When overriden in derived classes loads components if it is needed (e.g. from web)
+     *   and returns collection of the component proxies, loaded from the ready to copy files.
+     *
+     *   The ComponentInstaller takes ownership for loaded components.
+     */
+    virtual QList<IComponent *> loadComponents(const QList<IComponent *> &componentsToInstall) = 0;
+
+    /*!
+     * @details
+     *   Creates a default ComponentDependencies to solve component dependencies and install
+     *   missing ones if it is needed.
+     *
+     *   The ComponentInstaller takes ownership for it.
+     */
+    virtual IComponentDependencies* createDependencies();
+
+private:
+    QString createComponentDirectory(const QString &componentName);
+    void deleteComponents();
+
+private:
+    QString m_destinationDirectory;
+    bool m_separateDirForComponent;
+    QList<IComponent *> m_existedComponents;
+    QList<IComponent *> m_componentsToInstall;
 };
 
 #endif // COMPONENTINSTALLER_H

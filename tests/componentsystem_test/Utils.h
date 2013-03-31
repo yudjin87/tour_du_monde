@@ -21,11 +21,13 @@ do \
 } while(0)
 // #define QVERIFY_THROW
 
+QString formatLibraryName(const QString &i_libName);
 QString pathToLib(const QString &i_libName, bool decorateName = true);
 QString pathToComponent(const QString &i_libName, bool decorateName = true);
 QString pathToComponentDefinition(const QString &i_libName);
 QString pathToComponentsDir();
 
+bool removeDir(const QString & dirName);
 //------------------------------------------------------------------------------
 
 // TODO: will replace with std::uniq_ptr when c++11 is supported

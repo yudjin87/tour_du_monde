@@ -5,14 +5,20 @@
 #include <QtTest/QtTest>
 
 #ifdef Q_OS_WIN32
-    static const QString libraryPattern("%1.dll");
+static const QString libraryPattern("%1.dll");
 #endif // Q_WS_WIN
 #ifdef Q_OS_MAC
-    static const QString libraryPattern("lib%1.dylib");
+static const QString libraryPattern("lib%1.dylib");
 #endif // Q_WS_MAC
 #ifdef Q_OS_LINUX
-    static const QString libraryPattern("lib%1.so");
+static const QString libraryPattern("lib%1.so");
 #endif // Q_WS_X11
+
+//------------------------------------------------------------------------------
+QString formatLibraryName(const QString &i_libName)
+{
+    return libraryPattern.arg(i_libName);
+}
 
 //------------------------------------------------------------------------------
 QString pathToLib(const QString &i_libName, bool decorateName)
@@ -98,6 +104,30 @@ MockComponent* createComponent(const QString &i_name)
 {
     MockComponent *p_component = new MockComponent(i_name);
     return p_component;
+}
+
+//------------------------------------------------------------------------------
+bool removeDir(const QString & dirName)
+{
+    bool result;
+    QDir dir(dirName);
+
+    if (dir.exists(dirName)) {
+        foreach(QFileInfo info, dir.entryInfoList(QDir::NoDotAndDotDot | QDir::System | QDir::Hidden  | QDir::AllDirs | QDir::Files, QDir::DirsFirst)) {
+            if (info.isDir()) {
+                result = removeDir(info.absoluteFilePath());
+            }
+            else {
+                result = QFile::remove(info.absoluteFilePath());
+            }
+
+            if (!result) {
+                return result;
+            }
+        }
+        result = dir.rmdir(dirName);
+    }
+    return result;
 }
 
 //------------------------------------------------------------------------------
