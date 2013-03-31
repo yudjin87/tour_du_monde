@@ -26,9 +26,11 @@
 
 #include "InstallComponentsCommand.h"
 
+//#include <componentsystem/ComponentInstaller.h>
 #include <componentsystem/FileComponentProvider.h>
 #include <componentsystem/IComponent.h>
 #include <componentsystem/IComponentManager.h>
+
 #include <framework/AbstractApplication.h>
 #include <utils/IServiceLocator.h>
 
@@ -62,6 +64,10 @@ void InstallComponentsCommand::execute()
 
     state = fileDialog.saveState();
     settings.setValue("Install_component_dialog", state);
+
+//    ComponentInstaller installer("installedComponentss");
+//    installer.tryToInstall(fileDialog.selectedFiles());
+//    installer.install();
 
     IComponentManager *manager = locator.locate<IComponentManager>();
 
