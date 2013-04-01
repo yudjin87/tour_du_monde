@@ -26,7 +26,7 @@
 
 #include "InstallComponentsCommand.h"
 
-//#include <componentsystem/ComponentInstaller.h>
+#include <componentsystem/DirectoryInstaller.h>
 #include <componentsystem/FileComponentProvider.h>
 #include <componentsystem/IComponent.h>
 #include <componentsystem/IComponentManager.h>
@@ -65,14 +65,26 @@ void InstallComponentsCommand::execute()
     state = fileDialog.saveState();
     settings.setValue("Install_component_dialog", state);
 
-//    ComponentInstaller installer("installedComponentss");
-//    installer.tryToInstall(fileDialog.selectedFiles());
-//    installer.install();
-
-    IComponentManager *manager = locator.locate<IComponentManager>();
-
-    QList<IComponent *> components;
+    // Get component names from the selected files
+    QStringList componentNames;
     foreach(const QString &fileName, fileDialog.selectedFiles()) {
+        QFileInfo definitionFile(fileName);
+        componentNames.push_back(definitionFile.baseName());
+    }
+
+    // Add existed components
+    DirectoryInstaller installer(fileDialog.directory().absolutePath(), "./installedComponents");
+    IComponentManager *manager = locator.locate<IComponentManager>();
+    foreach(IComponent *comp, manager->components()) {
+        installer.addExistedComponent(comp);
+    }
+
+    installer.tryToInstall(componentNames);
+    QStringList installedDefinitions = installer.install();
+
+    // Startup installed components
+    QList<IComponent *> components;
+    foreach(const QString &fileName, installedDefinitions) {
         FileComponentProvider provider(fileName);
         IComponent *component = provider.loadComponent();
         if (manager->addComponent(component))

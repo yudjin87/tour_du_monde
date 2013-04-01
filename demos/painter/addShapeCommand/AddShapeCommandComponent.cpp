@@ -45,6 +45,7 @@ AddShapeCommandComponent::AddShapeCommandComponent(QObject *parent /*= nullptr*/
     addParent("Geodatabase");
     addParent("Display");
     addParent("Carto");
+    addParent("CartoUI");
     setProductName(productName);
 }
 
