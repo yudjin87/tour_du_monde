@@ -67,7 +67,7 @@ public:
      * @details
      *   Gets the all components registered at the provider.
      */
-    QVector<IComponent *> components() const;
+    QList<IComponent *> components() const;
 
     /*!
      * @details
@@ -103,7 +103,7 @@ protected:
     virtual bool _initialize();
 
 private:
-    QVector<IComponent *> m_components;
+    QList<IComponent *> m_components;
     bool m_alreadyInit;
 };
 

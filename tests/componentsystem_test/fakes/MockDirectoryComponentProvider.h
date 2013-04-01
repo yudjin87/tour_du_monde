@@ -13,7 +13,7 @@ public:
     MockDirectoryComponentProvider(const QString &path);
     ~MockDirectoryComponentProvider();
 
-    QVector<IComponent *> update();
+    QList<IComponent *> update();
 
     bool initialize();
 
@@ -26,7 +26,7 @@ public:
     int providersCreated;
     bool initializeCalled;
     bool initializeReturnValue;
-    QVector<IComponent *> updateResult;
+    QList<IComponent *> updateResult;
 };
 
 class FakeFileComponentProvider : public FileComponentProvider

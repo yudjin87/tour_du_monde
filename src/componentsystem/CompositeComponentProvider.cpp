@@ -63,9 +63,9 @@ bool CompositeComponentProvider::isInitialized() const
 }
 
 //------------------------------------------------------------------------------
-QVector<IComponent *> CompositeComponentProvider::components() const
+QList<IComponent *> CompositeComponentProvider::components() const
 {
-    QVector<IComponent *> components_to_return;
+    QList<IComponent *> components_to_return;
 
     foreach(IComponentProvider *p_provider, m_providers)
         foreach(IComponent *p_component, p_provider->components())

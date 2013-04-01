@@ -71,7 +71,7 @@ void DirectoryComponentProviderTest::update_shouldCallReadOnParserForEachDefinit
 void DirectoryComponentProviderTest::update_shouldReturnTwoComponents()
 {
     MockDirectoryComponentProvider provider(definitionsLocation);
-    QVector<IComponent *> components = provider.update();
+    QList<IComponent *> components = provider.update();
 
     QCOMPARE(components.size(), 2);
 }
@@ -120,7 +120,7 @@ void DirectoryComponentProviderTest::update_shouldReturnOnlyNewComponents()
     newComponentFile.write(newComponentDef.toLatin1());
     newComponentFile.close();
 
-    QVector<IComponent *> components = provider.update();
+    QList<IComponent *> components = provider.update();
 
     QVERIFY(newComponentFile.remove());
 

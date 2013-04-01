@@ -110,11 +110,11 @@ void DirectoryWatchingComponentProviderTest::shouldCallUpdateAfter_directoryChan
 void DirectoryWatchingComponentProviderTest::shouldEmitChangesAfter_directoryChanged_signal()
 {
     MockDirectoryComponentProvider *mock = new MockDirectoryComponentProvider();
-    QVector<IComponent *> updates; updates.push_back(nullptr);
+    QList<IComponent *> updates; updates.push_back(nullptr);
     mock->updateResult = updates;
     MockDirectoryWatchingComponentProvider provider(mock);
 
-    QSignalSpy spy(&provider, SIGNAL(newComponentsDiscovered(const QVector<IComponent *> &)));
+    QSignalSpy spy(&provider, SIGNAL(newComponentsDiscovered(const QList<IComponent *> &)));
 
     provider.initialize();
     provider.mockWatcher->emitDirectoryChanged();

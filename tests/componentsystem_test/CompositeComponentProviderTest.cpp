@@ -52,7 +52,7 @@ void CompositeComponentProviderTest::shouldJoinComponentsFromAllProviders()
 
     mock.initialize();
 
-    QVector<IComponent *> components = mock.components();
+    QList<IComponent *> components = mock.components();
 
     QCOMPARE(components.size(), 3);
 }
@@ -74,7 +74,7 @@ void CompositeComponentProviderTest::shouldMergeComponentsBothFromProvidersAndFr
 
     mock.initialize();
 
-    QVector<IComponent *> components = mock.components();
+    QList<IComponent *> components = mock.components();
 
     QCOMPARE(components.size(), 3);
 }

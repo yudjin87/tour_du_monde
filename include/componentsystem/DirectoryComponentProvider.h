@@ -187,7 +187,7 @@ public:
     *
     *   Returns list of the new discovered components.
     */
-    QVector<IComponent *> update();
+    QList<IComponent *> update();
 
 protected:
     /*!

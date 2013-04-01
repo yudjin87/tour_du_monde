@@ -53,7 +53,7 @@ public:
     const QFileSystemWatcher *watcher() const;
 
 signals:
-    void newComponentsDiscovered(const QVector<IComponent *> &components);
+    void newComponentsDiscovered(const QList<IComponent *> &components);
 
 protected:
     virtual QFileSystemWatcher *createWatcher() const;

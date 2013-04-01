@@ -100,7 +100,7 @@ void DirectoryWatchingComponentProvider::onDirectoryChanged(const QString &path)
 {
     Q_UNUSED(path)
 
-    const QVector<IComponent *> &newComponetns = mp_provider->update();
+    const QList<IComponent *> &newComponetns = mp_provider->update();
     if (!newComponetns.isEmpty())
         emit newComponentsDiscovered(newComponetns);
 }

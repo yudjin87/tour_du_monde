@@ -40,7 +40,7 @@ ComponentProvider::~ComponentProvider()
 }
 
 //------------------------------------------------------------------------------
-QVector<IComponent *> ComponentProvider::components() const
+QList<IComponent *> ComponentProvider::components() const
 {
     return m_components;
 }

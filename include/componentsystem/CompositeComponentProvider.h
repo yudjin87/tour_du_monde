@@ -87,7 +87,7 @@ public:
      * @details
      *   Gets the all components that are registered at the providers.
      */
-    QVector<IComponent *> components() const;
+    QList<IComponent *> components() const;
 
     /*!
      * @details
@@ -113,7 +113,7 @@ protected:
      * @details
      *   The list of added providers.
      */
-    QVector<IComponentProvider *> m_providers;
+    QList<IComponentProvider *> m_providers;
 
 private:
     bool m_alreadyInit;

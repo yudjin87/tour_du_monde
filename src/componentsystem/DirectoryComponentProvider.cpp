@@ -119,15 +119,15 @@ QDirIterator::IteratorFlags DirectoryComponentProvider::flags() const
 }
 
 //------------------------------------------------------------------------------
-QVector<IComponent *> DirectoryComponentProvider::update()
+QList<IComponent *> DirectoryComponentProvider::update()
 {
     if (m_path.isEmpty())
-        return QVector<IComponent *>();
+        return QList<IComponent *>();
 
     QStringList nameFilters(m_definitionExtension);
     QDirIterator iterator(m_path, nameFilters, m_filters, m_flags);
 
-    QVector<IComponent *> discoveredComponents;
+    QList<IComponent *> discoveredComponents;
     while (iterator.hasNext()) {
         QString fileName = iterator.next();
         QFileInfo directoryToComponents(fileName);
@@ -160,7 +160,7 @@ QDir::Filters DirectoryComponentProvider::filters() const
 //------------------------------------------------------------------------------
 bool DirectoryComponentProvider::_initialize()
 {
-    QVector<IComponent *> discoveredComponents = update();
+    QList<IComponent *> discoveredComponents = update();
     return !discoveredComponents.empty();
 }
 

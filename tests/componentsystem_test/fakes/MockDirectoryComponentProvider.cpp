@@ -32,7 +32,7 @@ MockDirectoryComponentProvider::~MockDirectoryComponentProvider()
 }
 
 //------------------------------------------------------------------------------
-QVector<IComponent *> MockDirectoryComponentProvider::update()
+QList<IComponent *> MockDirectoryComponentProvider::update()
 {
     updateCalled++;
 

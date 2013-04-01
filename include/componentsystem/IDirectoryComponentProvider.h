@@ -184,7 +184,7 @@ public:
     *
     *   Returns list of the new discovered components.
     */
-   virtual QVector<IComponent *> update() = 0;
+   virtual QList<IComponent *> update() = 0;
 
 private:
     Q_DISABLE_COPY(IDirectoryComponentProvider)

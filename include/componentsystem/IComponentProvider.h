@@ -29,7 +29,7 @@
 
 #include "componentsystem/componentsystem_global.h"
 
-#include <QtCore/QVector>
+#include <QtCore/QList>
 
 class IComponent;
 
@@ -56,7 +56,7 @@ public:
      * @details
      *   Gets the all components registered at the provider.
      */
-    virtual QVector<IComponent *> components() const = 0;
+    virtual QList<IComponent *> components() const = 0;
 
     /*!
      * @details
