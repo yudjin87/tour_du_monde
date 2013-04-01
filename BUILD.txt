@@ -4,29 +4,32 @@
  
  Here is at glance how file system structure is organized:
 ##############################################################################
- +/carousel
-     +/build              <= Stuff for the generated IDE projects;
-     +/cmake              <= Utility modules; 
-     +/src                <= source folder;
-         +/booting
-         +/componentsystem
-         +/interactivity
-         +/...
-         +/CMakeLists.txt <= Nested cmake file. Each directory has such;
-     +/make-build         <= Stuff for the NMake/UNIX makefiles, that
-     +/nmake-build        <= appear after build_all_using_make.txt running;
-     +/win32              <= Binaries output for makefiles and IDEs;
-         +/debug
-             +/bin
-             +/lib
-         +/debug_static
-         +/release
-         +/release_static
-     +/CMakeLists.txt     <= Main CMake file;
- +/carousel-build         <= Stuff for the QtCreator's cmake;
+   +/carousel                     <= CAROUSEL_WD
+       +/demos
+       +/docs
+       +/include                  <= HPP_SOURCE_TREE
+       +/product                  <= Binaries output (for different configurations and platforms)
+           +/mingw-x64-debug      <= BIN_OUTPUT_PATH
+              +/bin               <= Binaries
+              +/intermediate      <= Intermediate files
+              +/unittest          <= Unittest applications
+           +/mingw-x64-release
+           +/msvc10-x32-debug-static
+           +/msvc11-x64-release-static
+           +/...
+       +/msvc                     <= Source tree for the MSVC
+       +/qtcreator                <= IDE_SOURCE_TREE
+           +/carousel.pro
+           +/carousel_with_tests.pro
+       +/src                      <= CPP_SOURCE_TREE
+           +/booting              <= PROJECT_SOURCES
+           +/...
+       +/tests                    <= CPP_TESTS_TREE
+           +/booting_test         <= TEST_PROJECT_SOURCES
+           +/...
 ##############################################################################
  
- To generate out-of-source IDE (MSVC, Xcode, etc.) project run from the 'build' folder
+ To generate out-of-source IDE (MSVS, Xcode, etc.) project run from the 'build' folder
 
    cmake .. 
 
