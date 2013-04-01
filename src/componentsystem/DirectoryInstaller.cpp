@@ -25,10 +25,16 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "DirectoryInstaller.h"
+#include "DirectoryComponentProvider.h"
+
+#include <QtCore/QScopedPointer>
 
 //------------------------------------------------------------------------------
-DirectoryInstaller::DirectoryInstaller(const QString &sourceDirectory)
-    : ComponentInstaller()
+typedef QScopedPointer<DirectoryComponentProvider> DirectoryComponentProviderPtr;
+
+//------------------------------------------------------------------------------
+DirectoryInstaller::DirectoryInstaller(const QString &sourceDirectory, const QString &destinationDirectory)
+    : ComponentInstaller(destinationDirectory)
     , m_sourceDirectory(sourceDirectory)
 {
 }
@@ -36,8 +42,23 @@ DirectoryInstaller::DirectoryInstaller(const QString &sourceDirectory)
 //------------------------------------------------------------------------------
 DirectoryComponentProvider *DirectoryInstaller::createProvider(const QString &sourceDirectory)
 {
-    Q_UNUSED(sourceDirectory)
-    return nullptr;
+    return new DirectoryComponentProvider(sourceDirectory);
+}
+
+//------------------------------------------------------------------------------
+QList<IComponent *> DirectoryInstaller::discoverComponents()
+{
+    DirectoryComponentProviderPtr provider(createProvider(m_sourceDirectory));
+    if (!provider->initialize())
+        return QList<IComponent *>();
+
+    return provider->components();
+}
+
+//------------------------------------------------------------------------------
+QList<IComponent *> DirectoryInstaller::loadComponents(const QList<IComponent *> &componentsToInstall)
+{
+    return componentsToInstall;
 }
 
 //------------------------------------------------------------------------------

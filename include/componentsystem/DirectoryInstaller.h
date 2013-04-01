@@ -38,10 +38,24 @@ class DirectoryComponentProvider;
 class COMP_API DirectoryInstaller : public ComponentInstaller
 {
 public:
-    DirectoryInstaller(const QString &sourceDirectory);
+    DirectoryInstaller(const QString &sourceDirectory, const QString &destinationDirectory = ComponentInstaller::defaultInstallDir());
 
 protected:
     virtual DirectoryComponentProvider *createProvider(const QString &sourceDirectory);
+
+    /*!
+     * @details
+     *   Discovers components from the @a source @a directory using DirectoryComponentProvider.
+     *
+     *   The ComponentInstaller takes ownership for discovered components.
+     */
+    QList<IComponent *> discoverComponents();
+
+    /*!
+     * @details
+     *   Since components already on the user's file system, just returns that list.
+     */
+    QList<IComponent *> loadComponents(const QList<IComponent *> &componentsToInstall);
 
 private:
     QString m_sourceDirectory;
