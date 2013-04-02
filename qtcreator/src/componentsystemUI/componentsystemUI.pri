@@ -5,6 +5,6 @@ SOURCES += \
     $$PROJECT_SOURCES/ComponentManagerModel.cpp \
 
 HEADERS += \
+    $$PROJECT_HEADERS/ComponentManagerModel.h \
     $$PROJECT_HEADERS/componentsystem_ui_global.h \
-    $$PROJECT_HEADERS/ComponentManagerModel.h
 

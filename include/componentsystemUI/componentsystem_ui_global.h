@@ -32,11 +32,11 @@
 #if defined(STATIC_BUILD)
 #   define COMP_SYSTEM_UI_API
 #else
-#   if defined(COMPONENTSYSTEM_UI_LIBRARY)
+#   if defined(COMPONENTSYSTEMUI_LIBRARY)
 #       define COMP_SYSTEM_UI_API Q_DECL_EXPORT
 #   else
 #       define COMP_SYSTEM_UI_API Q_DECL_IMPORT
-#   endif //#if defined(COMPONENTSYSTEM_UI_LIBRARY)
+#   endif //#if defined(COMPONENTSYSTEMUI_LIBRARY)
 #endif //#if defined(STATIC_BUILD)
 
 // Should be removed

@@ -5,6 +5,7 @@ SOURCES += \
     $$TEST_PROJECT_SOURCES/ComponentDefinitionTest.cpp \
     $$TEST_PROJECT_SOURCES/ComponentDependenciesTest.cpp \
     $$TEST_PROJECT_SOURCES/ComponentInitialiserTest.cpp \
+    $$TEST_PROJECT_SOURCES/ComponentInstallerTest.cpp \
     $$TEST_PROJECT_SOURCES/ComponentLoaderTest.cpp \
     $$TEST_PROJECT_SOURCES/ComponentManagerTest.cpp \
     $$TEST_PROJECT_SOURCES/CompositeComponentProviderTest.cpp \
@@ -13,6 +14,7 @@ SOURCES += \
     $$TEST_PROJECT_SOURCES/DirectoryComponentProviderTest.cpp \
     $$TEST_PROJECT_SOURCES/DirectoryWatchingComponentProviderTest.cpp \
     $$TEST_PROJECT_SOURCES/fakes/ComponentWithExtensions.cpp \
+    $$TEST_PROJECT_SOURCES/fakes/FakeComponentInstaller.cpp \
     $$TEST_PROJECT_SOURCES/fakes/FakeComponentLoader.cpp \
     $$TEST_PROJECT_SOURCES/fakes/FakeComponentLocationConstructorDelegate.cpp \
     $$TEST_PROJECT_SOURCES/fakes/FakeDefinitionParser.cpp \
@@ -35,14 +37,13 @@ SOURCES += \
     $$TEST_PROJECT_SOURCES/ProxyComponentTest.cpp \
     $$TEST_PROJECT_SOURCES/Utils.cpp \
     $$TEST_PROJECT_SOURCES/XmlDefinitionParserTest.cpp \
-    $$TEST_PROJECT_SOURCES/ComponentInstallerTest.cpp \
-    $$TEST_PROJECT_SOURCES/fakes/FakeComponentInstaller.cpp
 
 HEADERS += \
     $$TEST_PROJECT_SOURCES/BaseComponentTest.h \
     $$TEST_PROJECT_SOURCES/ComponentDefinitionTest.h \
     $$TEST_PROJECT_SOURCES/ComponentDependenciesTest.h \
     $$TEST_PROJECT_SOURCES/ComponentInitialiserTest.h \
+    $$TEST_PROJECT_SOURCES/ComponentInstallerTest.h \
     $$TEST_PROJECT_SOURCES/ComponentLoaderTest.h \
     $$TEST_PROJECT_SOURCES/ComponentManagerTest.h \
     $$TEST_PROJECT_SOURCES/CompositeComponentProviderTest.h \
@@ -51,6 +52,7 @@ HEADERS += \
     $$TEST_PROJECT_SOURCES/DirectoryComponentProviderTest.h \
     $$TEST_PROJECT_SOURCES/DirectoryWatchingComponentProviderTest.h \
     $$TEST_PROJECT_SOURCES/fakes/ComponentWithExtensions.h \
+    $$TEST_PROJECT_SOURCES/fakes/FakeComponentInstaller.h \
     $$TEST_PROJECT_SOURCES/fakes/FakeComponentLoader.h \
     $$TEST_PROJECT_SOURCES/fakes/FakeComponentLocationConstructorDelegate.h \
     $$TEST_PROJECT_SOURCES/fakes/FakeDefinitionParser.h \
@@ -72,6 +74,4 @@ HEADERS += \
     $$TEST_PROJECT_SOURCES/ProxyComponentTest.h \
     $$TEST_PROJECT_SOURCES/Utils.h \
     $$TEST_PROJECT_SOURCES/XmlDefinitionParserTest.h \
-    $$TEST_PROJECT_SOURCES/ComponentInstallerTest.h \
-    $$TEST_PROJECT_SOURCES/fakes/FakeComponentInstaller.h
 
