@@ -7,7 +7,7 @@ SUBDIRS += \
     utils \
     logging \
     componentsystem \
-    #componentsystemUI \
+    componentsystemUI \
     booting \
     framework \
     interactivity \

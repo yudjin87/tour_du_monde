@@ -3,7 +3,7 @@
  *
  * Carousel - Qt-based managed component library.
  *
- * Copyright: 2011-2012 Carousel team
+ * Copyright: 2011-2013 Carousel team
  * Authors:
  *   Eugene Chuguy <eugene.chuguy@gmail.com>
  *
@@ -29,11 +29,15 @@
 
 #include <QtCore/qglobal.h>
 
-#if defined(COMPONENTSYSTEM_UI_LIB_IMPORT)
-#  define COMP_SYSTEM_UI_API Q_DECL_EXPORT
+#if defined(STATIC_BUILD)
+#   define COMP_SYSTEM_UI_API
 #else
-#  define COMP_SYSTEM_UI_API Q_DECL_IMPORT
-#endif
+#   if defined(COMPONENTSYSTEM_UI_LIBRARY)
+#       define COMP_SYSTEM_UI_API Q_DECL_EXPORT
+#   else
+#       define COMP_SYSTEM_UI_API Q_DECL_IMPORT
+#   endif //#if defined(COMPONENTSYSTEM_UI_LIBRARY)
+#endif //#if defined(STATIC_BUILD)
 
 // Should be removed
 #define nullptr 0
