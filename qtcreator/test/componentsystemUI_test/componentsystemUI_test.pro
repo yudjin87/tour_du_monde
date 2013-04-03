@@ -1,18 +1,11 @@
-include (../../carousel.pri)
-include (componentsystemUI.test.pri)
+include (../test_shared.pri)
+include (componentsystemUI_test.pri)
 
-QT       -= gui
-QT       += testlib
-QT       += core
+QT      += gui
+TARGET = componentsystemUI_test
 
-TEMPLATE = app
+DESTDIR = $${CAROUSEL_WD}/$${BIN_OUTPUT_PATH}/manual-test
 
-TARGET = test_ComponentSystemUI
-
-CONFIG   += console
-CONFIG   -= app_bundle
-
-LIBS += -L$${DESTDIR} -lComponentSystemUI \
-                      -lUtils
-
-DESTDIR         = $${CAROUSEL_WD}/bin/tests
+LIBS += -L$${DESTDIR}/../bin -lLogging \
+                             -lUtils \
+                             -lComponentSystem \
