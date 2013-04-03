@@ -9,3 +9,4 @@ DESTDIR = $${CAROUSEL_WD}/$${BIN_OUTPUT_PATH}/manual-test
 LIBS += -L$${DESTDIR}/../bin -lLogging \
                              -lUtils \
                              -lComponentSystem \
+                             -lComponentSystemUI \

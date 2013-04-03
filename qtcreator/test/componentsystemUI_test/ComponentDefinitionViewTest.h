@@ -24,36 +24,23 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef COMPONENTMANAGERMODEL_H
-#define COMPONENTMANAGERMODEL_H
+#ifndef COMPONENTDEFINITIONVIEWTEST_H
+#define COMPONENTDEFINITIONVIEWTEST_H
 
-#include "componentsystemUI/componentsystem_ui_global.h"
+#include <QtGui/QTableView>
 
-#include <QtCore/QAbstractTableModel>
-#include <QtCore/QList>
+#include <componentsystemUI/ComponentManagerModel.h>
 
-class ComponentDefinition;
-
-class COMP_SYSTEM_UI_API ComponentManagerModel : public QAbstractTableModel
+class ComponentDefinitionViewTest : public QTableView
 {
     Q_OBJECT
 public:
-    explicit ComponentManagerModel(const QList<ComponentDefinition *> &definitions, QObject *parent = nullptr);
-
-    int rowCount(const QModelIndex &parent = QModelIndex()) const;
-
-    int columnCount(const QModelIndex & parent = QModelIndex()) const;
-
-    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
-
-    bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole);
-
-    QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
-
-    Qt::ItemFlags flags(const QModelIndex &index) const;
+    ComponentDefinitionViewTest();
+    ~ComponentDefinitionViewTest();
 
 private:
-    QList<ComponentDefinition *> m_definitions;
+    ComponentManagerModel *model;
+    QList<ComponentDefinition *> definitions;
 };
 
-#endif // COMPONENTMANAGERMODEL_H
+#endif // COMPONENTDEFINITIONVIEWTEST_H
