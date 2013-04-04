@@ -29,17 +29,17 @@
 
 #include <QtGui/QTableView>
 
-#include <componentsystemUI/ComponentManagerModel.h>
+#include <componentsystemUI/ComponentDefinitionsModel.h>
 
-class ComponentDefinitionViewTest : public QTableView
+class ComponentDefinitionsModelTest : public QTableView
 {
     Q_OBJECT
 public:
-    ComponentDefinitionViewTest();
-    ~ComponentDefinitionViewTest();
+    ComponentDefinitionsModelTest();
+    ~ComponentDefinitionsModelTest();
 
 private:
-    ComponentManagerModel *model;
+    ComponentDefinitionsModel *model;
     QList<ComponentDefinition *> definitions;
 };
 

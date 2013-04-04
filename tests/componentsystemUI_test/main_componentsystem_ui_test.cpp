@@ -26,15 +26,15 @@
 
 #include <QtGui/QApplication>
 
-#include "ComponentDefinitionViewTest.h"
+#include "ComponentDefinitionsModelTest.h"
 
 //------------------------------------------------------------------------------
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
-    ComponentDefinitionViewTest componentDefinitionView;
-    componentDefinitionView.show();
+    ComponentDefinitionsModelTest componentDefinitionsModel;
+    componentDefinitionsModel.show();
 
     return app.exec();
 }

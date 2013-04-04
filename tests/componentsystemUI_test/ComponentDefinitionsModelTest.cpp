@@ -24,7 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "ComponentDefinitionViewTest.h"
+#include "ComponentDefinitionsModelTest.h"
 
 #include <componentsystem/ComponentDefinition.h>
 
@@ -49,14 +49,14 @@ ComponentDefinition *createDefinition(QString name, ComponentDefinition::Availab
 }
 
 //------------------------------------------------------------------------------
-ComponentDefinitionViewTest::ComponentDefinitionViewTest()
+ComponentDefinitionsModelTest::ComponentDefinitionsModelTest()
     : model(0)
 {
     for (int i = 0; i < 11; ++i)
         definitions.push_back(createDefinition(QString("Component%1").arg(i), ComponentDefinition::Enabled, "/to/nowhere/library", "/to/nowhere/definition", "Description", "ComponentA product"));
 
 
-    model = new ComponentManagerModel(definitions, this);
+    model = new ComponentDefinitionsModel(definitions, this);
 
     QSortFilterProxyModel *filterModel = new QSortFilterProxyModel(this);
     filterModel->setSourceModel(model);
@@ -68,7 +68,7 @@ ComponentDefinitionViewTest::ComponentDefinitionViewTest()
 }
 
 //------------------------------------------------------------------------------
-ComponentDefinitionViewTest::~ComponentDefinitionViewTest()
+ComponentDefinitionsModelTest::~ComponentDefinitionsModelTest()
 {
     qDeleteAll(definitions);
 }

@@ -34,15 +34,15 @@
 
 class ComponentDefinition;
 
-class COMP_SYSTEM_UI_API ComponentManagerModel : public QAbstractTableModel
+class COMP_SYSTEM_UI_API ComponentDefinitionsModel : public QAbstractTableModel
 {
     Q_OBJECT
 public:
-    explicit ComponentManagerModel(const QList<ComponentDefinition *> &definitions, QObject *parent = nullptr);
+    explicit ComponentDefinitionsModel(const QList<ComponentDefinition *> &definitions, QObject *parent = nullptr);
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
 
-    int columnCount(const QModelIndex & parent = QModelIndex()) const;
+    int columnCount(const QModelIndex &parent = QModelIndex()) const;
 
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
 

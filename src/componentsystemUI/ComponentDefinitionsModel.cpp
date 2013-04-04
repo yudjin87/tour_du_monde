@@ -24,21 +24,21 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "ComponentManagerModel.h"
+#include "ComponentDefinitionsModel.h"
 
 #include <componentsystem/ComponentDefinition.h>
 
 #include <QtGui/QIcon>
 
 //------------------------------------------------------------------------------
-ComponentManagerModel::ComponentManagerModel(const QList<ComponentDefinition *> &definitions, QObject *parent)
+ComponentDefinitionsModel::ComponentDefinitionsModel(const QList<ComponentDefinition *> &definitions, QObject *parent)
     : QAbstractTableModel(parent)
     , m_definitions(definitions)
 {
 }
 
 //------------------------------------------------------------------------------
-int ComponentManagerModel::rowCount(const QModelIndex &parent) const
+int ComponentDefinitionsModel::rowCount(const QModelIndex &parent) const
 {
     if (parent.column() > 0)
         return 0;
@@ -50,13 +50,13 @@ int ComponentManagerModel::rowCount(const QModelIndex &parent) const
 }
 
 //------------------------------------------------------------------------------
-int ComponentManagerModel::columnCount(const QModelIndex &parent) const
+int ComponentDefinitionsModel::columnCount(const QModelIndex &parent) const
 {
     return (parent.column() > 0) ? 0 : 5;
 }
 
 //------------------------------------------------------------------------------
-QVariant ComponentManagerModel::headerData(int section, Qt::Orientation orientation, int role) const
+QVariant ComponentDefinitionsModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
     if (orientation != Qt::Horizontal || role != Qt::DisplayRole)
         return QAbstractItemModel::headerData(section, orientation, role);
@@ -72,7 +72,7 @@ QVariant ComponentManagerModel::headerData(int section, Qt::Orientation orientat
 }
 
 //------------------------------------------------------------------------------
-QVariant ComponentManagerModel::data(const QModelIndex &index, int role) const
+QVariant ComponentDefinitionsModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid() || index.model() != this)
         return QVariant();
@@ -114,7 +114,7 @@ QVariant ComponentManagerModel::data(const QModelIndex &index, int role) const
 }
 
 //------------------------------------------------------------------------------
-bool ComponentManagerModel::setData(const QModelIndex &index, const QVariant &, int role)
+bool ComponentDefinitionsModel::setData(const QModelIndex &index, const QVariant &, int role)
 {
     if (!index.isValid()
             || index.column() != 0
@@ -132,7 +132,7 @@ bool ComponentManagerModel::setData(const QModelIndex &index, const QVariant &, 
 }
 
 //------------------------------------------------------------------------------
-Qt::ItemFlags ComponentManagerModel::flags(const QModelIndex &index) const
+Qt::ItemFlags ComponentDefinitionsModel::flags(const QModelIndex &index) const
 {
     Qt::ItemFlags flags = QAbstractItemModel::flags(index);
     if (!index.isValid())
