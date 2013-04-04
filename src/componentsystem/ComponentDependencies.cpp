@@ -153,7 +153,7 @@ DependenciesSolvingResult ComponentDependencies::completeListWithParents(const Q
     bool hasCyclic = !solver.solve(ordered, orphans, missing);
     if (hasCyclic) {
         qDebug("At least one cyclic dependency has been found in the component manager. Cycles in the component dependencies must be avoided.");
-        return DependenciesSolvingResult(ordered, orphans, missing, m_components, hasCyclic);
+        return DependenciesSolvingResult(ordered, orphans, missing, m_components.toList(), hasCyclic);
     }
 
     if (!missing.isEmpty()) {
@@ -161,7 +161,7 @@ DependenciesSolvingResult ComponentDependencies::completeListWithParents(const Q
                .arg(missing.join(", ")).toLatin1());
     }
 
-    return DependenciesSolvingResult(ordered, orphans, missing, m_components, hasCyclic);
+    return DependenciesSolvingResult(ordered, orphans, missing, m_components.toList(), hasCyclic);
 }
 
 //------------------------------------------------------------------------------
@@ -179,7 +179,7 @@ IComponent *ComponentDependencies::componentByName(const QString &i_byName) cons
 }
 
 //------------------------------------------------------------------------------
-QList<IComponent *> ComponentDependencies::components() const
+const ObservableList<IComponent *> &ComponentDependencies::components() const
 {
     return m_components;
 }
@@ -187,7 +187,7 @@ QList<IComponent *> ComponentDependencies::components() const
 //------------------------------------------------------------------------------
 DependenciesSolvingResult ComponentDependencies::orderedComponents() const
 {
-    return completeListWithChildren(components());
+    return completeListWithChildren(components().toList());
 }
 
 //------------------------------------------------------------------------------

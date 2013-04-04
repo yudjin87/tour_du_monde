@@ -128,7 +128,7 @@ public:
      *
      * @sa IComponentDependencies::dependencies().
      */
-    QList<IComponent *> components() const;
+    const ObservableList<IComponent *> &components() const;
 
     /*!
      * @details

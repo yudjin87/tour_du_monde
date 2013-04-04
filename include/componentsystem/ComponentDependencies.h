@@ -29,6 +29,8 @@
 
 #include "componentsystem/IComponentDependencies.h"
 
+#include <utils/ObservableList.h>
+
 #include <QtCore/QObject>
 #include <QtCore/QStringList>
 
@@ -131,7 +133,7 @@ public:
      * @details
      *   Returns a list of added components.
      */
-    QList<IComponent *> components() const;
+    const ObservableList<IComponent *> &components() const;
 
     /*!
      * @details
@@ -185,7 +187,7 @@ private:
     static DependenciesSolvingResult solveDependencies(const QList<IComponent *> &i_components);
 
 private:
-    QList<IComponent *> m_components;
+    ObservableList<IComponent *> m_components;
 };
 
 

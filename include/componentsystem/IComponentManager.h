@@ -38,6 +38,9 @@ class IComponent;
 class IComponentDependencies;
 class IComponentInitialiser;
 
+template <typename TItem>
+class ObservableList;
+
 /*!
  * @brief
  *   The IComponentManager holds information about the components that can be used by the application.
@@ -106,7 +109,7 @@ public:
      *
      * @sa IComponentDependencies::dependencies().
      */
-    virtual QList<IComponent *> components() const = 0;
+    virtual const ObservableList<IComponent *> &components() const = 0;
 
     /*!
      * @details

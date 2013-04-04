@@ -31,6 +31,7 @@
 
 #include <logging/ILogger.h>
 #include <utils/IServiceLocator.h>
+#include <utils/ObservableList.h>
 
 #include <QtCore/QSet>
 
@@ -126,7 +127,7 @@ DependenciesSolvingResult ComponentManager::check()
 }
 
 //------------------------------------------------------------------------------
-QList<IComponent *> ComponentManager::components() const
+const ObservableList<IComponent *> &ComponentManager::components() const
 {
     return mp_components->components();
 }
@@ -184,7 +185,7 @@ void ComponentManager::shutdownComponent(IComponent *ip_component)
 //------------------------------------------------------------------------------
 void ComponentManager::shutdownAllComponents()
 {
-    shutdownComponents(mp_components->components());
+    shutdownComponents(mp_components->components().toList());
 }
 
 //------------------------------------------------------------------------------
@@ -199,7 +200,7 @@ DependenciesSolvingResult ComponentManager::startupComponent(IComponent *ip_comp
 //------------------------------------------------------------------------------
 DependenciesSolvingResult ComponentManager::startupAllComponents(QObject *ip_initializationData)
 {
-    return startupComponents(mp_components->components(), ip_initializationData);
+    return startupComponents(mp_components->components().toList(), ip_initializationData);
 }
 
 //------------------------------------------------------------------------------

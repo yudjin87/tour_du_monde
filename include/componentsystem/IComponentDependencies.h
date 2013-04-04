@@ -34,6 +34,10 @@
 
 class IComponent;
 
+template <typename TItem>
+class ObservableList;
+
+
 /*!
  * @brief
  *   The IComponentDependencies interface provides methods to get all dependencies
@@ -129,7 +133,7 @@ public:
      * @details
      *   Returns a list of added components.
      */
-    virtual QList<IComponent *> components() const = 0;
+    virtual const ObservableList<IComponent *> &components() const = 0;
 
     /*!
      * @details

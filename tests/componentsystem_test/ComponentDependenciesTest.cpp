@@ -328,7 +328,7 @@ void ComponentDependenciesTest::shouldCompleteListWithFullParents()
     dependencies.addComponent(p_componentE);
     dependencies.addComponent(p_componentC);
 
-    DependenciesSolvingResult result = dependencies.completeListWithParents(dependencies.components());
+    DependenciesSolvingResult result = dependencies.completeListWithParents(dependencies.components().toList());
     QList<IComponent *> comps = result.ordered();
 
     QCOMPARE(comps.size(), 5);
