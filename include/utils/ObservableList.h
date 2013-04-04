@@ -208,6 +208,12 @@ public:
 
     /*!
      * @details
+     *   Returns the number of items in the list. This is effectively the same as size().
+     */
+    int count() const;
+
+    /*!
+     * @details
      *   Returns the number of occurrences of @a item in the list.
      *
      *   This function requires the @a item type to have an implementation
@@ -242,6 +248,20 @@ public:
      *   This is an overloaded function.
      */
     const TItem& last() const;
+
+    class const_iterator : public QList<TItem>::const_iterator
+    {
+    public:
+        const_iterator(const QList<TItem> &container)
+            : QList<TItem>::const_iterator(container)
+        {
+        }
+
+        const_iterator(const typename QList<TItem>::const_iterator &other)
+            : QList<TItem>::const_iterator(other)
+        {
+        }
+    };
 
     /*!
      * @details
@@ -310,6 +330,12 @@ public:
      *   isEmpty() and returns true if the list is empty.
      */
     bool empty() const;
+
+    /*!
+     * @details
+     *   Returns list representation.
+     */
+    QList<TItem> toList() const;
 
     /*!
      * @details
@@ -522,6 +548,13 @@ bool ObservableList<TItem>::contains(const TItem &item) const
 
 //------------------------------------------------------------------------------
 template <typename TItem>
+int ObservableList<TItem>::count() const
+{
+    return m_items.count();
+}
+
+//------------------------------------------------------------------------------
+template <typename TItem>
 int ObservableList<TItem>::count(const TItem &item) const
 {
     return m_items.count(item);
@@ -622,6 +655,13 @@ template <typename TItem>
 bool ObservableList<TItem>::empty() const
 {
     return m_items.empty();
+}
+
+//------------------------------------------------------------------------------
+template <typename TItem>
+QList<TItem> ObservableList<TItem>::toList() const
+{
+    return m_items;
 }
 
 //------------------------------------------------------------------------------
