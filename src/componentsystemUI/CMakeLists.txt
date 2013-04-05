@@ -6,13 +6,13 @@ include(cmake/target_utils)
 ######################################################################
 # Sources
 set(__SOURCES
-    ${CRSL_TARGET_SOURCES}/ComponentManagerModel.cpp 
+    ${CRSL_TARGET_SOURCES}/ComponentDefinitionsModel.cpp 
 )
 
 ######################################################################
 # Headers
 set(__HEADERS
-    ${CRSL_TARGET_HEADERS}/ComponentManagerModel.h 
+    ${CRSL_TARGET_HEADERS}/ComponentDefinitionsModel.h 
     ${CRSL_TARGET_HEADERS}/componentsystem_ui_global.h 
 )
 
