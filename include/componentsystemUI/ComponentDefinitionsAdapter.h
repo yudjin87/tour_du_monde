@@ -24,22 +24,29 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef COMPONENTDEFINITIONVIEWTEST_H
-#define COMPONENTDEFINITIONVIEWTEST_H
+#ifndef COMPONENTDEFINITIONSADAPTER_H
+#define COMPONENTDEFINITIONSADAPTER_H
 
-#include <QtGui/QTableView>
+#include "componentsystemUI/componentsystem_ui_global.h"
+
+#include <QtCore/QObject>
 
 class IComponent;
+class IComponentDependencies;
 
-class ComponentDefinitionsModelTest : public QTableView
+template <typename TItem>
+class ObservableList;
+
+class COMP_SYSTEM_UI_API ComponentDefinitionsAdapter : public QObject
 {
     Q_OBJECT
 public:
-    ComponentDefinitionsModelTest();
-    ~ComponentDefinitionsModelTest();
+    explicit ComponentDefinitionsAdapter(const IComponentDependencies *componentDependencies, QObject *parent = nullptr);
+
+    const ObservableList<IComponent *> &components() const;
 
 private:
-    QList<IComponent *> components;
+    const IComponentDependencies *m_componentDependencies;
 };
 
-#endif // COMPONENTDEFINITIONVIEWTEST_H
+#endif // COMPONENTDEFINITIONSADAPTER_H

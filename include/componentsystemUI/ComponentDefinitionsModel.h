@@ -33,12 +33,13 @@
 #include <QtCore/QList>
 
 class ComponentDefinition;
+class ComponentDefinitionsAdapter;
 
 class COMP_SYSTEM_UI_API ComponentDefinitionsModel : public QAbstractTableModel
 {
     Q_OBJECT
 public:
-    explicit ComponentDefinitionsModel(const QList<ComponentDefinition *> &definitions, QObject *parent = nullptr);
+    explicit ComponentDefinitionsModel(const ComponentDefinitionsAdapter *adapter, QObject *parent = nullptr);
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
 
@@ -53,7 +54,7 @@ public:
     Qt::ItemFlags flags(const QModelIndex &index) const;
 
 private:
-    QList<ComponentDefinition *> m_definitions;
+    const ComponentDefinitionsAdapter *m_adapter;
 };
 
 #endif // COMPONENTMANAGERMODEL_H

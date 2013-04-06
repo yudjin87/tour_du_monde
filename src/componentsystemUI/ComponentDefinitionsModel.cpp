@@ -25,15 +25,18 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "ComponentDefinitionsModel.h"
+#include "ComponentDefinitionsAdapter.h"
 
 #include <componentsystem/ComponentDefinition.h>
+#include <componentsystem/IComponent.h>
+#include <utils/ObservableList.h>
 
 #include <QtGui/QIcon>
 
 //------------------------------------------------------------------------------
-ComponentDefinitionsModel::ComponentDefinitionsModel(const QList<ComponentDefinition *> &definitions, QObject *parent)
+ComponentDefinitionsModel::ComponentDefinitionsModel(const ComponentDefinitionsAdapter *adapter, QObject *parent)
     : QAbstractTableModel(parent)
-    , m_definitions(definitions)
+    , m_adapter(adapter)
 {
 }
 
@@ -46,7 +49,7 @@ int ComponentDefinitionsModel::rowCount(const QModelIndex &parent) const
     if (parent.isValid())
         return 0;
 
-    return m_definitions.size();
+    return m_adapter->components().size();
 }
 
 //------------------------------------------------------------------------------
@@ -77,7 +80,7 @@ QVariant ComponentDefinitionsModel::data(const QModelIndex &index, int role) con
     if (!index.isValid() || index.model() != this)
         return QVariant();
 
-    ComponentDefinition *def = m_definitions[index.row()];
+    const ComponentDefinition *def = m_adapter->components().at(index.row())->definition();
     switch (role) {
     case Qt::EditRole:
     case Qt::DisplayRole:
@@ -118,14 +121,14 @@ bool ComponentDefinitionsModel::setData(const QModelIndex &index, const QVariant
 {
     if (!index.isValid()
             || index.column() != 0
-            || (index.row() > m_definitions.size())
+            || (index.row() > m_adapter->components().size())
             || role != Qt::CheckStateRole)
         return false;
 
-    ComponentDefinition *def = m_definitions[index.row()];
-    def->setAvailability(def->availability() != ComponentDefinition::Enabled
-            ? ComponentDefinition::Enabled
-            : ComponentDefinition::Disabled);
+//    ComponentDefinition *def = m_adapter->components().at(index.row())->definition();
+//    def->setAvailability(def->availability() != ComponentDefinition::Enabled
+//            ? ComponentDefinition::Enabled
+//            : ComponentDefinition::Disabled);
 
     emit dataChanged(index, index);
     return true;

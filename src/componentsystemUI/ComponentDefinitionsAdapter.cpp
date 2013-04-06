@@ -24,22 +24,22 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef COMPONENTDEFINITIONVIEWTEST_H
-#define COMPONENTDEFINITIONVIEWTEST_H
+#include "ComponentDefinitionsAdapter.h"
 
-#include <QtGui/QTableView>
+#include <componentsystem/IComponentDependencies.h>
 
-class IComponent;
-
-class ComponentDefinitionsModelTest : public QTableView
+//------------------------------------------------------------------------------
+ComponentDefinitionsAdapter::ComponentDefinitionsAdapter(const IComponentDependencies *componentDependencies, QObject *parent)
+    : QObject(parent)
+    , m_componentDependencies(componentDependencies)
 {
-    Q_OBJECT
-public:
-    ComponentDefinitionsModelTest();
-    ~ComponentDefinitionsModelTest();
 
-private:
-    QList<IComponent *> components;
-};
+}
 
-#endif // COMPONENTDEFINITIONVIEWTEST_H
+//------------------------------------------------------------------------------
+const ObservableList<IComponent *> &ComponentDefinitionsAdapter::components() const
+{
+    return m_componentDependencies->components();
+}
+
+//------------------------------------------------------------------------------

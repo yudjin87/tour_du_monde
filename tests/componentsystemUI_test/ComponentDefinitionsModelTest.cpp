@@ -27,6 +27,10 @@
 #include "ComponentDefinitionsModelTest.h"
 
 #include <componentsystem/ComponentDefinition.h>
+#include <componentsystem/ComponentDependencies.h>
+#include <componentsystem/ProxyComponent.h>
+#include <componentsystemUI/ComponentDefinitionsAdapter.h>
+#include <componentsystemUI/ComponentDefinitionsModel.h>
 
 #include <QtCore/QtAlgorithms>
 #include <QtGui/QSortFilterProxyModel>
@@ -50,13 +54,17 @@ ComponentDefinition *createDefinition(QString name, ComponentDefinition::Availab
 
 //------------------------------------------------------------------------------
 ComponentDefinitionsModelTest::ComponentDefinitionsModelTest()
-    : model(0)
 {
-    for (int i = 0; i < 11; ++i)
-        definitions.push_back(createDefinition(QString("Component%1").arg(i), ComponentDefinition::Enabled, "/to/nowhere/library", "/to/nowhere/definition", "Description", "ComponentA product"));
+    ComponentDependencies *dependencies = new ComponentDependencies(this);
+    for (int i = 0; i < 11; ++i) {
+        IComponent *comp = new ProxyComponent(createDefinition(QString("Component%1").arg(i), ComponentDefinition::Enabled, "/to/nowhere/library", "/to/nowhere/definition", "Description", "ComponentA product"));
+        components.push_back(comp);
+        dependencies->addComponent(comp);
+    }
 
 
-    model = new ComponentDefinitionsModel(definitions, this);
+    ComponentDefinitionsAdapter *adapter = new ComponentDefinitionsAdapter(dependencies, this);
+    ComponentDefinitionsModel *model = new ComponentDefinitionsModel(adapter, this);
 
     QSortFilterProxyModel *filterModel = new QSortFilterProxyModel(this);
     filterModel->setSourceModel(model);
@@ -70,7 +78,7 @@ ComponentDefinitionsModelTest::ComponentDefinitionsModelTest()
 //------------------------------------------------------------------------------
 ComponentDefinitionsModelTest::~ComponentDefinitionsModelTest()
 {
-    qDeleteAll(definitions);
+    qDeleteAll(components);
 }
 
 //------------------------------------------------------------------------------
