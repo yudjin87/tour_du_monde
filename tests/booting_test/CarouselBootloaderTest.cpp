@@ -9,6 +9,7 @@
 #include <componentsystem/ComponentProvider.h>
 #include <logging/ILogger.h>
 #include <utils/IServiceLocator.h>
+#include <utils/ObservableList.h>
 
 #include <QtGui/QMainWindow>
 #include <QtTest/QtTest>

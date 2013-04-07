@@ -10,6 +10,11 @@ public:
     BaseComponentTest(QObject *parent = 0);
 
 private Q_SLOTS:
+    void shouldNotSetAvailabilityIfDidNotLoad();
+    void shouldEmitWhenAvailabilitySet();
+    void shouldSetLoadedAvailability();
+    void shouldSetAvailabilityEnabledByDefault();
+
     void shouldReturnResultOfProtectedMethodOnFirstSuccessfulStartup();
     void shouldAssignResultOfProtectedMethodToTheStartedFlag();
     void shouldNotStartupIfAlreadyStarted();

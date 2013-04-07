@@ -12,7 +12,7 @@ FakeComponentLoader::FakeComponentLoader()
     , loadResult(true)
     , unloadResult(true)
     , passedFileName("")
-    , mockComponent(new MockComponent(true))
+    , mockComponent(new MockComponent())
 {
 }
 

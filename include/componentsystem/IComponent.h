@@ -57,8 +57,54 @@ class ComponentDefinition;
 class COMP_API IComponent : public QObject
 {
     Q_OBJECT
+    Q_ENUMS(Availability)
+
+    /*!
+     * @details
+     *   Gets or sets the value specified whether this component is enabled, disabled, or unavailable.
+     *   When the availability is enabled, the component is checked in the Components dialog.
+     */
+    Q_PROPERTY(Availability availability READ availability WRITE setAvailability NOTIFY availabilityChanged)
+
 public:
+    /*!
+     * @details
+     *   Component availability states.
+     */
+    enum Availability
+    {
+        /*!
+         * @details
+         *   Enabled for use.
+         */
+        Enabled,
+
+        /*!
+         * @details
+         *   Disabled by the user. If component is disabled, child
+         *   components that have dependency from this component,
+         *   cannot be started.
+         */
+        Disabled,
+
+        /*!
+         * @details
+         *   Unavailable - not licensed. If component is unavailable, child
+         *   components that have dependency from this component,
+         *   cannot be started.
+         */
+        Unavailable
+    };
+
     virtual ~IComponent(){}
+
+    /*!
+     * @details
+     *   Gets the value specified whether this component is enabled, disabled, or unavailable.
+     *   When the availability is enabled, the component is checked in the Components dialog.
+     * @sa setAvailability
+     */
+    virtual Availability availability() const = 0;
 
     /*!
      * @details
@@ -105,6 +151,14 @@ public:
 
     /*!
      * @details
+     *   Sets the value specified whether this component is enabled or disabled.
+     *   The checked state of the component is saved in the user settings.
+     * @sa availability
+     */
+    virtual void setAvailability(Availability newMode) = 0;
+
+    /*!
+     * @details
      *   Shuts down the component. Use this method to perform some action when the component gets unloaded.
      */
     virtual void shutdown() = 0;
@@ -125,6 +179,14 @@ public:
      *   started twice - it is return @a false on the second time, because it is already started.
      */
     virtual bool startup(QObject *ip_initData) = 0;
+
+signals:
+    /*!
+     * @details
+     *   This signal is emited when extension's availability changed.
+     * @sa setAvailability
+     */
+    void availabilityChanged(IComponent::Availability);
 };
 
 //------------------------------------------------------------------------------

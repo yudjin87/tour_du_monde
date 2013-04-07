@@ -44,12 +44,23 @@ class TypeObjectsMap;
  *   The BaseComponent also serves as a base class for the custom Components. It sets objectName
  *   to the QObject, provides defensive invokes of startup() and shutdown(), and exposes the
  *   registerExtension() template method to register component extensions while deriving.
+ *
+ *   If availability was changed during last application's start, it will be
+ *   loaded and ovewrite default value.
  */
 class COMP_API BaseComponent : public IComponent
 {
     Q_OBJECT
 public:
     ~BaseComponent();
+
+    /*!
+     * @details
+     *   Gets the value specified whether this component is enabled, disabled, or unavailable.
+     *   When the availability is enabled, the component is checked in the Components dialog.
+     * @sa setAvailability
+     */
+    Availability availability() const;
 
     /*!
      * @details
@@ -76,6 +87,8 @@ public:
      *   It is a shortcut for the definition()->name().
      */
     const QString &name() const;
+
+    void setAvailability(Availability newMode);
 
     /*!
      * @details
@@ -104,7 +117,7 @@ protected:
     /*!
      * @details
      *   Initializes a new instance of the BaseComponent class using specified component
-     *   name. 
+     *   name and IComponent::Enabled availability.
      * @param ip_name
      *   the name of your component class. In derived classes you should pass the unique 
      *   name for the your component (not per instance, but per class!).
@@ -114,7 +127,7 @@ protected:
     /*!
      * @details
      *   Initializes a new instance of the BaseComponent class using specified component
-     *   name. 
+     *   name and IComponent::Enabled availability.
      * @param i_name
      *   the name of your component class. In derived classes you should pass the unique 
      *   name for the your component (not per instance, but per class!).
@@ -124,7 +137,7 @@ protected:
     /*!
      * @details
      *   Initializes a new instance of the BaseComponent class using specified component
-     *   definition.
+     *   definition  and IComponent::Enabled availability..
      * @param definition
      *   This paramter cannot be null.
      */
@@ -178,9 +191,11 @@ protected:
 
     void addParent(const QString &parent);
 
-    void loadAvailability();
-
-    void setAvailability(ComponentDefinition::Availability newMode);
+    /*!
+     * @details
+     *   Loads component availability using QSettings and component name.
+     */
+    virtual void loadAvailability();
 
     /*!
      * @details
@@ -194,6 +209,14 @@ protected:
      */
     void setProductName(const QString &productName);
 
+    /*!
+     * @details
+     *   This method emits availabilityChanged() signal when extension's
+     *   availability changed.
+     * @sa setAvailability, availabilityChanged
+     */
+    virtual void onAvailabilityChanged(Availability i_newMode);
+
 private:
     Q_DISABLE_COPY(BaseComponent)
     void registerExtensionInstance(void *ip_instance, const QString &i_forTypeId);
@@ -201,6 +224,7 @@ private:
 private:
     ComponentDefinition *mp_definition;
     bool m_isStarted;
+    Availability m_availability;
     TypeObjectsMap<void *> *mp_typeObjectsMap;
 };
 

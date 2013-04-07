@@ -7,14 +7,15 @@ class MockComponent : public BaseComponent
 {
    Q_OBJECT
 public:
-    MockComponent(bool i_returnValue);
-    MockComponent(const QString &i_name = "MockComponent");
+    explicit MockComponent(const QString &i_name = "MockComponent");
 
     ~MockComponent();
 
     QObject *data() const;
 
     void setRegistrator(QList<MockComponent *> *ip_registrator);
+
+    void loadAvailability();
 
 protected:
     bool _onStartup(QObject *ip_initData);

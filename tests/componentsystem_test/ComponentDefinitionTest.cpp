@@ -29,7 +29,6 @@
 
 #include <componentsystem/ComponentDefinition.h>
 
-#include <QtCore/QSettings>
 #include <QtTest/QTest>
 #include <QtTest/QSignalSpy>
 
@@ -37,68 +36,6 @@
 ComponentDefinitionTest::ComponentDefinitionTest(QObject *parent)
     : QObject(parent)
 {
-    QSettings::setPath(QSettings::NativeFormat, QSettings::UserScope, ".");
-}
-
-//------------------------------------------------------------------------------
-void ComponentDefinitionTest::shouldSetAvailabilityEnabledByDefault()
-{
-    ComponentDefinition definition("");
-    QCOMPARE(definition.availability(), ComponentDefinition::Enabled);
-}
-
-//------------------------------------------------------------------------------
-void ComponentDefinitionTest::shouldSetLoadedAvailability()
-{
-    QSettings settings;
-    settings.setValue(QString("components_availability/%1").arg("Comp1"), static_cast<int>(ComponentDefinition::Disabled));
-    settings.sync();
-
-    ComponentDefinition definition("Comp1");
-
-    QCOMPARE(definition.availability(), ComponentDefinition::Disabled);
-
-    settings.clear();
-}
-
-//------------------------------------------------------------------------------
-void ComponentDefinitionTest::shouldEmitWhenAvailabilitySet()
-{    
-    ComponentDefinition definition("Comp1");
-    QSignalSpy spy(&definition, SIGNAL(availabilityChanged(Availability)));
-
-    definition.setAvailability(ComponentDefinition::Disabled);
-
-    QCOMPARE(spy.count(), 1);
-}
-
-//------------------------------------------------------------------------------
-void ComponentDefinitionTest::shouldEmitWhenAvailabilityLoaded()
-{
-    QSettings settings;
-    settings.setValue(QString("components_availability/%1").arg("Comp1"), static_cast<int>(ComponentDefinition::Disabled));
-    settings.sync();
-
-    ComponentDefinition definition("Comp1");
-    QSignalSpy spy(&definition, SIGNAL(availabilityChanged(Availability)));
-
-    definition.loadAvailability();
-
-    QCOMPARE(spy.count(), 1);
-
-    settings.clear();
-}
-
-//------------------------------------------------------------------------------
-void ComponentDefinitionTest::shouldNotSetAvailabilityIfDidNotLoad()
-{
-    QSettings settings;
-    settings.setValue("components_availability/empty", 0);
-    settings.sync();
-
-    ComponentDefinition definition("Comp1");
-
-    QCOMPARE(definition.availability(), ComponentDefinition::Enabled);
 }
 
 //------------------------------------------------------------------------------

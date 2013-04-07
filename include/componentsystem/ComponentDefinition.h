@@ -49,49 +49,9 @@ class IComponent;
  *   if your component uses some services from another one - it is guaranteed
  *   that your component will be started up after all dependent components will.
  */
-class COMP_API ComponentDefinition : public QObject
+class COMP_API ComponentDefinition
 {
-    Q_OBJECT
-    Q_ENUMS(Availability)
-
-    /*!
-     * @details
-     *   Gets or sets the value specified whether this component is enabled, disabled, or unavailable.
-     *   When the availability is enabled, the component is checked in the Components dialog.
-     */
-    Q_PROPERTY(Availability availability READ availability WRITE setAvailability NOTIFY availabilityChanged)
-
 public:
-    /*!
-     * @details
-     *   Component availability states.
-     */
-    enum Availability
-    {
-        /*!
-         * @details
-         *   Enabled for use.
-         */
-        Enabled,
-
-        /*!
-         * @details
-         *   Disabled by the user. If component is disabled, child
-         *   components that have dependency from this component,
-         *   cannot be started.
-         */
-        Disabled,
-
-        /*!
-         * @details
-         *   Unavailable - not licensed. If component is unavailable, child
-         *   components that have dependency from this component,
-         *   cannot be started.
-         */
-        Unavailable
-    };
-
-
     /*!
      * @details
      *   Initialises a new instance of the ComponentDefinition class.
@@ -101,7 +61,7 @@ public:
     /*!
      * @details
      *   Initialises a new instance of the ComponentDefinition class using
-     *   specified component and ComponentDefinition::Enabled availability.
+     *   specified component.
      *
      *   If availability was changed during last application's start, it will be
      *   loaded and ovewrite default value.
@@ -112,14 +72,6 @@ public:
 
 public slots:
     void addParent(const QString &parent);
-
-    /*!
-     * @details
-     *   Gets the value specified whether this component is enabled, disabled, or unavailable.
-     *   When the availability is enabled, the component is checked in the Components dialog.
-     * @sa setAvailability
-     */
-    Availability availability() const;
 
     /*!
      * @details
@@ -160,12 +112,6 @@ public slots:
 
     /*!
      * @details
-     *   Loads component availability using QSettings and component name.
-     */
-    void loadAvailability();
-
-    /*!
-     * @details
      *   Gets the list of parent (dependent) components names.
      */
     const QStringList &parents() const;
@@ -175,14 +121,6 @@ public slots:
      *   Gets the the name that is displayed for this component in the Components dialog.
      */
     const QString &productName() const;
-
-    /*!
-     * @details
-     *   Sets the value specified whether this component is enabled or disabled.
-     *   The checked state of the component is saved in the user settings.
-     * @sa availability
-     */
-    void setAvailability(Availability i_newMode);
 
     void setComponent(IComponent *component);
 
@@ -216,29 +154,8 @@ public slots:
      */
     void setDefinitionLocation(const QString &definitionLocation);
 
-signals:
-    /*!
-     * @details
-     *   This signal is emited when extension's availability changed.
-     * @sa setAvailability
-     */
-    void availabilityChanged(Availability);
-
-protected:
-    /*!
-     * @details
-     *   This method emits availabilityChanged() signal when extension's
-     *   availability changed.
-     * @sa setAvailability, availabilityChanged
-     */
-    virtual void onAvailabilityChanged(Availability i_newMode);
-
-private:
-    Q_DISABLE_COPY(ComponentDefinition)
-
 private:
     IComponent *mp_component;
-    Availability m_availability;
     QString m_componentName;
     QString m_description;
     QString m_productName;

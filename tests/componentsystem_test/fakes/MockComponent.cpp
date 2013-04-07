@@ -3,15 +3,6 @@
 #include <componentsystem/ComponentDefinition.h>
 
 //------------------------------------------------------------------------------
-MockComponent::MockComponent(bool i_returnValue)
-    : BaseComponent("MockComponent")
-    , mp_initData(nullptr)
-    , m_returnValue(i_returnValue)
-    , mp_registrator(nullptr)
-{
-}
-
-//------------------------------------------------------------------------------
 MockComponent::MockComponent(const QString &i_name)
     : BaseComponent(i_name)
     , mp_initData(nullptr)
@@ -35,6 +26,12 @@ QObject *MockComponent::data() const
 void MockComponent::setRegistrator(QList<MockComponent *> *ip_registrator)
 {
     mp_registrator = ip_registrator;
+}
+
+//------------------------------------------------------------------------------
+void MockComponent::loadAvailability()
+{
+    BaseComponent::loadAvailability();
 }
 
 //------------------------------------------------------------------------------

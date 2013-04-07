@@ -28,14 +28,18 @@
 #include "ComponentDefinition.h"
 
 #include <utils/TypeObjectsMap.h>
+
+#include <QtCore/QSettings>
 //------------------------------------------------------------------------------
 BaseComponent::BaseComponent(const char *ip_name, QObject *parent)
     : mp_definition(new ComponentDefinition(ip_name))
     , m_isStarted(false)
+    , m_availability(IComponent::Enabled)
     , mp_typeObjectsMap(new TypeObjectsMap<void *>())
 {
     setParent(parent);
     setObjectName(mp_definition->componentName());
+    loadAvailability();
     mp_definition->setComponent(this);
 }
 
@@ -43,10 +47,12 @@ BaseComponent::BaseComponent(const char *ip_name, QObject *parent)
 BaseComponent::BaseComponent(const QString &i_name, QObject *parent)
     : mp_definition(new ComponentDefinition(i_name))
     , m_isStarted(false)
+    , m_availability(IComponent::Enabled)
     , mp_typeObjectsMap(new TypeObjectsMap<void *>())
 {
     setParent(parent);
     setObjectName(mp_definition->componentName());
+    loadAvailability();
     mp_definition->setComponent(this);
 }
 
@@ -54,10 +60,12 @@ BaseComponent::BaseComponent(const QString &i_name, QObject *parent)
 BaseComponent::BaseComponent(ComponentDefinition *definition, QObject *parent)
     : mp_definition(definition)
     , m_isStarted(false)
+    , m_availability(IComponent::Enabled)
     , mp_typeObjectsMap(new TypeObjectsMap<void *>())
 {
     setParent(parent);
     setObjectName(mp_definition->componentName());
+    loadAvailability();
     mp_definition->setComponent(this);
 }
 
@@ -75,6 +83,12 @@ BaseComponent::~BaseComponent()
 
     delete mp_definition;
     mp_definition = nullptr;
+}
+
+//------------------------------------------------------------------------------
+IComponent::Availability BaseComponent::availability() const
+{
+    return m_availability;
 }
 
 //------------------------------------------------------------------------------
@@ -137,13 +151,20 @@ void BaseComponent::addParent(const QString &parent)
 //------------------------------------------------------------------------------
 void BaseComponent::loadAvailability()
 {
-    mp_definition->loadAvailability();
+    QSettings settings;
+    QVariant value = settings.value(QString("components_availability/%1").arg(name()));
+    if (value.isValid())
+        setAvailability(static_cast<Availability>(value.toInt()));
 }
 
 //------------------------------------------------------------------------------
-void BaseComponent::setAvailability(ComponentDefinition::Availability newMode)
+void BaseComponent::setAvailability(IComponent::Availability newMode)
 {
-    mp_definition->setAvailability(newMode);
+    if (m_availability == newMode)
+        return;
+
+    m_availability = newMode;
+    onAvailabilityChanged(newMode);
 }
 
 //------------------------------------------------------------------------------
@@ -156,6 +177,12 @@ void BaseComponent::setDescription(const QString &description)
 void BaseComponent::setProductName(const QString &productName)
 {
     mp_definition->setProductName(productName);
+}
+
+//------------------------------------------------------------------------------
+void BaseComponent::onAvailabilityChanged(Availability i_newMode)
+{
+    emit availabilityChanged(i_newMode);
 }
 
 //------------------------------------------------------------------------------

@@ -98,9 +98,9 @@ QVariant ComponentDefinitionsModel::data(const QModelIndex &index, int role) con
 
     case Qt::CheckStateRole:
         switch (index.column()) {
-        case 0: return def->availability() == ComponentDefinition::Enabled
-                    ? Qt::Checked
-                    : Qt::Unchecked;
+//        case 0: return def->availability() == IComponent::Enabled
+//                    ? Qt::Checked
+//                    : Qt::Unchecked;
         default: return QVariant::Invalid;
         }
         break;
@@ -126,9 +126,9 @@ bool ComponentDefinitionsModel::setData(const QModelIndex &index, const QVariant
         return false;
 
 //    ComponentDefinition *def = m_adapter->components().at(index.row())->definition();
-//    def->setAvailability(def->availability() != ComponentDefinition::Enabled
-//            ? ComponentDefinition::Enabled
-//            : ComponentDefinition::Disabled);
+//    def->setAvailability(def->availability() != IComponent::Enabled
+//            ? IComponent::Enabled
+//            : IComponent::Disabled);
 
     emit dataChanged(index, index);
     return true;

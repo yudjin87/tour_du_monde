@@ -35,6 +35,7 @@
 #include <componentsystem/IComponent.h>
 #include <componentsystem/IComponentManager.h>
 #include <utils/IServiceLocator.h>
+#include <utils/ObservableList.h>
 
 #include <QtGui/QMainWindow>
 

@@ -8,31 +8,78 @@
 #include <utils/IServiceLocator.h>
 
 #include <QtTest/QtTest>
+#include <QtCore/QSettings>
+#include <QtTest/QSignalSpy>
 
 //------------------------------------------------------------------------------
 BaseComponentTest::BaseComponentTest(QObject *parent)
     : QObject(parent)
 {
+    QSettings::setPath(QSettings::NativeFormat, QSettings::UserScope, ".");
+}
+
+//------------------------------------------------------------------------------
+void BaseComponentTest::shouldSetAvailabilityEnabledByDefault()
+{
+    MockComponent component("");
+    QCOMPARE(component.availability(), IComponent::Enabled);
+}
+
+//------------------------------------------------------------------------------
+void BaseComponentTest::shouldSetLoadedAvailability()
+{
+    QSettings settings;
+    settings.setValue(QString("components_availability/%1").arg("Comp1"), static_cast<int>(IComponent::Disabled));
+    settings.sync();
+
+    MockComponent component("Comp1");
+
+    QCOMPARE(component.availability(), IComponent::Disabled);
+
+    settings.clear();
+}
+
+//------------------------------------------------------------------------------
+void BaseComponentTest::shouldEmitWhenAvailabilitySet()
+{
+    MockComponent component("Comp1");
+    QSignalSpy spy(&component, SIGNAL(availabilityChanged(IComponent::Availability)));
+
+    component.setAvailability(IComponent::Disabled);
+
+    QCOMPARE(spy.count(), 1);
+}
+
+//------------------------------------------------------------------------------
+void BaseComponentTest::shouldNotSetAvailabilityIfDidNotLoad()
+{
+    QSettings settings;
+    settings.setValue("components_availability/empty", 0);
+    settings.sync();
+
+    MockComponent component("Comp1");
+
+    QCOMPARE(component.availability(), IComponent::Enabled);
 }
 
 //------------------------------------------------------------------------------
 void BaseComponentTest::shouldReturnResultOfProtectedMethodOnFirstSuccessfulStartup()
 {
-    MockComponent mockComponent(true);
+    MockComponent mockComponent;
     QVERIFY(mockComponent.startup(nullptr));
 
-    MockComponent mockComponent2(false);
+    MockComponent mockComponent2; mockComponent2.m_returnValue = false;
     QVERIFY(!mockComponent2.startup(nullptr));
 }
 
 //------------------------------------------------------------------------------
 void BaseComponentTest::shouldAssignResultOfProtectedMethodToTheStartedFlag()
 {
-    MockComponent mockComponent(true);
+    MockComponent mockComponent;
     mockComponent.startup(nullptr);
     QVERIFY(mockComponent.started());
 
-    MockComponent mockComponent2(false);
+    MockComponent mockComponent2; mockComponent2.m_returnValue = false;
     mockComponent2.startup(nullptr);
     QVERIFY(!mockComponent2.started());
 }

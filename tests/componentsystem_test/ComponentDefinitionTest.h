@@ -34,13 +34,6 @@ class ComponentDefinitionTest : public QObject
     Q_OBJECT
 public:
     explicit ComponentDefinitionTest(QObject *parent = 0);
-
-private slots:
-    void shouldSetAvailabilityEnabledByDefault();
-    void shouldSetLoadedAvailability();
-    void shouldEmitWhenAvailabilitySet();
-    void shouldEmitWhenAvailabilityLoaded();
-    void shouldNotSetAvailabilityIfDidNotLoad();
 };
 
 #endif // COMPONENTDEFINITIONTEST_H
