@@ -80,7 +80,8 @@ QVariant ComponentDefinitionsModel::data(const QModelIndex &index, int role) con
     if (!index.isValid() || index.model() != this)
         return QVariant();
 
-    const ComponentDefinition *def = m_adapter->components().at(index.row())->definition();
+    const IComponent *comp = m_adapter->components().at(index.row());
+    const ComponentDefinition *def = comp->definition();
     switch (role) {
     case Qt::EditRole:
     case Qt::DisplayRole:
@@ -98,9 +99,9 @@ QVariant ComponentDefinitionsModel::data(const QModelIndex &index, int role) con
 
     case Qt::CheckStateRole:
         switch (index.column()) {
-//        case 0: return def->availability() == IComponent::Enabled
-//                    ? Qt::Checked
-//                    : Qt::Unchecked;
+        case 0: return comp->availability() == IComponent::Enabled
+                    ? Qt::Checked
+                    : Qt::Unchecked;
         default: return QVariant::Invalid;
         }
         break;
