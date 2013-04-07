@@ -52,6 +52,18 @@ ComponentDefinition::ComponentDefinition(const QString &componentName)
 }
 
 //------------------------------------------------------------------------------
+ComponentDefinition::ComponentDefinition(const ComponentDefinition &other)
+    : mp_component(other.mp_component)
+    , m_componentName(other.m_componentName)
+    , m_description(other.m_description)
+    , m_productName(other.m_productName)
+    , m_componentLocation(other.m_componentLocation)
+    , m_definitionLocation(other.m_definitionLocation)
+    , m_parents(other.m_parents)
+{
+}
+
+//------------------------------------------------------------------------------
 ComponentDefinition::~ComponentDefinition()
 {
     mp_component = nullptr;
@@ -60,6 +72,23 @@ ComponentDefinition::~ComponentDefinition()
     m_productName = "";
     m_componentLocation = "";
     m_definitionLocation = "";
+}
+
+//------------------------------------------------------------------------------
+ComponentDefinition &ComponentDefinition::operator =(const ComponentDefinition &other)
+{
+    if (this == &other)
+        return *this;
+
+    mp_component = other.mp_component;
+    m_componentName = other.m_componentName;
+    m_description = other.m_description;
+    m_productName = other.m_productName;
+    m_componentLocation = other.m_componentLocation;
+    m_definitionLocation = other.m_definitionLocation;
+    m_parents = other.m_parents;
+
+    return *this;
 }
 
 //------------------------------------------------------------------------------

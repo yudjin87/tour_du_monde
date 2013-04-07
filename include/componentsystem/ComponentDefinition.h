@@ -40,7 +40,7 @@ class IComponent;
  *   This class describes the component meta information.
  * @details
  *   This class is used in the Components dialog to provide to user information about
- *   the component. It also allow for user to enable or disable your component.
+ *   the component.
  *
  *   This class also specified that the current component has dependencies
  *   on another ones - on its 'parents'.
@@ -62,13 +62,19 @@ public:
      * @details
      *   Initialises a new instance of the ComponentDefinition class using
      *   specified component.
-     *
-     *   If availability was changed during last application's start, it will be
-     *   loaded and ovewrite default value.
      */
     ComponentDefinition(const QString &componentName);
 
+    ComponentDefinition(const ComponentDefinition &other);
+
     ~ComponentDefinition();
+
+    /*!
+     * @details
+     *   Initializes an existing or creates and initializes a new instance of the
+     *   DependenciesSolvingResult class using already existed instance.
+     */
+    ComponentDefinition &operator=(const ComponentDefinition &other);
 
 public slots:
     void addParent(const QString &parent);
