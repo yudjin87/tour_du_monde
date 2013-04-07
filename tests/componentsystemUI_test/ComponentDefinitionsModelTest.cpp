@@ -64,7 +64,7 @@ ComponentDefinitionsModelTest::ComponentDefinitionsModelTest()
         dependencies->addComponent(comp);
     }
 
-    ComponentDefinitionsAdapter *adapter = new ComponentDefinitionsAdapter(dependencies, this);
+    ComponentDefinitionsAdapter *adapter = new ComponentDefinitionsAdapter(dependencies);
     ComponentDefinitionsModel *model = new ComponentDefinitionsModel(adapter, this);
 
     QSortFilterProxyModel *filterModel = new QSortFilterProxyModel(this);

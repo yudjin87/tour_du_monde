@@ -44,6 +44,8 @@ ComponentDefinitionsModel::ComponentDefinitionsModel(const ComponentDefinitionsA
 //------------------------------------------------------------------------------
 ComponentDefinitionsModel::~ComponentDefinitionsModel()
 {
+    delete m_adapter;
+    m_adapter = nullptr;
 }
 
 //------------------------------------------------------------------------------
