@@ -39,7 +39,6 @@ ComponentDependencies::ComponentDependencies(QObject *parent)
 //------------------------------------------------------------------------------
 ComponentDependencies::~ComponentDependencies()
 {
-    m_components.clear();
 }
 
 //------------------------------------------------------------------------------
