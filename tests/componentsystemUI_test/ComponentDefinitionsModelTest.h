@@ -30,6 +30,7 @@
 #include <QtGui/QTableView>
 
 class IComponent;
+class ComponentDependencies;
 
 class ComponentDefinitionsModelTest : public QTableView
 {
@@ -38,8 +39,12 @@ public:
     ComponentDefinitionsModelTest();
     ~ComponentDefinitionsModelTest();
 
+private slots:
+    void addNewOne();
+
 private:
     QList<IComponent *> components;
+    ComponentDependencies *dependencies;
 };
 
 #endif // COMPONENTDEFINITIONVIEWTEST_H

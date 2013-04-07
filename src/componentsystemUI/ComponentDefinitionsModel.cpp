@@ -38,6 +38,12 @@ ComponentDefinitionsModel::ComponentDefinitionsModel(const ComponentDefinitionsA
     : QAbstractTableModel(parent)
     , m_adapter(adapter)
 {
+    m_adapter->components().installObserver(this);
+}
+
+//------------------------------------------------------------------------------
+ComponentDefinitionsModel::~ComponentDefinitionsModel()
+{
 }
 
 //------------------------------------------------------------------------------
@@ -146,6 +152,15 @@ Qt::ItemFlags ComponentDefinitionsModel::flags(const QModelIndex &index) const
         return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
 
     return Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable;
+}
+
+//------------------------------------------------------------------------------
+void ComponentDefinitionsModel::onChanged(const Changes<IComponent *> &changes)
+{
+    int addedItems = changes.affectedItems.size();
+    int oldSize = m_adapter->components().size() - addedItems;
+    beginInsertRows(QModelIndex(), oldSize, oldSize);
+    endInsertRows();
 }
 
 //------------------------------------------------------------------------------

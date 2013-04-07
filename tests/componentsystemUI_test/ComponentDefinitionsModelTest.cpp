@@ -33,6 +33,7 @@
 #include <componentsystemUI/ComponentDefinitionsModel.h>
 
 #include <QtCore/QtAlgorithms>
+#include <QtCore/QTimer>
 #include <QtGui/QSortFilterProxyModel>
 
 //------------------------------------------------------------------------------
@@ -54,8 +55,9 @@ ComponentDefinition *createDefinition(QString name, QString compLocation, QStrin
 
 //------------------------------------------------------------------------------
 ComponentDefinitionsModelTest::ComponentDefinitionsModelTest()
+    : QTableView()
 {
-    ComponentDependencies *dependencies = new ComponentDependencies(this);
+    dependencies = new ComponentDependencies(this);
     for (int i = 0; i < 11; ++i) {
         IComponent *comp = new ProxyComponent(createDefinition(QString("Component%1").arg(i), "/to/nowhere/library", "/to/nowhere/definition", "Description", "ComponentA product"));
         components.push_back(comp);
@@ -72,12 +74,26 @@ ComponentDefinitionsModelTest::ComponentDefinitionsModelTest()
     this->setSortingEnabled(true);
     this->resizeColumnsToContents();
     this->setSelectionBehavior(QAbstractItemView::SelectRows);
+
+    QTimer::singleShot(3000, this, SLOT(addNewOne()));
 }
 
 //------------------------------------------------------------------------------
 ComponentDefinitionsModelTest::~ComponentDefinitionsModelTest()
 {
     qDeleteAll(components);
+}
+
+//------------------------------------------------------------------------------
+void ComponentDefinitionsModelTest::addNewOne()
+{
+    IComponent *comp = new ProxyComponent(createDefinition(QString("Component%1").arg(99), "/to/nowhere/library", "/to/nowhere/definition", "Description", "ComponentA product"));
+    components.push_back(comp);
+    dependencies->addComponent(comp);
+
+    IComponent *comp2 = new ProxyComponent(createDefinition(QString("Component%1").arg(88), "/to/nowhere/library", "/to/nowhere/definition", "Description", "ComponentA product"));
+    components.push_back(comp2);
+    dependencies->addComponent(comp2);
 }
 
 //------------------------------------------------------------------------------

@@ -29,17 +29,21 @@
 
 #include "componentsystemUI/componentsystem_ui_global.h"
 
+#include <utils/IListObserver.h>
+
 #include <QtCore/QAbstractTableModel>
 #include <QtCore/QList>
 
 class ComponentDefinition;
 class ComponentDefinitionsAdapter;
+class IComponent;
 
-class COMP_SYSTEM_UI_API ComponentDefinitionsModel : public QAbstractTableModel
+class COMP_SYSTEM_UI_API ComponentDefinitionsModel : public QAbstractTableModel, public IListObserver<IComponent *>
 {
     Q_OBJECT
 public:
     explicit ComponentDefinitionsModel(const ComponentDefinitionsAdapter *adapter, QObject *parent = nullptr);
+    ~ComponentDefinitionsModel();
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
 
@@ -52,6 +56,8 @@ public:
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
 
     Qt::ItemFlags flags(const QModelIndex &index) const;
+
+    void onChanged(const Changes<IComponent *> &changes);
 
 private:
     const ComponentDefinitionsAdapter *m_adapter;
