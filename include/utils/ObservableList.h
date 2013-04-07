@@ -53,8 +53,8 @@ public:
     ObservableList();
     ~ObservableList();
 
-    void installObserver(IListObserver<TItem> *observer);
-    bool removeObserver(IListObserver<TItem> *observer);
+    void installObserver(IListObserver<TItem> *observer) const;
+    bool removeObserver(IListObserver<TItem> *observer) const;
 
     /*!
      * @details
@@ -361,12 +361,13 @@ private:
 
 private:
     QList<TItem> m_items;
-    QSet<IListObserver<TItem> *> m_observers;
+    mutable QSet<IListObserver<TItem> *> m_observers;
 };
 
 //------------------------------------------------------------------------------
 template <typename TItem>
 ObservableList<TItem>::ObservableList()
+    : m_observers(QSet<IListObserver<TItem> *>())
 {
 }
 
@@ -380,14 +381,14 @@ ObservableList<TItem>::~ObservableList()
 
 //------------------------------------------------------------------------------
 template <typename TItem>
-void ObservableList<TItem>::installObserver(IListObserver<TItem> *observer)
+void ObservableList<TItem>::installObserver(IListObserver<TItem> *observer) const
 {
     m_observers.insert(observer);
 }
 
 //------------------------------------------------------------------------------
 template <typename TItem>
-bool ObservableList<TItem>::removeObserver(IListObserver<TItem> *observer)
+bool ObservableList<TItem>::removeObserver(IListObserver<TItem> *observer) const
 {
     return m_observers.remove(observer);
 }
