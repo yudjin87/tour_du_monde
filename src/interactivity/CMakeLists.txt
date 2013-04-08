@@ -87,6 +87,4 @@ target_link_libraries(${CRSL_PROJECT_NAME} ${QT_QTGUI_LIBRARY})
 
 ###############################################################################
 # Copy definition to the output directory, right near the library
-set(__RT_DIRECTORY "")
-get_target_property(__RT_DIRECTORY ${CRSL_PROJECT_NAME} RUNTIME_OUTPUT_DIRECTORY)
-crsl_copy_extra_files(${CRSL_PROJECT_NAME} "${__OTHER_FILES}" ${__RT_DIRECTORY})
+crsl_copy_extra_files(${CRSL_PROJECT_NAME} "${__OTHER_FILES}" $<TARGET_FILE_DIR:${CRSL_PROJECT_NAME}>)
