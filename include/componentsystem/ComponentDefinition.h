@@ -76,7 +76,7 @@ public:
      */
     ComponentDefinition &operator=(const ComponentDefinition &other);
 
-public slots:
+public:
     void addParent(const QString &parent);
 
     /*!
