@@ -48,13 +48,13 @@ endfunction(crsl_get_target_os)
 # Returns short name of the compiler to __RESULT .It used for the binaries
 # outputs.
 function(crsl_get_compiler __RESULT)
-  if("${CMAKE_CXX_COMPILER_VERSION}" STREQUAL "")
-    message(FATAL_ERROR "Undefined compiler version.")
-  endif()
-
   string(TOLOWER ${CMAKE_CXX_COMPILER_ID} __CMPLR)
 
   if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+    if("${CMAKE_CXX_COMPILER_VERSION}" STREQUAL "")
+      message(FATAL_ERROR "Undefined compiler version. Use cmake 2.8.10 or higher.")
+    endif()
+
     set(__SUFIX "")
     # Unfortunately, I couldnot use \\d or even {0,2} to get NNN.NNN pattern
     # string(REGEX MATCH "(([0-9]+)\\.*)(([0-9]+))" __VERSION ${CMAKE_CXX_COMPILER_VERSION})
