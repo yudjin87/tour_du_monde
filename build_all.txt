@@ -17,53 +17,25 @@ include(cmake/build_utils.cmake)
 # system without removing cache and other intermediate cmake's stuff - 
 # it is improve building speed. So, to avoid generating NMake cache files 
 # and MSVC ones we have to use specified directories for them.
+set(ROOT_DIR ${CMAKE_SOURCE_DIR})
+set(PATH_TO_CMAKE_LISTS ${ROOT_DIR})
+set(PROJECTS_DIR ${ROOT_DIR})
+set(BUILD_TOOL_OPTIONS "-j4")
+set(NO_BUILD_TOOL_OPTIONS "")
+
+message(STATUS "PATH_TO_CMAKE_LISTS: " ${PATH_TO_CMAKE_LISTS})
+
 if(WIN32)
-  if(MINGW)
-    set(BUILD_TREE_PATH "mingw-build")
-    set(GENERATOR_NAME "MinGW Makefiles")
-    set(BUILD_TOOL_OPTIONS "-j4")
-  else()
-    set(BUILD_TREE_PATH "nmake-build")
-    set(GENERATOR_NAME "NMake Makefiles")
-    set(BUILD_TOOL_OPTIONS "")
-  endif()
+  #crsl_build("debug;release" "MinGW Makefiles" "${PROJECTS_DIR}/gnu-x64" "${BUILD_TOOL_OPTIONS}" ${PATH_TO_CMAKE_LISTS})
+  #crsl_build("debug-static;release-static" "MinGW Makefiles" "${PROJECTS_DIR}/gnu-x64-static" "${BUILD_TOOL_OPTIONS}" ${PATH_TO_CMAKE_LISTS})
+  crsl_build("debug;release" "Visual Studio 10" "${PROJECTS_DIR}/msvc10-x32" "${NO_BUILD_TOOL_OPTIONS}" ${PATH_TO_CMAKE_LISTS})
+  crsl_build("debug-static;release-static" "Visual Studio 10" "${PROJECTS_DIR}/msvc10-x32-static" "${NO_BUILD_TOOL_OPTIONS}" ${PATH_TO_CMAKE_LISTS})  
 elseif(APPLE OR UNIX)
-  set(BUILD_TREE_PATH "make-build")
-  set(GENERATOR_NAME "Unix Makefiles")
-  set(BUILD_TOOL_OPTIONS "-j4")
+  crsl_build("debug;release" "Unix Makefiles" "${PROJECTS_DIR}/Make-build" "${BUILD_TOOL_OPTIONS}" ${PATH_TO_CMAKE_LISTS})
+  crsl_build("debug-static;release-static" "Unix Makefiles" "${PROJECTS_DIR}/Make-build-static" "${BUILD_TOOL_OPTIONS}" ${PATH_TO_CMAKE_LISTS})
 else()
   message(FATAL_ERROR "Undefined platform: " ${CMAKE_SYSTEM_NAME})   
 endif()
+
 message(STATUS "Building system: " ${GENERATOR_NAME})
 
-###############################################################################
-# Set default configurations and populate them with static mode.
-set(CONFIGURATIONS "debug" "release")
-foreach(__CONF ${CONFIGURATIONS})
-  list(APPEND CONFIGURATIONS "${__CONF}-static")
-endforeach(__CONF)
-
-file(MAKE_DIRECTORY ${BUILD_TREE_PATH})
-
-##############################################################################
-# Generate a build system and perform building for all configurations.
-foreach(__CONF ${CONFIGURATIONS})
-  message(STATUS "Build type: " ${__CONF})
-  message(STATUS "Build tool options: " ${BUILD_TOOL_OPTIONS})
-
-  if(${__CONF} MATCHES "static")
-    set(WITH_TESTS ON)
-  else()
-    set(WITH_TESTS OFF)
-  endif()
-  
-  set(BUILD_RESULT 0)
-  crsl_generate_project(${GENERATOR_NAME} ${__CONF} ${BUILD_TREE_PATH} ${WITH_TESTS} BUILD_RESULT)
-	
-  if(BUILD_RESULT GREATER 0)
-    message(FATAL_ERROR "CMake configuration for generator '${GENERATOR_NAME}' failed.")   
-	return()
-  endif()
-
-  crsl_build_project(${__CONF} ${BUILD_TREE_PATH} "${BUILD_TOOL_OPTIONS}")
-endforeach(__CONF)

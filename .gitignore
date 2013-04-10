@@ -3,6 +3,11 @@ product/
 intermediate/
 bin/
 
+# Projects (cmake binary trees)
+msvc*/
+mingw*/
+gnu*/
+
 Makefile
 Makefile.*
 *.pdb
