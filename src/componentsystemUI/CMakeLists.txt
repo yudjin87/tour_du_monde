@@ -8,6 +8,7 @@ include(cmake/target_utils)
 set(__SOURCES
     ${CRSL_TARGET_SOURCES}/ComponentDefinitionsAdapter.cpp 
     ${CRSL_TARGET_SOURCES}/ComponentDefinitionsModel.cpp 
+    ${CRSL_TARGET_SOURCES}/ComponentsDialog.cpp 
 )
 
 ######################################################################
@@ -15,6 +16,7 @@ set(__SOURCES
 set(__HEADERS
     ${CRSL_TARGET_HEADERS}/ComponentDefinitionsAdapter.h 
     ${CRSL_TARGET_HEADERS}/ComponentDefinitionsModel.h 
+    ${CRSL_TARGET_HEADERS}/ComponentsDialog.h 
     ${CRSL_TARGET_HEADERS}/componentsystem_ui_global.h 
 )
 
