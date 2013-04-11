@@ -4,7 +4,7 @@
 # For more information about cmake use Ctrl+F at the page
 # http://www.cmake.org/cmake/help/v2.8.8/cmake.html
 ###############################################################################
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 2.8.10)
 
 ###############################################################################
 # Add module contains a couple of subroutines such as determining 
