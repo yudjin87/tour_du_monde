@@ -7,6 +7,8 @@ bin/
 msvc*/
 mingw*/
 gnu*/
+make*/
+nmake*/
 
 Makefile
 Makefile.*
