@@ -7,7 +7,7 @@ project(sources CXX)
 # Add concrete projects to the group
 add_subdirectory(booting)
 add_subdirectory(componentsystem)
-add_subdirectory(componentsystemUI)
+add_subdirectory(componentsystemui)
 add_subdirectory(framework)
 add_subdirectory(interactivity)
 add_subdirectory(logging)

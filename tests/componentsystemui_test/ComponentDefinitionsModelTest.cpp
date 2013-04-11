@@ -29,8 +29,8 @@
 #include <componentsystem/ComponentDefinition.h>
 #include <componentsystem/ComponentDependencies.h>
 #include <componentsystem/ProxyComponent.h>
-#include <componentsystemUI/ComponentDefinitionsAdapter.h>
-#include <componentsystemUI/ComponentDefinitionsModel.h>
+#include <componentsystemui/ComponentDefinitionsAdapter.h>
+#include <componentsystemui/ComponentDefinitionsModel.h>
 
 #include <QtCore/QtAlgorithms>
 #include <QtCore/QTimer>

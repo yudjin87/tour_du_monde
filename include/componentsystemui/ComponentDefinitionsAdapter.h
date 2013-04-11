@@ -27,7 +27,7 @@
 #ifndef COMPONENTDEFINITIONSADAPTER_H
 #define COMPONENTDEFINITIONSADAPTER_H
 
-#include "componentsystemUI/componentsystem_ui_global.h"
+#include "componentsystemui/componentsystem_ui_global.h"
 
 #include <QtCore/QObject>
 

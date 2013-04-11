@@ -1,8 +1,8 @@
 include (../test_shared.pri)
-include (componentsystemUI_test.pri)
+include (componentsystemui_test.pri)
 
 QT      += gui
-TARGET = componentsystemUI_test
+TARGET = componentsystemui_test
 
 DESTDIR = $${CAROUSEL_WD}/$${BIN_OUTPUT_PATH}/manual-test
 

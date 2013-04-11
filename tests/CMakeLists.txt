@@ -13,7 +13,7 @@ add_subdirectory(logging_test)
 add_subdirectory(utils_test)  
 
 # Manual tests
-add_subdirectory(componentsystemUI_test)
+add_subdirectory(componentsystemui_test)
 
 ###############################################################################
 # Specify dependencies for correct build order

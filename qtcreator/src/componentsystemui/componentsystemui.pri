@@ -1,5 +1,5 @@
-PROJECT_SOURCES = $$CPP_SOURCE_TREE/componentsystemUI
-PROJECT_HEADERS = $$HPP_SOURCE_TREE/componentsystemUI
+PROJECT_SOURCES = $$CPP_SOURCE_TREE/componentsystemui
+PROJECT_HEADERS = $$HPP_SOURCE_TREE/componentsystemui
 
 SOURCES += \
     $$PROJECT_SOURCES/ComponentDefinitionsAdapter.cpp \

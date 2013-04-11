@@ -1,4 +1,4 @@
-TEST_PROJECT_SOURCES = $$CPP_TESTS_TREE/componentsystemUI_test
+TEST_PROJECT_SOURCES = $$CPP_TESTS_TREE/componentsystemui_test
 
 SOURCES += \
     $$TEST_PROJECT_SOURCES/ComponentDefinitionsModelTest.cpp \

@@ -1,5 +1,5 @@
 include (../../carousel.pri)
-include (componentsystemUI.pri)
+include (componentsystemui.pri)
 
 QT      += gui
 QT      += core
@@ -9,6 +9,6 @@ TARGET = ComponentSystemUI
 
 DEFINES += COMPONENTSYSTEM_UI_LIBRARY
 
-INCLUDEPATH += $$HPP_SOURCE_TREE/componentsystemUI
+INCLUDEPATH += $$HPP_SOURCE_TREE/componentsystemui
 
 LIBS += -L$${DESTDIR} -lComponentSystem \

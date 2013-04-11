@@ -27,7 +27,7 @@
 #ifndef COMPONENTMANAGERMODEL_H
 #define COMPONENTMANAGERMODEL_H
 
-#include "componentsystemUI/componentsystem_ui_global.h"
+#include "componentsystemui/componentsystem_ui_global.h"
 
 #include <utils/IListObserver.h>
 
