@@ -5,8 +5,16 @@
 # To perform building run (from VS Command Prompt on Windows) the 
 # following:
 #
-# cmake -P build_all.txt
-# cmake -DMINGW=TRUE -P build_all.txt
+#     cmake -P build_all.txt
+#
+# or
+#     cmake -DMINGW=TRUE -P build_all.txt
+#
+# to run using MinGW. If you have both Qt binaries - for MinGW and for MSVC,
+# you should specify path to the MinGW Qt:
+#
+#     QTDIR=/d/Qt/4.8.4-mingw-x64
+#     cmake -DMINGW=TRUE -P build_all.txt
 #
 # Note, this module does not generate IDE projects
 include(cmake/build_utils.cmake)
@@ -26,10 +34,15 @@ set(NO_BUILD_TOOL_OPTIONS "")
 message(STATUS "PATH_TO_CMAKE_LISTS: " ${PATH_TO_CMAKE_LISTS})
 
 if(WIN32)
-  #crsl_build("debug;release" "MinGW Makefiles" "${PROJECTS_DIR}/gnu-x64" "${BUILD_TOOL_OPTIONS}" ${PATH_TO_CMAKE_LISTS})
-  #crsl_build("debug-static;release-static" "MinGW Makefiles" "${PROJECTS_DIR}/gnu-x64-static" "${BUILD_TOOL_OPTIONS}" ${PATH_TO_CMAKE_LISTS})
-  crsl_build("debug;release" "Visual Studio 10" "${PROJECTS_DIR}/msvc10-x32" "${NO_BUILD_TOOL_OPTIONS}" ${PATH_TO_CMAKE_LISTS})
-  crsl_build("debug-static;release-static" "Visual Studio 10" "${PROJECTS_DIR}/msvc10-x32-static" "${NO_BUILD_TOOL_OPTIONS}" ${PATH_TO_CMAKE_LISTS})  
+  if(MINGW)
+    crsl_build("debug" "MinGW Makefiles" "${PROJECTS_DIR}/gnu-x64-debug" "${BUILD_TOOL_OPTIONS}" ${PATH_TO_CMAKE_LISTS})
+    crsl_build("debug-static" "MinGW Makefiles" "${PROJECTS_DIR}/gnu-x64-debug-static" "${BUILD_TOOL_OPTIONS}" ${PATH_TO_CMAKE_LISTS})	
+    crsl_build("release" "MinGW Makefiles" "${PROJECTS_DIR}/gnu-x64-release" "${BUILD_TOOL_OPTIONS}" ${PATH_TO_CMAKE_LISTS})
+    crsl_build("release-static" "MinGW Makefiles" "${PROJECTS_DIR}/gnu-x64-release-static" "${BUILD_TOOL_OPTIONS}" ${PATH_TO_CMAKE_LISTS})
+  else()
+    crsl_build("debug;release" "Visual Studio 10" "${PROJECTS_DIR}/msvc10-x32" "${NO_BUILD_TOOL_OPTIONS}" ${PATH_TO_CMAKE_LISTS})
+    crsl_build("debug-static;release-static" "Visual Studio 10" "${PROJECTS_DIR}/msvc10-x32-static" "${NO_BUILD_TOOL_OPTIONS}" ${PATH_TO_CMAKE_LISTS})  
+  endif()
 elseif(APPLE OR UNIX)
   crsl_build("debug" "Unix Makefiles" "${PROJECTS_DIR}/make-debug" "${BUILD_TOOL_OPTIONS}" ${PATH_TO_CMAKE_LISTS})
   crsl_build("debug-static" "Unix Makefiles" "${PROJECTS_DIR}/make-debug-static" "${BUILD_TOOL_OPTIONS}" ${PATH_TO_CMAKE_LISTS})	
