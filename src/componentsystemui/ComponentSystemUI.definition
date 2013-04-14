@@ -1,0 +1,9 @@
+ <component name="ComponentSystemUI">
+     <productName>ComponentSystemUI</productName>
+     <description>
+     </description>
+     <location>./ComponentSystemUI</location>
+     <parents>
+         <parentComponent name="Interactivity"/>
+     </parents>
+ </component>
