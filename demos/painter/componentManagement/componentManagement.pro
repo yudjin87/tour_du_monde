@@ -23,12 +23,14 @@ HEADERS += \
     componentManagement_api.h \
     ComponentManagementComponent.h \
     ComponentManagementInteractiveExtension.h \
-    InstallComponentsCommand.h
+    InstallComponentsCommand.h \
+    ShowComponentsCommand.h
 
 SOURCES += \
     ComponentManagementComponent.cpp \
     ComponentManagementInteractiveExtension.cpp \
-    InstallComponentsCommand.cpp
+    InstallComponentsCommand.cpp \
+    ShowComponentsCommand.cpp
 
 OTHER_FILES += \
     ComponentManagement.definition

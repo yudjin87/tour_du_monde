@@ -24,48 +24,48 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "ComponentManagementComponent.h"
-#include "ComponentManagementInteractiveExtension.h"
+#include "ShowComponentsCommand.h"
 
-#include <componentsystem/ComponentDefinition.h>
-#include <componentsystem/ComponentExport.h>
+#include <componentsystem/IComponent.h>
+#include <componentsystem/ComponentDependencies.h>
+#include <componentsystem/IComponentManager.h>
+#include <componentsystemui/ComponentDefinitionsAdapter.h>
+#include <componentsystemui/ComponentDefinitionsModel.h>
+
+#include <interactivity/IDialogService.h>
+
 #include <framework/AbstractApplication.h>
+#include <utils/IServiceLocator.h>
+
+#include <QtGui/QMainWindow>
 
 //------------------------------------------------------------------------------
-static const QByteArray productName("ComponentManagement");
-
-//------------------------------------------------------------------------------
-ComponentManagementComponent::ComponentManagementComponent(QObject *parent /*= nullptr*/)
-    : BaseComponent("ComponentManagement", parent)
-{
-    IInteractiveExtension *interactiveExtension = new ComponentManagementInteractiveExtension(this);
-    registerExtension<IInteractiveExtension>(interactiveExtension);
-
-    addParent("ComponentSystemUI");
-    setProductName(productName);
-}
-
-//------------------------------------------------------------------------------
-ComponentManagementComponent::~ComponentManagementComponent()
+ShowComponentsCommand::ShowComponentsCommand()
+    : Command("Show components")
+    , m_app(nullptr)
 {
 }
 
 //------------------------------------------------------------------------------
-bool ComponentManagementComponent::_onStartup(QObject *ip_initData)
+void ShowComponentsCommand::execute()
 {
-    AbstractApplication *app = qobject_cast<AbstractApplication *>(ip_initData);
-    if (app == nullptr)
-        return false;
+    IServiceLocator &locator = m_app->serviceLocator();
+    IComponentManager *manager = locator.locate<IComponentManager>();
 
-    return true;
+    ComponentDefinitionsAdapter *adapter = new ComponentDefinitionsAdapter(&manager->dependencies());
+    ComponentDefinitionsModel *model = new ComponentDefinitionsModel(adapter);
+
+    IDialogService *dialogService = locator.locate<IDialogService>();
+
+    dialogService->showDialog(model);
 }
 
 //------------------------------------------------------------------------------
-void ComponentManagementComponent::_onShutdown()
+void ShowComponentsCommand::initialize(QObject *ip_startUpData)
 {
+    m_app = qobject_cast<AbstractApplication *>(ip_startUpData);
+    if (m_app == nullptr)
+        return;
 }
-
-//------------------------------------------------------------------------------
-EXPORT_COMPONENT(ComponentManagementComponent)
 
 //------------------------------------------------------------------------------

@@ -27,6 +27,7 @@
 #include "ComponentManagementInteractiveExtension.h"
 
 #include "InstallComponentsCommand.h"
+#include "ShowComponentsCommand.h"
 
 #include <framework/AbstractApplication.h>
 #include <interactivity/ICatalogs.h>
@@ -51,15 +52,17 @@ void ComponentManagementInteractiveExtension::configureGui(ICatalogs &i_inCatalo
 
     ICommandCatalog &commandCatalog = i_inCatalogs.commandCatalog();
     Command *installComponents = commandCatalog.add(new InstallComponentsCommand());
+    Command *showComponents = commandCatalog.add(new ShowComponentsCommand());
 
     IToolBarCatalog &toolbarCatalog = i_inCatalogs.toolBarCatalog();
     QToolBar *toolBar = toolbarCatalog.add("Components");
     toolBar->addAction(installComponents);
+    toolBar->addAction(showComponents);
 
     IMenuCatalog &menuCatalog = i_inCatalogs.menuCatalog();
     QMenu *menu = menuCatalog.addMenu("Components");
     menu->addAction(installComponents);
+    menu->addAction(showComponents);
 }
 
 //------------------------------------------------------------------------------
-

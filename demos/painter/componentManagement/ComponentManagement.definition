@@ -2,6 +2,6 @@
      <productName>ComponentManagement</productName>
      <location>./ComponentManagement</location>
      <parents>
-         <parentComponent name="Interactivity"/>
+         <parentComponent name="ComponentSystemUI"/>
      </parents>
  </component>

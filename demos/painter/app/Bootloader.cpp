@@ -31,6 +31,7 @@
 #include <componentsystem/DirectoryComponentProvider.h>
 #include <componentsystem/IComponentManager.h>
 #include <componentsystem/IComponent.h>
+#include <componentsystemui/ComponentSystemUIComponent.h>
 #include <interactivity/InteractionServiceComponent.h>
 
 #include <QtCore/QCoreApplication>
@@ -47,6 +48,7 @@ void Bootloader::_configureComponentProvider()
     provider->addProvider(new DirectoryComponentProvider("./components"));
     provider->addProvider(new DirectoryComponentProvider("./installedComponents"));
     provider->registerComponent(new InteractionServiceComponent());
+    provider->registerComponent(new ComponentSystemUIComponent());
 }
 
 //------------------------------------------------------------------------------

@@ -13,7 +13,8 @@ LIBS += -L$${CAROUSEL_BIN} -lComponentSystem \
                            -lFramework \
                            -lUtils \
                            -lLogging \
-                           -lInteractivity
+                           -lInteractivity \
+                           -lComponentSystemUI \
 
 SOURCES += \
     main.cpp\
