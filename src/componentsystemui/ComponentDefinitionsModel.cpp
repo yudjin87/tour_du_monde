@@ -44,6 +44,8 @@ ComponentDefinitionsModel::ComponentDefinitionsModel(const ComponentDefinitionsA
 //------------------------------------------------------------------------------
 ComponentDefinitionsModel::~ComponentDefinitionsModel()
 {
+    m_adapter->components().removeObserver(this);
+
     delete m_adapter;
     m_adapter = nullptr;
 }
