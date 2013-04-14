@@ -6,8 +6,8 @@ CONFIG  += ordered
 SUBDIRS += \
     utils \
     logging \
-    componentsystem \
-    componentsystemui \
+    componentsystem \    
     booting \
     framework\
+    componentsystemui \
     interactivity \
