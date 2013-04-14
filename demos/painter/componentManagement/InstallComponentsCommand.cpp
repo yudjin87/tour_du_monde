@@ -33,6 +33,7 @@
 
 #include <framework/AbstractApplication.h>
 #include <utils/IServiceLocator.h>
+#include <utils/ObservableList.h>
 
 #include <QtCore/QDir>
 #include <QtCore/QSettings>
