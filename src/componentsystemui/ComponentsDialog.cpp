@@ -25,6 +25,7 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "ComponentsDialog.h"
+#include "ui_ComponentsDialog.h"
 
 #include "ComponentDefinitionsModel.h"
 
@@ -35,15 +36,24 @@
 ComponentsDialog::ComponentsDialog(ComponentDefinitionsModel *model, QWidget *parent)
     : QDialog(parent)
     , m_model(model)
+    , m_ui(new Ui::ComponentsDialog())
 {
     QSortFilterProxyModel *filterModel = new QSortFilterProxyModel(this);
     filterModel->setSourceModel(model);
 
-    QTableView *view = new QTableView(this);
-    view->setModel(filterModel);
-    view->setSortingEnabled(true);
-    view->resizeColumnsToContents();
-    view->setSelectionBehavior(QAbstractItemView::SelectRows);
+    m_ui->setupUi(this);
+    m_ui->tableView->setModel(filterModel);
+    m_ui->tableView->resizeColumnsToContents();
+}
+
+//------------------------------------------------------------------------------
+ComponentsDialog::~ComponentsDialog()
+{
+    delete m_ui;
+    m_ui = nullptr;
+
+    delete m_model;
+    m_model = nullptr;
 }
 
 //------------------------------------------------------------------------------

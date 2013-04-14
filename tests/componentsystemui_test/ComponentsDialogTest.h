@@ -27,10 +27,24 @@
 #ifndef COMPONENTSDIALOGTEST_H
 #define COMPONENTSDIALOGTEST_H
 
-class ComponentsDialogTest
+#include <QtCore/QObject>
+
+class ComponentsDialog;
+class IComponent;
+class ComponentDependencies;
+
+class ComponentsDialogTest : public QObject
 {
 public:
-    ComponentsDialogTest();
+    explicit ComponentsDialogTest(QObject *parent = 0);
+    ~ComponentsDialogTest();
+
+    void test();
+
+private:
+    ComponentsDialog *m_dialog;
+    QList<IComponent *> components;
+    ComponentDependencies *dependencies;
 };
 
 #endif // COMPONENTSDIALOGTEST_H

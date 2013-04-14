@@ -26,9 +26,58 @@
 
 #include "ComponentsDialogTest.h"
 
+#include <componentsystem/ComponentDefinition.h>
+#include <componentsystem/ComponentDependencies.h>
+#include <componentsystem/ProxyComponent.h>
+#include <componentsystemui/ComponentDefinitionsAdapter.h>
+#include <componentsystemui/ComponentDefinitionsModel.h>
+
+#include <componentsystemui/ComponentsDialog.h>
+
 //------------------------------------------------------------------------------
-ComponentsDialogTest::ComponentsDialogTest()
+namespace {
+
+ComponentDefinition *createDefinition(QString name, QString compLocation, QString defLocation, QString description, QString product)
 {
+    ComponentDefinition *def = new ComponentDefinition(name);
+    //def->setAvailability(availability);
+    def->setComponentLocation(compLocation);
+    def->setDefinitionLocation(defLocation);
+    def->setDescription(description);
+    def->setProductName(product);
+
+    return def;
+}
+
+}
+
+//------------------------------------------------------------------------------
+ComponentsDialogTest::ComponentsDialogTest(QObject *parent)
+    : QObject(parent)
+{
+    dependencies = new ComponentDependencies(this);
+    for (int i = 0; i < 11; ++i) {
+        IComponent *comp = new ProxyComponent(createDefinition(QString("Component%1").arg(i), "/to/nowhere/library", "/to/nowhere/definition", "Description", "ComponentA product"));
+        components.push_back(comp);
+        dependencies->addComponent(comp);
+    }
+
+    ComponentDefinitionsAdapter *adapter = new ComponentDefinitionsAdapter(dependencies);
+    ComponentDefinitionsModel *model = new ComponentDefinitionsModel(adapter);
+
+    m_dialog = new ComponentsDialog(model);
+}
+
+//------------------------------------------------------------------------------
+ComponentsDialogTest::~ComponentsDialogTest()
+{
+    delete m_dialog;
+}
+
+//------------------------------------------------------------------------------
+void ComponentsDialogTest::test()
+{
+    m_dialog->show();
 }
 
 //------------------------------------------------------------------------------

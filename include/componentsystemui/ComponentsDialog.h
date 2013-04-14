@@ -27,18 +27,25 @@
 #ifndef COMPONENTSDIALOG_H
 #define COMPONENTSDIALOG_H
 
+#include "componentsystemui/componentsystem_ui_global.h"
+
 #include <QtGui/QDialog>
 
 class ComponentDefinitionsModel;
+namespace Ui {
+class ComponentsDialog;
+}
 
-class ComponentsDialog : public QDialog
+class COMP_SYSTEM_UI_API ComponentsDialog : public QDialog
 {
     Q_OBJECT
 public:
-    ComponentsDialog(ComponentDefinitionsModel *model, QWidget *parent);
+    ComponentsDialog(ComponentDefinitionsModel *model, QWidget *parent = nullptr);
+    ~ComponentsDialog();
 
 private:
     ComponentDefinitionsModel *m_model;
+    Ui::ComponentsDialog *m_ui;
 };
 
 #endif // COMPONENTSDIALOG_H
