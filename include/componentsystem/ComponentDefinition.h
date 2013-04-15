@@ -54,16 +54,18 @@ class COMP_API ComponentDefinition
 public:
     /*!
      * @details
-     *   Initialises a new instance of the ComponentDefinition class.
+     *   Initialises a new empty instance of the ComponentDefinition class.
      */
     ComponentDefinition();
 
     /*!
      * @details
      *   Initialises a new instance of the ComponentDefinition class using
-     *   specified component.
+     *   specified component name and built-in flag which determines
+     *   whether component registered statically in code (build-in) or
+     *   dynamically (on start-time or run-time).
      */
-    ComponentDefinition(const QString &componentName);
+    ComponentDefinition(const QString &componentName, bool isBuiltIn);
 
     ComponentDefinition(const ComponentDefinition &other);
 
@@ -118,6 +120,13 @@ public:
 
     /*!
      * @details
+     *   Gets the flag which determines whether component registered statically in code
+     *   (build-in) or dynamically (on start-time or run-time).
+     */
+    bool isBuiltIn() const;
+
+    /*!
+     * @details
      *   Gets the list of parent (dependent) components names.
      */
     const QStringList &parents() const;
@@ -168,6 +177,7 @@ private:
     QString m_componentLocation;
     QString m_definitionLocation;
     QStringList m_parents;
+    bool m_isBuiltIn;
 };
 
 #endif // COMPONENTDEFINITION_H

@@ -39,12 +39,13 @@
 //------------------------------------------------------------------------------
 namespace {
 
-ComponentDefinition *createDefinition(QString name, QString compLocation, QString defLocation, QString description, QString product)
+ComponentDefinition *createDefinition(QString name,  bool builtIn, QString compLocation, QString defLocation, QString description, QString product)
 {
-    ComponentDefinition *def = new ComponentDefinition(name);
-    //def->setAvailability(availability);
-    def->setComponentLocation(compLocation);
-    def->setDefinitionLocation(defLocation);
+    ComponentDefinition *def = new ComponentDefinition(name, builtIn);
+    if (!builtIn) {
+        def->setComponentLocation(compLocation);
+        def->setDefinitionLocation(defLocation);
+    }
     def->setDescription(description);
     def->setProductName(product);
 
@@ -59,7 +60,7 @@ ComponentDefinitionsModelTest::ComponentDefinitionsModelTest()
 {
     dependencies = new ComponentDependencies(this);
     for (int i = 0; i < 11; ++i) {
-        IComponent *comp = new ProxyComponent(createDefinition(QString("Component%1").arg(i), "/to/nowhere/library", "/to/nowhere/definition", "Description", "ComponentA product"));
+        IComponent *comp = new ProxyComponent(createDefinition(QString("Component%1").arg(i), (i % 2), "/to/nowhere/library", "/to/nowhere/definition", "Description", "ComponentA product"));
         components.push_back(comp);
         dependencies->addComponent(comp);
     }
@@ -87,11 +88,11 @@ ComponentDefinitionsModelTest::~ComponentDefinitionsModelTest()
 //------------------------------------------------------------------------------
 void ComponentDefinitionsModelTest::addNewOne()
 {
-    IComponent *comp = new ProxyComponent(createDefinition(QString("Component%1").arg(99), "/to/nowhere/library", "/to/nowhere/definition", "Description", "ComponentA product"));
+    IComponent *comp = new ProxyComponent(createDefinition(QString("Component%1").arg(99), true, "/to/nowhere/library", "/to/nowhere/definition", "Description", "ComponentA product"));
     components.push_back(comp);
     dependencies->addComponent(comp);
 
-    IComponent *comp2 = new ProxyComponent(createDefinition(QString("Component%1").arg(88), "/to/nowhere/library", "/to/nowhere/definition", "Description", "ComponentA product"));
+    IComponent *comp2 = new ProxyComponent(createDefinition(QString("Component%1").arg(88), true, "/to/nowhere/library", "/to/nowhere/definition", "Description", "ComponentA product"));
     components.push_back(comp2);
     dependencies->addComponent(comp2);
 }

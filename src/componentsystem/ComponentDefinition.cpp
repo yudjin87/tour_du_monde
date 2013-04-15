@@ -36,11 +36,12 @@ ComponentDefinition::ComponentDefinition()
     , m_componentLocation("")
     , m_definitionLocation("")
     , m_parents()
+    , m_isBuiltIn(false)
 {
 }
 
 //------------------------------------------------------------------------------
-ComponentDefinition::ComponentDefinition(const QString &componentName)
+ComponentDefinition::ComponentDefinition(const QString &componentName, bool isBuiltIn)
     : mp_component(nullptr)
     , m_componentName(componentName)
     , m_description("")
@@ -48,6 +49,7 @@ ComponentDefinition::ComponentDefinition(const QString &componentName)
     , m_componentLocation("")
     , m_definitionLocation("")
     , m_parents()
+    , m_isBuiltIn(isBuiltIn)
 {
 }
 
@@ -60,6 +62,7 @@ ComponentDefinition::ComponentDefinition(const ComponentDefinition &other)
     , m_componentLocation(other.m_componentLocation)
     , m_definitionLocation(other.m_definitionLocation)
     , m_parents(other.m_parents)
+    , m_isBuiltIn(other.m_isBuiltIn)
 {
 }
 
@@ -87,6 +90,7 @@ ComponentDefinition &ComponentDefinition::operator =(const ComponentDefinition &
     m_componentLocation = other.m_componentLocation;
     m_definitionLocation = other.m_definitionLocation;
     m_parents = other.m_parents;
+    m_isBuiltIn = other.m_isBuiltIn;
 
     return *this;
 }
@@ -125,6 +129,12 @@ const QString &ComponentDefinition::definitionLocation() const
 const QString &ComponentDefinition::description() const
 {
     return m_description;
+}
+
+//------------------------------------------------------------------------------
+bool ComponentDefinition::isBuiltIn() const
+{
+    return m_isBuiltIn;
 }
 
 //------------------------------------------------------------------------------

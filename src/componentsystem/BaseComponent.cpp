@@ -33,7 +33,7 @@
 
 //------------------------------------------------------------------------------
 BaseComponent::BaseComponent(const QString &i_name, QObject *parent)
-    : mp_definition(new ComponentDefinition(i_name))
+    : mp_definition(new ComponentDefinition(i_name, true))
     , m_isStarted(false)
     , m_availability(IComponent::Enabled)
     , mp_typeObjectsMap(new TypeObjectsMap<void *>())
