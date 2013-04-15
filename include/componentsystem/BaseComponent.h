@@ -118,16 +118,6 @@ protected:
      * @details
      *   Initializes a new instance of the BaseComponent class using specified component
      *   name and IComponent::Enabled availability.
-     * @param ip_name
-     *   the name of your component class. In derived classes you should pass the unique 
-     *   name for the your component (not per instance, but per class!).
-     */
-    explicit BaseComponent(const char *ip_name, QObject *parent = nullptr);
-
-    /*!
-     * @details
-     *   Initializes a new instance of the BaseComponent class using specified component
-     *   name and IComponent::Enabled availability.
      * @param i_name
      *   the name of your component class. In derived classes you should pass the unique 
      *   name for the your component (not per instance, but per class!).

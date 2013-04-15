@@ -30,18 +30,6 @@
 #include <utils/TypeObjectsMap.h>
 
 #include <QtCore/QSettings>
-//------------------------------------------------------------------------------
-BaseComponent::BaseComponent(const char *ip_name, QObject *parent)
-    : mp_definition(new ComponentDefinition(ip_name))
-    , m_isStarted(false)
-    , m_availability(IComponent::Enabled)
-    , mp_typeObjectsMap(new TypeObjectsMap<void *>())
-{
-    setParent(parent);
-    setObjectName(mp_definition->componentName());
-    loadAvailability();
-    mp_definition->setComponent(this);
-}
 
 //------------------------------------------------------------------------------
 BaseComponent::BaseComponent(const QString &i_name, QObject *parent)
