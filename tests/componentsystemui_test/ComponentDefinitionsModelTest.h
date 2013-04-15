@@ -31,6 +31,7 @@
 
 class IComponent;
 class ComponentDependencies;
+class ComponentDefinitionsModel;
 
 class ComponentDefinitionsModelTest : public QTableView
 {
@@ -45,6 +46,7 @@ private slots:
 private:
     QList<IComponent *> components;
     ComponentDependencies *dependencies;
+    ComponentDefinitionsModel *model;
 };
 
 #endif // COMPONENTDEFINITIONVIEWTEST_H

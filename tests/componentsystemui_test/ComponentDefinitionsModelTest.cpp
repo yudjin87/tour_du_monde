@@ -66,7 +66,7 @@ ComponentDefinitionsModelTest::ComponentDefinitionsModelTest()
     }
 
     ComponentDefinitionsAdapter *adapter = new ComponentDefinitionsAdapter(dependencies);
-    ComponentDefinitionsModel *model = new ComponentDefinitionsModel(adapter, this);
+    model = new ComponentDefinitionsModel(adapter);
 
     QSortFilterProxyModel *filterModel = new QSortFilterProxyModel(this);
     filterModel->setSourceModel(model);
@@ -82,6 +82,8 @@ ComponentDefinitionsModelTest::ComponentDefinitionsModelTest()
 //------------------------------------------------------------------------------
 ComponentDefinitionsModelTest::~ComponentDefinitionsModelTest()
 {
+    delete model;
+    model = nullptr;
     qDeleteAll(components);
 }
 
