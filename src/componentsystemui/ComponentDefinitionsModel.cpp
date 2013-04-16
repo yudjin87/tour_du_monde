@@ -92,6 +92,7 @@ QVariant ComponentDefinitionsModel::data(const QModelIndex &index, int role) con
 
     const IComponent *comp = m_adapter->components().at(index.row());
     const ComponentDefinition *def = comp->definition();
+
     switch (role) {
     case Qt::EditRole:
     case Qt::DisplayRole:
@@ -116,6 +117,13 @@ QVariant ComponentDefinitionsModel::data(const QModelIndex &index, int role) con
         }
         break;
 
+
+    case Qt::TextColorRole:
+        if (def->isBuiltIn())
+            return QColor(QColor::fromRgb(128, 128, 128));
+        else
+            return QColor(QColor::fromRgb(0, 0, 0));
+
     case Qt::DecorationRole:
         if (index.column() == 0) {
             QIcon icon;
@@ -136,10 +144,10 @@ bool ComponentDefinitionsModel::setData(const QModelIndex &index, const QVariant
             || role != Qt::CheckStateRole)
         return false;
 
-//    ComponentDefinition *def = m_adapter->components().at(index.row())->definition();
-//    def->setAvailability(def->availability() != IComponent::Enabled
-//            ? IComponent::Enabled
-//            : IComponent::Disabled);
+    //    ComponentDefinition *def = m_adapter->components().at(index.row())->definition();
+    //    def->setAvailability(def->availability() != IComponent::Enabled
+    //            ? IComponent::Enabled
+    //            : IComponent::Disabled);
 
     emit dataChanged(index, index);
     return true;
