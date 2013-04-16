@@ -7,7 +7,7 @@ class MockComponent : public BaseComponent
 {
    Q_OBJECT
 public:
-    explicit MockComponent(const QString &i_name = "MockComponent");
+    explicit MockComponent(const QString &i_name = "MockComponent", bool isBuiltIn = false);
 
     ~MockComponent();
 

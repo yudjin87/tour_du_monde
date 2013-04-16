@@ -112,6 +112,22 @@ void BaseComponentTest::shouldShutdownIfAlreadyStoped()
 }
 
 //------------------------------------------------------------------------------
+void BaseComponentTest::shouldNotShutdownBuiltInComponent()
+{
+    MockComponent mockComponent("MockComponent", true);
+    QSignalSpy spy(&mockComponent, SIGNAL(whenShutdown(const QString &)));
+
+    mockComponent.startup(nullptr);
+
+    QCOMPARE(mockComponent.started(), true);
+
+    mockComponent.shutdown();
+    // make sure the signal wasn't emitted
+    QCOMPARE(spy.count(), 0);
+    QCOMPARE(mockComponent.started(), true);
+}
+
+//------------------------------------------------------------------------------
 void BaseComponentTest::shouldReturnRegisteredInDerivedClassesExtensions()
 {
     ComponentWithExtensions componentWithExtensions;

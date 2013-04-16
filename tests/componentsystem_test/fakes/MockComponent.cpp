@@ -3,8 +3,8 @@
 #include <componentsystem/ComponentDefinition.h>
 
 //------------------------------------------------------------------------------
-MockComponent::MockComponent(const QString &i_name)
-    : BaseComponent(i_name)
+MockComponent::MockComponent(const QString &i_name, bool isBuiltIn)
+    : BaseComponent(new ComponentDefinition(i_name, isBuiltIn))
     , mp_initData(nullptr)
     , m_returnValue(true)
     , mp_registrator(nullptr)
