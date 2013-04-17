@@ -59,7 +59,7 @@ ComponentsDialogTest::ComponentsDialogTest(QObject *parent)
 {
     dependencies = new ComponentDependencies(this);
     for (int i = 0; i < 11; ++i) {
-        IComponent *comp = new ProxyComponent(createDefinition(QString("Component%1").arg(i), (i % 2), "/to/nowhere/library", "/to/nowhere/definition", "Description", "ComponentA product"));
+        IComponent *comp = new ProxyComponent(createDefinition(QString("Component%1").arg(i), (i % 3), "/to/nowhere/library", "/to/nowhere/definition", "Description", "ComponentA product"));
         components.push_back(comp);
         dependencies->addComponent(comp);
     }

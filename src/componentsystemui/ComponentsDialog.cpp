@@ -43,7 +43,10 @@ ComponentsDialog::ComponentsDialog(ComponentDefinitionsModel *model, QWidget *pa
 
     m_ui->setupUi(this);
     m_ui->tableView->setModel(filterModel);
+    m_ui->tableView->selectRow(0);
     m_ui->tableView->resizeColumnsToContents();
+
+    connect(m_ui->closeButton, SIGNAL(clicked()), SLOT(close()));
 }
 
 //------------------------------------------------------------------------------

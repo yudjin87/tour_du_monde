@@ -65,7 +65,7 @@ int ComponentDefinitionsModel::rowCount(const QModelIndex &parent) const
 //------------------------------------------------------------------------------
 int ComponentDefinitionsModel::columnCount(const QModelIndex &parent) const
 {
-    return (parent.column() > 0) ? 0 : 5;
+    return (parent.column() > 0) ? 0 : 3;
 }
 
 //------------------------------------------------------------------------------
@@ -77,9 +77,7 @@ QVariant ComponentDefinitionsModel::headerData(int section, Qt::Orientation orie
     switch (section) {
     case 0: return "Internal name";
     case 1: return "Name";
-    case 2: return "Definition location";
-    case 3: return "Library location";
-    case 4: return "Description";
+    case 2: return "Description";
     default: return QVariant();
     }
 }
@@ -99,9 +97,7 @@ QVariant ComponentDefinitionsModel::data(const QModelIndex &index, int role) con
         switch (index.column()) {
         case 0: return def->componentName();
         case 1: return def->productName();
-        case 2: return def->definitionLocation();
-        case 3: return def->componentLocation();
-        case 4: return def->description();
+        case 2: return def->description();
         default:
             qWarning("data: invalid display value column %d", index.column());
             break;
@@ -117,6 +113,12 @@ QVariant ComponentDefinitionsModel::data(const QModelIndex &index, int role) con
         }
         break;
 
+    case Qt::ToolTipRole:
+        if (index.column() == 0) {
+            return def->isBuiltIn() ? tr("Built-in") : def->definitionLocation();
+        } else {
+            return QVariant::Invalid;
+        }
 
     case Qt::TextColorRole:
         if (def->isBuiltIn())
