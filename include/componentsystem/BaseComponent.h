@@ -92,7 +92,11 @@ public:
 
     /*!
      * @details
-     *   Shuts down the component. Use this method to perform some action when the component gets unloaded.
+     *   Shuts down the component.
+     *   Implement this method to perform some action when the component gets unloaded.
+     *
+     * @note You should not use this method directly, use IComponentManager::shutdownComponent()
+     *   instead.
      */
     void shutdown();
 
@@ -110,6 +114,9 @@ public:
      *   it will be reference to your own AbstractApplication root object, through you can obtain any data.
      * @return @a true, if component started up successful. Otherwise - return @a false. E.g. if component
      *   started twice - it is return @a false on the second time, because it is already started.
+     *
+     * @note You should not use this method directly, use IComponentManager::startupComponent()
+     *   instead.
      */
     bool startup(QObject *ip_initData);
 
