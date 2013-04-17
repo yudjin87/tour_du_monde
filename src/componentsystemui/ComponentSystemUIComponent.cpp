@@ -25,7 +25,7 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "ComponentSystemUIComponent.h"
-#include "ComponentDefinitionsModel.h"
+#include "ComponentDefinitionsAdapter.h"
 #include "ComponentsDialog.h"
 
 #include <componentsystem/ComponentExport.h>
@@ -71,7 +71,7 @@ bool ComponentSystemUIComponent::_onStartup(QObject *ip_initData)
         return false;
 
     IDialogService *dialogService = app->serviceLocator().locate<IDialogService>();
-    dialogService->registerDialog<ComponentsDialog, ComponentDefinitionsModel>();
+    dialogService->registerDialog<ComponentsDialog, ComponentDefinitionsAdapter>();
 
     return true;
 }

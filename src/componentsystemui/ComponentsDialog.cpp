@@ -33,13 +33,13 @@
 #include <QtGui/QTableView>
 
 //------------------------------------------------------------------------------
-ComponentsDialog::ComponentsDialog(ComponentDefinitionsModel *model, QWidget *parent)
+ComponentsDialog::ComponentsDialog(ComponentDefinitionsAdapter *adapter, QWidget *parent)
     : QDialog(parent)
-    , m_model(model)
+    , m_model(new ComponentDefinitionsModel(adapter))
     , m_ui(new Ui::ComponentsDialog())
 {
     QSortFilterProxyModel *filterModel = new QSortFilterProxyModel(this);
-    filterModel->setSourceModel(model);
+    filterModel->setSourceModel(m_model);
 
     m_ui->setupUi(this);
     m_ui->tableView->setModel(filterModel);

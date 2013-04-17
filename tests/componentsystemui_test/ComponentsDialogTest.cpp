@@ -64,10 +64,7 @@ ComponentsDialogTest::ComponentsDialogTest(QObject *parent)
         dependencies->addComponent(comp);
     }
 
-    ComponentDefinitionsAdapter *adapter = new ComponentDefinitionsAdapter(dependencies);
-    ComponentDefinitionsModel *model = new ComponentDefinitionsModel(adapter);
-
-    m_dialog = new ComponentsDialog(model);
+    m_dialog = new ComponentsDialog(new ComponentDefinitionsAdapter(dependencies));
 }
 
 //------------------------------------------------------------------------------

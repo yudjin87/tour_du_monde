@@ -31,6 +31,7 @@
 
 #include <QtGui/QDialog>
 
+class ComponentDefinitionsAdapter;
 class ComponentDefinitionsModel;
 namespace Ui {
 class ComponentsDialog;
@@ -40,7 +41,7 @@ class COMP_SYSTEM_UI_API ComponentsDialog : public QDialog
 {
     Q_OBJECT
 public:
-    ComponentsDialog(ComponentDefinitionsModel *model, QWidget *parent = nullptr);
+    ComponentsDialog(ComponentDefinitionsAdapter *adapter, QWidget *parent = nullptr);
     ~ComponentsDialog();
 
 private:

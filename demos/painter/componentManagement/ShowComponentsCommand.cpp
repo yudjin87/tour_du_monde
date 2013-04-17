@@ -30,7 +30,6 @@
 #include <componentsystem/ComponentDependencies.h>
 #include <componentsystem/IComponentManager.h>
 #include <componentsystemui/ComponentDefinitionsAdapter.h>
-#include <componentsystemui/ComponentDefinitionsModel.h>
 
 #include <interactivity/IDialogService.h>
 
@@ -51,13 +50,10 @@ void ShowComponentsCommand::execute()
 {
     IServiceLocator &locator = m_app->serviceLocator();
     IComponentManager *manager = locator.locate<IComponentManager>();
-
-    ComponentDefinitionsAdapter *adapter = new ComponentDefinitionsAdapter(&manager->dependencies());
-    ComponentDefinitionsModel *model = new ComponentDefinitionsModel(adapter);
-
     IDialogService *dialogService = locator.locate<IDialogService>();
 
-    dialogService->showDialog(model);
+    ComponentDefinitionsAdapter *adapter = new ComponentDefinitionsAdapter(&manager->dependencies());
+    dialogService->showDialog(adapter);
 }
 
 //------------------------------------------------------------------------------
