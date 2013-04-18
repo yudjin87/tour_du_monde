@@ -38,6 +38,7 @@
 //------------------------------------------------------------------------------
 ComponentManager::ComponentManager(ILogger &log, QObject *parent)
     : m_log(log)
+    , m_shutDownFunc(&IComponentInitialiser::shutdownComponent)
     , mp_components(new ComponentDependencies())
     , mp_componentInitialiser(new ComponentInitialiser(log))
     , m_startedComponents(QList<IComponent *>())
@@ -51,6 +52,7 @@ ComponentManager::ComponentManager(ILogger &log, QObject *parent)
 //------------------------------------------------------------------------------
 ComponentManager::ComponentManager(IComponentInitialiser *initializer, ILogger &log, QObject *parent)
     : m_log(log)
+    , m_shutDownFunc(&IComponentInitialiser::shutdownComponent)
     , mp_components(new ComponentDependencies())
     , mp_componentInitialiser(initializer)
     , m_startedComponents(QList<IComponent *>())
@@ -65,6 +67,7 @@ ComponentManager::ComponentManager(IComponentInitialiser *initializer, ILogger &
 //------------------------------------------------------------------------------
 ComponentManager::ComponentManager(IComponentDependencies *dependencies, ILogger &log, QObject *parent)
     : m_log(log)
+    , m_shutDownFunc(&IComponentInitialiser::shutdownComponent)
     , mp_components(dependencies)
     , mp_componentInitialiser(new ComponentInitialiser(log))
     , m_startedComponents(QList<IComponent *>())
@@ -79,6 +82,7 @@ ComponentManager::ComponentManager(IComponentDependencies *dependencies, ILogger
 //------------------------------------------------------------------------------
 ComponentManager::ComponentManager(IComponentDependencies *dependencies, IComponentInitialiser *initializer, ILogger &log, QObject *parent)
     : m_log(log)
+    , m_shutDownFunc(&IComponentInitialiser::shutdownComponent)
     , mp_components(dependencies)
     , mp_componentInitialiser(initializer)
     , m_startedComponents(QList<IComponent *>())
@@ -175,6 +179,14 @@ QList<IComponent *> ComponentManager::startedComponents() const
 }
 
 //------------------------------------------------------------------------------
+void ComponentManager::shutdown()
+{
+    m_shutDownFunc = &IComponentInitialiser::forceShutdownComponent;
+    shutdownAllComponents();
+    m_shutDownFunc = &IComponentInitialiser::shutdownComponent;
+}
+
+//------------------------------------------------------------------------------
 void ComponentManager::shutdownComponent(IComponent *ip_component)
 {
     QList<IComponent *> components;
@@ -265,7 +277,7 @@ void ComponentManager::shutdownComponents(const QList<IComponent *> &components)
             continue;
         }
 
-        mp_componentInitialiser->shutdownComponent(comp);
+        (mp_componentInitialiser->*(m_shutDownFunc))(comp);
         m_log.log(QString("'%1' component is shutted down").arg(comp->name()), ILogger::Info);
         onComponentShutedDown(comp);
     }

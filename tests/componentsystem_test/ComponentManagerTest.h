@@ -40,6 +40,7 @@ private slots:
     void shutdownAllComponents_shouldRemoveThemFromStartedList();
     void shutdownAllComponents_shouldAddThemToTheStoppedList();
     void shutdownAllComponents_shouldNotPassUnexistingComponentToInitialiser();
+    void shutdown_shouldPassAllComponentsToInitialiser();
 
     // Integration tests:
     void startupComponent_shouldPassRightComponentsInRightOrder();

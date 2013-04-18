@@ -63,3 +63,9 @@ bool MockComponentInitialiser::startupComponent(IComponent *component, QObject *
 }
 
 //------------------------------------------------------------------------------
+void MockComponentInitialiser::forceShutdownComponent(IComponent *component)
+{
+    m_forceShutdownComponents.push_back(component);
+}
+
+//------------------------------------------------------------------------------

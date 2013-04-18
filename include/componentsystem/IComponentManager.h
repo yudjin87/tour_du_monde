@@ -172,6 +172,13 @@ public:
 
     /*!
      * @details
+     *   Shuts down all the components. Call this method when your application is going to
+     *   quit
+     */
+    virtual void shutdown() = 0;
+
+    /*!
+     * @details
      *   Shuts down the specified component and all its implicit children,
      *   obtained by IComponentDependencies::completeListWithParent() in such order, that
      *   children will be shuted down first.

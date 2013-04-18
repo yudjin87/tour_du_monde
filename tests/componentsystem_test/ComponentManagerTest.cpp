@@ -264,8 +264,25 @@ void ComponentManagerTest::shutdownAllComponents_shouldNotPassUnexistingComponen
     ComponentManager manager(initialiser, lg);
     manager.startupComponent(p_componentA);
 
+    manager.shutdownAllComponents();
+
     // componentA should not be passed to initialiser, because it hasn't been added to the manager
     QCOMPARE(initialiser->m_shutdownComponents.size(), 0);
+}
+
+//------------------------------------------------------------------------------
+void ComponentManagerTest::shutdown_shouldPassAllComponentsToInitialiser()
+{
+    MockComponent *p_componentA = createComponent("A");
+
+    MockComponentInitialiser *initialiser = new MockComponentInitialiser();
+    ComponentManager manager(initialiser, lg);
+    manager.addComponent(p_componentA);
+    manager.startupComponent(p_componentA);
+
+    manager.shutdown();
+
+    QCOMPARE(initialiser->m_forceShutdownComponents.size(), 1);
 }
 
 //------------------------------------------------------------------------------

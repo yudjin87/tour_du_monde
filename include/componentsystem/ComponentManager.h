@@ -28,6 +28,7 @@
 #define COMPONENTMANAGER_H
 
 #include "componentsystem/IComponentManager.h"
+#include "componentsystem/IComponentInitialiser.h"
 
 #include <QtCore/QStringList>
 #include <QtCore/QSet>
@@ -191,6 +192,13 @@ public:
 
     /*!
      * @details
+     *   Shuts down all the components. Call this method when your application is going to
+     *   quit
+     */
+    void shutdown();
+
+    /*!
+     * @details
      *   Shuts down the specified component and all its implicit children,
      *   obtained by IComponentDependencies::completeListWithParent() in such order, that
      *   children will be shuted down first.
@@ -300,6 +308,8 @@ protected:
     ILogger &m_log;
 
 private:
+    typedef void (IComponentInitialiser::*InitialiserShutDownFunc)(IComponent *);
+    InitialiserShutDownFunc m_shutDownFunc;
     IComponentDependencies *mp_components;
     IComponentInitialiser *mp_componentInitialiser;
     QList<IComponent *> m_startedComponents;

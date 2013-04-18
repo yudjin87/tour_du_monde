@@ -39,11 +39,13 @@ public:
 
     void shutdownComponent(IComponent *component);
     bool startupComponent(IComponent *component, QObject *ip_initializationData);
+    void forceShutdownComponent(IComponent *component);
 
     IComponent *mp_shutdownComponent;
     IComponent *mp_startupComponent;
     QObject *mp_initializationData;
     QList<IComponent *> m_shutdownComponents;
+    QList<IComponent *> m_forceShutdownComponents;
     QList<IComponent *> m_startupComponents;
 };
 
