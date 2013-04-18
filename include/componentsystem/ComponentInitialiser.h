@@ -49,13 +49,27 @@ public:
 
     /*!
      * @details
-     *   Shuts down specified component.
+     *   Shuts down specified component. Built in components are ignored.
+     *   You should not use this method directly, use
+     *   IComponentManager::shutdownComponent() instead.
      *
      *   Note, that components should have descending order,
      *   e.g. parents should stay before children, because
      *   children should shut down first.
      */
     void shutdownComponent(IComponent *component);
+
+    /*!
+     * @details
+     *   Shuts down specified component regardless whether it is built in
+     *   or not. You should not use this method directly, use
+     *   IComponentManager::shutdownComponent() instead.
+     *
+     *   Note, that components should have descending order,
+     *   e.g. parents should stay before children, because
+     *   children should shut down first.
+     */
+    void forceShutdownComponent(IComponent *component);
 
     /*!
      * @details

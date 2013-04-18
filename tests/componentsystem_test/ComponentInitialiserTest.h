@@ -45,6 +45,8 @@ private Q_SLOTS:
     void shouldPassInitDataToStartupComponents();
 
     void shouldShutdownComponents();
+    void shouldNotShutdownBuiltInComponent();
+    void shouldShutdownBuilInComponentForcely();
 };
 
 #endif // COMPONENTINITIALISERTEST_H

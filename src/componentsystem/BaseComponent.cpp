@@ -103,10 +103,6 @@ void BaseComponent::shutdown()
     if (!m_isStarted)
         return;
 
-    // We should not shutdown built in component
-    if (mp_definition->isBuiltIn())
-        return;
-
     m_isStarted = false;
     _onShutdown();
 }

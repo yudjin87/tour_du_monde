@@ -19,7 +19,6 @@ private Q_SLOTS:
     void shouldAssignResultOfProtectedMethodToTheStartedFlag();
     void shouldNotStartupIfAlreadyStarted();
     void shouldShutdownIfAlreadyStoped();
-    void shouldNotShutdownBuiltInComponent();
 
     void shouldReturnRegisteredInDerivedClassesExtensions();
     void shouldReturnNullWhenUnregisteredExtensionIsQueried();

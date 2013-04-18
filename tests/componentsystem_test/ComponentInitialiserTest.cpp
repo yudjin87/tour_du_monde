@@ -140,4 +140,36 @@ void ComponentInitialiserTest::shouldShutdownComponents()
     QCOMPARE(spy.count(), 1);
 }
 
+
+//------------------------------------------------------------------------------
+void ComponentInitialiserTest::shouldNotShutdownBuiltInComponent()
+{
+    MockComponent mockComponent("MockComponent", true);
+    QSignalSpy spy(&mockComponent, SIGNAL(whenShutdown(const QString &)));
+
+    mockComponent.startup(nullptr);
+
+    QCOMPARE(mockComponent.started(), true);
+
+    ComponentInitialiser initialser(lg);
+    initialser.shutdownComponent(&mockComponent);
+
+    // make sure the signal wasn't emitted
+    QCOMPARE(spy.count(), 0);
+    QCOMPARE(mockComponent.started(), true);
+}
+
+//------------------------------------------------------------------------------
+void ComponentInitialiserTest::shouldShutdownBuilInComponentForcely()
+{
+    MockComponent component;
+    component.startup(this);
+    QSignalSpy spy(&component, SIGNAL(whenShutdown(const QString &)));
+
+    ComponentInitialiser initialser(lg);
+    initialser.forceShutdownComponent(&component);
+
+    QCOMPARE(spy.count(), 1);
+}
+
 //------------------------------------------------------------------------------

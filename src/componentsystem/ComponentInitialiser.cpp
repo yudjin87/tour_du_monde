@@ -26,6 +26,7 @@
 
 #include "ComponentInitialiser.h"
 
+#include "ComponentDefinition.h"
 #include "IComponent.h"
 
 #include <logging/ILogger.h>
@@ -44,6 +45,16 @@ ComponentInitialiser::~ComponentInitialiser()
 
 //------------------------------------------------------------------------------
 void ComponentInitialiser::shutdownComponent(IComponent *component)
+{
+    // We should not shutdown built in component
+    if (component->definition()->isBuiltIn())
+        return;
+
+    component->shutdown();
+}
+
+//------------------------------------------------------------------------------
+void ComponentInitialiser::forceShutdownComponent(IComponent *component)
 {
     component->shutdown();
 }
