@@ -41,6 +41,7 @@ private Q_SLOTS:
     void shouldEmitWhenWidgetAdded();
     void shouldSetSepcifiedWidgetToTheCreatedDockWidget();
     void shouldSetSpecifiedWindowTitleToTheCreatedDockWidget();
+    void shouldSetSpecifiedObjectNameToTheCreatedDockWidget();
     void shouldReturnDockWidgets();
     void shouldDeleteDockWidget();
 };

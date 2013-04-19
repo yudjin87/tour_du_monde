@@ -57,6 +57,7 @@ QDockWidget *DockWidgetCatalog::addDockWidget(QWidget *ip_widget, const QString 
     QDockWidget *p_dock = new QDockWidget();
     p_dock->setWidget(ip_widget);
     p_dock->setWindowTitle(windowTitle);
+    p_dock->setObjectName(windowTitle);
 
     m_widgets.push_back(p_dock);
     m_shell.addDockWidget(i_area, p_dock);

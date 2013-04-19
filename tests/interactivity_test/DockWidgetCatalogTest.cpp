@@ -105,6 +105,18 @@ void DockWidgetCatalogTest::shouldSetSpecifiedWindowTitleToTheCreatedDockWidget(
 }
 
 //------------------------------------------------------------------------------
+void DockWidgetCatalogTest::shouldSetSpecifiedObjectNameToTheCreatedDockWidget()
+{
+    QWidget *p_widget = new QWidget();
+    QMainWindow window;
+    DockWidgetCatalog catalog(window);
+    QDockWidget *p_dock = catalog.addDockWidget(p_widget, "Title");
+
+    QVERIFY(p_dock != nullptr);
+    QCOMPARE(p_dock->objectName(), QString("Title"));
+}
+
+//------------------------------------------------------------------------------
 void DockWidgetCatalogTest::shouldReturnDockWidgets()
 {
     QMainWindow window;
