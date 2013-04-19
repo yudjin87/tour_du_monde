@@ -38,6 +38,8 @@ PainterApplication::PainterApplication(int &argc, char **argv, int flags)
     , mp_serviceLocator(nullptr)
 {
     connect(this, SIGNAL(aboutToQuit()), SLOT(cleanUp()));
+    setApplicationName("painter");
+    setOrganizationName("carousel-demo");
 }
 
 //------------------------------------------------------------------------------
@@ -87,7 +89,7 @@ IServiceLocator &PainterApplication::serviceLocator()
 void PainterApplication::cleanUp()
 {
     IComponentManager *componentManager = mp_serviceLocator->locate<IComponentManager>();
-    componentManager->shutdownAllComponents();
+    componentManager->shutdown();
 }
 
 //------------------------------------------------------------------------------
