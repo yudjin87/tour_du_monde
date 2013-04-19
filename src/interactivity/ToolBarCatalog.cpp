@@ -113,6 +113,7 @@ QToolBar *ToolBarCatalog::_createToolbar(Qt::ToolBarArea i_area, const QString &
 {
     QToolBar *p_newToolBar = new QToolBar();
     p_newToolBar->setWindowTitle(i_title);
+    p_newToolBar->setObjectName(i_title);
 
     m_toolbars.push_back(p_newToolBar);
     m_shell.addToolBar(i_area, p_newToolBar);

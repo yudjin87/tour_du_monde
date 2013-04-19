@@ -37,6 +37,7 @@ public:
     
 private Q_SLOTS:
     void shouldAddToolbarToList();
+    void shouldSetupAddedToolbar();
     void shouldAddToolbarToMainWindow();
     void shouldEmitWhenToolbarAdded();
     void shouldNotAddToolbarWithEmptyTitleToList();

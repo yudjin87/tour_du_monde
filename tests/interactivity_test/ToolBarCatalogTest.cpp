@@ -54,6 +54,18 @@ void ToolBarCatalogTest::shouldAddToolbarToList()
 }
 
 //------------------------------------------------------------------------------
+void ToolBarCatalogTest::shouldSetupAddedToolbar()
+{
+    QMainWindow window;
+    ToolBarCatalog toolbar(window);
+
+    toolbar.add("TB1");
+
+    QVERIFY(toolbar.toolbars()[0]->windowTitle() == "TB1");
+    QVERIFY(toolbar.toolbars()[0]->objectName() == "TB1");
+}
+
+//------------------------------------------------------------------------------
 void ToolBarCatalogTest::shouldAddToolbarToMainWindow()
 {
     QMainWindow window;
