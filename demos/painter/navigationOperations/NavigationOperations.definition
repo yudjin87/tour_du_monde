@@ -1,0 +1,11 @@
+ <component name="NavigationOperations">
+     <productName>NavigationOperations</productName>
+     <parents>
+         <parentComponent name="Dom"/>
+         <parentComponent name="Geodatabase"/>
+         <parentComponent name="Display"/>
+         <parentComponent name="Carto"/>
+         <parentComponent name="Interactivity"/>
+         <parentComponent name="AddShapeOperation"/>
+     </parents>
+ </component>

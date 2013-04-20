@@ -5,8 +5,8 @@ SOURCES += \
     $$PROJECT_SOURCES/CarouselComponentConfigurationDelegate.cpp \
     $$PROJECT_SOURCES/CarouselInteractionService.cpp \
     $$PROJECT_SOURCES/Catalogs.cpp \
-    $$PROJECT_SOURCES/Command.cpp \
-    $$PROJECT_SOURCES/CommandCatalog.cpp \
+    $$PROJECT_SOURCES/Operation.cpp \
+    $$PROJECT_SOURCES/OperationCatalog.cpp \
     $$PROJECT_SOURCES/ConfigurationChanges.cpp \
     $$PROJECT_SOURCES/DialogService.cpp \
     $$PROJECT_SOURCES/DockWidgetCatalog.cpp \
@@ -20,14 +20,14 @@ HEADERS += \
     $$PROJECT_HEADERS/CarouselComponentConfigurationDelegate.h \
     $$PROJECT_HEADERS/CarouselInteractionService.h \
     $$PROJECT_HEADERS/Catalogs.h \
-    $$PROJECT_HEADERS/Command.h \
-    $$PROJECT_HEADERS/CommandCatalog.h \
+    $$PROJECT_HEADERS/Operation.h \
+    $$PROJECT_HEADERS/OperationCatalog.h \
     $$PROJECT_HEADERS/ConfigurationChanges.h \
     $$PROJECT_HEADERS/DialogService.h \
     $$PROJECT_HEADERS/DockWidgetCatalog.h \
     $$PROJECT_HEADERS/ICatalogs.h \
-    $$PROJECT_HEADERS/ICommand.h \
-    $$PROJECT_HEADERS/ICommandCatalog.h \
+    $$PROJECT_HEADERS/IOperation.h \
+    $$PROJECT_HEADERS/IOperationCatalog.h \
     $$PROJECT_HEADERS/IComponentConfigurationDelegate.h \
     $$PROJECT_HEADERS/IDialogService.h \
     $$PROJECT_HEADERS/IDockWidgetCatalog.h \

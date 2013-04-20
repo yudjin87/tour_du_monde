@@ -33,7 +33,7 @@
 #include <QtCore/QMap>
 #include <QtCore/QObject>
 
-class Command;
+class Operation;
 class QAction;
 class QDockWidget;
 class QMenu;
@@ -58,7 +58,7 @@ class INTERACTIVITY_API ConfigurationChanges : public QObject
 {
     Q_OBJECT
 public:
-    typedef QList<Command *> Commands;
+    typedef QList<Operation *> Operations;
     typedef QList<QDockWidget *> DockWidgets;
     typedef QList<QMenu *> Menus;
     typedef QList<QToolBar *> ToolBars;
@@ -69,9 +69,9 @@ public:
 
     /*!
      * @details
-     *   Gets the commands added during component's configuration.
+     *   Gets the operations added during component's configuration.
      */
-    const Commands &addedCommands() const;
+    const Operations &addedOperations() const;
 
     /*!
      * @details
@@ -102,17 +102,17 @@ public:
 
     /*!
      * @details
-     *   Gets the commands added to the specific containers (parents)
+     *   Gets the operations added to the specific containers (parents)
      *   during component's configuration.
      */
-    const Commands &insertedCommands() const;
+    const Operations &insertedOperations() const;
 
 public slots:
     /*!
      * @details
-     *   Inserts a command added during component's configuration.
+     *   Inserts a operation added during component's configuration.
      */
-    void insertAddedCommand(Command *ip_command);
+    void insertAddedOperation(Operation *ip_operation);
 
     /*!
      * @details
@@ -136,10 +136,10 @@ public slots:
 
     /*!
      * @details
-     *   Inserts a command added to the specific container
+     *   Inserts a operation added to the specific container
      *   (parent widget) during component's configuration.
      */
-    void insertInsertedCommand(Command *ip_command);
+    void insertInsertedOperation(Operation *ip_operation);
 
     /*!
      * @details
@@ -149,8 +149,8 @@ public slots:
     void insertRemovedMenu(QMenu *ip_menu);
 
 private:
-    Commands m_insertedCommands;
-    Commands m_addedCommands;
+    Operations m_insertedOperations;
+    Operations m_addedOperations;
     DockWidgets m_addedDockWidgets;
     Menus m_addedMenus;
     Menus m_removedMenus;

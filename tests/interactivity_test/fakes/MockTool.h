@@ -11,7 +11,7 @@ class MockTool : public QObject, public ITool
 public:
     MockTool();
 
-    // ICommand:
+    // IOperation:
     void execute();
     QString category() const;
     void stopExecuting();
@@ -31,7 +31,7 @@ signals:
     void executingStopped();
 
 public:
-    // ICommand:
+    // IOperation:
     bool executeCalled;
     bool stopExecutingCalled;
     bool initializeCalled;

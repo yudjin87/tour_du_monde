@@ -27,20 +27,20 @@
 #ifndef ITOOL_H
 #define ITOOL_H
 
-#include "ICommand.h"
+#include "IOperation.h"
 #include "IInputReceiver.h"
 
 /*!
  * @brief
- *   It is an extended version of the ICommand with IInputReceiver aggregation.
+ *   It is an extended version of the IOperation with IInputReceiver aggregation.
  * @details
- *   Tools are similar to commands but they also require interaction with the application's
+ *   Tools are similar to operations but they also require interaction with the application's
  *   workplace widget.
  *
  *   Note, that when implement the ITool you should set QAction::checkable() property
  *   to the @a true.
  */
-class INTERACTIVITY_API ITool : virtual public ICommand, public IInputReceiver
+class INTERACTIVITY_API ITool : virtual public IOperation, public IInputReceiver
 {
 public:
     ITool(){}

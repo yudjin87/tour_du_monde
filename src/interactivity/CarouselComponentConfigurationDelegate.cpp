@@ -26,10 +26,10 @@
 
 #include "CarouselComponentConfigurationDelegate.h"
 
-#include "Command.h"
+#include "Operation.h"
 #include "ConfigurationChanges.h"
 #include "ICatalogs.h"
-#include "ICommandCatalog.h"
+#include "IOperationCatalog.h"
 #include "IDockWidgetCatalog.h"
 #include "IInteractiveExtension.h"
 #include "IMenuCatalog.h"
@@ -66,8 +66,8 @@ void CarouselComponentConfigurationDelegate::configure(IComponent *ip_component,
 
     // Connect to the catalog changes
     ConfigurationChanges *changes = new ConfigurationChanges();
-    changes->connect(&catalogs.commandCatalog(), SIGNAL(commandAdded(Command *)),
-                     SLOT(insertAddedCommand(Command *)));
+    changes->connect(&catalogs.operationCatalog(), SIGNAL(operationAdded(Operation *)),
+                     SLOT(insertAddedOperation(Operation *)));
 
     changes->connect(&catalogs.dockWidgetCatalog(), SIGNAL(dockWidgetAdded(QDockWidget *)),
                      SLOT(insertAddedDockWidget(QDockWidget *)));
@@ -83,7 +83,7 @@ void CarouselComponentConfigurationDelegate::configure(IComponent *ip_component,
 
 // TODO: implement me!
 //    changes->connect(&catalogs.menuCatalog(), SIGNAL(subMenuAdded(QAction*)),
-//                     SLOT(insertInsertedCommand(QAction *)));
+//                     SLOT(insertInsertedOperation(QAction *)));
 
     m_changes.insert(ip_component, changes);
 
@@ -91,7 +91,7 @@ void CarouselComponentConfigurationDelegate::configure(IComponent *ip_component,
     p_interactiveExtension->configureGui(catalogs, i_application);
 
     // Disconnect from the catalogs
-    catalogs.commandCatalog().disconnect(changes);
+    catalogs.operationCatalog().disconnect(changes);
     catalogs.dockWidgetCatalog().disconnect(changes);
     catalogs.menuCatalog().disconnect(changes);
     catalogs.toolBarCatalog().disconnect(changes);
@@ -106,7 +106,7 @@ void CarouselComponentConfigurationDelegate::deconfigure(IComponent * ip_compone
 
     const ConfigurationChanges *changes = changesByComponent(ip_component);
 
-    // Deleting inserted commands from the widgets
+    // Deleting inserted operations from the widgets
     // TODO: implement me!
 
     // Deleting added toolbars
@@ -121,10 +121,10 @@ void CarouselComponentConfigurationDelegate::deconfigure(IComponent * ip_compone
     foreach(QMenu *menu, changes->addedMenus())
         catalogs.menuCatalog().deleteMenu(menu);
 
-    // Deleting added commands at the end, after they have been
+    // Deleting added operations at the end, after they have been
     // removed from the wigdets
-    foreach(Command *command, changes->addedCommands())
-        catalogs.commandCatalog().deleteCommand(command);
+    foreach(Operation *operation, changes->addedOperations())
+        catalogs.operationCatalog().deleteOperation(operation);
 
 }
 

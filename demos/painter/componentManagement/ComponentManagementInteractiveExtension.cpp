@@ -26,12 +26,12 @@
 
 #include "ComponentManagementInteractiveExtension.h"
 
-#include "InstallComponentsCommand.h"
-#include "ShowComponentsCommand.h"
+#include "InstallComponentsOperation.h"
+#include "ShowComponentsOperation.h"
 
 #include <framework/AbstractApplication.h>
 #include <interactivity/ICatalogs.h>
-#include <interactivity/ICommandCatalog.h>
+#include <interactivity/IOperationCatalog.h>
 #include <interactivity/IMenuCatalog.h>
 #include <interactivity/IToolBarCatalog.h>
 #include <utils/IServiceLocator.h>
@@ -50,9 +50,9 @@ void ComponentManagementInteractiveExtension::configureGui(ICatalogs &i_inCatalo
 {
     Q_UNUSED(i_application);
 
-    ICommandCatalog &commandCatalog = i_inCatalogs.commandCatalog();
-    Command *installComponents = commandCatalog.add(new InstallComponentsCommand());
-    Command *showComponents = commandCatalog.add(new ShowComponentsCommand());
+    IOperationCatalog &operationCatalog = i_inCatalogs.operationCatalog();
+    Operation *installComponents = operationCatalog.add(new InstallComponentsOperation());
+    Operation *showComponents = operationCatalog.add(new ShowComponentsOperation());
 
     IToolBarCatalog &toolbarCatalog = i_inCatalogs.toolBarCatalog();
     QToolBar *toolBar = toolbarCatalog.add("Components");

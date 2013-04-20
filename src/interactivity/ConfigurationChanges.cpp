@@ -28,8 +28,8 @@
 
 //------------------------------------------------------------------------------
 ConfigurationChanges::ConfigurationChanges()
-    : m_insertedCommands()
-    , m_addedCommands()
+    : m_insertedOperations()
+    , m_addedOperations()
     , m_addedDockWidgets()
     , m_addedMenus()
     , m_addedToolbars()
@@ -39,17 +39,17 @@ ConfigurationChanges::ConfigurationChanges()
 //------------------------------------------------------------------------------
 ConfigurationChanges::~ConfigurationChanges()
 {
-    m_addedCommands.clear();
-    m_insertedCommands.clear();
+    m_addedOperations.clear();
+    m_insertedOperations.clear();
     m_addedDockWidgets.clear();
     m_addedMenus.clear();
     m_addedToolbars.clear();
 }
 
 //------------------------------------------------------------------------------
-void ConfigurationChanges::insertAddedCommand(Command *ip_command)
+void ConfigurationChanges::insertAddedOperation(Operation *ip_operation)
 {
-    m_addedCommands.push_back(ip_command);
+    m_addedOperations.push_back(ip_operation);
 }
 
 //------------------------------------------------------------------------------
@@ -71,9 +71,9 @@ void ConfigurationChanges::insertAddedToolbar(QToolBar *ip_toolbar)
 }
 
 //------------------------------------------------------------------------------
-void ConfigurationChanges::insertInsertedCommand(Command *ip_command)
+void ConfigurationChanges::insertInsertedOperation(Operation *ip_operation)
 {
-    m_insertedCommands.push_back(ip_command);
+    m_insertedOperations.push_back(ip_operation);
 }
 
 //------------------------------------------------------------------------------
@@ -83,9 +83,9 @@ void ConfigurationChanges::insertRemovedMenu(QMenu *ip_menu)
 }
 
 //------------------------------------------------------------------------------
-const ConfigurationChanges::Commands &ConfigurationChanges::addedCommands() const
+const ConfigurationChanges::Operations &ConfigurationChanges::addedOperations() const
 {
-    return m_addedCommands;
+    return m_addedOperations;
 }
 
 //------------------------------------------------------------------------------
@@ -113,9 +113,9 @@ const ConfigurationChanges::ToolBars &ConfigurationChanges::addedToolbars() cons
 }
 
 //------------------------------------------------------------------------------
-const ConfigurationChanges::Commands &ConfigurationChanges::insertedCommands() const
+const ConfigurationChanges::Operations &ConfigurationChanges::insertedOperations() const
 {
-    return m_insertedCommands;
+    return m_insertedOperations;
 }
 
 //------------------------------------------------------------------------------

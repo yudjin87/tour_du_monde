@@ -29,7 +29,7 @@
 
 #include "interactivity_global.h"
 
-#include "ICommand.h"
+#include "IOperation.h"
 
 class QContextMenuEvent;
 class QKeyEvent;

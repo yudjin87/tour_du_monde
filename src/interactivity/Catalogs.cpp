@@ -26,7 +26,7 @@
 
 #include "Catalogs.h"
 
-#include "CommandCatalog.h"
+#include "OperationCatalog.h"
 #include "DockWidgetCatalog.h"
 #include "MenuCatalog.h"
 #include "ToolBarCatalog.h"
@@ -37,7 +37,7 @@
 
 //------------------------------------------------------------------------------
 Catalogs::Catalogs(QMainWindow &i_shell, QObject *ip_startUpData)
-    : mp_commandCatalog(new CommandCatalog())
+    : mp_operationCatalog(new OperationCatalog())
     , mp_dockWidgetCatalog(new DockWidgetCatalog(i_shell))
     , mp_menuCatalog(nullptr)
     , mp_toolBarCatalog(new ToolBarCatalog(i_shell))
@@ -45,14 +45,14 @@ Catalogs::Catalogs(QMainWindow &i_shell, QObject *ip_startUpData)
     assert(i_shell.menuBar() != nullptr);
 
     mp_menuCatalog = new MenuCatalog(*i_shell.menuBar());
-    mp_commandCatalog->setStartupData(ip_startUpData);
+    mp_operationCatalog->setStartupData(ip_startUpData);
 }
 
 //------------------------------------------------------------------------------
 Catalogs::~Catalogs()
 {
-    delete mp_commandCatalog;
-    mp_commandCatalog = nullptr;
+    delete mp_operationCatalog;
+    mp_operationCatalog = nullptr;
     delete mp_dockWidgetCatalog;
     mp_dockWidgetCatalog = nullptr;
     delete mp_menuCatalog;
@@ -62,15 +62,15 @@ Catalogs::~Catalogs()
 }
 
 //------------------------------------------------------------------------------
-ICommandCatalog &Catalogs::commandCatalog()
+IOperationCatalog &Catalogs::operationCatalog()
 {
-    return const_cast<ICommandCatalog &>(static_cast<const Catalogs &>(*this).commandCatalog());
+    return const_cast<IOperationCatalog &>(static_cast<const Catalogs &>(*this).operationCatalog());
 }
 
 //------------------------------------------------------------------------------
-const ICommandCatalog &Catalogs::commandCatalog() const
+const IOperationCatalog &Catalogs::operationCatalog() const
 {
-    return *mp_commandCatalog;
+    return *mp_operationCatalog;
 }
 
 //------------------------------------------------------------------------------

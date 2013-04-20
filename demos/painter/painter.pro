@@ -12,7 +12,7 @@ SUBDIRS += \
     cartoUI \
     #geodatabase_test \
     #geometry_test
-    addShapeCommand \
-    navigationCommands \
+    addShapeOperation \
+    navigationOperations \
     componentManagement
 

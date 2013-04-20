@@ -52,7 +52,7 @@ private:
 //------------------------------------------------------------------------------
 static const QByteArray description(
         "The Interactivity component is a main component of GUI based\r\n"
-        "application. If your components add new commands or menus, or\r\n"
+        "application. If your components add new operations or menus, or\r\n"
         "dockable widgets - they should be a child to Interactivity\r\n"
         "component. This mean a dependency of component parent name:\r\n"
         "\"Interactivity\".");

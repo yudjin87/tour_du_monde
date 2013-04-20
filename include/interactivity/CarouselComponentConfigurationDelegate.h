@@ -41,7 +41,7 @@
  *   It also manages what exactly have been changed in GUI during
  *   component's configuraion - it is important for the further
  *   deconfiguring and also could be usefull for displaying
- *   which commands have been registered by components.
+ *   which operations have been registered by components.
  */
 class INTERACTIVITY_API CarouselComponentConfigurationDelegate : public IComponentConfigurationDelegate
 {

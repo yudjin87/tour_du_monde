@@ -39,7 +39,7 @@ class ICatalogs;
  *   The IInteractiveExtension interface declares contract for the component,
  *   that wants to extend user interaction elements.
  * @details
- *   This abstract class provides contract to register ICatalog items (commands,
+ *   This abstract class provides contract to register ICatalog items (operations,
  *   menus, toolbars, etc) specific to the component in application.
  *
  *   Although you can access IInteractionService during application startup,
@@ -56,7 +56,7 @@ public:
 
     /*!
      * @details
-     *   Place your code here to register component-specific commands,
+     *   Place your code here to register component-specific operations,
      *   dockable widgets and others in the specified catalogs.
      *
      *   You can use @a i_application to obtain application model, for

@@ -29,7 +29,7 @@
 
 #include "interactivity_global.h"
 
-class ICommandCatalog;
+class IOperationCatalog;
 class IDockWidgetCatalog;
 class IMenuCatalog;
 class IToolBarCatalog;
@@ -48,15 +48,15 @@ public:
 
     /*!
      * @details
-     *   Gets the command catalog.
+     *   Gets the operation catalog.
      */
-    virtual ICommandCatalog &commandCatalog() = 0;
+    virtual IOperationCatalog &operationCatalog() = 0;
 
     /*!
      * @details
-     *   Gets the immutable command catalog.
+     *   Gets the immutable operation catalog.
      */
-    virtual const ICommandCatalog &commandCatalog() const = 0;
+    virtual const IOperationCatalog &operationCatalog() const = 0;
 
     /*!
      * @details

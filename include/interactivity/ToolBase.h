@@ -27,7 +27,7 @@
 #ifndef TOOLBASE_H
 #define TOOLBASE_H
 
-#include "Command.h"
+#include "Operation.h"
 #include "ITool.h"
 
 class AbstractApplication;
@@ -42,7 +42,7 @@ class IInteractionService;
  *   class, if you don't want to override all members. The ToolBase class
  *   also set QAction::checkable() property to the @a true.
  */
-class INTERACTIVITY_API ToolBase : public Command, public ITool
+class INTERACTIVITY_API ToolBase : public Operation, public ITool
 {
 public:
     /*!
@@ -95,7 +95,7 @@ public:
 
     /*!
      * @details
-     *   Occurs when user switch off this command explicitly or implicitly (by selecting
+     *   Occurs when user switch off this operation explicitly or implicitly (by selecting
      *   other tool).
      *
      *   Does nothing by default, just calls parent one.
@@ -104,7 +104,7 @@ public:
 
     /*!
      * @details
-     *   Called by carousel interactivity system to gives the command a hook into
+     *   Called by carousel interactivity system to gives the operation a hook into
      *   the application.
      *   When subclassing ToolBase, use the initialize() method to get a hook to the
      *   application.

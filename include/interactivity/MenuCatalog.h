@@ -40,7 +40,7 @@
  *   found by its title. It is also used
  *   in Custimozation dialog.
  *   Use IInteractionService::catalogs().menuCatalog() to get a reference to the menus collection
- *   to insert commands specific to your extensions.
+ *   to insert operations specific to your extensions.
  */
 class INTERACTIVITY_API MenuCatalog : public IMenuCatalog
 {
@@ -54,12 +54,12 @@ public:
      *   Appends a new QMenu with @a i_title to the menu bar. The menu bar takes ownership of the menu.
      *   Returns the new menu.
      *
-     *   To add menu item to the menu use CommandCatalog:
+     *   To add menu item to the menu use OperationCatalog:
      * @code
      *   QMenu *fileMenu = menuCatalog.findMenuEverywhere(tr("File"));
-     *   fileMenu->addAction(commandCatalog->add(new MyPrintCommand()));
+     *   fileMenu->addAction(operationCatalog->add(new MyPrintOperation()));
      * @endcode
-     * @sa CommandCatalog::register();
+     * @sa OperationCatalog::register();
      */
     QMenu *addMenu(const QString &i_title);
 

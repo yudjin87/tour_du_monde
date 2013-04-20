@@ -38,7 +38,7 @@
  * @details
  *   The InteractionServiceComponent is a main @a component of GUI based
  *   application due to the IInteractionService. If your components
- *   add new commands or menus, or dockable widgets - they should be a
+ *   add new operations or menus, or dockable widgets - they should be a
  *   @a child to InteractionServiceComponent component. This mean a
  *   dependency of component parent name:
  *   @a "Interactivity"

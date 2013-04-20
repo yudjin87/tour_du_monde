@@ -29,7 +29,7 @@
 
 #include "ICatalogs.h"
 
-class CommandCatalog;
+class OperationCatalog;
 class DockWidgetCatalog;
 class MenuCatalog;
 class ToolBarCatalog;
@@ -59,15 +59,15 @@ public:
 
     /*!
      * @details
-     *   Gets the command catalog.
+     *   Gets the operation catalog.
      */
-    ICommandCatalog &commandCatalog();
+    IOperationCatalog &operationCatalog();
 
     /*!
      * @details
-     *   Gets the immutable command catalog.
+     *   Gets the immutable operation catalog.
      */
-    const ICommandCatalog &commandCatalog() const;
+    const IOperationCatalog &operationCatalog() const;
 
     /*!
      * @details
@@ -106,7 +106,7 @@ public:
     const IToolBarCatalog &toolBarCatalog() const;
 
 private:
-    CommandCatalog *mp_commandCatalog;
+    OperationCatalog *mp_operationCatalog;
     DockWidgetCatalog *mp_dockWidgetCatalog;
     MenuCatalog *mp_menuCatalog;
     ToolBarCatalog *mp_toolBarCatalog;

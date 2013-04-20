@@ -27,7 +27,7 @@
 #include "CarouselComponentConfigurationDelegateTest.h"
 
 #include "fakes/MockApplication.h"
-#include "fakes/MockCommand.h"
+#include "fakes/MockOperation.h"
 #include "fakes/MockInteractiveExtension.h"
 #include "fakes/MockNonInteractiveExtension.h"
 
@@ -35,7 +35,7 @@
 #include <interactivity/Catalogs.h>
 #include <interactivity/ConfigurationChanges.h>
 #include <interactivity/ICatalogs.h>
-#include <interactivity/ICommandCatalog.h>
+#include <interactivity/IOperationCatalog.h>
 #include <interactivity/IDockWidgetCatalog.h>
 #include <interactivity/IMenuCatalog.h>
 #include <interactivity/IToolBarCatalog.h>
@@ -87,10 +87,10 @@ void CarouselComponentConfigurationDelegateTest::shouldRegisterChangesForCompone
     delegate.configure(&component, ctlgs, mockApp);
 
     const ConfigurationChanges &changes = *delegate.changesByComponent(&component);
-    QCOMPARE(changes.addedCommands().size(), 1);
+    QCOMPARE(changes.addedOperations().size(), 1);
     QCOMPARE(changes.addedMenus().size(), 1);
 
-    QCOMPARE(changes.addedCommands()[0], ctlgs.commandCatalog().commands()[0]);
+    QCOMPARE(changes.addedOperations()[0], ctlgs.operationCatalog().operations()[0]);
     QCOMPARE(changes.addedMenus()[0], ctlgs.menuCatalog().menus()[0]);
 }
 
@@ -119,7 +119,7 @@ void CarouselComponentConfigurationDelegateTest::shouldNotRegisterChangesAfterCo
     delegate.configure(&component, ctlgs, mockApp);
 
     const ConfigurationChanges &changes = *delegate.changesByComponent(&component);
-    QCOMPARE(changes.addedCommands().size(), 1);
+    QCOMPARE(changes.addedOperations().size(), 1);
     QCOMPARE(changes.addedMenus().size(), 1);
 
     ctlgs.menuCatalog().addMenu("One more menu");
@@ -135,7 +135,7 @@ void CarouselComponentConfigurationDelegateTest::shouldDeconfigureComponent()
     component.mp_interactiveExtension->setCunfigureFunc(&configureCatalogs);
     QMainWindow mw; Catalogs ctlgs(mw, nullptr);
 
-    QCOMPARE(ctlgs.commandCatalog().commands().size(), 0);
+    QCOMPARE(ctlgs.operationCatalog().operations().size(), 0);
     QCOMPARE(ctlgs.menuCatalog().menus().size(), 0);
     QCOMPARE(ctlgs.dockWidgetCatalog().dockWidgets().size(), 0);
     QCOMPARE(ctlgs.toolBarCatalog().toolbars().size(), 0);
@@ -143,7 +143,7 @@ void CarouselComponentConfigurationDelegateTest::shouldDeconfigureComponent()
     delegate.configure(&component, ctlgs, mockApp);
     delegate.deconfigure(&component, ctlgs);
 
-    QCOMPARE(ctlgs.commandCatalog().commands().size(), 0);
+    QCOMPARE(ctlgs.operationCatalog().operations().size(), 0);
     QCOMPARE(ctlgs.menuCatalog().menus().size(), 0);
     QCOMPARE(ctlgs.dockWidgetCatalog().dockWidgets().size(), 0);
     QCOMPARE(ctlgs.toolBarCatalog().toolbars().size(), 0);
@@ -152,7 +152,7 @@ void CarouselComponentConfigurationDelegateTest::shouldDeconfigureComponent()
 //------------------------------------------------------------------------------
 void configureCatalogs(ICatalogs &catalogs)
 {
-    catalogs.commandCatalog().add(new MockCommand());
+    catalogs.operationCatalog().add(new MockOperation());
     catalogs.menuCatalog().addMenu("NewMenu");
 }
 

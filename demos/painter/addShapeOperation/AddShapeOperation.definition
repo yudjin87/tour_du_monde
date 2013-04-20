@@ -1,0 +1,10 @@
+ <component name="AddShapeOperation">
+     <productName>AddShapeOperation</productName>
+     <parents>
+         <parentComponent name="Dom"/>
+         <parentComponent name="Geodatabase"/>
+         <parentComponent name="Display"/>
+         <parentComponent name="Carto"/>
+         <parentComponent name="CartoUI"/>
+     </parents>
+ </component>

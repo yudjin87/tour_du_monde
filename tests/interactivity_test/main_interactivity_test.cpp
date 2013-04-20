@@ -1,6 +1,6 @@
 #include "CarouselComponentConfigurationDelegateTest.h"
-#include "CommandTest.h"
-#include "CommandCatalogTest.h"
+#include "OperationTest.h"
+#include "OperationCatalogTest.h"
 #include "DockWidgetCatalogTest.h"
 #include "InputInterceptorTest.h"
 #include "MenuCatalogTest.h"
@@ -20,8 +20,8 @@ int main(int argc, char *argv[])
     InputInterceptorTest inputInterceptorTest;
     QTest::qExec(&inputInterceptorTest, argc, argv);
 
-    CommandTest commandTest;
-    QTest::qExec(&commandTest, argc, argv);
+    OperationTest operationTest;
+    QTest::qExec(&operationTest, argc, argv);
 
     MenuCatalogTest menuCatalogTest;
     QTest::qExec(&menuCatalogTest, argc, argv);
@@ -29,8 +29,8 @@ int main(int argc, char *argv[])
     ToolBarCatalogTest toolBarCatalogTest;
     QTest::qExec(&toolBarCatalogTest, argc, argv);
 
-    CommandCatalogTest commandCatalogTest;
-    QTest::qExec(&commandCatalogTest, argc, argv);
+    OperationCatalogTest operationCatalogTest;
+    QTest::qExec(&operationCatalogTest, argc, argv);
 
     DockWidgetCatalogTest dockWidgetCatalogTest;
     QTest::qExec(&dockWidgetCatalogTest, argc, argv);

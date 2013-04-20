@@ -34,7 +34,7 @@
 #include <assert.h>
 //------------------------------------------------------------------------------
 ToolBase::ToolBase(QActionGroup *ip_actionGroup)
-    : Command(ip_actionGroup)
+    : Operation(ip_actionGroup)
     , mp_app(nullptr)
     , mp_interactionService(nullptr)
 {
@@ -43,7 +43,7 @@ ToolBase::ToolBase(QActionGroup *ip_actionGroup)
 
 //------------------------------------------------------------------------------
 ToolBase::ToolBase(const QString &i_text, QActionGroup *ip_actionGroup)
-    : Command(i_text, ip_actionGroup)
+    : Operation(i_text, ip_actionGroup)
     , mp_app(nullptr)
     , mp_interactionService(nullptr)
 {
@@ -52,7 +52,7 @@ ToolBase::ToolBase(const QString &i_text, QActionGroup *ip_actionGroup)
 
 //------------------------------------------------------------------------------
 ToolBase::ToolBase(const QIcon &i_icon, const QString &i_text, QActionGroup *ip_actionGroup)
-    : Command(i_icon, i_text, ip_actionGroup)
+    : Operation(i_icon, i_text, ip_actionGroup)
     , mp_app(nullptr)
     , mp_interactionService(nullptr)
 {
@@ -75,7 +75,7 @@ void ToolBase::execute()
 //------------------------------------------------------------------------------
 void ToolBase::stopExecuting()
 {
-    Command::stopExecuting();
+    Operation::stopExecuting();
 }
 
 //------------------------------------------------------------------------------

@@ -40,18 +40,18 @@ class QMainWindow;
 /*!
  * @brief
  *   This service provides methods to configure application GUI
- *   like menus, commands, toolbars and other, and it is registered
+ *   like menus, operations, toolbars and other, and it is registered
  *   into the application services by the InteractionServiceComponent.
  * @details
  *   The IInteractionService interface is a starting point for many tasks
  *   one does with a application GUI. For example, use IInteractionService
- *   to obtain catalogs to add menus or commands; access the main window (eg,
+ *   to obtain catalogs to add menus or operations; access the main window (eg,
  *   for getting central widget); specify active application tool to intercept
  *   the user actions (mouse move, mouse clicks, keys pressed).
  *
  *   The IInteractionService has a reference to the IComponentManager object,
  *   and it asks added components (if they register IInteractiveExtension) to register
- *   new menus, commands and toolbars into the catalogs. The IComponentConfigurationDelegate
+ *   new menus, operations and toolbars into the catalogs. The IComponentConfigurationDelegate
  *   is used for it.
  *
  *   InteractiveServiceComponent registers this service in the application services,

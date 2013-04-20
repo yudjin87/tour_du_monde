@@ -38,10 +38,10 @@ class QMainWindow;
  *   collection of application toolbars.
  * @details
  *   ToolBarCatalog knows about all the toolbars available to an application.
- *   This class allows you to add new toolbar to add commands. It is also used
+ *   This class allows you to add new toolbar to add operations. It is also used
  *   in Custimozation dialog.
  *   Use IInteractionService::catalogs().toolBarCatalog() to get a reference to the toolbars
- *   collection to insert commands specific to your extensions.
+ *   collection to insert operations specific to your extensions.
  */
 class INTERACTIVITY_API ToolBarCatalog : public IToolBarCatalog
 {

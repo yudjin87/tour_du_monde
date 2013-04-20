@@ -35,7 +35,7 @@
 #include "fakes/MockTool.h"
 
 #include <interactivity/CarouselInteractionService.h>
-#include <interactivity/CommandCatalog.h>
+#include <interactivity/OperationCatalog.h>
 #include <interactivity/DockWidgetCatalog.h>
 #include <interactivity/ICatalogs.h>
 #include <interactivity/IComponentConfigurationDelegate.h>
@@ -75,7 +75,7 @@ void CarouselInteractionServiceTest::shouldCreateEmptyCatalogs()
 
     ICatalogs &catalogs = service.catalogs();
 
-    QCOMPARE(catalogs.commandCatalog().commands().size(), 0);
+    QCOMPARE(catalogs.operationCatalog().operations().size(), 0);
     QCOMPARE(catalogs.dockWidgetCatalog().dockWidgets().size(), 0);
     QCOMPARE(catalogs.menuCatalog().menus().size(), 0);
     QCOMPARE(catalogs.toolBarCatalog().toolbars().size(), 0);
