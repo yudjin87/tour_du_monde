@@ -81,6 +81,18 @@ void MockInteractionService::setInputInterceptor(IInputInterceptor * /*ip_inputI
 }
 
 //------------------------------------------------------------------------------
+void MockInteractionService::saveUiState(int /*version*/)
+{
+    throw "Not Implemented.";
+}
+
+//------------------------------------------------------------------------------
+void MockInteractionService::loadUiState(int /*version*/)
+{
+    throw "Not Implemented.";
+}
+
+//------------------------------------------------------------------------------
 void MockInteractionService::resetUi()
 {
     throw "Not Implemented.";

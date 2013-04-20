@@ -25,6 +25,7 @@ SOURCES += \
     $$TEST_PROJECT_SOURCES/MenuCatalogTest.cpp \
     $$TEST_PROJECT_SOURCES/ToolBarCatalogTest.cpp \
     $$TEST_PROJECT_SOURCES/ToolBaseTest.cpp \
+    $$TEST_PROJECT_SOURCES/fakes/MockCarouselInteractionService.cpp
 
 HEADERS += \
     $$TEST_PROJECT_SOURCES/CarouselComponentConfigurationDelegateTest.h \
@@ -50,4 +51,5 @@ HEADERS += \
     $$TEST_PROJECT_SOURCES/MenuCatalogTest.h \
     $$TEST_PROJECT_SOURCES/ToolBarCatalogTest.h \
     $$TEST_PROJECT_SOURCES/ToolBaseTest.h \
+    $$TEST_PROJECT_SOURCES/fakes/MockCarouselInteractionService.h
 

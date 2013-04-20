@@ -37,6 +37,7 @@
 #include <utils/IServiceLocator.h>
 #include <utils/ObservableList.h>
 
+#include <QtCore/QSettings>
 #include <QtGui/QMainWindow>
 
 #include <assert.h>
@@ -70,6 +71,8 @@ CarouselInteractionService::CarouselInteractionService(AbstractApplication &i_ap
 //------------------------------------------------------------------------------
 CarouselInteractionService::~CarouselInteractionService()
 {
+    saveUiState();
+
     delete mp_catalogs;
     mp_catalogs = nullptr;
     delete mp_inputInterceptor;
@@ -170,12 +173,32 @@ void CarouselInteractionService::setInputInterceptor(IInputInterceptor *ip_input
 }
 
 //------------------------------------------------------------------------------
+void CarouselInteractionService::saveUiState(int version /*= 0*/)
+{
+    QSettings settings;
+    settings.setValue(mp_mainWindow->objectName() + "/state", mp_mainWindow->saveState(version));
+    settings.setValue(mp_mainWindow->objectName() +"/geometry", mp_mainWindow->saveGeometry());
+}
+
+//------------------------------------------------------------------------------
+void CarouselInteractionService::loadUiState(int version /* = 0*/)
+{
+    QSettings settings;
+    mp_mainWindow->restoreState(settings.value(mp_mainWindow->objectName() +"/state").toByteArray(), version);
+    mp_mainWindow->restoreGeometry(settings.value(mp_mainWindow->objectName() +"/geometry").toByteArray());
+}
+
+//------------------------------------------------------------------------------
 void CarouselInteractionService::onComponentStartedUp(IComponent *ip_component)
 {
     if (mp_componentConfigurationDelegate == nullptr)
         return;
 
     mp_componentConfigurationDelegate->configure(ip_component, *mp_catalogs, m_app);
+
+    // TODO:
+    // Load only if configure returns true
+    loadUiState();
 }
 
 //------------------------------------------------------------------------------

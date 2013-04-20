@@ -28,6 +28,7 @@
 #include "fakes/FakeComponent.h"
 #include "fakes/MockApplication.h"
 #include "fakes/MockComponentConfigurationDelegate.h"
+#include "fakes/MockCarouselInteractionService.h"
 #include "fakes/MockComponentManager.h"
 #include "fakes/MockInputInterceptor.h"
 #include "fakes/MockInteractiveExtension.h"
@@ -239,7 +240,7 @@ void CarouselInteractionServiceTest::shouldNotThrowIfNewDelegateIsNull()
 }
 
 //------------------------------------------------------------------------------
-void CarouselInteractionServiceTest::shouldConnectDelegateConfigureMethodWithComponentManagerSignal()
+void CarouselInteractionServiceTest::shouldCallConfigureWhenComponentStarted()
 {
     CONSTRUCT_APP
 
@@ -251,6 +252,21 @@ void CarouselInteractionServiceTest::shouldConnectDelegateConfigureMethodWithCom
     mockComponentManager.callOnComponentStarted(&comp);
 
     QVERIFY(delegate->m_configureCalled);
+}
+
+//------------------------------------------------------------------------------
+void CarouselInteractionServiceTest::shouldCallLoadUiStateWhenComponentStarted()
+{
+    CONSTRUCT_APP
+
+    MockCarouselInteractionService service(app);
+    MockComponentConfigurationDelegate* delegate = new MockComponentConfigurationDelegate();
+    service.setConfigurationDelegate(delegate);
+
+    FakeComponent comp;
+    mockComponentManager.callOnComponentStarted(&comp);
+
+    QVERIFY(service.loadUiCalled);
 }
 
 //------------------------------------------------------------------------------

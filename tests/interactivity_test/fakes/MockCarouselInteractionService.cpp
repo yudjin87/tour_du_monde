@@ -24,30 +24,20 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef MOCKINTERACTIONSERVICE_H
-#define MOCKINTERACTIONSERVICE_H
+#include "MockCarouselInteractionService.h"
 
-#include <interactivity/IInteractionService.h>
-
-class MockInteractionService : public IInteractionService
+//------------------------------------------------------------------------------
+MockCarouselInteractionService::MockCarouselInteractionService(AbstractApplication &i_application, QObject *parent)
+    : CarouselInteractionService(i_application, parent)
+    , loadUiCalled(0)
 {
-public:
-    MockInteractionService();
+}
 
-    ITool *activeTool();
-    ICatalogs &catalogs();
-    const ICatalogs &catalogs() const;
-    IInputInterceptor *inputInterceptor();
-    QMainWindow &mainWindow();
-    void resetUi();
-    void setActiveTool(ITool *ip_activeTool);
-    void setConfigurationDelegate(IComponentConfigurationDelegate *ip_configurationDelegate);
-    void setInputInterceptor(IInputInterceptor *ip_inputInterceptor);
-    void saveUiState(int version = 0);
-    void loadUiState(int version = 0);
+//------------------------------------------------------------------------------
+void MockCarouselInteractionService::loadUiState(int version)
+{
+    CarouselInteractionService::loadUiState(version);
+    ++loadUiCalled;
+}
 
-public:
-    ITool *mp_activeTool;
-};
-
-#endif // MOCKINTERACTIONSERVICE_H
+//------------------------------------------------------------------------------

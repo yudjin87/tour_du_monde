@@ -100,6 +100,21 @@ public:
 
     /*!
      * @details
+     *   Loads the geometry for top-level widgets and state of this mainwindow's
+     *   toolbars and dockwidgets. The version number is compared with that
+     *   is already stored (if any).
+     *
+     *   If they do not match, the mainwindow's state is left unchanged
+     *
+     *   It is after start up of the component to try to restore
+     *   newly started component Ui.
+     *
+     * @sa saveUiState()
+     */
+    virtual void loadUiState(int version = 0) = 0;
+
+    /*!
+     * @details
      *   Gets the application shell or main window.
      */
     virtual QMainWindow &mainWindow() = 0;
@@ -112,6 +127,17 @@ public:
      * @sa setConfigurationDelegate
      */
     virtual void resetUi() = 0;
+
+    /*!
+     * @details
+     *   Saves the current geometry for top-level widgets and state of this mainwindow's
+     *   toolbars and dockwidgets. The version number is stored as part of the data.
+     *
+     *   It is called at least in the destructor of the service.
+     *
+     * @sa loadUiState()
+     */
+    virtual void saveUiState(int version = 0) = 0;
 
     /*!
      * @details
