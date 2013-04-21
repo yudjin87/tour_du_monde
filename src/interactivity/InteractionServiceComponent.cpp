@@ -128,11 +128,13 @@ bool InteractionServiceComponent::InteractionServiceComponentPrivate::onStartup(
         return false;
 
     mp_service = new CarouselInteractionService(*app);
-    app->serviceLocator().registerInstance<IInteractionService>(mp_service);
 
-    QMainWindow *mainWindow = app->serviceLocator().locate<QMainWindow>();
-    mp_dialogService = new DialogService(mainWindow);
-    app->serviceLocator().registerInstance<IDialogService>(mp_dialogService);
+    IServiceLocator &locator = app->serviceLocator();
+    locator.registerInstance<IInteractionService>(mp_service);
+
+    QMainWindow *mainWindow = locator.locate<QMainWindow>();
+    mp_dialogService = new DialogService(mainWindow, &locator);
+    locator.registerInstance<IDialogService>(mp_dialogService);
 
     return true;
 }

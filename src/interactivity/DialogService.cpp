@@ -29,8 +29,9 @@
 #include <QtCore/QDebug>
 #include <QtGui/QDialog>
 //------------------------------------------------------------------------------
-DialogService::DialogService(QWidget *ip_mainWindow)
+DialogService::DialogService(QWidget *ip_mainWindow, IServiceLocator *locator)
     : mp_mainWindow(ip_mainWindow)
+    , m_locator(locator)
 {
 }
 
@@ -70,6 +71,7 @@ bool DialogService::showDialogForModel(const QString &i_forDlgModelType, void *i
 //------------------------------------------------------------------------------
 QDialog *DialogService::createDialog(IDialogConstructor *ip_constructor, void *ip_dlgModel) const
 {
+    ip_constructor->injectServiceLocator(m_locator);
     QDialog *p_dlg = reinterpret_cast<QDialog *>(ip_constructor->create(ip_dlgModel, mp_mainWindow));
     return p_dlg;
 }

@@ -29,11 +29,14 @@
 
 #include "interactivity_global.h"
 
+#include <QtCore/QObject>
 #include <QtCore/QString>
+
 #include <typeinfo>
 
 class QWidget;
 struct IDialogConstructor;
+class IServiceLocator;
 
 /*!
  * @brief
@@ -54,6 +57,13 @@ public:
      * @details
      *   Registers the @a TDialog type, that expects a @a TDialogModel pointer
      *   in the constructor. This dialog will be shown from the showDialog() method.
+     *
+     *   The model should be derived from the QObject (dirctly or indirectly)
+     *   and it should implement method
+     * @code
+     *   void injectServiceLocator(IServiceLocator *locator);
+     * @endcode
+     *
      * @param TDialog the type of dialog.
      * @param TDialogModel the type of dialog model.
      * @note the @a TDialog should take ownership of the @a TDialogModel.
@@ -105,6 +115,7 @@ protected:
 struct IDialogConstructor
 {
     virtual ~IDialogConstructor(){}
+
     /*!
      * @details
      *   Returns new instance of the dialog,
@@ -112,6 +123,13 @@ struct IDialogConstructor
      *   and ip_dlgModel.
      */
     virtual void *create(void *ip_dlgModel, QWidget *ip_mainWindow) = 0;
+
+    /*!
+     * @details
+     *   Sets a @a locator wich will be set to the model during
+     *   dialog creation.
+     */
+    virtual void injectServiceLocator(IServiceLocator *locator) = 0;
 };
 
 //------------------------------------------------------------------------------
@@ -130,8 +148,25 @@ struct DialogConstructor : public IDialogConstructor
      */
     void *create(void *ip_dlgModel, QWidget *ip_mainWindow)
     {
-        return new TDialog(static_cast<TDialogModel *>(ip_dlgModel), ip_mainWindow);
+        // TODO: use static checks (c++11) during type registering and building.
+        QObject *obj = reinterpret_cast<QObject *>(ip_dlgModel);
+        TDialogModel *model = dynamic_cast<TDialogModel *>(obj);
+        model->injectServiceLocator(m_locator);
+        return new TDialog(model, ip_mainWindow);
     }
+
+    /*!
+     * @details
+     *   Sets a @a locator wich will be set to the model during
+     *   dialog creation.
+     */
+    void injectServiceLocator(IServiceLocator *locator)
+    {
+        m_locator = locator;
+    }
+
+private:
+    IServiceLocator *m_locator;
 };
 
 //------------------------------------------------------------------------------

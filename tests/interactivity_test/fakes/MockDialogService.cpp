@@ -29,8 +29,9 @@
 #include <QtCore/QTimer>
 #include <QtGui/QDialog>
 //------------------------------------------------------------------------------
-MockDialogService::MockDialogService()
-    : mp_created_dlg(nullptr)
+MockDialogService::MockDialogService(QWidget *ip_mainWindow, IServiceLocator *locator)
+    : DialogService(ip_mainWindow, locator)
+    , mp_created_dlg(nullptr)
 {
 }
 

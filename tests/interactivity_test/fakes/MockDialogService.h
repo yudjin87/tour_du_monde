@@ -32,7 +32,7 @@
 class MockDialogService : public DialogService
 {
 public:
-    MockDialogService();
+    MockDialogService(QWidget *ip_mainWindow, IServiceLocator *locator);
 
     QDialog *createDialog(IDialogConstructor *ip_constructor, void *ip_dlgModel) const;
 

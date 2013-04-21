@@ -29,6 +29,7 @@
 #include "fakes/MockDialogService.h"
 
 #include <interactivity/DialogService.h>
+#include <utils/ServiceLocator.h>
 
 #include <QtGui/QWidget>
 #include <QtTest/QTest>
@@ -42,7 +43,7 @@ DialogServiceTest::DialogServiceTest(QObject *parent)
 //------------------------------------------------------------------------------
 void DialogServiceTest::shouldRegisterViewWithViewModel()
 {
-    DialogService service;
+    QWidget mainWindow; DialogService service(&mainWindow, nullptr);
     service.registerDialog<MockDialog, MockDialogModel>();
     QVERIFY(true);
 }
@@ -51,7 +52,7 @@ void DialogServiceTest::shouldRegisterViewWithViewModel()
 void DialogServiceTest::shouldCreateDialog()
 {
     MockDialog::wasCreated = false;
-    MockDialogService service;
+    QWidget mainWindow; MockDialogService service(&mainWindow, nullptr);
     service.registerDialog<MockDialog, MockDialogModel>();
 
     service.showDialog(new MockDialogModel());
@@ -63,7 +64,7 @@ void DialogServiceTest::shouldCreateDialog()
 void DialogServiceTest::shouldReturnRightResult()
 {
     MockDialog::s_result = QDialog::Rejected;
-    MockDialogService service;
+    QWidget mainWindow; MockDialogService service(&mainWindow, nullptr);
     service.registerDialog<MockDialog, MockDialogModel>();
 
     bool result = service.showDialog(new MockDialogModel());
@@ -79,7 +80,7 @@ void DialogServiceTest::shouldReturnRightResult()
 void DialogServiceTest::shouldDeleteDialogAfterShowing()
 {
     MockDialog::wasDestroyed = false;
-    MockDialogService service;
+    QWidget mainWindow; MockDialogService service(&mainWindow, nullptr);
     service.registerDialog<MockDialog, MockDialogModel>();
 
     service.showDialog(new MockDialogModel());
@@ -91,11 +92,25 @@ void DialogServiceTest::shouldDeleteDialogAfterShowing()
 void DialogServiceTest::shouldReturnFalseIfDialogWasNotRegistered()
 {
     MockDialog::s_result = QDialog::Accepted;
-    DialogService service;
+    QWidget mainWindow; DialogService service(&mainWindow, nullptr);
 
     bool result = service.showDialog(new MockDialogModel());
 
     QCOMPARE(result, false);
+}
+
+//------------------------------------------------------------------------------
+void DialogServiceTest::shouldInjectLocatorToTheModel()
+{
+    MockDialog::s_result = QDialog::Accepted;
+    ServiceLocator locator;
+    QWidget mainWindow; MockDialogService service(&mainWindow, &locator);
+    service.registerDialog<MockDialog, MockDialogModel>();
+
+    MockDialogModel *model = new MockDialogModel();
+    service.showDialog(model);
+
+    QCOMPARE(model->injectedLocator, &locator);
 }
 
 //------------------------------------------------------------------------------

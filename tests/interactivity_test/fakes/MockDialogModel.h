@@ -24,24 +24,23 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef DIALOGSERVICETEST_H
-#define DIALOGSERVICETEST_H
+#ifndef MOCKDIALOGMODEL_H
+#define MOCKDIALOGMODEL_H
 
 #include <QtCore/QObject>
 
-class DialogServiceTest : public QObject
+class IServiceLocator;
+
+class MockDialogModel : public QObject
 {
-    Q_OBJECT
 public:
-    explicit DialogServiceTest(QObject *parent = 0);
+    MockDialogModel(QObject *parent = 0);
+
+    void injectServiceLocator(IServiceLocator *locator);
+
+public:
+    IServiceLocator *injectedLocator;
     
-private Q_SLOTS:
-    void shouldRegisterViewWithViewModel();
-    void shouldCreateDialog();
-    void shouldReturnRightResult();
-    void shouldDeleteDialogAfterShowing();
-    void shouldReturnFalseIfDialogWasNotRegistered();
-    void shouldInjectLocatorToTheModel();
 };
 
-#endif // DIALOGSERVICETEST_H
+#endif // MOCKDIALOGMODEL_H

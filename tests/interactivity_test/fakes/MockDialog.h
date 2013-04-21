@@ -27,9 +27,9 @@
 #ifndef MOCKDIALOG_H
 #define MOCKDIALOG_H
 
-#include <QtGui/QDialog>
+#include "MockDialogModel.h"
 
-class MockDialogModel {};
+#include <QtGui/QDialog>
 
 class MockDialog : public QDialog
 {

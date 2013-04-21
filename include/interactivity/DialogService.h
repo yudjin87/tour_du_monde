@@ -46,7 +46,7 @@ class QWidget;
 class INTERACTIVITY_API DialogService : public IDialogService
 {
 public:
-    DialogService(QWidget *ip_mainWindow = nullptr);
+    DialogService(QWidget *ip_mainWindow, IServiceLocator *locator);
     ~DialogService();
 
 protected:
@@ -82,7 +82,7 @@ protected:
      */
     virtual QDialog *createDialog(IDialogConstructor *ip_constructor, void *ip_dlgModel) const;
 
-protected:
+private:
     /*!
      * @details
      *    The map between dialog types and their constructors.
@@ -94,6 +94,8 @@ protected:
      *   The main window used as owner for dialogs.
      */
     QWidget *mp_mainWindow;
+
+    IServiceLocator *m_locator;
 };
 
 #endif // DIALOGSERVICE_H
