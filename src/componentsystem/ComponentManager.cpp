@@ -294,6 +294,7 @@ void ComponentManager::shutdownComponents(const QList<IComponent *> &components)
             continue;
         }
 
+        onComponentAboutToShutDown(comp);
         (mp_componentInitialiser->*(m_shutDownFunc))(comp);
         m_log.log(QString("'%1' component is shutted down").arg(comp->name()), ILogger::Info);
         onComponentShutedDown(comp);
@@ -306,6 +307,12 @@ void ComponentManager::onComponentStarted(IComponent *ip_component)
     m_stoppedComponents.removeOne(ip_component);
     m_startedComponents.push_back(ip_component);
     emit componentStarted(ip_component);
+}
+
+//------------------------------------------------------------------------------
+void ComponentManager::onComponentAboutToShutDown(IComponent *ip_component)
+{
+    emit componentAboutToShutDown(ip_component);
 }
 
 //------------------------------------------------------------------------------

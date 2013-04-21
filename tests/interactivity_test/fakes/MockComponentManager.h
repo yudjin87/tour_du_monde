@@ -35,7 +35,7 @@ public:
     MockComponentManager();
 
     void callOnComponentStarted(IComponent *ip_component);
-    void callOnComponentShutedDown(IComponent *ip_component);
+    void callOnComponentAboutToShutDown(IComponent *ip_component);
 };
 
 #endif // MOCKCOMPONENTMANAGER_H

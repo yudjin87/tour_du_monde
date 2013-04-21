@@ -279,7 +279,7 @@ void CarouselInteractionServiceTest::shouldConnectDelegateDeconfigureMethodWithC
     service.setConfigurationDelegate(delegate);
 
     FakeComponent comp;
-    mockComponentManager.callOnComponentShutedDown(&comp);
+    mockComponentManager.callOnComponentAboutToShutDown(&comp);
 
     QVERIFY(delegate->m_deconfigureCalled);
 }

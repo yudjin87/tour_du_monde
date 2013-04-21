@@ -220,6 +220,20 @@ void ComponentManagerTest::shutdownAllComponents_shouldEmit()
 }
 
 //------------------------------------------------------------------------------
+void ComponentManagerTest::shutdownAllComponents_shouldEmitAboutSignal()
+{
+    ComponentManager manager(lg);
+    QSignalSpy spy(&manager, SIGNAL(componentAboutToShutDown(IComponent *)));
+
+    MockComponent *mockComponent = new MockComponent();
+    manager.addComponent(mockComponent);
+    manager.startupComponent(mockComponent);
+    manager.shutdownAllComponents();
+
+    QCOMPARE(spy.count(), 1);
+}
+
+//------------------------------------------------------------------------------
 void ComponentManagerTest::shutdownAllComponents_shouldRemoveThemFromStartedList()
 {
     ComponentManager manager(lg);

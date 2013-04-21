@@ -43,9 +43,9 @@ void MockComponentManager::callOnComponentStarted(IComponent *ip_component)
 }
 
 //------------------------------------------------------------------------------
-void MockComponentManager::callOnComponentShutedDown(IComponent *ip_component)
+void MockComponentManager::callOnComponentAboutToShutDown(IComponent *ip_component)
 {
-    onComponentShutedDown(ip_component);
+    onComponentAboutToShutDown(ip_component);
 }
 
 //------------------------------------------------------------------------------

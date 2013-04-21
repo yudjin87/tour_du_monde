@@ -281,6 +281,13 @@ public:
 signals:
     /*!
      * @details
+     *   This signal is emmited before @a ip_component will be shuted down by the
+     *   IComponentManager.
+     */
+    void componentAboutToShutDown(IComponent *ip_component);
+
+    /*!
+     * @details
      *   This signal is emmited when @a ip_component is shuted down by the
      *   IComponentManager.
      */

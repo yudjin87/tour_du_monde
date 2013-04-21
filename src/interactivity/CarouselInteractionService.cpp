@@ -64,8 +64,8 @@ CarouselInteractionService::CarouselInteractionService(AbstractApplication &i_ap
     connect(mp_componentManager, SIGNAL(componentStarted(IComponent *)),
             SLOT(onComponentStartedUp(IComponent *)));
 
-    connect(mp_componentManager, SIGNAL(componentShutedDown(IComponent *)),
-            SLOT(onComponentShutedDown(IComponent *)));
+    connect(mp_componentManager, SIGNAL(componentAboutToShutDown(IComponent *)),
+            SLOT(onComponentAboutToShutDown(IComponent *)));
 }
 
 //------------------------------------------------------------------------------
@@ -202,7 +202,7 @@ void CarouselInteractionService::onComponentStartedUp(IComponent *ip_component)
 }
 
 //------------------------------------------------------------------------------
-void CarouselInteractionService::onComponentShutedDown(IComponent *ip_component)
+void CarouselInteractionService::onComponentAboutToShutDown(IComponent *ip_component)
 {
     if (mp_componentConfigurationDelegate == nullptr)
         return;

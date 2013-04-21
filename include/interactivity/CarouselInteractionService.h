@@ -160,7 +160,7 @@ public:
 
 protected slots:
     void onComponentStartedUp(IComponent *ip_component);
-    void onComponentShutedDown(IComponent *ip_component);
+    void onComponentAboutToShutDown(IComponent *ip_component);
     void onToolExecutingStopped();
 
 private:

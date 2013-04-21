@@ -310,6 +310,13 @@ protected slots:
 
     /*!
      * @details
+     *   This method is invoked before @a ip_component will be shuted down by the
+     *   ComponentManager. It emits componentAboutToShutDown().
+     */
+    void onComponentAboutToShutDown(IComponent *ip_component);
+
+    /*!
+     * @details
      *   This method is invoked when @a ip_component is shuted down by the
      *   ComponentManager. It emits componentShutedDown() signal and moves @a ip_component
      *   from the started to stopped list.
