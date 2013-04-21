@@ -25,12 +25,15 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "ComponentDefinitionsModel.h"
+#include "EnableComponentCommand.h"
 
 #include <componentsystem/ComponentDefinition.h>
 #include <componentsystem/IComponent.h>
 #include <utils/ObservableList.h>
+#include <utils/IServiceLocator.h>
 
 #include <QtGui/QIcon>
+#include <QtGui/QUndoStack>
 
 //------------------------------------------------------------------------------
 ComponentDefinitionsModel::ComponentDefinitionsModel(const ObservableList<IComponent *> &components, QObject *parent)
@@ -150,10 +153,12 @@ bool ComponentDefinitionsModel::setData(const QModelIndex &index, const QVariant
             || role != Qt::CheckStateRole)
         return false;
 
-    //    ComponentDefinition *def = m_components.at(index.row())->definition();
-    //    def->setAvailability(def->availability() != IComponent::Enabled
-    //            ? IComponent::Enabled
-    //            : IComponent::Disabled);
+    EnableComponentCommand* command = m_locator->buildInstance<EnableComponentCommand>();
+    IComponent *comp = m_components.at(index.row());
+    command->addComponentToSwitchState(comp);
+
+    QUndoStack *undo = m_locator->locate<QUndoStack>();
+    undo->push(command);
 
     emit dataChanged(index, index);
     return true;

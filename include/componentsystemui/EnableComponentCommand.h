@@ -24,37 +24,41 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef COMPONENTSYSTEMUICOMPONENT_H
-#define COMPONENTSYSTEMUICOMPONENT_H
+#ifndef ENABLECOMPONENTCOMMAND_H
+#define ENABLECOMPONENTCOMMAND_H
 
 #include "componentsystemui/componentsystem_ui_global.h"
 
-#include <componentsystem/BaseComponent.h>
+#include <QtCore/QList>
+#include <QtCore/QSet>
+#include <QtCore/QObject>
+#include <QtGui/QUndoCommand>
 
-class COMP_SYSTEM_UI_API ComponentSystemUIComponent : public BaseComponent
+class IComponent;
+class IComponentManager;
+
+class COMP_SYSTEM_UI_API EnableComponentCommand : public QObject, public QUndoCommand
 {
     Q_OBJECT
 public:
-    ComponentSystemUIComponent(QObject *parent = nullptr);
-    ~ComponentSystemUIComponent();
+    EnableComponentCommand(IComponentManager *manager, QUndoCommand* parent = nullptr);
+    ~EnableComponentCommand();
 
-protected:
-    /*!
-     * @details
-     *   Shuts down the component.
-     */
-    void _onShutdown();
+    void addComponentToDisable(IComponent *component);
+    void addComponentToEnable(IComponent *component);
 
-    /*!
-     * @details
-     *   Registers ComponentsDialog in the dialog service.
-     *   Registers commands:
-     *     @li EnableComponentCommand
-     * @param ip_initData should be a reference to AbstractApplication object.
-     * @return @a false, if ip_initData is not a reference to AbstractApplication object.
-     *   Otherwise, return @a true.
-     */
-    bool _onStartup(QObject *ip_initData);
+    void addComponentToSwitchState(IComponent *component);
+
+    QList<IComponent *> componentsToDisable() const;
+    QList<IComponent *> componentsToEnable() const;
+
+    void redo();
+    void undo();
+
+private:
+    IComponentManager *m_manager;
+    QSet<IComponent *> m_componentsToDisable;
+    QSet<IComponent *> m_componentsToEnable;
 };
 
-#endif // COMPONENTSYSTEMUICOMPONENT_H
+#endif // ENABLECOMPONENTCOMMAND_H
