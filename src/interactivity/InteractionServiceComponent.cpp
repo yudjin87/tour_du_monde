@@ -34,6 +34,7 @@
 #include <utils/IServiceLocator.h>
 
 #include <QtGui/QMainWindow>
+
 //------------------------------------------------------------------------------
 class InteractionServiceComponent::InteractionServiceComponentPrivate
 {
@@ -107,8 +108,11 @@ void InteractionServiceComponent::InteractionServiceComponentPrivate::onShutdown
             || mp_dialogService == nullptr )
         qWarning("Logic error: onStartup() should be called before onShutdown().");
 
+    // TODO: unregister them before deletion!!
+
     delete mp_service;
     mp_service = nullptr;
+
     delete mp_dialogService;
     mp_dialogService = nullptr;
 }
@@ -127,11 +131,13 @@ bool InteractionServiceComponent::InteractionServiceComponentPrivate::onStartup(
     if (app == nullptr)
         return false;
 
-    mp_service = new CarouselInteractionService(*app);
-
     IServiceLocator &locator = app->serviceLocator();
+
+    // IInteractionService registration
+    mp_service = new CarouselInteractionService(*app);
     locator.registerInstance<IInteractionService>(mp_service);
 
+    // IDialogService registration
     QMainWindow *mainWindow = locator.locate<QMainWindow>();
     mp_dialogService = new DialogService(mainWindow, &locator);
     locator.registerInstance<IDialogService>(mp_dialogService);

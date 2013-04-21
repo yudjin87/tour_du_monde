@@ -33,7 +33,7 @@
 
 /*!
  * @brief
- *   This class represents a component, that registers
+ *   This class represents a component, that creates and registers
  *   interactive services in the service locator.
  * @details
  *   The InteractionServiceComponent is a main @a component of GUI based
@@ -43,7 +43,7 @@
  *   dependency of component parent name:
  *   @a "Interactivity"
  *
- *   Registered objects:
+ *   Registered services:
  * @li IDialogService;
  * @li IInteractionService;
  */
