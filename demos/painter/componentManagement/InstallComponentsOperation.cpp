@@ -94,7 +94,7 @@ void InstallComponentsOperation::execute()
             delete component;
     }
 
-    manager->startupComponents(components, m_app);
+    manager->startupComponents(components);
 }
 
 //------------------------------------------------------------------------------

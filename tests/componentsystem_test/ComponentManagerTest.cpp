@@ -139,7 +139,7 @@ void ComponentManagerTest::startupAllComponents_shouldCallCheck()
     manager.addComponent(p_componentA);
     manager.addComponent(p_componentB);
 
-    manager.startupAllComponents(nullptr);
+    manager.startupAllComponents();
 
     QVERIFY(manager.isChecked());
 }
@@ -155,7 +155,7 @@ void ComponentManagerTest::startupAllComponents_shouldRemoveThemFromStoppedList(
 
     QCOMPARE(manager.stoppedComponents().size(), 2);
 
-    manager.startupAllComponents(this);
+    manager.startupAllComponents();
 
     QCOMPARE(manager.stoppedComponents().size(), 0);
 }
@@ -171,7 +171,7 @@ void ComponentManagerTest::startupAllComponents_shouldAddThemToTheStartedList()
 
     QCOMPARE(manager.startedComponents().size(), 0);
 
-    manager.startupAllComponents(this);
+    manager.startupAllComponents();
 
     QCOMPARE(manager.startedComponents().size(), 2);
     QVERIFY(manager.startedComponents().contains(p_componentA));
@@ -186,7 +186,7 @@ void ComponentManagerTest::startupAllComponents_shouldEmit()
 
     MockComponent *mockComponent = new MockComponent();
     manager.addComponent(mockComponent);
-    manager.startupAllComponents(this);
+    manager.startupAllComponents();
 
     QCOMPARE(spy.count(), 1);
 }
@@ -213,7 +213,7 @@ void ComponentManagerTest::shutdownAllComponents_shouldEmit()
 
     MockComponent *mockComponent = new MockComponent();
     manager.addComponent(mockComponent);
-    manager.startupComponent(mockComponent, this);
+    manager.startupComponent(mockComponent);
     manager.shutdownAllComponents();
 
     QCOMPARE(spy.count(), 1);
@@ -227,7 +227,7 @@ void ComponentManagerTest::shutdownAllComponents_shouldRemoveThemFromStartedList
     IComponent *p_componentB = createComponent("B");
     manager.addComponent(p_componentA);
     manager.addComponent(p_componentB);
-    manager.startupAllComponents(this);
+    manager.startupAllComponents();
 
     QCOMPARE(manager.stoppedComponents().size(), 0);
 
@@ -246,7 +246,7 @@ void ComponentManagerTest::shutdownAllComponents_shouldAddThemToTheStoppedList()
     IComponent *p_componentB = createComponent("B");
     manager.addComponent(p_componentA);
     manager.addComponent(p_componentB);
-    manager.startupAllComponents(this);
+    manager.startupAllComponents();
 
     QCOMPARE(manager.startedComponents().size(), 2);
 
@@ -293,7 +293,8 @@ void ComponentManagerTest::startupAllComponents_shouldPassInitDataToComponentIni
     ComponentManager manager(initialiser, lg);
     manager.addComponent(mockComponent);
 
-    manager.startupAllComponents(this);
+    manager.setInitializationData(this);
+    manager.startupAllComponents();
 
     QCOMPARE(initialiser->mp_initializationData, this);
 }

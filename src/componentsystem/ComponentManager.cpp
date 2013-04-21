@@ -34,11 +34,13 @@
 #include <utils/ObservableList.h>
 
 #include <QtCore/QSet>
+#include <QtCore/QCoreApplication>
 
 //------------------------------------------------------------------------------
 ComponentManager::ComponentManager(ILogger &log, QObject *parent)
     : m_log(log)
     , m_shutDownFunc(&IComponentInitialiser::shutdownComponent)
+    , m_initializationData(QCoreApplication::instance())
     , mp_components(new ComponentDependencies())
     , mp_componentInitialiser(new ComponentInitialiser(log))
     , m_startedComponents(QList<IComponent *>())
@@ -53,6 +55,7 @@ ComponentManager::ComponentManager(ILogger &log, QObject *parent)
 ComponentManager::ComponentManager(IComponentInitialiser *initializer, ILogger &log, QObject *parent)
     : m_log(log)
     , m_shutDownFunc(&IComponentInitialiser::shutdownComponent)
+    , m_initializationData(QCoreApplication::instance())
     , mp_components(new ComponentDependencies())
     , mp_componentInitialiser(initializer)
     , m_startedComponents(QList<IComponent *>())
@@ -68,6 +71,7 @@ ComponentManager::ComponentManager(IComponentInitialiser *initializer, ILogger &
 ComponentManager::ComponentManager(IComponentDependencies *dependencies, ILogger &log, QObject *parent)
     : m_log(log)
     , m_shutDownFunc(&IComponentInitialiser::shutdownComponent)
+    , m_initializationData(QCoreApplication::instance())
     , mp_components(dependencies)
     , mp_componentInitialiser(new ComponentInitialiser(log))
     , m_startedComponents(QList<IComponent *>())
@@ -83,6 +87,7 @@ ComponentManager::ComponentManager(IComponentDependencies *dependencies, ILogger
 ComponentManager::ComponentManager(IComponentDependencies *dependencies, IComponentInitialiser *initializer, ILogger &log, QObject *parent)
     : m_log(log)
     , m_shutDownFunc(&IComponentInitialiser::shutdownComponent)
+    , m_initializationData(QCoreApplication::instance())
     , mp_components(dependencies)
     , mp_componentInitialiser(initializer)
     , m_startedComponents(QList<IComponent *>())
@@ -155,6 +160,12 @@ const IComponentInitialiser &ComponentManager::initializer() const
 }
 
 //------------------------------------------------------------------------------
+QObject *ComponentManager::initializationData() const
+{
+    return m_initializationData;
+}
+
+//------------------------------------------------------------------------------
 QStringList ComponentManager::missingComponents() const
 {
     return m_checkResult.missing();
@@ -164,6 +175,12 @@ QStringList ComponentManager::missingComponents() const
 QList<IComponent *> ComponentManager::orphanComponents() const
 {
     return m_checkResult.orphans();
+}
+
+//------------------------------------------------------------------------------
+void ComponentManager::setInitializationData(QObject *initData)
+{
+    m_initializationData = initData;
 }
 
 //------------------------------------------------------------------------------
@@ -201,22 +218,22 @@ void ComponentManager::shutdownAllComponents()
 }
 
 //------------------------------------------------------------------------------
-DependenciesSolvingResult ComponentManager::startupComponent(IComponent *ip_component, QObject *ip_initializationData)
+DependenciesSolvingResult ComponentManager::startupComponent(IComponent *ip_component)
 {
     QList<IComponent *> components;
     components.push_back(ip_component);
 
-    return startupComponents(components, ip_initializationData);
+    return startupComponents(components);
 }
 
 //------------------------------------------------------------------------------
-DependenciesSolvingResult ComponentManager::startupAllComponents(QObject *ip_initializationData)
+DependenciesSolvingResult ComponentManager::startupAllComponents()
 {
-    return startupComponents(mp_components->components().toList(), ip_initializationData);
+    return startupComponents(mp_components->components().toList());
 }
 
 //------------------------------------------------------------------------------
-DependenciesSolvingResult ComponentManager::startupComponents(QList<IComponent *> components, QObject *ip_initializationData)
+DependenciesSolvingResult ComponentManager::startupComponents(QList<IComponent *> components)
 {
     if (components.empty())
         return DependenciesSolvingResult();
@@ -239,7 +256,7 @@ DependenciesSolvingResult ComponentManager::startupComponents(QList<IComponent *
             continue;
         }
 
-        if (mp_componentInitialiser->startupComponent(comp, ip_initializationData)) {
+        if (mp_componentInitialiser->startupComponent(comp, m_initializationData)) {
             m_log.log(QString("'%1' component is started").arg(comp->name()), ILogger::Info);
             onComponentStarted(comp);
         } else {

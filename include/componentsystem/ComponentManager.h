@@ -156,6 +156,13 @@ public:
 
     /*!
      * @details
+     *   Gets an initialization data that will be passed to the started components.
+     * @sa startupComponent()
+     */
+    QObject *initializationData() const;
+
+    /*!
+     * @details
      *   Returns a list of missing parent names those children were added
      *   to the manager.
      *
@@ -177,6 +184,13 @@ public:
      * @sa missingComponents()
      */
     QList<IComponent *> orphanComponents() const;
+
+    /*!
+     * @details
+     *   Sets an initialization data that will be passed to the started components.
+     * @sa startupComponent()
+     */
+    void setInitializationData(QObject *initData);
 
     /*!
      * @details
@@ -238,7 +252,7 @@ public:
      *   Disabled components and components with disabled parent components will not be
      *   started.
      *
-     *   @a ip_initializationData will be passed to the started components.
+     *   Initialization data will be passed to the started components (if any).
      *   Returns a dependencies solving result, that contains a list of distinct components
      *   and a list of components, those dependencies were not found.
      *
@@ -248,16 +262,18 @@ public:
      * @note component should be added to the manager before starting.
      * @sa addComponent(), check()
      */
-    DependenciesSolvingResult startupComponent(IComponent *ip_component, QObject *ip_initializationData = nullptr);
+    DependenciesSolvingResult startupComponent(IComponent *ip_component);
 
     /*!
      * @details
      *   This method is added for convinient. It is a shortkey to the
      *   startupComponents(components()).
      *
+     *   Initialization data will be passed to the started components (if any).
+     *
      * @sa addComponent(), check(), startupComponents()
      */
-    DependenciesSolvingResult startupAllComponents(QObject *ip_initializationData = nullptr);
+    DependenciesSolvingResult startupAllComponents();
 
     /*!
      * @details
@@ -268,7 +284,7 @@ public:
      *   Disabled components and components with disabled parent components will not be
      *   started.
      *
-     *   @a ip_initializationData will be passed to the started components.
+     *   Initialization data will be passed to the started components (if any).
      *   Returns a dependencies solving result, that contains a list of distinct components
      *   and a list of components, those dependencies were not found.
      *
@@ -280,7 +296,7 @@ public:
      * @note components should be added to the manager before starting.
      * @sa addComponent(), check(), startupAllComponents()
      */
-    DependenciesSolvingResult startupComponents(QList<IComponent *> components, QObject *ip_initializationData = nullptr);
+    DependenciesSolvingResult startupComponents(QList<IComponent *> components);
 
 
 protected slots:
@@ -310,6 +326,7 @@ protected:
 private:
     typedef void (IComponentInitialiser::*InitialiserShutDownFunc)(IComponent *);
     InitialiserShutDownFunc m_shutDownFunc;
+    QObject *m_initializationData;
     IComponentDependencies *mp_components;
     IComponentInitialiser *mp_componentInitialiser;
     QList<IComponent *> m_startedComponents;
