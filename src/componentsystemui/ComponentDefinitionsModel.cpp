@@ -25,7 +25,6 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "ComponentDefinitionsModel.h"
-#include "ComponentDefinitionsAdapter.h"
 
 #include <componentsystem/ComponentDefinition.h>
 #include <componentsystem/IComponent.h>
@@ -34,20 +33,25 @@
 #include <QtGui/QIcon>
 
 //------------------------------------------------------------------------------
-ComponentDefinitionsModel::ComponentDefinitionsModel(const ComponentDefinitionsAdapter *adapter, QObject *parent)
+ComponentDefinitionsModel::ComponentDefinitionsModel(const ObservableList<IComponent *> &components, QObject *parent)
     : QAbstractTableModel(parent)
-    , m_adapter(adapter)
+    , m_components(components)
+    , m_locator(nullptr)
 {
-    m_adapter->components().installObserver(this);
+    m_components.installObserver(this);
 }
 
 //------------------------------------------------------------------------------
 ComponentDefinitionsModel::~ComponentDefinitionsModel()
 {
-    m_adapter->components().removeObserver(this);
+    m_components.removeObserver(this);
+    m_locator = nullptr;
+}
 
-    delete m_adapter;
-    m_adapter = nullptr;
+//------------------------------------------------------------------------------
+void ComponentDefinitionsModel::injectServiceLocator(IServiceLocator *locator)
+{
+    m_locator = locator;
 }
 
 //------------------------------------------------------------------------------
@@ -59,7 +63,7 @@ int ComponentDefinitionsModel::rowCount(const QModelIndex &parent) const
     if (parent.isValid())
         return 0;
 
-    return m_adapter->components().size();
+    return m_components.size();
 }
 
 //------------------------------------------------------------------------------
@@ -88,7 +92,7 @@ QVariant ComponentDefinitionsModel::data(const QModelIndex &index, int role) con
     if (!index.isValid() || index.model() != this)
         return QVariant();
 
-    const IComponent *comp = m_adapter->components().at(index.row());
+    const IComponent *comp = m_components.at(index.row());
     const ComponentDefinition *def = comp->definition();
 
     switch (role) {
@@ -142,11 +146,11 @@ bool ComponentDefinitionsModel::setData(const QModelIndex &index, const QVariant
 {
     if (!index.isValid()
             || index.column() != 0
-            || (index.row() > m_adapter->components().size())
+            || (index.row() > m_components.size())
             || role != Qt::CheckStateRole)
         return false;
 
-    //    ComponentDefinition *def = m_adapter->components().at(index.row())->definition();
+    //    ComponentDefinition *def = m_components.at(index.row())->definition();
     //    def->setAvailability(def->availability() != IComponent::Enabled
     //            ? IComponent::Enabled
     //            : IComponent::Disabled);
@@ -172,7 +176,7 @@ Qt::ItemFlags ComponentDefinitionsModel::flags(const QModelIndex &index) const
 void ComponentDefinitionsModel::onChanged(const Changes<IComponent *> &changes)
 {
     int addedItems = changes.affectedItems.size();
-    int oldSize = m_adapter->components().size() - addedItems;
+    int oldSize = m_components.size() - addedItems;
     beginInsertRows(QModelIndex(), oldSize, oldSize);
     endInsertRows();
 }

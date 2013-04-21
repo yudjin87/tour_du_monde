@@ -35,14 +35,17 @@
 #include <QtCore/QList>
 
 class ComponentDefinition;
-class ComponentDefinitionsAdapter;
 class IComponent;
+class IServiceLocator;
+
+template <typename TItem>
+class ObservableList;
 
 class COMP_SYSTEM_UI_API ComponentDefinitionsModel : public QAbstractTableModel, public IListObserver<IComponent *>
 {
     Q_OBJECT
 public:
-    explicit ComponentDefinitionsModel(const ComponentDefinitionsAdapter *adapter, QObject *parent = nullptr);
+    explicit ComponentDefinitionsModel(const ObservableList<IComponent *> &components, QObject *parent = nullptr);
     ~ComponentDefinitionsModel();
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
@@ -59,8 +62,11 @@ public:
 
     void onChanged(const Changes<IComponent *> &changes);
 
+    void injectServiceLocator(IServiceLocator *locator);
+
 private:
-    const ComponentDefinitionsAdapter *m_adapter;
+    const ObservableList<IComponent *> &m_components;
+    IServiceLocator *m_locator;
 };
 
 #endif // COMPONENTMANAGERMODEL_H

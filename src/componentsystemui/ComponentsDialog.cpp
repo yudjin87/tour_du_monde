@@ -33,9 +33,9 @@
 #include <QtGui/QTableView>
 
 //------------------------------------------------------------------------------
-ComponentsDialog::ComponentsDialog(ComponentDefinitionsAdapter *adapter, QWidget *parent)
+ComponentsDialog::ComponentsDialog(ComponentDefinitionsModel *model, QWidget *parent)
     : QDialog(parent)
-    , m_model(new ComponentDefinitionsModel(adapter))
+    , m_model(model)
     , m_ui(new Ui::ComponentsDialog())
 {
     QSortFilterProxyModel *filterModel = new QSortFilterProxyModel(this);

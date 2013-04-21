@@ -29,7 +29,6 @@
 #include <componentsystem/ComponentDefinition.h>
 #include <componentsystem/ComponentDependencies.h>
 #include <componentsystem/ProxyComponent.h>
-#include <componentsystemui/ComponentDefinitionsAdapter.h>
 #include <componentsystemui/ComponentDefinitionsModel.h>
 
 #include <componentsystemui/ComponentsDialog.h>
@@ -64,7 +63,7 @@ ComponentsDialogTest::ComponentsDialogTest(QObject *parent)
         dependencies->addComponent(comp);
     }
 
-    m_dialog = new ComponentsDialog(new ComponentDefinitionsAdapter(dependencies));
+    m_dialog = new ComponentsDialog(new ComponentDefinitionsModel(dependencies->components()));
 }
 
 //------------------------------------------------------------------------------

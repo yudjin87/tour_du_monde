@@ -25,13 +25,23 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "ComponentSystemUIComponent.h"
-#include "ComponentDefinitionsAdapter.h"
+#include "ComponentDefinitionsModel.h"
 #include "ComponentsDialog.h"
 
+#include "EnableComponentCommand.h"
+
 #include <componentsystem/ComponentExport.h>
+#include <componentsystem/IComponentManager.h>
 #include <interactivity/IDialogService.h>
 #include <framework/AbstractApplication.h>
 #include <utils/IServiceLocator.h>
+
+//------------------------------------------------------------------------------
+// TODO: will be removed when c++11 is supported (with lambdas)
+static void *createEnableComponentCommand(IComponentManager *manager)
+{
+    return new EnableComponentCommand(manager);
+}
 
 //------------------------------------------------------------------------------
 static const QByteArray description(
@@ -70,8 +80,14 @@ bool ComponentSystemUIComponent::_onStartup(QObject *ip_initData)
     if (app == nullptr)
         return false;
 
-    IDialogService *dialogService = app->serviceLocator().locate<IDialogService>();
-    dialogService->registerDialog<ComponentsDialog, ComponentDefinitionsAdapter>();
+    IServiceLocator &locator = app->serviceLocator();
+
+    IDialogService *dialogService = locator.locate<IDialogService>();
+    dialogService->registerDialog<ComponentsDialog, ComponentDefinitionsModel>();
+
+    IComponentManager *manager = locator.locate<IComponentManager>();
+    auto creator = std::bind(&createEnableComponentCommand, manager);
+    locator.registerType<EnableComponentCommand>(creator);
 
     return true;
 }

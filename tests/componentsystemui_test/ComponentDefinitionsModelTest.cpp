@@ -29,7 +29,6 @@
 #include <componentsystem/ComponentDefinition.h>
 #include <componentsystem/ComponentDependencies.h>
 #include <componentsystem/ProxyComponent.h>
-#include <componentsystemui/ComponentDefinitionsAdapter.h>
 #include <componentsystemui/ComponentDefinitionsModel.h>
 
 #include <QtCore/QtAlgorithms>
@@ -65,8 +64,7 @@ ComponentDefinitionsModelTest::ComponentDefinitionsModelTest()
         dependencies->addComponent(comp);
     }
 
-    ComponentDefinitionsAdapter *adapter = new ComponentDefinitionsAdapter(dependencies);
-    model = new ComponentDefinitionsModel(adapter);
+    model = new ComponentDefinitionsModel(dependencies->components());
 
     QSortFilterProxyModel *filterModel = new QSortFilterProxyModel(this);
     filterModel->setSourceModel(model);

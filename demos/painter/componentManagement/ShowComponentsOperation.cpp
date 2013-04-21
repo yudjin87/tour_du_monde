@@ -29,7 +29,7 @@
 #include <componentsystem/IComponent.h>
 #include <componentsystem/ComponentDependencies.h>
 #include <componentsystem/IComponentManager.h>
-#include <componentsystemui/ComponentDefinitionsAdapter.h>
+#include <componentsystemui/ComponentDefinitionsModel.h>
 
 #include <interactivity/IDialogService.h>
 
@@ -52,8 +52,8 @@ void ShowComponentsOperation::execute()
     IComponentManager *manager = locator.locate<IComponentManager>();
     IDialogService *dialogService = locator.locate<IDialogService>();
 
-    ComponentDefinitionsAdapter *adapter = new ComponentDefinitionsAdapter(&manager->dependencies());
-    dialogService->showDialog(adapter);
+    ComponentDefinitionsModel *model = new ComponentDefinitionsModel(manager->dependencies().components());
+    dialogService->showDialog(model);
 }
 
 //------------------------------------------------------------------------------
