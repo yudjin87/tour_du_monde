@@ -11,3 +11,4 @@ SUBDIRS += \
     framework\
     componentsystemui \
     interactivity \
+    undo \

@@ -24,45 +24,49 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "Bootloader.h"
-#include "MainWindow.h"
+#include "UndoOperation.h"
 
-#include <componentsystem/CompositeComponentProvider.h>
-#include <componentsystem/DirectoryComponentProvider.h>
-#include <componentsystem/IComponentManager.h>
-#include <componentsystem/IComponent.h>
-#include <componentsystemui/ComponentSystemUIComponent.h>
-#include <interactivity/InteractionServiceComponent.h>
-#include <undo/UndoComponent.h>
+#include <framework/AbstractApplication.h>
+#include <utils/IServiceLocator.h>
 
-#include <QtCore/QCoreApplication>
+#include <QtGui/QUndoStack>
 
 //------------------------------------------------------------------------------
-Bootloader::Bootloader()
+UndoOperation::UndoOperation()
+    : Operation("Undo")
+    , m_action(nullptr)
 {
+    setIcon(QIcon(":/undo/images/undo.png"));
+    setIconVisibleInMenu(true);
 }
 
 //------------------------------------------------------------------------------
-void Bootloader::_configureComponentProvider()
+void UndoOperation::execute()
 {
-    CompositeComponentProvider *provider = static_cast<CompositeComponentProvider *>(mp_componentProvider);
-    provider->addProvider(new DirectoryComponentProvider("./components"));
-    provider->addProvider(new DirectoryComponentProvider("./installedComponents"));
-    provider->registerComponent(new InteractionServiceComponent());
-    provider->registerComponent(new ComponentSystemUIComponent());
-    provider->registerComponent(new UndoComponent());
+    m_action->trigger();
 }
 
 //------------------------------------------------------------------------------
-IComponentProvider *Bootloader::_createComponentProvider()
+void UndoOperation::initialize(QObject *ip_startUpData)
 {
-    return new CompositeComponentProvider();
+    AbstractApplication *app = qobject_cast<AbstractApplication *>(ip_startUpData);
+    if (app == nullptr)
+        return;
+
+    IServiceLocator &locator = app->serviceLocator();
+    QUndoStack *stack = locator.locate<QUndoStack>();
+
+    m_action = stack->createUndoAction(this);
+    setEnabled(m_action->isEnabled());
+
+    connect(m_action, SIGNAL(changed()), SLOT(onActionChanged()));
 }
 
 //------------------------------------------------------------------------------
-QMainWindow *Bootloader::_createMainWindow()
+void UndoOperation::onActionChanged()
 {
-    return new MainWindow();
+    setEnabled(m_action->isEnabled());
 }
 
 //------------------------------------------------------------------------------
+

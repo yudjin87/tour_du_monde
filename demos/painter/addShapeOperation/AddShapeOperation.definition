@@ -6,5 +6,6 @@
          <parentComponent name="Display"/>
          <parentComponent name="Carto"/>
          <parentComponent name="CartoUI"/>
+         <parentComponent name="Undo"/>
      </parents>
  </component>

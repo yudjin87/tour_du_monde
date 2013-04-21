@@ -1,0 +1,7 @@
+ <component name="Undo">
+     <productName>Undo</productName>
+     <parents>
+         <parentComponent name="Interactivity"/>
+     </parents>
+     <location>./Undo</location>
+ </component>

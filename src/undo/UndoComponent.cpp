@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
-
+ 
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -24,64 +24,69 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "AddShapeOperationComponent.h"
-#include "AddShapeOperationInteractiveExtension.h"
+#include "UndoComponent.h"
+#include "UndoInteractiveExtension.h"
 
-#include <componentsystem/ComponentDefinition.h>
 #include <componentsystem/ComponentExport.h>
 #include <framework/AbstractApplication.h>
+#include <utils/IServiceLocator.h>
+
+#include <QtGui/QUndoStack>
 
 //------------------------------------------------------------------------------
-static const QByteArray productName("AddShapeOperation");
+static const QByteArray description(
+        "");
 
 //------------------------------------------------------------------------------
-AddShapeOperationComponent::AddShapeOperationComponent(QObject *parent /*= nullptr*/)
-    : BaseComponent("AddShapeOperation", parent)
+UndoComponent::UndoComponent(QObject *parent)
+    : BaseComponent("Undo", parent)
+    , m_undoStack(nullptr)
 {
-    IInteractiveExtension *interactiveExtension = new AddShapeOperationInteractiveExtension(this);
+    IInteractiveExtension *interactiveExtension = new UndoInteractiveExtension(this);
     registerExtension<IInteractiveExtension>(interactiveExtension);
 
-    addParent("Dom");
-    addParent("Geodatabase");
-    addParent("Display");
-    addParent("Carto");
-    addParent("CartoUI");
-    addParent("Undo");
-    setProductName(productName);
+    setProductName("Undo");
+    setDescription(description);
+    addParent("Interactivity");
 }
 
 //------------------------------------------------------------------------------
-AddShapeOperationComponent::~AddShapeOperationComponent()
+UndoComponent::~UndoComponent()
 {
+    if (started())
+        qWarning("Logic error: onShutdown() was not called.");
 }
 
 //------------------------------------------------------------------------------
-bool AddShapeOperationComponent::_onStartup(QObject *ip_initData)
+void UndoComponent::_onShutdown()
 {
-    AbstractApplication *app = qobject_cast<AbstractApplication *>(ip_initData);
+    // TODO:
+    // Unregister them before deletion!
+
+    delete m_undoStack;
+    m_undoStack = nullptr;
+}
+
+//------------------------------------------------------------------------------
+bool UndoComponent::_onStartup(QObject *ip_initData)
+{
+    if (ip_initData == nullptr)
+        return false;
+
+    AbstractApplication *app = dynamic_cast<AbstractApplication *>(ip_initData);
     if (app == nullptr)
         return false;
 
-//    IPainterDocumentController* docController = app->serviceLocator().locate<IPainterDocumentController>();
-//    IPainterDocument *doc = docController->document();
+    IServiceLocator &locator = app->serviceLocator();
 
-
-//    QGraphicsScene *scene = app->serviceLocator().locate<QGraphicsScene>();
-//    //scene->setItemIndexMethod(QGraphicsScene::NoIndex);
-//    MapModel *map = new MapModel(&doc->map(), scene, this);
-
-//    DataSetPresenter *dataSetPresenter = new DataSetPresenter(doc, this, app->serviceLocator());
-//    Q_UNUSED(dataSetPresenter);
+    // QUndoStack registration
+    m_undoStack = new QUndoStack();
+    locator.registerInstance<QUndoStack>(m_undoStack);
 
     return true;
 }
 
 //------------------------------------------------------------------------------
-void AddShapeOperationComponent::_onShutdown()
-{
-}
-
-//------------------------------------------------------------------------------
-EXPORT_COMPONENT(AddShapeOperationComponent)
+EXPORT_COMPONENT(UndoComponent)
 
 //------------------------------------------------------------------------------
