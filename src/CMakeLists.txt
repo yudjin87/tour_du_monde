@@ -12,12 +12,15 @@ add_subdirectory(framework)
 add_subdirectory(interactivity)
 add_subdirectory(logging)
 add_subdirectory(utils)
+add_subdirectory(undo)
 
 ###############################################################################
 # Specify dependencies for correct build order
 add_dependencies(Booting Logging Utils ComponentSystem)
 add_dependencies(Interactivity Logging Utils ComponentSystem)
 add_dependencies(ComponentSystem Logging Utils)
+add_dependencies(ComponentSystemUI ComponentSystem)
+add_dependencies(Undo Interactivity)
 
 ###############################################################################
 # Organize projects into folders/filters (for MSVC, xCode)
@@ -28,3 +31,4 @@ set_property(TARGET Framework PROPERTY FOLDER "src")
 set_property(TARGET Interactivity PROPERTY FOLDER "src")
 set_property(TARGET Logging PROPERTY FOLDER "src")
 set_property(TARGET Utils PROPERTY FOLDER "src")
+set_property(TARGET Undo PROPERTY FOLDER "src")

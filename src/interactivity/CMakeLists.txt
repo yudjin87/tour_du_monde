@@ -9,14 +9,14 @@ set(__SOURCES
     ${CRSL_TARGET_SOURCES}/CarouselComponentConfigurationDelegate.cpp 
     ${CRSL_TARGET_SOURCES}/CarouselInteractionService.cpp 
     ${CRSL_TARGET_SOURCES}/Catalogs.cpp 
-    ${CRSL_TARGET_SOURCES}/Command.cpp 
-    ${CRSL_TARGET_SOURCES}/CommandCatalog.cpp 
     ${CRSL_TARGET_SOURCES}/ConfigurationChanges.cpp 
     ${CRSL_TARGET_SOURCES}/DialogService.cpp 
     ${CRSL_TARGET_SOURCES}/DockWidgetCatalog.cpp 
     ${CRSL_TARGET_SOURCES}/InputInterceptor.cpp 
     ${CRSL_TARGET_SOURCES}/InteractionServiceComponent.cpp 
     ${CRSL_TARGET_SOURCES}/MenuCatalog.cpp 
+    ${CRSL_TARGET_SOURCES}/Operation.cpp 
+    ${CRSL_TARGET_SOURCES}/OperationCatalog.cpp 
     ${CRSL_TARGET_SOURCES}/ToolBarCatalog.cpp 
     ${CRSL_TARGET_SOURCES}/ToolBase.cpp 
 )
@@ -27,14 +27,10 @@ set(__HEADERS
     ${CRSL_TARGET_HEADERS}/CarouselComponentConfigurationDelegate.h 
     ${CRSL_TARGET_HEADERS}/CarouselInteractionService.h 
     ${CRSL_TARGET_HEADERS}/Catalogs.h 
-    ${CRSL_TARGET_HEADERS}/Command.h 
-    ${CRSL_TARGET_HEADERS}/CommandCatalog.h 
     ${CRSL_TARGET_HEADERS}/ConfigurationChanges.h 
     ${CRSL_TARGET_HEADERS}/DialogService.h 
     ${CRSL_TARGET_HEADERS}/DockWidgetCatalog.h 
     ${CRSL_TARGET_HEADERS}/ICatalogs.h 
-    ${CRSL_TARGET_HEADERS}/ICommand.h 
-    ${CRSL_TARGET_HEADERS}/ICommandCatalog.h 
     ${CRSL_TARGET_HEADERS}/IComponentConfigurationDelegate.h 
     ${CRSL_TARGET_HEADERS}/IDialogService.h 
     ${CRSL_TARGET_HEADERS}/IDockWidgetCatalog.h 
@@ -46,9 +42,13 @@ set(__HEADERS
     ${CRSL_TARGET_HEADERS}/InputInterceptor.h 
     ${CRSL_TARGET_HEADERS}/InteractionServiceComponent.h 
     ${CRSL_TARGET_HEADERS}/interactivity_global.h 
+    ${CRSL_TARGET_HEADERS}/IOperation.h 
+    ${CRSL_TARGET_HEADERS}/IOperationCatalog.h 
     ${CRSL_TARGET_HEADERS}/ITool.h 
     ${CRSL_TARGET_HEADERS}/IToolBarCatalog.h 
     ${CRSL_TARGET_HEADERS}/MenuCatalog.h 
+    ${CRSL_TARGET_HEADERS}/Operation.h 
+    ${CRSL_TARGET_HEADERS}/OperationCatalog.h 
     ${CRSL_TARGET_HEADERS}/ToolBarCatalog.h 
     ${CRSL_TARGET_HEADERS}/ToolBase.h 
 )
