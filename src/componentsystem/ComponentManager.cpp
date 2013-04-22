@@ -204,17 +204,41 @@ void ComponentManager::shutdown()
 }
 
 //------------------------------------------------------------------------------
-void ComponentManager::shutdownComponent(IComponent *ip_component)
+DependenciesSolvingResult ComponentManager::shutdownComponent(IComponent *ip_component)
 {
     QList<IComponent *> components;
     components.push_back(ip_component);
-    shutdownComponents(components);
+    return shutdownComponents(components);
 }
 
 //------------------------------------------------------------------------------
-void ComponentManager::shutdownAllComponents()
+DependenciesSolvingResult ComponentManager::shutdownAllComponents()
 {
-    shutdownComponents(mp_components->components().toList());
+    return shutdownComponents(mp_components->components().toList());
+}
+
+//------------------------------------------------------------------------------
+DependenciesSolvingResult ComponentManager::shutdownComponents(const QList<IComponent *> &components)
+{
+    if (components.empty())
+        return DependenciesSolvingResult();
+
+    DependenciesSolvingResult solvingResult = mp_components->completeListWithParents(components);
+    QList<IComponent *> componentsToShutdown = solvingResult.ordered();
+
+    foreach(IComponent *comp, componentsToShutdown) {
+        if (!mp_components->components().contains(comp)) {
+            m_log.log(QString("Can not shutdown unexisting component: \"%1\"").arg(comp->name()), ILogger::Info);
+            continue;
+        }
+
+        onComponentAboutToShutDown(comp);
+        (mp_componentInitialiser->*(m_shutDownFunc))(comp);
+        m_log.log(QString("'%1' component is shutted down").arg(comp->name()), ILogger::Info);
+        onComponentShutedDown(comp);
+    }
+
+    return solvingResult;
 }
 
 //------------------------------------------------------------------------------
@@ -277,28 +301,6 @@ DependenciesSolvingResult ComponentManager::startupComponents(QList<IComponent *
     m_orphanComponents += solvingResult.orphans().toSet();
 
     return solvingResult;
-}
-
-//------------------------------------------------------------------------------
-void ComponentManager::shutdownComponents(const QList<IComponent *> &components)
-{
-    if (components.empty())
-        return;
-
-    DependenciesSolvingResult solvingResult = mp_components->completeListWithParents(components);
-    QList<IComponent *> componentsToShutdown = solvingResult.ordered();
-
-    foreach(IComponent *comp, componentsToShutdown) {
-        if (!mp_components->components().contains(comp)) {
-            m_log.log(QString("Can not shutdown unexisting component: \"%1\"").arg(comp->name()), ILogger::Info);
-            continue;
-        }
-
-        onComponentAboutToShutDown(comp);
-        (mp_componentInitialiser->*(m_shutDownFunc))(comp);
-        m_log.log(QString("'%1' component is shutted down").arg(comp->name()), ILogger::Info);
-        onComponentShutedDown(comp);
-    }
 }
 
 //------------------------------------------------------------------------------

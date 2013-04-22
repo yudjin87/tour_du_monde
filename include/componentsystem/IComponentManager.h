@@ -187,7 +187,7 @@ public:
     /*!
      * @details
      *   Shuts down all the components. Call this method when your application is going to
-     *   quit
+     *   quit.
      */
     virtual void shutdown() = 0;
 
@@ -202,7 +202,7 @@ public:
      *
      *   Ignores null pointer or unexisting component.
      */
-    virtual void shutdownComponent(IComponent *ip_component) = 0;
+    virtual DependenciesSolvingResult shutdownComponent(IComponent *ip_component) = 0;
 
     /*!
      * @details
@@ -211,7 +211,7 @@ public:
      *
      * @sa shutdownComponents()
      */
-    virtual void shutdownAllComponents() = 0;
+    virtual DependenciesSolvingResult shutdownAllComponents() = 0;
 
     /*!
      * @details
@@ -221,7 +221,7 @@ public:
      *   Shutted components are moved from the startedComponents() to
      *   the stoppedComponents() list.
      */
-    virtual void shutdownComponents(const QList<IComponent *> &components) = 0;
+    virtual DependenciesSolvingResult shutdownComponents(const QList<IComponent *> &components) = 0;
 
     /*!
      * @details

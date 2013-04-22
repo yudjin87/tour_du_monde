@@ -222,7 +222,7 @@ public:
      *
      *   Ignores null pointer or unexisting component.
      */
-    void shutdownComponent(IComponent *ip_component);
+    DependenciesSolvingResult shutdownComponent(IComponent *ip_component);
 
     /*!
      * @details
@@ -231,7 +231,7 @@ public:
      *
      * @sa shutdownComponents()
      */
-    void shutdownAllComponents();
+    DependenciesSolvingResult shutdownAllComponents();
 
     /*!
      * @details
@@ -241,7 +241,7 @@ public:
      *   Shutted components are moved from the startedComponents() to
      *   the stoppedComponents() list.
      */
-    void shutdownComponents(const QList<IComponent *> &components);
+    DependenciesSolvingResult shutdownComponents(const QList<IComponent *> &components);
 
     /*!
      * @details
