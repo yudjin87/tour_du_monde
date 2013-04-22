@@ -68,7 +68,10 @@ defineTest(copyExtraFiles) {
     files = $$1
     DDIR = $$2
 
+    ABSOLUTE_PATH=$$PWD/
+
     win32-msvc*:DDIR ~= s,/,\\,g
+    win32-msvc*:ABSOLUTE_PATH ~= s,/,\\,g
 
     # Create directory for copying
     win32-msvc* { # for Windows we also should check whether this directory exists
@@ -81,7 +84,7 @@ defineTest(copyExtraFiles) {
         # Replace slashes in paths with backslashes for Windows
         win32-msvc*:FILE ~= s,/,\\,g
 
-        QMAKE_POST_LINK += $$QMAKE_COPY $$quote($$FILE) $$quote($$DDIR) $$escape_expand(\\n\\t)
+        QMAKE_POST_LINK += $$QMAKE_COPY $$quote($$ABSOLUTE_PATH$$FILE) $$quote($$DDIR) $$escape_expand(\\n\\t)
     }
 
     export(QMAKE_POST_LINK)

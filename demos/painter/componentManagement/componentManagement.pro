@@ -12,6 +12,7 @@ LIBS += -L$${CAROUSEL_BIN} -lInteractivity \
 
 win32 {
     LIBS += -L$${CAROUSEL_BIN} -lComponentSystem \
+                               -lComponentSystemUI \
                                -lFramework \
 }
 
