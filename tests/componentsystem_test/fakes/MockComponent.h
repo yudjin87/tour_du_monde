@@ -15,8 +15,6 @@ public:
 
     void setRegistrator(QList<MockComponent *> *ip_registrator);
 
-    void loadAvailability();
-
 protected:
     bool _onStartup(QObject *ip_initData);
     void _onShutdown();

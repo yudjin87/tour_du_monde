@@ -12,6 +12,7 @@ public:
 private Q_SLOTS:
     void shouldNotSetAvailabilityIfDidNotLoad();
     void shouldEmitWhenAvailabilitySet();
+    void shouldSaveSetAvailabilityInDestructor();
     void shouldSetLoadedAvailability();
     void shouldSetAvailabilityEnabledByDefault();
 

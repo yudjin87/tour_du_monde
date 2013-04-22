@@ -66,6 +66,8 @@ void *BaseComponent::getExtension(const QString &i_byTypeId) const
 //------------------------------------------------------------------------------
 BaseComponent::~BaseComponent()
 {
+    saveAvailability();
+
     delete mp_typeObjectsMap;
     mp_typeObjectsMap = nullptr;
 
@@ -143,6 +145,14 @@ void BaseComponent::loadAvailability()
     QVariant value = settings.value(QString("components_availability/%1").arg(name()));
     if (value.isValid())
         setAvailability(static_cast<Availability>(value.toInt()));
+}
+
+//------------------------------------------------------------------------------
+void BaseComponent::saveAvailability()
+{
+    QSettings settings;
+    settings.setValue(QString("components_availability/%1").arg(name()), static_cast<int>(availability()));
+    settings.sync();
 }
 
 //------------------------------------------------------------------------------

@@ -11,6 +11,16 @@
 #include <QtCore/QSettings>
 #include <QtTest/QSignalSpy>
 
+class SimpleComponent : public BaseComponent
+{
+public:
+    SimpleComponent(const QString &i_name = "MockComponent")
+        : BaseComponent(i_name)
+    {
+    }
+
+};
+
 //------------------------------------------------------------------------------
 BaseComponentTest::BaseComponentTest(QObject *parent)
     : QObject(parent)
@@ -21,7 +31,7 @@ BaseComponentTest::BaseComponentTest(QObject *parent)
 //------------------------------------------------------------------------------
 void BaseComponentTest::shouldSetAvailabilityEnabledByDefault()
 {
-    MockComponent component("");
+    SimpleComponent component("");
     QCOMPARE(component.availability(), IComponent::Enabled);
 }
 
@@ -32,7 +42,7 @@ void BaseComponentTest::shouldSetLoadedAvailability()
     settings.setValue(QString("components_availability/%1").arg("Comp1"), static_cast<int>(IComponent::Disabled));
     settings.sync();
 
-    MockComponent component("Comp1");
+    SimpleComponent component("Comp1");
 
     QCOMPARE(component.availability(), IComponent::Disabled);
 
@@ -42,12 +52,28 @@ void BaseComponentTest::shouldSetLoadedAvailability()
 //------------------------------------------------------------------------------
 void BaseComponentTest::shouldEmitWhenAvailabilitySet()
 {
-    MockComponent component("Comp1");
+    SimpleComponent component("Comp1");
     QSignalSpy spy(&component, SIGNAL(availabilityChanged(IComponent::Availability)));
 
     component.setAvailability(IComponent::Disabled);
 
     QCOMPARE(spy.count(), 1);
+}
+
+//------------------------------------------------------------------------------
+void BaseComponentTest::shouldSaveSetAvailabilityInDestructor()
+{
+    {
+        SimpleComponent component("Comp1");
+        component.setAvailability(IComponent::Disabled);
+    }
+
+    QSettings settings;
+    QVariant value = settings.value(QString("components_availability/Comp1"));
+    QVERIFY(value.isValid());
+    QCOMPARE(static_cast<IComponent::Availability>(value.toInt()), IComponent::Disabled);
+
+    settings.clear();
 }
 
 //------------------------------------------------------------------------------
@@ -57,7 +83,7 @@ void BaseComponentTest::shouldNotSetAvailabilityIfDidNotLoad()
     settings.setValue("components_availability/empty", 0);
     settings.sync();
 
-    MockComponent component("Comp1");
+    SimpleComponent component("Comp1");
 
     QCOMPARE(component.availability(), IComponent::Enabled);
 }
@@ -65,7 +91,7 @@ void BaseComponentTest::shouldNotSetAvailabilityIfDidNotLoad()
 //------------------------------------------------------------------------------
 void BaseComponentTest::shouldReturnResultOfProtectedMethodOnFirstSuccessfulStartup()
 {
-    MockComponent mockComponent;
+    SimpleComponent mockComponent;
     QVERIFY(mockComponent.startup(nullptr));
 
     MockComponent mockComponent2; mockComponent2.m_returnValue = false;
@@ -75,7 +101,7 @@ void BaseComponentTest::shouldReturnResultOfProtectedMethodOnFirstSuccessfulStar
 //------------------------------------------------------------------------------
 void BaseComponentTest::shouldAssignResultOfProtectedMethodToTheStartedFlag()
 {
-    MockComponent mockComponent;
+    SimpleComponent mockComponent;
     mockComponent.startup(nullptr);
     QVERIFY(mockComponent.started());
 

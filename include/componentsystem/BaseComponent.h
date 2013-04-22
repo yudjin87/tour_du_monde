@@ -88,6 +88,12 @@ public:
      */
     const QString &name() const;
 
+    /*!
+     * @details
+     *   Sets the value specified whether this component is enabled or disabled.
+     *   The checked state of the component is saved in the user settings.
+     * @sa availability
+     */
     void setAvailability(Availability newMode);
 
     /*!
@@ -192,7 +198,13 @@ protected:
      * @details
      *   Loads component availability using QSettings and component name.
      */
-    virtual void loadAvailability();
+    void loadAvailability();
+
+    /*!
+     * @details
+     *   Saves component availability using QSettings and component name.
+     */
+    void saveAvailability();
 
     /*!
      * @details

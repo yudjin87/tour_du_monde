@@ -9,6 +9,7 @@ MockComponent::MockComponent(const QString &i_name, bool isBuiltIn)
     , m_returnValue(true)
     , mp_registrator(nullptr)
 {
+    setAvailability(IComponent::Enabled);
 }
 
 //------------------------------------------------------------------------------
@@ -26,12 +27,6 @@ QObject *MockComponent::data() const
 void MockComponent::setRegistrator(QList<MockComponent *> *ip_registrator)
 {
     mp_registrator = ip_registrator;
-}
-
-//------------------------------------------------------------------------------
-void MockComponent::loadAvailability()
-{
-    BaseComponent::loadAvailability();
 }
 
 //------------------------------------------------------------------------------
