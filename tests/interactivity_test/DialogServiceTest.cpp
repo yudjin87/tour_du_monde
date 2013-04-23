@@ -55,7 +55,8 @@ void DialogServiceTest::shouldCreateDialog()
     QWidget mainWindow; MockDialogService service(&mainWindow, nullptr);
     service.registerDialog<MockDialog, MockDialogModel>();
 
-    service.showDialog(new MockDialogModel());
+    MockDialogModel model;
+    service.showDialog(&model);
 
     QVERIFY(MockDialog::wasCreated);
 }
@@ -67,12 +68,13 @@ void DialogServiceTest::shouldReturnRightResult()
     QWidget mainWindow; MockDialogService service(&mainWindow, nullptr);
     service.registerDialog<MockDialog, MockDialogModel>();
 
-    bool result = service.showDialog(new MockDialogModel());
+    MockDialogModel model;
+    bool result = service.showDialog(&model);
 
     QCOMPARE(result, false);
 
     MockDialog::s_result = QDialog::Accepted;
-    result = service.showDialog(new MockDialogModel());
+    result = service.showDialog(&model);
     QCOMPARE(result, true);
 }
 
@@ -83,7 +85,8 @@ void DialogServiceTest::shouldDeleteDialogAfterShowing()
     QWidget mainWindow; MockDialogService service(&mainWindow, nullptr);
     service.registerDialog<MockDialog, MockDialogModel>();
 
-    service.showDialog(new MockDialogModel());
+    MockDialogModel model;
+    service.showDialog(&model);
 
     QVERIFY(MockDialog::wasDestroyed);
 }
@@ -94,7 +97,8 @@ void DialogServiceTest::shouldReturnFalseIfDialogWasNotRegistered()
     MockDialog::s_result = QDialog::Accepted;
     QWidget mainWindow; DialogService service(&mainWindow, nullptr);
 
-    bool result = service.showDialog(new MockDialogModel());
+    MockDialogModel model;
+    bool result = service.showDialog(&model);
 
     QCOMPARE(result, false);
 }
@@ -107,10 +111,10 @@ void DialogServiceTest::shouldInjectLocatorToTheModel()
     QWidget mainWindow; MockDialogService service(&mainWindow, &locator);
     service.registerDialog<MockDialog, MockDialogModel>();
 
-    MockDialogModel *model = new MockDialogModel();
-    service.showDialog(model);
+    MockDialogModel model;
+    service.showDialog(&model);
 
-    QCOMPARE(model->injectedLocator, &locator);
+    QCOMPARE(model.injectedLocator, &locator);
 }
 
 //------------------------------------------------------------------------------

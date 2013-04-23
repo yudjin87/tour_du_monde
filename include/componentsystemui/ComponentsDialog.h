@@ -37,6 +37,7 @@ namespace Ui {
 class ComponentsDialog;
 }
 
+// Note that it does not take ownership for the model
 class COMP_SYSTEM_UI_API ComponentsDialog : public QDialog
 {
     Q_OBJECT

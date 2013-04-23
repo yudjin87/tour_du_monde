@@ -54,9 +54,6 @@ ComponentsDialog::~ComponentsDialog()
 {
     delete m_ui;
     m_ui = nullptr;
-
-    delete m_model;
-    m_model = nullptr;
 }
 
 //------------------------------------------------------------------------------

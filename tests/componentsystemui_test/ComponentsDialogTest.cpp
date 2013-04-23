@@ -63,19 +63,21 @@ ComponentsDialogTest::ComponentsDialogTest(QObject *parent)
         dependencies->addComponent(comp);
     }
 
-    m_dialog = new ComponentsDialog(new ComponentDefinitionsModel(dependencies->components()));
+    model = new ComponentDefinitionsModel(dependencies->components());
+    dialog = new ComponentsDialog(model);
 }
 
 //------------------------------------------------------------------------------
 ComponentsDialogTest::~ComponentsDialogTest()
 {
-    delete m_dialog;
+    delete model;
+    delete dialog;
 }
 
 //------------------------------------------------------------------------------
 void ComponentsDialogTest::test()
 {
-    m_dialog->show();
+    dialog->show();
 }
 
 //------------------------------------------------------------------------------

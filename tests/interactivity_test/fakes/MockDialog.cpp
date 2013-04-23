@@ -42,7 +42,6 @@ MockDialog::MockDialog(MockDialogModel *ip_model, QWidget *ip_mainWindow)
 //------------------------------------------------------------------------------
 MockDialog::~MockDialog()
 {
-    delete mp_model;
     mp_model = 0;
     wasDestroyed = true;
 }

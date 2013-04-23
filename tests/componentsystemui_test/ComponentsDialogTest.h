@@ -30,8 +30,9 @@
 #include <QtCore/QObject>
 
 class ComponentsDialog;
-class IComponent;
+class ComponentDefinitionsModel;
 class ComponentDependencies;
+class IComponent;
 
 class ComponentsDialogTest : public QObject
 {
@@ -42,9 +43,10 @@ public:
     void test();
 
 private:
-    ComponentsDialog *m_dialog;
+    ComponentsDialog *dialog;
     QList<IComponent *> components;
     ComponentDependencies *dependencies;
+    ComponentDefinitionsModel *model;
 };
 
 #endif // COMPONENTSDIALOGTEST_H

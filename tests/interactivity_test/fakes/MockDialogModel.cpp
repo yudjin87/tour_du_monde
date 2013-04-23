@@ -34,6 +34,12 @@ MockDialogModel::MockDialogModel(QObject *parent)
 }
 
 //------------------------------------------------------------------------------
+MockDialogModel::~MockDialogModel()
+{
+  injectedLocator = 0;
+}
+
+//------------------------------------------------------------------------------
 void MockDialogModel::injectServiceLocator(IServiceLocator *locator)
 {
     injectedLocator = locator;

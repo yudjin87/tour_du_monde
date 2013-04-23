@@ -35,6 +35,7 @@ class MockDialogModel : public QObject
 {
 public:
     MockDialogModel(QObject *parent = 0);
+    ~MockDialogModel();
 
     void injectServiceLocator(IServiceLocator *locator);
 

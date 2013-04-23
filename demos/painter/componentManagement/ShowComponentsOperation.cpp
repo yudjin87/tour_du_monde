@@ -52,8 +52,8 @@ void ShowComponentsOperation::execute()
     IComponentManager *manager = locator.locate<IComponentManager>();
     IDialogService *dialogService = locator.locate<IDialogService>();
 
-    ComponentDefinitionsModel *model = new ComponentDefinitionsModel(manager->dependencies().components());
-    dialogService->showDialog(model);
+    ComponentDefinitionsModel model(manager->dependencies().components());
+    dialogService->showDialog(&model);
 }
 
 //------------------------------------------------------------------------------
