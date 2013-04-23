@@ -25,13 +25,17 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "ComponentsDialogTest.h"
+#include "fakes/FakeEnableComponentCommand.h"
 
 #include <componentsystem/ComponentDefinition.h>
 #include <componentsystem/ComponentDependencies.h>
 #include <componentsystem/ProxyComponent.h>
 #include <componentsystemui/ComponentDefinitionsModel.h>
-
 #include <componentsystemui/ComponentsDialog.h>
+
+#include <utils/ServiceLocator.h>
+
+#include <QtGui/QUndoStack>
 
 //------------------------------------------------------------------------------
 namespace {
@@ -50,12 +54,21 @@ ComponentDefinition *createDefinition(QString name, bool builtIn, QString compLo
     return def;
 }
 
+//------------------------------------------------------------------------------
+// TODO: will be removed when c++11 is supported (with lambdas)
+static void *createEnableComponentCommand(ComponentDependencies *dependencies)
+{
+    return new FakeEnableComponentCommand(dependencies);
+}
+
 }
 
 //------------------------------------------------------------------------------
 ComponentsDialogTest::ComponentsDialogTest(QObject *parent)
     : QObject(parent)
+    , locator(new ServiceLocator())
 {
+
     dependencies = new ComponentDependencies(this);
     for (int i = 0; i < 11; ++i) {
         IComponent *comp = new ProxyComponent(createDefinition(QString("Component%1").arg(i), (i % 3), "/to/nowhere/library", "/to/nowhere/definition", "Description", "ComponentA product"));
@@ -63,7 +76,15 @@ ComponentsDialogTest::ComponentsDialogTest(QObject *parent)
         dependencies->addComponent(comp);
     }
 
+    // -- used for the dialog --
+    locator->registerInstance(new QUndoStack(this));
+    auto creator = std::bind(&createEnableComponentCommand, dependencies);
+    locator->registerType<EnableComponentCommand>(creator);
+
+    //--------------------------
+
     model = new ComponentDefinitionsModel(dependencies->components());
+    model->injectServiceLocator(locator);
     dialog = new ComponentsDialog(model);
 }
 
@@ -72,6 +93,7 @@ ComponentsDialogTest::~ComponentsDialogTest()
 {
     delete model;
     delete dialog;
+    delete locator;
 }
 
 //------------------------------------------------------------------------------

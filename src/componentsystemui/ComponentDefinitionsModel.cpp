@@ -160,7 +160,9 @@ bool ComponentDefinitionsModel::setData(const QModelIndex &index, const QVariant
     QUndoStack *undo = m_locator->locate<QUndoStack>();
     undo->push(command);
 
-    emit dataChanged(index, index);
+
+    // Reset availability state for all components
+    emit dataChanged(createIndex(0, 0), createIndex(m_components.size(), 0));
     return true;
 }
 

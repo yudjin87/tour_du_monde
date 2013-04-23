@@ -24,31 +24,24 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef COMPONENTSDIALOGTEST_H
-#define COMPONENTSDIALOGTEST_H
+#ifndef FAKEENABLECOMPONENTCOMMAND_H
+#define FAKEENABLECOMPONENTCOMMAND_H
 
-#include <QtCore/QObject>
+#include <componentsystemui/EnableComponentCommand.h>
 
-class ComponentsDialog;
-class ComponentDefinitionsModel;
 class ComponentDependencies;
-class IComponent;
-class IServiceLocator;
 
-class ComponentsDialogTest : public QObject
+class FakeEnableComponentCommand : public EnableComponentCommand
 {
+    Q_OBJECT
 public:
-    explicit ComponentsDialogTest(QObject *parent = 0);
-    ~ComponentsDialogTest();
-
-    void test();
+    explicit FakeEnableComponentCommand(ComponentDependencies *dependencies);
+    
+    void redo();
+    void undo();
 
 private:
-    ComponentsDialog *dialog;
-    QList<IComponent *> components;
-    ComponentDependencies *dependencies;
-    ComponentDefinitionsModel *model;
-    IServiceLocator *locator;
+    ComponentDependencies *m_dependencies;
 };
 
-#endif // COMPONENTSDIALOGTEST_H
+#endif // FAKEENABLECOMPONENTCOMMAND_H
