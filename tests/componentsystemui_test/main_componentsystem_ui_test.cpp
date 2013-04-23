@@ -26,16 +26,12 @@
 
 #include <QtGui/QApplication>
 
-#include "ComponentDefinitionsModelTest.h"
 #include "ComponentsDialogTest.h"
 
 //------------------------------------------------------------------------------
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
-
-    ComponentDefinitionsModelTest componentDefinitionsModel;
-    //componentDefinitionsModel.show();
 
     ComponentsDialogTest componentsDialogTest;
     componentsDialogTest.test();
