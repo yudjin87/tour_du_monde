@@ -231,7 +231,12 @@ void ComponentInstallerTest::install_shouldReturnPathesToTheCopiedDefinitions()
             + QDir::separator() + QString("TestComponent1.definition");
 
     QCOMPARE(pathes.size(), 1);
+
+#ifdef Q_OS_WIN32
+    QCOMPARE(pathes[0].toLower(), QDir::toNativeSeparators(copiedDefinitionLocation).toLower());
+#else
     QCOMPARE(pathes[0], QDir::toNativeSeparators(copiedDefinitionLocation));
+#endif // Q_WS_WIN
 
     removeDir(componentsDir);
 }
