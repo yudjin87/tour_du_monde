@@ -153,6 +153,8 @@ bool ComponentDefinitionsModel::setData(const QModelIndex &index, const QVariant
             || role != Qt::CheckStateRole)
         return false;
 
+    Q_ASSERT(m_locator != nullptr);
+
     EnableComponentCommand* command = m_locator->buildInstance<EnableComponentCommand>();
     IComponent *comp = m_components.at(index.row());
     command->addComponentToSwitchState(comp);
