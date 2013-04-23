@@ -24,29 +24,24 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef COMPONENTDEFINITIONVIEWTEST_H
-#define COMPONENTDEFINITIONVIEWTEST_H
+#ifndef FAKEENABLECOMPONENTCOMMAND_H
+#define FAKEENABLECOMPONENTCOMMAND_H
 
-#include <QtGui/QTableView>
+#include <componentsystemui/EnableComponentCommand.h>
 
-class IComponent;
 class ComponentDependencies;
-class ComponentDefinitionsModel;
 
-class ComponentDefinitionsModelTest : public QTableView
+class FakeEnableComponentCommand : public EnableComponentCommand
 {
     Q_OBJECT
 public:
-    ComponentDefinitionsModelTest();
-    ~ComponentDefinitionsModelTest();
-
-private slots:
-    void addNewOne();
+    explicit FakeEnableComponentCommand(ComponentDependencies *dependencies);
+    
+    void redo();
+    void undo();
 
 private:
-    QList<IComponent *> components;
-    ComponentDependencies *dependencies;
-    ComponentDefinitionsModel *model;
+    ComponentDependencies *m_dependencies;
 };
 
-#endif // COMPONENTDEFINITIONVIEWTEST_H
+#endif // FAKEENABLECOMPONENTCOMMAND_H

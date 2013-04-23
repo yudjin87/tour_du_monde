@@ -33,6 +33,7 @@ class ComponentsDialog;
 class ComponentDefinitionsModel;
 class ComponentDependencies;
 class IComponent;
+class IServiceLocator;
 
 class ComponentsDialogTest : public QObject
 {
@@ -47,6 +48,7 @@ private:
     QList<IComponent *> components;
     ComponentDependencies *dependencies;
     ComponentDefinitionsModel *model;
+    IServiceLocator *locator;
 };
 
 #endif // COMPONENTSDIALOGTEST_H

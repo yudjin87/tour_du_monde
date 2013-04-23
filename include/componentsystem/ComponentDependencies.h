@@ -76,7 +76,15 @@ public:
      *   and a list of components, those dependencies were not found. The component list
      *   will contains all immediate and extended parents for specified child component.
      *
-     *   The components are ordered in such way, that parents are firsts and children are lasts.
+     *   The components are ordered in such way, that parents are firsts and child is last.
+     *   E.g. if you have following graph
+     * @code
+     *              E
+     *              v
+     *    A <- B <- C <- D
+     * @endcode
+     *   and you call completeListWithChild() for the @a C component,
+     *   the @a A, @a B and @a C components will be returned in that order.
      *
      * @param ip_forChild
      *   The component to get the dependencies (or parents) for.
@@ -89,7 +97,7 @@ public:
      *   and a list of components, those dependencies were not found. The component list
      *   will contains all immediate and extended parents for specified children components.
      *
-     *   The components are ordered in such way, that parents are firsts and children are lasts.
+     *   The components are ordered in such way, that parents are firsts and children are last.
      *
      * @param i_forChildren
      *   The components to get the dependencies (or parents) for.
@@ -102,7 +110,16 @@ public:
      *   and a list of components, those dependencies were not found. The component list
      *   will contains all immediate and extended children for specified parent component.
      *
-     *   The components are ordered in such way, that children are firsts and parents are lasts.
+     *   The components are ordered in such way, that children are firsts and parent is last.
+     *   E.g. if you have following graph
+     * @code
+     *              E
+     *              v
+     *    A <- B <- C <- D
+     * @endcode
+     *   and you call completeListWithParent() for the @a C component,
+     *   the @a E, @a D and @a C components will be returned in such order,
+     *   where indexOf(E) < indexOf(C) and indexOf(D) < indexOf(C).
      *
      * @param ip_forParent
      *   The component to get the components that depend on it (or its implicit children).
@@ -115,7 +132,16 @@ public:
      *   and a list of components, those dependencies were not found. The component list
      *   will contains all immediate and extended children for specified parents components.
      *
-     *   The components are ordered in such way, that children are firsts and parents are lasts.
+     *   The components are ordered in such way, that children are firsts and parents are last.
+     *   E.g. if you have following graph
+     * @code
+     *              E
+     *              v
+     *    A <- B <- C <- D
+     * @endcode
+     *   and you call completeListWithParents() for the @a C component,
+     *   the @a E, @a D and @a C components will be returned in such order,
+     *   where indexOf(E) < indexOf(C) and indexOf(D) < indexOf(C).
      *
      * @param ip_forParents
      *   The components to get the other components that depend on they (or their implicit children).
@@ -142,7 +168,7 @@ public:
      *   E.g. if we have components
      * @code
      *   A <- B <- C <- E
-     *             D <- E
+     *             D <──┘
      * @endcode
      *   then, getParentComponents(E) will return {A, B, C, D} components.
      * @param ip_forChild
@@ -158,7 +184,8 @@ public:
      *   E.g. if we have components
      * @code
      *   A <- B <- C <- E
-     *             C <- D
+     *             ^
+     *             └─── D
      * @endcode
      *   then, getChildComponents(C) will return {E, D} components.
      * @param ip_forParent

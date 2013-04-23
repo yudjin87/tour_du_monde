@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
-
+ 
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -24,20 +24,31 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include <QtGui/QApplication>
+#include "FakeEnableComponentCommand.h"
 
-#include "ComponentsDialogTest.h"
+#include <componentsystem/IComponent.h>
+#include <componentsystem/ComponentDependencies.h>
 
 //------------------------------------------------------------------------------
-int main(int argc, char *argv[])
+FakeEnableComponentCommand::FakeEnableComponentCommand(ComponentDependencies *dependencies)
+    : EnableComponentCommand(nullptr, nullptr)
+    , m_dependencies(dependencies)
 {
-    QApplication app(argc, argv);
-
-    ComponentsDialogTest componentsDialogTest;
-    componentsDialogTest.test();
-
-    return app.exec();
 }
 
 //------------------------------------------------------------------------------
+void FakeEnableComponentCommand::redo()
+{
+    bool enable = false;
+    foreach(IComponent *comp, m_dependencies->components()) {
+        comp->setAvailability(enable ? IComponent::Enabled : IComponent::Disabled);
+        enable = !enable;
+    }
+}
 
+//------------------------------------------------------------------------------
+void FakeEnableComponentCommand::undo()
+{
+}
+
+//------------------------------------------------------------------------------
