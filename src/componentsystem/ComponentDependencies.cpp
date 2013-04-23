@@ -135,14 +135,6 @@ DependenciesSolvingResult ComponentDependencies::completeListWithParents(const Q
             if (!completeList.contains(child) && !unresolvedList.contains(child)) {
                 unresolvedList.push_back(child);
             }
-
-            const ComponentDefinition *definition = child->definition();
-            QStringList parents = definition->parents();
-            foreach (const QString &dependencyName, parents) {
-                solver.addComponent(dependencyName);
-                solver.addDependency(dependencyName, child->name());
-            }
-
         }
 
         unresolvedList.removeFirst();

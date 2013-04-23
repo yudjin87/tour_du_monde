@@ -51,6 +51,7 @@ private slots:
     void shouldCompleteListWithParentsForOneComponent();
     void shouldCompleteListWithTheirParents();
     void shouldCompleteListWithFullParents();
+    void shouldNotAddDeeperParents();
     void shouldCompleteListWithTheirParent();
 };
 

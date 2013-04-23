@@ -342,6 +342,44 @@ void ComponentDependenciesTest::shouldCompleteListWithFullParents()
 }
 
 //------------------------------------------------------------------------------
+void ComponentDependenciesTest::shouldNotAddDeeperParents()
+{
+    // The B should not be added when we try to complete with C
+    //
+    // A <- B <- C <- E
+    //      ^    ^    │
+    //      └────┴────┘
+
+    MockComponent *p_componentA = createComponent("A");
+    MockChildComponent *p_componentB = createParentComponent("B", "A"); //dependent from A;
+    MockChildComponent *p_componentC = createParentComponent("C", "B"); //dependent from B;
+    MockChildComponent *p_componentE = createParentComponent("E", "B", "C"); //dependent from B and C;
+
+
+    ComponentDependencies dependencies;
+    dependencies.addComponent(p_componentB);
+    dependencies.addComponent(p_componentA);
+    dependencies.addComponent(p_componentE);
+    dependencies.addComponent(p_componentC);
+
+    QList<IComponent *> parents;
+    parents.push_back(p_componentC);
+
+    DependenciesSolvingResult result = dependencies.completeListWithParents(parents);
+    QList<IComponent *> comps = result.ordered();
+
+    QCOMPARE(comps.size(), 2); // Only E and C
+
+    // A and B components should not been passed
+    QCOMPARE(comps.contains(p_componentA), QBool(false));
+    QCOMPARE(comps.contains(p_componentB), QBool(false));
+
+    QVERIFY(comps.indexOf(p_componentE) < comps.indexOf(p_componentC));
+
+    QVERIFY(!result.hasCyclicDependencies());
+}
+
+//------------------------------------------------------------------------------
 void ComponentDependenciesTest::shouldCompleteListWithTheirParent()
 {
     // A <- B <- C <- D,    C <- E
