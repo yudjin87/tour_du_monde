@@ -1,13 +1,13 @@
 #!/bin/sh
 # run:
 # 
-#   ./test_runner.sh linux32/debug_static/unittest/
-#   ./test_runner.sh linux32/release_static/unittest/
+#   ./test_runner.sh product/gnu-32-debug-static/unittest/
+#   ./test_runner.sh product/gnu-32-debug-release/unittest/
 #
 # using MinGW:
 #
-#   ./test_runner.sh win32/debug_static/unittest/
-#   ./test_runner.sh win32/release_static/unittest/
+#   ./test_runner.sh product/msvc10-x32-debug-static/unittest/
+#   ./test_runner.sh product/msvc10-x32-release-static/unittest/
 
 PATH_TO_TESTS=$1
 echo "Path to tests: $PATH_TO_TESTS"
@@ -19,11 +19,15 @@ if [ ${OS} = "Windows_NT" ]; then
 	EXECUTABLE_PATTERN=*_test.exe
 fi
 
+pushd $PATH_TO_TESTS
+
 # Run all test executables from specified directory
 # and output Total Test Result
-for file in ${PATH_TO_TESTS}${EXECUTABLE_PATTERN} ; do
+for file in ./${EXECUTABLE_PATTERN} ; do
 	if [ -f $file ]; then    
         echo $file:
 	    ./$file | grep Total 
 	fi
 done
+
+popd
