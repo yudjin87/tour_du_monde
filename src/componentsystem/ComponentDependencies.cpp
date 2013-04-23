@@ -117,10 +117,6 @@ DependenciesSolvingResult ComponentDependencies::completeListWithParents(const Q
 
     DependencySolver solver;
 
-    QStringList ordered;
-    QStringList orphans;
-    QStringList missing;
-
     QList<IComponent *> completeList;
     QList<IComponent *> unresolvedList(ip_forParents);
 
@@ -132,14 +128,20 @@ DependenciesSolvingResult ComponentDependencies::completeListWithParents(const Q
 
         DependenciesSolvingResult result = getChildComponents(parent);
         foreach (IComponent * child, result.ordered()) {
-            if (!completeList.contains(child) && !unresolvedList.contains(child)) {
+            if (!completeList.contains(child) && !unresolvedList.contains(child))
                 unresolvedList.push_back(child);
-            }
+
+            solver.addComponent(child->name());
+            solver.addDependency(parent->name(), child->name());
         }
 
         unresolvedList.removeFirst();
         completeList.push_back(parent);
     }
+
+    QStringList ordered;
+    QStringList orphans;
+    QStringList missing;
 
     bool hasCyclic = !solver.solve(ordered, orphans, missing);
     if (hasCyclic) {

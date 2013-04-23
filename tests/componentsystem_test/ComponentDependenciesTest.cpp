@@ -342,25 +342,22 @@ void ComponentDependenciesTest::shouldCompleteListWithFullParents()
 }
 
 //------------------------------------------------------------------------------
-void ComponentDependenciesTest::shouldNotAddDeeperParents()
+void ComponentDependenciesTest::shouldCompleteListWithParentsTransitively()
 {
-    // The B should not be added when we try to complete with C
-    //
-    // A <- B <- C <- E
-    //      ^    ^    │
-    //      └────┴────┘
+    // Zero <- C <- A <- N
 
-    MockComponent *p_componentA = createComponent("A");
-    MockChildComponent *p_componentB = createParentComponent("B", "A"); //dependent from A;
-    MockChildComponent *p_componentC = createParentComponent("C", "B"); //dependent from B;
-    MockChildComponent *p_componentE = createParentComponent("E", "B", "C"); //dependent from B and C;
+
+    MockComponent *p_componentZero = createComponent("Zero");
+    MockChildComponent *p_componentC = createParentComponent("C", "Zero"); //dependent from Zero;
+    MockChildComponent *p_componentA = createParentComponent("A", "C");    //dependent from C;
+    MockChildComponent *p_componentN = createParentComponent("N", "A");    //dependent from A;
 
 
     ComponentDependencies dependencies;
-    dependencies.addComponent(p_componentB);
-    dependencies.addComponent(p_componentA);
-    dependencies.addComponent(p_componentE);
     dependencies.addComponent(p_componentC);
+    dependencies.addComponent(p_componentZero);
+    dependencies.addComponent(p_componentN);
+    dependencies.addComponent(p_componentA);
 
     QList<IComponent *> parents;
     parents.push_back(p_componentC);
@@ -368,13 +365,51 @@ void ComponentDependenciesTest::shouldNotAddDeeperParents()
     DependenciesSolvingResult result = dependencies.completeListWithParents(parents);
     QList<IComponent *> comps = result.ordered();
 
-    QCOMPARE(comps.size(), 2); // Only E and C
+    QCOMPARE(comps.size(), 3); // C, N and A
 
-    // A and B components should not been passed
-    QCOMPARE(comps.contains(p_componentA), QBool(false));
-    QCOMPARE(comps.contains(p_componentB), QBool(false));
+    // Zero should not been passed
+    QCOMPARE(comps.contains(p_componentZero), QBool(false));
 
-    QVERIFY(comps.indexOf(p_componentE) < comps.indexOf(p_componentC));
+    QVERIFY(comps.indexOf(p_componentN) < comps.indexOf(p_componentA));
+    QVERIFY(comps.indexOf(p_componentA) < comps.indexOf(p_componentC));
+
+    QVERIFY(!result.hasCyclicDependencies());
+}
+
+//------------------------------------------------------------------------------
+void ComponentDependenciesTest::shouldNotAddExtraParentsToCompletedList()
+{
+    // The C should not be added when we try to complete with A
+    //
+    // Zero <- C <- A <- N
+    //         ^    ^    │
+    //         └────┴────┘
+
+    MockComponent *p_componentZero = createComponent("Zero");
+    MockChildComponent *p_componentC = createParentComponent("C", "Zero");   //dependent from Zero;
+    MockChildComponent *p_componentA = createParentComponent("A", "C");      //dependent from C;
+    MockChildComponent *p_componentN = createParentComponent("N", "C", "A"); //dependent from C and A;
+
+
+    ComponentDependencies dependencies;
+    dependencies.addComponent(p_componentC);
+    dependencies.addComponent(p_componentZero);
+    dependencies.addComponent(p_componentN);
+    dependencies.addComponent(p_componentA);
+
+    QList<IComponent *> parents;
+    parents.push_back(p_componentA);
+
+    DependenciesSolvingResult result = dependencies.completeListWithParents(parents);
+    QList<IComponent *> comps = result.ordered();
+
+    QCOMPARE(comps.size(), 2); // Only N and A
+
+    // Zero and C components should not been passed
+    QCOMPARE(comps.contains(p_componentZero), QBool(false));
+    QCOMPARE(comps.contains(p_componentC), QBool(false));
+
+    QVERIFY(comps.indexOf(p_componentN) < comps.indexOf(p_componentA));
 
     QVERIFY(!result.hasCyclicDependencies());
 }
