@@ -29,6 +29,7 @@
 #include "ComponentDependencies.h"
 #include "IComponent.h"
 
+#include <QtCore/QCoreApplication>
 #include <QtCore/QDir>
 #include <QtCore/QFile>
 #include <QtCore/QScopedPointer>
@@ -183,7 +184,7 @@ QString ComponentInstaller::createComponentDirectory(const QString &componentNam
     if (m_separateDirForComponent)
         componentDirectoryPath += componentName + QDir::separator();
 
-    QDir dir(componentDirectoryPath);
+    QDir dir(qApp->applicationDirPath() + QDir::separator() + componentDirectoryPath);
     componentDirectoryPath = QDir::cleanPath(dir.absolutePath());
 
     dir.mkpath(componentDirectoryPath);
