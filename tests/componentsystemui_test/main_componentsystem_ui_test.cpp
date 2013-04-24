@@ -24,20 +24,35 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
+#include <QtCore/QStringList>
 #include <QtGui/QApplication>
 
 #include "ComponentsDialogTest.h"
+
+//------------------------------------------------------------------------------
+void runGuiManualTests(QStringList arguments);
 
 //------------------------------------------------------------------------------
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
-    ComponentsDialogTest componentsDialogTest;
-    componentsDialogTest.test();
+    if (app.arguments().contains("-g")) {
+        runGuiManualTests(app.arguments());
+    } else {
+
+    }
 
     return app.exec();
 }
 
 //------------------------------------------------------------------------------
+void runGuiManualTests(QStringList arguments)
+{
+    Q_UNUSED(arguments)
 
+    ComponentsDialogTest componentsDialogTest;
+    componentsDialogTest.test();
+}
+
+//------------------------------------------------------------------------------
