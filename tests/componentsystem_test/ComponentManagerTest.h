@@ -27,11 +27,11 @@ private slots:
     void startupAllComponents_shouldAddThemToTheStartedList();
     void startupAllComponents_shouldEmit();
     void startupAllComponents_shouldStartComponents();
-    void startupAllComponents_shouldPassInitDataToComponentInitialiser();
-    void startupAllComponents_shouldNotPassUnexistingComponentToInitialiser();
-    void startupAllComponents_shouldNotPassNullComponentToInitialiser();
-    void startupAllComponents_shouldNotStartComponentIfInitialiserReturnFalse();
-    void startupAllComponents_shouldNotStartChildComponentsIfInitialiserReturnFalseForParentOne();
+    void startupAllComponents_shouldPassInitDataToComponent();
+    void startupAllComponents_shouldNotStartUnexistingComponent();
+    void startupAllComponents_shouldNotStartDisabledComponent();
+    void startupAllComponents_shouldHandleNullComponent();
+    void startupAllComponents_shouldNotStartChildComponentsIfParentCouldNotStart();
     void startupAllComponents_shouldStartOrphanComponentIfParentAppeared();
     void startupComponents_shouldStartOrphanComponentsWhenParentsAppeared();
     void startupComponents_shouldNotStartOrphanComponentsWhenOtherParentsAppeared();
@@ -40,8 +40,10 @@ private slots:
     void shutdownAllComponents_shouldEmitAboutSignal();
     void shutdownAllComponents_shouldRemoveThemFromStartedList();
     void shutdownAllComponents_shouldAddThemToTheStoppedList();
-    void shutdownAllComponents_shouldNotPassUnexistingComponentToInitialiser();
-    void shutdown_shouldPassAllComponentsToInitialiser();
+    void shutdownAllComponents_shouldNotShutdownUnexistingComponent();
+    void shutdownAllComponents_shouldNotShutdownBuiltInComponent();
+    void shutdown_shouldShutdownAllComponents();
+    void shutdown_shouldShutdownBuiltInComponents();
 
     // Integration tests:
     void startupComponent_shouldPassRightComponentsInRightOrder();

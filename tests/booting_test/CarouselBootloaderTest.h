@@ -29,7 +29,6 @@ private Q_SLOTS:
     void configuringServiceLocatorShouldAddComponentProviderToServices();
     void configuringServiceLocatorShouldAddLoggerToServices();
     void configuringServiceLocatorShouldAddComponentManagerToServices();
-    void configuringServiceLocatorShouldAddComponentInitializerToServices();
     void configuringServiceLocatorShouldAddMainWindowToServices();
 };
 

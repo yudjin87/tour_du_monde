@@ -8,7 +8,6 @@
 
 #include <QtCore/QFile>
 #include <QtTest/QTest>
-#include <QtTest/QSignalSpy>
 
 //------------------------------------------------------------------------------
 typedef AutoComponentProvider<DirectoryComponentProvider> AutoDirectoryComponentProvider;

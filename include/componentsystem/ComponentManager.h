@@ -28,7 +28,6 @@
 #define COMPONENTMANAGER_H
 
 #include "componentsystem/IComponentManager.h"
-#include "componentsystem/IComponentInitialiser.h"
 
 #include <QtCore/QStringList>
 #include <QtCore/QSet>
@@ -49,13 +48,9 @@ class ILogger;
  *   with AbstractApplication reference as @a initialziation @a data.
  *   It enables components to get access to your application.
  *
- *   The ComponentManager uses IComponentInitialiser (for startup, shutdown, etc) inside. You can
- *   set your custom instance in your bootloader.
- *
  *   Also manager uses IComponentDependencies for components sorting and finding components dependencies.
  *
- * @note it takes ownership for added components, and also takes for the IComponentDependencies
- *   and IComponentInitialiser.
+ * @note it takes ownership for added components, and also takes for the IComponentDependencies.
  */
 class COMP_API ComponentManager : public IComponentManager
 {
@@ -70,25 +65,12 @@ public:
 
     /*!
      * @details
-     *   Creates an instance of the ComponentManager class with specified @a initializer and
-     *   default ComponentDependencies instance.
-     */
-    ComponentManager(IComponentInitialiser *initializer, ILogger &log, QObject *parent = nullptr);
-
-    /*!
-     * @details
      *   Creates an instance of the ComponentManager class with specified @a dependencies and
      *   default ComponentInitialiser instance.
      */
     ComponentManager(IComponentDependencies *dependencies, ILogger &log, QObject *parent = nullptr);
 
-    /*!
-     * @details
-     *   Creates an instance of the ComponentManager class with specified @a dependencies and
-     *   @a initializer.
-     */
-    ComponentManager(IComponentDependencies *dependencies, IComponentInitialiser *initializer, ILogger &log, QObject *parent = nullptr);
-    ~ComponentManager();
+   ~ComponentManager();
 
     /*!
      * @details
@@ -147,12 +129,6 @@ public:
      * @sa check()
      */
     bool isChecked() const;
-
-    /*!
-     * @details
-     *   Returns a component initializer.
-     */
-    const IComponentInitialiser &initializer() const;
 
     /*!
      * @details
@@ -245,12 +221,25 @@ public:
 
     /*!
      * @details
+     *   Begins working and starts components which were added on the
+     *   start of application. Starts only enabled components.
+     *
+     *   Components with disabled parent components will not be
+     *   started.
+     *
+     *   Initialization data will be passed to the started components (if any).
+     *
+     * @sa shutdown()
+     */
+    DependenciesSolvingResult startup();
+
+    /*!
+     * @details
      *   Implicitly calls check() and starts (if resolving) up the specified component and
      *   all its parents, obtained by IComponentDependencies::completeListWithChild() in
      *   such order, that parents will be started first.
      *
-     *   Disabled components and components with disabled parent components will not be
-     *   started.
+     *   Components with disabled parent components will not be started.
      *
      *   Initialization data will be passed to the started components (if any).
      *   Returns a dependencies solving result, that contains a list of distinct components
@@ -281,8 +270,7 @@ public:
      *   all its parents, obtained by IComponentDependencies::completeListWithChild() in
      *   such order, that parents will be started first.
      *
-     *   Disabled components and components with disabled parent components will not be
-     *   started.
+     *   Components with disabled parent components will not be started.
      *
      *   Initialization data will be passed to the started components (if any).
      *   Returns a dependencies solving result, that contains a list of distinct components
@@ -306,14 +294,14 @@ protected slots:
      *   ComponentManager. It emits componentStarted() signal and moves @a ip_component
      *   from the stopped to started list.
      */
-    void onComponentStarted(IComponent *ip_component);
+    virtual void onComponentStarted(IComponent *ip_component);
 
     /*!
      * @details
      *   This method is invoked before @a ip_component will be shuted down by the
      *   ComponentManager. It emits componentAboutToShutDown().
      */
-    void onComponentAboutToShutDown(IComponent *ip_component);
+    virtual void onComponentAboutToShutDown(IComponent *ip_component);
 
     /*!
      * @details
@@ -321,7 +309,43 @@ protected slots:
      *   ComponentManager. It emits componentShutedDown() signal and moves @a ip_component
      *   from the started to stopped list.
      */
-    void onComponentShutedDown(IComponent *ip_component);
+    virtual void onComponentShutedDown(IComponent *ip_component);
+
+    /*!
+     * @details
+     *   Starts specified component if it is possible (if component
+     *   is enabled) and passes the initialization data to it.
+     *
+     *   Note, that components should have descending order,
+     *   e.g. parents should stay before children, because
+     *   parents should start first.
+     *
+     * @return @a true, if component was started. If component is
+     *   disabled or unavailabled, returns @a false. Also returns
+     *   @a false if component start was failed.
+     */
+    virtual bool startCheckedComponent(IComponent *component);
+
+    /*!
+     * @details
+     *   Shuts down specified component. Built in components are ignored.
+     *
+     *   Note, that components should have descending order,
+     *   e.g. parents should stay before children, because
+     *   children should shut down first.
+     */
+    virtual void shutdownCheckedComponent(IComponent *component);
+
+    /*!
+     * @details
+     *   Shuts down specified component regardless whether it is built in
+     *   or not.
+     *
+     *   Note, that components should have descending order,
+     *   e.g. parents should stay before children, because
+     *   children should shut down first.
+     */
+    virtual void forceShutdownCheckedComponent(IComponent *component);
 
 private:
     bool addComponentInternal(IComponent *component);
@@ -331,11 +355,10 @@ protected:
     ILogger &m_log;
 
 private:
-    typedef void (IComponentInitialiser::*InitialiserShutDownFunc)(IComponent *);
-    InitialiserShutDownFunc m_shutDownFunc;
+    typedef void (ComponentManager::*ShutDownFunc)(IComponent *);
+    ShutDownFunc m_shutDownFunc;
     QObject *m_initializationData;
     IComponentDependencies *mp_components;
-    IComponentInitialiser *mp_componentInitialiser;
     QList<IComponent *> m_startedComponents;
     QList<IComponent *> m_stoppedComponents;
     QSet<IComponent *> m_orphanComponents;

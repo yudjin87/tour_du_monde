@@ -6,7 +6,6 @@ SOURCES += \
     $$PROJECT_SOURCES/BaseComponent.cpp \
     $$PROJECT_SOURCES/ComponentDefinition.cpp \
     $$PROJECT_SOURCES/ComponentDependencies.cpp \
-    $$PROJECT_SOURCES/ComponentInitialiser.cpp \
     $$PROJECT_SOURCES/ComponentInstaller.cpp \
     $$PROJECT_SOURCES/ComponentLoader.cpp \
     $$PROJECT_SOURCES/ComponentManager.cpp \
@@ -30,7 +29,6 @@ HEADERS += \
     $$PROJECT_HEADERS/ComponentDependencies.h \
     $$PROJECT_HEADERS/ComponentExport.h \
     $$PROJECT_HEADERS/ComponentExport.h \
-    $$PROJECT_HEADERS/ComponentInitialiser.h \
     $$PROJECT_HEADERS/ComponentInstaller.h \
     $$PROJECT_HEADERS/ComponentLoader.h \
     $$PROJECT_HEADERS/ComponentManager.h \
@@ -47,7 +45,6 @@ HEADERS += \
     $$PROJECT_HEADERS/IComponent.h \
     $$PROJECT_HEADERS/IComponentDependencies.h \
     $$PROJECT_HEADERS/IComponentExtension.h \
-    $$PROJECT_HEADERS/IComponentInitialiser.h \
     $$PROJECT_HEADERS/IComponentInstaller.h \
     $$PROJECT_HEADERS/IComponentLoader.h \
     $$PROJECT_HEADERS/IComponentLocationConstructorDelegate.h \

@@ -27,7 +27,6 @@
 #include "CarouselBootloader.h"
 
 #include <utils/IServiceLocator.h>
-#include <componentsystem/ComponentInitialiser.h>
 #include <componentsystem/ComponentManager.h>
 #include <componentsystem/IComponent.h>
 #include <componentsystem/IComponentProvider.h>
@@ -66,10 +65,6 @@ void CarouselBootloader::_configureServiceLocator()
     mp_serviceLocator->registerInstance<ILogger>(mp_logger);
     mp_serviceLocator->registerInstance<IComponentManager>(mp_componentManager);
     mp_serviceLocator->registerInstance<QMainWindow>(mp_mainWindow);
-
-    // TODO:
-    // give a chanse to avoid default registration
-    mp_serviceLocator->registerInstance<IComponentInitialiser>(new ComponentInitialiser(*mp_logger, this));
 }
 
 //------------------------------------------------------------------------------

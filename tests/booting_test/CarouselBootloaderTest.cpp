@@ -4,7 +4,6 @@
 #include "fakes/CarouselBootloader_ComponentManagerFixture.h"
 
 #include <booting/CarouselBootloader.h>
-#include <componentsystem/IComponentInitialiser.h>
 #include <componentsystem/ComponentManager.h>
 #include <componentsystem/ComponentProvider.h>
 #include <logging/ILogger.h>
@@ -189,20 +188,6 @@ void CarouselBootloaderTest::configuringServiceLocatorShouldAddComponentManagerT
     IComponentManager *p_componentManager  = p_serviceLocator->locate<IComponentManager>();
 
     QVERIFY(p_componentManager != nullptr);
-}
-
-//------------------------------------------------------------------------------
-void CarouselBootloaderTest::configuringServiceLocatorShouldAddComponentInitializerToServices()
-{
-    CarouselBootloader carouselBootloader;
-    carouselBootloader.run();
-
-    IServiceLocator *p_serviceLocator = carouselBootloader.serviceLocator();
-    QVERIFY(p_serviceLocator != nullptr);
-
-    IComponentInitialiser *p_componentInitialiser  = p_serviceLocator->locate<IComponentInitialiser>();
-
-    QVERIFY(p_componentInitialiser != nullptr);
 }
 
 //------------------------------------------------------------------------------

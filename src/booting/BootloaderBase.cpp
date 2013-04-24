@@ -28,7 +28,6 @@
 
 #include <logging/TextLogger.h>
 #include <componentsystem/ComponentDependencies.h>
-#include <componentsystem/ComponentInitialiser.h>
 #include <componentsystem/ComponentManager.h>
 #include <componentsystem/ComponentProvider.h>
 #include <utils/ServiceLocator.h>
@@ -95,7 +94,7 @@ void BootloaderBase::_configureComponentProvider()
 //------------------------------------------------------------------------------
 IComponentManager *BootloaderBase::_createComponentManager()
 {
-    return new ComponentManager(new ComponentDependencies(), new ComponentInitialiser(*mp_logger), *mp_logger);
+    return new ComponentManager(new ComponentDependencies(), *mp_logger);
 }
 
 //------------------------------------------------------------------------------

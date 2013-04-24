@@ -30,7 +30,6 @@
 #include <componentsystem/ComponentDefinition.h>
 
 #include <QtTest/QTest>
-#include <QtTest/QSignalSpy>
 
 //------------------------------------------------------------------------------
 ComponentDefinitionTest::ComponentDefinitionTest(QObject *parent)

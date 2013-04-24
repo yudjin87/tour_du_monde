@@ -4,7 +4,6 @@ SOURCES += \
     $$TEST_PROJECT_SOURCES/BaseComponentTest.cpp \
     $$TEST_PROJECT_SOURCES/ComponentDefinitionTest.cpp \
     $$TEST_PROJECT_SOURCES/ComponentDependenciesTest.cpp \
-    $$TEST_PROJECT_SOURCES/ComponentInitialiserTest.cpp \
     $$TEST_PROJECT_SOURCES/ComponentInstallerTest.cpp \
     $$TEST_PROJECT_SOURCES/ComponentLoaderTest.cpp \
     $$TEST_PROJECT_SOURCES/ComponentManagerTest.cpp \
@@ -21,7 +20,6 @@ SOURCES += \
     $$TEST_PROJECT_SOURCES/fakes/MockChildComponent.cpp \
     $$TEST_PROJECT_SOURCES/fakes/MockComponent.cpp \
     $$TEST_PROJECT_SOURCES/fakes/MockComponentDependencies.cpp \
-    $$TEST_PROJECT_SOURCES/fakes/MockComponentInitialiser.cpp \
     $$TEST_PROJECT_SOURCES/fakes/MockComponentLoader.cpp \
     $$TEST_PROJECT_SOURCES/fakes/MockComponentManager.cpp \
     $$TEST_PROJECT_SOURCES/fakes/MockComponentProvider.cpp \
@@ -42,7 +40,6 @@ HEADERS += \
     $$TEST_PROJECT_SOURCES/BaseComponentTest.h \
     $$TEST_PROJECT_SOURCES/ComponentDefinitionTest.h \
     $$TEST_PROJECT_SOURCES/ComponentDependenciesTest.h \
-    $$TEST_PROJECT_SOURCES/ComponentInitialiserTest.h \
     $$TEST_PROJECT_SOURCES/ComponentInstallerTest.h \
     $$TEST_PROJECT_SOURCES/ComponentLoaderTest.h \
     $$TEST_PROJECT_SOURCES/ComponentManagerTest.h \
@@ -59,7 +56,6 @@ HEADERS += \
     $$TEST_PROJECT_SOURCES/fakes/MockChildComponent.h \
     $$TEST_PROJECT_SOURCES/fakes/MockComponent.h \
     $$TEST_PROJECT_SOURCES/fakes/MockComponentDependencies.h \
-    $$TEST_PROJECT_SOURCES/fakes/MockComponentInitialiser.h \
     $$TEST_PROJECT_SOURCES/fakes/MockComponentLoader.h \
     $$TEST_PROJECT_SOURCES/fakes/MockComponentManager.h \
     $$TEST_PROJECT_SOURCES/fakes/MockComponentProvider.h \

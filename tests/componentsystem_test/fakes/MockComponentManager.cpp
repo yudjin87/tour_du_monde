@@ -38,3 +38,17 @@ DependenciesSolvingResult MockComponentManager::check()
 }
 
 //------------------------------------------------------------------------------
+bool MockComponentManager::startCheckedComponent(IComponent *ip_component)
+{
+    m_startupComponents.push_back(ip_component);
+    return ComponentManager::startCheckedComponent(ip_component);
+}
+
+//------------------------------------------------------------------------------
+void MockComponentManager::shutdownCheckedComponent(IComponent *ip_component)
+{
+    m_shutdownComponents.push_back(ip_component);
+    return ComponentManager::shutdownCheckedComponent(ip_component);
+}
+
+//------------------------------------------------------------------------------

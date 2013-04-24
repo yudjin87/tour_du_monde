@@ -36,7 +36,6 @@
 
 class IComponent;
 class IComponentDependencies;
-class IComponentInitialiser;
 
 template <typename TItem>
 class ObservableList;
@@ -55,13 +54,9 @@ class ObservableList;
  *   with AbstractApplication reference as @a initialziation @a data.
  *   It enables components to get access to your application.
  *
- *   The IComponentManager implementation uses IComponentInitialiser (for startup, shutdown,
- *   etc) inside. You can set your custom instance in your bootloader.
- *
  *   Also manager uses IComponentDependencies for components sorting and finding components dependencies.
  *
- * @note it takes ownership for added components, and also takes for the IComponentDependencies
- *   and IComponentInitialiser.
+ * @note it takes ownership for added components, and also takes for the IComponentDependencies.
  */
 class COMP_API IComponentManager : public QObject
 {
@@ -130,12 +125,6 @@ public:
 
     /*!
      * @details
-     *   Returns a component initializer.
-     */
-    virtual const IComponentInitialiser &initializer() const = 0;
-
-    /*!
-     * @details
      *   Gets an initialization data that will be passed to the started components.
      * @sa startupComponent()
      */
@@ -188,6 +177,7 @@ public:
      * @details
      *   Shuts down all the components. Call this method when your application is going to
      *   quit.
+     * @sa startup()
      */
     virtual void shutdown() = 0;
 
@@ -225,12 +215,25 @@ public:
 
     /*!
      * @details
+     *   Begins working and starts components which were added on the
+     *   start of application. Starts only enabled components.
+     *
+     *   Components with disabled parent components will not be
+     *   started.
+     *
+     *   Initialization data will be passed to the started components (if any).
+     *
+     * @sa shutdown()
+     */
+    virtual DependenciesSolvingResult startup() = 0;
+
+    /*!
+     * @details
      *   Implicitly calls check() and starts (if resolving) up the specified component and
      *   all its parents, obtained by IComponentDependencies::completeListWithChild() in
      *   such order, that parents will be started first.
      *
-     *   Disabled components and components with disabled parent components will not be
-     *   started.
+     *   Components with disabled parent components will not be started.
      *
      *   Initialization data will be passed to the started components (if any).
      *   Returns a dependencies solving result, that contains a list of distinct components
@@ -261,8 +264,7 @@ public:
      *   all its parents, obtained by IComponentDependencies::completeListWithChild() in
      *   such order, that parents will be started first.
      *
-     *   Disabled components and components with disabled parent components will not be
-     *   started.
+     *   Components with disabled parent components will not be started.
      *
      *   Initialization data will be passed to the started components (if any).
      *   Returns a dependencies solving result, that contains a list of distinct components

@@ -14,8 +14,14 @@ public:
 
     DependenciesSolvingResult check();
 
+    bool startCheckedComponent(IComponent *ip_component);
+    void shutdownCheckedComponent(IComponent *ip_component);
+
 public:
     bool callCheck;
+
+    QList<IComponent *> m_startupComponents;
+    QList<IComponent *> m_shutdownComponents;
 };
 
 #endif // MOCKCOMPONENTMANAGER_H
