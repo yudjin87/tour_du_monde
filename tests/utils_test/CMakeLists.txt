@@ -32,6 +32,7 @@ source_group("moc" FILES ${__HEADERS_MOC})
 ######################################################################
 # Create target 'CRSL_PROJECT_NAME' from specified source files
 add_executable(${CRSL_PROJECT_NAME} ${__SOURCES} ${__HEADERS} ${__SOURCES_FAKES} ${__HEADERS_FAKES} ${__HEADERS_MOC})
+crsl_add_test(${CRSL_PROJECT_NAME})
 
 ######################################################################
 # Setup output path
