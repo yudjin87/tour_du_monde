@@ -39,11 +39,12 @@ int main(int argc, char *argv[])
 
     if (app.arguments().contains("-g")) {
         runGuiManualTests(app.arguments());
+        return app.exec();
     } else {
 
     }
 
-    return app.exec();
+    return 0;
 }
 
 //------------------------------------------------------------------------------

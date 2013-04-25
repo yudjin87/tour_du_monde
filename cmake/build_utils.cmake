@@ -25,6 +25,7 @@ function(crsl_build __CONFIGURATIONS __GENERATOR_NAME __BUILD_TREE_PATH __NATIVE
     endif()
 
     crsl_build_project(${__CONF} ${__BUILD_TREE_PATH} "${__NATIVE_PARAMS}")
+    crsl_run_tests(${__CONF} ${__BUILD_TREE_PATH})
   endforeach(__CONF)
 
 endfunction(crsl_build)
@@ -83,3 +84,23 @@ function(crsl_build_project __BUILD_TYPE __BUILD_TREE_PATH __NATIVE_PARAMS)
   endif()
   
 endfunction(crsl_build_project)
+
+###############################################################################
+# Runs all tests for the specified configuration
+#
+# __BUILD_TYPE      - name of building configuration (debug, release_static);
+# __BUILD_TREE_PATH - path where Makefiles or other projects have been generated;
+function(crsl_run_tests __BUILD_TYPE __BUILD_TREE_PATH)
+  message(STATUS "Run tests for configuration: " ${__BUILD_TYPE})
+  message(STATUS "Working directory: " ${__BUILD_TREE_PATH})
+
+  execute_process(COMMAND ${CMAKE_CTEST_COMMAND}
+        -C "${__BUILD_TYPE}"
+        -V
+        WORKING_DIRECTORY ${__BUILD_TREE_PATH}
+        RESULT_VARIABLE __RESULT)
+
+  if(NOT __RESULT STREQUAL 0)
+    message(FATAL_ERROR "Error calling CTest: '${__RESULT}'")
+  endif()
+endfunction(crsl_run_tests)

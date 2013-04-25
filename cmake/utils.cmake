@@ -116,3 +116,14 @@ function(crsl_copy_extra_files __TARGET __FILES __DIRECTORY)
     )
   endforeach(__FILE)
 endfunction(crsl_copy_extra_files)
+
+###############################################################################
+# Adds test in the static configuration
+function(crsl_add_test __TARGET)
+  if(CMAKE_BUILD_TYPE MATCHES "static")
+    add_test(NAME "${__TARGET}"
+      WORKING_DIRECTORY "$<TARGET_FILE_DIR:${__TARGET}>"
+      COMMAND "$<TARGET_FILE:${__TARGET}>")
+  endif()
+endfunction(crsl_add_test)
+

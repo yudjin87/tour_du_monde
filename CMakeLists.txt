@@ -170,5 +170,6 @@ add_subdirectory(src)
 
 if(CRSL_TEST)  
   message(STATUS "Create testing projects")
+  enable_testing()
   add_subdirectory(tests) 
 endif()
