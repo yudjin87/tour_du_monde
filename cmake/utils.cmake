@@ -121,9 +121,9 @@ endfunction(crsl_copy_extra_files)
 # Adds test in the static configuration
 function(crsl_add_test __TARGET)
   if(CMAKE_BUILD_TYPE MATCHES "static")
-    add_test(NAME "${__TARGET}"
-      WORKING_DIRECTORY "$<TARGET_FILE_DIR:${__TARGET}>"
-      COMMAND "$<TARGET_FILE:${__TARGET}>")
+    add_test(NAME "${__TARGET}" COMMAND $<TARGET_FILE:${__TARGET}>)
+    set_tests_properties(${__TARGET} PROPERTIES FAIL_REGULAR_EXPRESSION "[^a-z]FAIL!")
+    #set_tests_properties(${__TARGET} PROPERTIES PASS_REGULAR_EXPRESSION "[^a-z]PASS")
   endif()
 endfunction(crsl_add_test)
 
