@@ -20,7 +20,6 @@ win32 {
 # Sources:
 HEADERS += \
     dom_api.h \
-    PainterDocumentController.h \
     DomComponent.h \
     PainterDocument.h \
     PainterDocumentController.h \

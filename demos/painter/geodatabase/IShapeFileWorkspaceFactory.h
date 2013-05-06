@@ -31,6 +31,7 @@
 
 class GEODATABASE_API IShapeFileWorkspaceFactory : public IWorkspaceFactory
 {
+    Q_OBJECT
 public:
     IShapeFileWorkspaceFactory(){}
     ~IShapeFileWorkspaceFactory(){}

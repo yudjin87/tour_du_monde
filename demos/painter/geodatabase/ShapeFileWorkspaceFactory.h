@@ -29,11 +29,9 @@
 
 #include "IShapeFileWorkspaceFactory.h"
 
-#include <QtCore/QObject>
-
 class IServiceLocator;
 
-class ShapeFileWorkspaceFactory : public QObject, public IShapeFileWorkspaceFactory
+class ShapeFileWorkspaceFactory : public IShapeFileWorkspaceFactory
 {
     Q_OBJECT
 public:

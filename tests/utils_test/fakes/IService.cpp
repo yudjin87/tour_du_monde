@@ -24,35 +24,19 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef GEOMETRYFACTORY_H
-#define GEOMETRYFACTORY_H
+#include "IService.h"
 
-#include "IGeometryFactory.h"
-
-#include <QtCore/QMap>
-
-class Point;
-class Polycurve;
-class QDataStream;
-class QRectF;
-
-class GeometryFactory : public IGeometryFactory
+//------------------------------------------------------------------------------
+IService::IService(int i_id, QObject *parent)
+    : QObject(parent)
+    , m_id(i_id)
 {
-    Q_OBJECT
-public:
-    GeometryFactory();
+}
 
-    GeometryType geometryTypeFromShapeType(int shapeType) const;
+//------------------------------------------------------------------------------
+int IService::id()
+{
+    return m_id;
+}
 
-    AbstractGeometry *createGeometry(int bytesCount, const char *geometryBlob) const;
-
-private:
-    static const QMap<int, GeometryType> m_typesMap;
-
-    static QMap<int, GeometryType> fillTypesMap();
-    static void createPoint(QDataStream &stream, Point *point);
-    static void createPoly(QDataStream &stream, Polycurve *polycurve);
-    static void readBoundingBox(QDataStream &stream, QRectF &bBox);
-};
-
-#endif // GEOMETRYFACTORY_H
+//------------------------------------------------------------------------------

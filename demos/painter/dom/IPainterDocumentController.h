@@ -29,10 +29,13 @@
 
 #include "dom_api.h"
 
+#include <QtCore/QObject>
+
 class IPainterDocument;
 
-class DOM_API IPainterDocumentController
+class DOM_API IPainterDocumentController : public QObject
 {
+    Q_OBJECT
 public:
     IPainterDocumentController(){}
     virtual ~IPainterDocumentController(){}

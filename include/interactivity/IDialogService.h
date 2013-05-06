@@ -47,8 +47,9 @@ class IServiceLocator;
  *
  *   It is registered into the application services by the InteractionServiceComponent.
  */
-class INTERACTIVITY_API IDialogService
+class INTERACTIVITY_API IDialogService : public QObject
 {
+    Q_OBJECT
 public:
     IDialogService(){}
     virtual ~IDialogService(){}
@@ -105,6 +106,9 @@ protected:
      * @sa showDialog()
      */
     virtual bool showDialogForModel(const QString &i_forDlgModelType, void *ip_dlgModel) const = 0;
+
+private:
+    Q_DISABLE_COPY(IDialogService)
 };
 
 //------------------------------------------------------------------------------

@@ -33,6 +33,7 @@ class QGraphicsScene;
 
 class PainterDocumentController : public IPainterDocumentController
 {
+    Q_OBJECT
 public:
     PainterDocumentController();
     ~PainterDocumentController();

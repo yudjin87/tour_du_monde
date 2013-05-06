@@ -32,8 +32,7 @@
 
 //------------------------------------------------------------------------------
 ShapeFileWorkspaceFactory::ShapeFileWorkspaceFactory(IServiceLocator &locator)
-    : QObject()
-    , m_locator(locator)
+    : m_locator(locator)
 {
     setObjectName("ShapeFileWorkspaceFactory");
 }

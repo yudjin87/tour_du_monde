@@ -29,6 +29,7 @@
 
 #include "geodatabase_api.h"
 
+#include <QtCore/QObject>
 #include <QtCore/QVector>
 #include <QtCore/QPointF>
 #include <QtCore/QRectF>
@@ -38,8 +39,9 @@ class QIODevice;
 struct ShapeFileHeader;
 struct Record;
 
-class GEODATABASE_API IShapeFileReader
+class GEODATABASE_API IShapeFileReader : public QObject
 {
+    Q_OBJECT
 public:
     IShapeFileReader(){}
     virtual ~IShapeFileReader(){}

@@ -62,7 +62,6 @@ const QMap<int, GeometryType> GeometryFactory::m_typesMap = fillTypesMap();
 
 //------------------------------------------------------------------------------
 GeometryFactory::GeometryFactory()
-    : QObject()
 {
     setObjectName("GeometryFactory");
 }

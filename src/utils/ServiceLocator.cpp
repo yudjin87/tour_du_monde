@@ -40,13 +40,23 @@ ServiceLocator::~ServiceLocator()
 {
     delete mp_objects;
     mp_objects = nullptr;
+
+    delete mp_creators;
+    mp_creators = nullptr;
 }
 
 //------------------------------------------------------------------------------
 void ServiceLocator::_registerType(const QString &typeIdName, factoryMethod method, const QString &tag)
   {
-  mp_creators->registerInstance(method, typeIdName, tag);
-  }
+    mp_creators->registerInstance(method, typeIdName, tag);
+}
+
+//------------------------------------------------------------------------------
+void *ServiceLocator::_unregister(const QString &i_forTypeId, const QString &i_tag)
+{
+    void *foundInstance = mp_objects->unregisterInstance(i_forTypeId, i_tag);
+    return foundInstance;
+}
 
 //------------------------------------------------------------------------------
 void *ServiceLocator::_buildInstance(const QString &typeIdName, const QString &tag) const

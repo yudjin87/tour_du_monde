@@ -1,44 +1,19 @@
-#ifndef SERVICES_H
-#define SERVICES_H
+#ifndef SERVICE1_H
+#define SERVICE1_H
 
-#include <QtCore/QObject>
-
-//------------------------------------------------------------------------------
-class IService
-{
-public:
-    IService(int i_id = 0)
-        : m_id(i_id)
-    {}
-
-    virtual ~IService() {}
-
-public:
-    virtual int id() {return m_id;}
-
-protected:
-    int m_id;
-};
+#include "IService.h"
 
 //------------------------------------------------------------------------------
-class Service1 : public QObject, public IService
+class Service1 : public IService
 {
+    Q_OBJECT
 public:
-    Service1(int i_id = 0)
-        : IService(i_id)
-    {
-        ++instancesCount;
-    }
-
-    ~Service1()
-    {
-        --instancesCount;
-    }
-
+    Service1(int i_id = 0);
+    ~Service1();
 
     static int instancesCount;
 };
 
 //------------------------------------------------------------------------------
 
-#endif // SERVICES_H
+#endif // SERVICE1_H

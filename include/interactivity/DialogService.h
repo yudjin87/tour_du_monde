@@ -45,6 +45,7 @@ class QWidget;
  */
 class INTERACTIVITY_API DialogService : public IDialogService
 {
+    Q_OBJECT
 public:
     DialogService(QWidget *ip_mainWindow, IServiceLocator *locator);
     ~DialogService();

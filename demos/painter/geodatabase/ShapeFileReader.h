@@ -29,9 +29,7 @@
 
 #include "IShapeFileReader.h"
 
-#include <QtCore/QObject>
-
-class ShapeFileReader : public QObject, public IShapeFileReader
+class ShapeFileReader : public IShapeFileReader
 {
     Q_OBJECT
 public:

@@ -30,10 +30,13 @@
 #include "geometry_api.h"
 #include "GeometryType.h"
 
+#include <QtCore/QObject>
+
 class AbstractGeometry;
 
-class GEOMETRY_API IGeometryFactory
+class GEOMETRY_API IGeometryFactory : public QObject
 {
+    Q_OBJECT
 public:
     IGeometryFactory(){}
     virtual ~IGeometryFactory(){}

@@ -29,17 +29,22 @@
 
 #include "geodatabase_api.h"
 
+#include <QtCore/QObject>
 #include <QtCore/QString>
 
 class IWorkspace;
 
-class GEODATABASE_API IWorkspaceFactory
+class GEODATABASE_API IWorkspaceFactory : public QObject
 {
+    Q_OBJECT
 public:
     IWorkspaceFactory(){}
     virtual ~IWorkspaceFactory(){}
 
     virtual IWorkspace* openFromFile(const QString &workspacePath) = 0;
+
+private:
+    Q_DISABLE_COPY(IWorkspaceFactory)
 };
 
 #endif // IWORKSPACEFACTORY_H

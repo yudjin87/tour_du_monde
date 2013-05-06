@@ -47,8 +47,7 @@ const int ShapeFileReader::fileVersion = 1000;
 
 //------------------------------------------------------------------------------
 ShapeFileReader::ShapeFileReader(QIODevice *inputDevice)
-    : QObject()
-    , mp_inputDevice(inputDevice)
+    : mp_inputDevice(inputDevice)
 {
     setObjectName("ShapeFileReader");
 }
