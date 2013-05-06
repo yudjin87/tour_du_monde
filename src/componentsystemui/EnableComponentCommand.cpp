@@ -78,30 +78,20 @@ QList<IComponent *> EnableComponentCommand::componentsToEnable() const
 //------------------------------------------------------------------------------
 void EnableComponentCommand::redo()
 {
-    // TODO: logic about enabling and disabling should be moved behind the
-    // component manager facade
-//    foreach(IComponent *comp, m_componentsToEnable)
-//        comp->setAvailability(IComponent::Enabled);
+    DependenciesSolvingResult startedComponents = m_manager->startupComponents(m_componentsToEnable.toList());
+    DependenciesSolvingResult stoppedComponents = m_manager->shutdownComponents(m_componentsToDisable.toList());
 
-    m_manager->startupComponents(m_componentsToEnable.toList());
+    // Parent components may appear, so store them for restoring on undo
+    foreach(IComponent *comp, startedComponents.ordered())
+        m_componentsToEnable.insert(comp);
 
-//    foreach(IComponent *comp, m_componentsToDisable)
-//        comp->setAvailability(IComponent::Disabled);
-
-    // Store stoped components for restoring them on undo
-    DependenciesSolvingResult result = m_manager->shutdownComponents(m_componentsToDisable.toList());
-    foreach(IComponent *comp, result.ordered()) {
+    foreach(IComponent *comp, stoppedComponents.ordered())
         m_componentsToDisable.insert(comp);
-        //comp->setAvailability(IComponent::Disabled);
-    }
 }
 
 //------------------------------------------------------------------------------
 void EnableComponentCommand::undo()
 {
-//    foreach(IComponent *comp, m_componentsToDisable)
-//        comp->setAvailability(IComponent::Enabled);
-
     m_manager->startupComponents(m_componentsToDisable.toList());
     m_manager->shutdownComponents(m_componentsToEnable.toList());
 }
