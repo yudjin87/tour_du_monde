@@ -31,6 +31,7 @@
 
 #include <componentsystem/BaseComponent.h>
 
+class AbstractApplication;
 class PainterDocumentController;
 
 class DOM_API DomComponent : public BaseComponent
@@ -40,10 +41,12 @@ public:
     ~DomComponent();
 
 protected:
+    void _onShutdown();
     bool _onStartup(QObject *ip_initData);
 
 private:
     PainterDocumentController *mp_docController;
+    AbstractApplication *m_app;
 };
 
 #endif // DOMCOMPONENT_H

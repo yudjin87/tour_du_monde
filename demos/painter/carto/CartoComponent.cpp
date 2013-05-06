@@ -56,9 +56,6 @@ bool CartoComponent::_onStartup(QObject *ip_initData)
     if (app == nullptr)
         return false;
 
-    // IServiceLocator &locator = app->serviceLocator();
-    // locator.bindType<IShapeFileReader, ShapeFileReader>();
-
     return true;
 }
 

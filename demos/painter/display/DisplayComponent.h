@@ -31,6 +31,8 @@
 
 #include <componentsystem/BaseComponent.h>
 
+class AbstractApplication;
+
 class DISPLAY_API DisplayComponent : public BaseComponent
 {
     Q_OBJECT
@@ -41,6 +43,9 @@ public:
 protected:
     bool _onStartup(QObject *ip_initData);
     void _onShutdown();
+
+private:
+    AbstractApplication *m_app;
 
 private:
     Q_DISABLE_COPY(DisplayComponent)

@@ -48,20 +48,31 @@ DomComponent::DomComponent()
 //------------------------------------------------------------------------------
 DomComponent::~DomComponent()
 {
-    delete mp_docController;
+
+}
+
+//------------------------------------------------------------------------------
+void DomComponent::_onShutdown()
+{
+    if (mp_docController == nullptr)
+        qWarning("Logic error: onStartup() should be called before onShutdown().");
+
+    IServiceLocator &locator = m_app->serviceLocator();
+
+    delete locator.unregisterInstance<IPainterDocumentController>();
     mp_docController = nullptr;
 }
 
 //------------------------------------------------------------------------------
 bool DomComponent::_onStartup(QObject *ip_initData)
 {
-    AbstractApplication *app = qobject_cast<AbstractApplication *>(ip_initData);
-    if (app == nullptr)
+    m_app = qobject_cast<AbstractApplication *>(ip_initData);
+    if (m_app == nullptr)
         return false;
 
 
     mp_docController = new PainterDocumentController();
-    app->serviceLocator().registerInstance<IPainterDocumentController>(mp_docController);
+    m_app->serviceLocator().registerInstance<IPainterDocumentController>(mp_docController);
 
     return true;
 }

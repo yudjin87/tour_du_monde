@@ -61,17 +61,6 @@ bool NavigationOperationsComponent::_onStartup(QObject *ip_initData)
     if (app == nullptr)
         return false;
 
-//    IPainterDocumentController* docController = app->serviceLocator().locate<IPainterDocumentController>();
-//    IPainterDocument *doc = docController->document();
-
-
-//    QGraphicsScene *scene = app->serviceLocator().locate<QGraphicsScene>();
-//    //scene->setItemIndexMethod(QGraphicsScene::NoIndex);
-//    MapModel *map = new MapModel(&doc->map(), scene, this);
-
-//    DataSetPresenter *dataSetPresenter = new DataSetPresenter(doc, this, app->serviceLocator());
-//    Q_UNUSED(dataSetPresenter);
-
     return true;
 }
 

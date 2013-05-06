@@ -54,32 +54,35 @@ DisplayComponent::~DisplayComponent()
 }
 
 //------------------------------------------------------------------------------
+void DisplayComponent::_onShutdown()
+{
+    IServiceLocator &locator = m_app->serviceLocator();
+
+    locator.unregisterInstance<QGraphicsScene>();
+}
+
+//------------------------------------------------------------------------------
 bool DisplayComponent::_onStartup(QObject *ip_initData)
 {
-    AbstractApplication *app = qobject_cast<AbstractApplication *>(ip_initData);
-    if (app == nullptr)
+    m_app = qobject_cast<AbstractApplication *>(ip_initData);
+    if (m_app == nullptr)
         return false;
 
     QGraphicsScene *scene = new QGraphicsScene();
     QGraphicsView *view = new QGraphicsView(scene);
     view->scale(50000, 50000);
 
-    QMainWindow *mainWindow = app->serviceLocator().locate<QMainWindow>();
+    QMainWindow *mainWindow = m_app->serviceLocator().locate<QMainWindow>();
     mainWindow->setCentralWidget(view);
 
-    app->serviceLocator().registerInstance<QGraphicsScene>(scene);
+    m_app->serviceLocator().registerInstance<QGraphicsScene>(scene);
 
-    IInteractionService* interactionService = app->serviceLocator().locate<IInteractionService>();
+    IInteractionService* interactionService = m_app->serviceLocator().locate<IInteractionService>();
     interactionService->setInputInterceptor(new InputInterceptor());
     interactionService->inputInterceptor()->setSender(view->viewport());
     interactionService->inputInterceptor()->activate();
 
     return true;
-}
-
-//------------------------------------------------------------------------------
-void DisplayComponent::_onShutdown()
-{
 }
 
 //------------------------------------------------------------------------------

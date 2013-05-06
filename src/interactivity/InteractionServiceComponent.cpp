@@ -108,12 +108,15 @@ void InteractionServiceComponent::InteractionServiceComponentPrivate::onShutdown
             || mp_dialogService == nullptr )
         qWarning("Logic error: onStartup() should be called before onShutdown().");
 
-    // TODO: unregister them before deletion!!
+    AbstractApplication *app = dynamic_cast<AbstractApplication *>(qApp);
+    IServiceLocator &locator = app->serviceLocator();
 
-    delete mp_service;
+    IInteractionService *service = locator.unregisterInstance<IInteractionService>();
+    delete service;
     mp_service = nullptr;
 
-    delete mp_dialogService;
+    IDialogService *dialogService = locator.unregisterInstance<IDialogService>();
+    delete dialogService;
     mp_dialogService = nullptr;
 }
 
