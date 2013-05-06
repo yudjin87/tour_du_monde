@@ -371,6 +371,7 @@ void ComponentManagerTest::shutdown_shouldShutdownAllComponents()
     manager.addComponent(p_componentA);
     manager.startupComponent(p_componentA);
 
+    manager.startup();
     manager.shutdown();
 
     QCOMPARE(spy.size(), 1);
@@ -386,6 +387,7 @@ void ComponentManagerTest::shutdown_shouldShutdownBuiltInComponents()
     manager.addComponent(p_componentA);
     manager.startupComponent(p_componentA);
 
+    manager.startup();
     manager.shutdown();
 
     QCOMPARE(spy.size(), 1);
