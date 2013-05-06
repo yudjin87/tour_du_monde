@@ -24,8 +24,8 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef BASESERVICELOCATOR_H
-#define BASESERVICELOCATOR_H
+#ifndef ISERVICELOCATOR_H
+#define ISERVICELOCATOR_H
 
 #include "utils/utils_global.h"
 
@@ -126,6 +126,9 @@ typedef std::function<void*(void)> factoryMethod;
  *   Here the cliens does not know what exactly instance is instantiated, and also
  *   they avoid all complex constructor injections.
  *
+ *   Since @a qobject_cast() is used all services should be derived from the QObject
+ *   and have Q_OBJECT macro.
+ *
  * @todo tell about achieving the IServiceLocator instance => from the AbstractApplication
  * @note Does not take ownership of the services or of the created by factories types.
  */
@@ -196,6 +199,8 @@ public:
      * @details
      *   This is overload method.
      *   Registers a service instance with empty tag with the locator.
+     *
+     * @sa unregisterInstance()
      */
     template<typename TService>
     void registerInstance(TService *ip_instance);
@@ -223,6 +228,8 @@ public:
      * @endcode
      * @tparam TService
      *   The type which type name @a ip_instance should be associated while registered in locator with.
+     *
+     * @sa unregisterInstance()
      */
     template<typename TService>
     void registerInstance(TService *ip_instance, const QString &i_tag);
@@ -242,6 +249,33 @@ public:
      */
     template<typename TInterface>
     void registerType(factoryMethod method, const QString &tag);
+
+    /*!
+     * @details
+     *   Unregisters a service instance with specified type and tag from the locator (if any) and
+     *   removes it from the locator map.
+     *
+     * @tparam TService
+     *   The type which type name will be found while.
+     *
+     *   Returns found instance or nullptr, if instance with specified
+     *   type and tag was not found.
+     *
+     * @sa registerInstance()
+     */
+    template<typename TService>
+    TService *unregisterInstance(const QString &i_tag);
+
+    /*!
+     * @details
+     *   This is overload method.
+     *   Unregisters a service instance with specified type from the locator (if any) and
+     *   removes it from the locator map.
+     *
+     * @sa registerInstance()
+     */
+    template<typename TService>
+    TService *unregisterInstance();
 
 protected:
     /*!
@@ -271,6 +305,17 @@ protected:
      *   The name of type which @a ip_instance should be associated with.
      */
     virtual void _register(void *ip_instance, const QString &i_forTypeId, const QString &i_tag) = 0;
+
+    /*!
+     * @details
+     *   When overridden in derived classes unregisters (removes) a service instance with specified
+     *   type id and tag from the inner objects dictionary (if any).
+     * @param i_forTypeId
+     *   The name of type which removed instance should be associated with.
+     * @return The raw pointer corresponded with specified type id and tag if such found.
+     *   Null pointer otherwise.
+     */
+    virtual void *_unregister(const QString &i_forTypeId, const QString &i_tag) = 0;
 
     /*!
      * @details
@@ -325,7 +370,7 @@ TInterface *IServiceLocator::buildInstance(const QString &tag) const
 
     // TODO: use static checks (c++11) during type registering and building.
     QObject *obj = reinterpret_cast<QObject *>(data);
-    TInterface *instance = dynamic_cast<TInterface *>(obj);
+    TInterface *instance = qobject_cast<TInterface *>(obj);
 
     return instance;
 }
@@ -342,9 +387,12 @@ template<typename TService>
 TService *IServiceLocator::locate(const QString &i_tag)
 {
     const QString &service_name = typeid(TService).name();
-    void *p_service = this->_getService(service_name, i_tag);
+    void *data = this->_getService(service_name, i_tag);
 
-    return reinterpret_cast<TService *>(p_service);
+    QObject *obj = reinterpret_cast<QObject *>(data);
+    TService *p_service = qobject_cast<TService *>(obj);
+
+    return p_service;
 }
 
 //------------------------------------------------------------------------------
@@ -378,4 +426,25 @@ void IServiceLocator::registerType(factoryMethod method, const QString &tag)
 }
 
 //------------------------------------------------------------------------------
-#endif // BASESERVICELOCATOR_H
+template<typename TService>
+TService *IServiceLocator::unregisterInstance()
+{
+    return this->unregisterInstance<TService>("");
+}
+
+//------------------------------------------------------------------------------
+template<typename TService>
+TService *IServiceLocator::unregisterInstance(const QString &i_tag)
+{
+    const char *typeIdName = typeid(TService).name();
+    void *data = this->_unregister(typeIdName, i_tag);
+
+    // TODO: use static checks (c++11) during type registering and building.
+    QObject *obj = reinterpret_cast<QObject *>(data);
+    TService *p_service = qobject_cast<TService *>(obj);
+
+    return reinterpret_cast<TService *>(p_service);
+}
+
+//------------------------------------------------------------------------------
+#endif // ISERVICELOCATOR_H

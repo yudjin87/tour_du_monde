@@ -30,6 +30,9 @@
 #include <QtCore/QString>
 #include <QtCore/QVector>
 
+#include <algorithm>
+#include <functional>
+
 template<typename>
 struct InstanceObject;
 
@@ -87,8 +90,19 @@ public:
      */
     int size() const;
 
+    /*!
+     * @details
+     *   Removes value with specified type and tag from the inner objects dictionary.
+     * @param i_forTypeId
+     *   The name of type which removed instance should be associated with.
+     * @return The raw pointer corresponded with specified type id and tag if such found.
+     *   Null pointer otherwise.
+     */
+    TValue unregisterInstance(const QString &i_forTypeId, const QString &i_tag);
+
 private:
     InstanceObject<TValue> *_findInstance(const QString &i_type_id, const QString &i_tag) const;
+    static bool findPredicate(InstanceObject<TValue> *object, const QString &i_type_id, const QString &i_tag);
 
 private:
     typedef QVector<InstanceObject<TValue> *> InstanceObjects;
@@ -172,14 +186,40 @@ int TypeObjectsMap<TValue>::size() const
 
 //------------------------------------------------------------------------------
 template<typename TValue>
+bool TypeObjectsMap<TValue>::findPredicate(InstanceObject<TValue> *object, const QString &i_type_id, const QString &i_tag)
+{
+    return (object->typeId == i_type_id) && (object->tag == i_tag);
+}
+
+//------------------------------------------------------------------------------
+template<typename TValue>
+TValue TypeObjectsMap<TValue>::unregisterInstance(const QString &i_forTypeId, const QString &i_tag)
+{
+    auto predicate = std::bind(&TypeObjectsMap<TValue>::findPredicate, std::placeholders::_1, i_forTypeId, i_tag);
+    auto result = std::find_if(m_objects.begin(), m_objects.end(), predicate);
+
+    if (result == m_objects.end())
+        return TValue();
+
+    InstanceObject<TValue> * foundInstance = *result;
+
+    m_objects.erase(result);
+
+    return foundInstance->instance;
+}
+
+//------------------------------------------------------------------------------
+template<typename TValue>
 InstanceObject<TValue> *TypeObjectsMap<TValue>::_findInstance(const QString &i_type_id, const QString &i_tag) const
 {
-    foreach(InstanceObject<TValue> *p_object, m_objects) {
-        if ((p_object->typeId == i_type_id) && (p_object->tag == i_tag))
-            return p_object;
-    }
+    auto predicate = std::bind(&TypeObjectsMap<TValue>::findPredicate, std::placeholders::_1, i_type_id, i_tag);
+    auto result = std::find_if(m_objects.begin(), m_objects.end(), predicate);
 
-    return nullptr;
+    if (result == m_objects.end())
+        return nullptr;
+
+    InstanceObject<TValue> * foundInstance = *result;
+    return foundInstance;
 }
 
 //------------------------------------------------------------------------------

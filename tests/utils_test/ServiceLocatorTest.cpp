@@ -65,6 +65,45 @@ void ServiceLocatorTest::shouldNotRegisterInstanceOfExistingTypeWithExistingTag(
 }
 
 //------------------------------------------------------------------------------
+void ServiceLocatorTest::unregisterInstance_shouldReturnFoundInstance()
+{
+    Service1 service(1);
+
+    MockServiceLocator mockLocator;
+    mockLocator.registerInstance<IService>(&service);
+
+    IService *unregistered = mockLocator.unregisterInstance<IService>();
+    QVERIFY(unregistered == &service);
+}
+
+//------------------------------------------------------------------------------
+void ServiceLocatorTest::unregisterInstance_shouldRemoveInstanceFromList()
+{
+    Service1 service(1);
+
+    MockServiceLocator mockLocator;
+    mockLocator.registerInstance<IService>(&service);
+
+    mockLocator.unregisterInstance<IService>();
+    QCOMPARE(mockLocator.items().size(), 0);
+}
+
+//------------------------------------------------------------------------------
+void ServiceLocatorTest::shouldRegisterInstanceAfterUnregistring()
+{
+    Service1 service(1);
+    MockServiceLocator mockLocator;
+    mockLocator.registerInstance<IService>(&service);
+    mockLocator.unregisterInstance<IService>();
+
+    Service1 service2(2);
+    mockLocator.registerInstance<IService>(&service2);
+
+    IService *iservice2 = mockLocator.unregisterInstance<IService>();
+    QCOMPARE(iservice2->id(), 2);
+}
+
+//------------------------------------------------------------------------------
 void ServiceLocatorTest::canLocateToRegisterInstanceByType()
 {
     Service1 service(45);

@@ -15,6 +15,9 @@ private Q_SLOTS:
     void shouldNotRegisterInstanceOfExistingType();
     void canRegisterInstanceOfExistingTypeWithTag();
     void shouldNotRegisterInstanceOfExistingTypeWithExistingTag();
+    void unregisterInstance_shouldReturnFoundInstance();
+    void unregisterInstance_shouldRemoveInstanceFromList();
+    void shouldRegisterInstanceAfterUnregistring();
 
     void canLocateToRegisterInstanceByType();
     void canLocateToRegisterInstanceByTypeAndTag();

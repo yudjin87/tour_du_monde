@@ -84,6 +84,17 @@ protected:
      */
     void _registerType(const QString &typeIdName, factoryMethod method, const QString &tag);
 
+    /*!
+     * @details
+     *   When overridden in derived classes unregisters (removes) a service instance with specified
+     *   type id and tag from the inner objects dictionary (if any).
+     * @param i_forTypeId
+     *   The name of type which removed instance should be associated with.
+     * @return The raw pointer corresponded with specified type id and tag if such found.
+     *   Null pointer otherwise.
+     */
+    void *_unregister(const QString &i_forTypeId, const QString &i_tag);
+
 protected:
     TypeObjectsMap<void *> *mp_objects;
     TypeObjectsMap<factoryMethod> *mp_creators;
