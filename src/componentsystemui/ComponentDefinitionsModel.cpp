@@ -175,10 +175,13 @@ Qt::ItemFlags ComponentDefinitionsModel::flags(const QModelIndex &index) const
     if (!index.isValid())
         return flags;
 
-    if (index.column() != 0)
-        return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
+    const IComponent *comp = m_components.at(index.row());
+    const ComponentDefinition *def = comp->definition();
 
-    return Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable;
+    if (def->isBuiltIn())
+        return Qt::NoItemFlags;
+    else
+        return Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable;
 }
 
 //------------------------------------------------------------------------------
