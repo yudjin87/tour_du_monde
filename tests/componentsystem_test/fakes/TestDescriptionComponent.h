@@ -21,6 +21,7 @@ signals:
 
 public:
     ComponentDefinition m_definition;
+    bool startUpResult;
 };
 
 //------------------------------------------------------------------------------

@@ -22,14 +22,16 @@ private slots:
     void check_shouldFillOrphanComponents();
 
     // startup activities
+    void startup_shouldShouldNotCallIfAlreadyDid();
+    void startup_shouldStartComponents();
+    void startup_shouldNotStartDisabledComponent();
     void startupAllComponents_shouldCallCheck(); // which calls resolving
     void startupAllComponents_shouldRemoveThemFromStoppedList();
     void startupAllComponents_shouldAddThemToTheStartedList();
     void startupAllComponents_shouldEmit();
     void startupAllComponents_shouldStartComponents();
     void startupAllComponents_shouldPassInitDataToComponent();
-    void startupAllComponents_shouldNotStartUnexistingComponent();
-    void startupAllComponents_shouldNotStartDisabledComponent();
+    void startupAllComponents_shouldEnableDisabledComponent();
     void startupAllComponents_shouldHandleNullComponent();
     void startupAllComponents_shouldNotStartChildComponentsIfParentCouldNotStart();
     void startupAllComponents_shouldStartOrphanComponentIfParentAppeared();
@@ -42,8 +44,10 @@ private slots:
     void shutdownAllComponents_shouldAddThemToTheStoppedList();
     void shutdownAllComponents_shouldNotShutdownUnexistingComponent();
     void shutdownAllComponents_shouldNotShutdownBuiltInComponent();
+    void shutdownAllComponents_shouldDisableComponent();
     void shutdown_shouldShutdownAllComponents();
     void shutdown_shouldShutdownBuiltInComponents();
+    void shutdown_shouldNotDisableComponent();
 
     // Integration tests:
     void startupComponent_shouldPassRightComponentsInRightOrder();

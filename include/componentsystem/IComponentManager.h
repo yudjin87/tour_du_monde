@@ -229,11 +229,12 @@ public:
 
     /*!
      * @details
-     *   Implicitly calls check() and starts (if resolving) up the specified component and
+     *   Implicitly calls check() and starts (if resolving) up the specified components and
      *   all its parents, obtained by IComponentDependencies::completeListWithChild() in
-     *   such order, that parents will be started first.
+     *   such order, that parents will be started first. All started components became
+     *   enabled.
      *
-     *   Components with disabled parent components will not be started.
+     *   Components will not start if parent component could not start.
      *
      *   Initialization data will be passed to the started components (if any).
      *   Returns a dependencies solving result, that contains a list of distinct components
@@ -262,9 +263,10 @@ public:
      * @details
      *   Implicitly calls check() and starts (if resolving) up the specified components and
      *   all its parents, obtained by IComponentDependencies::completeListWithChild() in
-     *   such order, that parents will be started first.
+     *   such order, that parents will be started first. All started components became
+     *   enabled.
      *
-     *   Components with disabled parent components will not be started.
+     *   Components will not start if parent component could not start.
      *
      *   Initialization data will be passed to the started components (if any).
      *   Returns a dependencies solving result, that contains a list of distinct components

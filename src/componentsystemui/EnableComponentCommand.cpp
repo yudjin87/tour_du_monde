@@ -80,27 +80,27 @@ void EnableComponentCommand::redo()
 {
     // TODO: logic about enabling and disabling should be moved behind the
     // component manager facade
-    foreach(IComponent *comp, m_componentsToEnable)
-        comp->setAvailability(IComponent::Enabled);
+//    foreach(IComponent *comp, m_componentsToEnable)
+//        comp->setAvailability(IComponent::Enabled);
 
     m_manager->startupComponents(m_componentsToEnable.toList());
 
-    foreach(IComponent *comp, m_componentsToDisable)
-        comp->setAvailability(IComponent::Disabled);
+//    foreach(IComponent *comp, m_componentsToDisable)
+//        comp->setAvailability(IComponent::Disabled);
 
     // Store stoped components for restoring them on undo
     DependenciesSolvingResult result = m_manager->shutdownComponents(m_componentsToDisable.toList());
     foreach(IComponent *comp, result.ordered()) {
         m_componentsToDisable.insert(comp);
-        comp->setAvailability(IComponent::Disabled);
+        //comp->setAvailability(IComponent::Disabled);
     }
 }
 
 //------------------------------------------------------------------------------
 void EnableComponentCommand::undo()
 {
-    foreach(IComponent *comp, m_componentsToDisable)
-        comp->setAvailability(IComponent::Enabled);
+//    foreach(IComponent *comp, m_componentsToDisable)
+//        comp->setAvailability(IComponent::Enabled);
 
     m_manager->startupComponents(m_componentsToDisable.toList());
     m_manager->shutdownComponents(m_componentsToEnable.toList());

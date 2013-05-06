@@ -40,12 +40,14 @@
 ComponentManager::ComponentManager(ILogger &log, QObject *parent)
     : m_log(log)
     , m_shutDownFunc(&ComponentManager::shutdownCheckedComponent)
+    , m_startUpFunc(&ComponentManager::enableAndStartComponent)
     , m_initializationData(QCoreApplication::instance())
     , mp_components(new ComponentDependencies())
     , m_startedComponents(QList<IComponent *>())
     , m_stoppedComponents(QList<IComponent *>())
     , m_orphanComponents(QSet<IComponent *>())
     , m_isCheck(false)
+    , m_started(false)
 {
     QObject::setParent(parent);
 }
@@ -54,12 +56,14 @@ ComponentManager::ComponentManager(ILogger &log, QObject *parent)
 ComponentManager::ComponentManager(IComponentDependencies *dependencies, ILogger &log, QObject *parent)
     : m_log(log)
     , m_shutDownFunc(&ComponentManager::shutdownCheckedComponent)
+    , m_startUpFunc(&ComponentManager::enableAndStartComponent)
     , m_initializationData(QCoreApplication::instance())
     , mp_components(dependencies)
     , m_startedComponents(QList<IComponent *>())
     , m_stoppedComponents(QList<IComponent *>())
     , m_orphanComponents(QSet<IComponent *>())
     , m_isCheck(false)
+    , m_started(false)
 {
     QObject::setParent(parent);
     Q_ASSERT(mp_components != nullptr);
@@ -154,6 +158,9 @@ QList<IComponent *> ComponentManager::startedComponents() const
 //------------------------------------------------------------------------------
 void ComponentManager::shutdown()
 {
+    if (!m_started)
+        return;
+
     m_shutDownFunc = &ComponentManager::forceShutdownCheckedComponent;
     shutdownAllComponents();
     m_shutDownFunc = &ComponentManager::shutdownCheckedComponent;
@@ -200,8 +207,16 @@ DependenciesSolvingResult ComponentManager::shutdownComponents(const QList<IComp
 //------------------------------------------------------------------------------
 DependenciesSolvingResult ComponentManager::startup()
 {
-    // TODO: Implement me!!!
-    return DependenciesSolvingResult();
+    if (m_started)
+        return DependenciesSolvingResult();
+
+    m_startUpFunc = &ComponentManager::startCheckedComponent;
+    DependenciesSolvingResult result = startupAllComponents();
+    m_startUpFunc = &ComponentManager::enableAndStartComponent;
+
+    m_started = true;
+
+    return result;
 }
 
 //------------------------------------------------------------------------------
@@ -243,7 +258,7 @@ DependenciesSolvingResult ComponentManager::startupComponents(QList<IComponent *
             continue;
         }
 
-        if (startCheckedComponent(comp)) {
+        if ((this->*(m_startUpFunc))(comp)) {
             m_log.log(QString("'%1' component is started").arg(comp->name()), ILogger::Info);
             onComponentStarted(comp);
         } else {
@@ -302,12 +317,20 @@ bool ComponentManager::startCheckedComponent(IComponent *component)
 }
 
 //------------------------------------------------------------------------------
+bool ComponentManager::enableAndStartComponent(IComponent *component)
+{
+    component->setAvailability(IComponent::Enabled);
+    return component->startup(m_initializationData);
+}
+
+//------------------------------------------------------------------------------
 void ComponentManager::shutdownCheckedComponent(IComponent *component)
 {
     // We should not shutdown built in component
     if (component->definition()->isBuiltIn())
         return;
 
+    component->setAvailability(IComponent::Disabled);
     component->shutdown();
 }
 

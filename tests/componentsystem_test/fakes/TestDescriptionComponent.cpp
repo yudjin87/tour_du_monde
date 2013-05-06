@@ -4,6 +4,7 @@
 TestDescriptionComponent::TestDescriptionComponent()
     : BaseComponent("TestDescriptionComponent")
     , m_definition()
+    , startUpResult(true)
 {
 }
 
@@ -11,6 +12,7 @@ TestDescriptionComponent::TestDescriptionComponent()
 TestDescriptionComponent::TestDescriptionComponent(const QString &name)
     : BaseComponent(name)
     , m_definition()
+    , startUpResult(true)
 {
 }
 
@@ -18,7 +20,7 @@ TestDescriptionComponent::TestDescriptionComponent(const QString &name)
 bool TestDescriptionComponent::_onStartup(QObject *)
 {
     emit whenStarted(name());
-    return true;
+    return startUpResult;
 }
 
 //------------------------------------------------------------------------------

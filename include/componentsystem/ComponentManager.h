@@ -235,11 +235,12 @@ public:
 
     /*!
      * @details
-     *   Implicitly calls check() and starts (if resolving) up the specified component and
+     *   Implicitly calls check() and starts (if resolving) up the specified components and
      *   all its parents, obtained by IComponentDependencies::completeListWithChild() in
-     *   such order, that parents will be started first.
+     *   such order, that parents will be started first. All started components became
+     *   enabled.
      *
-     *   Components with disabled parent components will not be started.
+     *   Components will not start if parent component could not start.
      *
      *   Initialization data will be passed to the started components (if any).
      *   Returns a dependencies solving result, that contains a list of distinct components
@@ -268,9 +269,10 @@ public:
      * @details
      *   Implicitly calls check() and starts (if resolving) up the specified components and
      *   all its parents, obtained by IComponentDependencies::completeListWithChild() in
-     *   such order, that parents will be started first.
+     *   such order, that parents will be started first. All started components became
+     *   enabled.
      *
-     *   Components with disabled parent components will not be started.
+     *   Components will not start if parent component could not start.
      *
      *   Initialization data will be passed to the started components (if any).
      *   Returns a dependencies solving result, that contains a list of distinct components
@@ -328,6 +330,17 @@ protected slots:
 
     /*!
      * @details
+     *   Sets IComponent::Enabled availability to the specified
+     *   component and tries to start up that component.
+     *
+     * @return @a true, if component was started. If component is
+     *   disabled or unavailabled, returns @a false. Also returns
+     *   @a false if component start was failed.
+     */
+    virtual bool enableAndStartComponent(IComponent *component);
+
+    /*!
+     * @details
      *   Shuts down specified component. Built in components are ignored.
      *
      *   Note, that components should have descending order,
@@ -356,7 +369,9 @@ protected:
 
 private:
     typedef void (ComponentManager::*ShutDownFunc)(IComponent *);
+    typedef bool (ComponentManager::*StartUpFunc)(IComponent *);
     ShutDownFunc m_shutDownFunc;
+    StartUpFunc m_startUpFunc;
     QObject *m_initializationData;
     IComponentDependencies *mp_components;
     QList<IComponent *> m_startedComponents;
@@ -364,6 +379,7 @@ private:
     QSet<IComponent *> m_orphanComponents;
     DependenciesSolvingResult m_checkResult;
     bool m_isCheck;
+    bool m_started;
 };
 
 #endif // COMPONENTMANAGER_H

@@ -124,6 +124,53 @@ void ComponentManagerTest::check_shouldFillOrphanComponents()
 }
 
 //------------------------------------------------------------------------------
+void ComponentManagerTest::startup_shouldShouldNotCallIfAlreadyDid()
+{
+    MockComponent *component = createComponent("A");
+
+    ComponentManager manager(lg);
+    QSignalSpy spy(&manager, SIGNAL(componentStarted(IComponent *)));
+
+    manager.addComponent(component);
+
+    manager.startup();
+    QCOMPARE(spy.count(), 1);
+
+    component->shutdown();
+    manager.startup();
+    QCOMPARE(spy.count(), 1);
+}
+
+//------------------------------------------------------------------------------
+void ComponentManagerTest::startup_shouldStartComponents()
+{
+    TestDescriptionComponent *descriptionComponent = new TestDescriptionComponent();
+    descriptionComponent->setAvailability(IComponent::Enabled);
+
+    ComponentManager manager(lg);
+    manager.addComponent(descriptionComponent);
+
+    manager.startup();
+
+    QVERIFY(descriptionComponent->started());
+}
+
+//------------------------------------------------------------------------------
+void ComponentManagerTest::startup_shouldNotStartDisabledComponent()
+{
+    MockComponent *disabledComponent = createComponent("A");
+    disabledComponent->setAvailability(IComponent::Disabled);
+    QSignalSpy spy(disabledComponent, SIGNAL(whenStarted(QString)));
+
+    ComponentManager manager(lg);
+    manager.addComponent(disabledComponent);
+
+    manager.startup();
+
+    QCOMPARE(spy.count(), 0);
+}
+
+//------------------------------------------------------------------------------
 void ComponentManagerTest::startupAllComponents_shouldCallCheck()
 {
     IComponent *p_componentA = createComponent("A");
@@ -301,6 +348,20 @@ void ComponentManagerTest::shutdownAllComponents_shouldNotShutdownBuiltInCompone
 }
 
 //------------------------------------------------------------------------------
+void ComponentManagerTest::shutdownAllComponents_shouldDisableComponent()
+{
+    MockComponent *component = createComponent("A");
+
+    ComponentManager manager(lg);
+    manager.addComponent(component);
+
+    manager.startupAllComponents();
+    manager.shutdownAllComponents();
+
+    QCOMPARE(component->availability(), IComponent::Disabled);
+}
+
+//------------------------------------------------------------------------------
 void ComponentManagerTest::shutdown_shouldShutdownAllComponents()
 {
     MockComponent *p_componentA = createComponent("A");
@@ -331,6 +392,20 @@ void ComponentManagerTest::shutdown_shouldShutdownBuiltInComponents()
 }
 
 //------------------------------------------------------------------------------
+void ComponentManagerTest::shutdown_shouldNotDisableComponent()
+{
+    MockComponent *component = createComponent("A");
+
+    ComponentManager manager(lg);
+    manager.addComponent(component);
+
+    manager.startupAllComponents();
+    manager.shutdown();
+
+    QCOMPARE(component->availability(), IComponent::Enabled);
+}
+
+//------------------------------------------------------------------------------
 void ComponentManagerTest::startupAllComponents_shouldPassInitDataToComponent()
 {
     MockComponent *mockComponent = new MockComponent();
@@ -345,30 +420,19 @@ void ComponentManagerTest::startupAllComponents_shouldPassInitDataToComponent()
 }
 
 //------------------------------------------------------------------------------
-void ComponentManagerTest::startupAllComponents_shouldNotStartUnexistingComponent()
+void ComponentManagerTest::startupAllComponents_shouldEnableDisabledComponent()
 {
-    MockComponent *p_componentA = createComponent("A");
-    QSignalSpy spy(p_componentA, SIGNAL(whenStarted(QString)));
+    MockComponent *disabledComponent = createComponent("A");
+    disabledComponent->setAvailability(IComponent::Disabled);
+    QSignalSpy spy(disabledComponent, SIGNAL(whenStarted(QString)));
 
     ComponentManager manager(lg);
-    manager.startupComponent(p_componentA);
-
-    QCOMPARE(spy.size(), 0);
-}
-
-//------------------------------------------------------------------------------
-void ComponentManagerTest::startupAllComponents_shouldNotStartDisabledComponent()
-{
-    MockComponent *disabledDomponent = createComponent("A");
-    disabledDomponent->setAvailability(IComponent::Disabled);
-    QSignalSpy spy(disabledDomponent, SIGNAL(whenStarted(QString)));
-
-    ComponentManager manager(lg);
-    manager.addComponent(disabledDomponent);
+    manager.addComponent(disabledComponent);
 
     manager.startupAllComponents();
 
-    QCOMPARE(spy.count(), 0);
+    QCOMPARE(spy.count(), 1);
+    QCOMPARE(disabledComponent->availability(), IComponent::Enabled);
 }
 
 //------------------------------------------------------------------------------
@@ -542,7 +606,7 @@ void ComponentManagerTest::startupAllComponents_shouldNotStartChildComponentsIfP
 {
     // A <- B <- C
     TestDescriptionComponent *p_componentA = new TestDescriptionComponent("A");
-    p_componentA->setAvailability(IComponent::Disabled);
+    p_componentA->startUpResult = false;
     MockChildComponent *p_componentB = createParentComponent("B", "A"); //dependent from A;
     MockChildComponent *p_componentC = createParentComponent("C", "B"); //dependent from B;
 

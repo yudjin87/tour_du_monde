@@ -13,6 +13,7 @@ public:
     DependenciesSolvingResult check();
 
     bool startCheckedComponent(IComponent *ip_component);
+    bool enableAndStartComponent(IComponent *component);
     void shutdownCheckedComponent(IComponent *ip_component);
 
 public:

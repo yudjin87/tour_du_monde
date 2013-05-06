@@ -71,7 +71,7 @@ int PainterApplication::run(IBootloader &bootloader)
     mp_serviceLocator = bootloader.serviceLocator();
 
     IComponentManager *componentManager = mp_serviceLocator->locate<IComponentManager>();
-    componentManager->startupAllComponents();
+    componentManager->startup();
 
     QMainWindow *mainWindow = mp_serviceLocator->locate<QMainWindow>();
     mainWindow->show();

@@ -24,10 +24,17 @@ DependenciesSolvingResult MockComponentManager::check()
 }
 
 //------------------------------------------------------------------------------
-bool MockComponentManager::startCheckedComponent(IComponent *ip_component)
+bool MockComponentManager::startCheckedComponent(IComponent *component)
 {
-    m_startupComponents.push_back(ip_component);
-    return ComponentManager::startCheckedComponent(ip_component);
+    m_startupComponents.push_back(component);
+    return ComponentManager::startCheckedComponent(component);
+}
+
+//------------------------------------------------------------------------------
+bool MockComponentManager::enableAndStartComponent(IComponent *component)
+{
+    m_startupComponents.push_back(component);
+    return ComponentManager::enableAndStartComponent(component);
 }
 
 //------------------------------------------------------------------------------
