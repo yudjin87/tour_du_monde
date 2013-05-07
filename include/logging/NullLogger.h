@@ -38,6 +38,7 @@
  */
 class LOGGING_API NullLogger : public ILogger
 {
+    Q_OBJECT
 public:
     /*!
      * @details

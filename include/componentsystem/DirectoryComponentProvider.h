@@ -27,11 +27,11 @@
 #ifndef DIRECTORYCOMPONENTPROVIDER_H
 #define DIRECTORYCOMPONENTPROVIDER_H
 
-#include "componentsystem/ComponentProvider.h"
 #include "componentsystem/IDirectoryComponentProvider.h"
 
 #include <QtCore/QStringList>
 
+class ComponentProvider;
 class FileComponentProvider;
 
 /*!
@@ -118,7 +118,7 @@ class FileComponentProvider;
  * @note it does not take ownership neither for proxy components that will be @a discovered in
  *   libraries nor for components registered by registerComponent().
  */
-class COMP_API DirectoryComponentProvider : public ComponentProvider, public IDirectoryComponentProvider
+class COMP_API DirectoryComponentProvider : public IDirectoryComponentProvider
 {
     Q_OBJECT
 public:
@@ -128,6 +128,35 @@ public:
     ~DirectoryComponentProvider();
 
 public:
+    /*!
+     * @details
+     *   Gets the all components registered at the provider.
+     */
+    QList<IComponent *> components() const;
+
+    /*!
+     * @details
+     *   Initializes the provider, which may load and validate the components.
+     *   Returns @a true, if initialization was succesful; otherwise, returns @a false.
+     */
+    bool initialize();
+
+    /*!
+     * @details
+     *   Returns @a true, if provider alreadyinitialzied; otherwise, returns @a false.
+     */
+    bool isInitialized() const;
+
+    /*!
+     * @details
+     *   Registers the specified component at the provider.
+     *   Usually, you can register the same components or components with same names using
+     *   existing providers, but when components will be pushed to the IComponentManager
+     *   from the providers - the last one doesn't allow duplicating components.
+     *   @a Null pointers will be skipped.
+     */
+    void registerComponent(IComponent *ip_component);
+
    /*!
     * @details
     *   Sets the root directory path containing component definitions.
@@ -212,6 +241,8 @@ private:
     QDirIterator::IteratorFlags m_flags;
     QDir::Filters m_filters;
     QStringList m_processedFiles;
+    bool m_alreadyInit;
+    ComponentProvider *m_provider;
 };
 
 #endif // DIRECTORYCOMPONENTPROVIDER_H

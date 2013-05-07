@@ -29,9 +29,9 @@
 
 //------------------------------------------------------------------------------
 ComponentProvider::ComponentProvider(QObject *parent /*= nullptr*/)
-    : QObject(parent)
-    , m_alreadyInit(false)
+    : m_alreadyInit(false)
 {
+    setParent(parent);
 }
 
 //------------------------------------------------------------------------------

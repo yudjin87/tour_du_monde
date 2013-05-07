@@ -29,6 +29,7 @@
 
 #include "logging/logging_global.h"
 
+#include <QtCore/QObject>
 #include <QtCore/QString>
 
 /*!
@@ -46,8 +47,9 @@
  *   To instantiate your own logger facade to the application logging system you have to override
  *   BootloaderBase::_createLogger() method in your own bootloader, that returns pointer to the ILogger.
  */
-class LOGGING_API ILogger
+class LOGGING_API ILogger : public QObject
 {
+    Q_OBJECT
 public:
     /*!
      * @details

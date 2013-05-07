@@ -25,6 +25,7 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "DirectoryComponentProvider.h"
+#include "ComponentProvider.h"
 #include "FileComponentProvider.h"
 
 #include <QtCore/QFile>
@@ -36,39 +37,76 @@ typedef QScopedPointer<FileComponentProvider> FileComponentProviderPtr;
 
 //------------------------------------------------------------------------------
 DirectoryComponentProvider::DirectoryComponentProvider(QObject *parent)
-    : ComponentProvider(parent)
-    , m_path("")
+    : m_path("")
     , m_definitionExtension("*.definition")
     , m_flags(QDirIterator::Subdirectories)
     , m_filters(QDir::NoDotAndDotDot | QDir::Readable)
+    , m_alreadyInit(false)
+    , m_provider(new ComponentProvider())
 {
+    setParent(parent);
 }
 
 //------------------------------------------------------------------------------
 DirectoryComponentProvider::DirectoryComponentProvider(const QString &path, QObject *parent)
-    : ComponentProvider(parent)
-    , m_path("")
+    : m_path("")
     , m_definitionExtension("*.definition")
     , m_flags(QDirIterator::Subdirectories)
     , m_filters(QDir::NoDotAndDotDot | QDir::Readable | QDir::Files | QDir::AllDirs)
+    , m_alreadyInit(false)
+    , m_provider(new ComponentProvider())
 {
+    setParent(parent);
     setPath(path);
 }
 
 //------------------------------------------------------------------------------
 DirectoryComponentProvider::DirectoryComponentProvider(const QString &path, const QString &definitionExtension, QObject *parent)
-    : ComponentProvider(parent)
-    , m_path("")
+    : m_path("")
     , m_definitionExtension(definitionExtension)
     , m_flags(QDirIterator::Subdirectories)
     , m_filters(QDir::NoDotAndDotDot | QDir::Readable)
+    , m_alreadyInit(false)
+    , m_provider(new ComponentProvider())
 {
+    setParent(parent);
     setPath(path);
 }
 
 //------------------------------------------------------------------------------
 DirectoryComponentProvider::~DirectoryComponentProvider()
 {
+    delete m_provider;
+    m_provider = nullptr;
+}
+
+//------------------------------------------------------------------------------
+QList<IComponent *> DirectoryComponentProvider::components() const
+{
+    return m_provider->components();
+}
+
+//------------------------------------------------------------------------------
+bool DirectoryComponentProvider::initialize()
+{
+    if (m_alreadyInit)
+        return true;
+
+    m_alreadyInit = _initialize();
+
+    return m_alreadyInit;
+}
+
+//------------------------------------------------------------------------------
+bool DirectoryComponentProvider::isInitialized() const
+{
+    return m_alreadyInit;
+}
+
+//------------------------------------------------------------------------------
+void DirectoryComponentProvider::registerComponent(IComponent *ip_component)
+{
+    m_provider->registerComponent(ip_component);
 }
 
 //------------------------------------------------------------------------------

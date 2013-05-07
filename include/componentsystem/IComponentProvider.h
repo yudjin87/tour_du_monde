@@ -30,6 +30,7 @@
 #include "componentsystem/componentsystem_global.h"
 
 #include <QtCore/QList>
+#include <QtCore/QObject>
 
 class IComponent;
 
@@ -46,8 +47,9 @@ class IComponent;
  *   You also might to override BootloaderBase::_configureComponentProvider() to add compile-time-known components 
  *   statically in code using registerComponent() method.
  */
-class COMP_API IComponentProvider
+class COMP_API IComponentProvider : public QObject
 {
+    Q_OBJECT
 public:
     IComponentProvider(){}
     virtual ~IComponentProvider(){}

@@ -30,8 +30,6 @@
 #include "componentsystem/componentsystem_global.h"
 #include "componentsystem/IComponentProvider.h"
 
-#include <QtCore/QObject>
-
 /*!
  * @brief
  *   Provides base methods to register components statically in code.
@@ -56,7 +54,7 @@
  *   The ComponentProvider also serves as a base class for more specialized Providers.
  * @note it does not take ownership for registered components.
  */
-class COMP_API ComponentProvider : public QObject, virtual public IComponentProvider
+class COMP_API ComponentProvider : public IComponentProvider
 {
     Q_OBJECT
 public:

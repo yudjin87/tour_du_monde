@@ -68,6 +68,7 @@
  */
 class LOGGING_API TextLogger : public ILogger
 {
+    Q_OBJECT
 public:
     /*!
      * @details

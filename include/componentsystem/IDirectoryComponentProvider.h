@@ -118,8 +118,9 @@
  * @note it does not take ownership neither for proxy components that will be @a discovered in
  *   libraries nor for components registered by registerComponent().
  */
-class COMP_API IDirectoryComponentProvider : virtual public IComponentProvider
+class COMP_API IDirectoryComponentProvider : public IComponentProvider
 {
+    Q_OBJECT
 public:
     IDirectoryComponentProvider(){}
     ~IDirectoryComponentProvider(){}

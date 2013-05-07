@@ -31,9 +31,9 @@
 
 //------------------------------------------------------------------------------
 CompositeComponentProvider::CompositeComponentProvider(QObject *parent /* = nullptr*/)
-    : QObject(parent)
-    , m_alreadyInit(false)
+    : m_alreadyInit(false)
 {
+    setParent(parent);
     m_providers.push_back(new ComponentProvider());
 }
 

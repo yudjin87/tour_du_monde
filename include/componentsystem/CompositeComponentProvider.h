@@ -64,7 +64,7 @@
  *   The ComponentProvider also serves as a base class for more specialized Providers.
  * @note it takes ownership for added providers, but not for components.
  */
-class COMP_API CompositeComponentProvider : public QObject, public IComponentProvider
+class COMP_API CompositeComponentProvider : public IComponentProvider
 {
     Q_OBJECT
 public:
