@@ -45,7 +45,7 @@ Bootloader::Bootloader()
 //------------------------------------------------------------------------------
 void Bootloader::_configureComponentProvider()
 {
-    CompositeComponentProvider *provider = static_cast<CompositeComponentProvider *>(mp_componentProvider);
+    CompositeComponentProvider *provider = static_cast<CompositeComponentProvider *>(m_componentProvider);
     provider->addProvider(new DirectoryComponentProvider("./components"));
     provider->addProvider(new DirectoryComponentProvider("./installedComponents"));
     provider->registerComponent(new InteractionServiceComponent());
