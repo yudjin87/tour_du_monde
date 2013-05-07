@@ -203,10 +203,10 @@ void ComponentInstallerTest::install_shouldCreateSubDirectoryForEachComponent()
 
     installer.install();
 
-    QDir dir = installer.installDirectory();
+    QDir dir = componentsDir;
     QVERIFY(dir.cd("TestComponent1"));
 
-    QDir dir2 = installer.installDirectory();
+    QDir dir2 = componentsDir;
     QVERIFY(dir2.cd("TestComponent2"));
 
     removeDir(componentsDir);
