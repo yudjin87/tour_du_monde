@@ -32,8 +32,8 @@
 #include <QtCore/QtAlgorithms>
 
 //------------------------------------------------------------------------------
-ToolBarCatalog::ToolBarCatalog(QMainWindow &i_shell)
-    : m_shell(i_shell)
+ToolBarCatalog::ToolBarCatalog(QMainWindow &shell)
+    : m_shell(shell)
 {
 }
 
@@ -44,31 +44,31 @@ ToolBarCatalog::~ToolBarCatalog()
 }
 
 //------------------------------------------------------------------------------
-QToolBar *ToolBarCatalog::add(const QString &i_title)
+QToolBar *ToolBarCatalog::add(const QString &title)
 {
-    return add(Qt::TopToolBarArea, i_title);
+    return add(Qt::TopToolBarArea, title);
 }
 
 //------------------------------------------------------------------------------
-QToolBar *ToolBarCatalog::add(Qt::ToolBarArea i_area, const QString &i_title)
+QToolBar *ToolBarCatalog::add(Qt::ToolBarArea area, const QString &title)
 {
-    if (i_title.isEmpty())
+    if (title.isEmpty())
         return nullptr;
 
-    QToolBar *found = find(i_title);
+    QToolBar *found = find(title);
     if (found != nullptr)
         return found;
 
-    QToolBar *newToolbar =  _createToolbar(i_area, i_title);
+    QToolBar *newToolbar =  _createToolbar(area, title);
     onToolbarAdded(newToolbar);
 
     return newToolbar;
 }
 
 //------------------------------------------------------------------------------
-void ToolBarCatalog::deleteToolbar(const QString &i_title)
+void ToolBarCatalog::deleteToolbar(const QString &title)
 {
-    QToolBar *toolbar = find(i_title);
+    QToolBar *toolbar = find(title);
     deleteToolbar(toolbar);
 }
 
@@ -80,16 +80,16 @@ void ToolBarCatalog::deleteToolbar(QToolBar *toolbar)
 }
 
 //------------------------------------------------------------------------------
-QToolBar *ToolBarCatalog::find(const QString &i_title)
+QToolBar *ToolBarCatalog::find(const QString &title)
 {
-    return const_cast<QToolBar *>(static_cast<const ToolBarCatalog &>(*this).find(i_title));
+    return const_cast<QToolBar *>(static_cast<const ToolBarCatalog &>(*this).find(title));
 }
 
 //------------------------------------------------------------------------------
-const QToolBar *ToolBarCatalog::find(const QString &i_title) const
+const QToolBar *ToolBarCatalog::find(const QString &title) const
 {
     foreach(QToolBar *toolbar, m_toolbars) {
-        if (toolbar->windowTitle() == i_title)
+        if (toolbar->windowTitle() == title)
             return toolbar;
     }
 
@@ -109,14 +109,14 @@ void ToolBarCatalog::onToolbarAdded(QToolBar *toolbar)
 }
 
 //------------------------------------------------------------------------------
-QToolBar *ToolBarCatalog::_createToolbar(Qt::ToolBarArea i_area, const QString &i_title)
+QToolBar *ToolBarCatalog::_createToolbar(Qt::ToolBarArea area, const QString &title)
 {
     QToolBar *newToolBar = new QToolBar();
-    newToolBar->setWindowTitle(i_title);
-    newToolBar->setObjectName(i_title);
+    newToolBar->setWindowTitle(title);
+    newToolBar->setObjectName(title);
 
     m_toolbars.push_back(newToolBar);
-    m_shell.addToolBar(i_area, newToolBar);
+    m_shell.addToolBar(area, newToolBar);
 
     return newToolBar;
 }

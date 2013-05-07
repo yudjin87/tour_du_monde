@@ -14,8 +14,8 @@
 class SimpleComponent : public BaseComponent
 {
 public:
-    SimpleComponent(const QString &i_name = "MockComponent")
-        : BaseComponent(i_name)
+    SimpleComponent(const QString &name = "MockComponent")
+        : BaseComponent(name)
     {
     }
 

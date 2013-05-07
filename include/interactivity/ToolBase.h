@@ -64,7 +64,7 @@ public:
      *   this by setting a specific description with setText(). The same text will be
      *   used for tooltips unless you specify a different text using setToolTip().
      */
-    ToolBase(const QString &i_text, QActionGroup *actionGroup = nullptr);
+    ToolBase(const QString &text, QActionGroup *actionGroup = nullptr);
 
     /*!
      * @details
@@ -77,7 +77,7 @@ public:
      *   this by setting a specific description with setText(). The same text will be
      *   used for tooltips unless you specify a different text using setToolTip().
      */
-    ToolBase(const QIcon &i_icon, const QString &i_text, QActionGroup *actionGroup = nullptr);
+    ToolBase(const QIcon &icon, const QString &text, QActionGroup *actionGroup = nullptr);
     ~ToolBase();
 
     /*!

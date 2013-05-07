@@ -9,7 +9,7 @@ class MockChildComponent : public BaseComponent
 {
     Q_OBJECT
 public:
-    MockChildComponent(const QString &i_name = "MockChildComponent");
+    MockChildComponent(const QString &name = "MockChildComponent");
 
     const QStringList &parents() const;
     QStringList &parents();
@@ -19,8 +19,8 @@ protected:
     void _onShutdown();
 
 signals:
-    void whenStarted(const QString &i_name);
-    void whenShutdown(const QString &i_name);
+    void whenStarted(const QString &name);
+    void whenShutdown(const QString &name);
 };
 
 #endif // MOCKCHILDCOMPONENT_H

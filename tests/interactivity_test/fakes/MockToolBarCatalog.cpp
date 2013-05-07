@@ -27,8 +27,8 @@
 #include "MockToolBarCatalog.h"
 
 //------------------------------------------------------------------------------
-MockToolBarCatalog::MockToolBarCatalog(QMainWindow &i_shell)
-    : ToolBarCatalog(i_shell)
+MockToolBarCatalog::MockToolBarCatalog(QMainWindow &shell)
+    : ToolBarCatalog(shell)
 {
 }
 

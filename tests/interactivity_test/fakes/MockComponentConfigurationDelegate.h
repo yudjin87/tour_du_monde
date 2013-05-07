@@ -35,10 +35,10 @@ public:
     MockComponentConfigurationDelegate();
     ~MockComponentConfigurationDelegate();
 
-    void configure(IComponent *component, ICatalogs &catalogs, AbstractApplication &i_application);
+    void configure(IComponent *component, ICatalogs &catalogs, AbstractApplication &application);
     void deconfigure(IComponent *component, ICatalogs &catalogs);
 
-    void setDeleteFlag(bool &i_wasDestructorCalled);
+    void setDeleteFlag(bool &wasDestructorCalled);
 
     const ConfigurationChanges *changesByComponent(IComponent *component) const;
 

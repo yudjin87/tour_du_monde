@@ -36,24 +36,24 @@ const TextLogger::Categories TextLogger::categories = _fillCategories();
 const TextLogger::Priorities TextLogger::priorities = _fillPriorities();
 
 //------------------------------------------------------------------------------
-TextLogger::TextLogger(QTextStream &i_output)
-    : m_outputStream(i_output)
+TextLogger::TextLogger(QTextStream &output)
+    : m_outputStream(output)
 {
 }
 
 //------------------------------------------------------------------------------
-void TextLogger::log(const QString &i_message, ILogger::Category i_categoryy, ILogger::Priority i_priority)
+void TextLogger::log(const QString &message, ILogger::Category categoryy, ILogger::Priority priority)
 {
     static const QString messagePattern = "[%1] %2: %3. Prioriry: %4.";
     static const QString dateFormat = "dd MMM yyyy,  hh:mm:ss";
 
-    QString message = messagePattern
+    QString formatedMessage = messagePattern
             .arg(QDateTime::currentDateTime().toString(dateFormat))
-            .arg(categories[i_categoryy])
-            .arg(i_message)
-            .arg(priorities[i_priority]);
+            .arg(categories[categoryy])
+            .arg(message)
+            .arg(priorities[priority]);
 
-    m_outputStream << message << endl;
+    m_outputStream << formatedMessage << endl;
 }
 
 //------------------------------------------------------------------------------

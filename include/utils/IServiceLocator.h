@@ -189,11 +189,11 @@ public:
 
     /*!
      * @details
-     *   Finds the service registered with @a TService type name and specified @a i_tag.
+     *   Finds the service registered with @a TService type name and specified @a tag.
      * @return the corresponding service if such found. Null pointer otherwise.
      */
     template<typename TService>
-    TService *locate(const QString &i_tag);
+    TService *locate(const QString &tag);
 
     /*!
      * @details
@@ -232,7 +232,7 @@ public:
      * @sa unregisterInstance()
      */
     template<typename TService>
-    void registerInstance(TService *instance, const QString &i_tag);
+    void registerInstance(TService *instance, const QString &tag);
 
     /*!
      * @details
@@ -264,7 +264,7 @@ public:
      * @sa registerInstance()
      */
     template<typename TService>
-    TService *unregisterInstance(const QString &i_tag);
+    TService *unregisterInstance(const QString &tag);
 
     /*!
      * @details
@@ -281,48 +281,48 @@ protected:
     /*!
      * @details
      *   When overridden in derived classes finds the factory method associated with
-     *   specified type id and specified @a i_tag in inner objects dictionary and
+     *   specified type id and specified @a tag in inner objects dictionary and
      *   creates instance of the interface using factory method
      * @return The raw pointer corresponded with specified interface id and tag if such found.
      *   Null pointer otherwise.
      */
-    virtual void *_buildInstance(const QString &i_byTypeId, const QString &tag) const = 0;
+    virtual void *_buildInstance(const QString &byTypeId, const QString &tag) const = 0;
 
     /*!
      * @details
      *   When overridden in derived classes finds the pointer associated with specified
-     *   type id and specified @a i_tag in inner objects dictionary.
+     *   type id and specified @a tag in inner objects dictionary.
      * @return The raw pointer corresponded with specified type id and tag if such found.
      *   Null pointer otherwise.
      */
-    virtual void *_getService(const QString &i_byTypeId, const QString &i_tag) const = 0;
+    virtual void *_getService(const QString &byTypeId, const QString &tag) const = 0;
 
     /*!
      * @details
      *   When overridden in derived classes registers a raw pointer with specified
      *   tag in inner objects dictionary.
-     * @param i_forTypeId
+     * @param forTypeId
      *   The name of type which @a instance should be associated with.
      */
-    virtual void _register(void *instance, const QString &i_forTypeId, const QString &i_tag) = 0;
+    virtual void _register(void *instance, const QString &forTypeId, const QString &tag) = 0;
 
     /*!
      * @details
      *   When overridden in derived classes unregisters (removes) a service instance with specified
      *   type id and tag from the inner objects dictionary (if any).
-     * @param i_forTypeId
+     * @param forTypeId
      *   The name of type which removed instance should be associated with.
      * @return The raw pointer corresponded with specified type id and tag if such found.
      *   Null pointer otherwise.
      */
-    virtual void *_unregister(const QString &i_forTypeId, const QString &i_tag) = 0;
+    virtual void *_unregister(const QString &forTypeId, const QString &tag) = 0;
 
     /*!
      * @details
      *   When overridden in derived classes binds an interface type id with
      *   specified factory method (that should create instance of interface) and
      *   with specified tag in inner objects dictionary.
-     * @param i_forTypeId
+     * @param forTypeId
      *   The name of type which @a factory method should be associated with.
      */
     virtual void _registerType(const QString &typeIdName, factoryMethod method, const QString &tag) = 0;
@@ -384,10 +384,10 @@ TService *IServiceLocator::locate()
 
 //------------------------------------------------------------------------------
 template<typename TService>
-TService *IServiceLocator::locate(const QString &i_tag)
+TService *IServiceLocator::locate(const QString &tag)
 {
     const QString &service_name = typeid(TService).name();
-    void *data = this->_getService(service_name, i_tag);
+    void *data = this->_getService(service_name, tag);
 
     QObject *obj = reinterpret_cast<QObject *>(data);
     TService *service = qobject_cast<TService *>(obj);
@@ -404,10 +404,10 @@ void IServiceLocator::registerInstance(TService *instance)
 
 //------------------------------------------------------------------------------
 template<typename TService>
-void IServiceLocator::registerInstance(TService *instance, const QString &i_tag)
+void IServiceLocator::registerInstance(TService *instance, const QString &tag)
 {
     const QString &service_name = typeid(TService).name();
-    this->_register(reinterpret_cast<void *>(instance), service_name, i_tag);
+    this->_register(reinterpret_cast<void *>(instance), service_name, tag);
 }
 
 //------------------------------------------------------------------------------
@@ -434,10 +434,10 @@ TService *IServiceLocator::unregisterInstance()
 
 //------------------------------------------------------------------------------
 template<typename TService>
-TService *IServiceLocator::unregisterInstance(const QString &i_tag)
+TService *IServiceLocator::unregisterInstance(const QString &tag)
 {
     const char *typeIdName = typeid(TService).name();
-    void *data = this->_unregister(typeIdName, i_tag);
+    void *data = this->_unregister(typeIdName, tag);
 
     // TODO: use static checks (c++11) during type registering and building.
     QObject *obj = reinterpret_cast<QObject *>(data);

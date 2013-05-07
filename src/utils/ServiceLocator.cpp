@@ -52,9 +52,9 @@ void ServiceLocator::_registerType(const QString &typeIdName, factoryMethod meth
 }
 
 //------------------------------------------------------------------------------
-void *ServiceLocator::_unregister(const QString &i_forTypeId, const QString &i_tag)
+void *ServiceLocator::_unregister(const QString &forTypeId, const QString &tag)
 {
-    void *foundInstance = m_objects->unregisterInstance(i_forTypeId, i_tag);
+    void *foundInstance = m_objects->unregisterInstance(forTypeId, tag);
     return foundInstance;
 }
 
@@ -67,15 +67,15 @@ void *ServiceLocator::_buildInstance(const QString &typeIdName, const QString &t
   }
 
 //------------------------------------------------------------------------------
-void *ServiceLocator::_getService(const QString &i_byTypeId, const QString &i_tag) const
+void *ServiceLocator::_getService(const QString &byTypeId, const QString &tag) const
 {
-    return m_objects->getInstance(i_byTypeId, i_tag);
+    return m_objects->getInstance(byTypeId, tag);
 }
 
 //------------------------------------------------------------------------------
-void ServiceLocator::_register(void *instance, const QString &i_forTypeId, const QString &i_tag)
+void ServiceLocator::_register(void *instance, const QString &forTypeId, const QString &tag)
 {
-    m_objects->registerInstance(instance, i_forTypeId, i_tag);
+    m_objects->registerInstance(instance, forTypeId, tag);
 }
 
 //------------------------------------------------------------------------------

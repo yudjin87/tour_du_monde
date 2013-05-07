@@ -37,8 +37,8 @@ public:
     void execute();
     void initialize(QObject *startUpData);
     void stopExecuting();
-    void setCategory(const QString &i_category);
-    void setName(const QString &i_name);
+    void setCategory(const QString &category);
+    void setName(const QString &name);
 
 public:
     bool executeCalled;

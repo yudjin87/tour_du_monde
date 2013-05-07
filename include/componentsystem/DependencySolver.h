@@ -56,10 +56,10 @@ public:
      * @details
      *   Adds a component to the solver. The empty string
      *   does not considered as correct name, and will not be added.
-     * @param i_name
+     * @param name
      *   the name that uniquely identifies the component.
      */
-    void addComponent(const QString &i_name);
+    void addComponent(const QString &name);
 
     /*!
      * @details
@@ -96,9 +96,9 @@ public:
     bool solve(QStringList &ordered, QStringList &orphans, QStringList &missing) const;
 
 private:
-    void addToDependencyMatrix(const QString &i_component);
-    void addToKnownComponents(const QString &i_component);
-    QStringList findLeaves(const QStringList &i_skip) const;
+    void addToDependencyMatrix(const QString &component);
+    void addToKnownComponents(const QString &component);
+    QStringList findLeaves(const QStringList &skip) const;
 
 private:
     ListDictionary<QString, QString> *m_dependencyMatrix;

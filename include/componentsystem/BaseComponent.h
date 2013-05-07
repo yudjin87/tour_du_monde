@@ -77,7 +77,7 @@ public:
      *   in inner objects dictionary.
      * @return The raw pointer corresponded with specified type id if such found. Null pointer otherwise.
      */
-    void *getExtension(const QString &i_byTypeId) const;
+    void *getExtension(const QString &byTypeId) const;
 
     /*!
      * @details
@@ -131,11 +131,11 @@ protected:
      * @details
      *   Initializes a new instance of the BaseComponent class using specified component
      *   name and IComponent::Enabled availability.
-     * @param i_name
+     * @param name
      *   the name of your component class. In derived classes you should pass the unique 
      *   name for the your component (not per instance, but per class!).
      */
-    explicit BaseComponent(const QString &i_name, QObject *parent = nullptr);
+    explicit BaseComponent(const QString &name, QObject *parent = nullptr);
 
     /*!
      * @details
@@ -224,11 +224,11 @@ protected:
      *   availability changed.
      * @sa setAvailability, availabilityChanged
      */
-    virtual void onAvailabilityChanged(Availability i_newMode);
+    virtual void onAvailabilityChanged(Availability newMode);
 
 private:
     Q_DISABLE_COPY(BaseComponent)
-    void registerExtensionInstance(void *instance, const QString &i_forTypeId);
+    void registerExtensionInstance(void *instance, const QString &forTypeId);
 
 private:
     ComponentDefinition *m_definition;

@@ -44,16 +44,16 @@ DependencySolver::~DependencySolver()
 }
 
 //------------------------------------------------------------------------------
-void DependencySolver::addComponent(const QString &i_name)
+void DependencySolver::addComponent(const QString &name)
 {
-    if (i_name.isEmpty()) {
+    if (name.isEmpty()) {
         QString error = QString("The provided component name must not be null or empty.");
         qDebug(error.toLatin1());
         return;
     }
 
-    addToDependencyMatrix(i_name);
-    addToKnownComponents(i_name);
+    addToDependencyMatrix(name);
+    addToKnownComponents(name);
 }
 
 //------------------------------------------------------------------------------
@@ -129,32 +129,32 @@ bool DependencySolver::solve(QStringList &ordered, QStringList &orphans, QString
 }
 
 //------------------------------------------------------------------------------
-void DependencySolver::addToDependencyMatrix(const QString &i_component)
+void DependencySolver::addToDependencyMatrix(const QString &component)
 {
-    if (!m_dependencyMatrix->contains(i_component))
-        m_dependencyMatrix->add(i_component);
+    if (!m_dependencyMatrix->contains(component))
+        m_dependencyMatrix->add(component);
 }
 
 //------------------------------------------------------------------------------
-void DependencySolver::addToKnownComponents(const QString &i_component)
+void DependencySolver::addToKnownComponents(const QString &component)
 {
-    if (!m_knownComponents.contains(i_component, Qt::CaseInsensitive))
-        m_knownComponents.push_back(i_component);
+    if (!m_knownComponents.contains(component, Qt::CaseInsensitive))
+        m_knownComponents.push_back(component);
 }
 
 //------------------------------------------------------------------------------
-QStringList DependencySolver::findLeaves(const QStringList &i_skip) const
+QStringList DependencySolver::findLeaves(const QStringList &skip) const
 {
     QStringList result;
 
     foreach (const QString &parentComponent, m_dependencyMatrix->keys()) {
-        if (i_skip.contains(parentComponent))
+        if (skip.contains(parentComponent))
             continue;
 
         int count = 0;
         const QStringList &children = *m_dependencyMatrix->value(parentComponent);
         foreach (const QString &child, children) {
-            if (i_skip.contains(child))
+            if (skip.contains(child))
                 continue;
 
             ++count;

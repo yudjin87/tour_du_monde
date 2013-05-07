@@ -58,7 +58,7 @@ public:
 
     /*!
      * @details
-     *   Appends a new QMenu with @a i_title to the menu bar. The menu bar takes ownership of the menu.
+     *   Appends a new QMenu with @a title to the menu bar. The menu bar takes ownership of the menu.
      *   Returns the new menu.
      *
      *   To add menu item to the menu use OperationCatalog:
@@ -68,36 +68,36 @@ public:
      * @endcode
      * @sa OperationCatalog::register();
      */
-    virtual QMenu *addMenu(const QString &i_title) = 0;
+    virtual QMenu *addMenu(const QString &title) = 0;
 
     /*!
      * @details
-     *   Appends a new QMenu with @a i_icon and @a i_title to the menu bar.
+     *   Appends a new QMenu with @a icon and @a title to the menu bar.
      *   The menu bar takes ownership of the menu.
      *   Returns the new menu.
      */
-    virtual QMenu *addMenu(const QIcon &i_icon, const QString &i_title) = 0;
+    virtual QMenu *addMenu(const QIcon &icon, const QString &title) = 0;
 
     /*!
      * @details
-     *   Adds a new QMenu with @a i_title to the catalog (it takes ownership of the menu).
+     *   Adds a new QMenu with @a title to the catalog (it takes ownership of the menu).
      *   You can use this menu later for the popup, using findPopup().
      *   Returns the new menu.
      */
-    virtual QMenu *addPopup(const QString &i_title) = 0;
+    virtual QMenu *addPopup(const QString &title) = 0;
 
     /*!
      * @details
-     *   Adds a new QMenu with @a i_icon and @a i_title to the catalog
+     *   Adds a new QMenu with @a icon and @a title to the catalog
      *   (it takes ownership of the menu).
      *   You can use this menu later for the popup, using findPopup().
      *   Returns the new menu.
      */
-    virtual QMenu *addPopup(const QIcon &i_icon, const QString &i_title) = 0;
+    virtual QMenu *addPopup(const QIcon &icon, const QString &title) = 0;
 
     /*!
      * @details
-     *   Searches for the menu specified by @a i_title, removes if any
+     *   Searches for the menu specified by @a title, removes if any
      *   from containter and calls delete.
      *
      *   Usualy you should not use this method directly - it is used
@@ -106,7 +106,7 @@ public:
      *
      *   To remove menu from menu bar without deleting use removeMenu().
      */
-    virtual void deleteMenu(const QString &i_title) = 0;
+    virtual void deleteMenu(const QString &title) = 0;
 
     /*!
      * @details
@@ -122,55 +122,55 @@ public:
 
     /*!
      * @details
-     *   Searches for the menu specified by @a i_title
+     *   Searches for the menu specified by @a title
      *   in the menu bar and other menus.
      * @return
      *   Found menu. Null, if there are no menus with such title.
      */
-    virtual QMenu *findMenu(const QString &i_title)  = 0;
+    virtual QMenu *findMenu(const QString &title)  = 0;
 
     /*!
      * @details
-     *   Searches for the menu specified by @a i_title
+     *   Searches for the menu specified by @a title
      *   in the menu bar and other menus.
      * @return
      *   Found menu. Null, if there are no menus with such title.
      */
-    virtual const QMenu *findMenu(const QString &i_title) const  = 0;
+    virtual const QMenu *findMenu(const QString &title) const  = 0;
 
     /*!
      * @details
-     *   Searches for the menu specified by @a i_title
+     *   Searches for the menu specified by @a title
      *   in the menu bar, other menus and in removed menus list.
      * @return
      *   Found menu. Null, if there are no menus with such title.
      */
-    virtual QMenu *findMenuEverywhere(const QString &i_title)  = 0;
+    virtual QMenu *findMenuEverywhere(const QString &title)  = 0;
 
     /*!
      * @details
-     *   Searches for the menu specified by @a i_title
+     *   Searches for the menu specified by @a title
      *   in the menu bar, other menus and in removed menus list.
      * @return
      *   Found menu. Null, if there are no menus with such title.
      */
-    virtual const QMenu *findMenuEverywhere(const QString &i_title) const  = 0;
+    virtual const QMenu *findMenuEverywhere(const QString &title) const  = 0;
 
     /*!
      * @details
-     *   Searches for the popup menu specified by @a i_title.
+     *   Searches for the popup menu specified by @a title.
      * @return
      *   Found menu. Null, if there are no popup menus with such title.
      */
-    virtual QMenu *findPopup(const QString &i_title)  = 0;
+    virtual QMenu *findPopup(const QString &title)  = 0;
 
     /*!
      * @details
-     *   Searches for the popup menu specified by @a i_title.
+     *   Searches for the popup menu specified by @a title.
      * @return
      *   Found menu. Null, if there are no popup menus with such title.
      */
-    virtual const QMenu *findPopup(const QString &i_title) const  = 0;
+    virtual const QMenu *findPopup(const QString &title) const  = 0;
 
     /*!
      * @details
@@ -181,13 +181,13 @@ public:
 
     /*!
      * @details
-     *   Removes QMenu with @a i_title from the menu bar and
+     *   Removes QMenu with @a title from the menu bar and
      *   stores it in its internal collection.
      *   The menu catalog takes ownership of the removed menu.
      *
      *   To remove menu item from the menu use QMenu::removeAction().
      */
-    virtual void removeMenu(const QString &i_title) = 0;
+    virtual void removeMenu(const QString &title) = 0;
 
     /*!
      * @details

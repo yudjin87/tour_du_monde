@@ -50,12 +50,12 @@ ProxyComponent::ProxyComponent(ComponentDefinition *definition, IComponentLoader
 }
 
 //------------------------------------------------------------------------------
-void *ProxyComponent::getExtension(const QString &i_byTypeId) const
+void *ProxyComponent::getExtension(const QString &byTypeId) const
 {
     if (m_component == nullptr)
         return nullptr;
 
-    return m_component->getExtension(i_byTypeId);
+    return m_component->getExtension(byTypeId);
 }
 
 //------------------------------------------------------------------------------

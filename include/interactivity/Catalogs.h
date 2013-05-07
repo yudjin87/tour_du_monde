@@ -54,7 +54,7 @@ public:
      *   for the MenuCatalog creation. Note, that MenuCatalog requires
      *   that QMenuBar has been added to the specified QMainWindow.
      */
-    Catalogs(QMainWindow &i_shell, QObject *startUpData);
+    Catalogs(QMainWindow &shell, QObject *startUpData);
     ~Catalogs();
 
     /*!

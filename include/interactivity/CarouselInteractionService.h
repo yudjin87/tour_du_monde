@@ -45,7 +45,7 @@ class INTERACTIVITY_API CarouselInteractionService : public IInteractionService
 {
     Q_OBJECT
 public:
-    CarouselInteractionService(AbstractApplication &i_application, QObject *parent = nullptr);
+    CarouselInteractionService(AbstractApplication &application, QObject *parent = nullptr);
     ~CarouselInteractionService();
 
     /*!

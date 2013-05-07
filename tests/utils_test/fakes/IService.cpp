@@ -27,9 +27,9 @@
 #include "IService.h"
 
 //------------------------------------------------------------------------------
-IService::IService(int i_id, QObject *parent)
+IService::IService(int id, QObject *parent)
     : QObject(parent)
-    , m_id(i_id)
+    , m_id(id)
 {
 }
 

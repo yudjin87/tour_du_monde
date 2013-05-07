@@ -76,12 +76,12 @@ public:
      * @details
      *   Creates new QDockWidget, sets @a widget to it and
      *   adds new dockable widget to the main window into the
-     *   @a i_area area. Null pointer will be skipped.
+     *   @a area area. Null pointer will be skipped.
      *
      *   Note, that catalog takes ownership of the new
      *   dock widget.
      */
-    virtual QDockWidget *addDockWidget(QWidget *widget, const QString &windowTitle, Qt::DockWidgetArea i_area) = 0;
+    virtual QDockWidget *addDockWidget(QWidget *widget, const QString &windowTitle, Qt::DockWidgetArea area) = 0;
 
     /*!
      * @details

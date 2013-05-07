@@ -47,20 +47,20 @@ class INTERACTIVITY_API ToolBarCatalog : public IToolBarCatalog
 {
     Q_OBJECT
 public:
-    ToolBarCatalog(QMainWindow &i_shell);
+    ToolBarCatalog(QMainWindow &shell);
     ~ToolBarCatalog();
 
     /*!
      * @details
      *   This is an overloaded function.
      *
-     *   Equivalent of calling add(Qt::TopToolBarArea, i_title)
+     *   Equivalent of calling add(Qt::TopToolBarArea, title)
      */
-    QToolBar *add(const QString &i_title);
+    QToolBar *add(const QString &title);
 
     /*!
      * @details
-     *   Adds the toolbar with @a i_title into the specified area in this main window.
+     *   Adds the toolbar with @a title into the specified area in this main window.
      *   The toolbar is placed at the end of the current toolbar block (i.e. line).
      *   If the main window already manages toolbar then it will only move the toolbar to area.
      *   Toolbars with epmty string are not allowed.
@@ -75,18 +75,18 @@ public:
      * @sa IToolBarCatalog::add()
      *   Note, that toolbar catalog takes ownership of the new toolbar.
      */
-    QToolBar *add(Qt::ToolBarArea i_area, const QString &i_title);
+    QToolBar *add(Qt::ToolBarArea area, const QString &title);
 
     /*!
      * @details
-     *   Searches for the toolbar specified by @a i_title, removes if any
+     *   Searches for the toolbar specified by @a title, removes if any
      *   from containter and calls delete.
      *
      *   Usualy you should not use this method directly - it is used
      *   only by IComponentConfigurationDelegate to deconfigure component
      *   and revert changes is did.
      */
-    void deleteToolbar(const QString &i_title);
+    void deleteToolbar(const QString &title);
 
     /*!
      * @details
@@ -100,21 +100,21 @@ public:
 
     /*!
      * @details
-     *   Searches for the toolbar specified by @a i_title
+     *   Searches for the toolbar specified by @a title
      *   in the added toolbars.
      * @return
      *   Found toolbar. Null, if there are no toolbars with such title.
      */
-    QToolBar *find(const QString &i_title);
+    QToolBar *find(const QString &title);
 
     /*!
      * @details
-     *   Searches for the toolbar specified by @a i_title
+     *   Searches for the toolbar specified by @a title
      *   in the added toolbars.
      * @return
      *   Found toolbar. Null, if there are no toolbars with such title.
      */
-    const QToolBar *find(const QString &i_title) const;
+    const QToolBar *find(const QString &title) const;
 
     /*!
      * @details
@@ -131,7 +131,7 @@ protected:
     virtual void onToolbarAdded(QToolBar *toolbar);
 
 private:
-    QToolBar *_createToolbar(Qt::ToolBarArea i_area, const QString &i_title);
+    QToolBar *_createToolbar(Qt::ToolBarArea area, const QString &title);
 
 protected:
     QList<QToolBar *> m_toolbars;

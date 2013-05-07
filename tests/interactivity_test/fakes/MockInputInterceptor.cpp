@@ -40,9 +40,9 @@ MockInputInterceptor::~MockInputInterceptor()
 }
 
 //------------------------------------------------------------------------------
-void MockInputInterceptor::setDeleteFlag(bool &i_wasDestructorCalled)
+void MockInputInterceptor::setDeleteFlag(bool &wasDestructorCalled)
 {
-    m_wasDestructorCalled = &i_wasDestructorCalled;
+    m_wasDestructorCalled = &wasDestructorCalled;
 }
 
 //------------------------------------------------------------------------------

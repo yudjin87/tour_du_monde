@@ -60,11 +60,11 @@ public:
      *
      *   Equivalent of calling add(Qt::TopToolBarArea, toolbar)
      */
-    virtual QToolBar *add(const QString &i_title) = 0;
+    virtual QToolBar *add(const QString &title) = 0;
 
     /*!
      * @details
-     *   Adds the toolbar with @a i_title into the specified area in this main window.
+     *   Adds the toolbar with @a title into the specified area in this main window.
      *   The toolbar is placed at the end of the current toolbar block (i.e. line).
      *   If the main window already manages toolbar then it will only move the toolbar to area.
      *   Toolbars with epmty string are not allowed.
@@ -79,18 +79,18 @@ public:
      * @sa IToolBarCatalog::add()
      *   Note, that toolbar catalog takes ownership of the new toolbar.
      */
-    virtual QToolBar *add(Qt::ToolBarArea i_area, const QString &i_title) = 0;
+    virtual QToolBar *add(Qt::ToolBarArea area, const QString &title) = 0;
 
     /*!
      * @details
-     *   Searches for the toolbar specified by @a i_title, removes if any
+     *   Searches for the toolbar specified by @a title, removes if any
      *   from containter and calls delete.
      *
      *   Usualy you should not use this method directly - it is used
      *   only by IComponentConfigurationDelegate to deconfigure component
      *   and revert changes is did.
      */
-    virtual void deleteToolbar(const QString &i_title) = 0;
+    virtual void deleteToolbar(const QString &title) = 0;
 
     /*!
      * @details
@@ -104,21 +104,21 @@ public:
 
     /*!
      * @details
-     *   Searches for the toolbar specified by @a i_title
+     *   Searches for the toolbar specified by @a title
      *   in the added toolbars.
      * @return
      *   Found toolbar. Null, if there are no toolbars with such title.
      */
-    virtual QToolBar *find(const QString &i_title) = 0;
+    virtual QToolBar *find(const QString &title) = 0;
 
     /*!
      * @details
-     *   Searches for the toolbar specified by @a i_title
+     *   Searches for the toolbar specified by @a title
      *   in the added toolbars.
      * @return
      *   Found toolbar. Null, if there are no toolbars with such title.
      */
-    virtual const QToolBar *find(const QString &i_title) const = 0;
+    virtual const QToolBar *find(const QString &title) const = 0;
 
     /*!
      * @details

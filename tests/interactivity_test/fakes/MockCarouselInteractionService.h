@@ -33,7 +33,7 @@ class MockCarouselInteractionService : public CarouselInteractionService
 {
     Q_OBJECT
 public:
-    explicit MockCarouselInteractionService(AbstractApplication &i_application, QObject *parent = nullptr);
+    explicit MockCarouselInteractionService(AbstractApplication &application, QObject *parent = nullptr);
     
     void loadUiState(int version = 0);
 

@@ -79,18 +79,18 @@ public:
      * @details
      *   Returns all operations with specified category.
      */
-    virtual QList<Operation *> operations(const QString &i_byCategory) const = 0;
+    virtual QList<Operation *> operations(const QString &byCategory) const = 0;
 
     /*!
      * @details
-     *   Searches for the operation specified by @a i_name, removes if any
+     *   Searches for the operation specified by @a name, removes if any
      *   from containter and calls delete.
      *
      *   Usualy you should not use this method directly - it is used
      *   only by IComponentConfigurationDelegate to deconfigure component
      *   and revert changes is did.
      */
-    virtual void deleteOperation(const QString &i_name) = 0;
+    virtual void deleteOperation(const QString &name) = 0;
 
     /*!
      * @details
@@ -104,23 +104,23 @@ public:
 
     /*!
      * @details
-     *   Searches for the operation specified by @a i_name. Note, that
+     *   Searches for the operation specified by @a name. Note, that
      *   found name shold not be localized.
      *   @sa Operation::name()
      * @return
      *   Found operation. Null, if there are no operations with such name.
      */
-    virtual Operation *find(const QString &i_name) = 0;
+    virtual Operation *find(const QString &name) = 0;
 
     /*!
      * @details
-     *   Searches for the operation specified by @a i_name. Note, that
+     *   Searches for the operation specified by @a name. Note, that
      *   found name shold not be localized.
      *   @sa Operation::name()
      * @return
      *   Found operation. Null, if there are no operations with such name.
      */
-    virtual const Operation *find(const QString &i_name) const = 0;
+    virtual const Operation *find(const QString &name) const = 0;
 
 signals:
     /*!

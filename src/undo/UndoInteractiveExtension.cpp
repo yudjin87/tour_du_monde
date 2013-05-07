@@ -45,21 +45,21 @@ UndoInteractiveExtension::UndoInteractiveExtension(QObject *parent /*= nullptr*/
 }
 
 //------------------------------------------------------------------------------
-void UndoInteractiveExtension::configureGui(ICatalogs &i_inCatalogs, AbstractApplication &i_application)
+void UndoInteractiveExtension::configureGui(ICatalogs &inCatalogs, AbstractApplication &application)
 {
-    Q_UNUSED(i_application)
+    Q_UNUSED(application)
 
-    IOperationCatalog &operationCatalog = i_inCatalogs.operationCatalog();
+    IOperationCatalog &operationCatalog = inCatalogs.operationCatalog();
     Operation *undo = operationCatalog.add(new UndoOperation());
     Operation *redo = operationCatalog.add(new RedoOperation());
 
-    IToolBarCatalog &toolbarCatalog = i_inCatalogs.toolBarCatalog();
+    IToolBarCatalog &toolbarCatalog = inCatalogs.toolBarCatalog();
     QToolBar *toolBar = toolbarCatalog.add("Edit");
     toolBar->addAction(undo);
     toolBar->addAction(redo);
 
 
-    IMenuCatalog &menuCatalog = i_inCatalogs.menuCatalog();
+    IMenuCatalog &menuCatalog = inCatalogs.menuCatalog();
     QMenu *menu = menuCatalog.addMenu("Edit");
     menu->addAction(undo);
     menu->addAction(redo);

@@ -80,7 +80,7 @@ public:
      *   this by setting a specific description with setText(). The same text will be
      *   used for tooltips unless you specify a different text using setToolTip().
      */
-    Operation(const QString &i_text, QActionGroup *actionGroup = nullptr);
+    Operation(const QString &text, QActionGroup *actionGroup = nullptr);
 
     /*!
      * @details
@@ -93,7 +93,7 @@ public:
      *   this by setting a specific description with setText(). The same text will be
      *   used for tooltips unless you specify a different text using setToolTip().
      */
-    Operation(const QIcon &i_icon, const QString &i_text, QActionGroup *actionGroup = nullptr);
+    Operation(const QIcon &icon, const QString &text, QActionGroup *actionGroup = nullptr);
     ~Operation();
 
     /*!
@@ -151,7 +151,7 @@ protected:
      *   It determines where the operation will appear in the Operations panel
      *   of the Customize dialog.
      */
-    void setCategory(const QString &i_category);
+    void setCategory(const QString &category);
 
     /*!
      * @details
@@ -163,14 +163,14 @@ protected:
      *   @note the text() property of a operation is the string that appears when the operation
      *   is placed on a operation bar.
      */
-    void setName(const QString &i_name);
+    void setName(const QString &name);
 
 private:
     void _connectToSignals();
 
 private slots:
-    void _onTriggered(bool i_checked);
-    void _onToggled(bool i_checked);
+    void _onTriggered(bool checked);
+    void _onToggled(bool checked);
 
 private:
     QString m_category;

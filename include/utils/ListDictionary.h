@@ -46,17 +46,17 @@ public:
      * @details
      *   Adds key with empty list to the dictionary.
      */
-    void add(const TKey &i_key);
+    void add(const TKey &key);
 
     /*!
      * @details
      *   Adds value to the list for specified key. If lists not found
      *   for this key, adds key with empty list to the dictionary.
      */
-    void add(const TKey &i_key, const TValue &i_value);
+    void add(const TKey &key, const TValue &value);
 
 private:
-    Container* _createNewList(const TKey &i_key);
+    Container* _createNewList(const TKey &key);
 };
 
 //------------------------------------------------------------------------------
@@ -71,30 +71,30 @@ ListDictionary<TKey, TValue>::~ListDictionary()
 
 //------------------------------------------------------------------------------
 template<typename TKey, typename TValue>
-void ListDictionary<TKey, TValue>::add(const TKey &i_key)
+void ListDictionary<TKey, TValue>::add(const TKey &key)
 {
-    _createNewList(i_key);
+    _createNewList(key);
 }
 
 //------------------------------------------------------------------------------
 template<typename TKey, typename TValue>
-void ListDictionary<TKey, TValue>::add(const TKey &i_key, const TValue &i_value)
+void ListDictionary<TKey, TValue>::add(const TKey &key, const TValue &value)
 {
-    if (this->contains(i_key)) {
-        this->value(i_key)->push_back(i_value);
+    if (this->contains(key)) {
+        this->value(key)->push_back(value);
     }
     else {
-        Container* values = _createNewList(i_key);
-        values->push_back(i_value);
+        Container* values = _createNewList(key);
+        values->push_back(value);
     }
 }
 
 //------------------------------------------------------------------------------
 template<typename TKey, typename TValue>
-typename ListDictionary<TKey, TValue>::Container* ListDictionary<TKey, TValue>::_createNewList(const TKey &i_key)
+typename ListDictionary<TKey, TValue>::Container* ListDictionary<TKey, TValue>::_createNewList(const TKey &key)
 {
     Container* values = new Container();
-    this->insert(i_key, values);
+    this->insert(key, values);
     return values;
 }
 

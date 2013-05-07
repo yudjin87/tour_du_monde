@@ -62,7 +62,7 @@ protected:
      *   dialog constructor with specified dialog and model types.
      * @sa showDialog(), registerDialog()
      */
-    void registerConstructor(const QString &i_dlgModelType, IDialogConstructor *constructor);
+    void registerConstructor(const QString &dlgModelType, IDialogConstructor *constructor);
 
     /*!
      * @details
@@ -71,7 +71,7 @@ protected:
      *   returns @a false.
      * @sa showDialog()
      */
-    bool showDialogForModel(const QString& i_forDlgModelType, void *dlgModel) const;
+    bool showDialogForModel(const QString& forDlgModelType, void *dlgModel) const;
 
     /*!
      * @details

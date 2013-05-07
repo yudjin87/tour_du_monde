@@ -42,8 +42,8 @@ ToolBase::ToolBase(QActionGroup *actionGroup)
 }
 
 //------------------------------------------------------------------------------
-ToolBase::ToolBase(const QString &i_text, QActionGroup *actionGroup)
-    : Operation(i_text, actionGroup)
+ToolBase::ToolBase(const QString &text, QActionGroup *actionGroup)
+    : Operation(text, actionGroup)
     , m_app(nullptr)
     , m_interactionService(nullptr)
 {
@@ -51,8 +51,8 @@ ToolBase::ToolBase(const QString &i_text, QActionGroup *actionGroup)
 }
 
 //------------------------------------------------------------------------------
-ToolBase::ToolBase(const QIcon &i_icon, const QString &i_text, QActionGroup *actionGroup)
-    : Operation(i_icon, i_text, actionGroup)
+ToolBase::ToolBase(const QIcon &icon, const QString &text, QActionGroup *actionGroup)
+    : Operation(icon, text, actionGroup)
     , m_app(nullptr)
     , m_interactionService(nullptr)
 {

@@ -35,7 +35,7 @@ public:
     MockInputInterceptor();
     ~MockInputInterceptor();
 
-    void setDeleteFlag(bool &i_wasDestructorCalled);
+    void setDeleteFlag(bool &wasDestructorCalled);
 
 private:
     bool *m_wasDestructorCalled;

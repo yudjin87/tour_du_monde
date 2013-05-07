@@ -37,7 +37,7 @@ public:
     
     bool addComponent(IComponent *component);
 
-    DependenciesSolvingResult completeListWithChildren(const QList<IComponent *> &i_forChildren) const;
+    DependenciesSolvingResult completeListWithChildren(const QList<IComponent *> &forChildren) const;
 
 signals:
     void onCompleteListWithChildren(IComponent *) const;

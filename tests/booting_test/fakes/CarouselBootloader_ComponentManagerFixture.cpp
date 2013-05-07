@@ -6,8 +6,8 @@
 class ComponentStub : public BaseComponent
 {
 public:
-    ComponentStub(const QString &i_name)
-        : BaseComponent(i_name)
+    ComponentStub(const QString &name)
+        : BaseComponent(name)
     {
     }
 };

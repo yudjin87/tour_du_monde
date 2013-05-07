@@ -45,21 +45,21 @@ DialogService::~DialogService()
 }
 
 //------------------------------------------------------------------------------
-void DialogService::registerConstructor(const QString &i_dlgModelType, IDialogConstructor *constructor)
+void DialogService::registerConstructor(const QString &dlgModelType, IDialogConstructor *constructor)
 {
-    m_viewsMap.insert(i_dlgModelType, constructor);
+    m_viewsMap.insert(dlgModelType, constructor);
 }
 
 //------------------------------------------------------------------------------
-bool DialogService::showDialogForModel(const QString &i_forDlgModelType, void *dlgModel) const
+bool DialogService::showDialogForModel(const QString &forDlgModelType, void *dlgModel) const
 {
-    if (!m_viewsMap.contains(i_forDlgModelType)) {
+    if (!m_viewsMap.contains(forDlgModelType)) {
         qDebug(QString("The dialog with such model \"%1\" is not registered.")
-               .arg(i_forDlgModelType).toUtf8());
+               .arg(forDlgModelType).toUtf8());
         return false;
     }
 
-    IDialogConstructor *constructor = m_viewsMap.value(i_forDlgModelType);
+    IDialogConstructor *constructor = m_viewsMap.value(forDlgModelType);
     QDialog *dlg = createDialog(constructor, dlgModel);
     dlg->setAttribute(Qt::WA_DeleteOnClose);
 

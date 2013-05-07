@@ -68,13 +68,13 @@ DependenciesSolvingResult ComponentDependencies::completeListWithChild(IComponen
 }
 
 //------------------------------------------------------------------------------
-DependenciesSolvingResult ComponentDependencies::completeListWithChildren(const QList<IComponent *> &i_forChildren) const
+DependenciesSolvingResult ComponentDependencies::completeListWithChildren(const QList<IComponent *> &forChildren) const
 {
-    if (i_forChildren.empty())
+    if (forChildren.empty())
         return DependenciesSolvingResult();
 
     QList<IComponent *> completeList;
-    QList<IComponent *> unresolvedList(i_forChildren);
+    QList<IComponent *> unresolvedList(forChildren);
 
     while (unresolvedList.size() > 0) {
         IComponent *componentInfo = unresolvedList[0];
@@ -158,13 +158,13 @@ DependenciesSolvingResult ComponentDependencies::completeListWithParents(const Q
 }
 
 //------------------------------------------------------------------------------
-IComponent *ComponentDependencies::componentByName(const QString &i_byName) const
+IComponent *ComponentDependencies::componentByName(const QString &byName) const
 {
     if (m_components.empty())
         return nullptr;
 
     foreach(IComponent *com, m_components) {
-        if (com->name() == i_byName)
+        if (com->name() == byName)
             return com;
     }
 
@@ -227,14 +227,14 @@ DependenciesSolvingResult ComponentDependencies::getChildComponents(const ICompo
 }
 
 //------------------------------------------------------------------------------
-DependenciesSolvingResult ComponentDependencies::solveDependencies(const QList<IComponent *> &i_components)
+DependenciesSolvingResult ComponentDependencies::solveDependencies(const QList<IComponent *> &components)
 {
     QStringList ordered;
     QStringList orphans;
     QStringList missing;
     DependencySolver solver;
 
-    foreach (IComponent *com, i_components) {
+    foreach (IComponent *com, components) {
         solver.addComponent(com->name());
 
         const ComponentDefinition *definition = com->definition();
@@ -246,7 +246,7 @@ DependenciesSolvingResult ComponentDependencies::solveDependencies(const QList<I
     bool hasCyclic = !solver.solve(ordered, orphans, missing);
     if (hasCyclic) {
         qDebug("At least one cyclic dependency has been found in the component manager. Cycles in the component dependencies must be avoided.");
-        return DependenciesSolvingResult(ordered, orphans, missing, i_components, hasCyclic);
+        return DependenciesSolvingResult(ordered, orphans, missing, components, hasCyclic);
     }
 
     if (!missing.isEmpty()) {
@@ -254,7 +254,7 @@ DependenciesSolvingResult ComponentDependencies::solveDependencies(const QList<I
                .arg(missing.join(", ")).toLatin1());
     }
 
-    return DependenciesSolvingResult(ordered, orphans, missing, i_components, hasCyclic);
+    return DependenciesSolvingResult(ordered, orphans, missing, components, hasCyclic);
 }
 
 //------------------------------------------------------------------------------

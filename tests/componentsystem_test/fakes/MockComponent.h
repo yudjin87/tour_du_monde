@@ -7,7 +7,7 @@ class MockComponent : public BaseComponent
 {
    Q_OBJECT
 public:
-    explicit MockComponent(const QString &i_name = "MockComponent", bool isBuiltIn = false);
+    explicit MockComponent(const QString &name = "MockComponent", bool isBuiltIn = false);
 
     ~MockComponent();
 
@@ -20,8 +20,8 @@ protected:
     void _onShutdown();
 
 signals:
-    void whenStarted(const QString &i_name);
-    void whenShutdown(const QString &i_name);
+    void whenStarted(const QString &name);
+    void whenShutdown(const QString &name);
 
 public:
     QObject *m_initData;

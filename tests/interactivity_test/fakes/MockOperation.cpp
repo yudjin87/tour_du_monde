@@ -54,15 +54,15 @@ void MockOperation::stopExecuting()
 }
 
 //------------------------------------------------------------------------------
-void MockOperation::setCategory(const QString &i_category)
+void MockOperation::setCategory(const QString &category)
 {
-    Operation::setCategory(i_category);
+    Operation::setCategory(category);
 }
 
 //------------------------------------------------------------------------------
-void MockOperation::setName(const QString &i_name)
+void MockOperation::setName(const QString &name)
 {
-    Operation::setName(i_name);
+    Operation::setName(name);
 }
 
 //------------------------------------------------------------------------------

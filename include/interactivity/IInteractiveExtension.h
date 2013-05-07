@@ -59,10 +59,10 @@ public:
      *   Place your code here to register component-specific operations,
      *   dockable widgets and others in the specified catalogs.
      *
-     *   You can use @a i_application to obtain application model, for
+     *   You can use @a application to obtain application model, for
      *   example, to use it in the Qt View-Model approach.
      */
-    virtual void configureGui(ICatalogs &i_inCatalogs, AbstractApplication &i_application) = 0;
+    virtual void configureGui(ICatalogs &inCatalogs, AbstractApplication &application) = 0;
 
 private:
     Q_DISABLE_COPY(IInteractiveExtension)

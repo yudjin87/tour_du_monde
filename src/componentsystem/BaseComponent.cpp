@@ -32,8 +32,8 @@
 #include <QtCore/QSettings>
 
 //------------------------------------------------------------------------------
-BaseComponent::BaseComponent(const QString &i_name, QObject *parent)
-    : m_definition(new ComponentDefinition(i_name, true))
+BaseComponent::BaseComponent(const QString &name, QObject *parent)
+    : m_definition(new ComponentDefinition(name, true))
     , m_isStarted(false)
     , m_availability(IComponent::Enabled)
     , m_typeObjectsMap(new TypeObjectsMap<void *>())
@@ -58,9 +58,9 @@ BaseComponent::BaseComponent(ComponentDefinition *definition, QObject *parent)
 }
 
 //------------------------------------------------------------------------------
-void *BaseComponent::getExtension(const QString &i_byTypeId) const
+void *BaseComponent::getExtension(const QString &byTypeId) const
 {
-    return m_typeObjectsMap->getInstance(i_byTypeId);
+    return m_typeObjectsMap->getInstance(byTypeId);
 }
 
 //------------------------------------------------------------------------------
@@ -178,15 +178,15 @@ void BaseComponent::setProductName(const QString &productName)
 }
 
 //------------------------------------------------------------------------------
-void BaseComponent::onAvailabilityChanged(Availability i_newMode)
+void BaseComponent::onAvailabilityChanged(Availability newMode)
 {
-    emit availabilityChanged(i_newMode);
+    emit availabilityChanged(newMode);
 }
 
 //------------------------------------------------------------------------------
-void BaseComponent::registerExtensionInstance(void *instance, const QString &i_forTypeId)
+void BaseComponent::registerExtensionInstance(void *instance, const QString &forTypeId)
 {
-    m_typeObjectsMap->registerInstance(instance, i_forTypeId);
+    m_typeObjectsMap->registerInstance(instance, forTypeId);
 }
 
 //------------------------------------------------------------------------------

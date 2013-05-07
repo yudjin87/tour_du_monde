@@ -42,8 +42,8 @@
 
 #include <assert.h>
 //------------------------------------------------------------------------------
-CarouselInteractionService::CarouselInteractionService(AbstractApplication &i_application, QObject *parent /*= nullptr*/)
-    : m_app(i_application)
+CarouselInteractionService::CarouselInteractionService(AbstractApplication &application, QObject *parent /*= nullptr*/)
+    : m_app(application)
     , m_inputInterceptor(nullptr)
     , m_componentConfigurationDelegate(new CarouselComponentConfigurationDelegate())
     , m_componentManager(nullptr)
@@ -53,13 +53,13 @@ CarouselInteractionService::CarouselInteractionService(AbstractApplication &i_ap
 {
     setParent(parent);
 
-    m_mainWindow = i_application.serviceLocator().locate<QMainWindow>();
+    m_mainWindow = application.serviceLocator().locate<QMainWindow>();
     assert(m_mainWindow != nullptr);
 
-    m_componentManager = i_application.serviceLocator().locate<IComponentManager>();
+    m_componentManager = application.serviceLocator().locate<IComponentManager>();
     assert(m_componentManager != nullptr);
 
-    m_catalogs = new Catalogs(*m_mainWindow, &i_application);
+    m_catalogs = new Catalogs(*m_mainWindow, &application);
 
     connect(m_componentManager, SIGNAL(componentStarted(IComponent *)),
             SLOT(onComponentStartedUp(IComponent *)));

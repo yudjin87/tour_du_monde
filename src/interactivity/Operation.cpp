@@ -36,8 +36,8 @@ Operation::Operation(QActionGroup *actionGroup /*= nullptr*/)
 }
 
 //------------------------------------------------------------------------------
-Operation::Operation(const QString &i_text, QActionGroup *actionGroup /*= nullptr*/)
-    : QAction(i_text, actionGroup)
+Operation::Operation(const QString &text, QActionGroup *actionGroup /*= nullptr*/)
+    : QAction(text, actionGroup)
     , m_category("")
     , m_name("")
 {
@@ -45,8 +45,8 @@ Operation::Operation(const QString &i_text, QActionGroup *actionGroup /*= nullpt
 }
 
 //------------------------------------------------------------------------------
-Operation::Operation(const QIcon &i_icon, const QString &i_text, QActionGroup *actionGroup /*= nullptr*/)
-    : QAction(i_icon, i_text, actionGroup)
+Operation::Operation(const QIcon &icon, const QString &text, QActionGroup *actionGroup /*= nullptr*/)
+    : QAction(icon, text, actionGroup)
     , m_category("")
     , m_name("")
 {
@@ -83,19 +83,19 @@ QString Operation::name() const
 }
 
 //------------------------------------------------------------------------------
-void Operation::setCategory(const QString &i_category)
+void Operation::setCategory(const QString &category)
 {
-    m_category = i_category;
+    m_category = category;
 }
 
 //------------------------------------------------------------------------------
-void Operation::setName(const QString &i_name)
+void Operation::setName(const QString &name)
 {
-    m_name = i_name;
+    m_name = name;
 }
 
 //------------------------------------------------------------------------------
-void Operation::_onTriggered(bool /*i_checked*/)
+void Operation::_onTriggered(bool /*checked*/)
 {
     if (isCheckable())
         return;
@@ -104,9 +104,9 @@ void Operation::_onTriggered(bool /*i_checked*/)
 }
 
 //------------------------------------------------------------------------------
-void Operation::_onToggled(bool i_checked)
+void Operation::_onToggled(bool checked)
 {
-    if (i_checked)
+    if (checked)
         execute();
     else
         stopExecuting();

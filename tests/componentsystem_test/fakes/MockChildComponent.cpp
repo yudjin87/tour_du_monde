@@ -3,8 +3,8 @@
 #include <componentsystem/ComponentDefinition.h>
 
 //------------------------------------------------------------------------------
-MockChildComponent::MockChildComponent(const QString &i_name)
-    : BaseComponent(i_name)
+MockChildComponent::MockChildComponent(const QString &name)
+    : BaseComponent(name)
 {
 }
 

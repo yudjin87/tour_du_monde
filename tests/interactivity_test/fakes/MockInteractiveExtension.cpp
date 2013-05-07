@@ -35,8 +35,8 @@ MockInteractiveExtension::MockInteractiveExtension()
 }
 
 //------------------------------------------------------------------------------
-MockInteractiveExtension::MockInteractiveExtension(const QString &i_name)
-    : BaseComponent(i_name)
+MockInteractiveExtension::MockInteractiveExtension(const QString &name)
+    : BaseComponent(name)
     , m_interactiveExtension(new FakeInteractiveExtension())
 {
     registerExtension<IInteractiveExtension>(m_interactiveExtension);

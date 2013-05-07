@@ -59,20 +59,20 @@ QList<Operation *> OperationCatalog::operations() const
 }
 
 //------------------------------------------------------------------------------
-QList<Operation *> OperationCatalog::operations(const QString &i_byCategory) const
+QList<Operation *> OperationCatalog::operations(const QString &byCategory) const
 {
     QList<Operation *> operations;
     foreach(Operation *operation, m_operations)
-        if (operation->category() == i_byCategory)
+        if (operation->category() == byCategory)
             operations.push_back(operation);
 
     return operations;
 }
 
 //------------------------------------------------------------------------------
-void OperationCatalog::deleteOperation(const QString &i_name)
+void OperationCatalog::deleteOperation(const QString &name)
 {
-    Operation *operation = find(i_name);
+    Operation *operation = find(name);
     deleteOperation(operation);
 }
 
@@ -84,16 +84,16 @@ void OperationCatalog::deleteOperation(Operation *operation)
 }
 
 //------------------------------------------------------------------------------
-Operation *OperationCatalog::find(const QString &i_name)
+Operation *OperationCatalog::find(const QString &name)
 {
-    return const_cast<Operation *>(static_cast<const OperationCatalog &>(*this).find(i_name));
+    return const_cast<Operation *>(static_cast<const OperationCatalog &>(*this).find(name));
 }
 
 //------------------------------------------------------------------------------
-const Operation *OperationCatalog::find(const QString &i_name) const
+const Operation *OperationCatalog::find(const QString &name) const
 {
     foreach(Operation *operation, m_operations)
-        if (operation->name() == i_name)
+        if (operation->name() == name)
             return operation;
 
     return nullptr;

@@ -32,7 +32,7 @@
 class MockToolBarCatalog : public ToolBarCatalog
 {
 public:
-    MockToolBarCatalog(QMainWindow &i_shell);
+    MockToolBarCatalog(QMainWindow &shell);
 
     QMainWindow& getShell();
 };

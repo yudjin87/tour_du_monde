@@ -58,7 +58,7 @@ CarouselComponentConfigurationDelegate::~CarouselComponentConfigurationDelegate(
 }
 
 //------------------------------------------------------------------------------
-void CarouselComponentConfigurationDelegate::configure(IComponent *component, ICatalogs &catalogs, AbstractApplication &i_application)
+void CarouselComponentConfigurationDelegate::configure(IComponent *component, ICatalogs &catalogs, AbstractApplication &application)
 {
     IInteractiveExtension *interactiveExtension = component->extension<IInteractiveExtension>();
     if (interactiveExtension == nullptr)
@@ -88,7 +88,7 @@ void CarouselComponentConfigurationDelegate::configure(IComponent *component, IC
     m_changes.insert(component, changes);
 
     // Configure the new component
-    interactiveExtension->configureGui(catalogs, i_application);
+    interactiveExtension->configureGui(catalogs, application);
 
     // Disconnect from the catalogs
     catalogs.operationCatalog().disconnect(changes);

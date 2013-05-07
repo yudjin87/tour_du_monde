@@ -75,7 +75,7 @@ public:
      *   Initializes a new instance of the TextLogger class with the specified output
      *   stream for the logging.
      */
-    TextLogger(QTextStream &i_output);
+    TextLogger(QTextStream &output);
 
 public:
     /*!
@@ -83,7 +83,7 @@ public:
      *   Write a new log entry with the specified category and priority to the
      *   specified in constructor output stream.
      */
-    void log(const QString &i_message, Category i_categoryy = Debug, Priority i_priority = Low);
+    void log(const QString &message, Category categoryy = Debug, Priority priority = Low);
 
 protected:
     /*!

@@ -39,7 +39,7 @@ class MockInteractiveExtension : public BaseComponent
 {
 public:
     MockInteractiveExtension();
-    MockInteractiveExtension(const QString &i_name);
+    MockInteractiveExtension(const QString &name);
     ~MockInteractiveExtension();
 
 public:
@@ -58,12 +58,12 @@ public:
     {
     }
 
-    void configureGui(ICatalogs &i_inCatalogs, AbstractApplication &)
+    void configureGui(ICatalogs &inCatalogs, AbstractApplication &)
     {
         m_configureCalled = true;
 
         if (m_func != nullptr)
-            m_func(i_inCatalogs);
+            m_func(inCatalogs);
     }
 
     void setCunfigureFunc(configuredFunc func)

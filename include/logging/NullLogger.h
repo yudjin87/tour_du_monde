@@ -44,7 +44,7 @@ public:
      * @details
      *   Do nothing, just a stub.
      */
-    void log(const QString &i_message, Category i_categoryy = Debug, Priority i_priority = Low);
+    void log(const QString &message, Category categoryy = Debug, Priority priority = Low);
 };
 
 #endif // NULLLOGGER_H

@@ -15,22 +15,22 @@ static const QString libraryPattern("lib%1.so");
 #endif // Q_WS_X11
 
 //------------------------------------------------------------------------------
-QString formatLibraryName(const QString &i_libName)
+QString formatLibraryName(const QString &libName)
 {
-    return libraryPattern.arg(i_libName);
+    return libraryPattern.arg(libName);
 }
 
 //------------------------------------------------------------------------------
-QString pathToLib(const QString &i_libName, bool decorateName)
+QString pathToLib(const QString &libName, bool decorateName)
 {
     QDir libDir(qApp->applicationDirPath());
     libDir.cd("libs");
 
-    QString libName = decorateName
-            ? libraryPattern.arg(i_libName)
-            : i_libName;
+    QString decoratedLibName = decorateName
+            ? libraryPattern.arg(libName)
+            : libName;
 
-    QString absoluteLibFileName = libDir.absoluteFilePath(libName);
+    QString absoluteLibFileName = libDir.absoluteFilePath(decoratedLibName);
 
     QTest::qVerify(!absoluteLibFileName.isEmpty(), "!absoluteLibFileName.isEmpty()", "Empty path string", __FILE__, __LINE__);
 
@@ -38,14 +38,14 @@ QString pathToLib(const QString &i_libName, bool decorateName)
 }
 
 //------------------------------------------------------------------------------
-QString pathToComponent(const QString &i_libName, bool decorateName)
+QString pathToComponent(const QString &libName, bool decorateName)
 {
     QDir componentDir(qApp->applicationDirPath());
     componentDir.cd("components");
 
     QString componentName = decorateName
-            ? libraryPattern.arg(i_libName)
-            : i_libName;
+            ? libraryPattern.arg(libName)
+            : libName;
 
     QString absoluteComponentFileName = componentDir.absoluteFilePath(componentName);
 
@@ -55,12 +55,12 @@ QString pathToComponent(const QString &i_libName, bool decorateName)
 }
 
 //------------------------------------------------------------------------------
-QString pathToComponentDefinition(const QString &i_libName)
+QString pathToComponentDefinition(const QString &libName)
 {
     QDir componentDir(qApp->applicationDirPath());
     componentDir.cd("components");
 
-    QString definitionFileName = QString("%1.definition").arg(i_libName);
+    QString definitionFileName = QString("%1.definition").arg(libName);
 
     QString absoluteComponentFileName = componentDir.absoluteFilePath(definitionFileName);
 
@@ -81,28 +81,28 @@ QString pathToComponentsDir()
 }
 
 //------------------------------------------------------------------------------
-MockChildComponent* createParentComponent(const QString &i_name, const QString &i_dependsOn)
+MockChildComponent* createParentComponent(const QString &name, const QString &dependsOn)
 {
-    MockChildComponent *component = new MockChildComponent(i_name);
-    component->parents().push_back(i_dependsOn);
+    MockChildComponent *component = new MockChildComponent(name);
+    component->parents().push_back(dependsOn);
 
     return component;
 }
 
 //------------------------------------------------------------------------------
-MockChildComponent *createParentComponent(const QString &i_name, const QString &i_dependsOn, const QString &i_dependsOn2)
+MockChildComponent *createParentComponent(const QString &name, const QString &dependsOn, const QString &dependsOn2)
 {
-    MockChildComponent *component = new MockChildComponent(i_name);
-    component->parents().push_back(i_dependsOn);
-    component->parents().push_back(i_dependsOn2);
+    MockChildComponent *component = new MockChildComponent(name);
+    component->parents().push_back(dependsOn);
+    component->parents().push_back(dependsOn2);
 
     return component;
 }
 
 //------------------------------------------------------------------------------
-MockComponent* createComponent(const QString &i_name)
+MockComponent* createComponent(const QString &name)
 {
-    MockComponent *component = new MockComponent(i_name);
+    MockComponent *component = new MockComponent(name);
     return component;
 }
 

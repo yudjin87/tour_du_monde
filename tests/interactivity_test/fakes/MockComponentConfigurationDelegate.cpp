@@ -47,7 +47,7 @@ MockComponentConfigurationDelegate::~MockComponentConfigurationDelegate()
 }
 
 //------------------------------------------------------------------------------
-void MockComponentConfigurationDelegate::configure(IComponent * /*component*/, ICatalogs &/*catalogs*/, AbstractApplication &/*i_application*/)
+void MockComponentConfigurationDelegate::configure(IComponent * /*component*/, ICatalogs &/*catalogs*/, AbstractApplication &/*application*/)
 {
     m_configureCalled = true;
     ++m_configureCalls;
@@ -61,9 +61,9 @@ void MockComponentConfigurationDelegate::deconfigure(IComponent * /*component*/,
 }
 
 //------------------------------------------------------------------------------
-void MockComponentConfigurationDelegate::setDeleteFlag(bool &i_wasDestructorCalled)
+void MockComponentConfigurationDelegate::setDeleteFlag(bool &wasDestructorCalled)
 {
-    m_wasDestructorCalled = &i_wasDestructorCalled;
+    m_wasDestructorCalled = &wasDestructorCalled;
 }
 
 //------------------------------------------------------------------------------

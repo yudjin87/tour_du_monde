@@ -46,12 +46,12 @@ class INTERACTIVITY_API MenuCatalog : public IMenuCatalog
 {
     Q_OBJECT
 public:
-    MenuCatalog(QMenuBar &i_menuBar);
+    MenuCatalog(QMenuBar &menuBar);
     ~MenuCatalog();
 
     /*!
      * @details
-     *   Appends a new QMenu with @a i_title to the menu bar. The menu bar takes ownership of the menu.
+     *   Appends a new QMenu with @a title to the menu bar. The menu bar takes ownership of the menu.
      *   Returns the new menu.
      *
      *   To add menu item to the menu use OperationCatalog:
@@ -61,36 +61,36 @@ public:
      * @endcode
      * @sa OperationCatalog::register();
      */
-    QMenu *addMenu(const QString &i_title);
+    QMenu *addMenu(const QString &title);
 
     /*!
      * @details
-     *   Appends a new QMenu with @a i_icon and @a i_title to the menu bar.
+     *   Appends a new QMenu with @a icon and @a title to the menu bar.
      *   The menu bar takes ownership of the menu.
      *   Returns the new menu.
      */
-    QMenu *addMenu(const QIcon &i_icon, const QString &i_title);
+    QMenu *addMenu(const QIcon &icon, const QString &title);
 
     /*!
      * @details
-     *   Adds a new QMenu with @a i_title to the catalog (it takes ownership of the menu).
+     *   Adds a new QMenu with @a title to the catalog (it takes ownership of the menu).
      *   You can use this menu later for the popup, using findPopup().
      *   Returns the new menu.
      */
-    QMenu *addPopup(const QString &i_title);
+    QMenu *addPopup(const QString &title);
 
     /*!
      * @details
-     *   Adds a new QMenu with @a i_icon and @a i_title to the catalog
+     *   Adds a new QMenu with @a icon and @a title to the catalog
      *   (it takes ownership of the menu).
      *   You can use this menu later for the popup, using findPopup().
      *   Returns the new menu.
      */
-    QMenu *addPopup(const QIcon &i_icon, const QString &i_title);
+    QMenu *addPopup(const QIcon &icon, const QString &title);
 
     /*!
      * @details
-     *   Searches for the menu specified by @a i_title, removes if any
+     *   Searches for the menu specified by @a title, removes if any
      *   from containter and calls delete.
      *
      *   Usualy you should not use this method directly - it is used
@@ -99,7 +99,7 @@ public:
      *
      *   To remove menu from menu bar without deleting use removeMenu().
      */
-    void deleteMenu(const QString &i_title);
+    void deleteMenu(const QString &title);
 
     /*!
      * @details
@@ -115,55 +115,55 @@ public:
 
     /*!
      * @details
-     *   Searches for the menu specified by @a i_title
+     *   Searches for the menu specified by @a title
      *   in the menu bar and other menus.
      * @return
      *   Found menu. Null, if there are no menus with such title.
      */
-    QMenu *findMenu(const QString &i_title);
+    QMenu *findMenu(const QString &title);
 
     /*!
      * @details
-     *   Searches for the menu specified by @a i_title
+     *   Searches for the menu specified by @a title
      *   in the menu bar and other menus.
      * @return
      *   Found menu. Null, if there are no menus with such title.
      */
-    const QMenu *findMenu(const QString &i_title) const;
+    const QMenu *findMenu(const QString &title) const;
 
     /*!
      * @details
-     *   Searches for the menu specified by @a i_title
+     *   Searches for the menu specified by @a title
      *   in the menu bar, other menus and in removed menus list.
      * @return
      *   Found menu. Null, if there are no menus with such title.
      */
-    QMenu *findMenuEverywhere(const QString &i_title);
+    QMenu *findMenuEverywhere(const QString &title);
 
     /*!
      * @details
-     *   Searches for the menu specified by @a i_title
+     *   Searches for the menu specified by @a title
      *   in the menu bar, other menus and in removed menus list.
      * @return
      *   Found menu. Null, if there are no menus with such title.
      */
-    const QMenu *findMenuEverywhere(const QString &i_title) const;
+    const QMenu *findMenuEverywhere(const QString &title) const;
 
     /*!
      * @details
-     *   Searches for the popup menu specified by @a i_title.
+     *   Searches for the popup menu specified by @a title.
      * @return
      *   Found menu. Null, if there are no popup menus with such title.
      */
-    QMenu *findPopup(const QString &i_title);
+    QMenu *findPopup(const QString &title);
 
     /*!
      * @details
-     *   Searches for the popup menu specified by @a i_title.
+     *   Searches for the popup menu specified by @a title.
      * @return
      *   Found menu. Null, if there are no popup menus with such title.
      */
-    const QMenu *findPopup(const QString &i_title) const;
+    const QMenu *findPopup(const QString &title) const;
 
     /*!
      * @details
@@ -174,13 +174,13 @@ public:
 
     /*!
      * @details
-     *   Removes QMenu with @a i_title from the menu bar and
+     *   Removes QMenu with @a title from the menu bar and
      *   stores it in its internal collection.
      *   The menu catalog takes ownership of the removed menu.
      *
      *   To remove menu item from the menu use QMenu::removeAction().
      */
-    void removeMenu(const QString &i_title);
+    void removeMenu(const QString &title);
 
     /*!
      * @details
@@ -198,12 +198,12 @@ public:
 protected:
     /*!
      * @details
-     *   Searches for the menu specified by @a i_title
+     *   Searches for the menu specified by @a title
      *   in the @a inMenu and its childer menus.
      * @return
      *   Found menu. Null, if there are no menus with such title.
      */
-    QMenu *findMenu(const QString &i_title, QMenu *inMenu) const;
+    QMenu *findMenu(const QString &title, QMenu *inMenu) const;
 
     /*!
      * @details

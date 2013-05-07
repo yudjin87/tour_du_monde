@@ -95,7 +95,7 @@ protected:
      *   dialog constructor with specified dialog and model types.
      * @sa showDialog(), registerDialog()
      */
-    virtual void registerConstructor(const QString &i_dlgModelType, IDialogConstructor *constructor) = 0;
+    virtual void registerConstructor(const QString &dlgModelType, IDialogConstructor *constructor) = 0;
 
     /*!
      * @details
@@ -105,7 +105,7 @@ protected:
      *   returns @a false.
      * @sa showDialog()
      */
-    virtual bool showDialogForModel(const QString &i_forDlgModelType, void *dlgModel) const = 0;
+    virtual bool showDialogForModel(const QString &forDlgModelType, void *dlgModel) const = 0;
 
 private:
     Q_DISABLE_COPY(IDialogService)

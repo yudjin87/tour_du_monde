@@ -99,10 +99,10 @@ public:
      *
      *   The components are ordered in such way, that parents are firsts and children are last.
      *
-     * @param i_forChildren
+     * @param forChildren
      *   The components to get the dependencies (or parents) for.
      */
-    virtual DependenciesSolvingResult completeListWithChildren(const QList<IComponent *> &i_forChildren) const = 0;
+    virtual DependenciesSolvingResult completeListWithChildren(const QList<IComponent *> &forChildren) const = 0;
 
     /*!
      * @details
@@ -153,7 +153,7 @@ public:
      *   Finds the component by its name.
      *   Null pointer, if list is empty, or if component with specified name was not added.
      */
-    virtual IComponent *componentByName(const QString &i_byName) const = 0;
+    virtual IComponent *componentByName(const QString &byName) const = 0;
 
     /*!
      * @details

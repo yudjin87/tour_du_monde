@@ -36,15 +36,15 @@
 #include <assert.h>
 
 //------------------------------------------------------------------------------
-Catalogs::Catalogs(QMainWindow &i_shell, QObject *startUpData)
+Catalogs::Catalogs(QMainWindow &shell, QObject *startUpData)
     : m_operationCatalog(new OperationCatalog())
-    , m_dockWidgetCatalog(new DockWidgetCatalog(i_shell))
+    , m_dockWidgetCatalog(new DockWidgetCatalog(shell))
     , m_menuCatalog(nullptr)
-    , m_toolBarCatalog(new ToolBarCatalog(i_shell))
+    , m_toolBarCatalog(new ToolBarCatalog(shell))
 {
-    assert(i_shell.menuBar() != nullptr);
+    assert(shell.menuBar() != nullptr);
 
-    m_menuCatalog = new MenuCatalog(*i_shell.menuBar());
+    m_menuCatalog = new MenuCatalog(*shell.menuBar());
     m_operationCatalog->setStartupData(startUpData);
 }
 

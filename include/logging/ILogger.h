@@ -85,7 +85,7 @@ public:
      * @details
      *   Write a new log entry with the specified category and priority.
      */
-    virtual void log(const QString &i_message, Category i_categoryy = Debug, Priority i_priority = Low) = 0;
+    virtual void log(const QString &message, Category categoryy = Debug, Priority priority = Low) = 0;
 
 private:
     Q_DISABLE_COPY(ILogger)

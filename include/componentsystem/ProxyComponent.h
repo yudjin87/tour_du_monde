@@ -58,7 +58,7 @@ public:
      *   in inner objects dictionary.
      * @return The raw pointer corresponded with specified type id if such found. Null pointer otherwise.
      */
-    void *getExtension(const QString &i_byTypeId) const;
+    void *getExtension(const QString &byTypeId) const;
 
     IComponent *loadedComponent() const;
 

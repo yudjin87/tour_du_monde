@@ -31,8 +31,8 @@
 #include <QtGui/QMainWindow>
 
 //------------------------------------------------------------------------------
-DockWidgetCatalog::DockWidgetCatalog(QMainWindow &i_shell)
-    :m_shell(i_shell)
+DockWidgetCatalog::DockWidgetCatalog(QMainWindow &shell)
+    :m_shell(shell)
 {
 }
 
@@ -49,7 +49,7 @@ QDockWidget *DockWidgetCatalog::addDockWidget(QWidget *widget, const QString &wi
 }
 
 //------------------------------------------------------------------------------
-QDockWidget *DockWidgetCatalog::addDockWidget(QWidget *widget, const QString &windowTitle, Qt::DockWidgetArea i_area)
+QDockWidget *DockWidgetCatalog::addDockWidget(QWidget *widget, const QString &windowTitle, Qt::DockWidgetArea area)
 {
     if (widget == nullptr)
         return nullptr;
@@ -60,7 +60,7 @@ QDockWidget *DockWidgetCatalog::addDockWidget(QWidget *widget, const QString &wi
     dock->setObjectName(windowTitle);
 
     m_widgets.push_back(dock);
-    m_shell.addDockWidget(i_area, dock);
+    m_shell.addDockWidget(area, dock);
 
     onDockWidgetAdded(dock);
 

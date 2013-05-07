@@ -41,13 +41,13 @@ bool MockComponentDependencies::addComponent(IComponent *component)
 }
 
 //------------------------------------------------------------------------------
-DependenciesSolvingResult MockComponentDependencies::completeListWithChildren(const QList<IComponent *> &i_forChildren) const
+DependenciesSolvingResult MockComponentDependencies::completeListWithChildren(const QList<IComponent *> &forChildren) const
 {
-    foreach(IComponent *comp, i_forChildren)
+    foreach(IComponent *comp, forChildren)
         emit onCompleteListWithChildren(comp);
 
     ++completeListWithChildrenCalled;
-    return ComponentDependencies::completeListWithChildren(i_forChildren);
+    return ComponentDependencies::completeListWithChildren(forChildren);
 }
 
 //------------------------------------------------------------------------------

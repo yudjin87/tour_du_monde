@@ -33,7 +33,7 @@ class IService : public QObject
 {
     Q_OBJECT
 public:
-    explicit IService(int i_id = 0, QObject *parent = 0);
+    explicit IService(int id = 0, QObject *parent = 0);
     virtual ~IService() {}
 
 public:

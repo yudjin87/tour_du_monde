@@ -138,7 +138,7 @@ public:
      *   in inner objects dictionary.
      * @return The raw pointer corresponded with specified type id if such found. Null pointer otherwise.
      */
-    virtual void *getExtension(const QString &i_byTypeId) const = 0;
+    virtual void *getExtension(const QString &byTypeId) const = 0;
 
     /*!
      * @details

@@ -99,10 +99,10 @@ public:
      *
      *   The components are ordered in such way, that parents are firsts and children are last.
      *
-     * @param i_forChildren
+     * @param forChildren
      *   The components to get the dependencies (or parents) for.
      */
-    DependenciesSolvingResult completeListWithChildren(const QList<IComponent *> &i_forChildren) const;
+    DependenciesSolvingResult completeListWithChildren(const QList<IComponent *> &forChildren) const;
 
     /*!
      * @details
@@ -153,7 +153,7 @@ public:
      *   Finds the component by its name.
      *   Null pointer, if list is empty, or if component with specified name was not added.
      */
-    IComponent *componentByName(const QString &i_byName) const;
+    IComponent *componentByName(const QString &byName) const;
 
     /*!
      * @details
@@ -211,7 +211,7 @@ public:
     DependenciesSolvingResult orderedComponents() const;
 
 private:
-    static DependenciesSolvingResult solveDependencies(const QList<IComponent *> &i_components);
+    static DependenciesSolvingResult solveDependencies(const QList<IComponent *> &components);
 
 private:
     ObservableList<IComponent *> m_components;

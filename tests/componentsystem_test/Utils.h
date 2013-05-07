@@ -21,10 +21,10 @@ do \
 } while(0)
 // #define QVERIFY_THROW
 
-QString formatLibraryName(const QString &i_libName);
-QString pathToLib(const QString &i_libName, bool decorateName = true);
-QString pathToComponent(const QString &i_libName, bool decorateName = true);
-QString pathToComponentDefinition(const QString &i_libName);
+QString formatLibraryName(const QString &libName);
+QString pathToLib(const QString &libName, bool decorateName = true);
+QString pathToComponent(const QString &libName, bool decorateName = true);
+QString pathToComponentDefinition(const QString &libName);
 QString pathToComponentsDir();
 
 bool removeDir(const QString & dirName);
@@ -35,9 +35,9 @@ typedef std::auto_ptr<IComponent> IComponentPtr;
 typedef std::auto_ptr<MockComponent> MockComponentPtr;
 typedef std::auto_ptr<MockChildComponent> ChildComponentPtr;
 
-MockComponent *createComponent(const QString &i_name);
-MockChildComponent *createParentComponent(const QString &i_name, const QString &i_dependsOn);
-MockChildComponent *createParentComponent(const QString &i_name, const QString &i_dependsOn, const QString &i_dependsOn2);
+MockComponent *createComponent(const QString &name);
+MockChildComponent *createParentComponent(const QString &name, const QString &dependsOn);
+MockChildComponent *createParentComponent(const QString &name, const QString &dependsOn, const QString &dependsOn2);
 
 
 //------------------------------------------------------------------------------

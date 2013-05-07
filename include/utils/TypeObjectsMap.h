@@ -58,31 +58,31 @@ public:
      *   in inner objects dictionary.
      * @return The value corresponded with specified type id if such found. Null pointer otherwise.
      */
-    TValue getInstance(const QString &i_byTypeId) const;
+    TValue getInstance(const QString &byTypeId) const;
 
     /*!
      * @details
-     *   Finds pointer associated with specified type id and specified @a i_tag
+     *   Finds pointer associated with specified type id and specified @a tag
      *   in inner objects dictionary.
      * @return The value corresponded with specified type id and tag if such found. Null pointer otherwise.
      */
-    TValue getInstance(const QString &i_byTypeId, const QString &i_tag) const;
+    TValue getInstance(const QString &byTypeId, const QString &tag) const;
 
     /*!
      * @details
      *   Registers a value with empty tag in inner objects dictionary.
-     * @param i_forTypeId
+     * @param forTypeId
      *   The name of type which @a instance should be associated with.
      */
-    void registerInstance(TValue instance, const QString &i_forTypeId);
+    void registerInstance(TValue instance, const QString &forTypeId);
 
     /*!
      * @details
      *   Registers a value with specified tag in inner objects dictionary.
-     * @param i_forTypeId
+     * @param forTypeId
      *   The name of type which @a instance should be associated with.
      */
-    void registerInstance(TValue instance, const QString &i_forTypeId, const QString &i_tag);
+    void registerInstance(TValue instance, const QString &forTypeId, const QString &tag);
 
     /*!
      * @details
@@ -93,16 +93,16 @@ public:
     /*!
      * @details
      *   Removes value with specified type and tag from the inner objects dictionary.
-     * @param i_forTypeId
+     * @param forTypeId
      *   The name of type which removed instance should be associated with.
      * @return The raw pointer corresponded with specified type id and tag if such found.
      *   Null pointer otherwise.
      */
-    TValue unregisterInstance(const QString &i_forTypeId, const QString &i_tag);
+    TValue unregisterInstance(const QString &forTypeId, const QString &tag);
 
 private:
-    InstanceObject<TValue> *_findInstance(const QString &i_type_id, const QString &i_tag) const;
-    static bool findPredicate(InstanceObject<TValue> *object, const QString &i_type_id, const QString &i_tag);
+    InstanceObject<TValue> *_findInstance(const QString &type_id, const QString &tag) const;
+    static bool findPredicate(InstanceObject<TValue> *object, const QString &type_id, const QString &tag);
 
 private:
     typedef QVector<InstanceObject<TValue> *> InstanceObjects;
@@ -113,10 +113,10 @@ private:
 template<typename TObject>
 struct InstanceObject
 {
-    InstanceObject<TObject>(TObject instance, const QString &i_typeId, const QString &i_tag)
+    InstanceObject<TObject>(TObject instance, const QString &typeId, const QString &tag)
         : instance(instance)
-        , typeId(i_typeId)
-        , tag(i_tag)
+        , typeId(typeId)
+        , tag(tag)
     {
     }
 
@@ -141,16 +141,16 @@ TypeObjectsMap<TValue>::~TypeObjectsMap()
 
 //------------------------------------------------------------------------------
 template<typename TValue>
-TValue TypeObjectsMap<TValue>::getInstance(const QString &i_byTypeId) const
+TValue TypeObjectsMap<TValue>::getInstance(const QString &byTypeId) const
 {
-    return getInstance(i_byTypeId, "");
+    return getInstance(byTypeId, "");
 }
 
 //------------------------------------------------------------------------------
 template<typename TValue>
-TValue TypeObjectsMap<TValue>::getInstance(const QString &i_byTypeId, const QString &i_tag) const
+TValue TypeObjectsMap<TValue>::getInstance(const QString &byTypeId, const QString &tag) const
 {
-    InstanceObject<TValue> *foundObject = _findInstance(i_byTypeId, i_tag);
+    InstanceObject<TValue> *foundObject = _findInstance(byTypeId, tag);
     if (foundObject == nullptr)
       return nullptr;
 
@@ -159,20 +159,20 @@ TValue TypeObjectsMap<TValue>::getInstance(const QString &i_byTypeId, const QStr
 
 //------------------------------------------------------------------------------
 template<typename TValue>
-void TypeObjectsMap<TValue>::registerInstance(TValue instance, const QString &i_forTypeId)
+void TypeObjectsMap<TValue>::registerInstance(TValue instance, const QString &forTypeId)
 {
-    registerInstance(instance, i_forTypeId, "");
+    registerInstance(instance, forTypeId, "");
 }
 
 //------------------------------------------------------------------------------
 template<typename TValue>
-void TypeObjectsMap<TValue>::registerInstance(TValue instance, const QString &i_forTypeId, const QString &i_tag)
+void TypeObjectsMap<TValue>::registerInstance(TValue instance, const QString &forTypeId, const QString &tag)
 {
     // should not register existing type:
-    if (_findInstance(i_forTypeId, i_tag) != nullptr)
+    if (_findInstance(forTypeId, tag) != nullptr)
         return;
 
-    InstanceObject<TValue> *newObj = new InstanceObject<TValue>(instance, i_forTypeId, i_tag);
+    InstanceObject<TValue> *newObj = new InstanceObject<TValue>(instance, forTypeId, tag);
 
     m_objects.push_back(newObj);
 }
@@ -186,16 +186,16 @@ int TypeObjectsMap<TValue>::size() const
 
 //------------------------------------------------------------------------------
 template<typename TValue>
-bool TypeObjectsMap<TValue>::findPredicate(InstanceObject<TValue> *object, const QString &i_type_id, const QString &i_tag)
+bool TypeObjectsMap<TValue>::findPredicate(InstanceObject<TValue> *object, const QString &type_id, const QString &tag)
 {
-    return (object->typeId == i_type_id) && (object->tag == i_tag);
+    return (object->typeId == type_id) && (object->tag == tag);
 }
 
 //------------------------------------------------------------------------------
 template<typename TValue>
-TValue TypeObjectsMap<TValue>::unregisterInstance(const QString &i_forTypeId, const QString &i_tag)
+TValue TypeObjectsMap<TValue>::unregisterInstance(const QString &forTypeId, const QString &tag)
 {
-    auto predicate = std::bind(&TypeObjectsMap<TValue>::findPredicate, std::placeholders::_1, i_forTypeId, i_tag);
+    auto predicate = std::bind(&TypeObjectsMap<TValue>::findPredicate, std::placeholders::_1, forTypeId, tag);
     auto result = std::find_if(m_objects.begin(), m_objects.end(), predicate);
 
     if (result == m_objects.end())
@@ -210,9 +210,9 @@ TValue TypeObjectsMap<TValue>::unregisterInstance(const QString &i_forTypeId, co
 
 //------------------------------------------------------------------------------
 template<typename TValue>
-InstanceObject<TValue> *TypeObjectsMap<TValue>::_findInstance(const QString &i_type_id, const QString &i_tag) const
+InstanceObject<TValue> *TypeObjectsMap<TValue>::_findInstance(const QString &type_id, const QString &tag) const
 {
-    auto predicate = std::bind(&TypeObjectsMap<TValue>::findPredicate, std::placeholders::_1, i_type_id, i_tag);
+    auto predicate = std::bind(&TypeObjectsMap<TValue>::findPredicate, std::placeholders::_1, type_id, tag);
     auto result = std::find_if(m_objects.begin(), m_objects.end(), predicate);
 
     if (result == m_objects.end())
