@@ -17,7 +17,8 @@ win32 {
 
     LIBS += -L$${DESTDIR} -lDisplay \
                           -lCarto \
-                          -lGeometry
+                          -lDom \
+                          -lGeodatabase
 }
 
 HEADERS += \

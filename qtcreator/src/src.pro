@@ -9,6 +9,6 @@ SUBDIRS += \
     componentsystem \    
     booting \
     framework\
-    componentsystemui \
     interactivity \
+    componentsystemui \
     undo \

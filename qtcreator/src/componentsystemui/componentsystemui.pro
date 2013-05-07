@@ -12,6 +12,7 @@ DEFINES += COMPONENTSYSTEMUI_LIBRARY
 INCLUDEPATH += $$HPP_SOURCE_TREE/componentsystemui
 
 LIBS += -L$${DESTDIR} -lComponentSystem \
+                      -lInteractivity \
                       -lFramework \
 
 ###############################################################################

@@ -16,6 +16,7 @@ win32 {
                                -lFramework
 
     LIBS += -L$${DESTDIR} -lDisplay \
+                          -lDom \
                           -lCarto \
                           -lGeometry
 }
