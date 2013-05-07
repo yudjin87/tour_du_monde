@@ -198,8 +198,8 @@ DependenciesSolvingResult ComponentManager::shutdownComponents(const QList<IComp
 
         onComponentAboutToShutDown(comp);
         (this->*(m_shutDownFunc))(comp);
-        m_log.log(QString("'%1' component is shutted down").arg(comp->name()), ILogger::Info);
-        onComponentShutedDown(comp);
+        m_log.log(QString("'%1' component is shut down").arg(comp->name()), ILogger::Info);
+        onComponentShutDown(comp);
     }
 
     return solvingResult;
@@ -303,11 +303,11 @@ void ComponentManager::onComponentAboutToShutDown(IComponent *component)
 }
 
 //------------------------------------------------------------------------------
-void ComponentManager::onComponentShutedDown(IComponent *component)
+void ComponentManager::onComponentShutDown(IComponent *component)
 {
     m_startedComponents.removeOne(component);
     m_stoppedComponents.push_back(component);
-    emit componentShutedDown(component);
+    emit componentShutDown(component);
 }
 
 //------------------------------------------------------------------------------

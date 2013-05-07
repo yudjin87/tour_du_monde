@@ -253,7 +253,7 @@ void ComponentManagerTest::startupAllComponents_shouldStartComponents()
 void ComponentManagerTest::shutdownAllComponents_shouldEmit()
 {
     ComponentManager manager(lg);
-    QSignalSpy spy(&manager, SIGNAL(componentShutedDown(IComponent *)));
+    QSignalSpy spy(&manager, SIGNAL(componentShutDown(IComponent *)));
 
     MockComponent *mockComponent = new MockComponent();
     manager.addComponent(mockComponent);

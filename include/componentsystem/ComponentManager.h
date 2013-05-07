@@ -191,9 +191,9 @@ public:
      * @details
      *   Shuts down the specified component and all its implicit children,
      *   obtained by IComponentDependencies::completeListWithParent() in such order, that
-     *   children will be shuted down first.
+     *   children will be shut down first.
      *
-     *   Shutted component is moved from the startedComponents() to
+     *   Shut component is moved from the startedComponents() to
      *   the stoppedComponents() list.
      *
      *   Ignores null pointer or unexisting component.
@@ -212,9 +212,9 @@ public:
     /*!
      * @details
      *   Shuts down specified components in such order, that
-     *   children will be shuted down before their parents.
+     *   children will be shut down before their parents.
      *
-     *   Shutted components are moved from the startedComponents() to
+     *   Shut components are moved from the startedComponents() to
      *   the stoppedComponents() list.
      */
     DependenciesSolvingResult shutdownComponents(const QList<IComponent *> &components);
@@ -292,7 +292,7 @@ public:
 protected slots:
     /*!
      * @details
-     *   This method is invoked before @a manager will be shuted down.
+     *   This method is invoked before @a manager will be shut down.
      */
     virtual void onAboutToShutDown();
 
@@ -306,18 +306,18 @@ protected slots:
 
     /*!
      * @details
-     *   This method is invoked before @a component will be shuted down by the
+     *   This method is invoked before @a component will be shut down by the
      *   ComponentManager. It emits componentAboutToShutDown().
      */
     virtual void onComponentAboutToShutDown(IComponent *component);
 
     /*!
      * @details
-     *   This method is invoked when @a component is shuted down by the
-     *   ComponentManager. It emits componentShutedDown() signal and moves @a component
+     *   This method is invoked when @a component is shut down by the
+     *   ComponentManager. It emits componentShutDown() signal and moves @a component
      *   from the started to stopped list.
      */
-    virtual void onComponentShutedDown(IComponent *component);
+    virtual void onComponentShutDown(IComponent *component);
 
     /*!
      * @details
