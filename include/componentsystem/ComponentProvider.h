@@ -46,8 +46,8 @@
  *   protected:
  *      void MyBootloader::_configureComponentProvider()
  *      {
- *          mp_componentProvider->registerComponent(new MyComponentA());
- *          mp_componentProvider->registerComponent(new MyComponentB());
+ *          m_componentProvider->registerComponent(new MyComponentA());
+ *          m_componentProvider->registerComponent(new MyComponentB());
  *      }
  *   };
  * @endcode
@@ -88,7 +88,7 @@ public:
      *   from the providers - the last one doesn't allow duplicating components.
      *   @a Null pointers will be skipped.
      */
-    void registerComponent(IComponent *ip_component);
+    void registerComponent(IComponent *component);
 
 protected:
     /*!

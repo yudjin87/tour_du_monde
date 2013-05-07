@@ -72,8 +72,8 @@ public:
      *
      *   A newly is appended to the stoppedComponents() list and to the dependencies().
      *   This method sets isChecked() to false.
-     * @param ip_component
-     *   If manager already has component with same name as @a ip_component - the last one will
+     * @param component
+     *   If manager already has component with same name as @a component - the last one will
      *   not be added to the manager. The same for the null pointer - it will be ignored.
      *
      *   Returns @a true if component was succesfully added. If it is a null point or already
@@ -82,7 +82,7 @@ public:
      *
      * @sa IComponentDependencies::addComponent()
      */
-    virtual bool addComponent(IComponent *ip_component) = 0;
+    virtual bool addComponent(IComponent *component) = 0;
 
     /*!
      * @details
@@ -192,7 +192,7 @@ public:
      *
      *   Ignores null pointer or unexisting component.
      */
-    virtual DependenciesSolvingResult shutdownComponent(IComponent *ip_component) = 0;
+    virtual DependenciesSolvingResult shutdownComponent(IComponent *component) = 0;
 
     /*!
      * @details
@@ -246,7 +246,7 @@ public:
      * @note component should be added to the manager before starting.
      * @sa addComponent(), check()
      */
-    virtual DependenciesSolvingResult startupComponent(IComponent *ip_component) = 0;
+    virtual DependenciesSolvingResult startupComponent(IComponent *component) = 0;
 
     /*!
      * @details
@@ -285,24 +285,24 @@ public:
 signals:
     /*!
      * @details
-     *   This signal is emmited before @a ip_component will be shuted down by the
+     *   This signal is emmited before @a component will be shuted down by the
      *   IComponentManager.
      */
-    void componentAboutToShutDown(IComponent *ip_component);
+    void componentAboutToShutDown(IComponent *component);
 
     /*!
      * @details
-     *   This signal is emmited when @a ip_component is shuted down by the
+     *   This signal is emmited when @a component is shuted down by the
      *   IComponentManager.
      */
-    void componentShutedDown(IComponent *ip_component);
+    void componentShutedDown(IComponent *component);
 
     /*!
      * @details
-     *   This signal is emmited when @a ip_component is started up by the
+     *   This signal is emmited when @a component is started up by the
      *   IComponentManager.
      */
-    void componentStarted(IComponent *ip_component);
+    void componentStarted(IComponent *component);
 };
 
 #endif // ICOMPONENTMANAGER_H

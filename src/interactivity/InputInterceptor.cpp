@@ -34,8 +34,8 @@
 //------------------------------------------------------------------------------
 InputInterceptor::InputInterceptor(QObject *parent)
     : QObject(parent)
-    , mp_interceptedWidget(nullptr)
-    , mp_receiver(nullptr)
+    , m_interceptedWidget(nullptr)
+    , m_receiver(nullptr)
     , m_isActive(false)
     , m_isWorking(false)
 {
@@ -52,14 +52,14 @@ InputInterceptor::~InputInterceptor()
 void InputInterceptor::activate()
 {
     m_isActive = true;
-    m_isWorking = invalidate(mp_interceptedWidget);
+    m_isWorking = invalidate(m_interceptedWidget);
 }
 
 //------------------------------------------------------------------------------
 void InputInterceptor::deactivate()
 {
     m_isActive = false;
-    m_isWorking = invalidate(mp_interceptedWidget);
+    m_isWorking = invalidate(m_interceptedWidget);
 }
 
 //------------------------------------------------------------------------------
@@ -75,64 +75,64 @@ bool InputInterceptor::isWorking() const
 }
 
 //------------------------------------------------------------------------------
-void InputInterceptor::setSender(QWidget *ip_interceptedWidget)
+void InputInterceptor::setSender(QWidget *interceptedWidget)
 {
-    QWidget *old = mp_interceptedWidget;
-    mp_interceptedWidget = ip_interceptedWidget;
+    QWidget *old = m_interceptedWidget;
+    m_interceptedWidget = interceptedWidget;
 
     m_isWorking = invalidate(old);
 }
 
 //------------------------------------------------------------------------------
-void InputInterceptor::setReceiver(IInputReceiver *ip_receiver)
+void InputInterceptor::setReceiver(IInputReceiver *receiver)
 {
-    mp_receiver = ip_receiver;
-    m_isWorking = invalidate(mp_interceptedWidget);
+    m_receiver = receiver;
+    m_isWorking = invalidate(m_interceptedWidget);
 }
 
 //------------------------------------------------------------------------------
 QWidget *InputInterceptor::sender() const
 {
-    return mp_interceptedWidget;
+    return m_interceptedWidget;
 }
 
 //------------------------------------------------------------------------------
 IInputReceiver *InputInterceptor::receiver() const
 {
-    return mp_receiver;
+    return m_receiver;
 }
 
 //------------------------------------------------------------------------------
-bool InputInterceptor::eventFilter(QObject *ip_sender, QEvent *ip_event)
+bool InputInterceptor::eventFilter(QObject *sender, QEvent *event)
 {
-    Q_UNUSED(ip_sender)
-    switch (ip_event->type())
+    Q_UNUSED(sender)
+    switch (event->type())
     {
     case QEvent::KeyRelease:
-        mp_receiver->onKeyUp(static_cast<QKeyEvent *>(ip_event));
+        m_receiver->onKeyUp(static_cast<QKeyEvent *>(event));
         break;
 
     case QEvent::KeyPress:
-        mp_receiver->onKeyDown(static_cast<QKeyEvent *>(ip_event));
+        m_receiver->onKeyDown(static_cast<QKeyEvent *>(event));
         break;
 
     case QEvent::ContextMenu:
-        return mp_receiver->onContextMenu(static_cast<QContextMenuEvent *>(ip_event));
+        return m_receiver->onContextMenu(static_cast<QContextMenuEvent *>(event));
 
     case QEvent::MouseMove:
-        mp_receiver->onMouseMove(static_cast<QMouseEvent *>(ip_event));
+        m_receiver->onMouseMove(static_cast<QMouseEvent *>(event));
         break;
 
     case QEvent::MouseButtonPress:
-        mp_receiver->onMouseDown(static_cast<QMouseEvent *>(ip_event));
+        m_receiver->onMouseDown(static_cast<QMouseEvent *>(event));
         break;
 
     case QEvent::MouseButtonRelease:
-        mp_receiver->onMouseUp(static_cast<QMouseEvent *>(ip_event));
+        m_receiver->onMouseUp(static_cast<QMouseEvent *>(event));
         break;
 
     case QEvent::MouseButtonDblClick:
-        mp_receiver->onDoubleClick(static_cast<QMouseEvent *>(ip_event));
+        m_receiver->onDoubleClick(static_cast<QMouseEvent *>(event));
         break;
 
     default:
@@ -140,7 +140,7 @@ bool InputInterceptor::eventFilter(QObject *ip_sender, QEvent *ip_event)
     }
 
     // standard event processing
-    return QObject::eventFilter(ip_sender, ip_event);
+    return QObject::eventFilter(sender, event);
 }
 
 //------------------------------------------------------------------------------
@@ -149,10 +149,10 @@ bool InputInterceptor::canStartWorking()
     if (!isActive())
         return false;
 
-    if (mp_interceptedWidget == nullptr)
+    if (m_interceptedWidget == nullptr)
         return false;
 
-    if (mp_receiver == nullptr)
+    if (m_receiver == nullptr)
         return false;
 
     return true;
@@ -164,8 +164,8 @@ bool InputInterceptor::invalidate(QWidget *interceptedWidget)
     bool result = canStartWorking();
 
     if (result) {
-        // mp_interceptedWidget is not null in this case:
-        mp_interceptedWidget->installEventFilter(this);
+        // m_interceptedWidget is not null in this case:
+        m_interceptedWidget->installEventFilter(this);
     } else if (interceptedWidget != nullptr){
         interceptedWidget->removeEventFilter(this);
     }

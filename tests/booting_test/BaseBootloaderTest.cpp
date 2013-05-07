@@ -16,9 +16,9 @@ void BaseBootloaderTest::shouldCreateDefaultLogger()
     BootloaderMock loader;
     loader.callCreateLogger();
 
-    ILogger *p_defaultLogger = loader.logger();
+    ILogger *defaultLogger = loader.logger();
 
-    QVERIFY(p_defaultLogger != nullptr);
+    QVERIFY(defaultLogger != nullptr);
 }
 
 //------------------------------------------------------------------------------
@@ -27,9 +27,9 @@ void BaseBootloaderTest::shouldCreateDefaultComponentProvider()
     BootloaderMock loader;
     loader.callCreateComponentProvider();
 
-    IComponentProvider *p_defaultComponentProvider = loader.componentProvider();
+    IComponentProvider *defaultComponentProvider = loader.componentProvider();
 
-    QVERIFY(p_defaultComponentProvider != nullptr);
+    QVERIFY(defaultComponentProvider != nullptr);
 }
 
 //------------------------------------------------------------------------------
@@ -38,9 +38,9 @@ void BaseBootloaderTest::shouldCreateDefaultComponentManager()
     BootloaderMock loader;
     loader.callCreateComponentManager();
 
-    IComponentManager *p_defaultComponentManager = loader.componentManager();
+    IComponentManager *defaultComponentManager = loader.componentManager();
 
-    QVERIFY(p_defaultComponentManager != nullptr);
+    QVERIFY(defaultComponentManager != nullptr);
 }
 
 //------------------------------------------------------------------------------
@@ -49,9 +49,9 @@ void BaseBootloaderTest::shouldCreateDefaultServiceLocator()
     BootloaderMock loader;
     loader.callCreateServiceLocator();
 
-    IServiceLocator *p_defaultServiceLocator = loader.serviceLocator();
+    IServiceLocator *defaultServiceLocator = loader.serviceLocator();
 
-    QVERIFY(p_defaultServiceLocator != nullptr);
+    QVERIFY(defaultServiceLocator != nullptr);
 }
 
 //------------------------------------------------------------------------------
@@ -60,9 +60,9 @@ void BaseBootloaderTest::shouldCreateDefaultMainWindow()
     BootloaderMock loader;
     loader.callCreateMainWindow();
 
-    QMainWindow *p_defaultMainWindow = loader.mainWindow();
+    QMainWindow *defaultMainWindow = loader.mainWindow();
 
-    QVERIFY(p_defaultMainWindow != nullptr);
+    QVERIFY(defaultMainWindow != nullptr);
 }
 
 //------------------------------------------------------------------------------

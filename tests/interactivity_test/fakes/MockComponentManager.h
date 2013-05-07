@@ -34,8 +34,8 @@ class MockComponentManager : public ComponentManager
 public:
     MockComponentManager();
 
-    void callOnComponentStarted(IComponent *ip_component);
-    void callOnComponentAboutToShutDown(IComponent *ip_component);
+    void callOnComponentStarted(IComponent *component);
+    void callOnComponentAboutToShutDown(IComponent *component);
 };
 
 #endif // MOCKCOMPONENTMANAGER_H

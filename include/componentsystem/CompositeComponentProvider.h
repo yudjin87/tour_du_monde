@@ -51,11 +51,11 @@
  *      }
  *      void MyBootloader::_configureComponentProvider()
  *      {
- *          DirectoryComponentProvider *p_sysDir = new DirectoryComponentProvider("bin/");
- *          (static_cast<CompositeComponentProvider *>(mp_componentProvider))->addProvider(p_sysDir);
+ *          DirectoryComponentProvider *sysDir = new DirectoryComponentProvider("bin/");
+ *          (static_cast<CompositeComponentProvider *>(m_componentProvider))->addProvider(sysDir);
  *
- *          DirectoryComponentProvider *p_contribProvider = new DirectoryComponentProvider("plugins/");
- *          (static_cast<CompositeComponentProvider *>(mp_componentProvider))->addProvider(p_contribProvider);
+ *          DirectoryComponentProvider *contribProvider = new DirectoryComponentProvider("plugins/");
+ *          (static_cast<CompositeComponentProvider *>(m_componentProvider))->addProvider(contribProvider);
  *      }
  *      // other customization
  *      // ....
@@ -81,7 +81,7 @@ public:
      *   Adds the provider to the list of providers. Also takes ownership for the
      *   provider.
      */
-    CompositeComponentProvider &addProvider(IComponentProvider *ip_provider);
+    CompositeComponentProvider &addProvider(IComponentProvider *provider);
 
     /*!
      * @details
@@ -106,7 +106,7 @@ public:
      *   Registers the specified component at the default provider.
      *   @a Null pointers will be skipped.
      */
-    void registerComponent(IComponent *ip_component);
+    void registerComponent(IComponent *component);
 
 protected:
     /*!

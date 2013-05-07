@@ -51,7 +51,7 @@ public:
      *   If the action group not null, this tool
      *   will be automatically inserted into the group.
      */
-    ToolBase(QActionGroup *ip_actionGroup = nullptr);
+    ToolBase(QActionGroup *actionGroup = nullptr);
 
     /*!
      * @details
@@ -64,7 +64,7 @@ public:
      *   this by setting a specific description with setText(). The same text will be
      *   used for tooltips unless you specify a different text using setToolTip().
      */
-    ToolBase(const QString &i_text, QActionGroup *ip_actionGroup = nullptr);
+    ToolBase(const QString &i_text, QActionGroup *actionGroup = nullptr);
 
     /*!
      * @details
@@ -77,7 +77,7 @@ public:
      *   this by setting a specific description with setText(). The same text will be
      *   used for tooltips unless you specify a different text using setToolTip().
      */
-    ToolBase(const QIcon &i_icon, const QString &i_text, QActionGroup *ip_actionGroup = nullptr);
+    ToolBase(const QIcon &i_icon, const QString &i_text, QActionGroup *actionGroup = nullptr);
     ~ToolBase();
 
     /*!
@@ -109,11 +109,11 @@ public:
      *   When subclassing ToolBase, use the initialize() method to get a hook to the
      *   application.
      */
-    void initialize(QObject *ip_startUpData);
+    void initialize(QObject *startUpData);
 
     /*!
      * @details
-     *   Context menu event occured at the given in @a ip_event location.
+     *   Context menu event occured at the given in @a event location.
      *
      *   When impting Ito create a custom tool, write code to display a
      *   custom context menu the right mouse button is pressed when this tool
@@ -122,47 +122,47 @@ public:
      *   know that it handled the onContextMenu event by returning true. If you
      *   don't do this, the standard context menu will be displayed.
      */
-    bool onContextMenu(QContextMenuEvent *ip_event);
+    bool onContextMenu(QContextMenuEvent *event);
 
     /*!
      * @details
      *   Occurs when a mouse button is double clicked when this tool is active.
      */
-    void onDoubleClick(QMouseEvent *ip_event);
+    void onDoubleClick(QMouseEvent *event);
 
     /*!
      * @details
      *   Occurs when a key on the keyboard is pressed when this tool is active.
      */
-    void onKeyDown(QKeyEvent *ip_event);
+    void onKeyDown(QKeyEvent *event);
 
     /*!
      * @details
      *   Occurs when a key on the keyboard is released when this tool is active.
      */
-    void onKeyUp(QKeyEvent *ip_event);
+    void onKeyUp(QKeyEvent *event);
 
     /*!
      * @details
      *   Occurs when a mouse button is pressed when this tool is active.
      */
-    void onMouseDown(QMouseEvent *ip_event);
+    void onMouseDown(QMouseEvent *event);
 
     /*!
      * @details
      *   Occurs when the mouse is moved when this tool is active.
      */
-    void onMouseMove(QMouseEvent *ip_event);
+    void onMouseMove(QMouseEvent *event);
 
     /*!
      * @details
      *   Occurs when a mouse button is released when this tool is active.
      */
-    void onMouseUp(QMouseEvent *ip_event);
+    void onMouseUp(QMouseEvent *event);
 
 private:
-    AbstractApplication *mp_app;
-    IInteractionService *mp_interactionService;
+    AbstractApplication *m_app;
+    IInteractionService *m_interactionService;
 };
 
 #endif // TOOLBASE_H

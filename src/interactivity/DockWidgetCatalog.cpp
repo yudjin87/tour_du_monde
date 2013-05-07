@@ -43,35 +43,35 @@ DockWidgetCatalog::~DockWidgetCatalog()
 }
 
 //------------------------------------------------------------------------------
-QDockWidget *DockWidgetCatalog::addDockWidget(QWidget *ip_widget, const QString &windowTitle)
+QDockWidget *DockWidgetCatalog::addDockWidget(QWidget *widget, const QString &windowTitle)
 {
-    return addDockWidget(ip_widget, windowTitle, Qt::LeftDockWidgetArea);
+    return addDockWidget(widget, windowTitle, Qt::LeftDockWidgetArea);
 }
 
 //------------------------------------------------------------------------------
-QDockWidget *DockWidgetCatalog::addDockWidget(QWidget *ip_widget, const QString &windowTitle, Qt::DockWidgetArea i_area)
+QDockWidget *DockWidgetCatalog::addDockWidget(QWidget *widget, const QString &windowTitle, Qt::DockWidgetArea i_area)
 {
-    if (ip_widget == nullptr)
+    if (widget == nullptr)
         return nullptr;
 
-    QDockWidget *p_dock = new QDockWidget();
-    p_dock->setWidget(ip_widget);
-    p_dock->setWindowTitle(windowTitle);
-    p_dock->setObjectName(windowTitle);
+    QDockWidget *dock = new QDockWidget();
+    dock->setWidget(widget);
+    dock->setWindowTitle(windowTitle);
+    dock->setObjectName(windowTitle);
 
-    m_widgets.push_back(p_dock);
-    m_shell.addDockWidget(i_area, p_dock);
+    m_widgets.push_back(dock);
+    m_shell.addDockWidget(i_area, dock);
 
-    onDockWidgetAdded(p_dock);
+    onDockWidgetAdded(dock);
 
-    return p_dock;
+    return dock;
 }
 
 //------------------------------------------------------------------------------
-void DockWidgetCatalog::deleteDockWidget(QDockWidget *ip_dockWidget)
+void DockWidgetCatalog::deleteDockWidget(QDockWidget *dockWidget)
 {
-    if (m_widgets.removeOne(ip_dockWidget))
-        delete ip_dockWidget;
+    if (m_widgets.removeOne(dockWidget))
+        delete dockWidget;
 }
 
 //------------------------------------------------------------------------------
@@ -81,9 +81,9 @@ QList<QDockWidget *> DockWidgetCatalog::dockWidgets() const
 }
 
 //------------------------------------------------------------------------------
-void DockWidgetCatalog::onDockWidgetAdded(QDockWidget *ip_widget)
+void DockWidgetCatalog::onDockWidgetAdded(QDockWidget *widget)
 {
-    emit dockWidgetAdded(ip_widget);
+    emit dockWidgetAdded(widget);
 }
 
 //------------------------------------------------------------------------------

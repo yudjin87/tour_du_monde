@@ -81,7 +81,7 @@ public:
      *   from the providers - the last one doesn't allow duplicating components.
      *   @a Null pointers will be skipped.
      */
-    virtual void registerComponent(IComponent *ip_component) = 0;
+    virtual void registerComponent(IComponent *component) = 0;
 
 private:
     Q_DISABLE_COPY(IComponentProvider)

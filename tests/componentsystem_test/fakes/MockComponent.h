@@ -13,10 +13,10 @@ public:
 
     QObject *data() const;
 
-    void setRegistrator(QList<MockComponent *> *ip_registrator);
+    void setRegistrator(QList<MockComponent *> *registrator);
 
 protected:
-    bool _onStartup(QObject *ip_initData);
+    bool _onStartup(QObject *initData);
     void _onShutdown();
 
 signals:
@@ -24,9 +24,9 @@ signals:
     void whenShutdown(const QString &i_name);
 
 public:
-    QObject *mp_initData;
+    QObject *m_initData;
     bool m_returnValue;
-    QList<MockComponent *> *mp_registrator;
+    QList<MockComponent *> *m_registrator;
 };
 
 #endif // MOCKCOMPONENT_H

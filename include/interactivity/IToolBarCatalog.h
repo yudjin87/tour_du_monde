@@ -100,7 +100,7 @@ public:
      *   only by IComponentConfigurationDelegate to deconfigure component
      *   and revert changes is did.
      */
-    virtual void deleteToolbar(QToolBar *ip_toolbar) = 0;
+    virtual void deleteToolbar(QToolBar *toolbar) = 0;
 
     /*!
      * @details
@@ -133,7 +133,7 @@ signals:
      *   catalog.
      * @sa add.
      */
-    void toolbarAdded(QToolBar *ip_toolbar);
+    void toolbarAdded(QToolBar *toolbar);
 };
 
 #endif // ITOOLBARCATALOG_H

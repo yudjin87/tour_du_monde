@@ -118,7 +118,7 @@ public:
      *
      *   To remove menu from menu bar without deleting use removeMenu().
      */
-    virtual void deleteMenu(QMenu *ip_menu) = 0;
+    virtual void deleteMenu(QMenu *menu) = 0;
 
     /*!
      * @details
@@ -202,7 +202,7 @@ signals:
      *   main menu.
      * @sa addMenu.
      */
-    void menuAdded(QMenu *ip_menu);
+    void menuAdded(QMenu *menu);
 
     /*!
      * @details
@@ -210,7 +210,7 @@ signals:
      *   main menu.
      * @sa removeMenu.
      */
-    void menuRemoved(QMenu *ip_menu);
+    void menuRemoved(QMenu *menu);
 
     /*!
      * @details
@@ -218,7 +218,7 @@ signals:
      *   existed menus as submenu.
      * @sa QMenu::addMenu(), addPopup.
      */
-    void subMenuAdded(QMenu *ip_menu);
+    void subMenuAdded(QMenu *menu);
 
     /*!
      * @details
@@ -226,7 +226,7 @@ signals:
      *   existed added menus.
      * @sa QWidget::removeAction().
      */
-    void subMenuRemoved(QMenu *ip_menu);
+    void subMenuRemoved(QMenu *menu);
 };
 
 #endif // IMENUCATALOG_H

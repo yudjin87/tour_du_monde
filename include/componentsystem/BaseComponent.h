@@ -116,7 +116,7 @@ public:
      * @details
      *   When all components are registered, each component started up with given initialization
      *   data.
-     * @param ip_initData is a reference to the object with which this component is started. Usually
+     * @param initData is a reference to the object with which this component is started. Usually
      *   it will be reference to your own AbstractApplication root object, through you can obtain any data.
      * @return @a true, if component started up successful. Otherwise - return @a false. E.g. if component
      *   started twice - it is return @a false on the second time, because it is already started.
@@ -124,7 +124,7 @@ public:
      * @note You should not use this method directly, use IComponentManager::startupComponent()
      *   instead.
      */
-    bool startup(QObject *ip_initData);
+    bool startup(QObject *initData);
 
 protected:
     /*!
@@ -168,12 +168,12 @@ protected:
      *   IMyExtension *locatedExtension = this->extension<IMyExtension>()  // returns extension pointer
      * @endcode
      * @tparam TExtension
-     *   The type of extension, which @a ip_instance name should be associated while registered.
+     *   The type of extension, which @a instance name should be associated while registered.
      *
      * @note it does not take ownership for registered extension.
      */
     template<typename TExtension>
-    void registerExtension(TExtension *ip_instance);
+    void registerExtension(TExtension *instance);
 
     /*!
      * @details
@@ -187,10 +187,10 @@ protected:
      *   It is a defensive declaration of the public startup() method, that invokes only if component is 
      *   not started.
      *   When override in derived classes starts up the component. Nothing to do by default.
-     * @param ip_initData is a reference to the object with which this component is started. Usually
+     * @param initData is a reference to the object with which this component is started. Usually
      *   it will be reference to your own AbstractApplication root object, through you can obtain any data.
      */
-    virtual bool _onStartup(QObject *ip_initData);
+    virtual bool _onStartup(QObject *initData);
 
     void addParent(const QString &parent);
 
@@ -228,21 +228,21 @@ protected:
 
 private:
     Q_DISABLE_COPY(BaseComponent)
-    void registerExtensionInstance(void *ip_instance, const QString &i_forTypeId);
+    void registerExtensionInstance(void *instance, const QString &i_forTypeId);
 
 private:
-    ComponentDefinition *mp_definition;
+    ComponentDefinition *m_definition;
     bool m_isStarted;
     Availability m_availability;
-    TypeObjectsMap<void *> *mp_typeObjectsMap;
+    TypeObjectsMap<void *> *m_typeObjectsMap;
 };
 
 //------------------------------------------------------------------------------
 template<typename TExtension>
-void BaseComponent::registerExtension(TExtension *ip_instance)
+void BaseComponent::registerExtension(TExtension *instance)
 {
     const QString &extension_name = typeid(TExtension).name();
-    registerExtensionInstance(reinterpret_cast<void *>(ip_instance), extension_name);
+    registerExtensionInstance(reinterpret_cast<void *>(instance), extension_name);
 }
 
 //------------------------------------------------------------------------------

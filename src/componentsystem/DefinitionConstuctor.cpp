@@ -48,15 +48,15 @@ static const QString definitionPattern("%1%2.definition");
 
 //------------------------------------------------------------------------------
 DefinitionConstuctor::DefinitionConstuctor()
-    : mp_delegate(nullptr)
+    : m_delegate(nullptr)
 {
 }
 
 //------------------------------------------------------------------------------
 DefinitionConstuctor::~DefinitionConstuctor()
 {
-    delete mp_delegate;
-    mp_delegate = nullptr;
+    delete m_delegate;
+    m_delegate = nullptr;
 }
 
 //------------------------------------------------------------------------------
@@ -81,9 +81,9 @@ bool DefinitionConstuctor::construct(ComponentDefinition *definition, const IDef
     QString filePath = libraryPattern.arg(fileDir).arg(fileInfo.fileName());
     QString defFilePath = definitionPattern.arg(fileDir).arg(name);
 
-    if (mp_delegate != nullptr) {
-        filePath = mp_delegate->constructLocation(filePath);
-        defFilePath = mp_delegate->constructLocation(defFilePath);
+    if (m_delegate != nullptr) {
+        filePath = m_delegate->constructLocation(filePath);
+        defFilePath = m_delegate->constructLocation(defFilePath);
     }
 
     definition->setComponentLocation(filePath);
@@ -98,10 +98,10 @@ bool DefinitionConstuctor::construct(ComponentDefinition *definition, const IDef
 //------------------------------------------------------------------------------
 void DefinitionConstuctor::setLocationConstructorDelegate(IComponentLocationConstructorDelegate *delegate)
 {
-    if (mp_delegate != nullptr)
-        delete mp_delegate;
+    if (m_delegate != nullptr)
+        delete m_delegate;
 
-    mp_delegate = delegate;
+    m_delegate = delegate;
 }
 
 //------------------------------------------------------------------------------

@@ -130,7 +130,7 @@ public:
      *   Deactivates current tool and sets the specified tool as active.
      * @sa activeTool
      */
-    void setActiveTool(ITool *ip_activeTool);
+    void setActiveTool(ITool *activeTool);
 
     /*!
      * @details
@@ -141,7 +141,7 @@ public:
      *   CarouselComponentConfigurationDelegate is used by default. Note, that
      *   CarouselInteractionService takes ownership of the configuration delegate.
      */
-    void setConfigurationDelegate(IComponentConfigurationDelegate *ip_configurationDelegate);
+    void setConfigurationDelegate(IComponentConfigurationDelegate *configurationDelegate);
 
     /*!
      * @details
@@ -156,21 +156,21 @@ public:
      *   interceptor.
      * @sa setInputInterceptor, activeTool
      */
-    void setInputInterceptor(IInputInterceptor *ip_inputInterceptor);
+    void setInputInterceptor(IInputInterceptor *inputInterceptor);
 
 protected slots:
-    void onComponentStartedUp(IComponent *ip_component);
-    void onComponentAboutToShutDown(IComponent *ip_component);
+    void onComponentStartedUp(IComponent *component);
+    void onComponentAboutToShutDown(IComponent *component);
     void onToolExecutingStopped();
 
 private:
     AbstractApplication &m_app;
-    IInputInterceptor *mp_inputInterceptor;
-    IComponentConfigurationDelegate *mp_componentConfigurationDelegate;
-    IComponentManager *mp_componentManager;
-    ITool *mp_activeTool;
-    Catalogs *mp_catalogs;
-    QMainWindow *mp_mainWindow;
+    IInputInterceptor *m_inputInterceptor;
+    IComponentConfigurationDelegate *m_componentConfigurationDelegate;
+    IComponentManager *m_componentManager;
+    ITool *m_activeTool;
+    Catalogs *m_catalogs;
+    QMainWindow *m_mainWindow;
 };
 
 #endif // CAROUSELINTERACTIONSERVICE_H

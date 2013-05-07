@@ -53,7 +53,7 @@ public:
     virtual void setLocationConstructorDelegate(IComponentLocationConstructorDelegate *delegate);
 
 private:
-    IComponentLocationConstructorDelegate *mp_delegate;
+    IComponentLocationConstructorDelegate *m_delegate;
 };
 
 #endif // DEFINITIONCONSTUCTOR_H

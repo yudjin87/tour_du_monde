@@ -40,14 +40,14 @@ public:
     IInputInterceptor *inputInterceptor();
     QMainWindow &mainWindow();
     void resetUi();
-    void setActiveTool(ITool *ip_activeTool);
-    void setConfigurationDelegate(IComponentConfigurationDelegate *ip_configurationDelegate);
-    void setInputInterceptor(IInputInterceptor *ip_inputInterceptor);
+    void setActiveTool(ITool *activeTool);
+    void setConfigurationDelegate(IComponentConfigurationDelegate *configurationDelegate);
+    void setInputInterceptor(IInputInterceptor *inputInterceptor);
     void saveUiState(int version = 0);
     void loadUiState(int version = 0);
 
 public:
-    ITool *mp_activeTool;
+    ITool *m_activeTool;
 };
 
 #endif // MOCKINTERACTIONSERVICE_H

@@ -38,10 +38,10 @@ bool MockComponentManager::enableAndStartComponent(IComponent *component)
 }
 
 //------------------------------------------------------------------------------
-void MockComponentManager::shutdownCheckedComponent(IComponent *ip_component)
+void MockComponentManager::shutdownCheckedComponent(IComponent *component)
 {
-    m_shutdownComponents.push_back(ip_component);
-    return ComponentManager::shutdownCheckedComponent(ip_component);
+    m_shutdownComponents.push_back(component);
+    return ComponentManager::shutdownCheckedComponent(component);
 }
 
 //------------------------------------------------------------------------------

@@ -154,12 +154,12 @@ void CarouselBootloaderTest::configuringServiceLocatorShouldAddComponentProvider
     CarouselBootloader carouselBootloader;
     carouselBootloader.run();
 
-    IServiceLocator *p_serviceLocator = carouselBootloader.serviceLocator();
-    QVERIFY(p_serviceLocator != nullptr);
+    IServiceLocator *serviceLocator = carouselBootloader.serviceLocator();
+    QVERIFY(serviceLocator != nullptr);
 
-    IComponentProvider *p_provider = p_serviceLocator->locate<IComponentProvider>();
+    IComponentProvider *provider = serviceLocator->locate<IComponentProvider>();
 
-    QVERIFY(dynamic_cast<ComponentProvider *>(p_provider) != nullptr);
+    QVERIFY(dynamic_cast<ComponentProvider *>(provider) != nullptr);
 }
 
 //------------------------------------------------------------------------------
@@ -168,12 +168,12 @@ void CarouselBootloaderTest::configuringServiceLocatorShouldAddLoggerToServices(
     CarouselBootloader carouselBootloader;
     carouselBootloader.run();
 
-    IServiceLocator *p_serviceLocator = carouselBootloader.serviceLocator();
-    QVERIFY(p_serviceLocator != nullptr);
+    IServiceLocator *serviceLocator = carouselBootloader.serviceLocator();
+    QVERIFY(serviceLocator != nullptr);
 
-    ILogger *p_logger = p_serviceLocator->locate<ILogger>();
+    ILogger *logger = serviceLocator->locate<ILogger>();
 
-    QVERIFY(p_logger != nullptr);
+    QVERIFY(logger != nullptr);
 }
 
 //------------------------------------------------------------------------------
@@ -182,12 +182,12 @@ void CarouselBootloaderTest::configuringServiceLocatorShouldAddComponentManagerT
     CarouselBootloader carouselBootloader;
     carouselBootloader.run();
 
-    IServiceLocator *p_serviceLocator = carouselBootloader.serviceLocator();
-    QVERIFY(p_serviceLocator != nullptr);
+    IServiceLocator *serviceLocator = carouselBootloader.serviceLocator();
+    QVERIFY(serviceLocator != nullptr);
 
-    IComponentManager *p_componentManager  = p_serviceLocator->locate<IComponentManager>();
+    IComponentManager *componentManager  = serviceLocator->locate<IComponentManager>();
 
-    QVERIFY(p_componentManager != nullptr);
+    QVERIFY(componentManager != nullptr);
 }
 
 //------------------------------------------------------------------------------
@@ -196,12 +196,12 @@ void CarouselBootloaderTest::configuringServiceLocatorShouldAddMainWindowToServi
     CarouselBootloader carouselBootloader;
     carouselBootloader.run();
 
-    IServiceLocator *p_serviceLocator = carouselBootloader.serviceLocator();
-    QVERIFY(p_serviceLocator != nullptr);
+    IServiceLocator *serviceLocator = carouselBootloader.serviceLocator();
+    QVERIFY(serviceLocator != nullptr);
 
-    QMainWindow *p_mainWindow  = p_serviceLocator->locate<QMainWindow>();
+    QMainWindow *mainWindow  = serviceLocator->locate<QMainWindow>();
 
-    QVERIFY(p_mainWindow != nullptr);
+    QVERIFY(mainWindow != nullptr);
 }
 
 //------------------------------------------------------------------------------

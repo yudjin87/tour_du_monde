@@ -43,11 +43,11 @@ public:
     ~InteractionServiceComponentPrivate();
 
     void onShutdown();
-    bool onStartup(QObject *ip_initData);
+    bool onStartup(QObject *initData);
 
 private:
-    CarouselInteractionService *mp_service;
-    IDialogService *mp_dialogService;
+    CarouselInteractionService *m_service;
+    IDialogService *m_dialogService;
 };
 
 //------------------------------------------------------------------------------
@@ -81,31 +81,31 @@ void InteractionServiceComponent::_onShutdown()
 }
 
 //------------------------------------------------------------------------------
-bool InteractionServiceComponent::_onStartup(QObject *ip_initData)
+bool InteractionServiceComponent::_onStartup(QObject *initData)
 {
-    return d->onStartup(ip_initData);
+    return d->onStartup(initData);
 }
 
 //------------------------------------------------------------------------------
 InteractionServiceComponent::InteractionServiceComponentPrivate::InteractionServiceComponentPrivate()
-    : mp_service(nullptr)
-    , mp_dialogService(nullptr)
+    : m_service(nullptr)
+    , m_dialogService(nullptr)
 {
 }
 
 //------------------------------------------------------------------------------
 InteractionServiceComponent::InteractionServiceComponentPrivate::~InteractionServiceComponentPrivate()
 {
-    if (mp_service != nullptr
-            || mp_dialogService != nullptr )
+    if (m_service != nullptr
+            || m_dialogService != nullptr )
         qWarning("Logic error: onShutdown() was not called.");
 }
 
 //------------------------------------------------------------------------------
 void InteractionServiceComponent::InteractionServiceComponentPrivate::onShutdown()
 {
-    if (mp_service == nullptr
-            || mp_dialogService == nullptr )
+    if (m_service == nullptr
+            || m_dialogService == nullptr )
         qWarning("Logic error: onStartup() should be called before onShutdown().");
 
     AbstractApplication *app = dynamic_cast<AbstractApplication *>(qApp);
@@ -113,37 +113,37 @@ void InteractionServiceComponent::InteractionServiceComponentPrivate::onShutdown
 
     IInteractionService *service = locator.unregisterInstance<IInteractionService>();
     delete service;
-    mp_service = nullptr;
+    m_service = nullptr;
 
     IDialogService *dialogService = locator.unregisterInstance<IDialogService>();
     delete dialogService;
-    mp_dialogService = nullptr;
+    m_dialogService = nullptr;
 }
 
 //------------------------------------------------------------------------------
-bool InteractionServiceComponent::InteractionServiceComponentPrivate::onStartup(QObject *ip_initData)
+bool InteractionServiceComponent::InteractionServiceComponentPrivate::onStartup(QObject *initData)
 {
-    if (mp_service != nullptr
-            || mp_dialogService != nullptr )
+    if (m_service != nullptr
+            || m_dialogService != nullptr )
         qWarning("Logic error: onShutdown() was not called.");
 
-    if (ip_initData == nullptr)
+    if (initData == nullptr)
         return false;
 
-    AbstractApplication *app = dynamic_cast<AbstractApplication *>(ip_initData);
+    AbstractApplication *app = dynamic_cast<AbstractApplication *>(initData);
     if (app == nullptr)
         return false;
 
     IServiceLocator &locator = app->serviceLocator();
 
     // IInteractionService registration
-    mp_service = new CarouselInteractionService(*app);
-    locator.registerInstance<IInteractionService>(mp_service);
+    m_service = new CarouselInteractionService(*app);
+    locator.registerInstance<IInteractionService>(m_service);
 
     // IDialogService registration
     QMainWindow *mainWindow = locator.locate<QMainWindow>();
-    mp_dialogService = new DialogService(mainWindow, &locator);
-    locator.registerInstance<IDialogService>(mp_dialogService);
+    m_dialogService = new DialogService(mainWindow, &locator);
+    locator.registerInstance<IDialogService>(m_dialogService);
 
     return true;
 }

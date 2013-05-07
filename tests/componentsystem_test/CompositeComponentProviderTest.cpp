@@ -22,33 +22,32 @@ void CompositeComponentProviderTest::canAddProvider()
 //------------------------------------------------------------------------------
 void CompositeComponentProviderTest::shouldInitialiseAllProviders()
 {
-    MockComponentProvider *p_provider1 = new MockComponentProvider();
-    MockComponentProvider *p_provider2 = new MockComponentProvider();
+    MockComponentProvider *provider1 = new MockComponentProvider();
+    MockComponentProvider *provider2 = new MockComponentProvider();
 
     MockCompositeComponentProvider mock;
-    mock.addProvider(p_provider1)
-        .addProvider(p_provider2);
+    mock.addProvider(provider1)
+        .addProvider(provider2);
 
     mock.initialize();
 
-    QVERIFY(p_provider1->hasBeenInit());
-    QVERIFY(p_provider2->hasBeenInit());
-
+    QVERIFY(provider1->hasBeenInit());
+    QVERIFY(provider2->hasBeenInit());
 }
 
 //------------------------------------------------------------------------------
 void CompositeComponentProviderTest::shouldJoinComponentsFromAllProviders()
 {
-    MockComponentProvider *p_provider1 = new MockComponentProvider();
-    p_provider1->registerComponent(new MockComponent("MockComponent1"));
-    p_provider1->registerComponent(new MockComponent("MockComponent2"));
+    MockComponentProvider *provider1 = new MockComponentProvider();
+    provider1->registerComponent(new MockComponent("MockComponent1"));
+    provider1->registerComponent(new MockComponent("MockComponent2"));
 
-    MockComponentProvider *p_provider2 = new MockComponentProvider();
-    p_provider2->registerComponent(new MockComponent("MockComponent3"));
+    MockComponentProvider *provider2 = new MockComponentProvider();
+    provider2->registerComponent(new MockComponent("MockComponent3"));
 
     MockCompositeComponentProvider mock;
-    mock.addProvider(p_provider1);
-    mock.addProvider(p_provider2);
+    mock.addProvider(provider1);
+    mock.addProvider(provider2);
 
     mock.initialize();
 
@@ -60,15 +59,15 @@ void CompositeComponentProviderTest::shouldJoinComponentsFromAllProviders()
 //------------------------------------------------------------------------------
 void CompositeComponentProviderTest::shouldMergeComponentsBothFromProvidersAndFromComponentsList()
 {
-    MockComponentProvider *p_provider1 = new MockComponentProvider();
-    p_provider1->registerComponent(new MockComponent("MockComponent1"));
+    MockComponentProvider *provider1 = new MockComponentProvider();
+    provider1->registerComponent(new MockComponent("MockComponent1"));
 
-    MockComponentProvider *p_provider2 = new MockComponentProvider();
-    p_provider2->registerComponent(new MockComponent("MockComponent2"));
+    MockComponentProvider *provider2 = new MockComponentProvider();
+    provider2->registerComponent(new MockComponent("MockComponent2"));
 
     MockCompositeComponentProvider mock;
-    mock.addProvider(p_provider1);
-    mock.addProvider(p_provider2);
+    mock.addProvider(provider1);
+    mock.addProvider(provider2);
 
     mock.registerComponent(new MockComponent("MockComponent3"));
 

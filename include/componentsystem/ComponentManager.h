@@ -79,8 +79,8 @@ public:
      *
      *   A newly is appended to the stoppedComponents() list and to the dependencies().
      *   This method sets isChecked() to false.
-     * @param ip_component
-     *   If manager already has component with same name as @a ip_component - the last one will
+     * @param component
+     *   If manager already has component with same name as @a component - the last one will
      *   not be added to the manager. The same for the null pointer - it will be ignored.
      *
      *   Returns @a true if component was succesfully added. If it is a null point or already
@@ -89,7 +89,7 @@ public:
      *
      * @sa IComponentDependencies::addComponent()
      */
-    bool addComponent(IComponent *ip_component);
+    bool addComponent(IComponent *component);
 
     /*!
      * @details
@@ -198,7 +198,7 @@ public:
      *
      *   Ignores null pointer or unexisting component.
      */
-    DependenciesSolvingResult shutdownComponent(IComponent *ip_component);
+    DependenciesSolvingResult shutdownComponent(IComponent *component);
 
     /*!
      * @details
@@ -252,7 +252,7 @@ public:
      * @note component should be added to the manager before starting.
      * @sa addComponent(), check()
      */
-    DependenciesSolvingResult startupComponent(IComponent *ip_component);
+    DependenciesSolvingResult startupComponent(IComponent *component);
 
     /*!
      * @details
@@ -292,26 +292,26 @@ public:
 protected slots:
     /*!
      * @details
-     *   This method is invoked when @a ip_component is started up by the
-     *   ComponentManager. It emits componentStarted() signal and moves @a ip_component
+     *   This method is invoked when @a component is started up by the
+     *   ComponentManager. It emits componentStarted() signal and moves @a component
      *   from the stopped to started list.
      */
-    virtual void onComponentStarted(IComponent *ip_component);
+    virtual void onComponentStarted(IComponent *component);
 
     /*!
      * @details
-     *   This method is invoked before @a ip_component will be shuted down by the
+     *   This method is invoked before @a component will be shuted down by the
      *   ComponentManager. It emits componentAboutToShutDown().
      */
-    virtual void onComponentAboutToShutDown(IComponent *ip_component);
+    virtual void onComponentAboutToShutDown(IComponent *component);
 
     /*!
      * @details
-     *   This method is invoked when @a ip_component is shuted down by the
-     *   ComponentManager. It emits componentShutedDown() signal and moves @a ip_component
+     *   This method is invoked when @a component is shuted down by the
+     *   ComponentManager. It emits componentShutedDown() signal and moves @a component
      *   from the started to stopped list.
      */
-    virtual void onComponentShutedDown(IComponent *ip_component);
+    virtual void onComponentShutedDown(IComponent *component);
 
     /*!
      * @details
@@ -373,7 +373,7 @@ private:
     ShutDownFunc m_shutDownFunc;
     StartUpFunc m_startUpFunc;
     QObject *m_initializationData;
-    IComponentDependencies *mp_components;
+    IComponentDependencies *m_components;
     QList<IComponent *> m_startedComponents;
     QList<IComponent *> m_stoppedComponents;
     QSet<IComponent *> m_orphanComponents;

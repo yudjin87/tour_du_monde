@@ -40,8 +40,8 @@ public:
     ~ComponentWithExtensions();
 
 public:
-    IComponentExtension1 *mp_extension1;
-    IComponentExtension2 *mp_extension2;
+    IComponentExtension1 *m_extension1;
+    IComponentExtension2 *m_extension2;
 };
 
 class IComponentExtension1 : public IComponentExtension {};

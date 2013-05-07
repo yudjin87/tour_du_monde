@@ -36,11 +36,11 @@
 
 //------------------------------------------------------------------------------
 BootloaderBase::BootloaderBase()
-    : mp_componentManager(nullptr)
-    , mp_componentProvider(nullptr)
-    , mp_logger(nullptr)
-    , mp_serviceLocator(nullptr)
-    , mp_mainWindow(nullptr)
+    : m_componentManager(nullptr)
+    , m_componentProvider(nullptr)
+    , m_logger(nullptr)
+    , m_serviceLocator(nullptr)
+    , m_mainWindow(nullptr)
     , m_alreadyRunned(false)
 {
 }
@@ -48,20 +48,20 @@ BootloaderBase::BootloaderBase()
 //------------------------------------------------------------------------------
 BootloaderBase::~BootloaderBase()
 {
-    delete mp_componentManager;
-    mp_componentManager = nullptr;
+    delete m_componentManager;
+    m_componentManager = nullptr;
 
-    delete mp_componentProvider;
-    mp_componentProvider = nullptr;
+    delete m_componentProvider;
+    m_componentProvider = nullptr;
 
-    delete mp_logger;
-    mp_logger = nullptr;
+    delete m_logger;
+    m_logger = nullptr;
 
-    delete mp_serviceLocator;
-    mp_serviceLocator = nullptr;
+    delete m_serviceLocator;
+    m_serviceLocator = nullptr;
 
-    delete mp_mainWindow;
-    mp_mainWindow = nullptr;
+    delete m_mainWindow;
+    m_mainWindow = nullptr;
 }
 
 //------------------------------------------------------------------------------
@@ -78,7 +78,7 @@ void BootloaderBase::run()
 //------------------------------------------------------------------------------
 IServiceLocator *BootloaderBase::serviceLocator() const
 {
-    return mp_serviceLocator;
+    return m_serviceLocator;
 }
 
 //------------------------------------------------------------------------------
@@ -94,7 +94,7 @@ void BootloaderBase::_configureComponentProvider()
 //------------------------------------------------------------------------------
 IComponentManager *BootloaderBase::_createComponentManager()
 {
-    return new ComponentManager(new ComponentDependencies(), *mp_logger);
+    return new ComponentManager(new ComponentDependencies(), *m_logger);
 }
 
 //------------------------------------------------------------------------------

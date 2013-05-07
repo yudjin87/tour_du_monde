@@ -83,37 +83,37 @@ void DockWidgetCatalogTest::shouldEmitWhenWidgetAdded()
 //------------------------------------------------------------------------------
 void DockWidgetCatalogTest::shouldSetSepcifiedWidgetToTheCreatedDockWidget()
 {
-    QWidget *p_widget = new QWidget();
+    QWidget *widget = new QWidget();
     QMainWindow window;
     DockWidgetCatalog catalog(window);
-    QDockWidget *p_dock = catalog.addDockWidget(p_widget);
+    QDockWidget *dock = catalog.addDockWidget(widget);
 
-    QVERIFY(p_dock != nullptr);
-    QCOMPARE(p_dock->widget(), p_widget);
+    QVERIFY(dock != nullptr);
+    QCOMPARE(dock->widget(), widget);
 }
 
 //------------------------------------------------------------------------------
 void DockWidgetCatalogTest::shouldSetSpecifiedWindowTitleToTheCreatedDockWidget()
 {
-    QWidget *p_widget = new QWidget();
+    QWidget *widget = new QWidget();
     QMainWindow window;
     DockWidgetCatalog catalog(window);
-    QDockWidget *p_dock = catalog.addDockWidget(p_widget, "Title");
+    QDockWidget *dock = catalog.addDockWidget(widget, "Title");
 
-    QVERIFY(p_dock != nullptr);
-    QCOMPARE(p_dock->windowTitle(), QString("Title"));
+    QVERIFY(dock != nullptr);
+    QCOMPARE(dock->windowTitle(), QString("Title"));
 }
 
 //------------------------------------------------------------------------------
 void DockWidgetCatalogTest::shouldSetSpecifiedObjectNameToTheCreatedDockWidget()
 {
-    QWidget *p_widget = new QWidget();
+    QWidget *widget = new QWidget();
     QMainWindow window;
     DockWidgetCatalog catalog(window);
-    QDockWidget *p_dock = catalog.addDockWidget(p_widget, "Title");
+    QDockWidget *dock = catalog.addDockWidget(widget, "Title");
 
-    QVERIFY(p_dock != nullptr);
-    QCOMPARE(p_dock->objectName(), QString("Title"));
+    QVERIFY(dock != nullptr);
+    QCOMPARE(dock->objectName(), QString("Title"));
 }
 
 //------------------------------------------------------------------------------
@@ -121,10 +121,10 @@ void DockWidgetCatalogTest::shouldReturnDockWidgets()
 {
     QMainWindow window;
     DockWidgetCatalog catalog(window);
-    QDockWidget *p_dock = catalog.addDockWidget(new QWidget());
+    QDockWidget *dock = catalog.addDockWidget(new QWidget());
 
     QVERIFY(!catalog.dockWidgets().empty());
-    QCOMPARE(p_dock, catalog.dockWidgets()[0]);
+    QCOMPARE(dock, catalog.dockWidgets()[0]);
 }
 
 //------------------------------------------------------------------------------
@@ -132,12 +132,12 @@ void DockWidgetCatalogTest::shouldDeleteDockWidget()
 {
     QMainWindow window;
     DockWidgetCatalog catalog(window);
-    QDockWidget *p_dock = catalog.addDockWidget(new QWidget());
+    QDockWidget *dock = catalog.addDockWidget(new QWidget());
     catalog.addDockWidget(new QWidget());
 
-    catalog.deleteDockWidget(p_dock);
+    catalog.deleteDockWidget(dock);
     QCOMPARE(catalog.dockWidgets().size(), 1);
-    QVERIFY(catalog.dockWidgets().contains(p_dock) == false);
+    QVERIFY(catalog.dockWidgets().contains(dock) == false);
 }
 
 //------------------------------------------------------------------------------

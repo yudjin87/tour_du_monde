@@ -47,9 +47,9 @@ void UndoOperation::execute()
 }
 
 //------------------------------------------------------------------------------
-void UndoOperation::initialize(QObject *ip_startUpData)
+void UndoOperation::initialize(QObject *startUpData)
 {
-    AbstractApplication *app = qobject_cast<AbstractApplication *>(ip_startUpData);
+    AbstractApplication *app = qobject_cast<AbstractApplication *>(startUpData);
     if (app == nullptr)
         return;
 

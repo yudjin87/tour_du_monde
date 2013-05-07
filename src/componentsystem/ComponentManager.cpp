@@ -42,7 +42,7 @@ ComponentManager::ComponentManager(ILogger &log, QObject *parent)
     , m_shutDownFunc(&ComponentManager::shutdownCheckedComponent)
     , m_startUpFunc(&ComponentManager::enableAndStartComponent)
     , m_initializationData(QCoreApplication::instance())
-    , mp_components(new ComponentDependencies())
+    , m_components(new ComponentDependencies())
     , m_startedComponents(QList<IComponent *>())
     , m_stoppedComponents(QList<IComponent *>())
     , m_orphanComponents(QSet<IComponent *>())
@@ -58,7 +58,7 @@ ComponentManager::ComponentManager(IComponentDependencies *dependencies, ILogger
     , m_shutDownFunc(&ComponentManager::shutdownCheckedComponent)
     , m_startUpFunc(&ComponentManager::enableAndStartComponent)
     , m_initializationData(QCoreApplication::instance())
-    , mp_components(dependencies)
+    , m_components(dependencies)
     , m_startedComponents(QList<IComponent *>())
     , m_stoppedComponents(QList<IComponent *>())
     , m_orphanComponents(QSet<IComponent *>())
@@ -66,23 +66,23 @@ ComponentManager::ComponentManager(IComponentDependencies *dependencies, ILogger
     , m_started(false)
 {
     QObject::setParent(parent);
-    Q_ASSERT(mp_components != nullptr);
+    Q_ASSERT(m_components != nullptr);
 }
 
 //------------------------------------------------------------------------------
 ComponentManager::~ComponentManager()
 {
-    foreach(IComponent *comp, mp_components->components())
+    foreach(IComponent *comp, m_components->components())
         delete comp;
 
-    delete mp_components;
-    mp_components = nullptr;
+    delete m_components;
+    m_components = nullptr;
 }
 
 //------------------------------------------------------------------------------
-bool ComponentManager::addComponent(IComponent *ip_component)
+bool ComponentManager::addComponent(IComponent *component)
 {
-    bool result = addComponentInternal(ip_component);
+    bool result = addComponentInternal(component);
     resetCheck();
     return result;
 }
@@ -95,7 +95,7 @@ DependenciesSolvingResult ComponentManager::check()
 
     m_isCheck = true;
 
-    DependenciesSolvingResult result = mp_components->orderedComponents();
+    DependenciesSolvingResult result = m_components->orderedComponents();
     m_checkResult = result;
 
     return m_checkResult;
@@ -104,13 +104,13 @@ DependenciesSolvingResult ComponentManager::check()
 //------------------------------------------------------------------------------
 const ObservableList<IComponent *> &ComponentManager::components() const
 {
-    return mp_components->components();
+    return m_components->components();
 }
 
 //------------------------------------------------------------------------------
 const IComponentDependencies &ComponentManager::dependencies() const
 {
-    return *mp_components;
+    return *m_components;
 }
 
 //------------------------------------------------------------------------------
@@ -167,17 +167,17 @@ void ComponentManager::shutdown()
 }
 
 //------------------------------------------------------------------------------
-DependenciesSolvingResult ComponentManager::shutdownComponent(IComponent *ip_component)
+DependenciesSolvingResult ComponentManager::shutdownComponent(IComponent *component)
 {
     QList<IComponent *> components;
-    components.push_back(ip_component);
+    components.push_back(component);
     return shutdownComponents(components);
 }
 
 //------------------------------------------------------------------------------
 DependenciesSolvingResult ComponentManager::shutdownAllComponents()
 {
-    return shutdownComponents(mp_components->components().toList());
+    return shutdownComponents(m_components->components().toList());
 }
 
 //------------------------------------------------------------------------------
@@ -186,11 +186,11 @@ DependenciesSolvingResult ComponentManager::shutdownComponents(const QList<IComp
     if (components.empty())
         return DependenciesSolvingResult();
 
-    DependenciesSolvingResult solvingResult = mp_components->completeListWithParents(components);
+    DependenciesSolvingResult solvingResult = m_components->completeListWithParents(components);
     QList<IComponent *> componentsToShutdown = solvingResult.ordered();
 
     foreach(IComponent *comp, componentsToShutdown) {
-        if (!mp_components->components().contains(comp)) {
+        if (!m_components->components().contains(comp)) {
             m_log.log(QString("Can not shutdown unexisting component: \"%1\"").arg(comp->name()), ILogger::Info);
             continue;
         }
@@ -220,10 +220,10 @@ DependenciesSolvingResult ComponentManager::startup()
 }
 
 //------------------------------------------------------------------------------
-DependenciesSolvingResult ComponentManager::startupComponent(IComponent *ip_component)
+DependenciesSolvingResult ComponentManager::startupComponent(IComponent *component)
 {
     QList<IComponent *> components;
-    components.push_back(ip_component);
+    components.push_back(component);
 
     return startupComponents(components);
 }
@@ -231,7 +231,7 @@ DependenciesSolvingResult ComponentManager::startupComponent(IComponent *ip_comp
 //------------------------------------------------------------------------------
 DependenciesSolvingResult ComponentManager::startupAllComponents()
 {
-    return startupComponents(mp_components->components().toList());
+    return startupComponents(m_components->components().toList());
 }
 
 //------------------------------------------------------------------------------
@@ -245,7 +245,7 @@ DependenciesSolvingResult ComponentManager::startupComponents(QList<IComponent *
     // Try to resolve orphan components from the previous starts, because they parents
     // may appear
     components.append(m_orphanComponents.toList());
-    DependenciesSolvingResult solvingResult = mp_components->completeListWithChildren(components);
+    DependenciesSolvingResult solvingResult = m_components->completeListWithChildren(components);
 
     QSet<IComponent *> skippedComponents;
     QList<IComponent *> componentsToStart = solvingResult.ordered();
@@ -253,7 +253,7 @@ DependenciesSolvingResult ComponentManager::startupComponents(QList<IComponent *
         if (comp->started() || skippedComponents.contains(comp))
             continue;
 
-        if (!mp_components->components().contains(comp)) {
+        if (!m_components->components().contains(comp)) {
             m_log.log(QString("Can not start unexisting component: \"%1\"").arg(comp->name()), ILogger::Info);
             continue;
         }
@@ -265,7 +265,7 @@ DependenciesSolvingResult ComponentManager::startupComponents(QList<IComponent *
             m_log.log(QString("Can not startup component: '%1'").arg(comp->name()), ILogger::Info);
 
             QStringList skipedChildren;
-            DependenciesSolvingResult children = mp_components->completeListWithParent(comp);
+            DependenciesSolvingResult children = m_components->completeListWithParent(comp);
             foreach(IComponent *comp, children.ordered()) {
                 skippedComponents.insert(comp);
                 skipedChildren.append(comp->name());
@@ -282,25 +282,25 @@ DependenciesSolvingResult ComponentManager::startupComponents(QList<IComponent *
 }
 
 //------------------------------------------------------------------------------
-void ComponentManager::onComponentStarted(IComponent *ip_component)
+void ComponentManager::onComponentStarted(IComponent *component)
 {    
-    m_stoppedComponents.removeOne(ip_component);
-    m_startedComponents.push_back(ip_component);
-    emit componentStarted(ip_component);
+    m_stoppedComponents.removeOne(component);
+    m_startedComponents.push_back(component);
+    emit componentStarted(component);
 }
 
 //------------------------------------------------------------------------------
-void ComponentManager::onComponentAboutToShutDown(IComponent *ip_component)
+void ComponentManager::onComponentAboutToShutDown(IComponent *component)
 {
-    emit componentAboutToShutDown(ip_component);
+    emit componentAboutToShutDown(component);
 }
 
 //------------------------------------------------------------------------------
-void ComponentManager::onComponentShutedDown(IComponent *ip_component)
+void ComponentManager::onComponentShutedDown(IComponent *component)
 {
-    m_startedComponents.removeOne(ip_component);
-    m_stoppedComponents.push_back(ip_component);
-    emit componentShutedDown(ip_component);
+    m_startedComponents.removeOne(component);
+    m_stoppedComponents.push_back(component);
+    emit componentShutedDown(component);
 }
 
 //------------------------------------------------------------------------------
@@ -343,7 +343,7 @@ void ComponentManager::forceShutdownCheckedComponent(IComponent *component)
 //------------------------------------------------------------------------------
 bool ComponentManager::addComponentInternal(IComponent *component)
 {
-    if (!mp_components->addComponent(component))
+    if (!m_components->addComponent(component))
         return false;
 
     m_stoppedComponents.push_back(component);

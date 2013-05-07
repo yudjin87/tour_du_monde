@@ -53,9 +53,9 @@
  *   public:
  *       MyComponent(QObject *parent = nullptr);
  *   protected:
- *       bool _onStartup(QObject *ip_initData);
+ *       bool _onStartup(QObject *initData);
  *   private:
- *       AbstractApplication *mp_app;
+ *       AbstractApplication *m_app;
  *   };
  * @endcode
  *
@@ -67,14 +67,14 @@
  *
  *   MyComponent::MyComponent(QObject *parent)
  *      : BaseComponent("MyComponent", parent)
- *      , mp_app(nullptr)
+ *      , m_app(nullptr)
  *   {
  *   }
  *
- *   bool MyComponent::_onStartup(QObject *ip_initData)
+ *   bool MyComponent::_onStartup(QObject *initData)
  *   {
- *       mp_app = dynamic_cast<AbstractApplication *>(ip_initData);
- *       return (mp_app != nullptr);
+ *       m_app = dynamic_cast<AbstractApplication *>(initData);
+ *       return (m_app != nullptr);
  *   }
  *
  *   EXPORT_COMPONENT(MyComponent)
@@ -109,7 +109,7 @@
  *   }
  *   void MyBootloader::_configureComponentProvider()
  *   {
- *       static_cast<IDirectoryComponentProvider *>(mp_componentProvider)->setPath("plugins/");
+ *       static_cast<IDirectoryComponentProvider *>(m_componentProvider)->setPath("plugins/");
  *   }
  * @endcode
  *   During boot loading sequence IDirectoryComponentProvider will find all component

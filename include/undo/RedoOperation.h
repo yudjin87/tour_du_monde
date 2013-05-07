@@ -40,7 +40,7 @@ public:
     RedoOperation();
 
     void execute();
-    void initialize(QObject *ip_startUpData);
+    void initialize(QObject *startUpData);
 
 private slots:
     void onActionChanged();

@@ -56,11 +56,11 @@ protected:
     /*!
      * @details
      *   Registers undo dialog in the dialog service.
-     * @param ip_initData should be a reference to AbstractApplication object.
-     * @return @a false, if ip_initData is not a reference to AbstractApplication object.
+     * @param initData should be a reference to AbstractApplication object.
+     * @return @a false, if initData is not a reference to AbstractApplication object.
      *   Otherwise, return @a true.
      */
-    bool _onStartup(QObject *ip_initData);
+    bool _onStartup(QObject *initData);
 
 private:
     QUndoStack *m_undoStack;

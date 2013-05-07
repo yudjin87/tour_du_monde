@@ -84,8 +84,8 @@ void ListDictionary<TKey, TValue>::add(const TKey &i_key, const TValue &i_value)
         this->value(i_key)->push_back(i_value);
     }
     else {
-        Container* p_values = _createNewList(i_key);
-        p_values->push_back(i_value);
+        Container* values = _createNewList(i_key);
+        values->push_back(i_value);
     }
 }
 
@@ -93,9 +93,9 @@ void ListDictionary<TKey, TValue>::add(const TKey &i_key, const TValue &i_value)
 template<typename TKey, typename TValue>
 typename ListDictionary<TKey, TValue>::Container* ListDictionary<TKey, TValue>::_createNewList(const TKey &i_key)
 {
-    Container* p_values = new Container();
-    this->insert(i_key, p_values);
-    return p_values;
+    Container* values = new Container();
+    this->insert(i_key, values);
+    return values;
 }
 
 //------------------------------------------------------------------------------

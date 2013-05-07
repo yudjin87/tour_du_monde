@@ -15,7 +15,7 @@ public:
     QStringList &parents();
 
 protected:
-    bool _onStartup(QObject *ip_initData);
+    bool _onStartup(QObject *initData);
     void _onShutdown();
 
 signals:

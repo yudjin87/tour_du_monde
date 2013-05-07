@@ -51,7 +51,7 @@ public:
 
     /*!
      * @details
-     *   Context menu event occured at the given in @a ip_event location.
+     *   Context menu event occured at the given in @a event location.
      *
      *   When create a custom receiver, write code to display a
      *   custom context menu the right mouse button is pressed.
@@ -60,43 +60,43 @@ public:
      *   know that it handled the onContextMenu event by returning true. If you
      *   don't do this, the standard context menu will be displayed.
      */
-    virtual bool onContextMenu(QContextMenuEvent *ip_event) = 0;
+    virtual bool onContextMenu(QContextMenuEvent *event) = 0;
 
     /*!
      * @details
      *   Occurs when a mouse button is double clicked.
      */
-    virtual void onDoubleClick(QMouseEvent *ip_event) = 0;
+    virtual void onDoubleClick(QMouseEvent *event) = 0;
 
     /*!
      * @details
      *   Occurs when a key on the keyboard is pressed.
      */
-    virtual void onKeyDown(QKeyEvent *ip_event) = 0;
+    virtual void onKeyDown(QKeyEvent *event) = 0;
 
     /*!
      * @details
      *   Occurs when a key on the keyboard is released.
      */
-    virtual void onKeyUp(QKeyEvent *ip_event) = 0;
+    virtual void onKeyUp(QKeyEvent *event) = 0;
 
     /*!
      * @details
      *   Occurs when a mouse button is pressed.
      */
-    virtual void onMouseDown(QMouseEvent *ip_event) = 0;
+    virtual void onMouseDown(QMouseEvent *event) = 0;
 
     /*!
      * @details
      *   Occurs when the mouse is moved.
      */
-    virtual void onMouseMove(QMouseEvent *ip_event) = 0;
+    virtual void onMouseMove(QMouseEvent *event) = 0;
 
     /*!
      * @details
      *   Occurs when a mouse button is released.
      */
-    virtual void onMouseUp(QMouseEvent *ip_event) = 0;
+    virtual void onMouseUp(QMouseEvent *event) = 0;
 };
 
 #endif // IINPUTRECEIVER_H

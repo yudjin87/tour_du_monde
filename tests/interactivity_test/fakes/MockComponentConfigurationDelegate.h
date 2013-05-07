@@ -35,12 +35,12 @@ public:
     MockComponentConfigurationDelegate();
     ~MockComponentConfigurationDelegate();
 
-    void configure(IComponent *ip_component, ICatalogs &catalogs, AbstractApplication &i_application);
-    void deconfigure(IComponent *ip_component, ICatalogs &catalogs);
+    void configure(IComponent *component, ICatalogs &catalogs, AbstractApplication &i_application);
+    void deconfigure(IComponent *component, ICatalogs &catalogs);
 
     void setDeleteFlag(bool &i_wasDestructorCalled);
 
-    const ConfigurationChanges *changesByComponent(IComponent *ip_component) const;
+    const ConfigurationChanges *changesByComponent(IComponent *component) const;
 
 public:
     bool m_configureCalled;
@@ -49,7 +49,7 @@ public:
     int m_deconfigureCalls;
 
 private:
-    bool *mp_wasDestructorCalled;
+    bool *m_wasDestructorCalled;
 };
 
 #endif // MOCKCOMPONENTCONFIGURATIONDELEGATE_H

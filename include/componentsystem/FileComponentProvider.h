@@ -114,7 +114,7 @@ protected:
 
 private:
     QString m_path;
-    IComponent *mp_lastLoadedComponent;
+    IComponent *m_lastLoadedComponent;
 };
 
 #endif // SINGLELIBRARYFILECOMPONENTPROVIDER_H

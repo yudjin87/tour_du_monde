@@ -61,14 +61,14 @@ public:
      * @details
      *   Adds a new component. Component with same name should not already exists in.
      *
-     * @param ip_component
-     *   If IComponentDependencies already has component with same name as @a ip_component
+     * @param component
+     *   If IComponentDependencies already has component with same name as @a component
      *   - the last one will not be added. The same for the null pointer - it will be ignored.
      *
      *   Returns @a true if component was succesfully added. If it is a null point or already
      *   existed one - returns @a false.
      */
-    bool addComponent(IComponent *ip_component);
+    bool addComponent(IComponent *component);
 
     /*!
      * @details
@@ -86,10 +86,10 @@ public:
      *   and you call completeListWithChild() for the @a C component,
      *   the @a A, @a B and @a C components will be returned in that order.
      *
-     * @param ip_forChild
+     * @param forChild
      *   The component to get the dependencies (or parents) for.
      */
-    DependenciesSolvingResult completeListWithChild(IComponent *ip_forChild) const;
+    DependenciesSolvingResult completeListWithChild(IComponent *forChild) const;
 
     /*!
      * @details
@@ -121,10 +121,10 @@ public:
      *   the @a E, @a D and @a C components will be returned in such order,
      *   where indexOf(E) < indexOf(C) and indexOf(D) < indexOf(C).
      *
-     * @param ip_forParent
+     * @param forParent
      *   The component to get the components that depend on it (or its implicit children).
      */
-    DependenciesSolvingResult completeListWithParent(IComponent *ip_forParent) const;
+    DependenciesSolvingResult completeListWithParent(IComponent *forParent) const;
 
     /*!
      * @details
@@ -143,10 +143,10 @@ public:
      *   the @a E, @a D and @a C components will be returned in such order,
      *   where indexOf(E) < indexOf(C) and indexOf(D) < indexOf(C).
      *
-     * @param ip_forParents
+     * @param forParents
      *   The components to get the other components that depend on they (or their implicit children).
      */
-    DependenciesSolvingResult completeListWithParents(const QList<IComponent *> &ip_forParents) const;
+    DependenciesSolvingResult completeListWithParents(const QList<IComponent *> &forParents) const;
 
     /*!
      * @details
@@ -171,11 +171,11 @@ public:
      *             D <──┘
      * @endcode
      *   then, getParentComponents(E) will return {A, B, C, D} components.
-     * @param ip_forChild
+     * @param forChild
      *   The component to get the dependencies (or parents) for.
-     *   If @a ip_forChild is null - result with empty collections will be returned.
+     *   If @a forChild is null - result with empty collections will be returned.
      */
-    DependenciesSolvingResult getParentComponents(const IComponent *ip_forChild) const;
+    DependenciesSolvingResult getParentComponents(const IComponent *forChild) const;
 
     /*!
      * @details
@@ -188,12 +188,12 @@ public:
      *             └─── D
      * @endcode
      *   then, getChildComponents(C) will return {E, D} components.
-     * @param ip_forParent
+     * @param forParent
      *   The component to get the other components that depend on it (or its implicit children).
-     *   If @a ip_forParent is null or component with such name does not exists - result with
+     *   If @a forParent is null or component with such name does not exists - result with
      *   empty collections will be returned.
      */
-    DependenciesSolvingResult getChildComponents(const IComponent *ip_forParent) const;
+    DependenciesSolvingResult getChildComponents(const IComponent *forParent) const;
 
     /*!
      * @details

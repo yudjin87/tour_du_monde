@@ -71,8 +71,8 @@ private slots:
     void onDirectoryChanged(const QString &path);
 
 private:
-    IDirectoryComponentProvider *mp_provider;
-    QFileSystemWatcher *mp_watcher;
+    IDirectoryComponentProvider *m_provider;
+    QFileSystemWatcher *m_watcher;
 };
 
 #endif // DIRECTORYWATCHINGCOMPONENTPROVIDER_H

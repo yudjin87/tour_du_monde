@@ -37,15 +37,15 @@ MockComponentManager::MockComponentManager()
 }
 
 //------------------------------------------------------------------------------
-void MockComponentManager::callOnComponentStarted(IComponent *ip_component)
+void MockComponentManager::callOnComponentStarted(IComponent *component)
 {
-    onComponentStarted(ip_component);
+    onComponentStarted(component);
 }
 
 //------------------------------------------------------------------------------
-void MockComponentManager::callOnComponentAboutToShutDown(IComponent *ip_component)
+void MockComponentManager::callOnComponentAboutToShutDown(IComponent *component)
 {
-    onComponentAboutToShutDown(ip_component);
+    onComponentAboutToShutDown(component);
 }
 
 //------------------------------------------------------------------------------

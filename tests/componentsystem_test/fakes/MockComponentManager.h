@@ -12,9 +12,9 @@ public:
 
     DependenciesSolvingResult check();
 
-    bool startCheckedComponent(IComponent *ip_component);
+    bool startCheckedComponent(IComponent *component);
     bool enableAndStartComponent(IComponent *component);
-    void shutdownCheckedComponent(IComponent *ip_component);
+    void shutdownCheckedComponent(IComponent *component);
 
 public:
     bool callCheck;

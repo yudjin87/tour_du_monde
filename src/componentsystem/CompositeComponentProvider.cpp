@@ -50,8 +50,8 @@ bool CompositeComponentProvider::initialize()
         return true;
 
     m_alreadyInit = true;
-    foreach(IComponentProvider *p_provider, m_providers)
-        m_alreadyInit &= p_provider->initialize();
+    foreach(IComponentProvider *provider, m_providers)
+        m_alreadyInit &= provider->initialize();
 
     return m_alreadyInit;
 }
@@ -67,23 +67,23 @@ QList<IComponent *> CompositeComponentProvider::components() const
 {
     QList<IComponent *> components_to_return;
 
-    foreach(IComponentProvider *p_provider, m_providers)
-        foreach(IComponent *p_component, p_provider->components())
-            components_to_return.push_back(p_component);
+    foreach(IComponentProvider *provider, m_providers)
+        foreach(IComponent *component, provider->components())
+            components_to_return.push_back(component);
 
     return components_to_return;
 }
 
 //------------------------------------------------------------------------------
-CompositeComponentProvider &CompositeComponentProvider::addProvider(IComponentProvider *ip_provider)
+CompositeComponentProvider &CompositeComponentProvider::addProvider(IComponentProvider *provider)
 {
-    m_providers.push_back(ip_provider);
+    m_providers.push_back(provider);
     return *this;
 }
 
-void CompositeComponentProvider::registerComponent(IComponent *ip_component)
+void CompositeComponentProvider::registerComponent(IComponent *component)
 {
-    m_providers[0]->registerComponent(ip_component);
+    m_providers[0]->registerComponent(component);
 }
 
 //------------------------------------------------------------------------------

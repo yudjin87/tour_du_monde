@@ -34,8 +34,8 @@
 //------------------------------------------------------------------------------
 ProxyComponent::ProxyComponent(ComponentDefinition *definition, QObject *parent)
     : BaseComponent(definition, parent)
-    , mp_loader(new ComponentLoader())
-    , mp_component(nullptr)
+    , m_loader(new ComponentLoader())
+    , m_component(nullptr)
     , m_initialized(false)
 {
 }
@@ -43,8 +43,8 @@ ProxyComponent::ProxyComponent(ComponentDefinition *definition, QObject *parent)
 //------------------------------------------------------------------------------
 ProxyComponent::ProxyComponent(ComponentDefinition *definition, IComponentLoader *loader, QObject *parent)
     : BaseComponent(definition, parent)
-    , mp_loader(loader)
-    , mp_component(nullptr)
+    , m_loader(loader)
+    , m_component(nullptr)
     , m_initialized(false)
 {
 }
@@ -52,17 +52,17 @@ ProxyComponent::ProxyComponent(ComponentDefinition *definition, IComponentLoader
 //------------------------------------------------------------------------------
 void *ProxyComponent::getExtension(const QString &i_byTypeId) const
 {
-    if (mp_component == nullptr)
+    if (m_component == nullptr)
         return nullptr;
 
-    return mp_component->getExtension(i_byTypeId);
+    return m_component->getExtension(i_byTypeId);
 }
 
 //------------------------------------------------------------------------------
 ProxyComponent::~ProxyComponent()
 {
-    delete mp_loader;
-    mp_loader = nullptr;
+    delete m_loader;
+    m_loader = nullptr;
 }
 
 //------------------------------------------------------------------------------
@@ -71,7 +71,7 @@ bool ProxyComponent::initialize()
     if (m_initialized)
         return true;
 
-    if (mp_loader == nullptr)
+    if (m_loader == nullptr)
         return false;
 
     if (definition()->componentName().trimmed().isEmpty())
@@ -88,7 +88,7 @@ bool ProxyComponent::initialize()
 
     loadAvailability();
 
-    mp_loader->setFileName(libraryPath);
+    m_loader->setFileName(libraryPath);
     m_initialized = true;
 
     return true;
@@ -97,38 +97,38 @@ bool ProxyComponent::initialize()
 //------------------------------------------------------------------------------
 IComponent *ProxyComponent::loadedComponent() const
 {
-    return mp_component;
+    return m_component;
 }
 
 //------------------------------------------------------------------------------
 void ProxyComponent::_onShutdown()
 {
-    mp_component->shutdown();
-    bool result = mp_loader->deleteInstance();
+    m_component->shutdown();
+    bool result = m_loader->deleteInstance();
     Q_UNUSED(result)
     Q_ASSERT(result);
 
-    mp_component = nullptr;
+    m_component = nullptr;
 }
 
 //------------------------------------------------------------------------------
-bool ProxyComponent::_onStartup(QObject *ip_initData)
+bool ProxyComponent::_onStartup(QObject *initData)
 {
     if (!m_initialized)
         return false;
 
-    if (mp_loader == nullptr)
+    if (m_loader == nullptr)
         return false;
 
-    if (!mp_loader->load())
+    if (!m_loader->load())
         return false;
 
-    mp_component = mp_loader->instance();
+    m_component = m_loader->instance();
 
-    if (mp_component == nullptr)
+    if (m_component == nullptr)
         return false;
 
-    return mp_component->startup(ip_initData);
+    return m_component->startup(initData);
 }
 
 //------------------------------------------------------------------------------

@@ -28,21 +28,21 @@
 
 //------------------------------------------------------------------------------
 MockInputInterceptor::MockInputInterceptor()
-    : mp_wasDestructorCalled(nullptr)
+    : m_wasDestructorCalled(nullptr)
 {
 }
 
 //------------------------------------------------------------------------------
 MockInputInterceptor::~MockInputInterceptor()
 {
-    if (mp_wasDestructorCalled != nullptr)
-        *mp_wasDestructorCalled = true;
+    if (m_wasDestructorCalled != nullptr)
+        *m_wasDestructorCalled = true;
 }
 
 //------------------------------------------------------------------------------
 void MockInputInterceptor::setDeleteFlag(bool &i_wasDestructorCalled)
 {
-    mp_wasDestructorCalled = &i_wasDestructorCalled;
+    m_wasDestructorCalled = &i_wasDestructorCalled;
 }
 
 //------------------------------------------------------------------------------

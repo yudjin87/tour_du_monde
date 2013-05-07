@@ -58,10 +58,10 @@ CarouselComponentConfigurationDelegate::~CarouselComponentConfigurationDelegate(
 }
 
 //------------------------------------------------------------------------------
-void CarouselComponentConfigurationDelegate::configure(IComponent *ip_component, ICatalogs &catalogs, AbstractApplication &i_application)
+void CarouselComponentConfigurationDelegate::configure(IComponent *component, ICatalogs &catalogs, AbstractApplication &i_application)
 {
-    IInteractiveExtension *p_interactiveExtension = ip_component->extension<IInteractiveExtension>();
-    if (p_interactiveExtension == nullptr)
+    IInteractiveExtension *interactiveExtension = component->extension<IInteractiveExtension>();
+    if (interactiveExtension == nullptr)
         return;
 
     // Connect to the catalog changes
@@ -85,10 +85,10 @@ void CarouselComponentConfigurationDelegate::configure(IComponent *ip_component,
 //    changes->connect(&catalogs.menuCatalog(), SIGNAL(subMenuAdded(QAction*)),
 //                     SLOT(insertInsertedOperation(QAction *)));
 
-    m_changes.insert(ip_component, changes);
+    m_changes.insert(component, changes);
 
     // Configure the new component
-    p_interactiveExtension->configureGui(catalogs, i_application);
+    interactiveExtension->configureGui(catalogs, i_application);
 
     // Disconnect from the catalogs
     catalogs.operationCatalog().disconnect(changes);
@@ -98,13 +98,13 @@ void CarouselComponentConfigurationDelegate::configure(IComponent *ip_component,
 }
 
 //------------------------------------------------------------------------------
-void CarouselComponentConfigurationDelegate::deconfigure(IComponent * ip_component, ICatalogs &catalogs)
+void CarouselComponentConfigurationDelegate::deconfigure(IComponent * component, ICatalogs &catalogs)
 {
-    IInteractiveExtension *p_interactiveExtension = ip_component->extension<IInteractiveExtension>();
-    if (p_interactiveExtension == nullptr)
+    IInteractiveExtension *interactiveExtension = component->extension<IInteractiveExtension>();
+    if (interactiveExtension == nullptr)
         return;
 
-    const ConfigurationChanges *changes = changesByComponent(ip_component);
+    const ConfigurationChanges *changes = changesByComponent(component);
 
     // Deleting inserted operations from the widgets
     // TODO: implement me!
@@ -129,9 +129,9 @@ void CarouselComponentConfigurationDelegate::deconfigure(IComponent * ip_compone
 }
 
 //------------------------------------------------------------------------------
-const ConfigurationChanges *CarouselComponentConfigurationDelegate::changesByComponent(IComponent *ip_component) const
+const ConfigurationChanges *CarouselComponentConfigurationDelegate::changesByComponent(IComponent *component) const
 {
-    return m_changes[ip_component];
+    return m_changes[component];
 }
 
 //------------------------------------------------------------------------------

@@ -33,7 +33,7 @@ class ToolBarCatalogTest : public QObject
 {
     Q_OBJECT
 public:
-    explicit ToolBarCatalogTest(QObject *ip_parent = 0);
+    explicit ToolBarCatalogTest(QObject *parent = 0);
     
 private Q_SLOTS:
     void shouldAddToolbarToList();

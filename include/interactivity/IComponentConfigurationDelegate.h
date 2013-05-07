@@ -56,21 +56,21 @@ public:
 public slots:
     /*!
      * @details
-     *   Tries to get the IInteractiveExtension from @a ip_component and
+     *   Tries to get the IInteractiveExtension from @a component and
      *   provides to extension the way to configure application's
      *   user interface.
      *
      *   An @a i_application is passed to the extension to obtain application model, for
      *   example, to use it in the Qt View-Model approach.
      */
-    virtual void configure(IComponent *ip_component, ICatalogs &catalogs, AbstractApplication &i_application) = 0;
+    virtual void configure(IComponent *component, ICatalogs &catalogs, AbstractApplication &i_application) = 0;
 
     /*!
      * @details
      *   Removes all component configurations from catalogs. Invokes
      *   after component has been shut down.
      */
-    virtual void deconfigure(IComponent *ip_component, ICatalogs &catalogs) = 0;
+    virtual void deconfigure(IComponent *component, ICatalogs &catalogs) = 0;
 
     /*!
      * @details
@@ -79,7 +79,7 @@ public slots:
      * @return @a nullptr, if component has not been configured
      *   by this delegate.
      */
-    virtual const ConfigurationChanges *changesByComponent(IComponent *ip_component) const = 0;
+    virtual const ConfigurationChanges *changesByComponent(IComponent *component) const = 0;
 };
 
 #endif // ICOMPONENTCONFIGURATIONDELEGATE_H

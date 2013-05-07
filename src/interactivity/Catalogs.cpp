@@ -36,29 +36,29 @@
 #include <assert.h>
 
 //------------------------------------------------------------------------------
-Catalogs::Catalogs(QMainWindow &i_shell, QObject *ip_startUpData)
-    : mp_operationCatalog(new OperationCatalog())
-    , mp_dockWidgetCatalog(new DockWidgetCatalog(i_shell))
-    , mp_menuCatalog(nullptr)
-    , mp_toolBarCatalog(new ToolBarCatalog(i_shell))
+Catalogs::Catalogs(QMainWindow &i_shell, QObject *startUpData)
+    : m_operationCatalog(new OperationCatalog())
+    , m_dockWidgetCatalog(new DockWidgetCatalog(i_shell))
+    , m_menuCatalog(nullptr)
+    , m_toolBarCatalog(new ToolBarCatalog(i_shell))
 {
     assert(i_shell.menuBar() != nullptr);
 
-    mp_menuCatalog = new MenuCatalog(*i_shell.menuBar());
-    mp_operationCatalog->setStartupData(ip_startUpData);
+    m_menuCatalog = new MenuCatalog(*i_shell.menuBar());
+    m_operationCatalog->setStartupData(startUpData);
 }
 
 //------------------------------------------------------------------------------
 Catalogs::~Catalogs()
 {
-    delete mp_operationCatalog;
-    mp_operationCatalog = nullptr;
-    delete mp_dockWidgetCatalog;
-    mp_dockWidgetCatalog = nullptr;
-    delete mp_menuCatalog;
-    mp_menuCatalog = nullptr;
-    delete mp_toolBarCatalog;
-    mp_toolBarCatalog = nullptr;
+    delete m_operationCatalog;
+    m_operationCatalog = nullptr;
+    delete m_dockWidgetCatalog;
+    m_dockWidgetCatalog = nullptr;
+    delete m_menuCatalog;
+    m_menuCatalog = nullptr;
+    delete m_toolBarCatalog;
+    m_toolBarCatalog = nullptr;
 }
 
 //------------------------------------------------------------------------------
@@ -70,7 +70,7 @@ IOperationCatalog &Catalogs::operationCatalog()
 //------------------------------------------------------------------------------
 const IOperationCatalog &Catalogs::operationCatalog() const
 {
-    return *mp_operationCatalog;
+    return *m_operationCatalog;
 }
 
 //------------------------------------------------------------------------------
@@ -82,7 +82,7 @@ IDockWidgetCatalog &Catalogs::dockWidgetCatalog()
 //------------------------------------------------------------------------------
 const IDockWidgetCatalog &Catalogs::dockWidgetCatalog() const
 {
-    return *mp_dockWidgetCatalog;
+    return *m_dockWidgetCatalog;
 }
 
 //------------------------------------------------------------------------------
@@ -94,7 +94,7 @@ IMenuCatalog &Catalogs::menuCatalog()
 //------------------------------------------------------------------------------
 const IMenuCatalog &Catalogs::menuCatalog() const
 {
-    return *mp_menuCatalog;
+    return *m_menuCatalog;
 }
 
 //------------------------------------------------------------------------------
@@ -106,7 +106,7 @@ IToolBarCatalog &Catalogs::toolBarCatalog()
 //------------------------------------------------------------------------------
 const IToolBarCatalog &Catalogs::toolBarCatalog() const
 {
-    return *mp_toolBarCatalog;
+    return *m_toolBarCatalog;
 }
 
 //------------------------------------------------------------------------------

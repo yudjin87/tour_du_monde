@@ -149,31 +149,31 @@ protected:
      * @details
      *   Component manager for the application.
      */
-    IComponentManager *mp_componentManager;
+    IComponentManager *m_componentManager;
 
     /*!
      * @details
      *   Component provider for the application.
      */
-    IComponentProvider *mp_componentProvider;
+    IComponentProvider *m_componentProvider;
 
     /*!
      * @details
      *   Logger facade used by the bootloader.
      */
-    ILogger *mp_logger;
+    ILogger *m_logger;
 
     /*!
      * @details
      *   Service locator for the application.
      */
-    IServiceLocator *mp_serviceLocator;
+    IServiceLocator *m_serviceLocator;
 
     /*!
      * @details
      *   Main window (shell) for the application.
      */
-    QMainWindow *mp_mainWindow;
+    QMainWindow *m_mainWindow;
 
 private:
     bool m_alreadyRunned;

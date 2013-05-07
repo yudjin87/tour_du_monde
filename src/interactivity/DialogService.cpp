@@ -29,8 +29,8 @@
 #include <QtCore/QDebug>
 #include <QtGui/QDialog>
 //------------------------------------------------------------------------------
-DialogService::DialogService(QWidget *ip_mainWindow, IServiceLocator *locator)
-    : mp_mainWindow(ip_mainWindow)
+DialogService::DialogService(QWidget *mainWindow, IServiceLocator *locator)
+    : m_mainWindow(mainWindow)
     , m_locator(locator)
 {
 }
@@ -45,13 +45,13 @@ DialogService::~DialogService()
 }
 
 //------------------------------------------------------------------------------
-void DialogService::registerConstructor(const QString &i_dlgModelType, IDialogConstructor *ip_constructor)
+void DialogService::registerConstructor(const QString &i_dlgModelType, IDialogConstructor *constructor)
 {
-    m_viewsMap.insert(i_dlgModelType, ip_constructor);
+    m_viewsMap.insert(i_dlgModelType, constructor);
 }
 
 //------------------------------------------------------------------------------
-bool DialogService::showDialogForModel(const QString &i_forDlgModelType, void *ip_dlgModel) const
+bool DialogService::showDialogForModel(const QString &i_forDlgModelType, void *dlgModel) const
 {
     if (!m_viewsMap.contains(i_forDlgModelType)) {
         qDebug(QString("The dialog with such model \"%1\" is not registered.")
@@ -59,21 +59,21 @@ bool DialogService::showDialogForModel(const QString &i_forDlgModelType, void *i
         return false;
     }
 
-    IDialogConstructor *p_constructor = m_viewsMap.value(i_forDlgModelType);
-    QDialog *p_dlg = createDialog(p_constructor, ip_dlgModel);
-    p_dlg->setAttribute(Qt::WA_DeleteOnClose);
+    IDialogConstructor *constructor = m_viewsMap.value(i_forDlgModelType);
+    QDialog *dlg = createDialog(constructor, dlgModel);
+    dlg->setAttribute(Qt::WA_DeleteOnClose);
 
-    QDialog::DialogCode code = static_cast<QDialog::DialogCode>(p_dlg->exec());
+    QDialog::DialogCode code = static_cast<QDialog::DialogCode>(dlg->exec());
 
     return (code == QDialog::Accepted);
 }
 
 //------------------------------------------------------------------------------
-QDialog *DialogService::createDialog(IDialogConstructor *ip_constructor, void *ip_dlgModel) const
+QDialog *DialogService::createDialog(IDialogConstructor *constructor, void *dlgModel) const
 {
-    ip_constructor->injectServiceLocator(m_locator);
-    QDialog *p_dlg = reinterpret_cast<QDialog *>(ip_constructor->create(ip_dlgModel, mp_mainWindow));
-    return p_dlg;
+    constructor->injectServiceLocator(m_locator);
+    QDialog *dlg = reinterpret_cast<QDialog *>(constructor->create(dlgModel, m_mainWindow));
+    return dlg;
 }
 
 //------------------------------------------------------------------------------

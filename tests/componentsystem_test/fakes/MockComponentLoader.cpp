@@ -33,7 +33,7 @@ IComponent *MockComponentLoader::instance()
 //------------------------------------------------------------------------------
 IComponent *MockComponentLoader::getInstance()
 {
-    return mp_instance;
+    return m_instance;
 }
 
 //------------------------------------------------------------------------------

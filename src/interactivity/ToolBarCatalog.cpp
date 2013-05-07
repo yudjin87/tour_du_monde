@@ -55,9 +55,9 @@ QToolBar *ToolBarCatalog::add(Qt::ToolBarArea i_area, const QString &i_title)
     if (i_title.isEmpty())
         return nullptr;
 
-    QToolBar *p_found = find(i_title);
-    if (p_found != nullptr)
-        return p_found;
+    QToolBar *found = find(i_title);
+    if (found != nullptr)
+        return found;
 
     QToolBar *newToolbar =  _createToolbar(i_area, i_title);
     onToolbarAdded(newToolbar);
@@ -73,10 +73,10 @@ void ToolBarCatalog::deleteToolbar(const QString &i_title)
 }
 
 //------------------------------------------------------------------------------
-void ToolBarCatalog::deleteToolbar(QToolBar *ip_toolbar)
+void ToolBarCatalog::deleteToolbar(QToolBar *toolbar)
 {
-    if (m_toolbars.removeOne(ip_toolbar))
-        delete ip_toolbar;
+    if (m_toolbars.removeOne(toolbar))
+        delete toolbar;
 }
 
 //------------------------------------------------------------------------------
@@ -88,9 +88,9 @@ QToolBar *ToolBarCatalog::find(const QString &i_title)
 //------------------------------------------------------------------------------
 const QToolBar *ToolBarCatalog::find(const QString &i_title) const
 {
-    foreach(QToolBar *p_toolbar, m_toolbars) {
-        if (p_toolbar->windowTitle() == i_title)
-            return p_toolbar;
+    foreach(QToolBar *toolbar, m_toolbars) {
+        if (toolbar->windowTitle() == i_title)
+            return toolbar;
     }
 
     return nullptr;
@@ -103,22 +103,22 @@ QList<QToolBar *> ToolBarCatalog::toolbars() const
 }
 
 //------------------------------------------------------------------------------
-void ToolBarCatalog::onToolbarAdded(QToolBar *ip_toolbar)
+void ToolBarCatalog::onToolbarAdded(QToolBar *toolbar)
 {
-    emit toolbarAdded(ip_toolbar);
+    emit toolbarAdded(toolbar);
 }
 
 //------------------------------------------------------------------------------
 QToolBar *ToolBarCatalog::_createToolbar(Qt::ToolBarArea i_area, const QString &i_title)
 {
-    QToolBar *p_newToolBar = new QToolBar();
-    p_newToolBar->setWindowTitle(i_title);
-    p_newToolBar->setObjectName(i_title);
+    QToolBar *newToolBar = new QToolBar();
+    newToolBar->setWindowTitle(i_title);
+    newToolBar->setObjectName(i_title);
 
-    m_toolbars.push_back(p_newToolBar);
-    m_shell.addToolBar(i_area, p_newToolBar);
+    m_toolbars.push_back(newToolBar);
+    m_shell.addToolBar(i_area, newToolBar);
 
-    return p_newToolBar;
+    return newToolBar;
 }
 
 //------------------------------------------------------------------------------

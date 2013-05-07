@@ -15,14 +15,14 @@ public:
 //------------------------------------------------------------------------------
 IComponentManager &CarouselBootloader_ComponentManagerFixture::componentManager()
 {
-    return *mp_componentManager;
+    return *m_componentManager;
 }
 
 //------------------------------------------------------------------------------
 void CarouselBootloader_ComponentManagerFixture::_configureComponentProvider()
 {
-    mp_componentProvider->registerComponent(new ComponentStub("ComponentStubA"));
-    mp_componentProvider->registerComponent(new ComponentStub("ComponentStubB"));
+    m_componentProvider->registerComponent(new ComponentStub("ComponentStubA"));
+    m_componentProvider->registerComponent(new ComponentStub("ComponentStubB"));
 }
 
 //------------------------------------------------------------------------------

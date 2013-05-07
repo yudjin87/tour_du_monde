@@ -142,11 +142,11 @@ void BaseComponentTest::shouldReturnRegisteredInDerivedClassesExtensions()
 {
     ComponentWithExtensions componentWithExtensions;
 
-    IComponentExtension1 *p_extension1 = componentWithExtensions.extension<IComponentExtension1>();
-    IComponentExtension2 *p_extension2 = componentWithExtensions.extension<IComponentExtension2>();
+    IComponentExtension1 *extension1 = componentWithExtensions.extension<IComponentExtension1>();
+    IComponentExtension2 *extension2 = componentWithExtensions.extension<IComponentExtension2>();
 
-    QCOMPARE(p_extension2, componentWithExtensions.mp_extension2);
-    QCOMPARE(p_extension1, componentWithExtensions.mp_extension1);
+    QCOMPARE(extension2, componentWithExtensions.m_extension2);
+    QCOMPARE(extension1, componentWithExtensions.m_extension1);
 }
 
 //------------------------------------------------------------------------------
@@ -154,9 +154,9 @@ void BaseComponentTest::shouldReturnNullWhenUnregisteredExtensionIsQueried()
 {
     ComponentWithExtensions componentWithExtensions;
 
-    BaseComponentTest *p_unregisteredExtension = componentWithExtensions.extension<BaseComponentTest>();
+    BaseComponentTest *unregisteredExtension = componentWithExtensions.extension<BaseComponentTest>();
 
-    QVERIFY(p_unregisteredExtension == nullptr);
+    QVERIFY(unregisteredExtension == nullptr);
 }
 
 //------------------------------------------------------------------------------

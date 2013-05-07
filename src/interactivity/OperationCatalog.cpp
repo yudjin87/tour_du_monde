@@ -31,7 +31,7 @@
 #include <QtCore/QtAlgorithms>
 //------------------------------------------------------------------------------
 OperationCatalog::OperationCatalog()
-    : mp_startupData(nullptr)
+    : m_startupData(nullptr)
 {
 }
 
@@ -42,14 +42,14 @@ OperationCatalog::~OperationCatalog()
 }
 
 //------------------------------------------------------------------------------
-Operation *OperationCatalog::add(Operation *ip_newOperation)
+Operation *OperationCatalog::add(Operation *newOperation)
 {
-    m_operations.push_back(ip_newOperation);
-    ip_newOperation->initialize(mp_startupData);
+    m_operations.push_back(newOperation);
+    newOperation->initialize(m_startupData);
 
-    onOperationAdded(ip_newOperation);
+    onOperationAdded(newOperation);
 
-    return ip_newOperation;
+    return newOperation;
 }
 
 //------------------------------------------------------------------------------
@@ -62,9 +62,9 @@ QList<Operation *> OperationCatalog::operations() const
 QList<Operation *> OperationCatalog::operations(const QString &i_byCategory) const
 {
     QList<Operation *> operations;
-    foreach(Operation *p_operation, m_operations)
-        if (p_operation->category() == i_byCategory)
-            operations.push_back(p_operation);
+    foreach(Operation *operation, m_operations)
+        if (operation->category() == i_byCategory)
+            operations.push_back(operation);
 
     return operations;
 }
@@ -77,10 +77,10 @@ void OperationCatalog::deleteOperation(const QString &i_name)
 }
 
 //------------------------------------------------------------------------------
-void OperationCatalog::deleteOperation(Operation *ip_operation)
+void OperationCatalog::deleteOperation(Operation *operation)
 {
-    if(m_operations.removeOne(ip_operation))
-        delete ip_operation;
+    if(m_operations.removeOne(operation))
+        delete operation;
 }
 
 //------------------------------------------------------------------------------
@@ -92,23 +92,23 @@ Operation *OperationCatalog::find(const QString &i_name)
 //------------------------------------------------------------------------------
 const Operation *OperationCatalog::find(const QString &i_name) const
 {
-    foreach(Operation *p_operation, m_operations)
-        if (p_operation->name() == i_name)
-            return p_operation;
+    foreach(Operation *operation, m_operations)
+        if (operation->name() == i_name)
+            return operation;
 
     return nullptr;
 }
 
 //------------------------------------------------------------------------------
-void OperationCatalog::setStartupData(QObject *ip_startupData)
+void OperationCatalog::setStartupData(QObject *startupData)
 {
-    mp_startupData = ip_startupData;
+    m_startupData = startupData;
 }
 
 //------------------------------------------------------------------------------
-void OperationCatalog::onOperationAdded(Operation *ip_operation)
+void OperationCatalog::onOperationAdded(Operation *operation)
 {
-    emit operationAdded(ip_operation);
+    emit operationAdded(operation);
 }
 
 //------------------------------------------------------------------------------

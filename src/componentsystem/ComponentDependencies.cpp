@@ -42,27 +42,27 @@ ComponentDependencies::~ComponentDependencies()
 }
 
 //------------------------------------------------------------------------------
-bool ComponentDependencies::addComponent(IComponent *ip_component)
+bool ComponentDependencies::addComponent(IComponent *component)
 {
-    if (ip_component == nullptr) {
-        qDebug("null argument: ip_component.");
+    if (component == nullptr) {
+        qDebug("null argument: component.");
         return false;
     }
 
-    if (componentByName(ip_component->name()) != nullptr) {
+    if (componentByName(component->name()) != nullptr) {
         qDebug("Attempt to add already existing component");
         return false;
     }
 
-    m_components.push_back(ip_component);
+    m_components.push_back(component);
     return true;
 }
 
 //------------------------------------------------------------------------------
-DependenciesSolvingResult ComponentDependencies::completeListWithChild(IComponent *ip_forChild) const
+DependenciesSolvingResult ComponentDependencies::completeListWithChild(IComponent *forChild) const
 {
     QList<IComponent *> components;
-    components.push_back(ip_forChild);
+    components.push_back(forChild);
 
     return completeListWithChildren(components);
 }
@@ -101,24 +101,24 @@ DependenciesSolvingResult ComponentDependencies::completeListWithChildren(const 
 }
 
 //------------------------------------------------------------------------------
-DependenciesSolvingResult ComponentDependencies::completeListWithParent(IComponent *ip_forParent) const
+DependenciesSolvingResult ComponentDependencies::completeListWithParent(IComponent *forParent) const
 {
     QList<IComponent *> components;
-    components.push_back(ip_forParent);
+    components.push_back(forParent);
 
     return completeListWithParents(components);
 }
 
 //------------------------------------------------------------------------------
-DependenciesSolvingResult ComponentDependencies::completeListWithParents(const QList<IComponent *> &ip_forParents) const
+DependenciesSolvingResult ComponentDependencies::completeListWithParents(const QList<IComponent *> &forParents) const
 {
-    if (ip_forParents.empty())
+    if (forParents.empty())
         return DependenciesSolvingResult();
 
     DependencySolver solver;
 
     QList<IComponent *> completeList;
-    QList<IComponent *> unresolvedList(ip_forParents);
+    QList<IComponent *> unresolvedList(forParents);
 
     // TODO: refactoring is needed.
     // Find all children for parents and reverse parent-children dependencies for correct ordering:
@@ -163,9 +163,9 @@ IComponent *ComponentDependencies::componentByName(const QString &i_byName) cons
     if (m_components.empty())
         return nullptr;
 
-    foreach(IComponent *p_com, m_components) {
-        if (p_com->name() == i_byName)
-            return p_com;
+    foreach(IComponent *com, m_components) {
+        if (com->name() == i_byName)
+            return com;
     }
 
     return nullptr;
@@ -184,42 +184,42 @@ DependenciesSolvingResult ComponentDependencies::orderedComponents() const
 }
 
 //------------------------------------------------------------------------------
-DependenciesSolvingResult ComponentDependencies::getParentComponents(const IComponent *ip_forChild) const
+DependenciesSolvingResult ComponentDependencies::getParentComponents(const IComponent *forChild) const
 {
-    if (ip_forChild == nullptr)
+    if (forChild == nullptr)
         return DependenciesSolvingResult();
 
-    const ComponentDefinition *definition = ip_forChild->definition();
+    const ComponentDefinition *definition = forChild->definition();
     if (definition == nullptr)
         return DependenciesSolvingResult();
 
     QList<IComponent *> components_to_return;
     QStringList parents = definition->parents();
 
-    foreach(IComponent *p_com, m_components) {
-        if (parents.contains(p_com->name()))
-            components_to_return.push_back(p_com);
+    foreach(IComponent *com, m_components) {
+        if (parents.contains(com->name()))
+            components_to_return.push_back(com);
     }
 
     return DependenciesSolvingResult(components_to_return);
 }
 
 //------------------------------------------------------------------------------
-DependenciesSolvingResult ComponentDependencies::getChildComponents(const IComponent *ip_forParent) const
+DependenciesSolvingResult ComponentDependencies::getChildComponents(const IComponent *forParent) const
 {
-    if (ip_forParent == nullptr)
+    if (forParent == nullptr)
         return DependenciesSolvingResult();
 
-    if (!this->componentByName(ip_forParent->name()))
+    if (!this->componentByName(forParent->name()))
         return DependenciesSolvingResult();
 
     QList<IComponent *> components_to_return;
 
-    foreach(IComponent *p_com, m_components) {
-        const ComponentDefinition *definition = p_com->definition();
+    foreach(IComponent *com, m_components) {
+        const ComponentDefinition *definition = com->definition();
         QStringList parents = definition->parents();
-        if (parents.contains(ip_forParent->name()))
-            components_to_return.push_back(p_com);
+        if (parents.contains(forParent->name()))
+            components_to_return.push_back(com);
 
     }
 
@@ -234,13 +234,13 @@ DependenciesSolvingResult ComponentDependencies::solveDependencies(const QList<I
     QStringList missing;
     DependencySolver solver;
 
-    foreach (IComponent *p_com, i_components) {
-        solver.addComponent(p_com->name());
+    foreach (IComponent *com, i_components) {
+        solver.addComponent(com->name());
 
-        const ComponentDefinition *definition = p_com->definition();
+        const ComponentDefinition *definition = com->definition();
         QStringList parents = definition->parents();
         foreach (const QString &dependency, parents)
-            solver.addDependency(p_com->name(), dependency);
+            solver.addDependency(com->name(), dependency);
     }
 
     bool hasCyclic = !solver.solve(ordered, orphans, missing);

@@ -32,8 +32,8 @@
 //------------------------------------------------------------------------------
 DirectoryWatchingComponentProvider::DirectoryWatchingComponentProvider(IDirectoryComponentProvider *provider, QObject *parent)
     : ComponentProvider(parent)
-    , mp_provider(provider)
-    , mp_watcher(nullptr)
+    , m_provider(provider)
+    , m_watcher(nullptr)
 {
     Q_ASSERT(provider != nullptr);
 }
@@ -41,50 +41,50 @@ DirectoryWatchingComponentProvider::DirectoryWatchingComponentProvider(IDirector
 //------------------------------------------------------------------------------
 DirectoryWatchingComponentProvider::DirectoryWatchingComponentProvider(const QString &path, QObject *parent)
     : ComponentProvider(parent)
-    , mp_provider(new DirectoryComponentProvider(path, this))
-    , mp_watcher(nullptr)
+    , m_provider(new DirectoryComponentProvider(path, this))
+    , m_watcher(nullptr)
 {
 }
 
 //------------------------------------------------------------------------------
 DirectoryWatchingComponentProvider::DirectoryWatchingComponentProvider(const QString &path, const QString &definitionExtension, QObject *parent)
     : ComponentProvider(parent)
-    , mp_provider(new DirectoryComponentProvider(path, definitionExtension, this))
-    , mp_watcher(nullptr)
+    , m_provider(new DirectoryComponentProvider(path, definitionExtension, this))
+    , m_watcher(nullptr)
 {
 }
 
 //------------------------------------------------------------------------------
 DirectoryWatchingComponentProvider::~DirectoryWatchingComponentProvider()
 {
-    delete mp_provider;
-    mp_provider = nullptr;
+    delete m_provider;
+    m_provider = nullptr;
 
-    delete mp_watcher;
-    mp_watcher = nullptr;
+    delete m_watcher;
+    m_watcher = nullptr;
 }
 
 //------------------------------------------------------------------------------
 const IDirectoryComponentProvider *DirectoryWatchingComponentProvider::provider() const
 {
-    return mp_provider;
+    return m_provider;
 }
 
 //------------------------------------------------------------------------------
 const QFileSystemWatcher *DirectoryWatchingComponentProvider::watcher() const
 {
-    return mp_watcher;
+    return m_watcher;
 }
 
 //------------------------------------------------------------------------------
 bool DirectoryWatchingComponentProvider::_initialize()
 {
-    bool result = mp_provider->initialize();
+    bool result = m_provider->initialize();
 
-    mp_watcher = createWatcher();
-    mp_watcher->addPath(mp_provider->path());
+    m_watcher = createWatcher();
+    m_watcher->addPath(m_provider->path());
 
-    connect(mp_watcher, SIGNAL(directoryChanged(const QString &)), SLOT(onDirectoryChanged(const QString &)));
+    connect(m_watcher, SIGNAL(directoryChanged(const QString &)), SLOT(onDirectoryChanged(const QString &)));
 
     return result;
 }
@@ -100,7 +100,7 @@ void DirectoryWatchingComponentProvider::onDirectoryChanged(const QString &path)
 {
     Q_UNUSED(path)
 
-    const QList<IComponent *> &newComponetns = mp_provider->update();
+    const QList<IComponent *> &newComponetns = m_provider->update();
     if (!newComponetns.isEmpty())
         emit newComponentsDiscovered(newComponetns);
 }

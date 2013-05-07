@@ -32,15 +32,15 @@
 
 //------------------------------------------------------------------------------
 DependencySolver::DependencySolver()
-    : mp_dependencyMatrix(new ListDictionary<QString, QString>())
+    : m_dependencyMatrix(new ListDictionary<QString, QString>())
 {
 }
 
 //------------------------------------------------------------------------------
 DependencySolver::~DependencySolver()
 {
-    delete mp_dependencyMatrix;
-    mp_dependencyMatrix = nullptr;
+    delete m_dependencyMatrix;
+    m_dependencyMatrix = nullptr;
 }
 
 //------------------------------------------------------------------------------
@@ -78,7 +78,7 @@ void DependencySolver::addDependency(const QString &childComponent, const QStrin
     }
 
     addToDependencyMatrix(parentComponent);
-    mp_dependencyMatrix->add(parentComponent, childComponent);
+    m_dependencyMatrix->add(parentComponent, childComponent);
 }
 
 //------------------------------------------------------------------------------
@@ -97,9 +97,9 @@ int Compare(const QString &a, const QString &b)
 bool DependencySolver::solve(QStringList &ordered, QStringList &orphans, QStringList &missing) const
 {
     QStringList orderedList;
-    while (orderedList.size() < mp_dependencyMatrix->size()) {
+    while (orderedList.size() < m_dependencyMatrix->size()) {
         QStringList leaves = findLeaves(orderedList);
-        if ((leaves.size() == 0) && (orderedList.size() < mp_dependencyMatrix->size()))
+        if ((leaves.size() == 0) && (orderedList.size() < m_dependencyMatrix->size()))
             return false; // Cyclic dependencies are found
 
         orderedList.append(leaves);
@@ -115,7 +115,7 @@ bool DependencySolver::solve(QStringList &ordered, QStringList &orphans, QString
         orderedList.removeOne(component);
 
         // Remove orphans from sorted
-        const QStringList &children = *mp_dependencyMatrix->value(component);
+        const QStringList &children = *m_dependencyMatrix->value(component);
         foreach (const QString &orphan, children) {
             orderedList.removeOne(orphan);
             orphans.append(orphan);
@@ -131,8 +131,8 @@ bool DependencySolver::solve(QStringList &ordered, QStringList &orphans, QString
 //------------------------------------------------------------------------------
 void DependencySolver::addToDependencyMatrix(const QString &i_component)
 {
-    if (!mp_dependencyMatrix->contains(i_component))
-        mp_dependencyMatrix->add(i_component);
+    if (!m_dependencyMatrix->contains(i_component))
+        m_dependencyMatrix->add(i_component);
 }
 
 //------------------------------------------------------------------------------
@@ -147,12 +147,12 @@ QStringList DependencySolver::findLeaves(const QStringList &i_skip) const
 {
     QStringList result;
 
-    foreach (const QString &parentComponent, mp_dependencyMatrix->keys()) {
+    foreach (const QString &parentComponent, m_dependencyMatrix->keys()) {
         if (i_skip.contains(parentComponent))
             continue;
 
         int count = 0;
-        const QStringList &children = *mp_dependencyMatrix->value(parentComponent);
+        const QStringList &children = *m_dependencyMatrix->value(parentComponent);
         foreach (const QString &child, children) {
             if (i_skip.contains(child))
                 continue;

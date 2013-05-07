@@ -35,7 +35,7 @@ public:
     MockOperation();
 
     void execute();
-    void initialize(QObject *ip_startUpData);
+    void initialize(QObject *startUpData);
     void stopExecuting();
     void setCategory(const QString &i_category);
     void setName(const QString &i_name);
@@ -44,7 +44,7 @@ public:
     bool executeCalled;
     bool stopExecuteCalled;
     bool initializeCalled;
-    QObject *mp_startUpData;
+    QObject *m_startUpData;
 };
 
 #endif // MOCKOPERATION_H

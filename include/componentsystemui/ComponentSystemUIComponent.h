@@ -50,11 +50,11 @@ protected:
      *   Registers ComponentsDialog in the dialog service.
      *   Registers commands:
      *     @li EnableComponentCommand
-     * @param ip_initData should be a reference to AbstractApplication object.
-     * @return @a false, if ip_initData is not a reference to AbstractApplication object.
+     * @param initData should be a reference to AbstractApplication object.
+     * @return @a false, if initData is not a reference to AbstractApplication object.
      *   Otherwise, return @a true.
      */
-    bool _onStartup(QObject *ip_initData);
+    bool _onStartup(QObject *initData);
 };
 
 #endif // COMPONENTSYSTEMUICOMPONENT_H

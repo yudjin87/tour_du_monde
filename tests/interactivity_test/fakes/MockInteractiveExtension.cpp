@@ -29,24 +29,24 @@
 //------------------------------------------------------------------------------
 MockInteractiveExtension::MockInteractiveExtension()
     : BaseComponent("MockInteractiveExtension")
-    , mp_interactiveExtension(new FakeInteractiveExtension())
+    , m_interactiveExtension(new FakeInteractiveExtension())
 {
-    registerExtension<IInteractiveExtension>(mp_interactiveExtension);
+    registerExtension<IInteractiveExtension>(m_interactiveExtension);
 }
 
 //------------------------------------------------------------------------------
 MockInteractiveExtension::MockInteractiveExtension(const QString &i_name)
     : BaseComponent(i_name)
-    , mp_interactiveExtension(new FakeInteractiveExtension())
+    , m_interactiveExtension(new FakeInteractiveExtension())
 {
-    registerExtension<IInteractiveExtension>(mp_interactiveExtension);
+    registerExtension<IInteractiveExtension>(m_interactiveExtension);
 }
 
 //------------------------------------------------------------------------------
 MockInteractiveExtension::~MockInteractiveExtension()
 {
-    delete mp_interactiveExtension;
-    mp_interactiveExtension = nullptr;
+    delete m_interactiveExtension;
+    m_interactiveExtension = nullptr;
 }
 
 //------------------------------------------------------------------------------

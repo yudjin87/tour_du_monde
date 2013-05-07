@@ -47,7 +47,7 @@ class INTERACTIVITY_API DialogService : public IDialogService
 {
     Q_OBJECT
 public:
-    DialogService(QWidget *ip_mainWindow, IServiceLocator *locator);
+    DialogService(QWidget *mainWindow, IServiceLocator *locator);
     ~DialogService();
 
 protected:
@@ -62,7 +62,7 @@ protected:
      *   dialog constructor with specified dialog and model types.
      * @sa showDialog(), registerDialog()
      */
-    void registerConstructor(const QString &i_dlgModelType, IDialogConstructor *ip_constructor);
+    void registerConstructor(const QString &i_dlgModelType, IDialogConstructor *constructor);
 
     /*!
      * @details
@@ -71,17 +71,17 @@ protected:
      *   returns @a false.
      * @sa showDialog()
      */
-    bool showDialogForModel(const QString& i_forDlgModelType, void *ip_dlgModel) const;
+    bool showDialogForModel(const QString& i_forDlgModelType, void *dlgModel) const;
 
     /*!
      * @details
      *   Creates a new instance of the registered dialog with
-     *   specified model, using @a ip_constructor.
+     *   specified model, using @a constructor.
      *
      *   This method is invoked from the showDialogForModel().
      * @sa showDialogForModel()
      */
-    virtual QDialog *createDialog(IDialogConstructor *ip_constructor, void *ip_dlgModel) const;
+    virtual QDialog *createDialog(IDialogConstructor *constructor, void *dlgModel) const;
 
 private:
     /*!
@@ -94,7 +94,7 @@ private:
      * @details
      *   The main window used as owner for dialogs.
      */
-    QWidget *mp_mainWindow;
+    QWidget *m_mainWindow;
 
     IServiceLocator *m_locator;
 };

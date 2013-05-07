@@ -28,7 +28,7 @@
 
 //------------------------------------------------------------------------------
 MockInteractionService::MockInteractionService()
-    : mp_activeTool(nullptr)
+    : m_activeTool(nullptr)
 {
 }
 
@@ -63,19 +63,19 @@ QMainWindow &MockInteractionService::mainWindow()
 }
 
 //------------------------------------------------------------------------------
-void MockInteractionService::setActiveTool(ITool * ip_activeTool)
+void MockInteractionService::setActiveTool(ITool * activeTool)
 {
-    mp_activeTool = ip_activeTool;
+    m_activeTool = activeTool;
 }
 
 //------------------------------------------------------------------------------
-void MockInteractionService::setConfigurationDelegate(IComponentConfigurationDelegate * /*ip_configurationDelegate*/)
+void MockInteractionService::setConfigurationDelegate(IComponentConfigurationDelegate * /*configurationDelegate*/)
 {
     throw "Not Implemented.";
 }
 
 //------------------------------------------------------------------------------
-void MockInteractionService::setInputInterceptor(IInputInterceptor * /*ip_inputInterceptor*/)
+void MockInteractionService::setInputInterceptor(IInputInterceptor * /*inputInterceptor*/)
 {
     throw "Not Implemented.";
 }

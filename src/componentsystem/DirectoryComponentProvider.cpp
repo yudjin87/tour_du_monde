@@ -104,9 +104,9 @@ bool DirectoryComponentProvider::isInitialized() const
 }
 
 //------------------------------------------------------------------------------
-void DirectoryComponentProvider::registerComponent(IComponent *ip_component)
+void DirectoryComponentProvider::registerComponent(IComponent *component)
 {
-    m_provider->registerComponent(ip_component);
+    m_provider->registerComponent(component);
 }
 
 //------------------------------------------------------------------------------

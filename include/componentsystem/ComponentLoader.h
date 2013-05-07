@@ -174,7 +174,7 @@ private:
     typedef void (*releaseComponentFunc)(void *);
 
 protected:
-    IComponent *mp_instance;
+    IComponent *m_instance;
 
 private:
     static const QString m_createFuncName;
@@ -183,9 +183,9 @@ private:
     QString m_errorString;
     bool m_loaded;
     QLibrary::LoadHints m_loadHits;
-    createComponentFunc mp_createFunc;
-    releaseComponentFunc mp_releaseFunc;
-    QLibrary *mp_library;
+    createComponentFunc m_createFunc;
+    releaseComponentFunc m_releaseFunc;
+    QLibrary *m_library;
 };
 
 #endif // COMPONENTLOADER_H

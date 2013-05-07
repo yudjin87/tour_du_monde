@@ -53,9 +53,9 @@ class FileComponentProvider;
  *   public:
  *       MyComponent(QObject *parent = nullptr);
  *   protected:
- *       bool _onStartup(QObject *ip_initData);
+ *       bool _onStartup(QObject *initData);
  *   private:
- *       AbstractApplication *mp_app;
+ *       AbstractApplication *m_app;
  *   };
  * @endcode
  *
@@ -67,14 +67,14 @@ class FileComponentProvider;
  *
  *   MyComponent::MyComponent(QObject *parent)
  *      : BaseComponent("MyComponent", parent)
- *      , mp_app(nullptr)
+ *      , m_app(nullptr)
  *   {
  *   }
  *
- *   bool MyComponent::_onStartup(QObject *ip_initData)
+ *   bool MyComponent::_onStartup(QObject *initData)
  *   {
- *       mp_app = dynamic_cast<AbstractApplication *>(ip_initData);
- *       return (mp_app != nullptr);
+ *       m_app = dynamic_cast<AbstractApplication *>(initData);
+ *       return (m_app != nullptr);
  *   }
  *
  *   EXPORT_COMPONENT(MyComponent)
@@ -109,7 +109,7 @@ class FileComponentProvider;
  *   }
  *   void MyBootloader::_configureComponentProvider()
  *   {
- *       static_cast<DirectoryComponentProvider *>(mp_componentProvider)->setPath("plugins/");
+ *       static_cast<DirectoryComponentProvider *>(m_componentProvider)->setPath("plugins/");
  *   }
  * @endcode
  *   During boot loading sequence DirectoryComponentProvider will find all component
@@ -155,7 +155,7 @@ public:
      *   from the providers - the last one doesn't allow duplicating components.
      *   @a Null pointers will be skipped.
      */
-    void registerComponent(IComponent *ip_component);
+    void registerComponent(IComponent *component);
 
    /*!
     * @details

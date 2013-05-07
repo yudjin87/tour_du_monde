@@ -32,7 +32,7 @@ protected:
     IComponentProvider *_createComponentProvider();
 
 private:
-    ComponentProviderMock* mp_componentProviderMock;
+    ComponentProviderMock* m_componentProviderMock;
 };
 
 #endif // CAROUSELBOOTLOADERPROVIDERMOCK_H

@@ -67,7 +67,7 @@ public:
      *   fileMenu->addAction(operationCatalog->add(new MyPrintOperation()));
      * @endcode
      */
-    virtual Operation *add(Operation *ip_newOperation) = 0;
+    virtual Operation *add(Operation *newOperation) = 0;
 
     /*!
      * @details
@@ -100,7 +100,7 @@ public:
      *   only by IComponentConfigurationDelegate to deconfigure component
      *   and revert changes is did.
      */
-    virtual void deleteOperation(Operation *ip_operation) = 0;
+    virtual void deleteOperation(Operation *operation) = 0;
 
     /*!
      * @details
@@ -129,7 +129,7 @@ signals:
      *   catalog.
      * @sa add.
      */
-    void operationAdded(Operation *ip_operation);
+    void operationAdded(Operation *operation);
 };
 
 #endif // IOPERATIONCATALOG_H

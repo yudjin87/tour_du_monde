@@ -71,9 +71,9 @@ protected:
      * @details
      *   Registers a raw pointer with specified tag in inner objects dictionary.
      * @param i_forTypeId
-     *   The name of type which @a ip_instance should be associated with.
+     *   The name of type which @a instance should be associated with.
      */
-    void _register(void *ip_instance, const QString &i_forTypeId, const QString &i_tag);
+    void _register(void *instance, const QString &i_forTypeId, const QString &i_tag);
 
     /*!
      * @details
@@ -96,8 +96,8 @@ protected:
     void *_unregister(const QString &i_forTypeId, const QString &i_tag);
 
 protected:
-    TypeObjectsMap<void *> *mp_objects;
-    TypeObjectsMap<factoryMethod> *mp_creators;
+    TypeObjectsMap<void *> *m_objects;
+    TypeObjectsMap<factoryMethod> *m_creators;
 };
 
 #endif // SERVICELOCATOR_H

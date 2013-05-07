@@ -47,39 +47,39 @@ ConfigurationChanges::~ConfigurationChanges()
 }
 
 //------------------------------------------------------------------------------
-void ConfigurationChanges::insertAddedOperation(Operation *ip_operation)
+void ConfigurationChanges::insertAddedOperation(Operation *operation)
 {
-    m_addedOperations.push_back(ip_operation);
+    m_addedOperations.push_back(operation);
 }
 
 //------------------------------------------------------------------------------
-void ConfigurationChanges::insertAddedDockWidget(QDockWidget *ip_dockWidget)
+void ConfigurationChanges::insertAddedDockWidget(QDockWidget *dockWidget)
 {
-    m_addedDockWidgets.push_back(ip_dockWidget);
+    m_addedDockWidgets.push_back(dockWidget);
 }
 
 //------------------------------------------------------------------------------
-void ConfigurationChanges::insertAddedMenu(QMenu *ip_menu)
+void ConfigurationChanges::insertAddedMenu(QMenu *menu)
 {
-    m_addedMenus.push_back(ip_menu);
+    m_addedMenus.push_back(menu);
 }
 
 //------------------------------------------------------------------------------
-void ConfigurationChanges::insertAddedToolbar(QToolBar *ip_toolbar)
+void ConfigurationChanges::insertAddedToolbar(QToolBar *toolbar)
 {
-    m_addedToolbars.push_back(ip_toolbar);
+    m_addedToolbars.push_back(toolbar);
 }
 
 //------------------------------------------------------------------------------
-void ConfigurationChanges::insertInsertedOperation(Operation *ip_operation)
+void ConfigurationChanges::insertInsertedOperation(Operation *operation)
 {
-    m_insertedOperations.push_back(ip_operation);
+    m_insertedOperations.push_back(operation);
 }
 
 //------------------------------------------------------------------------------
-void ConfigurationChanges::insertRemovedMenu(QMenu *ip_menu)
+void ConfigurationChanges::insertRemovedMenu(QMenu *menu)
 {
-    m_removedMenus.push_back(ip_menu);
+    m_removedMenus.push_back(menu);
 }
 
 //------------------------------------------------------------------------------

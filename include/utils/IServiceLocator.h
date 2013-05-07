@@ -203,7 +203,7 @@ public:
      * @sa unregisterInstance()
      */
     template<typename TService>
-    void registerInstance(TService *ip_instance);
+    void registerInstance(TService *instance);
 
     /*!
      * @details
@@ -227,12 +227,12 @@ public:
      *   IMyService *locatedService = serviceLocator->locate<IMyService>()  // returns service pointer
      * @endcode
      * @tparam TService
-     *   The type which type name @a ip_instance should be associated while registered in locator with.
+     *   The type which type name @a instance should be associated while registered in locator with.
      *
      * @sa unregisterInstance()
      */
     template<typename TService>
-    void registerInstance(TService *ip_instance, const QString &i_tag);
+    void registerInstance(TService *instance, const QString &i_tag);
 
     /*!
      * @details
@@ -302,9 +302,9 @@ protected:
      *   When overridden in derived classes registers a raw pointer with specified
      *   tag in inner objects dictionary.
      * @param i_forTypeId
-     *   The name of type which @a ip_instance should be associated with.
+     *   The name of type which @a instance should be associated with.
      */
-    virtual void _register(void *ip_instance, const QString &i_forTypeId, const QString &i_tag) = 0;
+    virtual void _register(void *instance, const QString &i_forTypeId, const QString &i_tag) = 0;
 
     /*!
      * @details
@@ -390,24 +390,24 @@ TService *IServiceLocator::locate(const QString &i_tag)
     void *data = this->_getService(service_name, i_tag);
 
     QObject *obj = reinterpret_cast<QObject *>(data);
-    TService *p_service = qobject_cast<TService *>(obj);
+    TService *service = qobject_cast<TService *>(obj);
 
-    return p_service;
+    return service;
 }
 
 //------------------------------------------------------------------------------
 template<typename TService>
-void IServiceLocator::registerInstance(TService *ip_instance)
+void IServiceLocator::registerInstance(TService *instance)
 {
-    this->registerInstance<TService>(ip_instance, "");
+    this->registerInstance<TService>(instance, "");
 }
 
 //------------------------------------------------------------------------------
 template<typename TService>
-void IServiceLocator::registerInstance(TService *ip_instance, const QString &i_tag)
+void IServiceLocator::registerInstance(TService *instance, const QString &i_tag)
 {
     const QString &service_name = typeid(TService).name();
-    this->_register(reinterpret_cast<void *>(ip_instance), service_name, i_tag);
+    this->_register(reinterpret_cast<void *>(instance), service_name, i_tag);
 }
 
 //------------------------------------------------------------------------------
@@ -441,9 +441,9 @@ TService *IServiceLocator::unregisterInstance(const QString &i_tag)
 
     // TODO: use static checks (c++11) during type registering and building.
     QObject *obj = reinterpret_cast<QObject *>(data);
-    TService *p_service = qobject_cast<TService *>(obj);
+    TService *service = qobject_cast<TService *>(obj);
 
-    return reinterpret_cast<TService *>(p_service);
+    return reinterpret_cast<TService *>(service);
 }
 
 //------------------------------------------------------------------------------

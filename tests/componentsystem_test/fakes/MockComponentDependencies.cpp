@@ -34,10 +34,10 @@ MockComponentDependencies::MockComponentDependencies(QObject *parent)
 }
 
 //------------------------------------------------------------------------------
-bool MockComponentDependencies::addComponent(IComponent *ip_component)
+bool MockComponentDependencies::addComponent(IComponent *component)
 {
-    emit onAdded(ip_component);
-    return ComponentDependencies::addComponent(ip_component);
+    emit onAdded(component);
+    return ComponentDependencies::addComponent(component);
 }
 
 //------------------------------------------------------------------------------

@@ -85,15 +85,15 @@ protected:
      *   It is a defensive declaration of the public startup() method, that invokes only if component is
      *   not started.
      *   When override in derived classes starts up the component. Nothing to do by default.
-     * @param ip_initData is a reference to the object with which this component is started. Usually
+     * @param initData is a reference to the object with which this component is started. Usually
      *   it will be reference to your own AbstractApplication root object, through you can obtain any data.
      */
-    virtual bool _onStartup(QObject *ip_initData);
+    virtual bool _onStartup(QObject *initData);
 
 private:
     Q_DISABLE_COPY(ProxyComponent)
-    IComponentLoader *mp_loader;
-    IComponent *mp_component;
+    IComponentLoader *m_loader;
+    IComponent *m_component;
     bool m_initialized;
 };
 

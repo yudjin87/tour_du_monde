@@ -30,28 +30,28 @@
 //------------------------------------------------------------------------------
 MockApplication::MockApplication(int &argc, char **argv)
     : AbstractApplication(argc, argv)
-    , mp_services(new ServiceLocator())
+    , m_services(new ServiceLocator())
 {
 }
 
 //------------------------------------------------------------------------------
 MockApplication::~MockApplication()
 {
-    delete mp_services;
-    mp_services = nullptr;
+    delete m_services;
+    m_services = nullptr;
 }
 
 //------------------------------------------------------------------------------
 void MockApplication::resetServices()
 {
-    delete mp_services;
-    mp_services = new ServiceLocator();
+    delete m_services;
+    m_services = new ServiceLocator();
 }
 
 //------------------------------------------------------------------------------
 IServiceLocator &MockApplication::serviceLocator()
 {
-    return *mp_services;
+    return *m_services;
 }
 
 //------------------------------------------------------------------------------

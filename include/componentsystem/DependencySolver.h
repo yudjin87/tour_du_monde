@@ -101,7 +101,7 @@ private:
     QStringList findLeaves(const QStringList &i_skip) const;
 
 private:
-    ListDictionary<QString, QString> *mp_dependencyMatrix;
+    ListDictionary<QString, QString> *m_dependencyMatrix;
     QStringList m_knownComponents;
 };
 

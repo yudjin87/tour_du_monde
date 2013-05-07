@@ -63,25 +63,25 @@ public:
 
     /*!
      * @details
-     *   Creates new QDockWidget, sets @a ip_widget to it and
+     *   Creates new QDockWidget, sets @a widget to it and
      *   adds new dockable widget to the main window into the
      *   left area. Null pointer will be skipped.
      *
      *   Note, that catalog takes ownership of the new
      *   dock widget.
      */
-    virtual QDockWidget *addDockWidget(QWidget *ip_widget, const QString &windowTitle = "") = 0;
+    virtual QDockWidget *addDockWidget(QWidget *widget, const QString &windowTitle = "") = 0;
 
     /*!
      * @details
-     *   Creates new QDockWidget, sets @a ip_widget to it and
+     *   Creates new QDockWidget, sets @a widget to it and
      *   adds new dockable widget to the main window into the
      *   @a i_area area. Null pointer will be skipped.
      *
      *   Note, that catalog takes ownership of the new
      *   dock widget.
      */
-    virtual QDockWidget *addDockWidget(QWidget *ip_widget, const QString &windowTitle, Qt::DockWidgetArea i_area) = 0;
+    virtual QDockWidget *addDockWidget(QWidget *widget, const QString &windowTitle, Qt::DockWidgetArea i_area) = 0;
 
     /*!
      * @details
@@ -91,7 +91,7 @@ public:
      *   only by IComponentConfigurationDelegate to deconfigure component
      *   and revert changes is did.
      */
-    virtual void deleteDockWidget(QDockWidget *ip_dockWidget) = 0;
+    virtual void deleteDockWidget(QDockWidget *dockWidget) = 0;
 
     /*!
      * @details
@@ -106,7 +106,7 @@ signals:
      *   catalog.
      * @sa addDockWidget.
      */
-    void dockWidgetAdded(QDockWidget *ip_widget);
+    void dockWidgetAdded(QDockWidget *widget);
 };
 
 #endif // IDOCKWINDOWCATALOG_H

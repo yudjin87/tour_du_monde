@@ -81,7 +81,7 @@ public:
      * @param TDialogModel the type of dialog model.
      */
     template<typename TDialogModel>
-    bool showDialog(TDialogModel *ip_dlgModel) const;
+    bool showDialog(TDialogModel *dlgModel) const;
 
 protected:
     /*!
@@ -95,7 +95,7 @@ protected:
      *   dialog constructor with specified dialog and model types.
      * @sa showDialog(), registerDialog()
      */
-    virtual void registerConstructor(const QString &i_dlgModelType, IDialogConstructor *ip_constructor) = 0;
+    virtual void registerConstructor(const QString &i_dlgModelType, IDialogConstructor *constructor) = 0;
 
     /*!
      * @details
@@ -105,7 +105,7 @@ protected:
      *   returns @a false.
      * @sa showDialog()
      */
-    virtual bool showDialogForModel(const QString &i_forDlgModelType, void *ip_dlgModel) const = 0;
+    virtual bool showDialogForModel(const QString &i_forDlgModelType, void *dlgModel) const = 0;
 
 private:
     Q_DISABLE_COPY(IDialogService)
@@ -124,9 +124,9 @@ struct IDialogConstructor
      * @details
      *   Returns new instance of the dialog,
      *   and initializes it with parent window (for the default location)
-     *   and ip_dlgModel.
+     *   and dlgModel.
      */
-    virtual void *create(void *ip_dlgModel, QWidget *ip_mainWindow) = 0;
+    virtual void *create(void *dlgModel, QWidget *mainWindow) = 0;
 
     /*!
      * @details
@@ -148,15 +148,15 @@ struct DialogConstructor : public IDialogConstructor
      * @details
      *   Returns new instance of the dialog,
      *   and initializes it with parent window (for the default location)
-     *   and ip_dlgModel.
+     *   and dlgModel.
      */
-    void *create(void *ip_dlgModel, QWidget *ip_mainWindow)
+    void *create(void *dlgModel, QWidget *mainWindow)
     {
         // TODO: use static checks (c++11) during type registering and building.
-        QObject *obj = reinterpret_cast<QObject *>(ip_dlgModel);
+        QObject *obj = reinterpret_cast<QObject *>(dlgModel);
         TDialogModel *model = dynamic_cast<TDialogModel *>(obj);
         model->injectServiceLocator(m_locator);
-        return new TDialog(model, ip_mainWindow);
+        return new TDialog(model, mainWindow);
     }
 
     /*!
@@ -183,10 +183,10 @@ void IDialogService::registerDialog()
 
 //------------------------------------------------------------------------------
 template<typename TDialogModel>
-bool IDialogService::showDialog(TDialogModel *ip_dlgModel) const
+bool IDialogService::showDialog(TDialogModel *dlgModel) const
 {
     const QString &dlgModelType = typeid(TDialogModel).name();
-    return showDialogForModel(dlgModelType, ip_dlgModel);
+    return showDialogForModel(dlgModelType, dlgModel);
 }
 
 //------------------------------------------------------------------------------

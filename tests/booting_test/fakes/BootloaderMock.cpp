@@ -9,61 +9,61 @@ BootloaderMock::BootloaderMock()
 //------------------------------------------------------------------------------
 void BootloaderMock::callCreateLogger()
 {
-    mp_logger = _createLogger();
+    m_logger = _createLogger();
 }
 
 //------------------------------------------------------------------------------
 void BootloaderMock::callCreateComponentProvider()
 {
-    mp_componentProvider = _createComponentProvider();
+    m_componentProvider = _createComponentProvider();
 }
 
 //------------------------------------------------------------------------------
 void BootloaderMock::callCreateComponentManager()
 {
-    mp_componentManager = _createComponentManager();
+    m_componentManager = _createComponentManager();
 }
 
 //------------------------------------------------------------------------------
 void BootloaderMock::callCreateServiceLocator()
 {
-    mp_serviceLocator = _createServiceLocator();
+    m_serviceLocator = _createServiceLocator();
 }
 
 //------------------------------------------------------------------------------
 void BootloaderMock::callCreateMainWindow()
 {
-    mp_mainWindow = _createMainWindow();
+    m_mainWindow = _createMainWindow();
 }
 
 //------------------------------------------------------------------------------
 ILogger *BootloaderMock::logger() const
 {
-    return mp_logger;
+    return m_logger;
 }
 
 //------------------------------------------------------------------------------
 IComponentProvider *BootloaderMock::componentProvider() const
 {
-    return mp_componentProvider;
+    return m_componentProvider;
 }
 
 //------------------------------------------------------------------------------
 IComponentManager *BootloaderMock::componentManager() const
 {
-    return mp_componentManager;
+    return m_componentManager;
 }
 
 //------------------------------------------------------------------------------
 IServiceLocator *BootloaderMock::serviceLocator() const
 {
-    return mp_serviceLocator;
+    return m_serviceLocator;
 }
 
 //------------------------------------------------------------------------------
 QMainWindow *BootloaderMock::mainWindow() const
 {
-    return mp_mainWindow;
+    return m_mainWindow;
 }
 
 //------------------------------------------------------------------------------

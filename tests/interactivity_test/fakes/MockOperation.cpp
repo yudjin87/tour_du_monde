@@ -31,7 +31,7 @@ MockOperation::MockOperation()
     : executeCalled(false)
     , stopExecuteCalled(false)
     , initializeCalled(false)
-    , mp_startUpData(nullptr)
+    , m_startUpData(nullptr)
 {
 }
 
@@ -41,9 +41,9 @@ void MockOperation::execute()
     executeCalled = true;
 }
 
-void MockOperation::initialize(QObject *ip_startUpData)
+void MockOperation::initialize(QObject *startUpData)
 {
-    mp_startUpData = ip_startUpData;
+    m_startUpData = startUpData;
     initializeCalled = true;
 }
 

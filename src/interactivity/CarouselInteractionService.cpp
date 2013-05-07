@@ -44,27 +44,27 @@
 //------------------------------------------------------------------------------
 CarouselInteractionService::CarouselInteractionService(AbstractApplication &i_application, QObject *parent /*= nullptr*/)
     : m_app(i_application)
-    , mp_inputInterceptor(nullptr)
-    , mp_componentConfigurationDelegate(new CarouselComponentConfigurationDelegate())
-    , mp_componentManager(nullptr)
-    , mp_activeTool(nullptr)
-    , mp_catalogs(nullptr)
-    , mp_mainWindow(nullptr)
+    , m_inputInterceptor(nullptr)
+    , m_componentConfigurationDelegate(new CarouselComponentConfigurationDelegate())
+    , m_componentManager(nullptr)
+    , m_activeTool(nullptr)
+    , m_catalogs(nullptr)
+    , m_mainWindow(nullptr)
 {
     setParent(parent);
 
-    mp_mainWindow = i_application.serviceLocator().locate<QMainWindow>();
-    assert(mp_mainWindow != nullptr);
+    m_mainWindow = i_application.serviceLocator().locate<QMainWindow>();
+    assert(m_mainWindow != nullptr);
 
-    mp_componentManager = i_application.serviceLocator().locate<IComponentManager>();
-    assert(mp_componentManager != nullptr);
+    m_componentManager = i_application.serviceLocator().locate<IComponentManager>();
+    assert(m_componentManager != nullptr);
 
-    mp_catalogs = new Catalogs(*mp_mainWindow, &i_application);
+    m_catalogs = new Catalogs(*m_mainWindow, &i_application);
 
-    connect(mp_componentManager, SIGNAL(componentStarted(IComponent *)),
+    connect(m_componentManager, SIGNAL(componentStarted(IComponent *)),
             SLOT(onComponentStartedUp(IComponent *)));
 
-    connect(mp_componentManager, SIGNAL(componentAboutToShutDown(IComponent *)),
+    connect(m_componentManager, SIGNAL(componentAboutToShutDown(IComponent *)),
             SLOT(onComponentAboutToShutDown(IComponent *)));
 }
 
@@ -73,21 +73,21 @@ CarouselInteractionService::~CarouselInteractionService()
 {
     saveUiState();
 
-    delete mp_catalogs;
-    mp_catalogs = nullptr;
-    delete mp_inputInterceptor;
-    mp_inputInterceptor = nullptr;
-    delete mp_componentConfigurationDelegate;
-    mp_componentConfigurationDelegate = nullptr;
+    delete m_catalogs;
+    m_catalogs = nullptr;
+    delete m_inputInterceptor;
+    m_inputInterceptor = nullptr;
+    delete m_componentConfigurationDelegate;
+    m_componentConfigurationDelegate = nullptr;
 
-    mp_componentManager = nullptr;
-    mp_mainWindow = nullptr;
+    m_componentManager = nullptr;
+    m_mainWindow = nullptr;
 }
 
 //------------------------------------------------------------------------------
 ITool *CarouselInteractionService::activeTool()
 {
-    return mp_activeTool;
+    return m_activeTool;
 }
 
 //------------------------------------------------------------------------------
@@ -99,76 +99,76 @@ ICatalogs &CarouselInteractionService::catalogs()
 //------------------------------------------------------------------------------
 const ICatalogs &CarouselInteractionService::catalogs() const
 {
-    return *mp_catalogs;
+    return *m_catalogs;
 }
 
 //------------------------------------------------------------------------------
 IComponentConfigurationDelegate *CarouselInteractionService::configurationDelegate()
 {
-    return mp_componentConfigurationDelegate;
+    return m_componentConfigurationDelegate;
 }
 
 //------------------------------------------------------------------------------
 IInputInterceptor *CarouselInteractionService::inputInterceptor()
 {
-    return mp_inputInterceptor;
+    return m_inputInterceptor;
 }
 
 //------------------------------------------------------------------------------
 QMainWindow &CarouselInteractionService::mainWindow()
 {
-    return *mp_mainWindow;
+    return *m_mainWindow;
 }
 
 //------------------------------------------------------------------------------
 void CarouselInteractionService::resetUi()
 {
-    if (mp_componentConfigurationDelegate == nullptr)
+    if (m_componentConfigurationDelegate == nullptr)
         return;
 
-    foreach(IComponent *comp, mp_componentManager->components()) {
-        mp_componentConfigurationDelegate->deconfigure(comp, *mp_catalogs);
-        mp_componentConfigurationDelegate->configure(comp, *mp_catalogs, m_app);
+    foreach(IComponent *comp, m_componentManager->components()) {
+        m_componentConfigurationDelegate->deconfigure(comp, *m_catalogs);
+        m_componentConfigurationDelegate->configure(comp, *m_catalogs, m_app);
     }
 }
 
 //------------------------------------------------------------------------------
-void CarouselInteractionService::setActiveTool(ITool *ip_activeTool)
+void CarouselInteractionService::setActiveTool(ITool *activeTool)
 {
-    if (ip_activeTool != nullptr) {
-        QObject *tool = dynamic_cast<QObject *>(ip_activeTool);
+    if (activeTool != nullptr) {
+        QObject *tool = dynamic_cast<QObject *>(activeTool);
         Q_ASSERT(tool != nullptr);
         this->connect(tool, SIGNAL(executingStopped()), SLOT(onToolExecutingStopped()));
     }
 
-    if (mp_activeTool != nullptr)
-        mp_activeTool->stopExecuting();
+    if (m_activeTool != nullptr)
+        m_activeTool->stopExecuting();
 
-    if (mp_inputInterceptor != nullptr)
-        mp_inputInterceptor->setReceiver(ip_activeTool);
+    if (m_inputInterceptor != nullptr)
+        m_inputInterceptor->setReceiver(activeTool);
 
-    mp_activeTool = ip_activeTool;
+    m_activeTool = activeTool;
 }
 
 //------------------------------------------------------------------------------
-void CarouselInteractionService::setConfigurationDelegate(IComponentConfigurationDelegate *ip_configurationDelegate)
+void CarouselInteractionService::setConfigurationDelegate(IComponentConfigurationDelegate *configurationDelegate)
 {
-    if (mp_componentConfigurationDelegate != nullptr)
-        delete mp_componentConfigurationDelegate;
+    if (m_componentConfigurationDelegate != nullptr)
+        delete m_componentConfigurationDelegate;
 
-    mp_componentConfigurationDelegate = ip_configurationDelegate;
+    m_componentConfigurationDelegate = configurationDelegate;
 }
 
 //------------------------------------------------------------------------------
-void CarouselInteractionService::setInputInterceptor(IInputInterceptor *ip_inputInterceptor)
+void CarouselInteractionService::setInputInterceptor(IInputInterceptor *inputInterceptor)
 {
-    if (mp_inputInterceptor != nullptr)
-        delete mp_inputInterceptor;
+    if (m_inputInterceptor != nullptr)
+        delete m_inputInterceptor;
 
-    if (ip_inputInterceptor != nullptr)
-        ip_inputInterceptor->setReceiver(mp_activeTool);
+    if (inputInterceptor != nullptr)
+        inputInterceptor->setReceiver(m_activeTool);
 
-    mp_inputInterceptor = ip_inputInterceptor;
+    m_inputInterceptor = inputInterceptor;
 
 }
 
@@ -176,25 +176,25 @@ void CarouselInteractionService::setInputInterceptor(IInputInterceptor *ip_input
 void CarouselInteractionService::saveUiState(int version /*= 0*/)
 {
     QSettings settings;
-    settings.setValue(mp_mainWindow->objectName() + "/state", mp_mainWindow->saveState(version));
-    settings.setValue(mp_mainWindow->objectName() +"/geometry", mp_mainWindow->saveGeometry());
+    settings.setValue(m_mainWindow->objectName() + "/state", m_mainWindow->saveState(version));
+    settings.setValue(m_mainWindow->objectName() +"/geometry", m_mainWindow->saveGeometry());
 }
 
 //------------------------------------------------------------------------------
 void CarouselInteractionService::loadUiState(int version /* = 0*/)
 {
     QSettings settings;
-    mp_mainWindow->restoreState(settings.value(mp_mainWindow->objectName() +"/state").toByteArray(), version);
-    mp_mainWindow->restoreGeometry(settings.value(mp_mainWindow->objectName() +"/geometry").toByteArray());
+    m_mainWindow->restoreState(settings.value(m_mainWindow->objectName() +"/state").toByteArray(), version);
+    m_mainWindow->restoreGeometry(settings.value(m_mainWindow->objectName() +"/geometry").toByteArray());
 }
 
 //------------------------------------------------------------------------------
-void CarouselInteractionService::onComponentStartedUp(IComponent *ip_component)
+void CarouselInteractionService::onComponentStartedUp(IComponent *component)
 {
-    if (mp_componentConfigurationDelegate == nullptr)
+    if (m_componentConfigurationDelegate == nullptr)
         return;
 
-    mp_componentConfigurationDelegate->configure(ip_component, *mp_catalogs, m_app);
+    m_componentConfigurationDelegate->configure(component, *m_catalogs, m_app);
 
     // TODO:
     // Load only if configure returns true
@@ -202,20 +202,20 @@ void CarouselInteractionService::onComponentStartedUp(IComponent *ip_component)
 }
 
 //------------------------------------------------------------------------------
-void CarouselInteractionService::onComponentAboutToShutDown(IComponent *ip_component)
+void CarouselInteractionService::onComponentAboutToShutDown(IComponent *component)
 {
-    if (mp_componentConfigurationDelegate == nullptr)
+    if (m_componentConfigurationDelegate == nullptr)
         return;
 
-    mp_componentConfigurationDelegate->deconfigure(ip_component, *mp_catalogs);
+    m_componentConfigurationDelegate->deconfigure(component, *m_catalogs);
 }
 
 //------------------------------------------------------------------------------
 void CarouselInteractionService::onToolExecutingStopped()
 {
-    mp_activeTool = nullptr;
-    if (mp_inputInterceptor != nullptr)
-        mp_inputInterceptor->setReceiver(nullptr);
+    m_activeTool = nullptr;
+    if (m_inputInterceptor != nullptr)
+        m_inputInterceptor->setReceiver(nullptr);
 }
 
 //------------------------------------------------------------------------------

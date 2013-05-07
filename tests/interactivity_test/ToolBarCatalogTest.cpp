@@ -35,8 +35,8 @@
 #include <QtTest/QSignalSpy>
 
 //------------------------------------------------------------------------------
-ToolBarCatalogTest::ToolBarCatalogTest(QObject *ip_parent)
-    : QObject(ip_parent)
+ToolBarCatalogTest::ToolBarCatalogTest(QObject *parent)
+    : QObject(parent)
 {
 }
 

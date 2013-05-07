@@ -43,7 +43,7 @@ typedef QScopedPointer<DefinitionConstuctor> DefinitionConstuctorPtr;
 FileComponentProvider::FileComponentProvider(QObject *parent)
     : ComponentProvider(parent)
     , m_path("")
-    , mp_lastLoadedComponent(nullptr)
+    , m_lastLoadedComponent(nullptr)
 {
 }
 
@@ -51,7 +51,7 @@ FileComponentProvider::FileComponentProvider(QObject *parent)
 FileComponentProvider::FileComponentProvider(const QString &path, QObject *parent)
     : ComponentProvider(parent)
     , m_path("")
-    , mp_lastLoadedComponent(nullptr)
+    , m_lastLoadedComponent(nullptr)
 {
     setPath(path);
 }
@@ -80,7 +80,7 @@ const QString &FileComponentProvider::path() const
 //------------------------------------------------------------------------------
 IComponent *FileComponentProvider::lastLoadedComponent() const
 {
-    return mp_lastLoadedComponent;
+    return m_lastLoadedComponent;
 }
 
 //------------------------------------------------------------------------------
@@ -111,7 +111,7 @@ IComponent *FileComponentProvider::loadComponent()
         return nullptr;
     }
 
-    mp_lastLoadedComponent = proxy;
+    m_lastLoadedComponent = proxy;
     registerComponent(proxy);
 
     return proxy;

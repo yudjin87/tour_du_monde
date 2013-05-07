@@ -109,13 +109,13 @@ public:
      * @details
      *   Sets the reference to widget events will be intercepted from.
      */
-    virtual void setSender(QWidget *ip_interceptedWidget) = 0;
+    virtual void setSender(QWidget *interceptedWidget) = 0;
 
     /*!
      * @details
      *   Sets the receiver events form widget will be sended to.
      */
-    virtual void setReceiver(IInputReceiver *ip_receiver) = 0;
+    virtual void setReceiver(IInputReceiver *receiver) = 0;
 
     /*!
      * @details

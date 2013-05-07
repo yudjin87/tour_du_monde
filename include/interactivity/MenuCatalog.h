@@ -111,7 +111,7 @@ public:
      *
      *   To remove menu from menu bar without deleting use removeMenu().
      */
-     void deleteMenu(QMenu *ip_menu);
+     void deleteMenu(QMenu *menu);
 
     /*!
      * @details
@@ -199,43 +199,43 @@ protected:
     /*!
      * @details
      *   Searches for the menu specified by @a i_title
-     *   in the @a ip_inMenu and its childer menus.
+     *   in the @a inMenu and its childer menus.
      * @return
      *   Found menu. Null, if there are no menus with such title.
      */
-    QMenu *findMenu(const QString &i_title, QMenu *ip_inMenu) const;
+    QMenu *findMenu(const QString &i_title, QMenu *inMenu) const;
 
     /*!
      * @details
      *   Emits a menuAdded() signal when menu is added to the
      *   main menu.
      */
-    virtual void onMenuAdded(QMenu *ip_menu);
+    virtual void onMenuAdded(QMenu *menu);
 
     /*!
      * @details
      *   Emits a menuAdded() signal when menu is removed from the
      *   main menu.
      */
-    virtual void onMenuRemoved(QMenu *ip_menu);
+    virtual void onMenuRemoved(QMenu *menu);
 
     /*!
      * @details
      *   Emits a subMenuAdded() signal when specified menu is added to
      *   existed menu.
      */
-    virtual void onSubMenuAdded(QMenu *ip_newMenu);
+    virtual void onSubMenuAdded(QMenu *newMenu);
 
     /*!
      * @details
      *   Emits a subMenuRemoved() signal when menu is removed from
      *   existed menu.
      */
-    virtual void onSubMenuRemoved(QMenu *ip_menu);
+    virtual void onSubMenuRemoved(QMenu *menu);
 
 private:
-    static QList<QMenu *> _extractChildMenus(QMenu *ip_parentMenu);
-    void installEventFilterForSubMenus(QMenu *ip_menu);
+    static QList<QMenu *> _extractChildMenus(QMenu *parentMenu);
+    void installEventFilterForSubMenus(QMenu *menu);
 
 private:
     QMenuBar &m_menuBar;

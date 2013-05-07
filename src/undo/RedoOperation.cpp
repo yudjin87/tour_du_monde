@@ -47,9 +47,9 @@ void RedoOperation::execute()
 }
 
 //------------------------------------------------------------------------------
-void RedoOperation::initialize(QObject *ip_startUpData)
+void RedoOperation::initialize(QObject *startUpData)
 {
-    AbstractApplication *app = qobject_cast<AbstractApplication *>(ip_startUpData);
+    AbstractApplication *app = qobject_cast<AbstractApplication *>(startUpData);
     if (app == nullptr)
         return;
 

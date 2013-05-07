@@ -78,7 +78,7 @@ void OperationCatalogTest::shouldInitializeAddedOperationWithStartupData()
     MockOperation *operation = new MockOperation();
     catalog.add(operation);
 
-    QCOMPARE(&data, operation->mp_startUpData);
+    QCOMPARE(&data, operation->m_startUpData);
 }
 
 //------------------------------------------------------------------------------

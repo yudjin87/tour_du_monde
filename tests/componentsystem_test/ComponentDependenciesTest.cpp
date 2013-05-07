@@ -45,12 +45,12 @@ ComponentDependenciesTest::ComponentDependenciesTest(QObject *parent)
 //------------------------------------------------------------------------------
 void ComponentDependenciesTest::shouldAddComponent()
 {
-    IComponent *p_componentA = createComponent("A");
-    IComponent *p_componentB = createComponent("B");
+    IComponent *componentA = createComponent("A");
+    IComponent *componentB = createComponent("B");
 
     ComponentDependencies dependencies;
-    dependencies.addComponent(p_componentA);
-    dependencies.addComponent(p_componentB);
+    dependencies.addComponent(componentA);
+    dependencies.addComponent(componentB);
 
     QCOMPARE(dependencies.components().count(), 2);
 }
@@ -58,14 +58,14 @@ void ComponentDependenciesTest::shouldAddComponent()
 //------------------------------------------------------------------------------
 void ComponentDependenciesTest::shouldnotAddExistedComponent()
 {
-    IComponent *p_componentA = createComponent("A");
-    IComponentPtr p_componentAagain(createComponent("A"));
-    IComponent *p_componentB = createComponent("B");
+    IComponent *componentA = createComponent("A");
+    IComponentPtr componentAagain(createComponent("A"));
+    IComponent *componentB = createComponent("B");
 
     ComponentDependencies dependencies;
-    dependencies.addComponent(p_componentA);
-    dependencies.addComponent(p_componentB);
-    dependencies.addComponent(p_componentAagain.get());
+    dependencies.addComponent(componentA);
+    dependencies.addComponent(componentB);
+    dependencies.addComponent(componentAagain.get());
 
     QCOMPARE(dependencies.components().count(), 2);
 }
@@ -73,10 +73,10 @@ void ComponentDependenciesTest::shouldnotAddExistedComponent()
 //------------------------------------------------------------------------------
 void ComponentDependenciesTest::shouldNotAddNullPointer()
 {
-    IComponent *p_componentA = createComponent("A");
+    IComponent *componentA = createComponent("A");
 
     ComponentDependencies dependencies;
-    dependencies.addComponent(p_componentA);
+    dependencies.addComponent(componentA);
     dependencies.addComponent(nullptr);
 
     QCOMPARE(dependencies.components().count(), 1);
@@ -85,29 +85,29 @@ void ComponentDependenciesTest::shouldNotAddNullPointer()
 //------------------------------------------------------------------------------
 void ComponentDependenciesTest::shouldFindComponentByName()
 {
-    IComponent *p_componentA = createComponent("A");
-    IComponent *p_componentB = createComponent("B");
+    IComponent *componentA = createComponent("A");
+    IComponent *componentB = createComponent("B");
 
     ComponentDependencies dependencies;
-    dependencies.addComponent(p_componentA);
-    dependencies.addComponent(p_componentB);
+    dependencies.addComponent(componentA);
+    dependencies.addComponent(componentB);
 
-    IComponent *p_foundCom = dependencies.componentByName("B");
-    QCOMPARE(p_foundCom, p_componentB);
+    IComponent *foundCom = dependencies.componentByName("B");
+    QCOMPARE(foundCom, componentB);
 }
 
 //------------------------------------------------------------------------------
 void ComponentDependenciesTest::shouldReturnResultWithCiclycFlag()
 {
     // A <- B <- C <- A
-    IComponent *p_componentA = createParentComponent("A", "C");
-    IComponent *p_componentB = createParentComponent("B", "A");
-    IComponent *p_componentC = createParentComponent("C", "B");
+    IComponent *componentA = createParentComponent("A", "C");
+    IComponent *componentB = createParentComponent("B", "A");
+    IComponent *componentC = createParentComponent("C", "B");
 
     ComponentDependencies dependencies;
-    dependencies.addComponent(p_componentA);
-    dependencies.addComponent(p_componentB);
-    dependencies.addComponent(p_componentC);
+    dependencies.addComponent(componentA);
+    dependencies.addComponent(componentB);
+    dependencies.addComponent(componentC);
 
     DependenciesSolvingResult result = dependencies.orderedComponents();
     QVERIFY(result.hasCyclicDependencies());
@@ -117,18 +117,18 @@ void ComponentDependenciesTest::shouldReturnResultWithCiclycFlag()
 void ComponentDependenciesTest::shouldGetParentsForComponent()
 {
     // A <- B
-    IComponent *p_componentA = createComponent("A");
-    IComponent *p_componentB = createParentComponent("B", "A"); //dependent from A;
+    IComponent *componentA = createComponent("A");
+    IComponent *componentB = createParentComponent("B", "A"); //dependent from A;
 
     ComponentDependencies dependencies;
-    dependencies.addComponent(p_componentA);
-    dependencies.addComponent(p_componentB);
+    dependencies.addComponent(componentA);
+    dependencies.addComponent(componentB);
 
-    DependenciesSolvingResult result = dependencies.getParentComponents(p_componentB);
+    DependenciesSolvingResult result = dependencies.getParentComponents(componentB);
     QList<IComponent *> components = result.ordered();
 
     QCOMPARE(components.size(), 1);
-    QCOMPARE(p_componentA->name(), components[0]->name());
+    QCOMPARE(componentA->name(), components[0]->name());
     QVERIFY(!result.hasCyclicDependencies());
 }
 
@@ -136,18 +136,18 @@ void ComponentDependenciesTest::shouldGetParentsForComponent()
 void ComponentDependenciesTest::shouldGetDependingsForComponent()
 {
     // A <- B
-    IComponent *p_componentA = createComponent("A");
-    IComponent *p_componentB = createParentComponent("B", "A"); //dependent from A;
+    IComponent *componentA = createComponent("A");
+    IComponent *componentB = createParentComponent("B", "A"); //dependent from A;
 
     ComponentDependencies dependencies;
-    dependencies.addComponent(p_componentA);
-    dependencies.addComponent(p_componentB);
+    dependencies.addComponent(componentA);
+    dependencies.addComponent(componentB);
 
-    DependenciesSolvingResult result = dependencies.getChildComponents(p_componentA);
+    DependenciesSolvingResult result = dependencies.getChildComponents(componentA);
     QList<IComponent *> components = result.ordered();
 
     QCOMPARE(components.size(), 1);
-    QCOMPARE(p_componentB->name(), components[0]->name());
+    QCOMPARE(componentB->name(), components[0]->name());
     QVERIFY(!result.hasCyclicDependencies());
 }
 
@@ -155,31 +155,31 @@ void ComponentDependenciesTest::shouldGetDependingsForComponent()
 void ComponentDependenciesTest::shouldCompleteListWithChild()
 {
     // A <- B <- C <- D,    C <- E
-    MockComponent *p_componentA = createComponent("A");
-    MockChildComponent *p_componentB = createParentComponent("B", "A"); //dependent from A;
-    MockChildComponent *p_componentC = createParentComponent("C", "B"); //dependent from B;
-    MockChildComponent *p_componentD = createParentComponent("D", "C"); //dependent from C;
-    MockChildComponent *p_componentE = createParentComponent("E", "C"); //dependent from C;
+    MockComponent *componentA = createComponent("A");
+    MockChildComponent *componentB = createParentComponent("B", "A"); //dependent from A;
+    MockChildComponent *componentC = createParentComponent("C", "B"); //dependent from B;
+    MockChildComponent *componentD = createParentComponent("D", "C"); //dependent from C;
+    MockChildComponent *componentE = createParentComponent("E", "C"); //dependent from C;
 
     ComponentDependencies dependencies;
     // Add the components in random order
-    dependencies.addComponent(p_componentB);
-    dependencies.addComponent(p_componentA);
-    dependencies.addComponent(p_componentD);
-    dependencies.addComponent(p_componentE);
-    dependencies.addComponent(p_componentC);
+    dependencies.addComponent(componentB);
+    dependencies.addComponent(componentA);
+    dependencies.addComponent(componentD);
+    dependencies.addComponent(componentE);
+    dependencies.addComponent(componentC);
 
-    DependenciesSolvingResult result = dependencies.completeListWithChild(p_componentC);
+    DependenciesSolvingResult result = dependencies.completeListWithChild(componentC);
     QList<IComponent *> components = result.ordered();
 
     QCOMPARE(components.size(), 3); // A, B and C components should be passed
 
-    QVERIFY(components.indexOf(p_componentA) < components.indexOf(p_componentB));
-    QVERIFY(components.indexOf(p_componentB) < components.indexOf(p_componentC));
+    QVERIFY(components.indexOf(componentA) < components.indexOf(componentB));
+    QVERIFY(components.indexOf(componentB) < components.indexOf(componentC));
 
     // E and D components should not been passed
-    QCOMPARE(components.contains(p_componentD), QBool(false));
-    QCOMPARE(components.contains(p_componentE), QBool(false));
+    QCOMPARE(components.contains(componentD), QBool(false));
+    QCOMPARE(components.contains(componentE), QBool(false));
 
     QVERIFY(!result.hasCyclicDependencies());
 }
@@ -187,13 +187,13 @@ void ComponentDependenciesTest::shouldCompleteListWithChild()
 //------------------------------------------------------------------------------
 void ComponentDependenciesTest::shouldCompleteListWithParentsForOneComponent()
 {
-    IComponent *p_componentA = createComponent("A");
+    IComponent *componentA = createComponent("A");
 
     ComponentDependencies dependencies;
-    dependencies.addComponent(p_componentA);
+    dependencies.addComponent(componentA);
 
     QList<IComponent *> parents;
-    parents.push_back(p_componentA);
+    parents.push_back(componentA);
 
     DependenciesSolvingResult result = dependencies.completeListWithParents(parents);
     QList<IComponent *> childrenAndParent = result.ordered();
@@ -205,28 +205,28 @@ void ComponentDependenciesTest::shouldCompleteListWithParentsForOneComponent()
 void ComponentDependenciesTest::shouldCompleteListWithTheirChildren()
 {
     // A <- B <- C
-    IComponent *p_componentA = createComponent("A");
-    IComponent *p_componentB = createParentComponent("B", "A"); //dependent from A;
-    IComponent *p_componentC = createParentComponent("C", "B"); //dependent from B;
-    IComponentPtr p_independentComponent(createComponent("independentComponent"));
+    IComponent *componentA = createComponent("A");
+    IComponent *componentB = createParentComponent("B", "A"); //dependent from A;
+    IComponent *componentC = createParentComponent("C", "B"); //dependent from B;
+    IComponentPtr independentComponent(createComponent("independentComponent"));
 
     ComponentDependencies dependencies;
-    dependencies.addComponent(p_componentA);
-    dependencies.addComponent(p_componentB);
-    dependencies.addComponent(p_componentC);
-    dependencies.addComponent(p_independentComponent.get());
+    dependencies.addComponent(componentA);
+    dependencies.addComponent(componentB);
+    dependencies.addComponent(componentC);
+    dependencies.addComponent(independentComponent.get());
 
     QList<IComponent *> children;
-    children.push_back(p_componentC);
+    children.push_back(componentC);
 
     DependenciesSolvingResult result = dependencies.completeListWithChildren(children);
     QList<IComponent *> childrenAndParent = result.ordered();
 
     QCOMPARE(childrenAndParent.size(), 3);
-    QVERIFY(childrenAndParent.contains(p_componentA));
-    QVERIFY(childrenAndParent.contains(p_componentB));
-    QVERIFY(childrenAndParent.contains(p_componentC));
-    QVERIFY(!childrenAndParent.contains(p_independentComponent.get()));
+    QVERIFY(childrenAndParent.contains(componentA));
+    QVERIFY(childrenAndParent.contains(componentB));
+    QVERIFY(childrenAndParent.contains(componentC));
+    QVERIFY(!childrenAndParent.contains(independentComponent.get()));
 
     QVERIFY(!result.hasCyclicDependencies());
 }
@@ -239,32 +239,32 @@ void ComponentDependenciesTest::shouldCompleteOrderedComponents()
     // A <- B <- C
     //      ^    ^
     //      └─── D
-    MockComponent *p_componentA = createComponent("A");
-    MockChildComponent *p_componentB = createParentComponent("B", "A"); //dependent from A;
-    MockChildComponent *p_componentC = createParentComponent("C", "B"); //dependent from B;
+    MockComponent *componentA = createComponent("A");
+    MockChildComponent *componentB = createParentComponent("B", "A"); //dependent from A;
+    MockChildComponent *componentC = createParentComponent("C", "B"); //dependent from B;
 
-    MockChildComponent *p_componentD = createParentComponent("D", "B", "C"); //dependent from B & C;
-    MockChildComponent *p_componentE = createParentComponent("E", "A", "C"); //dependent from A & C;
+    MockChildComponent *componentD = createParentComponent("D", "B", "C"); //dependent from B & C;
+    MockChildComponent *componentE = createParentComponent("E", "A", "C"); //dependent from A & C;
 
 
     ComponentDependencies dependencies;
 
     // Add the components in random order
-    dependencies.addComponent(p_componentB);
-    dependencies.addComponent(p_componentC);
-    dependencies.addComponent(p_componentA);
-    dependencies.addComponent(p_componentD);
-    dependencies.addComponent(p_componentE);
+    dependencies.addComponent(componentB);
+    dependencies.addComponent(componentC);
+    dependencies.addComponent(componentA);
+    dependencies.addComponent(componentD);
+    dependencies.addComponent(componentE);
 
     DependenciesSolvingResult result = dependencies.orderedComponents();
     QList<IComponent *> comps = result.ordered();
 
     QCOMPARE(comps.size(), 5);
 
-    QVERIFY(comps.indexOf(p_componentA) < comps.indexOf(p_componentB));
-    QVERIFY(comps.indexOf(p_componentB) < comps.indexOf(p_componentC));
-    QVERIFY(comps.indexOf(p_componentC) < comps.indexOf(p_componentD));
-    QVERIFY(comps.indexOf(p_componentC) < comps.indexOf(p_componentE));
+    QVERIFY(comps.indexOf(componentA) < comps.indexOf(componentB));
+    QVERIFY(comps.indexOf(componentB) < comps.indexOf(componentC));
+    QVERIFY(comps.indexOf(componentC) < comps.indexOf(componentD));
+    QVERIFY(comps.indexOf(componentC) < comps.indexOf(componentE));
 
     QVERIFY(!result.hasCyclicDependencies());
 }
@@ -273,40 +273,40 @@ void ComponentDependenciesTest::shouldCompleteOrderedComponents()
 void ComponentDependenciesTest::shouldCompleteListWithTheirParents()
 {
     // A <- B <- C <- D,    C <- E
-    MockComponent *p_componentA = createComponent("A");
-    MockChildComponent *p_componentB = createParentComponent("B", "A"); //dependent from A;
-    MockChildComponent *p_componentC = createParentComponent("C", "B"); //dependent from B;
-    MockChildComponent *p_componentD = createParentComponent("D", "C"); //dependent from C;
-    MockChildComponent *p_componentE = createParentComponent("E", "C"); //dependent from C;
-    IComponentPtr p_independentComponent(createComponent("independentComponent"));
+    MockComponent *componentA = createComponent("A");
+    MockChildComponent *componentB = createParentComponent("B", "A"); //dependent from A;
+    MockChildComponent *componentC = createParentComponent("C", "B"); //dependent from B;
+    MockChildComponent *componentD = createParentComponent("D", "C"); //dependent from C;
+    MockChildComponent *componentE = createParentComponent("E", "C"); //dependent from C;
+    IComponentPtr independentComponent(createComponent("independentComponent"));
 
     ComponentDependencies dependencies;
-    dependencies.addComponent(p_componentB);
-    dependencies.addComponent(p_componentA);
-    dependencies.addComponent(p_componentD);
-    dependencies.addComponent(p_componentE);
-    dependencies.addComponent(p_componentC);
-    dependencies.addComponent(p_independentComponent.get());
+    dependencies.addComponent(componentB);
+    dependencies.addComponent(componentA);
+    dependencies.addComponent(componentD);
+    dependencies.addComponent(componentE);
+    dependencies.addComponent(componentC);
+    dependencies.addComponent(independentComponent.get());
 
     QList<IComponent *> parents;
-    parents.push_back(p_componentC);
+    parents.push_back(componentC);
 
     DependenciesSolvingResult result = dependencies.completeListWithParents(parents);
     QList<IComponent *> childrenAndParent = result.ordered();
 
     QCOMPARE(childrenAndParent.size(), 3); // C, D and E components should be found
 
-    QVERIFY(childrenAndParent.contains(p_componentD));
-    QVERIFY(childrenAndParent.contains(p_componentE));
-    QVERIFY(childrenAndParent.contains(p_componentC));
+    QVERIFY(childrenAndParent.contains(componentD));
+    QVERIFY(childrenAndParent.contains(componentE));
+    QVERIFY(childrenAndParent.contains(componentC));
 
-    QVERIFY(childrenAndParent.indexOf(p_componentE) < childrenAndParent.indexOf(p_componentC));
-    QVERIFY(childrenAndParent.indexOf(p_componentD) < childrenAndParent.indexOf(p_componentC));
+    QVERIFY(childrenAndParent.indexOf(componentE) < childrenAndParent.indexOf(componentC));
+    QVERIFY(childrenAndParent.indexOf(componentD) < childrenAndParent.indexOf(componentC));
 
     // A and B components should not been passed
-    QCOMPARE(childrenAndParent.contains(p_componentA), QBool(false));
-    QCOMPARE(childrenAndParent.contains(p_componentB), QBool(false));
-    QCOMPARE(childrenAndParent.contains(p_independentComponent.get()), QBool(false));
+    QCOMPARE(childrenAndParent.contains(componentA), QBool(false));
+    QCOMPARE(childrenAndParent.contains(componentB), QBool(false));
+    QCOMPARE(childrenAndParent.contains(independentComponent.get()), QBool(false));
 
     QVERIFY(!result.hasCyclicDependencies());
 }
@@ -315,28 +315,28 @@ void ComponentDependenciesTest::shouldCompleteListWithTheirParents()
 void ComponentDependenciesTest::shouldCompleteListWithFullParents()
 {
     // A <- B <- C <- D,    C <- E
-    MockComponent *p_componentA = createComponent("A");
-    MockChildComponent *p_componentB = createParentComponent("B", "A"); //dependent from A;
-    MockChildComponent *p_componentC = createParentComponent("C", "B"); //dependent from B;
-    MockChildComponent *p_componentD = createParentComponent("D", "C"); //dependent from C;
-    MockChildComponent *p_componentE = createParentComponent("E", "C"); //dependent from C;
+    MockComponent *componentA = createComponent("A");
+    MockChildComponent *componentB = createParentComponent("B", "A"); //dependent from A;
+    MockChildComponent *componentC = createParentComponent("C", "B"); //dependent from B;
+    MockChildComponent *componentD = createParentComponent("D", "C"); //dependent from C;
+    MockChildComponent *componentE = createParentComponent("E", "C"); //dependent from C;
 
     ComponentDependencies dependencies;
-    dependencies.addComponent(p_componentB);
-    dependencies.addComponent(p_componentA);
-    dependencies.addComponent(p_componentD);
-    dependencies.addComponent(p_componentE);
-    dependencies.addComponent(p_componentC);
+    dependencies.addComponent(componentB);
+    dependencies.addComponent(componentA);
+    dependencies.addComponent(componentD);
+    dependencies.addComponent(componentE);
+    dependencies.addComponent(componentC);
 
     DependenciesSolvingResult result = dependencies.completeListWithParents(dependencies.components().toList());
     QList<IComponent *> comps = result.ordered();
 
     QCOMPARE(comps.size(), 5);
 
-    QVERIFY(comps.indexOf(p_componentD) < comps.indexOf(p_componentC));
-    QVERIFY(comps.indexOf(p_componentE) < comps.indexOf(p_componentC));
-    QVERIFY(comps.indexOf(p_componentC) < comps.indexOf(p_componentB));
-    QVERIFY(comps.indexOf(p_componentB) < comps.indexOf(p_componentA));
+    QVERIFY(comps.indexOf(componentD) < comps.indexOf(componentC));
+    QVERIFY(comps.indexOf(componentE) < comps.indexOf(componentC));
+    QVERIFY(comps.indexOf(componentC) < comps.indexOf(componentB));
+    QVERIFY(comps.indexOf(componentB) < comps.indexOf(componentA));
 
     QVERIFY(!result.hasCyclicDependencies());
 }
@@ -347,20 +347,20 @@ void ComponentDependenciesTest::shouldCompleteListWithParentsTransitively()
     // Zero <- C <- A <- N
 
 
-    MockComponent *p_componentZero = createComponent("Zero");
-    MockChildComponent *p_componentC = createParentComponent("C", "Zero"); //dependent from Zero;
-    MockChildComponent *p_componentA = createParentComponent("A", "C");    //dependent from C;
-    MockChildComponent *p_componentN = createParentComponent("N", "A");    //dependent from A;
+    MockComponent *componentZero = createComponent("Zero");
+    MockChildComponent *componentC = createParentComponent("C", "Zero"); //dependent from Zero;
+    MockChildComponent *componentA = createParentComponent("A", "C");    //dependent from C;
+    MockChildComponent *componentN = createParentComponent("N", "A");    //dependent from A;
 
 
     ComponentDependencies dependencies;
-    dependencies.addComponent(p_componentC);
-    dependencies.addComponent(p_componentZero);
-    dependencies.addComponent(p_componentN);
-    dependencies.addComponent(p_componentA);
+    dependencies.addComponent(componentC);
+    dependencies.addComponent(componentZero);
+    dependencies.addComponent(componentN);
+    dependencies.addComponent(componentA);
 
     QList<IComponent *> parents;
-    parents.push_back(p_componentC);
+    parents.push_back(componentC);
 
     DependenciesSolvingResult result = dependencies.completeListWithParents(parents);
     QList<IComponent *> comps = result.ordered();
@@ -368,10 +368,10 @@ void ComponentDependenciesTest::shouldCompleteListWithParentsTransitively()
     QCOMPARE(comps.size(), 3); // C, N and A
 
     // Zero should not been passed
-    QCOMPARE(comps.contains(p_componentZero), QBool(false));
+    QCOMPARE(comps.contains(componentZero), QBool(false));
 
-    QVERIFY(comps.indexOf(p_componentN) < comps.indexOf(p_componentA));
-    QVERIFY(comps.indexOf(p_componentA) < comps.indexOf(p_componentC));
+    QVERIFY(comps.indexOf(componentN) < comps.indexOf(componentA));
+    QVERIFY(comps.indexOf(componentA) < comps.indexOf(componentC));
 
     QVERIFY(!result.hasCyclicDependencies());
 }
@@ -385,20 +385,20 @@ void ComponentDependenciesTest::shouldNotAddExtraParentsToCompletedList()
     //         ^    ^    │
     //         └────┴────┘
 
-    MockComponent *p_componentZero = createComponent("Zero");
-    MockChildComponent *p_componentC = createParentComponent("C", "Zero");   //dependent from Zero;
-    MockChildComponent *p_componentA = createParentComponent("A", "C");      //dependent from C;
-    MockChildComponent *p_componentN = createParentComponent("N", "C", "A"); //dependent from C and A;
+    MockComponent *componentZero = createComponent("Zero");
+    MockChildComponent *componentC = createParentComponent("C", "Zero");   //dependent from Zero;
+    MockChildComponent *componentA = createParentComponent("A", "C");      //dependent from C;
+    MockChildComponent *componentN = createParentComponent("N", "C", "A"); //dependent from C and A;
 
 
     ComponentDependencies dependencies;
-    dependencies.addComponent(p_componentC);
-    dependencies.addComponent(p_componentZero);
-    dependencies.addComponent(p_componentN);
-    dependencies.addComponent(p_componentA);
+    dependencies.addComponent(componentC);
+    dependencies.addComponent(componentZero);
+    dependencies.addComponent(componentN);
+    dependencies.addComponent(componentA);
 
     QList<IComponent *> parents;
-    parents.push_back(p_componentA);
+    parents.push_back(componentA);
 
     DependenciesSolvingResult result = dependencies.completeListWithParents(parents);
     QList<IComponent *> comps = result.ordered();
@@ -406,10 +406,10 @@ void ComponentDependenciesTest::shouldNotAddExtraParentsToCompletedList()
     QCOMPARE(comps.size(), 2); // Only N and A
 
     // Zero and C components should not been passed
-    QCOMPARE(comps.contains(p_componentZero), QBool(false));
-    QCOMPARE(comps.contains(p_componentC), QBool(false));
+    QCOMPARE(comps.contains(componentZero), QBool(false));
+    QCOMPARE(comps.contains(componentC), QBool(false));
 
-    QVERIFY(comps.indexOf(p_componentN) < comps.indexOf(p_componentA));
+    QVERIFY(comps.indexOf(componentN) < comps.indexOf(componentA));
 
     QVERIFY(!result.hasCyclicDependencies());
 }
@@ -418,30 +418,30 @@ void ComponentDependenciesTest::shouldNotAddExtraParentsToCompletedList()
 void ComponentDependenciesTest::shouldCompleteListWithTheirParent()
 {
     // A <- B <- C <- D,    C <- E
-    MockComponent *p_componentA = createComponent("A");
-    MockChildComponent *p_componentB = createParentComponent("B", "A"); //dependent from A;
-    MockChildComponent *p_componentC = createParentComponent("C", "B"); //dependent from B;
-    MockChildComponent *p_componentD = createParentComponent("D", "C"); //dependent from C;
-    MockChildComponent *p_componentE = createParentComponent("E", "C"); //dependent from C;
+    MockComponent *componentA = createComponent("A");
+    MockChildComponent *componentB = createParentComponent("B", "A"); //dependent from A;
+    MockChildComponent *componentC = createParentComponent("C", "B"); //dependent from B;
+    MockChildComponent *componentD = createParentComponent("D", "C"); //dependent from C;
+    MockChildComponent *componentE = createParentComponent("E", "C"); //dependent from C;
 
     ComponentDependencies dependencies;
     // Add the components in random order
-    dependencies.addComponent(p_componentB);
-    dependencies.addComponent(p_componentA);
-    dependencies.addComponent(p_componentD);
-    dependencies.addComponent(p_componentE);
-    dependencies.addComponent(p_componentC);
+    dependencies.addComponent(componentB);
+    dependencies.addComponent(componentA);
+    dependencies.addComponent(componentD);
+    dependencies.addComponent(componentE);
+    dependencies.addComponent(componentC);
 
-    DependenciesSolvingResult result = dependencies.completeListWithParent(p_componentC);
+    DependenciesSolvingResult result = dependencies.completeListWithParent(componentC);
     QList<IComponent *> comps = result.ordered();
 
     QCOMPARE(comps.size(), 3); // C, D and E components should be passed
-    QVERIFY(comps.indexOf(p_componentE) < comps.indexOf(p_componentC));
-    QVERIFY(comps.indexOf(p_componentD) < comps.indexOf(p_componentC));
+    QVERIFY(comps.indexOf(componentE) < comps.indexOf(componentC));
+    QVERIFY(comps.indexOf(componentD) < comps.indexOf(componentC));
 
     // A and B components should not been passed
-    QCOMPARE(comps.contains(p_componentA), QBool(false));
-    QCOMPARE(comps.contains(p_componentB), QBool(false));
+    QCOMPARE(comps.contains(componentA), QBool(false));
+    QCOMPARE(comps.contains(componentB), QBool(false));
 
     QVERIFY(!result.hasCyclicDependencies());
 }

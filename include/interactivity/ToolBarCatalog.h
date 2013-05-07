@@ -96,7 +96,7 @@ public:
      *   only by IComponentConfigurationDelegate to deconfigure component
      *   and revert changes is did.
      */
-    void deleteToolbar(QToolBar *ip_toolbar);
+    void deleteToolbar(QToolBar *toolbar);
 
     /*!
      * @details
@@ -128,7 +128,7 @@ protected:
      *   Emits a toolbarAdded() signal when specified one is added to
      *   catalog.
      */
-    virtual void onToolbarAdded(QToolBar *ip_toolbar);
+    virtual void onToolbarAdded(QToolBar *toolbar);
 
 private:
     QToolBar *_createToolbar(Qt::ToolBarArea i_area, const QString &i_title);

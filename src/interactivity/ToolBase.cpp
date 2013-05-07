@@ -33,28 +33,28 @@
 
 #include <assert.h>
 //------------------------------------------------------------------------------
-ToolBase::ToolBase(QActionGroup *ip_actionGroup)
-    : Operation(ip_actionGroup)
-    , mp_app(nullptr)
-    , mp_interactionService(nullptr)
+ToolBase::ToolBase(QActionGroup *actionGroup)
+    : Operation(actionGroup)
+    , m_app(nullptr)
+    , m_interactionService(nullptr)
 {
     setCheckable(true);
 }
 
 //------------------------------------------------------------------------------
-ToolBase::ToolBase(const QString &i_text, QActionGroup *ip_actionGroup)
-    : Operation(i_text, ip_actionGroup)
-    , mp_app(nullptr)
-    , mp_interactionService(nullptr)
+ToolBase::ToolBase(const QString &i_text, QActionGroup *actionGroup)
+    : Operation(i_text, actionGroup)
+    , m_app(nullptr)
+    , m_interactionService(nullptr)
 {
     setCheckable(true);
 }
 
 //------------------------------------------------------------------------------
-ToolBase::ToolBase(const QIcon &i_icon, const QString &i_text, QActionGroup *ip_actionGroup)
-    : Operation(i_icon, i_text, ip_actionGroup)
-    , mp_app(nullptr)
-    , mp_interactionService(nullptr)
+ToolBase::ToolBase(const QIcon &i_icon, const QString &i_text, QActionGroup *actionGroup)
+    : Operation(i_icon, i_text, actionGroup)
+    , m_app(nullptr)
+    , m_interactionService(nullptr)
 {
     setCheckable(true);
 }
@@ -62,14 +62,14 @@ ToolBase::ToolBase(const QIcon &i_icon, const QString &i_text, QActionGroup *ip_
 //------------------------------------------------------------------------------
 ToolBase::~ToolBase()
 {
-    mp_app = nullptr;
-    mp_interactionService = nullptr;
+    m_app = nullptr;
+    m_interactionService = nullptr;
 }
 
 //------------------------------------------------------------------------------
 void ToolBase::execute()
 {
-    mp_interactionService->setActiveTool(this);
+    m_interactionService->setActiveTool(this);
 }
 
 //------------------------------------------------------------------------------
@@ -79,48 +79,48 @@ void ToolBase::stopExecuting()
 }
 
 //------------------------------------------------------------------------------
-void ToolBase::initialize(QObject *ip_startUpData)
+void ToolBase::initialize(QObject *startUpData)
 {
-    mp_app = dynamic_cast<AbstractApplication *>(ip_startUpData);
-    assert(mp_app != nullptr);
+    m_app = dynamic_cast<AbstractApplication *>(startUpData);
+    assert(m_app != nullptr);
 
-    mp_interactionService = mp_app->serviceLocator().locate<IInteractionService>();
-    assert(mp_interactionService != nullptr);
+    m_interactionService = m_app->serviceLocator().locate<IInteractionService>();
+    assert(m_interactionService != nullptr);
 }
 
 //------------------------------------------------------------------------------
-bool ToolBase::onContextMenu(QContextMenuEvent * /*ip_event*/)
+bool ToolBase::onContextMenu(QContextMenuEvent * /*event*/)
 {
     return false;
 }
 
 //------------------------------------------------------------------------------
-void ToolBase::onDoubleClick(QMouseEvent * /*ip_event*/)
+void ToolBase::onDoubleClick(QMouseEvent * /*event*/)
 {
 }
 
 //------------------------------------------------------------------------------
-void ToolBase::onKeyDown(QKeyEvent * /*ip_event*/)
+void ToolBase::onKeyDown(QKeyEvent * /*event*/)
 {
 }
 
 //------------------------------------------------------------------------------
-void ToolBase::onKeyUp(QKeyEvent * /*ip_event*/)
+void ToolBase::onKeyUp(QKeyEvent * /*event*/)
 {
 }
 
 //------------------------------------------------------------------------------
-void ToolBase::onMouseDown(QMouseEvent * /*ip_event*/)
+void ToolBase::onMouseDown(QMouseEvent * /*event*/)
 {
 }
 
 //------------------------------------------------------------------------------
-void ToolBase::onMouseMove(QMouseEvent * /*ip_event*/)
+void ToolBase::onMouseMove(QMouseEvent * /*event*/)
 {
 }
 
 //------------------------------------------------------------------------------
-void ToolBase::onMouseUp(QMouseEvent * /*ip_event*/)
+void ToolBase::onMouseUp(QMouseEvent * /*event*/)
 {
 }
 

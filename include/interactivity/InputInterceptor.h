@@ -108,13 +108,13 @@ public:
      * @details
      *   Sets the reference to widget events will be intercepted from.
      */
-    void setSender(QWidget *ip_interceptedWidget);
+    void setSender(QWidget *interceptedWidget);
 
     /*!
      * @details
      *   Sets the receiver events form widget will be sended to.
      */
-    void setReceiver(IInputReceiver *ip_receiver);
+    void setReceiver(IInputReceiver *receiver);
 
     /*!
      * @details
@@ -129,15 +129,15 @@ public:
     IInputReceiver *receiver() const;
 
 protected:
-    bool eventFilter(QObject *ip_sender, QEvent *ip_event);
+    bool eventFilter(QObject *sender, QEvent *event);
 
 private:
     bool canStartWorking();
     bool invalidate(QWidget *interceptedWidget);
 
 private:
-    QWidget *mp_interceptedWidget;
-    IInputReceiver *mp_receiver;
+    QWidget *m_interceptedWidget;
+    IInputReceiver *m_receiver;
     bool m_isActive;
     bool m_isWorking;
 };

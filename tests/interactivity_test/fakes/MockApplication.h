@@ -42,7 +42,7 @@ public:
     IServiceLocator &serviceLocator();
 
 private:
-    IServiceLocator *mp_services;
+    IServiceLocator *m_services;
 };
 
 #endif // MOCKAPPLICATION_H

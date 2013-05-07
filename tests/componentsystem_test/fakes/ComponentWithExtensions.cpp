@@ -39,20 +39,20 @@ class ComponentExtension2 : public IComponentExtension2
 //------------------------------------------------------------------------------
 ComponentWithExtensions::ComponentWithExtensions()
     : BaseComponent("ComponentWithExtensions")
-    , mp_extension1(new ComponentExtension1())
-    , mp_extension2(new ComponentExtension2())
+    , m_extension1(new ComponentExtension1())
+    , m_extension2(new ComponentExtension2())
 {
-    registerExtension<IComponentExtension1>(mp_extension1);
-    registerExtension<IComponentExtension2>(mp_extension2);
+    registerExtension<IComponentExtension1>(m_extension1);
+    registerExtension<IComponentExtension2>(m_extension2);
 }
 
 //------------------------------------------------------------------------------
 ComponentWithExtensions::~ComponentWithExtensions()
 {
-    delete mp_extension2;
-    mp_extension2 = nullptr;
-    delete mp_extension1;
-    mp_extension1 = nullptr;
+    delete m_extension2;
+    m_extension2 = nullptr;
+    delete m_extension1;
+    m_extension1 = nullptr;
 }
 
 //------------------------------------------------------------------------------

@@ -71,12 +71,12 @@ void ComponentSystemUIComponent::_onShutdown()
 }
 
 //------------------------------------------------------------------------------
-bool ComponentSystemUIComponent::_onStartup(QObject *ip_initData)
+bool ComponentSystemUIComponent::_onStartup(QObject *initData)
 {
-    if (ip_initData == nullptr)
+    if (initData == nullptr)
         return false;
 
-    AbstractApplication *app = dynamic_cast<AbstractApplication *>(ip_initData);
+    AbstractApplication *app = dynamic_cast<AbstractApplication *>(initData);
     if (app == nullptr)
         return false;
 

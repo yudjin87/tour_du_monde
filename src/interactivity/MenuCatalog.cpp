@@ -35,8 +35,8 @@ MenuCatalog::MenuCatalog(QMenuBar &i_menuBar)
     : m_menuBar(i_menuBar)
 {
     QList<QAction *> actions = m_menuBar.actions();
-    foreach(QAction *p_action, actions)
-        installEventFilterForSubMenus(p_action->menu());
+    foreach(QAction *action, actions)
+        installEventFilterForSubMenus(action->menu());
 }
 
 //------------------------------------------------------------------------------
@@ -70,22 +70,22 @@ QMenu *MenuCatalog::addMenu(const QIcon &i_icon, const QString &i_title)
 //------------------------------------------------------------------------------
 QMenu *MenuCatalog::addPopup(const QString &i_title)
 {
-    QMenu *p_menu = new QMenu(i_title);
-    m_popupMenus.push_back(p_menu);
-    installEventFilterForSubMenus(p_menu);
-    onSubMenuAdded(p_menu);
-    return p_menu;
+    QMenu *menu = new QMenu(i_title);
+    m_popupMenus.push_back(menu);
+    installEventFilterForSubMenus(menu);
+    onSubMenuAdded(menu);
+    return menu;
 }
 
 //------------------------------------------------------------------------------
 QMenu *MenuCatalog::addPopup(const QIcon &i_icon, const QString &i_title)
 {
-    QMenu *p_menu = new QMenu(i_title);
-    p_menu->setIcon(i_icon);
-    m_popupMenus.push_back(p_menu);
-    installEventFilterForSubMenus(p_menu);
-    onSubMenuAdded(p_menu);
-    return p_menu;
+    QMenu *menu = new QMenu(i_title);
+    menu->setIcon(i_icon);
+    m_popupMenus.push_back(menu);
+    installEventFilterForSubMenus(menu);
+    onSubMenuAdded(menu);
+    return menu;
 }
 
 //------------------------------------------------------------------------------
@@ -96,22 +96,22 @@ void MenuCatalog::deleteMenu(const QString &i_title)
 }
 
 //------------------------------------------------------------------------------
-void MenuCatalog::deleteMenu(QMenu *ip_menu)
+void MenuCatalog::deleteMenu(QMenu *menu)
 {
-    if (ip_menu == nullptr)
-        return;
-
-    if (m_removedMenus.removeOne(ip_menu)) {
-        delete ip_menu;
-        return;
-    }
-
-    QMenu *menu = findMenu(ip_menu->title());
     if (menu == nullptr)
         return;
 
-    m_menuBar.removeAction(menu->menuAction());
-    delete menu;
+    if (m_removedMenus.removeOne(menu)) {
+        delete menu;
+        return;
+    }
+
+    QMenu *foundMenu = findMenu(menu->title());
+    if (foundMenu == nullptr)
+        return;
+
+    m_menuBar.removeAction(foundMenu->menuAction());
+    delete foundMenu;
 }
 
 //------------------------------------------------------------------------------
@@ -125,11 +125,11 @@ const QMenu *MenuCatalog::findMenu(const QString &i_title) const
 {
     QList<QAction *> actions = m_menuBar.actions();
 
-    foreach(QAction *p_action, actions) {
-        if (p_action->text() == i_title)
-            return p_action->menu();
+    foreach(QAction *action, actions) {
+        if (action->text() == i_title)
+            return action->menu();
 
-        QMenu *foundMenu = findMenu(i_title, p_action->menu());
+        QMenu *foundMenu = findMenu(i_title, action->menu());
         if (foundMenu != nullptr)
             return foundMenu;
     }
@@ -148,9 +148,9 @@ const QMenu *MenuCatalog::findMenuEverywhere(const QString &i_title) const
 {
     const QList<QMenu *> &allMenus = menus();
 
-    foreach(QMenu *p_menu, allMenus) {
-        if (p_menu->title() == i_title)
-            return p_menu;
+    foreach(QMenu *menu, allMenus) {
+        if (menu->title() == i_title)
+            return menu;
     }
 
     return nullptr;
@@ -165,11 +165,11 @@ QMenu *MenuCatalog::findPopup(const QString &i_title)
 //------------------------------------------------------------------------------
 const QMenu *MenuCatalog::findPopup(const QString &i_title) const
 {
-    foreach(QMenu *p_menu, m_popupMenus) {
-        if (p_menu->title() == i_title)
-            return p_menu;
+    foreach(QMenu *menu, m_popupMenus) {
+        if (menu->title() == i_title)
+            return menu;
 
-        QMenu *foundMenu = findMenu(i_title, p_menu);
+        QMenu *foundMenu = findMenu(i_title, menu);
         if (foundMenu != nullptr)
             return foundMenu;
     }
@@ -183,16 +183,16 @@ QList<QMenu *> MenuCatalog::menus() const
     QList<QMenu *> menuBarMenus;
 
     QList<QAction *> actions = m_menuBar.actions();
-    foreach(QAction *p_action, actions) {
-        if (p_action->menu() != nullptr)
-            menuBarMenus.push_back(p_action->menu());
+    foreach(QAction *action, actions) {
+        if (action->menu() != nullptr)
+            menuBarMenus.push_back(action->menu());
     }
 
     QList<QMenu *> menusToReturn;
     menusToReturn.append(menuBarMenus);
 
-    foreach(QMenu *p_menu, menuBarMenus) {
-        QList<QMenu *> children = _extractChildMenus(p_menu);
+    foreach(QMenu *menu, menuBarMenus) {
+        QList<QMenu *> children = _extractChildMenus(menu);
         menusToReturn.append(children);
     }
 
@@ -206,12 +206,12 @@ void MenuCatalog::removeMenu(const QString &i_title)
 {
     QList<QAction *> actions = m_menuBar.actions();
 
-    foreach(QAction *p_action, actions) {
-        if (p_action->text() == i_title) {
-            m_menuBar.removeAction(p_action);
-            m_removedMenus.push_back(p_action->menu());
-            p_action->menu()->removeEventFilter(this);
-            onMenuRemoved(p_action->menu());
+    foreach(QAction *action, actions) {
+        if (action->text() == i_title) {
+            m_menuBar.removeAction(action);
+            m_removedMenus.push_back(action->menu());
+            action->menu()->removeEventFilter(this);
+            onMenuRemoved(action->menu());
             return;
         }
     }
@@ -224,18 +224,18 @@ QList<QMenu *> MenuCatalog::popups() const
 }
 
 //------------------------------------------------------------------------------
-QMenu *MenuCatalog::findMenu(const QString &i_title, QMenu *ip_inMenu) const
+QMenu *MenuCatalog::findMenu(const QString &i_title, QMenu *inMenu) const
 {
-    if (ip_inMenu == nullptr)
+    if (inMenu == nullptr)
         return nullptr;
 
-    QList<QAction *> actions = ip_inMenu->actions();
+    QList<QAction *> actions = inMenu->actions();
 
-    foreach(QAction *p_action, actions) {
-        if (p_action->text() == i_title)
-            return p_action->menu();
+    foreach(QAction *action, actions) {
+        if (action->text() == i_title)
+            return action->menu();
 
-        QMenu *foundMenu = findMenu(i_title, p_action->menu());
+        QMenu *foundMenu = findMenu(i_title, action->menu());
         if (foundMenu != nullptr)
             return foundMenu;
     }
@@ -268,49 +268,49 @@ bool MenuCatalog::eventFilter(QObject *obj, QEvent *event)
 }
 
 //------------------------------------------------------------------------------
-void MenuCatalog::onMenuAdded(QMenu *ip_menu)
+void MenuCatalog::onMenuAdded(QMenu *menu)
 {
-    emit menuAdded(ip_menu);
+    emit menuAdded(menu);
 }
 
 //------------------------------------------------------------------------------
-void MenuCatalog::onMenuRemoved(QMenu *ip_menu)
+void MenuCatalog::onMenuRemoved(QMenu *menu)
 {
-    emit menuRemoved(ip_menu);
+    emit menuRemoved(menu);
 }
 
 //------------------------------------------------------------------------------
-void MenuCatalog::onSubMenuAdded(QMenu *ip_newMenu)
+void MenuCatalog::onSubMenuAdded(QMenu *newMenu)
 {
-    emit subMenuAdded(ip_newMenu);
+    emit subMenuAdded(newMenu);
 }
 
 //------------------------------------------------------------------------------
-void MenuCatalog::onSubMenuRemoved(QMenu *ip_menu)
+void MenuCatalog::onSubMenuRemoved(QMenu *menu)
 {
-    emit subMenuRemoved(ip_menu);
+    emit subMenuRemoved(menu);
 }
 
 //------------------------------------------------------------------------------
-QList<QMenu *> MenuCatalog::_extractChildMenus(QMenu *ip_parentMenu)
+QList<QMenu *> MenuCatalog::_extractChildMenus(QMenu *parentMenu)
 {
-    if (ip_parentMenu == nullptr)
+    if (parentMenu == nullptr)
         return QList<QMenu *>();
 
-    QList<QAction *> actions = ip_parentMenu->actions();
+    QList<QAction *> actions = parentMenu->actions();
 
-    foreach(QAction *p_action, actions) {
-        return _extractChildMenus(p_action->menu());
+    foreach(QAction *action, actions) {
+        return _extractChildMenus(action->menu());
     }
 
     return QList<QMenu *>();
 }
 
 //------------------------------------------------------------------------------
-void MenuCatalog::installEventFilterForSubMenus(QMenu *ip_menu)
+void MenuCatalog::installEventFilterForSubMenus(QMenu *menu)
 {
-    ip_menu->installEventFilter(this);
-    foreach(QAction *action, ip_menu->actions()) {
+    menu->installEventFilter(this);
+    foreach(QAction *action, menu->actions()) {
         if (action->menu() != nullptr)
             installEventFilterForSubMenus(action->menu());
     }

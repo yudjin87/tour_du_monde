@@ -15,17 +15,17 @@ public:
     void execute();
     QString category() const;
     void stopExecuting();
-    void initialize(QObject *ip_startUpData);
+    void initialize(QObject *startUpData);
     QString name() const;
 
     // ITool:
-    bool onContextMenu(QContextMenuEvent *ip_event);
-    void onDoubleClick(QMouseEvent *ip_event);
-    void onKeyDown(QKeyEvent *ip_event);
-    void onKeyUp(QKeyEvent *ip_event);
-    void onMouseDown(QMouseEvent *ip_event);
-    void onMouseMove(QMouseEvent *ip_event);
-    void onMouseUp(QMouseEvent *ip_event);
+    bool onContextMenu(QContextMenuEvent *event);
+    void onDoubleClick(QMouseEvent *event);
+    void onKeyDown(QKeyEvent *event);
+    void onKeyUp(QKeyEvent *event);
+    void onMouseDown(QMouseEvent *event);
+    void onMouseMove(QMouseEvent *event);
+    void onMouseUp(QMouseEvent *event);
 
 signals:
     void executingStopped();

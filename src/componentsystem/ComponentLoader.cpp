@@ -13,27 +13,27 @@ const QString ComponentLoader::m_releaseFuncName = RELEASE_FUNCTION_NAME;
 //------------------------------------------------------------------------------
 ComponentLoader::ComponentLoader(QObject *parent)
     : QObject(parent)
-    , mp_instance(nullptr)
+    , m_instance(nullptr)
     , m_fileName("")
     , m_errorString("")
     , m_loaded(false)
     , m_loadHits(QLibrary::ResolveAllSymbolsHint | QLibrary::ExportExternalSymbolsHint)
-    , mp_createFunc(nullptr)
-    , mp_releaseFunc(nullptr)
-    , mp_library(nullptr)
+    , m_createFunc(nullptr)
+    , m_releaseFunc(nullptr)
+    , m_library(nullptr)
 {
 }
 
 //------------------------------------------------------------------------------
 ComponentLoader::ComponentLoader(const QString &fileName, QObject *parent)
     : QObject(parent)
-    , mp_instance(nullptr)
+    , m_instance(nullptr)
     , m_fileName("")
     , m_errorString("")
     , m_loaded(false)
     , m_loadHits(QLibrary::ResolveAllSymbolsHint | QLibrary::ExportExternalSymbolsHint)
-    , mp_createFunc(nullptr)
-    , mp_releaseFunc(nullptr)
+    , m_createFunc(nullptr)
+    , m_releaseFunc(nullptr)
 {
     setFileName(fileName);
 }
@@ -62,7 +62,7 @@ IComponent *ComponentLoader::instance()
     if (!m_loaded)
         load();
 
-    return mp_instance;
+    return m_instance;
 }
 
 //------------------------------------------------------------------------------
@@ -82,31 +82,31 @@ bool ComponentLoader::load()
 
     m_errorString = "";
 
-    mp_library = new QLibrary(m_fileName);
-    mp_library->setLoadHints(loadHints());
-    if (!mp_library->load()) {
-        m_errorString = mp_library->errorString();
+    m_library = new QLibrary(m_fileName);
+    m_library->setLoadHints(loadHints());
+    if (!m_library->load()) {
+        m_errorString = m_library->errorString();
         return false;
     }
 
-    void *createFunc = mp_library->resolve(m_createFuncName.toLatin1().data());
-    mp_createFunc = reinterpret_cast<createComponentFunc>(createFunc);
-    if (mp_createFunc == nullptr) {
+    void *createFunc = m_library->resolve(m_createFuncName.toLatin1().data());
+    m_createFunc = reinterpret_cast<createComponentFunc>(createFunc);
+    if (m_createFunc == nullptr) {
         m_errorString = QString("Cannot found create function \"%1\" at the \"%2\".\nSee internal error:\n%3")
-                .arg(m_createFuncName, mp_library->fileName(), mp_library->errorString());
+                .arg(m_createFuncName, m_library->fileName(), m_library->errorString());
         return false;
     }
 
-    void *releaseFunc = mp_library->resolve(m_releaseFuncName.toLatin1().data());
-    mp_releaseFunc = reinterpret_cast<releaseComponentFunc>(releaseFunc);
-    if (mp_releaseFunc == nullptr) {
+    void *releaseFunc = m_library->resolve(m_releaseFuncName.toLatin1().data());
+    m_releaseFunc = reinterpret_cast<releaseComponentFunc>(releaseFunc);
+    if (m_releaseFunc == nullptr) {
         m_errorString = QString("Cannot found release function \"%1\" at the \"%2\".\nSee internal error:\n%3")
-                .arg(m_releaseFuncName, mp_library->fileName(), mp_library->errorString());
+                .arg(m_releaseFuncName, m_library->fileName(), m_library->errorString());
         return false;
     }
 
-    QObject *obj = reinterpret_cast<QObject *>(mp_createFunc());
-    mp_instance = dynamic_cast<IComponent *>(obj);
+    QObject *obj = reinterpret_cast<QObject *>(m_createFunc());
+    m_instance = dynamic_cast<IComponent *>(obj);
 
     m_loaded = true;
     return true;
@@ -143,9 +143,9 @@ bool ComponentLoader::unload()
     if (!deleteInstance())
         return false;
 
-    bool result = mp_library->unload();
-    delete mp_library;
-    mp_library = nullptr;
+    bool result = m_library->unload();
+    delete m_library;
+    m_library = nullptr;
 
     return result;
 }
@@ -156,10 +156,10 @@ bool ComponentLoader::deleteInstance()
     if (!m_loaded)
         return false;
 
-    mp_releaseFunc(mp_instance);
-    mp_releaseFunc = nullptr;
-    mp_createFunc = nullptr;
-    mp_instance = nullptr;
+    m_releaseFunc(m_instance);
+    m_releaseFunc = nullptr;
+    m_createFunc = nullptr;
+    m_instance = nullptr;
     m_loaded = false;
 
     return true;

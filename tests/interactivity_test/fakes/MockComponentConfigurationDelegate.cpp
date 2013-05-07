@@ -32,29 +32,29 @@ MockComponentConfigurationDelegate::MockComponentConfigurationDelegate()
     , m_deconfigureCalled(false)
     , m_configureCalls(0)
     , m_deconfigureCalls(0)
-    , mp_wasDestructorCalled(nullptr)
+    , m_wasDestructorCalled(nullptr)
 {
 }
 
 //------------------------------------------------------------------------------
 MockComponentConfigurationDelegate::~MockComponentConfigurationDelegate()
 {
-    if (mp_wasDestructorCalled != nullptr)
-        *mp_wasDestructorCalled = true;
+    if (m_wasDestructorCalled != nullptr)
+        *m_wasDestructorCalled = true;
 
     m_configureCalls = -1;
     m_deconfigureCalls = -1;
 }
 
 //------------------------------------------------------------------------------
-void MockComponentConfigurationDelegate::configure(IComponent * /*ip_component*/, ICatalogs &/*catalogs*/, AbstractApplication &/*i_application*/)
+void MockComponentConfigurationDelegate::configure(IComponent * /*component*/, ICatalogs &/*catalogs*/, AbstractApplication &/*i_application*/)
 {
     m_configureCalled = true;
     ++m_configureCalls;
 }
 
 //------------------------------------------------------------------------------
-void MockComponentConfigurationDelegate::deconfigure(IComponent * /*ip_component*/, ICatalogs &/*catalogs*/)
+void MockComponentConfigurationDelegate::deconfigure(IComponent * /*component*/, ICatalogs &/*catalogs*/)
 {
     m_deconfigureCalled = true;
     ++m_deconfigureCalls;
@@ -63,11 +63,11 @@ void MockComponentConfigurationDelegate::deconfigure(IComponent * /*ip_component
 //------------------------------------------------------------------------------
 void MockComponentConfigurationDelegate::setDeleteFlag(bool &i_wasDestructorCalled)
 {
-    mp_wasDestructorCalled = &i_wasDestructorCalled;
+    m_wasDestructorCalled = &i_wasDestructorCalled;
 }
 
 //------------------------------------------------------------------------------
-const ConfigurationChanges *MockComponentConfigurationDelegate::changesByComponent(IComponent * /*ip_component*/) const
+const ConfigurationChanges *MockComponentConfigurationDelegate::changesByComponent(IComponent * /*component*/) const
 {
     return nullptr;
 }

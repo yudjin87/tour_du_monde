@@ -35,7 +35,7 @@ class MockComponentDependencies : public ComponentDependencies
 public:
     explicit MockComponentDependencies(QObject *parent = 0);
     
-    bool addComponent(IComponent *ip_component);
+    bool addComponent(IComponent *component);
 
     DependenciesSolvingResult completeListWithChildren(const QList<IComponent *> &i_forChildren) const;
 

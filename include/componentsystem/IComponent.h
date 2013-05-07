@@ -177,7 +177,7 @@ public:
      * @details
      *   When all components are registered, each component started up with given initialization
      *   data.
-     * @param ip_initData is a reference to the object with which this component is started. Usually
+     * @param initData is a reference to the object with which this component is started. Usually
      *   it will be reference to your own AbstractApplication root object, through you can obtain any data.
      * @return @a true, if component started up successful. Otherwise - return @a false. E.g. if component
      *   started twice - it is return @a false on the second time, because it is already started.
@@ -185,7 +185,7 @@ public:
      * @note You should not use this method directly, use IComponentManager::startupComponent()
      *   instead.
      */
-    virtual bool startup(QObject *ip_initData) = 0;
+    virtual bool startup(QObject *initData) = 0;
 
 signals:
     /*!
@@ -210,9 +210,9 @@ template<typename TExtension>
 const TExtension *IComponent::extension() const
 {
     const QString &extensionTypeName = typeid(TExtension).name();
-    void *p_extension = getExtension(extensionTypeName);
+    void *extension = getExtension(extensionTypeName);
 
-    return reinterpret_cast<TExtension *>(p_extension);
+    return reinterpret_cast<TExtension *>(extension);
 }
 
 //------------------------------------------------------------------------------

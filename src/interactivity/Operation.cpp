@@ -27,8 +27,8 @@
 #include "Operation.h"
 
 //------------------------------------------------------------------------------
-Operation::Operation(QActionGroup *ip_actionGroup /*= nullptr*/)
-    : QAction(ip_actionGroup)
+Operation::Operation(QActionGroup *actionGroup /*= nullptr*/)
+    : QAction(actionGroup)
     , m_category("")
     , m_name("")
 {
@@ -36,8 +36,8 @@ Operation::Operation(QActionGroup *ip_actionGroup /*= nullptr*/)
 }
 
 //------------------------------------------------------------------------------
-Operation::Operation(const QString &i_text, QActionGroup *ip_actionGroup /*= nullptr*/)
-    : QAction(i_text, ip_actionGroup)
+Operation::Operation(const QString &i_text, QActionGroup *actionGroup /*= nullptr*/)
+    : QAction(i_text, actionGroup)
     , m_category("")
     , m_name("")
 {
@@ -45,8 +45,8 @@ Operation::Operation(const QString &i_text, QActionGroup *ip_actionGroup /*= nul
 }
 
 //------------------------------------------------------------------------------
-Operation::Operation(const QIcon &i_icon, const QString &i_text, QActionGroup *ip_actionGroup /*= nullptr*/)
-    : QAction(i_icon, i_text, ip_actionGroup)
+Operation::Operation(const QIcon &i_icon, const QString &i_text, QActionGroup *actionGroup /*= nullptr*/)
+    : QAction(i_icon, i_text, actionGroup)
     , m_category("")
     , m_name("")
 {
@@ -71,7 +71,7 @@ void Operation::stopExecuting()
 }
 
 //------------------------------------------------------------------------------
-void Operation::initialize(QObject * /*ip_startUpData*/)
+void Operation::initialize(QObject * /*startUpData*/)
 {
     //Does nothing by default.
 }

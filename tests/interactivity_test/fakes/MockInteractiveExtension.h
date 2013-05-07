@@ -43,7 +43,7 @@ public:
     ~MockInteractiveExtension();
 
 public:
-    FakeInteractiveExtension *mp_interactiveExtension;
+    FakeInteractiveExtension *m_interactiveExtension;
 };
 
 //------------------------------------------------------------------------------
@@ -54,7 +54,7 @@ class FakeInteractiveExtension : public IInteractiveExtension
 public:
     FakeInteractiveExtension()
         : m_configureCalled(false)
-        , mp_func(nullptr)
+        , m_func(nullptr)
     {
     }
 
@@ -62,18 +62,18 @@ public:
     {
         m_configureCalled = true;
 
-        if (mp_func != nullptr)
-            mp_func(i_inCatalogs);
+        if (m_func != nullptr)
+            m_func(i_inCatalogs);
     }
 
     void setCunfigureFunc(configuredFunc func)
     {
-        mp_func = func;
+        m_func = func;
     }
 
 public:
     bool m_configureCalled;
-    configuredFunc mp_func;
+    configuredFunc m_func;
 };
 
 #endif // MOCKINTERACTIVECOMPONENT_H

@@ -8,13 +8,13 @@ MockServiceLocator::MockServiceLocator()
 //------------------------------------------------------------------------------
 const TypeObjectsMap<factoryMethod> &MockServiceLocator::creators() const
 {
-    return *mp_creators;
+    return *m_creators;
 }
 
 //------------------------------------------------------------------------------
 const TypeObjectsMap<void *> &MockServiceLocator::items() const
 {
-    return *mp_objects;
+    return *m_objects;
 }
 
 //------------------------------------------------------------------------------

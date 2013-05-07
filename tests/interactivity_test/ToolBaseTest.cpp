@@ -57,7 +57,7 @@ void ToolBaseTest::shouldSubstituteActiveToolByItself()
     tool.initialize(&app);
 
     tool.execute();
-    QVERIFY(service.mp_activeTool == &tool);
+    QVERIFY(service.m_activeTool == &tool);
 
 }
 

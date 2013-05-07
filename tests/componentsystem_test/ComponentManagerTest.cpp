@@ -26,26 +26,26 @@ ComponentManagerTest::ComponentManagerTest()
 void ComponentManagerTest::addComponent_shouldAddComponentToTheStoppedComponents()
 {
     ComponentManager manager(lg);
-    IComponent *p_componentA = createComponent("A");
-    IComponent *p_componentB = createComponent("B");
-    manager.addComponent(p_componentA);
-    manager.addComponent(p_componentB);
+    IComponent *componentA = createComponent("A");
+    IComponent *componentB = createComponent("B");
+    manager.addComponent(componentA);
+    manager.addComponent(componentB);
 
     QCOMPARE(manager.stoppedComponents().size(), 2);
-    QVERIFY(manager.stoppedComponents().contains(p_componentA));
-    QVERIFY(manager.stoppedComponents().contains(p_componentB));
+    QVERIFY(manager.stoppedComponents().contains(componentA));
+    QVERIFY(manager.stoppedComponents().contains(componentB));
 }
 
 //------------------------------------------------------------------------------
 void ComponentManagerTest::addComponent_shouldSetCheckedFlagToFalse()
 {
-    IComponent *p_componentA = createComponent("A");
+    IComponent *componentA = createComponent("A");
     ComponentManager manager(lg);
     manager.check();
 
     QVERIFY(manager.isChecked());
 
-    manager.addComponent(p_componentA);
+    manager.addComponent(componentA);
 
     QCOMPARE(manager.isChecked(), false);
 }
@@ -93,12 +93,12 @@ void ComponentManagerTest::check_shouldNotResolveComponentsAgainIfCheckedFlagIsT
 void ComponentManagerTest::check_shouldFillMissingComponents()
 {
     // A <- B,  C
-    MockComponent *p_componentC = createComponent("C");
-    MockChildComponent *p_componentB = createParentComponent("B", "A"); //dependent from A;
+    MockComponent *componentC = createComponent("C");
+    MockChildComponent *componentB = createParentComponent("B", "A"); //dependent from A;
 
     ComponentManager manager(lg);
-    manager.addComponent(p_componentB);
-    manager.addComponent(p_componentC);
+    manager.addComponent(componentB);
+    manager.addComponent(componentC);
 
     manager.startupAllComponents();
 
@@ -110,17 +110,17 @@ void ComponentManagerTest::check_shouldFillMissingComponents()
 void ComponentManagerTest::check_shouldFillOrphanComponents()
 {
     // A <- B,  C
-    MockComponent *p_componentC = createComponent("C");
-    MockChildComponent *p_componentB = createParentComponent("B", "A"); //dependent from A;
+    MockComponent *componentC = createComponent("C");
+    MockChildComponent *componentB = createParentComponent("B", "A"); //dependent from A;
 
     ComponentManager manager(lg);
-    manager.addComponent(p_componentB);
-    manager.addComponent(p_componentC);
+    manager.addComponent(componentB);
+    manager.addComponent(componentC);
 
     manager.startupAllComponents();
 
     QCOMPARE(manager.orphanComponents().size(), 1); // B is orphan
-    QCOMPARE(manager.orphanComponents().first(), p_componentB);
+    QCOMPARE(manager.orphanComponents().first(), componentB);
 }
 
 //------------------------------------------------------------------------------
@@ -173,15 +173,15 @@ void ComponentManagerTest::startup_shouldNotStartDisabledComponent()
 //------------------------------------------------------------------------------
 void ComponentManagerTest::startupAllComponents_shouldCallCheck()
 {
-    IComponent *p_componentA = createComponent("A");
-    IComponent *p_componentB = createComponent("B");
+    IComponent *componentA = createComponent("A");
+    IComponent *componentB = createComponent("B");
 
     ComponentManager manager(lg);
 
     QCOMPARE(manager.isChecked(), false);
 
-    manager.addComponent(p_componentA);
-    manager.addComponent(p_componentB);
+    manager.addComponent(componentA);
+    manager.addComponent(componentB);
 
     manager.startupAllComponents();
 
@@ -192,10 +192,10 @@ void ComponentManagerTest::startupAllComponents_shouldCallCheck()
 void ComponentManagerTest::startupAllComponents_shouldRemoveThemFromStoppedList()
 {
     ComponentManager manager(lg);
-    IComponent *p_componentA = createComponent("A");
-    IComponent *p_componentB = createComponent("B");
-    manager.addComponent(p_componentA);
-    manager.addComponent(p_componentB);
+    IComponent *componentA = createComponent("A");
+    IComponent *componentB = createComponent("B");
+    manager.addComponent(componentA);
+    manager.addComponent(componentB);
 
     QCOMPARE(manager.stoppedComponents().size(), 2);
 
@@ -208,18 +208,18 @@ void ComponentManagerTest::startupAllComponents_shouldRemoveThemFromStoppedList(
 void ComponentManagerTest::startupAllComponents_shouldAddThemToTheStartedList()
 {
     ComponentManager manager(lg);
-    IComponent *p_componentA = createComponent("A");
-    IComponent *p_componentB = createComponent("B");
-    manager.addComponent(p_componentA);
-    manager.addComponent(p_componentB);
+    IComponent *componentA = createComponent("A");
+    IComponent *componentB = createComponent("B");
+    manager.addComponent(componentA);
+    manager.addComponent(componentB);
 
     QCOMPARE(manager.startedComponents().size(), 0);
 
     manager.startupAllComponents();
 
     QCOMPARE(manager.startedComponents().size(), 2);
-    QVERIFY(manager.startedComponents().contains(p_componentA));
-    QVERIFY(manager.startedComponents().contains(p_componentB));
+    QVERIFY(manager.startedComponents().contains(componentA));
+    QVERIFY(manager.startedComponents().contains(componentB));
 }
 
 //------------------------------------------------------------------------------
@@ -281,10 +281,10 @@ void ComponentManagerTest::shutdownAllComponents_shouldEmitAboutSignal()
 void ComponentManagerTest::shutdownAllComponents_shouldRemoveThemFromStartedList()
 {
     ComponentManager manager(lg);
-    IComponent *p_componentA = createComponent("A");
-    IComponent *p_componentB = createComponent("B");
-    manager.addComponent(p_componentA);
-    manager.addComponent(p_componentB);
+    IComponent *componentA = createComponent("A");
+    IComponent *componentB = createComponent("B");
+    manager.addComponent(componentA);
+    manager.addComponent(componentB);
     manager.startupAllComponents();
 
     QCOMPARE(manager.stoppedComponents().size(), 0);
@@ -292,18 +292,18 @@ void ComponentManagerTest::shutdownAllComponents_shouldRemoveThemFromStartedList
     manager.shutdownAllComponents();
 
     QCOMPARE(manager.stoppedComponents().size(), 2);
-    QVERIFY(manager.stoppedComponents().contains(p_componentA));
-    QVERIFY(manager.stoppedComponents().contains(p_componentB));
+    QVERIFY(manager.stoppedComponents().contains(componentA));
+    QVERIFY(manager.stoppedComponents().contains(componentB));
 }
 
 //------------------------------------------------------------------------------
 void ComponentManagerTest::shutdownAllComponents_shouldAddThemToTheStoppedList()
 {
     ComponentManager manager(lg);
-    IComponent *p_componentA = createComponent("A");
-    IComponent *p_componentB = createComponent("B");
-    manager.addComponent(p_componentA);
-    manager.addComponent(p_componentB);
+    IComponent *componentA = createComponent("A");
+    IComponent *componentB = createComponent("B");
+    manager.addComponent(componentA);
+    manager.addComponent(componentB);
     manager.startupAllComponents();
 
     QCOMPARE(manager.startedComponents().size(), 2);
@@ -316,11 +316,11 @@ void ComponentManagerTest::shutdownAllComponents_shouldAddThemToTheStoppedList()
 //------------------------------------------------------------------------------
 void ComponentManagerTest::shutdownAllComponents_shouldNotShutdownUnexistingComponent()
 {
-    MockComponent *p_componentA = createComponent("A");
-    QSignalSpy spy(p_componentA, SIGNAL(whenShutdown(QString)));
+    MockComponent *componentA = createComponent("A");
+    QSignalSpy spy(componentA, SIGNAL(whenShutdown(QString)));
 
     ComponentManager manager(lg);
-    manager.startupComponent(p_componentA);
+    manager.startupComponent(componentA);
 
     manager.shutdownAllComponents();
 
@@ -330,21 +330,21 @@ void ComponentManagerTest::shutdownAllComponents_shouldNotShutdownUnexistingComp
 //------------------------------------------------------------------------------
 void ComponentManagerTest::shutdownAllComponents_shouldNotShutdownBuiltInComponent()
 {
-    MockComponent *p_componentA = new MockComponent("MockComponent", true);
-    QSignalSpy spy(p_componentA, SIGNAL(whenShutdown(const QString &)));
+    MockComponent *componentA = new MockComponent("MockComponent", true);
+    QSignalSpy spy(componentA, SIGNAL(whenShutdown(const QString &)));
 
-    p_componentA->startup(nullptr);
+    componentA->startup(nullptr);
 
-    QCOMPARE(p_componentA->started(), true);
+    QCOMPARE(componentA->started(), true);
 
     ComponentManager manager(lg);
-    manager.addComponent(p_componentA);
+    manager.addComponent(componentA);
     manager.startupAllComponents();
     manager.shutdownAllComponents();
 
     // make sure the signal wasn't emitted
     QCOMPARE(spy.count(), 0);
-    QCOMPARE(p_componentA->started(), true);
+    QCOMPARE(componentA->started(), true);
 }
 
 //------------------------------------------------------------------------------
@@ -364,12 +364,12 @@ void ComponentManagerTest::shutdownAllComponents_shouldDisableComponent()
 //------------------------------------------------------------------------------
 void ComponentManagerTest::shutdown_shouldShutdownAllComponents()
 {
-    MockComponent *p_componentA = createComponent("A");
-    QSignalSpy spy(p_componentA, SIGNAL(whenShutdown(QString)));
+    MockComponent *componentA = createComponent("A");
+    QSignalSpy spy(componentA, SIGNAL(whenShutdown(QString)));
 
     ComponentManager manager(lg);
-    manager.addComponent(p_componentA);
-    manager.startupComponent(p_componentA);
+    manager.addComponent(componentA);
+    manager.startupComponent(componentA);
 
     manager.startup();
     manager.shutdown();
@@ -380,12 +380,12 @@ void ComponentManagerTest::shutdown_shouldShutdownAllComponents()
 //------------------------------------------------------------------------------
 void ComponentManagerTest::shutdown_shouldShutdownBuiltInComponents()
 {
-    MockComponent *p_componentA = new MockComponent("A", true);
-    QSignalSpy spy(p_componentA, SIGNAL(whenShutdown(QString)));
+    MockComponent *componentA = new MockComponent("A", true);
+    QSignalSpy spy(componentA, SIGNAL(whenShutdown(QString)));
 
     ComponentManager manager(lg);
-    manager.addComponent(p_componentA);
-    manager.startupComponent(p_componentA);
+    manager.addComponent(componentA);
+    manager.startupComponent(componentA);
 
     manager.startup();
     manager.shutdown();
@@ -418,7 +418,7 @@ void ComponentManagerTest::startupAllComponents_shouldPassInitDataToComponent()
     manager.setInitializationData(this);
     manager.startupAllComponents();
 
-    QCOMPARE(mockComponent->mp_initData, this);
+    QCOMPARE(mockComponent->m_initData, this);
 }
 
 //------------------------------------------------------------------------------
@@ -450,30 +450,30 @@ void ComponentManagerTest::startupAllComponents_shouldHandleNullComponent()
 void ComponentManagerTest::startupAllComponents_shouldPassComponentsInRightOrder()
 {
     // A <- B <- C <- D,    C <- E
-    MockComponent *p_componentA = createComponent("A");
-    MockChildComponent *p_componentB = createParentComponent("B", "A"); //dependent from A;
-    MockChildComponent *p_componentC = createParentComponent("C", "B"); //dependent from B;
-    MockChildComponent *p_componentD = createParentComponent("D", "C"); //dependent from C;
-    MockChildComponent *p_componentE = createParentComponent("E", "C"); //dependent from C;
+    MockComponent *componentA = createComponent("A");
+    MockChildComponent *componentB = createParentComponent("B", "A"); //dependent from A;
+    MockChildComponent *componentC = createParentComponent("C", "B"); //dependent from B;
+    MockChildComponent *componentD = createParentComponent("D", "C"); //dependent from C;
+    MockChildComponent *componentE = createParentComponent("E", "C"); //dependent from C;
 
     MockComponentManager manager(lg);
 
     // Add the components in random order
-    manager.addComponent(p_componentB);
-    manager.addComponent(p_componentA);
-    manager.addComponent(p_componentD);
-    manager.addComponent(p_componentE);
-    manager.addComponent(p_componentC);
+    manager.addComponent(componentB);
+    manager.addComponent(componentA);
+    manager.addComponent(componentD);
+    manager.addComponent(componentE);
+    manager.addComponent(componentC);
 
     manager.startupAllComponents();
 
     QList<IComponent *> comps = manager.m_startupComponents;
     QCOMPARE(comps.size(), 5);
 
-    QVERIFY(comps.indexOf(p_componentA) < comps.indexOf(p_componentB));
-    QVERIFY(comps.indexOf(p_componentB) < comps.indexOf(p_componentC));
-    QVERIFY(comps.indexOf(p_componentC) < comps.indexOf(p_componentD));
-    QVERIFY(comps.indexOf(p_componentC) < comps.indexOf(p_componentE));
+    QVERIFY(comps.indexOf(componentA) < comps.indexOf(componentB));
+    QVERIFY(comps.indexOf(componentB) < comps.indexOf(componentC));
+    QVERIFY(comps.indexOf(componentC) < comps.indexOf(componentD));
+    QVERIFY(comps.indexOf(componentC) < comps.indexOf(componentE));
 }
 
 //------------------------------------------------------------------------------
@@ -484,48 +484,48 @@ void ComponentManagerTest::startupAllComponents_shouldPassComponentsInRightOrder
     // A <- B <- C
     //      ^    ^
     //      └─── D
-    MockComponent *p_componentA = createComponent("A");
-    MockChildComponent *p_componentB = createParentComponent("B", "A"); //dependent from A;
-    MockChildComponent *p_componentC = createParentComponent("C", "B"); //dependent from B;
-    MockChildComponent *p_componentD = createParentComponent("D", "B", "C"); //dependent from B & C;
-    MockChildComponent *p_componentE = createParentComponent("E", "A", "C"); //dependent from A & C;
+    MockComponent *componentA = createComponent("A");
+    MockChildComponent *componentB = createParentComponent("B", "A"); //dependent from A;
+    MockChildComponent *componentC = createParentComponent("C", "B"); //dependent from B;
+    MockChildComponent *componentD = createParentComponent("D", "B", "C"); //dependent from B & C;
+    MockChildComponent *componentE = createParentComponent("E", "A", "C"); //dependent from A & C;
 
     MockComponentManager manager(lg);
 
     // Add the components in random order
-    manager.addComponent(p_componentB);
-    manager.addComponent(p_componentC);
-    manager.addComponent(p_componentA);
-    manager.addComponent(p_componentD);
-    manager.addComponent(p_componentE);
+    manager.addComponent(componentB);
+    manager.addComponent(componentC);
+    manager.addComponent(componentA);
+    manager.addComponent(componentD);
+    manager.addComponent(componentE);
 
     manager.startupAllComponents();
 
     QList<IComponent *> comps = manager.m_startupComponents;
     QCOMPARE(comps.size(), 5);
 
-    QVERIFY(comps.indexOf(p_componentA) < comps.indexOf(p_componentB));
-    QVERIFY(comps.indexOf(p_componentB) < comps.indexOf(p_componentC));
-    QVERIFY(comps.indexOf(p_componentC) < comps.indexOf(p_componentD));
-    QVERIFY(comps.indexOf(p_componentC) < comps.indexOf(p_componentE));
+    QVERIFY(comps.indexOf(componentA) < comps.indexOf(componentB));
+    QVERIFY(comps.indexOf(componentB) < comps.indexOf(componentC));
+    QVERIFY(comps.indexOf(componentC) < comps.indexOf(componentD));
+    QVERIFY(comps.indexOf(componentC) < comps.indexOf(componentE));
 }
 
 //------------------------------------------------------------------------------
 void ComponentManagerTest::shutdownAllComponents_shouldPassComponentsInRightOrder()
 {
     // A <- B <- C <- D,    C <- E
-    MockComponent *p_componentA = createComponent("A");
-    MockChildComponent *p_componentB = createParentComponent("B", "A"); //dependent from A;
-    MockChildComponent *p_componentC = createParentComponent("C", "B"); //dependent from B;
-    MockChildComponent *p_componentD = createParentComponent("D", "C"); //dependent from C;
-    MockChildComponent *p_componentE = createParentComponent("E", "C"); //dependent from C;
+    MockComponent *componentA = createComponent("A");
+    MockChildComponent *componentB = createParentComponent("B", "A"); //dependent from A;
+    MockChildComponent *componentC = createParentComponent("C", "B"); //dependent from B;
+    MockChildComponent *componentD = createParentComponent("D", "C"); //dependent from C;
+    MockChildComponent *componentE = createParentComponent("E", "C"); //dependent from C;
 
     MockComponentManager manager(lg);
-    manager.addComponent(p_componentB);
-    manager.addComponent(p_componentA);
-    manager.addComponent(p_componentD);
-    manager.addComponent(p_componentE);
-    manager.addComponent(p_componentC);
+    manager.addComponent(componentB);
+    manager.addComponent(componentA);
+    manager.addComponent(componentD);
+    manager.addComponent(componentE);
+    manager.addComponent(componentC);
 
     // components will be started in the right order, according to their dependencies
     manager.startupAllComponents();
@@ -533,172 +533,172 @@ void ComponentManagerTest::shutdownAllComponents_shouldPassComponentsInRightOrde
 
     QList<IComponent *> comps = manager.m_shutdownComponents;
 
-    QVERIFY(comps.indexOf(p_componentA) > comps.indexOf(p_componentB));
-    QVERIFY(comps.indexOf(p_componentB) > comps.indexOf(p_componentC));
-    QVERIFY(comps.indexOf(p_componentC) > comps.indexOf(p_componentD));
-    QVERIFY(comps.indexOf(p_componentC) > comps.indexOf(p_componentE));
+    QVERIFY(comps.indexOf(componentA) > comps.indexOf(componentB));
+    QVERIFY(comps.indexOf(componentB) > comps.indexOf(componentC));
+    QVERIFY(comps.indexOf(componentC) > comps.indexOf(componentD));
+    QVERIFY(comps.indexOf(componentC) > comps.indexOf(componentE));
 }
 
 //------------------------------------------------------------------------------
 void ComponentManagerTest::startupComponent_shouldPassRightComponentsInRightOrder()
 {
     // A <- B <- C <- D,    C <- E
-    MockComponent *p_componentA = createComponent("A");
-    MockChildComponent *p_componentB = createParentComponent("B", "A"); //dependent from A;
-    MockChildComponent *p_componentC = createParentComponent("C", "B"); //dependent from B;
-    MockChildComponent *p_componentD = createParentComponent("D", "C"); //dependent from C;
-    MockChildComponent *p_componentE = createParentComponent("E", "C"); //dependent from C;
+    MockComponent *componentA = createComponent("A");
+    MockChildComponent *componentB = createParentComponent("B", "A"); //dependent from A;
+    MockChildComponent *componentC = createParentComponent("C", "B"); //dependent from B;
+    MockChildComponent *componentD = createParentComponent("D", "C"); //dependent from C;
+    MockChildComponent *componentE = createParentComponent("E", "C"); //dependent from C;
 
     MockComponentManager manager(lg);
     // Add the components in random order
-    manager.addComponent(p_componentB);
-    manager.addComponent(p_componentA);
-    manager.addComponent(p_componentD);
-    manager.addComponent(p_componentE);
-    manager.addComponent(p_componentC);
+    manager.addComponent(componentB);
+    manager.addComponent(componentA);
+    manager.addComponent(componentD);
+    manager.addComponent(componentE);
+    manager.addComponent(componentC);
 
-    manager.startupComponent(p_componentC);
+    manager.startupComponent(componentC);
 
     QList<IComponent *> comps = manager.m_startupComponents;
     QCOMPARE(comps.size(), 3); // A, B and C components should be passed
 
-    QVERIFY(comps.indexOf(p_componentA) < comps.indexOf(p_componentB));
-    QVERIFY(comps.indexOf(p_componentB) < comps.indexOf(p_componentC));
+    QVERIFY(comps.indexOf(componentA) < comps.indexOf(componentB));
+    QVERIFY(comps.indexOf(componentB) < comps.indexOf(componentC));
 
     // E and D components should not been passed
-    QCOMPARE(comps.contains(p_componentD), QBool(false));
-    QCOMPARE(comps.contains(p_componentE), QBool(false));
+    QCOMPARE(comps.contains(componentD), QBool(false));
+    QCOMPARE(comps.contains(componentE), QBool(false));
 }
 
 //------------------------------------------------------------------------------
 void ComponentManagerTest::shutdownComponent_shouldPassComponentsInReverseOrder()
 {
     // A <- B <- C <- D,    C <- E
-    MockComponent *p_componentA = createComponent("A");
-    MockChildComponent *p_componentB = createParentComponent("B", "A"); //dependent from A;
-    MockChildComponent *p_componentC = createParentComponent("C", "B"); //dependent from B;
-    MockChildComponent *p_componentD = createParentComponent("D", "C"); //dependent from C;
-    MockChildComponent *p_componentE = createParentComponent("E", "C"); //dependent from C;
+    MockComponent *componentA = createComponent("A");
+    MockChildComponent *componentB = createParentComponent("B", "A"); //dependent from A;
+    MockChildComponent *componentC = createParentComponent("C", "B"); //dependent from B;
+    MockChildComponent *componentD = createParentComponent("D", "C"); //dependent from C;
+    MockChildComponent *componentE = createParentComponent("E", "C"); //dependent from C;
 
     MockComponentManager manager(lg);
     // Add the components in random order
-    manager.addComponent(p_componentB);
-    manager.addComponent(p_componentA);
-    manager.addComponent(p_componentD);
-    manager.addComponent(p_componentE);
-    manager.addComponent(p_componentC);
+    manager.addComponent(componentB);
+    manager.addComponent(componentA);
+    manager.addComponent(componentD);
+    manager.addComponent(componentE);
+    manager.addComponent(componentC);
 
     manager.startupAllComponents();
-    manager.shutdownComponent(p_componentC);
+    manager.shutdownComponent(componentC);
 
     QList<IComponent *> comps = manager.m_shutdownComponents;
 
     QCOMPARE(comps.size(), 3); // C, D and E components should be passed for shutdown
 
-    QVERIFY(comps.indexOf(p_componentD) < comps.indexOf(p_componentC));
-    QVERIFY(comps.indexOf(p_componentE) < comps.indexOf(p_componentC));
+    QVERIFY(comps.indexOf(componentD) < comps.indexOf(componentC));
+    QVERIFY(comps.indexOf(componentE) < comps.indexOf(componentC));
 
     // A and B components should not been passed
-    QCOMPARE(comps.contains(p_componentA), QBool(false));
-    QCOMPARE(comps.contains(p_componentB), QBool(false));
+    QCOMPARE(comps.contains(componentA), QBool(false));
+    QCOMPARE(comps.contains(componentB), QBool(false));
 }
 
 //------------------------------------------------------------------------------
 void ComponentManagerTest::startupAllComponents_shouldNotStartChildComponentsIfParentCouldNotStart()
 {
     // A <- B <- C
-    TestDescriptionComponent *p_componentA = new TestDescriptionComponent("A");
-    p_componentA->startUpResult = false;
-    MockChildComponent *p_componentB = createParentComponent("B", "A"); //dependent from A;
-    MockChildComponent *p_componentC = createParentComponent("C", "B"); //dependent from B;
+    TestDescriptionComponent *componentA = new TestDescriptionComponent("A");
+    componentA->startUpResult = false;
+    MockChildComponent *componentB = createParentComponent("B", "A"); //dependent from A;
+    MockChildComponent *componentC = createParentComponent("C", "B"); //dependent from B;
 
     ComponentManager manager(lg);
-    manager.addComponent(p_componentB);
-    manager.addComponent(p_componentA);
-    manager.addComponent(p_componentC);
+    manager.addComponent(componentB);
+    manager.addComponent(componentA);
+    manager.addComponent(componentC);
 
     manager.startupAllComponents();
 
-    QVERIFY(!p_componentA->started());
-    QVERIFY(!p_componentB->started());
-    QVERIFY(!p_componentC->started());
+    QVERIFY(!componentA->started());
+    QVERIFY(!componentB->started());
+    QVERIFY(!componentC->started());
 }
 
 //------------------------------------------------------------------------------
 void ComponentManagerTest::startupAllComponents_shouldStartOrphanComponentIfParentAppeared()
 {
     // A <- B,  C
-    MockComponent *p_componentA = createComponent("A");
-    MockComponent *p_componentC = createComponent("C");
-    MockChildComponent *p_componentB = createParentComponent("B", "A"); //dependent from A;
+    MockComponent *componentA = createComponent("A");
+    MockComponent *componentC = createComponent("C");
+    MockChildComponent *componentB = createParentComponent("B", "A"); //dependent from A;
 
     ComponentManager manager(lg);
-    manager.addComponent(p_componentB);
-    manager.addComponent(p_componentC);
+    manager.addComponent(componentB);
+    manager.addComponent(componentC);
 
     manager.startupAllComponents();
 
     QCOMPARE(manager.orphanComponents().size(), 1); // B is orphan
-    QVERIFY(!p_componentB->started());
+    QVERIFY(!componentB->started());
 
-    manager.addComponent(p_componentA);
+    manager.addComponent(componentA);
     manager.startupAllComponents();
 
     QCOMPARE(manager.orphanComponents().size(), 0);
-    QVERIFY(p_componentB->started());
+    QVERIFY(componentB->started());
 }
 
 //------------------------------------------------------------------------------
 void ComponentManagerTest::startupComponents_shouldStartOrphanComponentsWhenParentsAppeared()
 {
     // A <- B,  C
-    MockComponent *p_componentA = createComponent("A");
-    MockComponent *p_componentC = createComponent("C");
-    MockChildComponent *p_componentB = createParentComponent("B", "A"); //dependent from A;
+    MockComponent *componentA = createComponent("A");
+    MockComponent *componentC = createComponent("C");
+    MockChildComponent *componentB = createParentComponent("B", "A"); //dependent from A;
 
     ComponentManager manager(lg);
-    manager.addComponent(p_componentB);
-    manager.addComponent(p_componentC);
+    manager.addComponent(componentB);
+    manager.addComponent(componentC);
 
     manager.startupAllComponents();
 
     QCOMPARE(manager.orphanComponents().size(), 1); // B is orphan
-    QVERIFY(!p_componentB->started());
+    QVERIFY(!componentB->started());
 
     QList<IComponent *> comps;
-    comps.push_back(p_componentA);
-    manager.addComponent(p_componentA);
+    comps.push_back(componentA);
+    manager.addComponent(componentA);
     manager.startupComponents(comps);
 
     QCOMPARE(manager.orphanComponents().size(), 0);
-    QVERIFY(p_componentB->started());
+    QVERIFY(componentB->started());
 }
 
 //------------------------------------------------------------------------------
 void ComponentManagerTest::startupComponents_shouldNotStartOrphanComponentsWhenOtherParentsAppeared()
 {
     // A <- B,  C, D
-    MockComponent *p_componentD = createComponent("D");
-    MockComponent *p_componentC = createComponent("C");
-    MockChildComponent *p_componentB = createParentComponent("B", "A"); //dependent from A;
+    MockComponent *componentD = createComponent("D");
+    MockComponent *componentC = createComponent("C");
+    MockChildComponent *componentB = createParentComponent("B", "A"); //dependent from A;
 
     ComponentManager manager(lg);
-    manager.addComponent(p_componentB);
-    manager.addComponent(p_componentC);
+    manager.addComponent(componentB);
+    manager.addComponent(componentC);
 
     manager.startupAllComponents();
 
     QCOMPARE(manager.orphanComponents().size(), 1); // B is orphan
-    QVERIFY(!p_componentB->started());
+    QVERIFY(!componentB->started());
 
     QList<IComponent *> comps;
-    comps.push_back(p_componentD);
-    manager.addComponent(p_componentD);
+    comps.push_back(componentD);
+    manager.addComponent(componentD);
     manager.startupComponents(comps);
 
     // B is still orphan because it's parent was not added
     QCOMPARE(manager.orphanComponents().size(), 1);
-    QVERIFY(!p_componentB->started());
+    QVERIFY(!componentB->started());
 }
 
 //------------------------------------------------------------------------------

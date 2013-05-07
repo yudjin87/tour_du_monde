@@ -67,7 +67,7 @@ public:
      *   If the action group not null, this operation
      *   will be automatically inserted into the group.
      */
-    Operation(QActionGroup *ip_actionGroup = nullptr);
+    Operation(QActionGroup *actionGroup = nullptr);
 
     /*!
      * @details
@@ -80,7 +80,7 @@ public:
      *   this by setting a specific description with setText(). The same text will be
      *   used for tooltips unless you specify a different text using setToolTip().
      */
-    Operation(const QString &i_text, QActionGroup *ip_actionGroup = nullptr);
+    Operation(const QString &i_text, QActionGroup *actionGroup = nullptr);
 
     /*!
      * @details
@@ -93,7 +93,7 @@ public:
      *   this by setting a specific description with setText(). The same text will be
      *   used for tooltips unless you specify a different text using setToolTip().
      */
-    Operation(const QIcon &i_icon, const QString &i_text, QActionGroup *ip_actionGroup = nullptr);
+    Operation(const QIcon &i_icon, const QString &i_text, QActionGroup *actionGroup = nullptr);
     ~Operation();
 
     /*!
@@ -123,7 +123,7 @@ public:
      *
      *   Does nothing by default.
      */
-    void initialize(QObject *ip_startUpData);
+    void initialize(QObject *startUpData);
 
     /*!
      * @details

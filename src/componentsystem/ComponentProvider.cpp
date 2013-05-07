@@ -63,10 +63,10 @@ bool ComponentProvider::isInitialized() const
 }
 
 //------------------------------------------------------------------------------
-void ComponentProvider::registerComponent(IComponent *ip_component)
+void ComponentProvider::registerComponent(IComponent *component)
 {
-    if (ip_component != nullptr)
-        m_components.push_back(ip_component);
+    if (component != nullptr)
+        m_components.push_back(component);
 }
 
 //------------------------------------------------------------------------------

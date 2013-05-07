@@ -35,14 +35,14 @@ class MockDialog : public QDialog
 {
     Q_OBJECT
 public:
-    MockDialog(MockDialogModel *ip_model, QWidget *ip_mainWindow = 0);
+    MockDialog(MockDialogModel *model, QWidget *mainWindow = 0);
     ~MockDialog();
 
     static bool wasCreated;
     static bool wasDestroyed;
     static QDialog::DialogCode s_result;
     
-    MockDialogModel *mp_model;
+    MockDialogModel *m_model;
 };
 
 #endif // MOCKDIALOG_H

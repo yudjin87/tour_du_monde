@@ -144,7 +144,7 @@ public:
      *   Deactivates current tool and sets the specified tool as active.
      * @sa activeTool
      */
-    virtual void setActiveTool(ITool *ip_activeTool) = 0;
+    virtual void setActiveTool(ITool *activeTool) = 0;
 
     /*!
      * @details
@@ -155,7 +155,7 @@ public:
      *   CarouselComponentConfigurationDelegate is used by default. Note, that
      *   IInteractionService takes ownership of the configuration delegate.
      */
-    virtual void setConfigurationDelegate(IComponentConfigurationDelegate *ip_configurationDelegate) = 0;
+    virtual void setConfigurationDelegate(IComponentConfigurationDelegate *configurationDelegate) = 0;
 
     /*!
      * @details
@@ -170,7 +170,7 @@ public:
      *   interceptor.
      * @sa setInputInterceptor, activeTool
      */
-    virtual void setInputInterceptor(IInputInterceptor *ip_inputInterceptor) = 0;
+    virtual void setInputInterceptor(IInputInterceptor *inputInterceptor) = 0;
 
 private:
     Q_DISABLE_COPY(IInteractionService)

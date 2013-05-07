@@ -5,9 +5,9 @@
 //------------------------------------------------------------------------------
 MockComponent::MockComponent(const QString &i_name, bool isBuiltIn)
     : BaseComponent(new ComponentDefinition(i_name, isBuiltIn))
-    , mp_initData(nullptr)
+    , m_initData(nullptr)
     , m_returnValue(true)
-    , mp_registrator(nullptr)
+    , m_registrator(nullptr)
 {
     setAvailability(IComponent::Enabled);
 }
@@ -20,19 +20,19 @@ MockComponent::~MockComponent()
 //------------------------------------------------------------------------------
 QObject *MockComponent::data() const
 {
-    return mp_initData;
+    return m_initData;
 }
 
 //------------------------------------------------------------------------------
-void MockComponent::setRegistrator(QList<MockComponent *> *ip_registrator)
+void MockComponent::setRegistrator(QList<MockComponent *> *registrator)
 {
-    mp_registrator = ip_registrator;
+    m_registrator = registrator;
 }
 
 //------------------------------------------------------------------------------
-bool MockComponent::_onStartup(QObject *ip_initData)
+bool MockComponent::_onStartup(QObject *initData)
 {
-    mp_initData = ip_initData;
+    m_initData = initData;
     emit whenStarted(name());
     return m_returnValue;
 }
@@ -40,8 +40,8 @@ bool MockComponent::_onStartup(QObject *ip_initData)
 //------------------------------------------------------------------------------
 void MockComponent::_onShutdown()
 {
-    if (mp_registrator != nullptr)
-        mp_registrator->push_back(this);
+    if (m_registrator != nullptr)
+        m_registrator->push_back(this);
 
     emit whenShutdown(name());
 }

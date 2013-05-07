@@ -82,7 +82,7 @@ public:
      *
      *   Does nothing by default.
      */
-    virtual void initialize(QObject *ip_startUpData) = 0;
+    virtual void initialize(QObject *startUpData) = 0;
 
     /*!
      * @details

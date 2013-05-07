@@ -30,38 +30,38 @@
 
 //------------------------------------------------------------------------------
 ServiceLocator::ServiceLocator()
-    : mp_objects(new TypeObjectsMap<void *>())
-    , mp_creators(new TypeObjectsMap<factoryMethod>())
+    : m_objects(new TypeObjectsMap<void *>())
+    , m_creators(new TypeObjectsMap<factoryMethod>())
 {
 }
 
 //------------------------------------------------------------------------------
 ServiceLocator::~ServiceLocator()
 {
-    delete mp_objects;
-    mp_objects = nullptr;
+    delete m_objects;
+    m_objects = nullptr;
 
-    delete mp_creators;
-    mp_creators = nullptr;
+    delete m_creators;
+    m_creators = nullptr;
 }
 
 //------------------------------------------------------------------------------
 void ServiceLocator::_registerType(const QString &typeIdName, factoryMethod method, const QString &tag)
   {
-    mp_creators->registerInstance(method, typeIdName, tag);
+    m_creators->registerInstance(method, typeIdName, tag);
 }
 
 //------------------------------------------------------------------------------
 void *ServiceLocator::_unregister(const QString &i_forTypeId, const QString &i_tag)
 {
-    void *foundInstance = mp_objects->unregisterInstance(i_forTypeId, i_tag);
+    void *foundInstance = m_objects->unregisterInstance(i_forTypeId, i_tag);
     return foundInstance;
 }
 
 //------------------------------------------------------------------------------
 void *ServiceLocator::_buildInstance(const QString &typeIdName, const QString &tag) const
   {
-  const factoryMethod &creator = mp_creators->getInstance(typeIdName, tag);
+  const factoryMethod &creator = m_creators->getInstance(typeIdName, tag);
   void *data = creator();
   return data;
   }
@@ -69,13 +69,13 @@ void *ServiceLocator::_buildInstance(const QString &typeIdName, const QString &t
 //------------------------------------------------------------------------------
 void *ServiceLocator::_getService(const QString &i_byTypeId, const QString &i_tag) const
 {
-    return mp_objects->getInstance(i_byTypeId, i_tag);
+    return m_objects->getInstance(i_byTypeId, i_tag);
 }
 
 //------------------------------------------------------------------------------
-void ServiceLocator::_register(void *ip_instance, const QString &i_forTypeId, const QString &i_tag)
+void ServiceLocator::_register(void *instance, const QString &i_forTypeId, const QString &i_tag)
 {
-    mp_objects->registerInstance(ip_instance, i_forTypeId, i_tag);
+    m_objects->registerInstance(instance, i_forTypeId, i_tag);
 }
 
 //------------------------------------------------------------------------------

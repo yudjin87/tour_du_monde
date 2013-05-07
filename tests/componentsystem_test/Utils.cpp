@@ -83,27 +83,27 @@ QString pathToComponentsDir()
 //------------------------------------------------------------------------------
 MockChildComponent* createParentComponent(const QString &i_name, const QString &i_dependsOn)
 {
-    MockChildComponent *p_component = new MockChildComponent(i_name);
-    p_component->parents().push_back(i_dependsOn);
+    MockChildComponent *component = new MockChildComponent(i_name);
+    component->parents().push_back(i_dependsOn);
 
-    return p_component;
+    return component;
 }
 
 //------------------------------------------------------------------------------
 MockChildComponent *createParentComponent(const QString &i_name, const QString &i_dependsOn, const QString &i_dependsOn2)
 {
-    MockChildComponent *p_component = new MockChildComponent(i_name);
-    p_component->parents().push_back(i_dependsOn);
-    p_component->parents().push_back(i_dependsOn2);
+    MockChildComponent *component = new MockChildComponent(i_name);
+    component->parents().push_back(i_dependsOn);
+    component->parents().push_back(i_dependsOn2);
 
-    return p_component;
+    return component;
 }
 
 //------------------------------------------------------------------------------
 MockComponent* createComponent(const QString &i_name)
 {
-    MockComponent *p_component = new MockComponent(i_name);
-    return p_component;
+    MockComponent *component = new MockComponent(i_name);
+    return component;
 }
 
 //------------------------------------------------------------------------------

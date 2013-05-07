@@ -33,34 +33,34 @@
 
 //------------------------------------------------------------------------------
 BaseComponent::BaseComponent(const QString &i_name, QObject *parent)
-    : mp_definition(new ComponentDefinition(i_name, true))
+    : m_definition(new ComponentDefinition(i_name, true))
     , m_isStarted(false)
     , m_availability(IComponent::Enabled)
-    , mp_typeObjectsMap(new TypeObjectsMap<void *>())
+    , m_typeObjectsMap(new TypeObjectsMap<void *>())
 {
     setParent(parent);
-    setObjectName(mp_definition->componentName());
+    setObjectName(m_definition->componentName());
     loadAvailability();
-    mp_definition->setComponent(this);
+    m_definition->setComponent(this);
 }
 
 //------------------------------------------------------------------------------
 BaseComponent::BaseComponent(ComponentDefinition *definition, QObject *parent)
-    : mp_definition(definition)
+    : m_definition(definition)
     , m_isStarted(false)
     , m_availability(IComponent::Enabled)
-    , mp_typeObjectsMap(new TypeObjectsMap<void *>())
+    , m_typeObjectsMap(new TypeObjectsMap<void *>())
 {
     setParent(parent);
-    setObjectName(mp_definition->componentName());
+    setObjectName(m_definition->componentName());
     loadAvailability();
-    mp_definition->setComponent(this);
+    m_definition->setComponent(this);
 }
 
 //------------------------------------------------------------------------------
 void *BaseComponent::getExtension(const QString &i_byTypeId) const
 {
-    return mp_typeObjectsMap->getInstance(i_byTypeId);
+    return m_typeObjectsMap->getInstance(i_byTypeId);
 }
 
 //------------------------------------------------------------------------------
@@ -68,11 +68,11 @@ BaseComponent::~BaseComponent()
 {
     saveAvailability();
 
-    delete mp_typeObjectsMap;
-    mp_typeObjectsMap = nullptr;
+    delete m_typeObjectsMap;
+    m_typeObjectsMap = nullptr;
 
-    delete mp_definition;
-    mp_definition = nullptr;
+    delete m_definition;
+    m_definition = nullptr;
 }
 
 //------------------------------------------------------------------------------
@@ -84,13 +84,13 @@ IComponent::Availability BaseComponent::availability() const
 //------------------------------------------------------------------------------
 const ComponentDefinition *BaseComponent::definition() const
 {
-    return mp_definition;
+    return m_definition;
 }
 
 //------------------------------------------------------------------------------
 const QString &BaseComponent::name() const
 {
-    return mp_definition->componentName();
+    return m_definition->componentName();
 }
 
 //------------------------------------------------------------------------------
@@ -110,12 +110,12 @@ void BaseComponent::shutdown()
 }
 
 //------------------------------------------------------------------------------
-bool BaseComponent::startup(QObject *ip_initData)
+bool BaseComponent::startup(QObject *initData)
 {
     if (m_isStarted)
         return true;
 
-    m_isStarted = _onStartup(ip_initData);
+    m_isStarted = _onStartup(initData);
     return m_isStarted;
 }
 
@@ -135,7 +135,7 @@ bool BaseComponent::_onStartup(QObject *)
 //------------------------------------------------------------------------------
 void BaseComponent::addParent(const QString &parent)
 {
-    mp_definition->addParent(parent);
+    m_definition->addParent(parent);
 }
 
 //------------------------------------------------------------------------------
@@ -168,13 +168,13 @@ void BaseComponent::setAvailability(IComponent::Availability newMode)
 //------------------------------------------------------------------------------
 void BaseComponent::setDescription(const QString &description)
 {
-    mp_definition->setDescription(description);
+    m_definition->setDescription(description);
 }
 
 //------------------------------------------------------------------------------
 void BaseComponent::setProductName(const QString &productName)
 {
-    mp_definition->setProductName(productName);
+    m_definition->setProductName(productName);
 }
 
 //------------------------------------------------------------------------------
@@ -184,9 +184,9 @@ void BaseComponent::onAvailabilityChanged(Availability i_newMode)
 }
 
 //------------------------------------------------------------------------------
-void BaseComponent::registerExtensionInstance(void *ip_instance, const QString &i_forTypeId)
+void BaseComponent::registerExtensionInstance(void *instance, const QString &i_forTypeId)
 {
-    mp_typeObjectsMap->registerInstance(ip_instance, i_forTypeId);
+    m_typeObjectsMap->registerInstance(instance, i_forTypeId);
 }
 
 //------------------------------------------------------------------------------

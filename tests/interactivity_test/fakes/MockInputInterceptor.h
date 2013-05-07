@@ -38,7 +38,7 @@ public:
     void setDeleteFlag(bool &i_wasDestructorCalled);
 
 private:
-    bool *mp_wasDestructorCalled;
+    bool *m_wasDestructorCalled;
 };
 
 #endif // MOCKINPUTINTERCEPTOR_H

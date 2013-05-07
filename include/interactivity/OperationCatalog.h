@@ -66,7 +66,7 @@ public:
      *   fileMenu->addAction(operationCatalog->add(new MyPrintOperation()));
      * @endcode
      */
-    Operation *add(Operation *ip_newOperation);
+    Operation *add(Operation *newOperation);
 
     /*!
      * @details
@@ -99,7 +99,7 @@ public:
      *   only by IComponentConfigurationDelegate to deconfigure component
      *   and revert changes is did.
      */
-    void deleteOperation(Operation *ip_operation);
+    void deleteOperation(Operation *operation);
 
     /*!
      * @details
@@ -126,7 +126,7 @@ public:
      *   Sets the reference to the startup data operations
      *   will be initialized with.
      */
-    void setStartupData(QObject *ip_startupData);
+    void setStartupData(QObject *startupData);
 
 protected:
     /*!
@@ -134,11 +134,11 @@ protected:
      *   Emits a operationAdded() signal when specified one is added to
      *   catalog.
      */
-    virtual void onOperationAdded(Operation *ip_operation);
+    virtual void onOperationAdded(Operation *operation);
 
 private:
     QList<Operation *> m_operations;
-    QObject *mp_startupData;
+    QObject *m_startupData;
 };
 
 #endif // OPERATIONCATALOG_H

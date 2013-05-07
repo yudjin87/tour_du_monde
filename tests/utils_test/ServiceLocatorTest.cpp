@@ -110,9 +110,9 @@ void ServiceLocatorTest::canLocateToRegisterInstanceByType()
 
     ServiceLocator locator;
     locator.registerInstance<IService>(&service);
-    IService *p_located_service = locator.locate<IService>();
+    IService *located_service = locator.locate<IService>();
 
-    QVERIFY(p_located_service == &service);
+    QVERIFY(located_service == &service);
 }
 
 //------------------------------------------------------------------------------
@@ -127,8 +127,8 @@ void ServiceLocatorTest::canLocateToRegisterInstanceByTypeAndTag()
 
     QCOMPARE(locator.items().size(), 2);
 
-    IService *p_located_service2 = locator.locate<IService>("SecondOne");
-    QVERIFY(p_located_service2 == &service2);
+    IService *located_service2 = locator.locate<IService>("SecondOne");
+    QVERIFY(located_service2 == &service2);
 }
 
 //------------------------------------------------------------------------------

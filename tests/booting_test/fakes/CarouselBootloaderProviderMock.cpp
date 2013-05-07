@@ -23,22 +23,22 @@ bool ComponentProviderMock::_initialize()
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 CarouselBootloaderProviderMock::CarouselBootloaderProviderMock()
- : mp_componentProviderMock(nullptr)
+ : m_componentProviderMock(nullptr)
 {
 }
 
 const ComponentProviderMock &CarouselBootloaderProviderMock::componentProvider() const
 {
-    return *mp_componentProviderMock;
+    return *m_componentProviderMock;
 }
 
 //------------------------------------------------------------------------------
 IComponentProvider *CarouselBootloaderProviderMock::_createComponentProvider()
 {
-    if (mp_componentProviderMock == nullptr)
-        mp_componentProviderMock = new ComponentProviderMock();
+    if (m_componentProviderMock == nullptr)
+        m_componentProviderMock = new ComponentProviderMock();
 
-    return mp_componentProviderMock;
+    return m_componentProviderMock;
 }
 
 //------------------------------------------------------------------------------

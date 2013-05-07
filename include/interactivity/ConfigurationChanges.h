@@ -112,41 +112,41 @@ public slots:
      * @details
      *   Inserts a operation added during component's configuration.
      */
-    void insertAddedOperation(Operation *ip_operation);
+    void insertAddedOperation(Operation *operation);
 
     /*!
      * @details
      *   Inserts a dockable widget added during component's
      *   configuration.
      */
-    void insertAddedDockWidget(QDockWidget *ip_dockWidget);
+    void insertAddedDockWidget(QDockWidget *dockWidget);
 
     /*!
      * @details
      *   Inserts a menu added to the menu bar
      *   during component's configuration.
      */
-    void insertAddedMenu(QMenu *ip_menu);
+    void insertAddedMenu(QMenu *menu);
 
     /*!
      * @details
      *   Inserts a toolbar added during component's configuration.
      */
-    void insertAddedToolbar(QToolBar *ip_toolbar);
+    void insertAddedToolbar(QToolBar *toolbar);
 
     /*!
      * @details
      *   Inserts a operation added to the specific container
      *   (parent widget) during component's configuration.
      */
-    void insertInsertedOperation(Operation *ip_operation);
+    void insertInsertedOperation(Operation *operation);
 
     /*!
      * @details
      *   Inserts a menu removed from the menu bar
      *   during component's configuration.
      */
-    void insertRemovedMenu(QMenu *ip_menu);
+    void insertRemovedMenu(QMenu *menu);
 
 private:
     Operations m_insertedOperations;

@@ -54,7 +54,7 @@ public:
      *   for the MenuCatalog creation. Note, that MenuCatalog requires
      *   that QMenuBar has been added to the specified QMainWindow.
      */
-    Catalogs(QMainWindow &i_shell, QObject *ip_startUpData);
+    Catalogs(QMainWindow &i_shell, QObject *startUpData);
     ~Catalogs();
 
     /*!
@@ -106,10 +106,10 @@ public:
     const IToolBarCatalog &toolBarCatalog() const;
 
 private:
-    OperationCatalog *mp_operationCatalog;
-    DockWidgetCatalog *mp_dockWidgetCatalog;
-    MenuCatalog *mp_menuCatalog;
-    ToolBarCatalog *mp_toolBarCatalog;
+    OperationCatalog *m_operationCatalog;
+    DockWidgetCatalog *m_dockWidgetCatalog;
+    MenuCatalog *m_menuCatalog;
+    ToolBarCatalog *m_toolBarCatalog;
 };
 
 #endif // CATALOGS_H

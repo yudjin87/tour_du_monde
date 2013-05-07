@@ -29,23 +29,23 @@
 #include <QtCore/QTimer>
 #include <QtGui/QDialog>
 //------------------------------------------------------------------------------
-MockDialogService::MockDialogService(QWidget *ip_mainWindow, IServiceLocator *locator)
-    : DialogService(ip_mainWindow, locator)
-    , mp_created_dlg(nullptr)
+MockDialogService::MockDialogService(QWidget *mainWindow, IServiceLocator *locator)
+    : DialogService(mainWindow, locator)
+    , m_created_dlg(nullptr)
 {
 }
 
 //------------------------------------------------------------------------------
-QDialog *MockDialogService::createDialog(IDialogConstructor *ip_constructor, void *ip_dlgModel) const
+QDialog *MockDialogService::createDialog(IDialogConstructor *constructor, void *dlgModel) const
 {
-    mp_created_dlg = DialogService::createDialog(ip_constructor, ip_dlgModel);
+    m_created_dlg = DialogService::createDialog(constructor, dlgModel);
 
-    if (mp_created_dlg->result() == QDialog::Accepted)
-        QTimer::singleShot(200, mp_created_dlg, SLOT(accept()));
+    if (m_created_dlg->result() == QDialog::Accepted)
+        QTimer::singleShot(200, m_created_dlg, SLOT(accept()));
     else
-        QTimer::singleShot(200, mp_created_dlg, SLOT(reject()));
+        QTimer::singleShot(200, m_created_dlg, SLOT(reject()));
 
-    return mp_created_dlg;
+    return m_created_dlg;
 }
 
 //------------------------------------------------------------------------------

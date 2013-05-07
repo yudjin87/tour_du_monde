@@ -72,17 +72,17 @@ public:
      * @details
      *   Registers a value with empty tag in inner objects dictionary.
      * @param i_forTypeId
-     *   The name of type which @a ip_instance should be associated with.
+     *   The name of type which @a instance should be associated with.
      */
-    void registerInstance(TValue ip_instance, const QString &i_forTypeId);
+    void registerInstance(TValue instance, const QString &i_forTypeId);
 
     /*!
      * @details
      *   Registers a value with specified tag in inner objects dictionary.
      * @param i_forTypeId
-     *   The name of type which @a ip_instance should be associated with.
+     *   The name of type which @a instance should be associated with.
      */
-    void registerInstance(TValue ip_instance, const QString &i_forTypeId, const QString &i_tag);
+    void registerInstance(TValue instance, const QString &i_forTypeId, const QString &i_tag);
 
     /*!
      * @details
@@ -113,8 +113,8 @@ private:
 template<typename TObject>
 struct InstanceObject
 {
-    InstanceObject<TObject>(TObject ip_instance, const QString &i_typeId, const QString &i_tag)
-        : instance(ip_instance)
+    InstanceObject<TObject>(TObject instance, const QString &i_typeId, const QString &i_tag)
+        : instance(instance)
         , typeId(i_typeId)
         , tag(i_tag)
     {
@@ -150,31 +150,31 @@ TValue TypeObjectsMap<TValue>::getInstance(const QString &i_byTypeId) const
 template<typename TValue>
 TValue TypeObjectsMap<TValue>::getInstance(const QString &i_byTypeId, const QString &i_tag) const
 {
-    InstanceObject<TValue> *p_foundObject = _findInstance(i_byTypeId, i_tag);
-    if (p_foundObject == nullptr)
+    InstanceObject<TValue> *foundObject = _findInstance(i_byTypeId, i_tag);
+    if (foundObject == nullptr)
       return nullptr;
 
-    return p_foundObject->instance;
+    return foundObject->instance;
 }
 
 //------------------------------------------------------------------------------
 template<typename TValue>
-void TypeObjectsMap<TValue>::registerInstance(TValue ip_instance, const QString &i_forTypeId)
+void TypeObjectsMap<TValue>::registerInstance(TValue instance, const QString &i_forTypeId)
 {
-    registerInstance(ip_instance, i_forTypeId, "");
+    registerInstance(instance, i_forTypeId, "");
 }
 
 //------------------------------------------------------------------------------
 template<typename TValue>
-void TypeObjectsMap<TValue>::registerInstance(TValue ip_instance, const QString &i_forTypeId, const QString &i_tag)
+void TypeObjectsMap<TValue>::registerInstance(TValue instance, const QString &i_forTypeId, const QString &i_tag)
 {
     // should not register existing type:
     if (_findInstance(i_forTypeId, i_tag) != nullptr)
         return;
 
-    InstanceObject<TValue> *p_newObj = new InstanceObject<TValue>(ip_instance, i_forTypeId, i_tag);
+    InstanceObject<TValue> *newObj = new InstanceObject<TValue>(instance, i_forTypeId, i_tag);
 
-    m_objects.push_back(p_newObj);
+    m_objects.push_back(newObj);
 }
 
 //------------------------------------------------------------------------------

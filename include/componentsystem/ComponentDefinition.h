@@ -170,7 +170,7 @@ public:
     void setDefinitionLocation(const QString &definitionLocation);
 
 private:
-    IComponent *mp_component;
+    IComponent *m_component;
     QString m_componentName;
     QString m_description;
     QString m_productName;
