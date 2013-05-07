@@ -240,6 +240,18 @@ void CarouselInteractionServiceTest::shouldNotThrowIfNewDelegateIsNull()
 }
 
 //------------------------------------------------------------------------------
+void CarouselInteractionServiceTest::shouldSaveUiStateWhenComponentManagerShutdDown()
+{
+    CONSTRUCT_APP
+
+    MockCarouselInteractionService service(app);
+
+    mockComponentManager.callOnAboutToShutDown();
+
+    QCOMPARE(service.saveUiCalled, 1);
+}
+
+//------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldCallConfigureWhenComponentStarted()
 {
     CONSTRUCT_APP

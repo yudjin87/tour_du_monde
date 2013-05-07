@@ -30,6 +30,7 @@
 MockCarouselInteractionService::MockCarouselInteractionService(AbstractApplication &application, QObject *parent)
     : CarouselInteractionService(application, parent)
     , loadUiCalled(0)
+    , saveUiCalled(0)
 {
 }
 
@@ -38,6 +39,13 @@ void MockCarouselInteractionService::loadUiState(int version)
 {
     CarouselInteractionService::loadUiState(version);
     ++loadUiCalled;
+}
+
+//------------------------------------------------------------------------------
+void MockCarouselInteractionService::saveUiState(int version)
+{
+    CarouselInteractionService::saveUiState(version);
+    ++saveUiCalled;
 }
 
 //------------------------------------------------------------------------------

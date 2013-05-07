@@ -285,6 +285,12 @@ public:
 signals:
     /*!
      * @details
+     *   This signal is emmited before @a manager will be shuted down.
+     */
+    void aboutToShutDown();
+
+    /*!
+     * @details
      *   This signal is emmited before @a component will be shuted down by the
      *   IComponentManager.
      */

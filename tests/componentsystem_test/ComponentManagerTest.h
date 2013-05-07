@@ -48,6 +48,7 @@ private slots:
     void shutdown_shouldShutdownAllComponents();
     void shutdown_shouldShutdownBuiltInComponents();
     void shutdown_shouldNotDisableComponent();
+    void shutdown_shouldEmit();
 
     // Integration tests:
     void startupComponent_shouldPassRightComponentsInRightOrder();

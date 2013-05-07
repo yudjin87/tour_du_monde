@@ -66,13 +66,13 @@ CarouselInteractionService::CarouselInteractionService(AbstractApplication &appl
 
     connect(m_componentManager, SIGNAL(componentAboutToShutDown(IComponent *)),
             SLOT(onComponentAboutToShutDown(IComponent *)));
+
+    connect(m_componentManager, SIGNAL(aboutToShutDown()), SLOT(onComponentManagerAboutToShutDown()));
 }
 
 //------------------------------------------------------------------------------
 CarouselInteractionService::~CarouselInteractionService()
 {
-    saveUiState();
-
     delete m_catalogs;
     m_catalogs = nullptr;
     delete m_inputInterceptor;
@@ -208,6 +208,12 @@ void CarouselInteractionService::onComponentAboutToShutDown(IComponent *componen
         return;
 
     m_componentConfigurationDelegate->deconfigure(component, *m_catalogs);
+}
+
+//------------------------------------------------------------------------------
+void CarouselInteractionService::onComponentManagerAboutToShutDown()
+{
+    saveUiState();
 }
 
 //------------------------------------------------------------------------------

@@ -292,6 +292,12 @@ public:
 protected slots:
     /*!
      * @details
+     *   This method is invoked before @a manager will be shuted down.
+     */
+    virtual void onAboutToShutDown();
+
+    /*!
+     * @details
      *   This method is invoked when @a component is started up by the
      *   ComponentManager. It emits componentStarted() signal and moves @a component
      *   from the stopped to started list.

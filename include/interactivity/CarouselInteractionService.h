@@ -161,6 +161,7 @@ public:
 protected slots:
     void onComponentStartedUp(IComponent *component);
     void onComponentAboutToShutDown(IComponent *component);
+    void onComponentManagerAboutToShutDown();
     void onToolExecutingStopped();
 
 private:

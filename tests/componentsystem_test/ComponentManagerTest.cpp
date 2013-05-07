@@ -408,6 +408,18 @@ void ComponentManagerTest::shutdown_shouldNotDisableComponent()
 }
 
 //------------------------------------------------------------------------------
+void ComponentManagerTest::shutdown_shouldEmit()
+{
+    ComponentManager manager(lg);
+    QSignalSpy spy(&manager, SIGNAL(aboutToShutDown()));
+
+    manager.startup();
+    manager.shutdown();
+
+    QCOMPARE(spy.size(), 1);
+}
+
+//------------------------------------------------------------------------------
 void ComponentManagerTest::startupAllComponents_shouldPassInitDataToComponent()
 {
     MockComponent *mockComponent = new MockComponent();

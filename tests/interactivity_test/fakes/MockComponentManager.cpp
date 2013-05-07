@@ -49,3 +49,9 @@ void MockComponentManager::callOnComponentAboutToShutDown(IComponent *component)
 }
 
 //------------------------------------------------------------------------------
+void MockComponentManager::callOnAboutToShutDown()
+{
+    onAboutToShutDown();
+}
+
+//------------------------------------------------------------------------------

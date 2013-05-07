@@ -161,6 +161,7 @@ void ComponentManager::shutdown()
     if (!m_started)
         return;
 
+    onAboutToShutDown();
     m_shutDownFunc = &ComponentManager::forceShutdownCheckedComponent;
     shutdownAllComponents();
     m_shutDownFunc = &ComponentManager::shutdownCheckedComponent;
@@ -279,6 +280,12 @@ DependenciesSolvingResult ComponentManager::startupComponents(QList<IComponent *
     m_orphanComponents += solvingResult.orphans().toSet();
 
     return solvingResult;
+}
+
+//------------------------------------------------------------------------------
+void ComponentManager::onAboutToShutDown()
+{
+    emit aboutToShutDown();
 }
 
 //------------------------------------------------------------------------------

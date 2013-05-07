@@ -53,6 +53,7 @@ private Q_SLOTS:
     void shouldSetupConfigurationDelegate();
     void shouldNotThrowIfPreviousDelegateIsNull();
     void shouldNotThrowIfNewDelegateIsNull();
+    void shouldSaveUiStateWhenComponentManagerShutdDown();
     void shouldCallConfigureWhenComponentStarted();
     void shouldCallLoadUiStateWhenComponentStarted();
     void shouldConnectDelegateDeconfigureMethodWithComponentManagerSignal();

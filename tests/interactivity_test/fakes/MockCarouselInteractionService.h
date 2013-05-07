@@ -36,9 +36,11 @@ public:
     explicit MockCarouselInteractionService(AbstractApplication &application, QObject *parent = nullptr);
     
     void loadUiState(int version = 0);
+    void saveUiState(int version = 0);
 
 public:
     int loadUiCalled;
+    int saveUiCalled;
 };
 
 #endif // MOCKCAROUSELINTERACTIONSERVICE_H
