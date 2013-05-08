@@ -101,8 +101,8 @@ void ComponentLoaderTest::loadShouldNotCreateComponentIfAlreadyDid()
 void ComponentLoaderTest::loadShouldReturnTrueIfLoadedSecondTime()
 {
     MockComponentLoader loader(componentPath);
+    loader.load();
     bool result = loader.load();
-    result = loader.load();
 
     QVERIFY(result);
 }
@@ -190,7 +190,7 @@ void ComponentLoaderTest::destructorShouldUnloadComponent()
     IComponent *component = loader->instance();
     QSignalSpy spy(component, SIGNAL(destroyed()));
 
-    delete loader; loader = nullptr;
+    delete loader;
 
     QCOMPARE(spy.size(), 1);
 }

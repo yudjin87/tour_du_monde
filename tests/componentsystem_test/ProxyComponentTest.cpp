@@ -186,7 +186,7 @@ void ProxyComponentTest::startupShouldReturnFalseIfLoadFailed()
 void ProxyComponentTest::startupShouldCallStartupOnTheLoadedComponent()
 {
     FakeComponentLoader *loader = new FakeComponentLoader();
-    ((MockComponent *)(loader->mockComponent))->m_returnValue = true;
+    (dynamic_cast<MockComponent *>(loader->mockComponent))->m_returnValue = true;
     ComponentDefinition *def = new ComponentDefinition();
     def->setComponentLocation(componentFileName);
     ProxyComponent component(def, loader, nullptr);
@@ -201,7 +201,7 @@ void ProxyComponentTest::startupShouldCallStartupOnTheLoadedComponent()
 void ProxyComponentTest::startupShouldReturnResultOfTheLoadedComponentStartup()
 {
     FakeComponentLoader *loader = new FakeComponentLoader();
-    ((MockComponent *)(loader->mockComponent))->m_returnValue = true;
+    (dynamic_cast<MockComponent *>(loader->mockComponent))->m_returnValue = true;
     ComponentDefinition *def = new ComponentDefinition();
     def->setComponentLocation(componentFileName);
     ProxyComponent component(def, loader, nullptr);
@@ -216,7 +216,7 @@ void ProxyComponentTest::startupShouldReturnResultOfTheLoadedComponentStartup()
 void ProxyComponentTest::shutdownShouldUnloadComponent()
 {
     FakeComponentLoader *loader = new FakeComponentLoader();
-    ((MockComponent *)(loader->mockComponent))->m_returnValue = true;
+    (dynamic_cast<MockComponent *>(loader->mockComponent))->m_returnValue = true;
     ComponentDefinition *def = new ComponentDefinition();
     def->setComponentLocation(componentFileName);
     ProxyComponent component(def, loader, nullptr);
@@ -232,7 +232,7 @@ void ProxyComponentTest::shutdownShouldUnloadComponent()
 void ProxyComponentTest::shutdownShouldShutdownLoadedComponent()
 {
     FakeComponentLoader *loader = new FakeComponentLoader();
-    ((MockComponent *)(loader->mockComponent))->m_returnValue = true;
+    (dynamic_cast<MockComponent *>(loader->mockComponent))->m_returnValue = true;
     ComponentDefinition *def = new ComponentDefinition();
     def->setComponentLocation(componentFileName);
     ProxyComponent component(def, loader, nullptr);

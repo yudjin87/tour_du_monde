@@ -36,10 +36,10 @@ void MockTool::stopExecuting()
 }
 
 //------------------------------------------------------------------------------
-void MockTool::initialize(QObject *startUpData)
+void MockTool::initialize(QObject *data)
 {
     initializeCalled = true;
-    startUpData = startUpData;
+    startUpData = data;
 }
 
 //------------------------------------------------------------------------------

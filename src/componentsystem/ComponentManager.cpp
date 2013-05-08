@@ -197,7 +197,7 @@ DependenciesSolvingResult ComponentManager::shutdownComponents(const QList<IComp
         }
 
         if (!comp->started()) {
-            m_log.log(QString("'%1' component is already shut down. Skip it.").arg(comp->name()), ILogger::Info);
+            m_log.log(QString("'%1' component is already shut down. Skip it").arg(comp->name()), ILogger::Info);
             continue;
         }
 
@@ -267,7 +267,7 @@ DependenciesSolvingResult ComponentManager::startupComponents(QList<IComponent *
         }
 
         if (comp->started()) {
-            m_log.log(QString("'%1' component is already started. Skip it.").arg(comp->name()), ILogger::Info);
+            m_log.log(QString("'%1' component is already started. Skip it").arg(comp->name()), ILogger::Info);
             continue;
         }
 

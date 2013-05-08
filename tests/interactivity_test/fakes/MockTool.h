@@ -15,7 +15,7 @@ public:
     void execute();
     QString category() const;
     void stopExecuting();
-    void initialize(QObject *startUpData);
+    void initialize(QObject *data);
     QString name() const;
 
     // ITool:
