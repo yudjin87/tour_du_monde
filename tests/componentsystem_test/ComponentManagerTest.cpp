@@ -362,6 +362,26 @@ void ComponentManagerTest::shutdownAllComponents_shouldDisableComponent()
 }
 
 //------------------------------------------------------------------------------
+void ComponentManagerTest::shutdownComponents_shouldReturnJustShutDownComponents()
+{
+    MockComponent *componentA = createComponent("A");
+    MockChildComponent *componentB = createParentComponent("B", "A");
+
+    ComponentManager manager(lg);
+    manager.addComponent(componentA);
+    manager.addComponent(componentB);
+
+    manager.startup();
+    manager.shutdownComponent(componentB);
+
+    DependenciesSolvingResult result = manager.shutdownComponent(componentA);
+
+    // Only componentA should appear that time
+    QCOMPARE(result.ordered().size(), 1);
+    QVERIFY(result.ordered().first()->name() == "A");
+}
+
+//------------------------------------------------------------------------------
 void ComponentManagerTest::shutdown_shouldShutdownAllComponents()
 {
     MockComponent *componentA = createComponent("A");
@@ -711,6 +731,24 @@ void ComponentManagerTest::startupComponents_shouldNotStartOrphanComponentsWhenO
     // B is still orphan because it's parent was not added
     QCOMPARE(manager.orphanComponents().size(), 1);
     QVERIFY(!componentB->started());
+}
+
+//------------------------------------------------------------------------------
+void ComponentManagerTest::startupComponents_shouldReturnJustStartedComponents()
+{
+    MockComponent *componentA = createComponent("A");
+    MockChildComponent *componentB = createParentComponent("B", "A");
+
+    ComponentManager manager(lg);
+    manager.addComponent(componentA);
+    manager.startup();
+    manager.addComponent(componentB);
+
+    DependenciesSolvingResult result = manager.startupComponent(componentB);
+
+    // Only componentB should appear that time
+    QCOMPARE(result.ordered().size(), 1);
+    QVERIFY(result.ordered().first()->name() == "B");
 }
 
 //------------------------------------------------------------------------------

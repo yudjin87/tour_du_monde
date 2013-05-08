@@ -189,20 +189,26 @@ DependenciesSolvingResult ComponentManager::shutdownComponents(const QList<IComp
 
     DependenciesSolvingResult solvingResult = m_components->completeListWithParents(components);
     QList<IComponent *> componentsToShutdown = solvingResult.ordered();
-
+    QList<IComponent *> realyShutdownComponents;
     foreach(IComponent *comp, componentsToShutdown) {
         if (!m_components->components().contains(comp)) {
             m_log.log(QString("Can not shutdown unexisting component: \"%1\"").arg(comp->name()), ILogger::Info);
             continue;
         }
 
+        if (!comp->started()) {
+            m_log.log(QString("'%1' component is already shut down. Skip it.").arg(comp->name()), ILogger::Info);
+            continue;
+        }
+
+        realyShutdownComponents.push_back(comp);
         onComponentAboutToShutDown(comp);
         (this->*(m_shutDownFunc))(comp);
         m_log.log(QString("'%1' component is shut down").arg(comp->name()), ILogger::Info);
         onComponentShutDown(comp);
     }
 
-    return solvingResult;
+    return DependenciesSolvingResult(realyShutdownComponents);
 }
 
 //------------------------------------------------------------------------------
@@ -250,6 +256,7 @@ DependenciesSolvingResult ComponentManager::startupComponents(QList<IComponent *
 
     QSet<IComponent *> skippedComponents;
     QList<IComponent *> componentsToStart = solvingResult.ordered();
+    QList<IComponent *> realyStartedComponents;
     foreach(IComponent *comp, componentsToStart) {
         if (comp->started() || skippedComponents.contains(comp))
             continue;
@@ -259,9 +266,15 @@ DependenciesSolvingResult ComponentManager::startupComponents(QList<IComponent *
             continue;
         }
 
+        if (comp->started()) {
+            m_log.log(QString("'%1' component is already started. Skip it.").arg(comp->name()), ILogger::Info);
+            continue;
+        }
+
         if ((this->*(m_startUpFunc))(comp)) {
             m_log.log(QString("'%1' component is started").arg(comp->name()), ILogger::Info);
             onComponentStarted(comp);
+            realyStartedComponents.push_back(comp);
         } else {
             m_log.log(QString("Can not startup component: '%1'").arg(comp->name()), ILogger::Info);
 
@@ -279,7 +292,7 @@ DependenciesSolvingResult ComponentManager::startupComponents(QList<IComponent *
 
     m_orphanComponents += solvingResult.orphans().toSet();
 
-    return solvingResult;
+    return DependenciesSolvingResult(realyStartedComponents);
 }
 
 //------------------------------------------------------------------------------

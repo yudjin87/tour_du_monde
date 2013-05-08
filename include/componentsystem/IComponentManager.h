@@ -191,6 +191,10 @@ public:
      *   the stoppedComponents() list.
      *
      *   Ignores null pointer or unexisting component.
+     *
+     *   Returns a DependenciesSolvingResult with components that
+     *   were realy shut down. Components that already were shut down
+     *   will not appear to the result list.
      */
     virtual DependenciesSolvingResult shutdownComponent(IComponent *component) = 0;
 
@@ -199,7 +203,12 @@ public:
      *   This method is added for convinient. It is a shortkey to the
      *   shutdownComponents(components()).
      *
+     *   Returns a DependenciesSolvingResult with components that
+     *   were realy shut down. Components that already were shut down
+     *   will not appear to the result list.
+     *
      * @sa shutdownComponents()
+     *
      */
     virtual DependenciesSolvingResult shutdownAllComponents() = 0;
 
@@ -210,6 +219,10 @@ public:
      *
      *   Shut components are moved from the startedComponents() to
      *   the stoppedComponents() list.
+     *
+     *   Returns a DependenciesSolvingResult with components that
+     *   were realy shut down. Components that already were shut down
+     *   will not appear to the result list.
      */
     virtual DependenciesSolvingResult shutdownComponents(const QList<IComponent *> &components) = 0;
 
@@ -243,6 +256,10 @@ public:
      *   All started components will be moved from the stoppedComponents() to the
      *   startedComponents() list.
      *
+     *   Returns a DependenciesSolvingResult with components that
+     *   were realy started. Components that already were started
+     *   will not appear to the result list.
+     *
      * @note component should be added to the manager before starting.
      * @sa addComponent(), check()
      */
@@ -254,6 +271,10 @@ public:
      *   startupComponents(components()).
      *
      *   Initialization data will be passed to the started components (if any).
+     *
+     *   Returns a DependenciesSolvingResult with components that
+     *   were realy started. Components that already were started
+     *   will not appear to the result list.
      *
      * @sa addComponent(), check(), startupComponents()
      */
@@ -276,6 +297,10 @@ public:
      *   orphanComponents() list and names of their missing parents will be appended to
      *   the missingComponents() list. All started components will be moved from the
      *   stoppedComponents() to the startedComponents() list.
+     *
+     *   Returns a DependenciesSolvingResult with components that
+     *   were realy started. Components that already were started
+     *   will not appear to the result list.
      *
      * @note components should be added to the manager before starting.
      * @sa addComponent(), check(), startupAllComponents()
