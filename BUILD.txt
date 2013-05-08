@@ -40,7 +40,7 @@
  with shared configurations. Regardless of keyword 'debug' it will generate
  all existing shared configurations (now there are two of them: debug and release).
 
- You also can generate solution with tests just adding the -DCRSL_TEST=OFF
+ You also can generate solution without tests just adding the -DCRSL_TEST=OFF
  parameter (which is ON by default):
 
    cmake .. [params] -DCRSL_TEST=OFF
@@ -61,15 +61,24 @@
 ##############################################################################  
  To build all binaries run (from VS Command Prompt on Windows) 
 
-   cmake -P build_all_using_make.txt
+   cmake -P build_all.txt
+
+ or to build using MinGW run
+
+   cmake -DMINGW=TRUE -P build_all.txt
 
  directly from the root. It produces specified build system
  (for nmake on Windows and for make on UNIX) and perform the
  build. To completely use the cmake's power it is recomended to
  create building systems in different folders to do not mix 
  cmake's working stuff.
+
+ If you have both Qt binaries - for MinGW and for MSVC,
+ you should specify path to the MinGW Qt:
+   cmake -DMINGW=TRUE -P build_all.txt
+   QTDIR=/d/Qt/4.8.4-mingw-x64
  
 ##############################################################################
  For more information use Ctrl+F at the page
- http://www.cmake.org/cmake/help/v2.8.8/cmake.html
+ http://www.cmake.org/cmake/help/v2.8.10/cmake.html
 ##############################################################################

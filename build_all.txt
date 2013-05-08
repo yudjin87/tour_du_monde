@@ -7,14 +7,14 @@
 #
 #     cmake -P build_all.txt
 #
-# or
+# or run
 #     cmake -DMINGW=TRUE -P build_all.txt
 #
-# to run using MinGW. If you have both Qt binaries - for MinGW and for MSVC,
+# to build using MinGW. If you have both Qt binaries - for MinGW and for MSVC,
 # you should specify path to the MinGW Qt:
 #
-#     QTDIR=/d/Qt/4.8.4-mingw-x64
 #     cmake -DMINGW=TRUE -P build_all.txt
+#     QTDIR=/d/Qt/4.8.4-mingw-x64
 #
 # Note, this module does not generate IDE projects
 include(cmake/build_utils.cmake)
