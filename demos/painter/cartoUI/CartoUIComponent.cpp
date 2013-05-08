@@ -60,7 +60,7 @@ CartoUIComponent::~CartoUIComponent()
 }
 
 //------------------------------------------------------------------------------
-bool CartoUIComponent::_onStartup(QObject *ip_initData)
+bool CartoUIComponent::onStartup(QObject *ip_initData)
 {
     AbstractApplication *app = qobject_cast<AbstractApplication *>(ip_initData);
     if (app == nullptr)
@@ -76,7 +76,7 @@ bool CartoUIComponent::_onStartup(QObject *ip_initData)
 }
 
 //------------------------------------------------------------------------------
-void CartoUIComponent::_onShutdown()
+void CartoUIComponent::onShutdown()
 {
 }
 

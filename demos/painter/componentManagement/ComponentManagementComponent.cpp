@@ -51,7 +51,7 @@ ComponentManagementComponent::~ComponentManagementComponent()
 }
 
 //------------------------------------------------------------------------------
-bool ComponentManagementComponent::_onStartup(QObject *ip_initData)
+bool ComponentManagementComponent::onStartup(QObject *ip_initData)
 {
     AbstractApplication *app = qobject_cast<AbstractApplication *>(ip_initData);
     if (app == nullptr)
@@ -61,7 +61,7 @@ bool ComponentManagementComponent::_onStartup(QObject *ip_initData)
 }
 
 //------------------------------------------------------------------------------
-void ComponentManagementComponent::_onShutdown()
+void ComponentManagementComponent::onShutdown()
 {
 }
 

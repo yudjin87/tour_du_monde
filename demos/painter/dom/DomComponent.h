@@ -41,8 +41,8 @@ public:
     ~DomComponent();
 
 protected:
-    void _onShutdown();
-    bool _onStartup(QObject *ip_initData);
+    void onShutdown();
+    bool onStartup(QObject *ip_initData);
 
 private:
     PainterDocumentController *mp_docController;

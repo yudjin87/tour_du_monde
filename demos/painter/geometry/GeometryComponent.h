@@ -38,7 +38,7 @@ public:
     ~GeometryComponent();
 
 protected:
-    bool _onStartup(QObject *ip_initData);
+    bool onStartup(QObject *ip_initData);
 };
 
 #endif // GEOMETRYCOMPONENT_H

@@ -43,7 +43,7 @@ Bootloader::Bootloader()
 }
 
 //------------------------------------------------------------------------------
-void Bootloader::_configureComponentProvider()
+void Bootloader::configureComponentProvider()
 {
     CompositeComponentProvider *provider = static_cast<CompositeComponentProvider *>(m_componentProvider);
     provider->addProvider(new DirectoryComponentProvider("./components"));
@@ -54,13 +54,13 @@ void Bootloader::_configureComponentProvider()
 }
 
 //------------------------------------------------------------------------------
-IComponentProvider *Bootloader::_createComponentProvider()
+IComponentProvider *Bootloader::createComponentProvider()
 {
     return new CompositeComponentProvider();
 }
 
 //------------------------------------------------------------------------------
-QMainWindow *Bootloader::_createMainWindow()
+QMainWindow *Bootloader::createMainWindow()
 {
     return new MainWindow();
 }

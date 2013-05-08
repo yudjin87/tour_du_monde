@@ -47,7 +47,7 @@ GeometryComponent::~GeometryComponent()
 }
 
 //------------------------------------------------------------------------------
-bool GeometryComponent::_onStartup(QObject *ip_initData)
+bool GeometryComponent::onStartup(QObject *ip_initData)
 {
     AbstractApplication *app = qobject_cast<AbstractApplication *>(ip_initData);
     if (app == nullptr)

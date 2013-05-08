@@ -39,8 +39,8 @@ public:
     ~AddShapeOperationComponent();
 
 protected:
-    bool _onStartup(QObject *ip_initData);
-    void _onShutdown();
+    bool onStartup(QObject *ip_initData);
+    void onShutdown();
 };
 
 #endif // ADDSHAPEOPERATIONCOMPONENT_H

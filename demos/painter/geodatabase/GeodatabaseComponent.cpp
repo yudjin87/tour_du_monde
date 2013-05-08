@@ -59,7 +59,7 @@ GeodatabaseComponent::~GeodatabaseComponent()
 }
 
 //------------------------------------------------------------------------------
-bool GeodatabaseComponent::_onStartup(QObject *ip_initData)
+bool GeodatabaseComponent::onStartup(QObject *ip_initData)
 {
     AbstractApplication *app = qobject_cast<AbstractApplication *>(ip_initData);
     if (app == nullptr)

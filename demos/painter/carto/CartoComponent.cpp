@@ -50,7 +50,7 @@ CartoComponent::~CartoComponent()
 }
 
 //------------------------------------------------------------------------------
-bool CartoComponent::_onStartup(QObject *ip_initData)
+bool CartoComponent::onStartup(QObject *ip_initData)
 {
     AbstractApplication *app = qobject_cast<AbstractApplication *>(ip_initData);
     if (app == nullptr)

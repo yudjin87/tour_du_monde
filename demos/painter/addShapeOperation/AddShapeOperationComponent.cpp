@@ -56,7 +56,7 @@ AddShapeOperationComponent::~AddShapeOperationComponent()
 }
 
 //------------------------------------------------------------------------------
-bool AddShapeOperationComponent::_onStartup(QObject *ip_initData)
+bool AddShapeOperationComponent::onStartup(QObject *ip_initData)
 {
     AbstractApplication *app = qobject_cast<AbstractApplication *>(ip_initData);
     if (app == nullptr)
@@ -66,7 +66,7 @@ bool AddShapeOperationComponent::_onStartup(QObject *ip_initData)
 }
 
 //------------------------------------------------------------------------------
-void AddShapeOperationComponent::_onShutdown()
+void AddShapeOperationComponent::onShutdown()
 {
 }
 

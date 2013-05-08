@@ -38,7 +38,7 @@ public:
     ~CartoComponent();
 
 protected:
-    bool _onStartup(QObject *ip_initData);
+    bool onStartup(QObject *ip_initData);
 };
 
 #endif // CARTOCOMPONENT_H

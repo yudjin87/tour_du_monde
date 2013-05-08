@@ -39,8 +39,8 @@ public:
     ~ComponentManagementComponent();
 
 protected:
-    bool _onStartup(QObject *ip_initData);
-    void _onShutdown();
+    bool onStartup(QObject *ip_initData);
+    void onShutdown();
 };
 
 #endif // COMPONENTMANAGEMENTCOMPONENT_H

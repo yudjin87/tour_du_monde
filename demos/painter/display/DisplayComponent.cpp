@@ -54,7 +54,7 @@ DisplayComponent::~DisplayComponent()
 }
 
 //------------------------------------------------------------------------------
-void DisplayComponent::_onShutdown()
+void DisplayComponent::onShutdown()
 {
     IServiceLocator &locator = m_app->serviceLocator();
 
@@ -62,7 +62,7 @@ void DisplayComponent::_onShutdown()
 }
 
 //------------------------------------------------------------------------------
-bool DisplayComponent::_onStartup(QObject *ip_initData)
+bool DisplayComponent::onStartup(QObject *ip_initData)
 {
     m_app = qobject_cast<AbstractApplication *>(ip_initData);
     if (m_app == nullptr)

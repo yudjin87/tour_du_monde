@@ -39,8 +39,8 @@ public:
     ~CartoUIComponent();
 
 protected:
-    bool _onStartup(QObject *ip_initData);
-    void _onShutdown();
+    bool onStartup(QObject *ip_initData);
+    void onShutdown();
 };
 
 #endif // SHAPESVIEWCOMPONENT_H

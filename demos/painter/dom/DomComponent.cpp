@@ -52,7 +52,7 @@ DomComponent::~DomComponent()
 }
 
 //------------------------------------------------------------------------------
-void DomComponent::_onShutdown()
+void DomComponent::onShutdown()
 {
     if (mp_docController == nullptr)
         qWarning("Logic error: onStartup() should be called before onShutdown().");
@@ -64,7 +64,7 @@ void DomComponent::_onShutdown()
 }
 
 //------------------------------------------------------------------------------
-bool DomComponent::_onStartup(QObject *ip_initData)
+bool DomComponent::onStartup(QObject *ip_initData)
 {
     m_app = qobject_cast<AbstractApplication *>(ip_initData);
     if (m_app == nullptr)

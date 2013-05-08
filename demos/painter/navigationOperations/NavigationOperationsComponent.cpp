@@ -55,7 +55,7 @@ NavigationOperationsComponent::~NavigationOperationsComponent()
 }
 
 //------------------------------------------------------------------------------
-bool NavigationOperationsComponent::_onStartup(QObject *ip_initData)
+bool NavigationOperationsComponent::onStartup(QObject *ip_initData)
 {
     AbstractApplication *app = qobject_cast<AbstractApplication *>(ip_initData);
     if (app == nullptr)
@@ -65,7 +65,7 @@ bool NavigationOperationsComponent::_onStartup(QObject *ip_initData)
 }
 
 //------------------------------------------------------------------------------
-void NavigationOperationsComponent::_onShutdown()
+void NavigationOperationsComponent::onShutdown()
 {
 }
 
