@@ -32,8 +32,8 @@
 #include <assert.h>
 
 //------------------------------------------------------------------------------
-const TextLogger::Categories TextLogger::categories = _fillCategories();
-const TextLogger::Priorities TextLogger::priorities = _fillPriorities();
+const TextLogger::Categories TextLogger::categories = fillCategories();
+const TextLogger::Priorities TextLogger::priorities = fillPriorities();
 
 //------------------------------------------------------------------------------
 TextLogger::TextLogger(QTextStream &output)
@@ -57,7 +57,7 @@ void TextLogger::log(const QString &message, ILogger::Category categoryy, ILogge
 }
 
 //------------------------------------------------------------------------------
-TextLogger::Categories TextLogger::_fillCategories()
+TextLogger::Categories TextLogger::fillCategories()
 {
     Categories categories;
     categories.insert(ILogger::Debug, "Debug");
@@ -69,7 +69,7 @@ TextLogger::Categories TextLogger::_fillCategories()
 }
 
 //------------------------------------------------------------------------------
-TextLogger::Priorities TextLogger::_fillPriorities()
+TextLogger::Priorities TextLogger::fillPriorities()
 {
     Priorities priorities;
     priorities.insert(ILogger::None, "None");

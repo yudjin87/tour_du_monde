@@ -46,7 +46,7 @@ class ObservableList;
  *   Each component (described in a IComponent and IComponentDescriptionExtension classes, stores the name,
  *   description and availability of the component) that statically registered or dynamically discovered
  *   by providers will be added to the IComponentDependencies through IComponentManager after boot loading
- *   sequence in CarouselBootloader::_configureComponentManager() method.
+ *   sequence in CarouselBootloader::configureComponentManager() method.
  *
  *   Then you can get any dependnecies between the components using specified methods.
  * @note it does not take ownership for added components.

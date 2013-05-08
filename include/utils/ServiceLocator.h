@@ -37,7 +37,7 @@ class TypeObjectsMap;
  *   The ServiceLocator class provides default implementation of the central registry of the services.
  * @details
  *   It is a utility class and you won't use often in trivial - use IServiceLocator interface instead.
- *   The ServiceLocator instance created by default by the BootloaderBase::_createServiceLocator() member
+ *   The ServiceLocator instance created by default by the BootloaderBase::createServiceLocator() member
  *   during the loading sequence, and you should to override this member if you want use your own service 
  *   locator in the application.
  */
@@ -56,7 +56,7 @@ protected:
      * @return The raw pointer corresponded with specified interface id and tag if such found.
      *   Null pointer otherwise.
      */
-    void *_buildInstance(const QString &byTypeId, const QString &tag) const;
+    void *buildInstanceImpl(const QString &byTypeId, const QString &tag) const;
 
     /*!
      * @details
@@ -65,7 +65,7 @@ protected:
      * @return The raw pointer corresponded with specified type id and tag if such found.
      *   Null pointer otherwise.
      */
-    void *_getService(const QString &byTypeId, const QString &tag) const;
+    void *getService(const QString &byTypeId, const QString &tag) const;
 
     /*!
      * @details
@@ -73,7 +73,7 @@ protected:
      * @param forTypeId
      *   The name of type which @a instance should be associated with.
      */
-    void _register(void *instance, const QString &forTypeId, const QString &tag);
+    void registerInstanceImpl(void *instance, const QString &forTypeId, const QString &tag);
 
     /*!
      * @details
@@ -82,7 +82,7 @@ protected:
      * @param forTypeId
      *   The name of type which @a factory method should be associated with.
      */
-    void _registerType(const QString &typeIdName, factoryMethod method, const QString &tag);
+    void registerTypeImpl(const QString &typeIdName, factoryMethod method, const QString &tag);
 
     /*!
      * @details
@@ -93,7 +93,7 @@ protected:
      * @return The raw pointer corresponded with specified type id and tag if such found.
      *   Null pointer otherwise.
      */
-    void *_unregister(const QString &forTypeId, const QString &tag);
+    void *unregisterInstanceImpl(const QString &forTypeId, const QString &tag);
 
 protected:
     TypeObjectsMap<void *> *m_objects;

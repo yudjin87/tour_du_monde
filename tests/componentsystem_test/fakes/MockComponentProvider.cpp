@@ -13,7 +13,7 @@ bool MockComponentProvider::hasBeenInit() const
 }
 
 //------------------------------------------------------------------------------
-bool MockComponentProvider::_initialize()
+bool MockComponentProvider::onInitialize()
 {
     m_hasBeenInit = true;
 

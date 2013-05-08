@@ -51,7 +51,7 @@ bool ComponentProvider::initialize()
     if (m_alreadyInit)
         return true;
 
-    m_alreadyInit = _initialize();
+    m_alreadyInit = onInitialize();
 
     return m_alreadyInit;
 }
@@ -70,7 +70,7 @@ void ComponentProvider::registerComponent(IComponent *component)
 }
 
 //------------------------------------------------------------------------------
-bool ComponentProvider::_initialize()
+bool ComponentProvider::onInitialize()
 {
     //nothing to do by default
     return true;

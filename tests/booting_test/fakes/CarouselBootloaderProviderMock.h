@@ -13,7 +13,7 @@ public:
     bool initialiseCalled() const;
 
 protected:
-    virtual bool _initialize();
+    virtual bool onInitialize();
 
 private:
     bool m_initialiseCalled;
@@ -29,7 +29,7 @@ public:
     const ComponentProviderMock & componentProvider() const;
 
 protected:
-    IComponentProvider *_createComponentProvider();
+    IComponentProvider *createComponentProvider();
 
 private:
     ComponentProviderMock* m_componentProviderMock;

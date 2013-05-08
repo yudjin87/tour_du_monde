@@ -24,8 +24,8 @@ public:
     int runAttemptsCount() const;
 
 protected:
-    void _run();
-    void _configureServiceLocator();
+    void safeRun();
+    void configureServiceLocator();
 
 private:
     int m_runAttemptsCount;

@@ -101,7 +101,7 @@ IComponent *ProxyComponent::loadedComponent() const
 }
 
 //------------------------------------------------------------------------------
-void ProxyComponent::_onShutdown()
+void ProxyComponent::onShutdown()
 {
     m_component->shutdown();
     bool result = m_loader->deleteInstance();
@@ -112,7 +112,7 @@ void ProxyComponent::_onShutdown()
 }
 
 //------------------------------------------------------------------------------
-bool ProxyComponent::_onStartup(QObject *initData)
+bool ProxyComponent::onStartup(QObject *initData)
 {
     if (!m_initialized)
         return false;

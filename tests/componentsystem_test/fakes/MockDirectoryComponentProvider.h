@@ -36,7 +36,7 @@ public:
     FakeFileComponentProvider(const QString &path, QObject *parent = nullptr);
 
 protected:
-    bool _initialize();
+    bool onInitialize();
 
 public:
     static bool initializeReturnValue;

@@ -166,11 +166,11 @@ protected:
     void setName(const QString &name);
 
 private:
-    void _connectToSignals();
+    void connectToSignals();
 
 private slots:
-    void _onTriggered(bool checked);
-    void _onToggled(bool checked);
+    void onTriggered(bool checked);
+    void onToggled(bool checked);
 
 private:
     QString m_category;

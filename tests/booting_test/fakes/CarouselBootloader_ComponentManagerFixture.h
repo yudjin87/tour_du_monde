@@ -10,7 +10,7 @@ public:
     IComponentManager &componentManager();
 
 protected:
-    void _configureComponentProvider();
+    void configureComponentProvider();
 };
 
 #endif // CAROUSELBOOTLOADER_COMPONENTPROVIDERFIXTURE_H

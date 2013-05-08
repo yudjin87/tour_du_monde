@@ -106,7 +106,7 @@ void BaseComponent::shutdown()
         return;
 
     m_isStarted = false;
-    _onShutdown();
+    onShutdown();
 }
 
 //------------------------------------------------------------------------------
@@ -115,18 +115,18 @@ bool BaseComponent::startup(QObject *initData)
     if (m_isStarted)
         return true;
 
-    m_isStarted = _onStartup(initData);
+    m_isStarted = onStartup(initData);
     return m_isStarted;
 }
 
 //------------------------------------------------------------------------------
-void BaseComponent::_onShutdown()
+void BaseComponent::onShutdown()
 {
     // nothing to do in the base implementation
 }
 
 //------------------------------------------------------------------------------
-bool BaseComponent::_onStartup(QObject *)
+bool BaseComponent::onStartup(QObject *)
 {
     // nothing to do in the base implementation
     return true;

@@ -42,7 +42,7 @@
  *   Each component (described in a IComponent and IComponentDescriptionExtension classes, stores the name,
  *   description and availability of the component) that statically registered or dynamically discovered
  *   by providers will be added to the IComponentDependencies through IComponentManager after boot loading
- *   sequence in CarouselBootloader::_configureComponentManager() method.
+ *   sequence in CarouselBootloader::configureComponentManager() method.
  *
  *   Also ComponentDependencies uses DependencySolver for components sorting and finding components
  *   dependencies.

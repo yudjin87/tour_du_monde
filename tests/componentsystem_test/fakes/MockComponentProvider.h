@@ -12,7 +12,7 @@ public:
     bool hasBeenInit() const;
 
 protected:
-    virtual bool _initialize();
+    virtual bool onInitialize();
 
 private:
     bool m_hasBeenInit;

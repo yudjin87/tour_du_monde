@@ -131,7 +131,7 @@ protected:
     virtual void onToolbarAdded(QToolBar *toolbar);
 
 private:
-    QToolBar *_createToolbar(Qt::ToolBarArea area, const QString &title);
+    QToolBar *createToolbar(Qt::ToolBarArea area, const QString &title);
 
 protected:
     QList<QToolBar *> m_toolbars;

@@ -53,7 +53,7 @@ class FileComponentProvider;
  *   public:
  *       MyComponent(QObject *parent = nullptr);
  *   protected:
- *       bool _onStartup(QObject *initData);
+ *       bool onStartup(QObject *initData);
  *   private:
  *       AbstractApplication *m_app;
  *   };
@@ -71,7 +71,7 @@ class FileComponentProvider;
  *   {
  *   }
  *
- *   bool MyComponent::_onStartup(QObject *initData)
+ *   bool MyComponent::onStartup(QObject *initData)
  *   {
  *       m_app = dynamic_cast<AbstractApplication *>(initData);
  *       return (m_app != nullptr);
@@ -99,15 +99,15 @@ class FileComponentProvider;
  *   XmlDefinitionParser will be used to read this meta-information, by which ProxyComponent
  *   should load the real component.
  *
- *   Then you should override BootloaderBase::_createComponentProvider() to return
- *   DirectoryComponentProvider pointer or BootloaderBase::_configureComponentProvider()
+ *   Then you should override BootloaderBase::createComponentProvider() to return
+ *   DirectoryComponentProvider pointer or BootloaderBase::configureComponentProvider()
  *   to specify path for the library:
  * @code
- *   IComponentProvider *MyBootloader::_createComponentProvider()
+ *   IComponentProvider *MyBootloader::createComponentProvider()
  *   {
  *       return new DirectoryComponentProvider("plugins/");
  *   }
- *   void MyBootloader::_configureComponentProvider()
+ *   void MyBootloader::configureComponentProvider()
  *   {
  *       static_cast<DirectoryComponentProvider *>(m_componentProvider)->setPath("plugins/");
  *   }
@@ -225,7 +225,7 @@ protected:
      *
      * @return @a false, if path is empty.
      */
-    bool _initialize();
+    bool onInitialize();
 
     /*!
      * @details

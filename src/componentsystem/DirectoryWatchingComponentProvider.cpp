@@ -77,7 +77,7 @@ const QFileSystemWatcher *DirectoryWatchingComponentProvider::watcher() const
 }
 
 //------------------------------------------------------------------------------
-bool DirectoryWatchingComponentProvider::_initialize()
+bool DirectoryWatchingComponentProvider::onInitialize()
 {
     bool result = m_provider->initialize();
 

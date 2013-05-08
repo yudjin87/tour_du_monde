@@ -21,14 +21,14 @@ const QStringList &MockChildComponent::parents() const
 }
 
 //------------------------------------------------------------------------------
-bool MockChildComponent::_onStartup(QObject *)
+bool MockChildComponent::onStartup(QObject *)
 {
     emit whenStarted(name());
     return true;
 }
 
 //------------------------------------------------------------------------------
-void MockChildComponent::_onShutdown()
+void MockChildComponent::onShutdown()
 {
     emit whenShutdown(name());
 }

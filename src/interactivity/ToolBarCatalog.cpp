@@ -59,7 +59,7 @@ QToolBar *ToolBarCatalog::add(Qt::ToolBarArea area, const QString &title)
     if (found != nullptr)
         return found;
 
-    QToolBar *newToolbar =  _createToolbar(area, title);
+    QToolBar *newToolbar =  createToolbar(area, title);
     onToolbarAdded(newToolbar);
 
     return newToolbar;
@@ -109,7 +109,7 @@ void ToolBarCatalog::onToolbarAdded(QToolBar *toolbar)
 }
 
 //------------------------------------------------------------------------------
-QToolBar *ToolBarCatalog::_createToolbar(Qt::ToolBarArea area, const QString &title)
+QToolBar *ToolBarCatalog::createToolbar(Qt::ToolBarArea area, const QString &title)
 {
     QToolBar *newToolBar = new QToolBar();
     newToolBar->setWindowTitle(title);

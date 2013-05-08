@@ -41,10 +41,10 @@ class IComponent;
  *   The IComponentProvider defines the contract that CarouselBootloader uses for
  *   adding registered and/or discovered components to the IComponentManager.
  *
- *   At your application you can override BootloaderBase::_createComponentProvider() method to instantiate your
+ *   At your application you can override BootloaderBase::createComponentProvider() method to instantiate your
  *   own component provider  (e.g. DirectoryComponentProvider, that can discovering components in the file system).
  *
- *   You also might to override BootloaderBase::_configureComponentProvider() to add compile-time-known components 
+ *   You also might to override BootloaderBase::configureComponentProvider() to add compile-time-known components 
  *   statically in code using registerComponent() method.
  */
 class COMP_API IComponentProvider : public QObject

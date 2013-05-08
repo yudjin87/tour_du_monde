@@ -118,7 +118,7 @@ IComponent *FileComponentProvider::loadComponent()
 }
 
 //------------------------------------------------------------------------------
-bool FileComponentProvider::_initialize()
+bool FileComponentProvider::onInitialize()
 {
     IComponent *loadedComponent = loadComponent();
     return loadedComponent != nullptr;

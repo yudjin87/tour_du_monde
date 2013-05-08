@@ -78,7 +78,7 @@ protected:
      *   It is a defensive declaration of the public shutdown() method, that invokes only after startup().
      *   When override in derived classes shuts down the component. Nothing to do by default.
      */
-    virtual void _onShutdown();
+    virtual void onShutdown();
 
     /*!
      * @details
@@ -88,7 +88,7 @@ protected:
      * @param initData is a reference to the object with which this component is started. Usually
      *   it will be reference to your own AbstractApplication root object, through you can obtain any data.
      */
-    virtual bool _onStartup(QObject *initData);
+    virtual bool onStartup(QObject *initData);
 
 private:
     Q_DISABLE_COPY(ProxyComponent)

@@ -64,14 +64,14 @@ ComponentSystemUIComponent::~ComponentSystemUIComponent()
 }
 
 //------------------------------------------------------------------------------
-void ComponentSystemUIComponent::_onShutdown()
+void ComponentSystemUIComponent::onShutdown()
 {
     // TODO:
     // Unregister dialogs!
 }
 
 //------------------------------------------------------------------------------
-bool ComponentSystemUIComponent::_onStartup(QObject *initData)
+bool ComponentSystemUIComponent::onStartup(QObject *initData)
 {
     if (initData == nullptr)
         return false;

@@ -75,13 +75,13 @@ InteractionServiceComponent::~InteractionServiceComponent()
 }
 
 //------------------------------------------------------------------------------
-void InteractionServiceComponent::_onShutdown()
+void InteractionServiceComponent::onShutdown()
 {
     d->onShutdown();
 }
 
 //------------------------------------------------------------------------------
-bool InteractionServiceComponent::_onStartup(QObject *initData)
+bool InteractionServiceComponent::onStartup(QObject *initData)
 {
     return d->onStartup(initData);
 }

@@ -192,7 +192,7 @@ QList<QMenu *> MenuCatalog::menus() const
     menusToReturn.append(menuBarMenus);
 
     foreach(QMenu *menu, menuBarMenus) {
-        QList<QMenu *> children = _extractChildMenus(menu);
+        QList<QMenu *> children = extractChildMenus(menu);
         menusToReturn.append(children);
     }
 
@@ -292,7 +292,7 @@ void MenuCatalog::onSubMenuRemoved(QMenu *menu)
 }
 
 //------------------------------------------------------------------------------
-QList<QMenu *> MenuCatalog::_extractChildMenus(QMenu *parentMenu)
+QList<QMenu *> MenuCatalog::extractChildMenus(QMenu *parentMenu)
 {
     if (parentMenu == nullptr)
         return QList<QMenu *>();
@@ -300,7 +300,7 @@ QList<QMenu *> MenuCatalog::_extractChildMenus(QMenu *parentMenu)
     QList<QAction *> actions = parentMenu->actions();
 
     foreach(QAction *action, actions) {
-        return _extractChildMenus(action->menu());
+        return extractChildMenus(action->menu());
     }
 
     return QList<QMenu *>();

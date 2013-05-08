@@ -45,7 +45,7 @@ CarouselBootloader::~CarouselBootloader()
 }
 
 //------------------------------------------------------------------------------
-void CarouselBootloader::_configureComponentManager()
+void CarouselBootloader::configureComponentManager()
 {
     m_logger->log("Initializing component manager", ILogger::Debug, ILogger::Low);
     m_logger->log(QString("Adding %1 components to the component manager").arg(m_componentProvider->components().count()), ILogger::Debug, ILogger::Low);
@@ -57,7 +57,7 @@ void CarouselBootloader::_configureComponentManager()
 }
 
 //------------------------------------------------------------------------------
-void CarouselBootloader::_configureServiceLocator()
+void CarouselBootloader::configureServiceLocator()
 {
     // TODO:
     // give a chanse to avoid default registration
@@ -68,40 +68,40 @@ void CarouselBootloader::_configureServiceLocator()
 }
 
 //------------------------------------------------------------------------------
-void CarouselBootloader::_initialiseComponentProvider()
+void CarouselBootloader::initialiseComponentProvider()
 {
     m_componentProvider->initialize();
 }
 
 //------------------------------------------------------------------------------
-void CarouselBootloader::_run()
+void CarouselBootloader::safeRun()
 {
-    m_logger = _createLogger();
+    m_logger = createLogger();
     m_logger->log("Logger has been created", ILogger::Debug, ILogger::Low);
 
     m_logger->log("Creating IComponentManager", ILogger::Debug, ILogger::Low);
-    m_componentManager = _createComponentManager();
+    m_componentManager = createComponentManager();
 
     m_logger->log("Creating IComponentProvider", ILogger::Debug, ILogger::Low);
-    m_componentProvider = _createComponentProvider();
+    m_componentProvider = createComponentProvider();
 
     m_logger->log("Creating IServiceLocator", ILogger::Debug, ILogger::Low);
-    m_serviceLocator = _createServiceLocator();
+    m_serviceLocator = createServiceLocator();
 
     m_logger->log("Creating Main Window", ILogger::Debug, ILogger::Low);
-    m_mainWindow = _createMainWindow();
+    m_mainWindow = createMainWindow();
 
     m_logger->log("Configuring IComponentProvider", ILogger::Debug, ILogger::Low);
-    _configureComponentProvider();
+    configureComponentProvider();
 
     m_logger->log("Configuring IServiceLocator", ILogger::Debug, ILogger::Low);
-    _configureServiceLocator();
+    configureServiceLocator();
 
     m_logger->log("Initializing IComponentProvider", ILogger::Debug, ILogger::Low);
-    _initialiseComponentProvider();
+    initialiseComponentProvider();
 
     m_logger->log("Configuring IComponentManager", ILogger::Debug, ILogger::Low);
-    _configureComponentManager();
+    configureComponentManager();
 
     m_logger->log("Loading sequence completed", ILogger::Debug, ILogger::Low);
 }

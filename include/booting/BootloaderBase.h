@@ -40,7 +40,7 @@ class QMainWindow;
  *   The abstract BootloaderBase class provides a basic bootstrapping sequence and hooks
  *   that specific implementations can override.
  * @details
- *   This class must be overriden to provide application specific boot loading sequence.
+ *   This class must be overridden to provide application specific boot loading sequence.
  *   It is just a template of the carousel's booting steps, so it contains
  *   empty realizations of all @a configure<> methods and instantiates default objects
  *   for the all @a create<> methods. You can derived from this class if you want determine
@@ -74,10 +74,10 @@ public:
 protected:
     /*!
      * @details
-     *   Does nothing by default. When overriden in derived classes should add all
+     *   Does nothing by default. When overridden in derived classes should add all
      *   components registered in provider to the component manager.
      */
-    virtual void _configureComponentManager();
+    virtual void configureComponentManager();
 
     /*!
      * @details
@@ -85,64 +85,64 @@ protected:
      *   your specified bootloader to register new components, or setup
      *   components' discovering path (if you use DirectoryComponentProvider).
      */
-    virtual void _configureComponentProvider();
+    virtual void configureComponentProvider();
 
     /*!
      * @details
-     *   When overriden in derived classes setups the needed services
+     *   When overridden in derived classes setups the needed services
      *   such as ILogger, IComponentManager and other.
      */
-    virtual void _configureServiceLocator() = 0;
+    virtual void configureServiceLocator() = 0;
 
     /*!
      * @details
      *   Creates default component manager using IComponentManager class
      *   and takes ownership.
      */
-    virtual IComponentManager *_createComponentManager();
+    virtual IComponentManager *createComponentManager();
 
     /*!
      * @details
      *   Creates default provider using ComponentProvider class
      *   and takes ownership.
      */
-    virtual IComponentProvider *_createComponentProvider();
+    virtual IComponentProvider *createComponentProvider();
 
     /*!
      * @details
      *   Creates default logger using TextLogger class with @a stdout output
-     *   and takes ownership of this logger. Should be overriden in the derived
+     *   and takes ownership of this logger. Should be overridden in the derived
      *   classes to instantiate your own logger facade over the better logging
      *   system (e.g. log4cplus).
      */
-    virtual ILogger *_createLogger();
+    virtual ILogger *createLogger();
 
     /*!
      * @details
      *   Creates default service locator using ServiceLocator class
      *   and takes ownership.
      */
-    virtual IServiceLocator *_createServiceLocator();
+    virtual IServiceLocator *createServiceLocator();
 
     /*!
      * @details
      *   Creates default main window class and takes ownership.
      */
-    virtual QMainWindow *_createMainWindow();
+    virtual QMainWindow *createMainWindow();
 
     /*!
      * @details
-     *   Does nothing by default. When overriden in derived classes should call
+     *   Does nothing by default. When overridden in derived classes should call
      *   IComponentProvider::initialize() method for the created component provider.
      */
-    virtual void _initialiseComponentProvider();
+    virtual void initialiseComponentProvider();
 
     /*!
      * @details
      *   It is a safe part of the public run() method, that guaranted it would be called
      *   in derived class only once per instance.
      */
-    virtual void _run() = 0;
+    virtual void safeRun() = 0;
 
 protected:
     /*!

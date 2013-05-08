@@ -33,7 +33,7 @@
  * @brief
  *   The NullLogger class is a stub for the carousel logging system.
  * @details
- *   You might return this object in the overriden function BootloaderBase::_createLogger()
+ *   You might return this object in the overridden function BootloaderBase::createLogger()
  *   if you don't need any logging and/or you lack resources.
  */
 class LOGGING_API NullLogger : public ILogger

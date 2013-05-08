@@ -92,7 +92,7 @@ bool DirectoryComponentProvider::initialize()
     if (m_alreadyInit)
         return true;
 
-    m_alreadyInit = _initialize();
+    m_alreadyInit = onInitialize();
 
     return m_alreadyInit;
 }
@@ -196,7 +196,7 @@ QDir::Filters DirectoryComponentProvider::filters() const
 }
 
 //------------------------------------------------------------------------------
-bool DirectoryComponentProvider::_initialize()
+bool DirectoryComponentProvider::onInitialize()
 {
     QList<IComponent *> discoveredComponents = update();
     return !discoveredComponents.empty();

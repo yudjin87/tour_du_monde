@@ -62,7 +62,7 @@ public:
 protected:
     /*!
      * @details
-     *   When overriden in derived classes discovers the components from the file system
+     *   When overridden in derived classes discovers the components from the file system
      *   or web. The installed components must be from the discovered set.
      *
      *   The ComponentInstaller takes ownership for discovered components.
@@ -71,7 +71,7 @@ protected:
 
     /*!
      * @details
-     *   When overriden in derived classes loads components if it is needed (e.g. from web)
+     *   When overridden in derived classes loads components if it is needed (e.g. from web)
      *   and returns collection of the component proxies, loaded from the ready to copy files.
      *
      *   The ComponentInstaller takes ownership for loaded components.

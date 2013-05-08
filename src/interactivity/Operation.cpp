@@ -32,7 +32,7 @@ Operation::Operation(QActionGroup *actionGroup /*= nullptr*/)
     , m_category("")
     , m_name("")
 {
-    _connectToSignals();
+    connectToSignals();
 }
 
 //------------------------------------------------------------------------------
@@ -41,7 +41,7 @@ Operation::Operation(const QString &text, QActionGroup *actionGroup /*= nullptr*
     , m_category("")
     , m_name("")
 {
-    _connectToSignals();
+    connectToSignals();
 }
 
 //------------------------------------------------------------------------------
@@ -50,7 +50,7 @@ Operation::Operation(const QIcon &icon, const QString &text, QActionGroup *actio
     , m_category("")
     , m_name("")
 {
-    _connectToSignals();
+    connectToSignals();
 }
 
 //------------------------------------------------------------------------------
@@ -95,7 +95,7 @@ void Operation::setName(const QString &name)
 }
 
 //------------------------------------------------------------------------------
-void Operation::_onTriggered(bool /*checked*/)
+void Operation::onTriggered(bool /*checked*/)
 {
     if (isCheckable())
         return;
@@ -104,7 +104,7 @@ void Operation::_onTriggered(bool /*checked*/)
 }
 
 //------------------------------------------------------------------------------
-void Operation::_onToggled(bool checked)
+void Operation::onToggled(bool checked)
 {
     if (checked)
         execute();
@@ -113,13 +113,13 @@ void Operation::_onToggled(bool checked)
 }
 
 //------------------------------------------------------------------------------
-void Operation::_connectToSignals()
+void Operation::connectToSignals()
 {
     connect(this, SIGNAL(triggered(bool)),
-            this, SLOT(_onTriggered(bool)));
+            this, SLOT(onTriggered(bool)));
 
     connect(this, SIGNAL(toggled(bool)),
-            this, SLOT(_onToggled(bool)));
+            this, SLOT(onToggled(bool)));
 }
 
 //------------------------------------------------------------------------------

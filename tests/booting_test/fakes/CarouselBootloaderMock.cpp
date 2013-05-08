@@ -2,69 +2,69 @@
 
 //------------------------------------------------------------------------------
 CarouselBootloaderMock::CarouselBootloaderMock()
-    : m_createLoggerCalled(false)
-    , m_createComponentProviderCalled(false)
-    , m_createComponentManagerCalled(false)
-    , m_createServiceLocatorCalled(false)
-    , m_createMainWindowCalled(false)
-    , m_initialiseComponentProviderCalled(false)
-    , m_configureComponentProviderCalled(false)
-    , m_configureComponentManagerCalled(false)
-    , m_configureServiceLocatorCalled(false)
+    : mcreateLoggerCalled(false)
+    , mcreateComponentProviderCalled(false)
+    , mcreateComponentManagerCalled(false)
+    , mcreateServiceLocatorCalled(false)
+    , mcreateMainWindowCalled(false)
+    , minitialiseComponentProviderCalled(false)
+    , mconfigureComponentProviderCalled(false)
+    , mconfigureComponentManagerCalled(false)
+    , mconfigureServiceLocatorCalled(false)
 {
 }
 
 //------------------------------------------------------------------------------
 bool CarouselBootloaderMock::createLoggerCalled() const
 {
-    return m_createLoggerCalled;
+    return mcreateLoggerCalled;
 }
 
 //------------------------------------------------------------------------------
 bool CarouselBootloaderMock::createComponentProviderCalled() const
 {
-    return m_createComponentProviderCalled;
+    return mcreateComponentProviderCalled;
 }
 
 //------------------------------------------------------------------------------
 bool CarouselBootloaderMock::createComponentManagerCalled() const
 {
-    return m_createComponentManagerCalled;
+    return mcreateComponentManagerCalled;
 }
 
 //------------------------------------------------------------------------------
 bool CarouselBootloaderMock::createServiceLocatorCalled() const
 {
-    return m_createServiceLocatorCalled;
+    return mcreateServiceLocatorCalled;
 }
 
 //------------------------------------------------------------------------------
 bool CarouselBootloaderMock::createMainWindowCalled() const
 {
-    return m_createMainWindowCalled;
+    return mcreateMainWindowCalled;
 }
 
 //------------------------------------------------------------------------------
 bool CarouselBootloaderMock::initialiseComponentProviderCalled() const
 {
-    return m_initialiseComponentProviderCalled;
+    return minitialiseComponentProviderCalled;
 }
 
 //------------------------------------------------------------------------------
 bool CarouselBootloaderMock::configureComponentProviderCalled() const
 {
-    return m_configureComponentProviderCalled;
+    return mconfigureComponentProviderCalled;
 }
 
 bool CarouselBootloaderMock::configureComponentManagerCalled() const
 {
-    return m_configureComponentManagerCalled;
+    return mconfigureComponentManagerCalled;
 }
 
 //------------------------------------------------------------------------------
 bool CarouselBootloaderMock::configureServiceLocatorCalled() const
 {
-    return m_configureServiceLocatorCalled;
+    return mconfigureServiceLocatorCalled;
 }
 
 //------------------------------------------------------------------------------
@@ -74,75 +74,75 @@ const QStringList &CarouselBootloaderMock::methodCalls() const
 }
 
 //------------------------------------------------------------------------------
-ILogger *CarouselBootloaderMock::_createLogger()
+ILogger *CarouselBootloaderMock::createLogger()
 {
-    m_createLoggerCalled = true;
-    m_methodCalls.push_back("_createLogger");
-    return CarouselBootloader::_createLogger();
+    mcreateLoggerCalled = true;
+    m_methodCalls.push_back("createLogger");
+    return CarouselBootloader::createLogger();
 }
 
 //------------------------------------------------------------------------------
-IComponentProvider *CarouselBootloaderMock::_createComponentProvider()
+IComponentProvider *CarouselBootloaderMock::createComponentProvider()
 {
-    m_createComponentProviderCalled = true;
-    m_methodCalls.push_back("_createComponentProvider");
-    return CarouselBootloader::_createComponentProvider();
+    mcreateComponentProviderCalled = true;
+    m_methodCalls.push_back("createComponentProvider");
+    return CarouselBootloader::createComponentProvider();
 }
 
 //------------------------------------------------------------------------------
-IComponentManager *CarouselBootloaderMock::_createComponentManager()
+IComponentManager *CarouselBootloaderMock::createComponentManager()
 {
-    m_createComponentManagerCalled = true;
-    m_methodCalls.push_back("_createComponentManager");
-    return CarouselBootloader::_createComponentManager();
+    mcreateComponentManagerCalled = true;
+    m_methodCalls.push_back("createComponentManager");
+    return CarouselBootloader::createComponentManager();
 }
 
 //------------------------------------------------------------------------------
-IServiceLocator *CarouselBootloaderMock::_createServiceLocator()
+IServiceLocator *CarouselBootloaderMock::createServiceLocator()
 {
-    m_createServiceLocatorCalled = true;
-    m_methodCalls.push_back("_createServiceLocator");
-    return CarouselBootloader::_createServiceLocator();
+    mcreateServiceLocatorCalled = true;
+    m_methodCalls.push_back("createServiceLocator");
+    return CarouselBootloader::createServiceLocator();
 }
 
 //------------------------------------------------------------------------------
-QMainWindow *CarouselBootloaderMock::_createMainWindow()
+QMainWindow *CarouselBootloaderMock::createMainWindow()
 {
-    m_createMainWindowCalled = true;
-    m_methodCalls.push_back("_createMainWindow");
-    return CarouselBootloader::_createMainWindow();
+    mcreateMainWindowCalled = true;
+    m_methodCalls.push_back("createMainWindow");
+    return CarouselBootloader::createMainWindow();
 }
 
 //------------------------------------------------------------------------------
-void CarouselBootloaderMock::_initialiseComponentProvider()
+void CarouselBootloaderMock::initialiseComponentProvider()
 {
-    m_initialiseComponentProviderCalled = true;
-    m_methodCalls.push_back("_initialiseComponentProvider");
-    CarouselBootloader::_initialiseComponentProvider();
+    minitialiseComponentProviderCalled = true;
+    m_methodCalls.push_back("initialiseComponentProvider");
+    CarouselBootloader::initialiseComponentProvider();
 }
 
 //------------------------------------------------------------------------------
-void CarouselBootloaderMock::_configureComponentProvider()
+void CarouselBootloaderMock::configureComponentProvider()
 {
-    m_configureComponentProviderCalled = true;
-    m_methodCalls.push_back("_configureComponentProvider");
-    CarouselBootloader::_configureComponentProvider();
+    mconfigureComponentProviderCalled = true;
+    m_methodCalls.push_back("configureComponentProvider");
+    CarouselBootloader::configureComponentProvider();
 }
 
 //------------------------------------------------------------------------------
-void CarouselBootloaderMock::_configureComponentManager()
+void CarouselBootloaderMock::configureComponentManager()
 {
-    m_configureComponentManagerCalled = true;
-    m_methodCalls.push_back("_configureComponentManager");
-    CarouselBootloader::_configureComponentManager();
+    mconfigureComponentManagerCalled = true;
+    m_methodCalls.push_back("configureComponentManager");
+    CarouselBootloader::configureComponentManager();
 }
 
 //------------------------------------------------------------------------------
-void CarouselBootloaderMock::_configureServiceLocator()
+void CarouselBootloaderMock::configureServiceLocator()
 {
-    m_configureServiceLocatorCalled = true;
-    m_methodCalls.push_back("_configureServiceLocator");
-    CarouselBootloader::_configureServiceLocator();
+    mconfigureServiceLocatorCalled = true;
+    m_methodCalls.push_back("configureServiceLocator");
+    CarouselBootloader::configureServiceLocator();
 }
 
 //------------------------------------------------------------------------------

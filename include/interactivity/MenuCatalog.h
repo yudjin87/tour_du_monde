@@ -234,7 +234,7 @@ protected:
     virtual void onSubMenuRemoved(QMenu *menu);
 
 private:
-    static QList<QMenu *> _extractChildMenus(QMenu *parentMenu);
+    static QList<QMenu *> extractChildMenus(QMenu *parentMenu);
     void installEventFilterForSubMenus(QMenu *menu);
 
 private:

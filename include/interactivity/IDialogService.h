@@ -86,7 +86,7 @@ public:
 protected:
     /*!
      * @details
-     *   When overriden registers the specified dialog constructor with the
+     *   When overridden registers the specified dialog constructor with the
      *   model type name for the creating dialog by demand (by the passed
      *   model type name).
      *
@@ -99,7 +99,7 @@ protected:
 
     /*!
      * @details
-     *   When overriden creates a new instance of the registered dialog with
+     *   When overridden creates a new instance of the registered dialog with
      *   specified model, shows it and returns closing code.
      *   If dialog was not registered for this model type,
      *   returns @a false.

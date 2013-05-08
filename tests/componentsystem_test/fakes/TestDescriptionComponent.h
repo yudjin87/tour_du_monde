@@ -13,7 +13,7 @@ public:
     TestDescriptionComponent(const QString &name);
 
 protected:
-    bool _onStartup(QObject *initData);
+    bool onStartup(QObject *initData);
     ComponentDefinition *definition() const;
 
 signals:

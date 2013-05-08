@@ -115,15 +115,15 @@ void CarouselBootloaderTest::shouldCallRunSequenceInOrderOnRun()
 
     const QStringList &methodCalls = mockLoader.methodCalls();
 
-    QCOMPARE(methodCalls[0], QString("_createLogger"));
-    QCOMPARE(methodCalls[1], QString("_createComponentManager"));
-    QCOMPARE(methodCalls[2], QString("_createComponentProvider"));
-    QCOMPARE(methodCalls[3], QString("_createServiceLocator"));
-    QCOMPARE(methodCalls[4], QString("_createMainWindow"));
-    QCOMPARE(methodCalls[5], QString("_configureComponentProvider"));
-    QCOMPARE(methodCalls[6], QString("_configureServiceLocator"));
-    QCOMPARE(methodCalls[7], QString("_initialiseComponentProvider"));
-    QCOMPARE(methodCalls[8], QString("_configureComponentManager"));
+    QCOMPARE(methodCalls[0], QString("createLogger"));
+    QCOMPARE(methodCalls[1], QString("createComponentManager"));
+    QCOMPARE(methodCalls[2], QString("createComponentProvider"));
+    QCOMPARE(methodCalls[3], QString("createServiceLocator"));
+    QCOMPARE(methodCalls[4], QString("createMainWindow"));
+    QCOMPARE(methodCalls[5], QString("configureComponentProvider"));
+    QCOMPARE(methodCalls[6], QString("configureServiceLocator"));
+    QCOMPARE(methodCalls[7], QString("initialiseComponentProvider"));
+    QCOMPARE(methodCalls[8], QString("configureComponentManager"));
 
 }
 

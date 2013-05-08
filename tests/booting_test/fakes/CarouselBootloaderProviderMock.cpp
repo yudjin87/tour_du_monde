@@ -13,7 +13,7 @@ bool ComponentProviderMock::initialiseCalled() const
 }
 
 //------------------------------------------------------------------------------
-bool ComponentProviderMock::_initialize()
+bool ComponentProviderMock::onInitialize()
 {
     m_initialiseCalled = true;
     return true;
@@ -33,7 +33,7 @@ const ComponentProviderMock &CarouselBootloaderProviderMock::componentProvider()
 }
 
 //------------------------------------------------------------------------------
-IComponentProvider *CarouselBootloaderProviderMock::_createComponentProvider()
+IComponentProvider *CarouselBootloaderProviderMock::createComponentProvider()
 {
     if (m_componentProviderMock == nullptr)
         m_componentProviderMock = new ComponentProviderMock();

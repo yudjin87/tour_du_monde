@@ -59,7 +59,7 @@ protected:
      * @details
      *   Shuts down the component.
      */
-    void _onShutdown();
+    void onShutdown();
 
     /*!
      * @details
@@ -69,7 +69,7 @@ protected:
      * @return @a false, if initData is not a reference to AbstractApplication object.
      *   Otherwise, return @a true.
      */
-    bool _onStartup(QObject *initData);
+    bool onStartup(QObject *initData);
 
 private:
     class InteractionServiceComponentPrivate;

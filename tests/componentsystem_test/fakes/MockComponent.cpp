@@ -30,7 +30,7 @@ void MockComponent::setRegistrator(QList<MockComponent *> *registrator)
 }
 
 //------------------------------------------------------------------------------
-bool MockComponent::_onStartup(QObject *initData)
+bool MockComponent::onStartup(QObject *initData)
 {
     m_initData = initData;
     emit whenStarted(name());
@@ -38,7 +38,7 @@ bool MockComponent::_onStartup(QObject *initData)
 }
 
 //------------------------------------------------------------------------------
-void MockComponent::_onShutdown()
+void MockComponent::onShutdown()
 {
     if (m_registrator != nullptr)
         m_registrator->push_back(this);

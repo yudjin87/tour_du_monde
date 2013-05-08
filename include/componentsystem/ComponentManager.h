@@ -41,7 +41,7 @@ class ILogger;
  *   Each component (described in a IComponent and ComponentDefinition classes, stores the name,
  *   description and availability of the component) that was statically registered or dynamically discovered
  *   by providers will be added to the ComponentManager after boot loading sequence in
- *   CarouselBootloader::_configureComponentManager() method. Components also can be added and
+ *   CarouselBootloader::configureComponentManager() method. Components also can be added and
  *   started during run-time.
  *
  *   Then, after checking and resolving dependencies, all enabled components will be started

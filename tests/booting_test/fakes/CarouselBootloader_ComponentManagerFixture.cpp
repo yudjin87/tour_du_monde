@@ -19,7 +19,7 @@ IComponentManager &CarouselBootloader_ComponentManagerFixture::componentManager(
 }
 
 //------------------------------------------------------------------------------
-void CarouselBootloader_ComponentManagerFixture::_configureComponentProvider()
+void CarouselBootloader_ComponentManagerFixture::configureComponentProvider()
 {
     m_componentProvider->registerComponent(new ComponentStub("ComponentStubA"));
     m_componentProvider->registerComponent(new ComponentStub("ComponentStubB"));

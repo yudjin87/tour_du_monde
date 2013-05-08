@@ -11,7 +11,7 @@ MockDirectoryComponentProvider::MockDirectoryComponentProvider()
     , providersCreated(0)
     , initializeCalled(false)
     , initializeReturnValue(true)
-{
+  {
 }
 
 //------------------------------------------------------------------------------
@@ -74,9 +74,9 @@ FakeFileComponentProvider::FakeFileComponentProvider(const QString &path, QObjec
 }
 
 //------------------------------------------------------------------------------
-bool FakeFileComponentProvider::_initialize()
+bool FakeFileComponentProvider::onInitialize()
 {
-    FileComponentProvider::_initialize();
+    FileComponentProvider::onInitialize();
     return initializeReturnValue;
 }
 

@@ -15,8 +15,8 @@ public:
     QStringList &parents();
 
 protected:
-    bool _onStartup(QObject *initData);
-    void _onShutdown();
+    bool onStartup(QObject *initData);
+    void onShutdown();
 
 signals:
     void whenStarted(const QString &name);

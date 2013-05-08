@@ -47,7 +47,7 @@ typedef std::function<void*(void)> factoryMethod;
  *   can be accessed from application.
  *
  *   To register your own global services or type factories, you should to
- *   override BootloaderBase::_configureServiceLocator() function and register your own services (if you
+ *   override BootloaderBase::configureServiceLocator() function and register your own services (if you
  *   develop own application), or you can extend registry registering the component services
  *   and type factories at the IComponent::startup() member (if you develop extensions for the
  *   application). Further you can obtain current service through the template IServiceLocator::locate()
@@ -61,7 +61,7 @@ typedef std::function<void*(void)> factoryMethod;
  *   The service or type factory registered without special tag would be tagged with "" (empty
  *   string) in service locator implementation.
  *
- *   If you call CarouselBootloader::_configureServiceLocator() from your derived loader class, the IComponentProvider,
+ *   If you call CarouselBootloader::configureServiceLocator() from your derived loader class, the IComponentProvider,
  *   ILogger and IComponentManager would be registered.
  *
  *   Here is simple example of service locator usage:
@@ -286,7 +286,7 @@ protected:
      * @return The raw pointer corresponded with specified interface id and tag if such found.
      *   Null pointer otherwise.
      */
-    virtual void *_buildInstance(const QString &byTypeId, const QString &tag) const = 0;
+    virtual void *buildInstanceImpl(const QString &byTypeId, const QString &tag) const = 0;
 
     /*!
      * @details
@@ -295,7 +295,7 @@ protected:
      * @return The raw pointer corresponded with specified type id and tag if such found.
      *   Null pointer otherwise.
      */
-    virtual void *_getService(const QString &byTypeId, const QString &tag) const = 0;
+    virtual void *getService(const QString &byTypeId, const QString &tag) const = 0;
 
     /*!
      * @details
@@ -304,7 +304,7 @@ protected:
      * @param forTypeId
      *   The name of type which @a instance should be associated with.
      */
-    virtual void _register(void *instance, const QString &forTypeId, const QString &tag) = 0;
+    virtual void registerInstanceImpl(void *instance, const QString &forTypeId, const QString &tag) = 0;
 
     /*!
      * @details
@@ -315,7 +315,7 @@ protected:
      * @return The raw pointer corresponded with specified type id and tag if such found.
      *   Null pointer otherwise.
      */
-    virtual void *_unregister(const QString &forTypeId, const QString &tag) = 0;
+    virtual void *unregisterInstanceImpl(const QString &forTypeId, const QString &tag) = 0;
 
     /*!
      * @details
@@ -325,7 +325,7 @@ protected:
      * @param forTypeId
      *   The name of type which @a factory method should be associated with.
      */
-    virtual void _registerType(const QString &typeIdName, factoryMethod method, const QString &tag) = 0;
+    virtual void registerTypeImpl(const QString &typeIdName, factoryMethod method, const QString &tag) = 0;
 
 private:
     Q_DISABLE_COPY(IServiceLocator)
@@ -366,7 +366,7 @@ template<typename TInterface>
 TInterface *IServiceLocator::buildInstance(const QString &tag) const
 {
     const char *typeIdName = typeid(TInterface).name();
-    void *data = this->_buildInstance(typeIdName, tag);
+    void *data = this->buildInstanceImpl(typeIdName, tag);
 
     // TODO: use static checks (c++11) during type registering and building.
     QObject *obj = reinterpret_cast<QObject *>(data);
@@ -387,7 +387,7 @@ template<typename TService>
 TService *IServiceLocator::locate(const QString &tag)
 {
     const QString &service_name = typeid(TService).name();
-    void *data = this->_getService(service_name, tag);
+    void *data = this->getService(service_name, tag);
 
     QObject *obj = reinterpret_cast<QObject *>(data);
     TService *service = qobject_cast<TService *>(obj);
@@ -407,7 +407,7 @@ template<typename TService>
 void IServiceLocator::registerInstance(TService *instance, const QString &tag)
 {
     const QString &service_name = typeid(TService).name();
-    this->_register(reinterpret_cast<void *>(instance), service_name, tag);
+    this->registerInstanceImpl(reinterpret_cast<void *>(instance), service_name, tag);
 }
 
 //------------------------------------------------------------------------------
@@ -422,7 +422,7 @@ template<typename TInterface>
 void IServiceLocator::registerType(factoryMethod method, const QString &tag)
 {
     const char *typeIdName = typeid(TInterface).name();
-    this->_registerType(typeIdName, method, tag);
+    this->registerTypeImpl(typeIdName, method, tag);
 }
 
 //------------------------------------------------------------------------------
@@ -437,7 +437,7 @@ template<typename TService>
 TService *IServiceLocator::unregisterInstance(const QString &tag)
 {
     const char *typeIdName = typeid(TService).name();
-    void *data = this->_unregister(typeIdName, tag);
+    void *data = this->unregisterInstanceImpl(typeIdName, tag);
 
     // TODO: use static checks (c++11) during type registering and building.
     QObject *obj = reinterpret_cast<QObject *>(data);

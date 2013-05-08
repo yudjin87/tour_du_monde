@@ -25,26 +25,26 @@ public:
     const QStringList &methodCalls() const;
 
 protected:
-    ILogger *_createLogger();
-    IComponentProvider *_createComponentProvider();
-    IComponentManager *_createComponentManager();
-    IServiceLocator *_createServiceLocator();
-    QMainWindow *_createMainWindow();
-    void _initialiseComponentProvider();
-    void _configureComponentProvider();
-    void _configureComponentManager();
-    void _configureServiceLocator();
+    ILogger *createLogger();
+    IComponentProvider *createComponentProvider();
+    IComponentManager *createComponentManager();
+    IServiceLocator *createServiceLocator();
+    QMainWindow *createMainWindow();
+    void initialiseComponentProvider();
+    void configureComponentProvider();
+    void configureComponentManager();
+    void configureServiceLocator();
 
 private:
-    bool m_createLoggerCalled;
-    bool m_createComponentProviderCalled;
-    bool m_createComponentManagerCalled;
-    bool m_createServiceLocatorCalled;
-    bool m_createMainWindowCalled;
-    bool m_initialiseComponentProviderCalled;
-    bool m_configureComponentProviderCalled;
-    bool m_configureComponentManagerCalled;
-    bool m_configureServiceLocatorCalled;
+    bool mcreateLoggerCalled;
+    bool mcreateComponentProviderCalled;
+    bool mcreateComponentManagerCalled;
+    bool mcreateServiceLocatorCalled;
+    bool mcreateMainWindowCalled;
+    bool minitialiseComponentProviderCalled;
+    bool mconfigureComponentProviderCalled;
+    bool mconfigureComponentManagerCalled;
+    bool mconfigureServiceLocatorCalled;
     QStringList m_methodCalls;
 };
 

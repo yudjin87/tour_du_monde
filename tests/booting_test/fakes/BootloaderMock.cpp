@@ -9,31 +9,31 @@ BootloaderMock::BootloaderMock()
 //------------------------------------------------------------------------------
 void BootloaderMock::callCreateLogger()
 {
-    m_logger = _createLogger();
+    m_logger = createLogger();
 }
 
 //------------------------------------------------------------------------------
 void BootloaderMock::callCreateComponentProvider()
 {
-    m_componentProvider = _createComponentProvider();
+    m_componentProvider = createComponentProvider();
 }
 
 //------------------------------------------------------------------------------
 void BootloaderMock::callCreateComponentManager()
 {
-    m_componentManager = _createComponentManager();
+    m_componentManager = createComponentManager();
 }
 
 //------------------------------------------------------------------------------
 void BootloaderMock::callCreateServiceLocator()
 {
-    m_serviceLocator = _createServiceLocator();
+    m_serviceLocator = createServiceLocator();
 }
 
 //------------------------------------------------------------------------------
 void BootloaderMock::callCreateMainWindow()
 {
-    m_mainWindow = _createMainWindow();
+    m_mainWindow = createMainWindow();
 }
 
 //------------------------------------------------------------------------------
@@ -73,13 +73,13 @@ int BootloaderMock::runAttemptsCount() const
 }
 
 //------------------------------------------------------------------------------
-void BootloaderMock::_run()
+void BootloaderMock::safeRun()
 {
     ++m_runAttemptsCount;
 }
 
 //------------------------------------------------------------------------------
-void BootloaderMock::_configureServiceLocator()
+void BootloaderMock::configureServiceLocator()
 {
 }
 

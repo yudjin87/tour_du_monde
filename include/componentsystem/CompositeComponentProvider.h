@@ -37,7 +37,7 @@
  *   The CompositeComponentProvider class provides access to members that control a collection
  *   of providers that behaves like a single provider.
  * @details
- *   You can use this class overriding the BootloaderBase::_createComponentProvider() method in your
+ *   You can use this class overriding the BootloaderBase::createComponentProvider() method in your
  *   bootloader. For example, if you want your application discovers system components from the
  *   nested @a "bin/" directory and custom user components from the @a "plugins/" it is a good idea
  *   to use CompositeComponentProvider class:
@@ -45,11 +45,11 @@
  *   class MyBootloader : public CarouselBootloader
  *   {
  *   protected:
- *      IComponentProvider *MyBootloader::_createComponentProvider()
+ *      IComponentProvider *MyBootloader::createComponentProvider()
  *      {
  *          return new CompositeComponentProvider();
  *      }
- *      void MyBootloader::_configureComponentProvider()
+ *      void MyBootloader::configureComponentProvider()
  *      {
  *          DirectoryComponentProvider *sysDir = new DirectoryComponentProvider("bin/");
  *          (static_cast<CompositeComponentProvider *>(m_componentProvider))->addProvider(sysDir);

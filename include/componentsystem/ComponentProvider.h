@@ -34,17 +34,17 @@
  * @brief
  *   Provides base methods to register components statically in code.
  * @details
- *   Created by defaul in the BootloaderBase::_createComponentProvider() method during boot loading
- *   sequence. You can override BootloaderBase::_createComponentProvider() method to instantiate your
+ *   Created by defaul in the BootloaderBase::createComponentProvider() method during boot loading
+ *   sequence. You can override BootloaderBase::createComponentProvider() method to instantiate your
  *   own component provider (e.g. DirectoryComponentProvider, that can discovering components in the file system).
  *
- *   You also might to override BootloaderBase::_configureComponentProvider() to add compile-time-known components 
+ *   You also might to override BootloaderBase::configureComponentProvider() to add compile-time-known components 
  *   statically in code using registerComponent() method:
  * @code
  *   class MyBootloader : public CarouselBootloader
  *   {
  *   protected:
- *      void MyBootloader::_configureComponentProvider()
+ *      void MyBootloader::configureComponentProvider()
  *      {
  *          m_componentProvider->registerComponent(new MyComponentA());
  *          m_componentProvider->registerComponent(new MyComponentB());
@@ -98,7 +98,7 @@ protected:
      *   When override in derived classes initializes the provider, which may load and validate 
      *   the components. Nothing to do by default.
      */
-    virtual bool _initialize();
+    virtual bool onInitialize();
 
 private:
     QList<IComponent *> m_components;

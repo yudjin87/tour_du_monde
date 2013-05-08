@@ -38,7 +38,7 @@
  * @details
  *   Writes output to the QTextStream specified in the constructor with following pattern:
  * @code
- *   [%1] %2: %3. Prioriry: %4.
+ *   [%1] %2: %3. Priority: %4.
  * @endcode
  *   where first parameter is @a datetime, second - @a category, third - @a message, and
  *   fourth - @a priority.
@@ -50,14 +50,14 @@
  * @endcode
  *   will printed to the console
  * @code
- *   [18 Jul 2012,  18:04:34] Info: Hello, carousel!. Prioriry: Low.
+ *   [18 Jul 2012,  18:04:34] Info: Hello, carousel!. Priority: Low.
  * @endcode
  *
- *   If you does't override BootloaderBase::_createLogger() method to instantiate your own
+ *   If you does't override BootloaderBase::createLogger() method to instantiate your own
  *   logger facade over the better logging system (e.g., log4cplus), the default logger will
  *   be created with the std::cout stream for output during the loading sequence:
  * @code
- *   ILogger *BootloaderBase::_createLogger()
+ *   ILogger *BootloaderBase::createLogger()
  *   {
  *      static QTextStream text(stdout);
  *      return new TextLogger(text);
@@ -87,7 +87,7 @@ public:
 
 protected:
     /*!
-     *   The categoties dictionary containing string representation of the logging categories.
+     *   The categories dictionary containing string representation of the logging categories.
      */
     typedef QMap<ILogger::Category, QString> Categories;
     /*!
@@ -96,13 +96,13 @@ protected:
     typedef QMap<ILogger::Priority, QString> Priorities;
 
 private:
-    static Categories _fillCategories();
-    static Priorities _fillPriorities();
+    static Categories fillCategories();
+    static Priorities fillPriorities();
 
 protected:
     /*!
      * @details
-     *   The categoties dictionary containing string representation of the logging categories.
+     *   The categories dictionary containing string representation of the logging categories.
      */
     static const Categories categories;
 

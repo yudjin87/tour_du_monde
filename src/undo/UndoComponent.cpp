@@ -58,7 +58,7 @@ UndoComponent::~UndoComponent()
 }
 
 //------------------------------------------------------------------------------
-void UndoComponent::_onShutdown()
+void UndoComponent::onShutdown()
 {
     // TODO:
     // Unregister them before deletion!
@@ -68,7 +68,7 @@ void UndoComponent::_onShutdown()
 }
 
 //------------------------------------------------------------------------------
-bool UndoComponent::_onStartup(QObject *initData)
+bool UndoComponent::onStartup(QObject *initData)
 {
     if (initData == nullptr)
         return false;

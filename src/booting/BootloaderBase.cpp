@@ -70,7 +70,7 @@ void BootloaderBase::run()
     if (m_alreadyRunned)
         return;
 
-    _run();
+    safeRun();
 
     m_alreadyRunned = true;
 }
@@ -82,48 +82,48 @@ IServiceLocator *BootloaderBase::serviceLocator() const
 }
 
 //------------------------------------------------------------------------------
-void BootloaderBase::_configureComponentManager()
+void BootloaderBase::configureComponentManager()
 {
 }
 
 //------------------------------------------------------------------------------
-void BootloaderBase::_configureComponentProvider()
+void BootloaderBase::configureComponentProvider()
 {
 }
 
 //------------------------------------------------------------------------------
-IComponentManager *BootloaderBase::_createComponentManager()
+IComponentManager *BootloaderBase::createComponentManager()
 {
     return new ComponentManager(new ComponentDependencies(), *m_logger);
 }
 
 //------------------------------------------------------------------------------
-IComponentProvider *BootloaderBase::_createComponentProvider()
+IComponentProvider *BootloaderBase::createComponentProvider()
 {
     return new ComponentProvider();
 }
 
 //------------------------------------------------------------------------------
-ILogger *BootloaderBase::_createLogger()
+ILogger *BootloaderBase::createLogger()
 {
     static QTextStream text(stdout);
     return new TextLogger(text);
 }
 
 //------------------------------------------------------------------------------
-IServiceLocator *BootloaderBase::_createServiceLocator()
+IServiceLocator *BootloaderBase::createServiceLocator()
 {
     return new ServiceLocator();
 }
 
 //------------------------------------------------------------------------------
-QMainWindow *BootloaderBase::_createMainWindow()
+QMainWindow *BootloaderBase::createMainWindow()
 {
     return new QMainWindow();
 }
 
 //------------------------------------------------------------------------------
-void BootloaderBase::_initialiseComponentProvider()
+void BootloaderBase::initialiseComponentProvider()
 {
 }
 
