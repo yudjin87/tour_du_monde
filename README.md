@@ -15,7 +15,7 @@ be registered statically in code or discovered by other way - e.g., loaded from 
 
 Components integrate to the application by the **Providers**. Different providers specify different component configuring and loading time - the simplest **ComponentProvider** means **compile-time** components populating:
 
-	IComponentProvider *Bootloader::_createComponentProvider()
+	IComponentProvider *Bootloader::createComponentProvider()
 	{
 		IComponentProvider *provider = new ComponentProvider();
 		provider->registerComponent(new InteractionServiceComponent());
@@ -26,7 +26,7 @@ Components integrate to the application by the **Providers**. Different provider
 
 DirectoryComponentProvider can discover and load components	on **run-time**. It uses to load custom components (which may appear as custom installed plugins) from the specified library path. For example, this directoryProvider will discover and load (if it is possible) all components from the **./components** directory at the **startup-time**:
 
-	IComponentProvider *Bootloader::_createComponentProvider()
+	IComponentProvider *Bootloader::createComponentProvider()
 	{
 		DirectoryComponentProvider *directoryProvider = new DirectoryComponentProvider("./components");
 
