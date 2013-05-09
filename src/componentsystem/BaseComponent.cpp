@@ -27,9 +27,16 @@
 #include "BaseComponent.h"
 #include "ComponentDefinition.h"
 
+#include <logging/LoggerFacade.h>
 #include <utils/TypeObjectsMap.h>
 
 #include <QtCore/QSettings>
+
+//------------------------------------------------------------------------------
+namespace
+{
+static LoggerFacade log = LoggerFacade::createLogger("BaseComponent");
+}
 
 //------------------------------------------------------------------------------
 BaseComponent::BaseComponent(const QString &name, QObject *parent)
@@ -102,8 +109,10 @@ bool BaseComponent::started() const
 //------------------------------------------------------------------------------
 void BaseComponent::shutdown()
 {
-    if (!m_isStarted)
+    if (!m_isStarted) {
+        log.w(QString("Component \"%1\" is being shut down, but it was not started up.").arg(name()));
         return;
+    }
 
     m_isStarted = false;
     onShutdown();
@@ -112,8 +121,10 @@ void BaseComponent::shutdown()
 //------------------------------------------------------------------------------
 bool BaseComponent::startup(QObject *initData)
 {
-    if (m_isStarted)
+    if (m_isStarted) {
+        log.w(QString("Component \"%1\" is being started up, but it was not shut down.").arg(name()));
         return true;
+    }
 
     m_isStarted = onStartup(initData);
     return m_isStarted;

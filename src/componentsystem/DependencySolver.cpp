@@ -25,10 +25,17 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "DependencySolver.h"
+#include <logging/LoggerFacade.h>
 #include <utils/ListDictionary.h>
 
 #include <algorithm>
 #include <iterator>
+
+//------------------------------------------------------------------------------
+namespace
+{
+static LoggerFacade log = LoggerFacade::createLogger("DependencySolver");
+}
 
 //------------------------------------------------------------------------------
 DependencySolver::DependencySolver()
@@ -47,8 +54,7 @@ DependencySolver::~DependencySolver()
 void DependencySolver::addComponent(const QString &name)
 {
     if (name.isEmpty()) {
-        QString error = QString("The provided component name must not be null or empty.");
-        qDebug(error.toLatin1());
+        log.w("The provided component name must not be null or empty.");
         return;
     }
 
@@ -60,20 +66,17 @@ void DependencySolver::addComponent(const QString &name)
 void DependencySolver::addDependency(const QString &childComponent, const QString &parentComponent)
 {
     if (childComponent.isEmpty()) {
-        QString error = QString("The provided child component component name must not be null or empty.");
-        qDebug(error.toLatin1());
+        log.w("The provided child component component name must not be null or empty.");
         return;
     }
 
     if (parentComponent.isEmpty()) {
-        QString error = QString("The provided parent component name must not be null or empty.");
-        qDebug(error.toLatin1());
+        log.w("The provided parent component name must not be null or empty.");
         return;
     }
 
     if (!m_knownComponents.contains(childComponent)) {
-        QString error = QString("Cannot add dependency for unknown component \"%1\". Add it first.").arg(childComponent);
-        qDebug(error.toLatin1());
+        log.w(QString("Cannot add dependency for unknown component \"%1\". Add it first.").arg(childComponent));
         return;
     }
 

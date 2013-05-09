@@ -49,7 +49,7 @@
  * @endcode
  *   will printed to the console
  * @code
- *   [18 Jul 2012,  18:04:34.056][Debug] Root: Hello, carousel!
+ *   [18 Jul,  18:04:34.056][Debug] Root: Hello, carousel!
  * @endcode
  *
  *   If you does't override BootloaderBase::createLoggerEngine() method to instantiate your own
