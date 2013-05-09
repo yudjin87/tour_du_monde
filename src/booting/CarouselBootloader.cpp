@@ -26,13 +26,19 @@
 
 #include "CarouselBootloader.h"
 
-#include <utils/IServiceLocator.h>
 #include <componentsystem/ComponentManager.h>
 #include <componentsystem/IComponent.h>
 #include <componentsystem/IComponentProvider.h>
-#include <logging/ILogger.h>
+#include <logging/LoggerFacade.h>
+#include <utils/IServiceLocator.h>
 
 #include <QtGui/QMainWindow>
+
+//------------------------------------------------------------------------------
+namespace
+{
+static LoggerFacade log = LoggerFacade::createLogger("CarouselBootloader");
+}
 
 //------------------------------------------------------------------------------
 CarouselBootloader::CarouselBootloader()
@@ -42,17 +48,18 @@ CarouselBootloader::CarouselBootloader()
 //------------------------------------------------------------------------------
 CarouselBootloader::~CarouselBootloader()
 {
+    LoggerFacade::installLoggerEngine(nullptr);
 }
 
 //------------------------------------------------------------------------------
 void CarouselBootloader::configureComponentManager()
 {
-    m_logger->log("Initializing component manager", ILogger::Debug, ILogger::Low);
-    m_logger->log(QString("Adding %1 components to the component manager").arg(m_componentProvider->components().count()), ILogger::Debug, ILogger::Low);
+    log.i("Initializing component manager.");
+    log.i(QString("Adding %1 components to the component manager.").arg(m_componentProvider->components().count()));
 
     foreach(IComponent *component, m_componentProvider->components()) {
         m_componentManager->addComponent(component);
-        m_logger->log(QString("%1 component has been added to the component manager").arg(component->name()), ILogger::Debug, ILogger::Low);
+        log.i(QString("%1 component has been added to the component manager.").arg(component->name()));
     }
 }
 
@@ -62,7 +69,6 @@ void CarouselBootloader::configureServiceLocator()
     // TODO:
     // give a chanse to avoid default registration
     m_serviceLocator->registerInstance<IComponentProvider>(m_componentProvider);
-    m_serviceLocator->registerInstance<ILogger>(m_logger);
     m_serviceLocator->registerInstance<IComponentManager>(m_componentManager);
     m_serviceLocator->registerInstance<QMainWindow>(m_mainWindow);
 }
@@ -76,34 +82,36 @@ void CarouselBootloader::initialiseComponentProvider()
 //------------------------------------------------------------------------------
 void CarouselBootloader::safeRun()
 {
-    m_logger = createLogger();
-    m_logger->log("Logger has been created", ILogger::Debug, ILogger::Low);
+    m_logger = createLoggerEngine();
 
-    m_logger->log("Creating IComponentManager", ILogger::Debug, ILogger::Low);
+    LoggerFacade::installLoggerEngine(m_logger);
+    log.i("Logger has been created.");
+
+    log.i("Creating IComponentManager.");
     m_componentManager = createComponentManager();
 
-    m_logger->log("Creating IComponentProvider", ILogger::Debug, ILogger::Low);
+    log.i("Creating IComponentProvider.");
     m_componentProvider = createComponentProvider();
 
-    m_logger->log("Creating IServiceLocator", ILogger::Debug, ILogger::Low);
+    log.i("Creating IServiceLocator.");
     m_serviceLocator = createServiceLocator();
 
-    m_logger->log("Creating Main Window", ILogger::Debug, ILogger::Low);
+    log.i("Creating MainWindow.");
     m_mainWindow = createMainWindow();
 
-    m_logger->log("Configuring IComponentProvider", ILogger::Debug, ILogger::Low);
+    log.i("Configuring IComponentProvider.");
     configureComponentProvider();
 
-    m_logger->log("Configuring IServiceLocator", ILogger::Debug, ILogger::Low);
+    log.i("Configuring IServiceLocator.");
     configureServiceLocator();
 
-    m_logger->log("Initializing IComponentProvider", ILogger::Debug, ILogger::Low);
+    log.i("Initializing IComponentProvider.");
     initialiseComponentProvider();
 
-    m_logger->log("Configuring IComponentManager", ILogger::Debug, ILogger::Low);
+    log.i("Configuring IComponentManager.");
     configureComponentManager();
 
-    m_logger->log("Loading sequence completed", ILogger::Debug, ILogger::Low);
+    log.i("Loading sequence completed.");
 }
 
 //------------------------------------------------------------------------------

@@ -12,7 +12,8 @@ public:
 private Q_SLOTS:
     // running:
     void canRunLoading();
-    void shouldCallCreateLoggerOnRun();
+    void shouldCallCreateLoggerEngineOnRun();
+    void shouldInstallCreatedLoggerEngineOnRun();
     void shouldCallCreateComponentProviderOnRun();
     void shouldCallCreateComponentManagerOnRun();
     void shouldCallCreateServiceLocatorOnRun();
@@ -27,9 +28,10 @@ private Q_SLOTS:
     void configuringComponentManagerShouldAddComponentsToIt();
 
     void configuringServiceLocatorShouldAddComponentProviderToServices();
-    void configuringServiceLocatorShouldAddLoggerToServices();
     void configuringServiceLocatorShouldAddComponentManagerToServices();
     void configuringServiceLocatorShouldAddMainWindowToServices();
+
+    void shouldInstallNullLoggerEngineInDestructor();
 };
 
 #endif // CAROUSELBOOTLOADERTEST_H

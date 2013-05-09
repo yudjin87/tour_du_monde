@@ -1,17 +1,15 @@
 #include "MockComponentManager.h"
 
-#include <logging/NullLogger.h>
-
 //------------------------------------------------------------------------------
-MockComponentManager::MockComponentManager(ILogger &log, QObject *parent)
-    : ComponentManager(log, parent)
+MockComponentManager::MockComponentManager(QObject *parent)
+    : ComponentManager(parent)
     , callCheck(false)
 {
 }
 
 //------------------------------------------------------------------------------
-MockComponentManager::MockComponentManager(IComponentDependencies *dependencies, ILogger &log, QObject *parent)
-    : ComponentManager(dependencies, log, parent)
+MockComponentManager::MockComponentManager(IComponentDependencies *dependencies, QObject *parent)
+    : ComponentManager(dependencies, parent)
     , callCheck(false)
 {
 }

@@ -19,7 +19,7 @@ if [ ${OS} = "Windows_NT" ]; then
 	EXECUTABLE_PATTERN=*_test.exe
 fi
 
-pushd $PATH_TO_TESTS
+cd $PATH_TO_TESTS
 
 # Run all test executables from specified directory
 # and output Total Test Result
@@ -29,5 +29,3 @@ for file in ./${EXECUTABLE_PATTERN} ; do
 	    ./$file | grep Total 
 	fi
 done
-
-popd

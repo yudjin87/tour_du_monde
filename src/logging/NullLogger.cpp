@@ -27,8 +27,53 @@
 #include "NullLogger.h"
 
 //------------------------------------------------------------------------------
-void NullLogger::log(const QString &, ILogger::Category, ILogger::Priority)
+NullLogger::NullLogger()
+    : LoggerFacade("NullLogger")
 {
 }
 
 //------------------------------------------------------------------------------
+LoggerFacade *NullLogger::getLogger(const QString &name)
+{
+    Q_UNUSED(name)
+    return new NullLogger();
+}
+
+//------------------------------------------------------------------------------
+void NullLogger::d(const QString &message)
+{
+    Q_UNUSED(message)
+}
+
+//------------------------------------------------------------------------------
+void NullLogger::e(const QString &message)
+{
+    Q_UNUSED(message)
+}
+
+//------------------------------------------------------------------------------
+void NullLogger::f(const QString &message)
+{
+    Q_UNUSED(message)
+}
+
+//------------------------------------------------------------------------------
+void NullLogger::i(const QString &message)
+{
+    Q_UNUSED(message)
+}
+
+//------------------------------------------------------------------------------
+void NullLogger::t(const QString &message)
+{
+    Q_UNUSED(message)
+}
+
+//------------------------------------------------------------------------------
+void NullLogger::w(const QString &message)
+{
+    Q_UNUSED(message)
+}
+
+//------------------------------------------------------------------------------
+

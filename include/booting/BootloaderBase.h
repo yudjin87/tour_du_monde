@@ -31,7 +31,7 @@
 
 class IServiceLocator;
 class IComponentManager;
-class ILogger;
+class LoggerFacade;
 class IComponentProvider;
 class QMainWindow;
 
@@ -90,7 +90,7 @@ protected:
     /*!
      * @details
      *   When overridden in derived classes setups the needed services
-     *   such as ILogger, IComponentManager and other.
+     *   such as IComponentManager, IComponentProvider and other.
      */
     virtual void configureServiceLocator() = 0;
 
@@ -115,7 +115,7 @@ protected:
      *   classes to instantiate your own logger facade over the better logging
      *   system (e.g. log4cplus).
      */
-    virtual ILogger *createLogger();
+    virtual LoggerFacade *createLoggerEngine();
 
     /*!
      * @details
@@ -161,7 +161,7 @@ protected:
      * @details
      *   Logger facade used by the bootloader.
      */
-    ILogger *m_logger;
+    LoggerFacade *m_logger;
 
     /*!
      * @details

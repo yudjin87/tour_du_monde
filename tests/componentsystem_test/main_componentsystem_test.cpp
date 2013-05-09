@@ -13,6 +13,8 @@
 #include "DefinitionConstuctorTest.h"
 #include "ComponentInstallerTest.h"
 
+#include <logging/NullLogger.h>
+
 #include <QtCore/QCoreApplication>
 #include <QtTest/QtTest>
 
@@ -22,6 +24,8 @@ int main(int argc, char *argv[])
     QCoreApplication app(argc, argv);
     QCoreApplication::setApplicationName("componentsystem_test");
     QCoreApplication::setOrganizationName("carousel");
+    NullLogger log;
+    LoggerFacade::installLoggerEngine(&log);
 
     BaseComponentTest baseComponentTest;
     QTest::qExec(&baseComponentTest, argc, argv);

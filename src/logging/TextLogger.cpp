@@ -29,55 +29,79 @@
 #include <QtCore/QString>
 #include <QtCore/QDate>
 
-#include <assert.h>
-
-//------------------------------------------------------------------------------
-const TextLogger::Categories TextLogger::categories = fillCategories();
-const TextLogger::Priorities TextLogger::priorities = fillPriorities();
-
 //------------------------------------------------------------------------------
 TextLogger::TextLogger(QTextStream &output)
-    : m_outputStream(output)
+    : LoggerFacade("Root")
+    , m_outputStream(output)
 {
 }
 
 //------------------------------------------------------------------------------
-void TextLogger::log(const QString &message, ILogger::Category categoryy, ILogger::Priority priority)
+TextLogger::TextLogger(QTextStream &output, const QString &name)
+    : LoggerFacade(name)
+    , m_outputStream(output)
 {
-    static const QString messagePattern = "[%1] %2: %3. Prioriry: %4.";
-    static const QString dateFormat = "dd MMM yyyy,  hh:mm:ss";
+}
+
+//------------------------------------------------------------------------------
+LoggerFacade *TextLogger::getLogger(const QString &name)
+{
+    return new TextLogger(m_outputStream, name);
+}
+
+//------------------------------------------------------------------------------
+void TextLogger::d(const QString &message)
+{
+#ifdef QT_DEBUG
+    log(message, "Debug");
+#else
+    Q_UNUSED(message)
+#endif
+}
+
+//------------------------------------------------------------------------------
+void TextLogger::e(const QString &message)
+{
+    log(message, "Error");
+}
+
+//------------------------------------------------------------------------------
+void TextLogger::f(const QString &message)
+{
+    log(message, "Fatal");
+}
+
+//------------------------------------------------------------------------------
+void TextLogger::i(const QString &message)
+{
+    log(message, "Info");
+}
+
+//------------------------------------------------------------------------------
+void TextLogger::t(const QString &message)
+{
+    log(message, "Trace");
+}
+
+//------------------------------------------------------------------------------
+void TextLogger::w(const QString &message)
+{
+    log(message, "Warning");
+}
+
+//------------------------------------------------------------------------------
+void TextLogger::log(const QString &message, const QString &category)
+{
+    static const QString messagePattern = "[%1][%2] %3: %4";
+    static const QString dateFormat = "dd MMM yyyy, hh:mm:ss.zzz";
 
     QString formatedMessage = messagePattern
             .arg(QDateTime::currentDateTime().toString(dateFormat))
-            .arg(categories[categoryy])
-            .arg(message)
-            .arg(priorities[priority]);
+            .arg(name())
+            .arg(category)
+            .arg(message);
 
     m_outputStream << formatedMessage << endl;
-}
-
-//------------------------------------------------------------------------------
-TextLogger::Categories TextLogger::fillCategories()
-{
-    Categories categories;
-    categories.insert(ILogger::Debug, "Debug");
-    categories.insert(ILogger::Info, "Info");
-    categories.insert(ILogger::Warning, "Warning");
-    categories.insert(ILogger::Error, "Error");
-
-    return categories;
-}
-
-//------------------------------------------------------------------------------
-TextLogger::Priorities TextLogger::fillPriorities()
-{
-    Priorities priorities;
-    priorities.insert(ILogger::None, "None");
-    priorities.insert(ILogger::Low, "Low");
-    priorities.insert(ILogger::Medium, "Medium");
-    priorities.insert(ILogger::High, "High");
-
-    return priorities;
 }
 
 //------------------------------------------------------------------------------

@@ -16,7 +16,7 @@ void BaseBootloaderTest::shouldCreateDefaultLogger()
     BootloaderMock loader;
     loader.callCreateLogger();
 
-    ILogger *defaultLogger = loader.logger();
+    LoggerFacade *defaultLogger = loader.logger();
 
     QVERIFY(defaultLogger != nullptr);
 }

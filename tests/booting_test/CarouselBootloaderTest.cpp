@@ -6,7 +6,7 @@
 #include <booting/CarouselBootloader.h>
 #include <componentsystem/ComponentManager.h>
 #include <componentsystem/ComponentProvider.h>
-#include <logging/ILogger.h>
+#include <logging/LoggerFacade.h>
 #include <utils/IServiceLocator.h>
 #include <utils/ObservableList.h>
 
@@ -27,12 +27,24 @@ void CarouselBootloaderTest::canRunLoading()
 }
 
 //------------------------------------------------------------------------------
-void CarouselBootloaderTest::shouldCallCreateLoggerOnRun()
+void CarouselBootloaderTest::shouldCallCreateLoggerEngineOnRun()
 {
     CarouselBootloaderMock mockLoader;
     mockLoader.run();
 
     QVERIFY(mockLoader.createLoggerCalled());
+}
+
+//------------------------------------------------------------------------------
+void CarouselBootloaderTest::shouldInstallCreatedLoggerEngineOnRun()
+{
+    CarouselBootloader carouselBootloader;
+
+    QVERIFY(LoggerFacade::loggerEngine() == nullptr);
+
+    carouselBootloader.run();
+
+    QVERIFY(LoggerFacade::loggerEngine() != nullptr);
 }
 
 //------------------------------------------------------------------------------
@@ -115,7 +127,7 @@ void CarouselBootloaderTest::shouldCallRunSequenceInOrderOnRun()
 
     const QStringList &methodCalls = mockLoader.methodCalls();
 
-    QCOMPARE(methodCalls[0], QString("createLogger"));
+    QCOMPARE(methodCalls[0], QString("createLoggerEngine"));
     QCOMPARE(methodCalls[1], QString("createComponentManager"));
     QCOMPARE(methodCalls[2], QString("createComponentProvider"));
     QCOMPARE(methodCalls[3], QString("createServiceLocator"));
@@ -163,20 +175,6 @@ void CarouselBootloaderTest::configuringServiceLocatorShouldAddComponentProvider
 }
 
 //------------------------------------------------------------------------------
-void CarouselBootloaderTest::configuringServiceLocatorShouldAddLoggerToServices()
-{
-    CarouselBootloader carouselBootloader;
-    carouselBootloader.run();
-
-    IServiceLocator *serviceLocator = carouselBootloader.serviceLocator();
-    QVERIFY(serviceLocator != nullptr);
-
-    ILogger *logger = serviceLocator->locate<ILogger>();
-
-    QVERIFY(logger != nullptr);
-}
-
-//------------------------------------------------------------------------------
 void CarouselBootloaderTest::configuringServiceLocatorShouldAddComponentManagerToServices()
 {
     CarouselBootloader carouselBootloader;
@@ -202,6 +200,22 @@ void CarouselBootloaderTest::configuringServiceLocatorShouldAddMainWindowToServi
     QMainWindow *mainWindow  = serviceLocator->locate<QMainWindow>();
 
     QVERIFY(mainWindow != nullptr);
+}
+
+//------------------------------------------------------------------------------
+void CarouselBootloaderTest::shouldInstallNullLoggerEngineInDestructor()
+{
+    {
+        CarouselBootloader carouselBootloader;
+
+        QVERIFY(LoggerFacade::loggerEngine() == nullptr);
+
+        carouselBootloader.run();
+
+        QVERIFY(LoggerFacade::loggerEngine() != nullptr);
+    }
+
+    QVERIFY(LoggerFacade::loggerEngine() == nullptr);
 }
 
 //------------------------------------------------------------------------------

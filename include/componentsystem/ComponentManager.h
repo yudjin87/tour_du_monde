@@ -32,8 +32,6 @@
 #include <QtCore/QStringList>
 #include <QtCore/QSet>
 
-class ILogger;
-
 /*!
  * @brief
  *   The ComponentManager holds information about the components that can be used by the application.
@@ -61,14 +59,14 @@ public:
      *   Creates an instance of the ComponentManager class with default ComponentInitialiser and
      *   ComponentDependencies instances.
      */
-    ComponentManager(ILogger &log, QObject *parent = nullptr);
+    explicit ComponentManager(QObject *parent = nullptr);
 
     /*!
      * @details
      *   Creates an instance of the ComponentManager class with specified @a dependencies and
      *   default ComponentInitialiser instance.
      */
-    ComponentManager(IComponentDependencies *dependencies, ILogger &log, QObject *parent = nullptr);
+    explicit ComponentManager(IComponentDependencies *dependencies, QObject *parent = nullptr);
 
    ~ComponentManager();
 
@@ -394,9 +392,6 @@ protected slots:
 private:
     bool addComponentInternal(IComponent *component);
     void resetCheck();
-
-protected:
-    ILogger &m_log;
 
 private:
     typedef void (ComponentManager::*ShutDownFunc)(IComponent *);

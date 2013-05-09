@@ -52,7 +52,7 @@ protected:
 
     /*!
      * @details
-     *   Configure service locator adding the ILogger, IComponentManager and IComponentProvider.
+     *   Configure service locator adding the IComponentManager and IComponentProvider.
      *   May be overridden in a derived class to add specific services required by the application.
      */
     void configureServiceLocator();
@@ -66,7 +66,7 @@ protected:
     /*!
      * @details
      *   Performs the carousel-specific booting sequence:
-     *   \li first calls BootloaderBase::createLogger() - override this method to instantiate logger facade over your favorite logging system;
+     *   \li first calls BootloaderBase::createLoggerEngine() - override this method to instantiate logger facade over your favorite logging system;
      *   \li then calls BootloaderBase::createComponentManager();
      *   \li then calls BootloaderBase::createComponentProvider() - override this method to instantiate specific component provider;
      *   \li then calls BootloaderBase::createServiceLocator();

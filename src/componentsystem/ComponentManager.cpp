@@ -29,7 +29,7 @@
 #include "ComponentDependencies.h"
 #include "IComponent.h"
 
-#include <logging/ILogger.h>
+#include <logging/LoggerFacade.h>
 #include <utils/IServiceLocator.h>
 #include <utils/ObservableList.h>
 
@@ -37,9 +37,14 @@
 #include <QtCore/QCoreApplication>
 
 //------------------------------------------------------------------------------
-ComponentManager::ComponentManager(ILogger &log, QObject *parent)
-    : m_log(log)
-    , m_shutDownFunc(&ComponentManager::shutdownCheckedComponent)
+namespace
+{
+static LoggerFacade log = LoggerFacade::createLogger("ComponentManager");
+}
+
+//------------------------------------------------------------------------------
+ComponentManager::ComponentManager(QObject *parent)
+    : m_shutDownFunc(&ComponentManager::shutdownCheckedComponent)
     , m_startUpFunc(&ComponentManager::enableAndStartComponent)
     , m_initializationData(QCoreApplication::instance())
     , m_components(new ComponentDependencies())
@@ -53,9 +58,8 @@ ComponentManager::ComponentManager(ILogger &log, QObject *parent)
 }
 
 //------------------------------------------------------------------------------
-ComponentManager::ComponentManager(IComponentDependencies *dependencies, ILogger &log, QObject *parent)
-    : m_log(log)
-    , m_shutDownFunc(&ComponentManager::shutdownCheckedComponent)
+ComponentManager::ComponentManager(IComponentDependencies *dependencies, QObject *parent)
+    : m_shutDownFunc(&ComponentManager::shutdownCheckedComponent)
     , m_startUpFunc(&ComponentManager::enableAndStartComponent)
     , m_initializationData(QCoreApplication::instance())
     , m_components(dependencies)
@@ -192,19 +196,19 @@ DependenciesSolvingResult ComponentManager::shutdownComponents(const QList<IComp
     QList<IComponent *> realyShutdownComponents;
     foreach(IComponent *comp, componentsToShutdown) {
         if (!m_components->components().contains(comp)) {
-            m_log.log(QString("Can not shutdown unexisting component: \"%1\"").arg(comp->name()), ILogger::Info);
+            log.i(QString("Can not shutdown unexisting component: \"%1\".").arg(comp->name()));
             continue;
         }
 
         if (!comp->started()) {
-            m_log.log(QString("'%1' component is already shut down. Skip it").arg(comp->name()), ILogger::Info);
+            log.i(QString("'%1' component is already shut down. Skip it.").arg(comp->name()));
             continue;
         }
 
         realyShutdownComponents.push_back(comp);
         onComponentAboutToShutDown(comp);
         (this->*(m_shutDownFunc))(comp);
-        m_log.log(QString("'%1' component is shut down").arg(comp->name()), ILogger::Info);
+        log.i(QString("'%1' component is shut down.").arg(comp->name()));
         onComponentShutDown(comp);
     }
 
@@ -262,21 +266,21 @@ DependenciesSolvingResult ComponentManager::startupComponents(QList<IComponent *
             continue;
 
         if (!m_components->components().contains(comp)) {
-            m_log.log(QString("Can not start unexisting component: \"%1\"").arg(comp->name()), ILogger::Info);
+            log.i(QString("Can not start unexisting component: \"%1\".").arg(comp->name()));
             continue;
         }
 
         if (comp->started()) {
-            m_log.log(QString("'%1' component is already started. Skip it").arg(comp->name()), ILogger::Info);
+            log.i(QString("'%1' component is already started. Skip it.").arg(comp->name()));
             continue;
         }
 
         if ((this->*(m_startUpFunc))(comp)) {
-            m_log.log(QString("'%1' component is started").arg(comp->name()), ILogger::Info);
+            log.i(QString("'%1' component is started.").arg(comp->name()));
             onComponentStarted(comp);
             realyStartedComponents.push_back(comp);
         } else {
-            m_log.log(QString("Can not startup component: '%1'").arg(comp->name()), ILogger::Info);
+            log.i(QString("Can not startup component: '%1'.").arg(comp->name()));
 
             QStringList skipedChildren;
             DependenciesSolvingResult children = m_components->completeListWithParent(comp);
@@ -285,8 +289,8 @@ DependenciesSolvingResult ComponentManager::startupComponents(QList<IComponent *
                 skipedChildren.append(comp->name());
             }
 
-            QString info = QString("Following child component(s) will not started too: %1").arg(skipedChildren.join(","));
-            m_log.log(info, ILogger::Info);
+            QString info = QString("Following child component(s) will not started too: %1.").arg(skipedChildren.join(","));
+            log.i(info);
         }
     }
 
@@ -326,10 +330,10 @@ void ComponentManager::onComponentShutDown(IComponent *component)
 //------------------------------------------------------------------------------
 bool ComponentManager::startCheckedComponent(IComponent *component)
 {
-    m_log.log("Ensure before startup that component is availabled", ILogger::Info);
+    log.i("Ensure before startup that component is available.");
 
     if (component->availability() != IComponent::Enabled) {
-        m_log.log(QString("Can not startup unavailable component: '%1'").arg(component->name()), ILogger::Info);
+        log.i(QString("Can not startup unavailable component: '%1'.").arg(component->name()));
         return false;
     }
 

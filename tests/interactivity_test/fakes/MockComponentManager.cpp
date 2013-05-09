@@ -26,13 +26,9 @@
 
 #include "MockComponentManager.h"
 
-#include <logging/NullLogger.h>
-
-NullLogger logger;
-
 //------------------------------------------------------------------------------
 MockComponentManager::MockComponentManager()
-    : ComponentManager(logger)
+    : ComponentManager()
 {
 }
 

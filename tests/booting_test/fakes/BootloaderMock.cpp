@@ -9,7 +9,7 @@ BootloaderMock::BootloaderMock()
 //------------------------------------------------------------------------------
 void BootloaderMock::callCreateLogger()
 {
-    m_logger = createLogger();
+    m_logger = createLoggerEngine();
 }
 
 //------------------------------------------------------------------------------
@@ -37,7 +37,7 @@ void BootloaderMock::callCreateMainWindow()
 }
 
 //------------------------------------------------------------------------------
-ILogger *BootloaderMock::logger() const
+LoggerFacade *BootloaderMock::logger() const
 {
     return m_logger;
 }

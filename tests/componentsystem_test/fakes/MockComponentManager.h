@@ -7,8 +7,8 @@ class MockComponentManager : public ComponentManager
 {
     Q_OBJECT
 public:
-    MockComponentManager(ILogger &log, QObject *parent = nullptr);
-    MockComponentManager(IComponentDependencies *dependencies, ILogger &log, QObject *parent = nullptr);
+    MockComponentManager(QObject *parent = nullptr);
+    MockComponentManager(IComponentDependencies *dependencies, QObject *parent = nullptr);
 
     DependenciesSolvingResult check();
 

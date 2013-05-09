@@ -10,7 +10,6 @@ public:
     TextLoggerTest();
 
 private Q_SLOTS:
-    void writeToStream_data();
     void writeToStream();
 };
 

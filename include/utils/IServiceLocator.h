@@ -58,11 +58,11 @@ typedef std::function<void*(void)> factoryMethod;
  *   the two parameters: registered type name (obtained through @a typeid() operator) and the tag.
  *   So, if you want to register existing service type or existing type factory you have to adding
  *   the unique tag for it.
- *   The service or type factory registered without special tag would be tagged with "" (empty
+ *   The service or type factory registered without special tag will be tagged with "" (empty
  *   string) in service locator implementation.
  *
- *   If you call CarouselBootloader::configureServiceLocator() from your derived loader class, the IComponentProvider,
- *   ILogger and IComponentManager would be registered.
+ *   If you call CarouselBootloader::configureServiceLocator() from your derived loader class,
+ *   the IComponentProvider, QMainWindow and IComponentManager will be registered.
  *
  *   Here is simple example of service locator usage:
  * @code

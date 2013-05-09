@@ -10,12 +10,16 @@
 #include "DialogServiceTest.h"
 #include "fakes/MockApplication.h"
 
+#include <logging/NullLogger.h>
+
 #include <QtTest/QtTest>
 
 //------------------------------------------------------------------------------
 int main(int argc, char *argv[])
 {
     MockApplication app(argc, argv);
+    NullLogger log;
+    LoggerFacade::installLoggerEngine(&log);
 
     InputInterceptorTest inputInterceptorTest;
     QTest::qExec(&inputInterceptorTest, argc, argv);

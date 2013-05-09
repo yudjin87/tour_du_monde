@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
-
+ 
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -24,107 +24,115 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "BootloaderBase.h"
-
-#include <componentsystem/ComponentDependencies.h>
-#include <componentsystem/ComponentManager.h>
-#include <componentsystem/ComponentProvider.h>
-#include <logging/TextLogger.h>
-#include <utils/ServiceLocator.h>
-
-#include <QtGui/QMainWindow>
+#include "LoggerFacade.h"
 
 //------------------------------------------------------------------------------
-BootloaderBase::BootloaderBase()
-    : m_componentManager(nullptr)
-    , m_componentProvider(nullptr)
-    , m_logger(nullptr)
-    , m_serviceLocator(nullptr)
-    , m_mainWindow(nullptr)
-    , m_alreadyRunned(false)
+namespace
+{
+static LoggerFacade *LoggerEngine = nullptr;
+}
+
+//------------------------------------------------------------------------------
+LoggerFacade::LoggerFacade(const QString &name)
+    : m_engine(nullptr)
+    , m_name(name)
 {
 }
 
 //------------------------------------------------------------------------------
-BootloaderBase::~BootloaderBase()
-{
-    delete m_componentManager;
-    m_componentManager = nullptr;
-
-    delete m_componentProvider;
-    m_componentProvider = nullptr;
-
-    delete m_logger;
-    m_logger = nullptr;
-
-    delete m_serviceLocator;
-    m_serviceLocator = nullptr;
-
-    delete m_mainWindow;
-    m_mainWindow = nullptr;
-}
-
-//------------------------------------------------------------------------------
-void BootloaderBase::run()
-{
-    if (m_alreadyRunned)
-        return;
-
-    safeRun();
-
-    m_alreadyRunned = true;
-}
-
-//------------------------------------------------------------------------------
-IServiceLocator *BootloaderBase::serviceLocator() const
-{
-    return m_serviceLocator;
-}
-
-//------------------------------------------------------------------------------
-void BootloaderBase::configureComponentManager()
+LoggerFacade::LoggerFacade(LoggerFacade *engine)
+    : m_engine(engine)
+    , m_name("")
 {
 }
 
 //------------------------------------------------------------------------------
-void BootloaderBase::configureComponentProvider()
+LoggerFacade *LoggerFacade::logger()
 {
+    if (m_engine == nullptr)
+        m_engine = LoggerFacade::loggerEngine()->getLogger(m_name);
+
+    return m_engine;
 }
 
 //------------------------------------------------------------------------------
-IComponentManager *BootloaderBase::createComponentManager()
+LoggerFacade::~LoggerFacade()
 {
-    return new ComponentManager(new ComponentDependencies(), nullptr);
+    // TODO: use move constructor
+    delete m_engine;
+    m_engine = nullptr;
 }
 
 //------------------------------------------------------------------------------
-IComponentProvider *BootloaderBase::createComponentProvider()
+LoggerFacade LoggerFacade::createLogger(const QString &name)
 {
-    return new ComponentProvider();
+    return LoggerFacade(name);
 }
 
 //------------------------------------------------------------------------------
-LoggerFacade *BootloaderBase::createLoggerEngine()
+LoggerFacade *LoggerFacade::loggerEngine()
 {
-    static QTextStream text(stdout);
-    return new TextLogger(text);
+    return LoggerEngine;
 }
 
 //------------------------------------------------------------------------------
-IServiceLocator *BootloaderBase::createServiceLocator()
+void LoggerFacade::installLoggerEngine(LoggerFacade *loggerEngine)
 {
-    return new ServiceLocator();
+    LoggerEngine = loggerEngine;
 }
 
 //------------------------------------------------------------------------------
-QMainWindow *BootloaderBase::createMainWindow()
+LoggerFacade* LoggerFacade::getLogger(const QString &name)
 {
-    return new QMainWindow();
+    Q_UNUSED(name)
+    return this;
+}
+
+
+//------------------------------------------------------------------------------
+const QString &LoggerFacade::name() const
+{
+    return m_name;
 }
 
 //------------------------------------------------------------------------------
-void BootloaderBase::initialiseComponentProvider()
+void LoggerFacade::d(const QString &message)
 {
+#ifdef QT_DEBUG
+    logger()->d(message);
+#else
+    Q_UNUSED(message)
+#endif
+}
+
+//------------------------------------------------------------------------------
+void LoggerFacade::e(const QString &message)
+{
+    logger()->e(message);
+}
+
+//------------------------------------------------------------------------------
+void LoggerFacade::f(const QString &message)
+{
+    logger()->f(message);
+}
+
+//------------------------------------------------------------------------------
+void LoggerFacade::i(const QString &message)
+{
+    logger()->i(message);
+}
+
+//------------------------------------------------------------------------------
+void LoggerFacade::t(const QString &message)
+{
+    logger()->t(message);
+}
+
+//------------------------------------------------------------------------------
+void LoggerFacade::w(const QString &message)
+{
+    logger()->w(message);
 }
 
 //------------------------------------------------------------------------------

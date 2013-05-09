@@ -27,37 +27,36 @@
 #ifndef TEXTLOGGER_H
 #define TEXTLOGGER_H
 
-#include "logging/ILogger.h"
+#include "logging/LoggerFacade.h"
 
-#include <QtCore/QMap>
 #include <QtCore/QTextStream>
 
 /*!
  * @brief
- *   The TextLogger class provides the simple logging for the carousel system.
+ *   The TextLogger class provides the simple logging for the carousel engine.
  * @details
  *   Writes output to the QTextStream specified in the constructor with following pattern:
  * @code
- *   [%1] %2: %3. Priority: %4.
+ *   [%1][%2] %3: %4
  * @endcode
- *   where first parameter is @a datetime, second - @a category, third - @a message, and
- *   fourth - @a priority.
+ *   where first parameter is @a datetime, second logger name, third - @a category and
+ *   fourth - @a message.
  *   For example:
  * @code
  *   QTextStream out(stdout);
  *   TextLogger logger(out);
- *   logger.log("Hello, carousel!", ILogger::Info, ILogger::Low);
+ *   logger.d("Hello, carousel!");
  * @endcode
  *   will printed to the console
  * @code
- *   [18 Jul 2012,  18:04:34] Info: Hello, carousel!. Priority: Low.
+ *   [18 Jul 2012,  18:04:34.056][Debug] Root: Hello, carousel!
  * @endcode
  *
- *   If you does't override BootloaderBase::createLogger() method to instantiate your own
- *   logger facade over the better logging system (e.g., log4cplus), the default logger will
+ *   If you does't override BootloaderBase::createLoggerEngine() method to instantiate your own
+ *   logger facade over the better logging engine (e.g., log4cplus), the default logger will
  *   be created with the std::cout stream for output during the loading sequence:
  * @code
- *   ILogger *BootloaderBase::createLogger()
+ *   LoggerFacade *BootloaderBase::createLoggerEngine()
  *   {
  *      static QTextStream text(stdout);
  *      return new TextLogger(text);
@@ -66,58 +65,79 @@
  *
  * @note This class is not thread-safe.
  */
-class LOGGING_API TextLogger : public ILogger
+class LOGGING_API TextLogger : public LoggerFacade
 {
-    Q_OBJECT
 public:
     /*!
      * @details
      *   Initializes a new instance of the TextLogger class with the specified output
      *   stream for the logging.
+     *
+     *   Sets logger name to @a Root.
      */
     TextLogger(QTextStream &output);
 
-public:
     /*!
      * @details
-     *   Write a new log entry with the specified category and priority to the
-     *   specified in constructor output stream.
+     *   Initializes a new instance of the TextLogger class with the specified name and
+     *   output stream for the logging.
+     *
+     *   The name will append in the log message.
      */
-    void log(const QString &message, Category categoryy = Debug, Priority priority = Low);
+    TextLogger(QTextStream &output, const QString &name);
+
+    /*!
+     * @details
+     *   Creates and returns a new instance of the TextLogger with specified name.
+     */
+    LoggerFacade *getLogger(const QString &name);
+
+    /*!
+     * @details
+     *   Sends a @a debug log message to the output stream.
+     *   Debug logs are stripped at runtime in release configuration.
+     */
+    void d(const QString &message);
+
+    /*!
+     * @details
+     *   Sends an @a error log message to the output stream.
+     */
+    void e(const QString &message);
+
+    /*!
+     * @details
+     *   Sends a @a fatal log message to the output stream.
+     */
+    void f(const QString &message);
+
+    /*!
+     * @details
+     *   Sends an @a info log message to the output stream.
+     */
+    void i(const QString &message);
+
+    /*!
+     * @details
+     *   Sends a @a trace log message to the output stream.
+     */
+    void t(const QString &message);
+
+    /*!
+     * @details
+     *   Sends a @a warning log message to the output stream.
+     */
+    void w(const QString &message);
 
 protected:
-    /*!
-     *   The categories dictionary containing string representation of the logging categories.
-     */
-    typedef QMap<ILogger::Category, QString> Categories;
-    /*!
-     *   The priorities dictionary containing string representation of the logging priorities.
-     */
-    typedef QMap<ILogger::Priority, QString> Priorities;
-
-private:
-    static Categories fillCategories();
-    static Priorities fillPriorities();
+    virtual void log(const QString &message, const QString &category);
 
 protected:
-    /*!
-     * @details
-     *   The categories dictionary containing string representation of the logging categories.
-     */
-    static const Categories categories;
-
-    /*!
-     * @details
-     *   The priorities dictionary containing string representation of the logging priorities.
-     */
-    static const Priorities priorities;
-
     /*!
      * @details
      *   The specified output stream for the logging.
      */
     QTextStream &m_outputStream;
-
 };
 
 #endif // TEXTLOGGER_H
