@@ -24,7 +24,12 @@ function(crsl_build __CONFIGURATIONS __GENERATOR_NAME __BUILD_TREE_PATH __NATIVE
       return()
     endif()
 
-    crsl_build_project(${__CONF} ${__BUILD_TREE_PATH} "${__NATIVE_PARAMS}")
+    crsl_build_project(${__CONF} ${__BUILD_TREE_PATH} "${__NATIVE_PARAMS}" BUILD_RESULT)
+    if(BUILD_RESULT GREATER 0)
+      message(FATAL_ERROR "Build for configuration '${__CONF}' failed.")   
+      return()
+    endif()
+
     crsl_run_tests(${__CONF} ${__BUILD_TREE_PATH})
   endforeach(__CONF)
 
@@ -63,12 +68,15 @@ endfunction(crsl_generate_project)
 # __BUILD_TYPE      - name of building configuration (debug, release_static);
 # __BUILD_TREE_PATH - path where Makefiles or other projects have been generated;
 # __NATIVE_PARAMS   - pass remaining options to the native tool.
-function(crsl_build_project __BUILD_TYPE __BUILD_TREE_PATH __NATIVE_PARAMS)
+# __BUILD_RESULT    - returns 0 if build has finished succesfuly. Otherwise, return 1.
+function(crsl_build_project __BUILD_TYPE __BUILD_TREE_PATH __NATIVE_PARAMS __BUILD_RESULT)
   message(STATUS "Build type: " ${__BUILD_TYPE})
  
   message(STATUS "Buil tree path: " ${__BUILD_TREE_PATH})
   message(STATUS "Configuration: " ${__BUILD_TYPE})
   message(STATUS "Native parameters: " ${__NATIVE_PARAMS})
+
+  set(BUILD_RESULT 0)
 
   if ("${__NATIVE_PARAMS}" STREQUAL "")
     execute_process(COMMAND ${CMAKE_COMMAND}
@@ -80,8 +88,11 @@ function(crsl_build_project __BUILD_TYPE __BUILD_TREE_PATH __NATIVE_PARAMS)
       --build .  
       --config ${__BUILD_TYPE}
       -- ${__NATIVE_PARAMS}
-      WORKING_DIRECTORY ${__BUILD_TREE_PATH})
+      WORKING_DIRECTORY ${__BUILD_TREE_PATH}
+      RESULT_VARIABLE BUILD_RESULT)
   endif()
+
+  set(${__BUILD_RESULT} ${BUILD_RESULT} PARENT_SCOPE)
   
 endfunction(crsl_build_project)
 
