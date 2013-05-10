@@ -62,6 +62,7 @@
  */
 class INTERACTIVITY_API InputInterceptor : public QObject, public IInputInterceptor
 {
+    Q_OBJECT
 public:
     explicit InputInterceptor(QObject *parent = nullptr);
     ~InputInterceptor();
@@ -134,6 +135,9 @@ protected:
 private:
     bool canStartWorking();
     bool invalidate(QWidget *interceptedWidget);
+
+private slots:
+    void onSenderDeleted();
 
 private:
     QWidget *m_interceptedWidget;

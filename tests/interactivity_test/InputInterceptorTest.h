@@ -27,6 +27,7 @@ private Q_SLOTS:
     void shouldNotBeWorkingIfNotActive();
     void shouldNotBeInvokeKeyboardHandlerAfterSettingNullSender();
     void shouldNotBeInvokeKeyboardHandlerAfterSettingNullReceiver();
+    void shouldNotBeWorkingAfterSenderDeletion();
 
     void shouldCallReceiverIfWorking();
     void shouldNotInvokeKeyboardHandlerIfNotWorking();

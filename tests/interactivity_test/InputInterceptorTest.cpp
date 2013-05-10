@@ -229,6 +229,25 @@ void InputInterceptorTest::shouldNotBeInvokeKeyboardHandlerAfterSettingNullRecei
 }
 
 //------------------------------------------------------------------------------
+void InputInterceptorTest::shouldNotBeWorkingAfterSenderDeletion()
+{
+    MockTool tool;
+
+    InputInterceptor interceptor;
+    interceptor.activate();
+    interceptor.setReceiver(&tool);
+
+    {
+        QWidget widget;
+        interceptor.setSender(&widget);
+        QCOMPARE(interceptor.isWorking(), true);
+    }
+
+    QCOMPARE(interceptor.isWorking(), false);
+    QVERIFY(interceptor.sender() == nullptr);
+}
+
+//------------------------------------------------------------------------------
 void InputInterceptorTest::shouldCallReceiverIfWorking()
 {
     QWidget widget;
