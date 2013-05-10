@@ -50,8 +50,9 @@ static LoggerFacade Log = LoggerFacade::createLogger("CarouselComponentConfigura
 }
 
 //------------------------------------------------------------------------------
-CarouselComponentConfigurationDelegate::CarouselComponentConfigurationDelegate()
+CarouselComponentConfigurationDelegate::CarouselComponentConfigurationDelegate(AbstractApplication &application)
     : m_changes()
+    , m_app(application)
 {
 }
 
@@ -67,7 +68,7 @@ CarouselComponentConfigurationDelegate::~CarouselComponentConfigurationDelegate(
 }
 
 //------------------------------------------------------------------------------
-void CarouselComponentConfigurationDelegate::configure(IComponent *component, ICatalogs &catalogs, AbstractApplication &application)
+void CarouselComponentConfigurationDelegate::configure(IComponent *component, ICatalogs &catalogs)
 {
     IInteractiveExtension *interactiveExtension = component->extension<IInteractiveExtension>();
     if (interactiveExtension == nullptr) {
@@ -100,7 +101,7 @@ void CarouselComponentConfigurationDelegate::configure(IComponent *component, IC
     m_changes.insert(component, changes);
 
     // Configure the new component
-    interactiveExtension->configureGui(catalogs, application);
+    interactiveExtension->configureGui(catalogs, m_app);
 
     // Disconnect from the catalogs
     catalogs.operationCatalog().disconnect(changes);

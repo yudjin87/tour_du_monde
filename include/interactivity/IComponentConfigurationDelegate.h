@@ -60,10 +60,10 @@ public slots:
      *   provides to extension the way to configure application's
      *   user interface.
      *
-     *   An @a application is passed to the extension to obtain application model, for
+     *   An @a application will be passed to the extension to obtain application model, for
      *   example, to use it in the Qt View-Model approach.
      */
-    virtual void configure(IComponent *component, ICatalogs &catalogs, AbstractApplication &application) = 0;
+    virtual void configure(IComponent *component, ICatalogs &catalogs) = 0;
 
     /*!
      * @details

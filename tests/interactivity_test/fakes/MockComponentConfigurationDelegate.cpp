@@ -47,7 +47,7 @@ MockComponentConfigurationDelegate::~MockComponentConfigurationDelegate()
 }
 
 //------------------------------------------------------------------------------
-void MockComponentConfigurationDelegate::configure(IComponent * /*component*/, ICatalogs &/*catalogs*/, AbstractApplication &/*application*/)
+void MockComponentConfigurationDelegate::configure(IComponent * /*component*/, ICatalogs &/*catalogs*/)
 {
     m_configureCalled = true;
     ++m_configureCalls;

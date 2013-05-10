@@ -49,9 +49,8 @@ static LoggerFacade Log = LoggerFacade::createLogger("CarouselInteractionService
 
 //------------------------------------------------------------------------------
 CarouselInteractionService::CarouselInteractionService(AbstractApplication &application, QObject *parent /*= nullptr*/)
-    : m_app(application)
-    , m_inputInterceptor(nullptr)
-    , m_componentConfigurationDelegate(new CarouselComponentConfigurationDelegate())
+    : m_inputInterceptor(nullptr)
+    , m_componentConfigurationDelegate(new CarouselComponentConfigurationDelegate(application))
     , m_componentManager(nullptr)
     , m_activeTool(nullptr)
     , m_catalogs(nullptr)
@@ -67,13 +66,23 @@ CarouselInteractionService::CarouselInteractionService(AbstractApplication &appl
 
     m_catalogs = new Catalogs(*m_mainWindow, &application);
 
-    connect(m_componentManager, SIGNAL(componentStarted(IComponent *)),
-            SLOT(onComponentStartedUp(IComponent *)));
+    makeConnections();
+}
 
-    connect(m_componentManager, SIGNAL(componentAboutToShutDown(IComponent *)),
-            SLOT(onComponentAboutToShutDown(IComponent *)));
+//------------------------------------------------------------------------------
+CarouselInteractionService::CarouselInteractionService(AbstractApplication &application, QMainWindow *mainWindow, IComponentManager *manager, QObject *parent)
+    : m_inputInterceptor(nullptr)
+    , m_componentConfigurationDelegate(new CarouselComponentConfigurationDelegate(application))
+    , m_componentManager(manager)
+    , m_activeTool(nullptr)
+    , m_catalogs(nullptr)
+    , m_mainWindow(mainWindow)
+{
+    setParent(parent);
 
-    connect(m_componentManager, SIGNAL(aboutToShutDown()), SLOT(onComponentManagerAboutToShutDown()));
+    m_catalogs = new Catalogs(*m_mainWindow, &application);
+
+    makeConnections();
 }
 
 //------------------------------------------------------------------------------
@@ -137,7 +146,7 @@ void CarouselInteractionService::resetUi()
     Log.i("Reset UI.");
     foreach(IComponent *comp, m_componentManager->components()) {
         m_componentConfigurationDelegate->deconfigure(comp, *m_catalogs);
-        m_componentConfigurationDelegate->configure(comp, *m_catalogs, m_app);
+        m_componentConfigurationDelegate->configure(comp, *m_catalogs);
     }
 }
 
@@ -212,7 +221,7 @@ void CarouselInteractionService::onComponentStartedUp(IComponent *component)
     if (m_componentConfigurationDelegate == nullptr)
         return;
 
-    m_componentConfigurationDelegate->configure(component, *m_catalogs, m_app);
+    m_componentConfigurationDelegate->configure(component, *m_catalogs);
 
     // TODO:
     // Load only if configure returns true
@@ -241,6 +250,18 @@ void CarouselInteractionService::onToolExecutingStopped()
     m_activeTool = nullptr;
     if (m_inputInterceptor != nullptr)
         m_inputInterceptor->setReceiver(nullptr);
+}
+
+//------------------------------------------------------------------------------
+void CarouselInteractionService::makeConnections()
+{
+    connect(m_componentManager, SIGNAL(componentStarted(IComponent *)),
+            SLOT(onComponentStartedUp(IComponent *)));
+
+    connect(m_componentManager, SIGNAL(componentAboutToShutDown(IComponent *)),
+            SLOT(onComponentAboutToShutDown(IComponent *)));
+
+    connect(m_componentManager, SIGNAL(aboutToShutDown()), SLOT(onComponentManagerAboutToShutDown()));
 }
 
 //------------------------------------------------------------------------------

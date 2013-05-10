@@ -47,7 +47,7 @@ class INTERACTIVITY_API CarouselComponentConfigurationDelegate : public ICompone
 {
   Q_OBJECT
 public:
-    CarouselComponentConfigurationDelegate();
+    CarouselComponentConfigurationDelegate(AbstractApplication &application);
     ~CarouselComponentConfigurationDelegate();
 
 public slots:
@@ -57,10 +57,10 @@ public slots:
      *   provides to extension the way to configure application's
      *   user interface.
      *
-     *   An @a application is passed to the extension to obtain application model, for
+     *   An @a application will be passed to the extension to obtain application model, for
      *   example, to use it in the Qt View-Model approach.
      */
-    void configure(IComponent *component, ICatalogs &catalogs, AbstractApplication &application);
+    void configure(IComponent *component, ICatalogs &catalogs);
 
     /*!
      * @details
@@ -80,6 +80,7 @@ public slots:
 
 private:
     QMap<IComponent *, ConfigurationChanges *> m_changes;
+    AbstractApplication &m_app;
 };
 
 #endif // CAROUSELCONFIGURATIONDELEGATE_H

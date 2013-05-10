@@ -56,11 +56,11 @@ CarouselComponentConfigurationDelegateTest::CarouselComponentConfigurationDelega
 //------------------------------------------------------------------------------
 void CarouselComponentConfigurationDelegateTest::shouldCallConfigureGuiIfComponentHasInteractiveExtension()
 {
-    CarouselComponentConfigurationDelegate delegate;
+    CarouselComponentConfigurationDelegate delegate(mockApp);
     MockInteractiveExtension component;
 
     QMainWindow mw; Catalogs ctlgs(mw, nullptr);
-    delegate.configure(&component, ctlgs, mockApp);
+    delegate.configure(&component, ctlgs);
 
     QVERIFY(component.m_interactiveExtension->m_configureCalled);
 }
@@ -68,11 +68,11 @@ void CarouselComponentConfigurationDelegateTest::shouldCallConfigureGuiIfCompone
 //------------------------------------------------------------------------------
 void CarouselComponentConfigurationDelegateTest::shouldNotThrowIfComponentHasNoInteractiveExtension()
 {
-    CarouselComponentConfigurationDelegate delegate;
+    CarouselComponentConfigurationDelegate delegate(mockApp);
     MockNonInteractiveExtension component;
 
     QMainWindow mw; Catalogs ctlgs(mw, nullptr);
-    delegate.configure(&component, ctlgs, mockApp);
+    delegate.configure(&component, ctlgs);
 
     QVERIFY(true);
 }
@@ -80,11 +80,11 @@ void CarouselComponentConfigurationDelegateTest::shouldNotThrowIfComponentHasNoI
 //------------------------------------------------------------------------------
 void CarouselComponentConfigurationDelegateTest::shouldRegisterChangesForComponent()
 {
-    CarouselComponentConfigurationDelegate delegate;
+    CarouselComponentConfigurationDelegate delegate(mockApp);
     MockInteractiveExtension component;
     component.m_interactiveExtension->setCunfigureFunc(&configureCatalogs);
     QMainWindow mw; Catalogs ctlgs(mw, nullptr);
-    delegate.configure(&component, ctlgs, mockApp);
+    delegate.configure(&component, ctlgs);
 
     const ConfigurationChanges &changes = *delegate.changesByComponent(&component);
     QCOMPARE(changes.addedOperations().size(), 1);
@@ -97,11 +97,11 @@ void CarouselComponentConfigurationDelegateTest::shouldRegisterChangesForCompone
 //------------------------------------------------------------------------------
 void CarouselComponentConfigurationDelegateTest::shouldReturnNullForUnconfiguredComponent()
 {
-    CarouselComponentConfigurationDelegate delegate;
+    CarouselComponentConfigurationDelegate delegate(mockApp);
     MockInteractiveExtension component;
     component.m_interactiveExtension->setCunfigureFunc(&configureCatalogs);
     QMainWindow mw; Catalogs ctlgs(mw, nullptr);
-    delegate.configure(&component, ctlgs, mockApp);
+    delegate.configure(&component, ctlgs);
 
     MockInteractiveExtension component2;
     const ConfigurationChanges *changes = delegate.changesByComponent(&component2);
@@ -112,11 +112,11 @@ void CarouselComponentConfigurationDelegateTest::shouldReturnNullForUnconfigured
 //------------------------------------------------------------------------------
 void CarouselComponentConfigurationDelegateTest::shouldNotRegisterChangesAfterConfiguring()
 {
-    CarouselComponentConfigurationDelegate delegate;
+    CarouselComponentConfigurationDelegate delegate(mockApp);
     MockInteractiveExtension component;
     component.m_interactiveExtension->setCunfigureFunc(&configureCatalogs);
     QMainWindow mw; Catalogs ctlgs(mw, nullptr);
-    delegate.configure(&component, ctlgs, mockApp);
+    delegate.configure(&component, ctlgs);
 
     const ConfigurationChanges &changes = *delegate.changesByComponent(&component);
     QCOMPARE(changes.addedOperations().size(), 1);
@@ -130,7 +130,7 @@ void CarouselComponentConfigurationDelegateTest::shouldNotRegisterChangesAfterCo
 //------------------------------------------------------------------------------
 void CarouselComponentConfigurationDelegateTest::shouldDeconfigureComponent()
 {
-    CarouselComponentConfigurationDelegate delegate;
+    CarouselComponentConfigurationDelegate delegate(mockApp);
     MockInteractiveExtension component;
     component.m_interactiveExtension->setCunfigureFunc(&configureCatalogs);
     QMainWindow mw; Catalogs ctlgs(mw, nullptr);
@@ -140,7 +140,7 @@ void CarouselComponentConfigurationDelegateTest::shouldDeconfigureComponent()
     QCOMPARE(ctlgs.dockWidgetCatalog().dockWidgets().size(), 0);
     QCOMPARE(ctlgs.toolBarCatalog().toolbars().size(), 0);
 
-    delegate.configure(&component, ctlgs, mockApp);
+    delegate.configure(&component, ctlgs);
     delegate.deconfigure(&component, ctlgs);
 
     QCOMPARE(ctlgs.operationCatalog().operations().size(), 0);

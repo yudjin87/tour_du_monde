@@ -52,15 +52,6 @@
 #include <memory>
 
 //------------------------------------------------------------------------------
-#define CONSTRUCT_APP MockApplication& app = dynamic_cast<MockApplication &>(*qApp);\
-                      app.resetServices(); \
-                      QMainWindow mw; \
-                      mw.setMenuBar(new QMenuBar(&mw)); \
-                      app.serviceLocator().registerInstance(&mw); \
-                      MockComponentManager mockComponentManager; \
-                      app.serviceLocator().registerInstance<IComponentManager>(&mockComponentManager);
-
-//------------------------------------------------------------------------------
 CarouselInteractionServiceTest::CarouselInteractionServiceTest(QObject *parent)
     : QObject(parent)
 {
@@ -69,9 +60,10 @@ CarouselInteractionServiceTest::CarouselInteractionServiceTest(QObject *parent)
 //------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldCreateEmptyCatalogs()
 {
-    CONSTRUCT_APP
+    MockApplication& app = dynamic_cast<MockApplication &>(*qApp);
+    QMainWindow mainWnd; MockComponentManager manager;
 
-    CarouselInteractionService service(app);
+    CarouselInteractionService service(app, &mainWnd, &manager);
 
     ICatalogs &catalogs = service.catalogs();
 
@@ -84,9 +76,10 @@ void CarouselInteractionServiceTest::shouldCreateEmptyCatalogs()
 //------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldReturnEmptyToolByDefault()
 {
-    CONSTRUCT_APP
+    MockApplication& app = dynamic_cast<MockApplication &>(*qApp);
+    QMainWindow mainWnd; MockComponentManager manager;
 
-    CarouselInteractionService service(app);
+    CarouselInteractionService service(app, &mainWnd, &manager);
 
     QVERIFY(service.activeTool() == nullptr);
 }
@@ -94,9 +87,10 @@ void CarouselInteractionServiceTest::shouldReturnEmptyToolByDefault()
 //------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldReturnEmptyInputInterceptor()
 {
-    CONSTRUCT_APP
+    MockApplication& app = dynamic_cast<MockApplication &>(*qApp);
+    QMainWindow mainWnd; MockComponentManager manager;
 
-    CarouselInteractionService service(app);
+    CarouselInteractionService service(app, &mainWnd, &manager);
 
     QVERIFY(service.inputInterceptor() == nullptr);
 }
@@ -104,19 +98,21 @@ void CarouselInteractionServiceTest::shouldReturnEmptyInputInterceptor()
 //------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldReturnMainWindow()
 {
-    CONSTRUCT_APP
+    MockApplication& app = dynamic_cast<MockApplication &>(*qApp);
+    QMainWindow mainWnd; MockComponentManager manager;
 
-    CarouselInteractionService service(app);
+    CarouselInteractionService service(app, &mainWnd, &manager);
 
-    QVERIFY(&service.mainWindow() == &mw);
+    QVERIFY(&service.mainWindow() == &mainWnd);
 }
 
 //------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldSetupInputInterceptor()
 {
-    CONSTRUCT_APP
+    MockApplication& app = dynamic_cast<MockApplication &>(*qApp);
+    QMainWindow mainWnd; MockComponentManager manager;
 
-    CarouselInteractionService service(app);
+    CarouselInteractionService service(app, &mainWnd, &manager);
 
     QVERIFY(service.inputInterceptor() == nullptr);
 
@@ -129,13 +125,14 @@ void CarouselInteractionServiceTest::shouldSetupInputInterceptor()
 //------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldSetupCurrentToolToInterceptor()
 {
-    CONSTRUCT_APP
+    MockApplication& app = dynamic_cast<MockApplication &>(*qApp);
+    QMainWindow mainWnd; MockComponentManager manager;
 
-    CarouselInteractionService service(app);
+    CarouselInteractionService service(app, &mainWnd, &manager);
     MockTool tool;
     service.setActiveTool(&tool);
     MockInputInterceptor *interceptor = new MockInputInterceptor();
-    interceptor->setSender(&mw);
+    interceptor->setSender(&mainWnd);
 
     service.setInputInterceptor(interceptor);
 
@@ -145,9 +142,10 @@ void CarouselInteractionServiceTest::shouldSetupCurrentToolToInterceptor()
 //------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldNotThrowIfPreviousInterceptorIsNull()
 {
-    CONSTRUCT_APP
+    MockApplication& app = dynamic_cast<MockApplication &>(*qApp);
+    QMainWindow mainWnd; MockComponentManager manager;
 
-    CarouselInteractionService service(app);
+    CarouselInteractionService service(app, &mainWnd, &manager);
 
     QVERIFY(service.inputInterceptor() == nullptr);
 
@@ -160,9 +158,10 @@ void CarouselInteractionServiceTest::shouldNotThrowIfPreviousInterceptorIsNull()
 //------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldNotThrowIfNewInterceptorIsNull()
 {
-    CONSTRUCT_APP
+    MockApplication& app = dynamic_cast<MockApplication &>(*qApp);
+    QMainWindow mainWnd; MockComponentManager manager;
 
-    CarouselInteractionService service(app);
+    CarouselInteractionService service(app, &mainWnd, &manager);
 
     service.setInputInterceptor(new InputInterceptor());
     service.setInputInterceptor(nullptr);
@@ -173,9 +172,10 @@ void CarouselInteractionServiceTest::shouldNotThrowIfNewInterceptorIsNull()
 //------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldDeletePreviousInputInterceptor()
 {
-    CONSTRUCT_APP
+    MockApplication& app = dynamic_cast<MockApplication &>(*qApp);
+    QMainWindow mainWnd; MockComponentManager manager;
 
-    CarouselInteractionService service(app);
+    CarouselInteractionService service(app, &mainWnd, &manager);
 
     QVERIFY(service.inputInterceptor() == nullptr);
 
@@ -194,9 +194,10 @@ void CarouselInteractionServiceTest::shouldDeletePreviousInputInterceptor()
 //------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldReturnDefaultConfigurationDelegate()
 {
-    CONSTRUCT_APP
+    MockApplication& app = dynamic_cast<MockApplication &>(*qApp);
+    QMainWindow mainWnd; MockComponentManager manager;
 
-    CarouselInteractionService service(app);
+    CarouselInteractionService service(app, &mainWnd, &manager);
 
     QVERIFY(service.configurationDelegate() != nullptr);
 }
@@ -204,9 +205,10 @@ void CarouselInteractionServiceTest::shouldReturnDefaultConfigurationDelegate()
 //------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldSetupConfigurationDelegate()
 {
-    CONSTRUCT_APP
+    MockApplication& app = dynamic_cast<MockApplication &>(*qApp);
+    QMainWindow mainWnd; MockComponentManager manager;
 
-    CarouselInteractionService service(app);
+    CarouselInteractionService service(app, &mainWnd, &manager);
 
     MockComponentConfigurationDelegate* delegate = new MockComponentConfigurationDelegate();
     service.setConfigurationDelegate(delegate);
@@ -217,9 +219,10 @@ void CarouselInteractionServiceTest::shouldSetupConfigurationDelegate()
 //------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldNotThrowIfPreviousDelegateIsNull()
 {
-    CONSTRUCT_APP
+    MockApplication& app = dynamic_cast<MockApplication &>(*qApp);
+    QMainWindow mainWnd; MockComponentManager manager;
 
-    CarouselInteractionService service(app);
+    CarouselInteractionService service(app, &mainWnd, &manager);
 
     service.setConfigurationDelegate(nullptr);
     service.setConfigurationDelegate(new MockComponentConfigurationDelegate());
@@ -230,9 +233,10 @@ void CarouselInteractionServiceTest::shouldNotThrowIfPreviousDelegateIsNull()
 //------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldNotThrowIfNewDelegateIsNull()
 {
-    CONSTRUCT_APP
+    MockApplication& app = dynamic_cast<MockApplication &>(*qApp);
+    QMainWindow mainWnd; MockComponentManager manager;
 
-    CarouselInteractionService service(app);
+    CarouselInteractionService service(app, &mainWnd, &manager);
 
     service.setConfigurationDelegate(nullptr);
 
@@ -242,11 +246,12 @@ void CarouselInteractionServiceTest::shouldNotThrowIfNewDelegateIsNull()
 //------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldSaveUiStateWhenComponentManagerShutdDown()
 {
-    CONSTRUCT_APP
+    MockApplication& app = dynamic_cast<MockApplication &>(*qApp);
+    QMainWindow mainWnd; MockComponentManager manager;
 
-    MockCarouselInteractionService service(app);
+    MockCarouselInteractionService service(app, &mainWnd, &manager);
 
-    mockComponentManager.callOnAboutToShutDown();
+    manager.callOnAboutToShutDown();
 
     QCOMPARE(service.saveUiCalled, 1);
 }
@@ -254,14 +259,15 @@ void CarouselInteractionServiceTest::shouldSaveUiStateWhenComponentManagerShutdD
 //------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldCallConfigureWhenComponentStarted()
 {
-    CONSTRUCT_APP
+    MockApplication& app = dynamic_cast<MockApplication &>(*qApp);
+    QMainWindow mainWnd; MockComponentManager manager;
 
-    CarouselInteractionService service(app);
+    CarouselInteractionService service(app, &mainWnd, &manager);
     MockComponentConfigurationDelegate* delegate = new MockComponentConfigurationDelegate();
     service.setConfigurationDelegate(delegate);
 
     FakeComponent comp;
-    mockComponentManager.callOnComponentStarted(&comp);
+    manager.callOnComponentStarted(&comp);
 
     QVERIFY(delegate->m_configureCalled);
 }
@@ -269,14 +275,15 @@ void CarouselInteractionServiceTest::shouldCallConfigureWhenComponentStarted()
 //------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldCallLoadUiStateWhenComponentStarted()
 {
-    CONSTRUCT_APP
+    MockApplication& app = dynamic_cast<MockApplication &>(*qApp);
+    QMainWindow mainWnd; MockComponentManager manager;
 
-    MockCarouselInteractionService service(app);
+    MockCarouselInteractionService service(app, &mainWnd, &manager);
     MockComponentConfigurationDelegate* delegate = new MockComponentConfigurationDelegate();
     service.setConfigurationDelegate(delegate);
 
     FakeComponent comp;
-    mockComponentManager.callOnComponentStarted(&comp);
+    manager.callOnComponentStarted(&comp);
 
     QVERIFY(service.loadUiCalled);
 }
@@ -284,14 +291,15 @@ void CarouselInteractionServiceTest::shouldCallLoadUiStateWhenComponentStarted()
 //------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldConnectDelegateDeconfigureMethodWithComponentManagerSignal()
 {
-    CONSTRUCT_APP
+    MockApplication& app = dynamic_cast<MockApplication &>(*qApp);
+    QMainWindow mainWnd; MockComponentManager manager;
 
-    CarouselInteractionService service(app);
+    CarouselInteractionService service(app, &mainWnd, &manager);
     MockComponentConfigurationDelegate* delegate = new MockComponentConfigurationDelegate();
     service.setConfigurationDelegate(delegate);
 
     FakeComponent comp;
-    mockComponentManager.callOnComponentAboutToShutDown(&comp);
+    manager.callOnComponentAboutToShutDown(&comp);
 
     QVERIFY(delegate->m_deconfigureCalled);
 }
@@ -299,9 +307,10 @@ void CarouselInteractionServiceTest::shouldConnectDelegateDeconfigureMethodWithC
 //------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldDeletePreviousConfigurationDelegate()
 {
-    CONSTRUCT_APP
+    MockApplication& app = dynamic_cast<MockApplication &>(*qApp);
+    QMainWindow mainWnd; MockComponentManager manager;
 
-    CarouselInteractionService service(app);
+    CarouselInteractionService service(app, &mainWnd, &manager);
 
     MockComponentConfigurationDelegate* delegate = new MockComponentConfigurationDelegate();
     bool wasDelete = false;
@@ -316,15 +325,16 @@ void CarouselInteractionServiceTest::shouldDeletePreviousConfigurationDelegate()
 //------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldCallDeconfigureForAllComponentsWhileResetUi()
 {
-    CONSTRUCT_APP
+    MockApplication& app = dynamic_cast<MockApplication &>(*qApp);
+    QMainWindow mainWnd; MockComponentManager manager;
 
-    CarouselInteractionService service(app);
+    CarouselInteractionService service(app, &mainWnd, &manager);
     MockComponentConfigurationDelegate* delegate = new MockComponentConfigurationDelegate();
     service.setConfigurationDelegate(delegate);
 
-    mockComponentManager.addComponent(new MockInteractiveExtension("comp1"));
-    mockComponentManager.addComponent(new MockInteractiveExtension("comp2"));
-    mockComponentManager.addComponent(new MockInteractiveExtension("comp3"));
+    manager.addComponent(new MockInteractiveExtension("comp1"));
+    manager.addComponent(new MockInteractiveExtension("comp2"));
+    manager.addComponent(new MockInteractiveExtension("comp3"));
 
     service.resetUi();
 
@@ -334,15 +344,16 @@ void CarouselInteractionServiceTest::shouldCallDeconfigureForAllComponentsWhileR
 //------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldCallConfigureForAllComponentsWhileResetUi()
 {
-    CONSTRUCT_APP
+    MockApplication& app = dynamic_cast<MockApplication &>(*qApp);
+    QMainWindow mainWnd; MockComponentManager manager;
 
-    CarouselInteractionService service(app);
+    CarouselInteractionService service(app, &mainWnd, &manager);
     MockComponentConfigurationDelegate* delegate = new MockComponentConfigurationDelegate();
     service.setConfigurationDelegate(delegate);
 
-    mockComponentManager.addComponent(new MockInteractiveExtension("comp1"));
-    mockComponentManager.addComponent(new MockInteractiveExtension("comp2"));
-    mockComponentManager.addComponent(new MockInteractiveExtension("comp3"));
+    manager.addComponent(new MockInteractiveExtension("comp1"));
+    manager.addComponent(new MockInteractiveExtension("comp2"));
+    manager.addComponent(new MockInteractiveExtension("comp3"));
 
     service.resetUi();
 
@@ -352,14 +363,15 @@ void CarouselInteractionServiceTest::shouldCallConfigureForAllComponentsWhileRes
 //------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldNotThrowIfConfigurationDelegateIsNullWhileResetUi()
 {
-    CONSTRUCT_APP
+    MockApplication& app = dynamic_cast<MockApplication &>(*qApp);
+    QMainWindow mainWnd; MockComponentManager manager;
 
-    CarouselInteractionService service(app);
+    CarouselInteractionService service(app, &mainWnd, &manager);
     service.setConfigurationDelegate(nullptr);
 
-    mockComponentManager.addComponent(new MockInteractiveExtension("comp1"));
-    mockComponentManager.addComponent(new MockInteractiveExtension("comp2"));
-    mockComponentManager.addComponent(new MockInteractiveExtension("comp3"));
+    manager.addComponent(new MockInteractiveExtension("comp1"));
+    manager.addComponent(new MockInteractiveExtension("comp2"));
+    manager.addComponent(new MockInteractiveExtension("comp3"));
 
     service.resetUi();
 
@@ -370,9 +382,10 @@ void CarouselInteractionServiceTest::shouldNotThrowIfConfigurationDelegateIsNull
 //------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldSetupActiveTool()
 {
-    CONSTRUCT_APP
+    MockApplication& app = dynamic_cast<MockApplication &>(*qApp);
+    QMainWindow mainWnd; MockComponentManager manager;
 
-    CarouselInteractionService service(app);
+    CarouselInteractionService service(app, &mainWnd, &manager);
 
     MockTool tool;
     service.setActiveTool(&tool);
@@ -383,9 +396,10 @@ void CarouselInteractionServiceTest::shouldSetupActiveTool()
 //------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldDeactivatePreviousActiveTool()
 {
-    CONSTRUCT_APP
+    MockApplication& app = dynamic_cast<MockApplication &>(*qApp);
+    QMainWindow mainWnd; MockComponentManager manager;
 
-    CarouselInteractionService service(app);
+    CarouselInteractionService service(app, &mainWnd, &manager);
 
     MockTool previousTool;
     service.setActiveTool(&previousTool);
@@ -399,9 +413,10 @@ void CarouselInteractionServiceTest::shouldDeactivatePreviousActiveTool()
 //------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldSetupNullToolWhenActiveIsDeactivated()
 {
-    CONSTRUCT_APP
+    MockApplication& app = dynamic_cast<MockApplication &>(*qApp);
+    QMainWindow mainWnd; MockComponentManager manager;
 
-    CarouselInteractionService service(app);
+    CarouselInteractionService service(app, &mainWnd, &manager);
 
     ToolBase tool;
     service.setActiveTool(&tool);
@@ -413,11 +428,12 @@ void CarouselInteractionServiceTest::shouldSetupNullToolWhenActiveIsDeactivated(
 //------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldSetupNullToInterceptorWhenActiveToolIsDeactivated()
 {
-    CONSTRUCT_APP
+    MockApplication& app = dynamic_cast<MockApplication &>(*qApp);
+    QMainWindow mainWnd; MockComponentManager manager;
 
-    CarouselInteractionService service(app);
+    CarouselInteractionService service(app, &mainWnd, &manager);
     MockInputInterceptor *interceptor = new MockInputInterceptor();
-    interceptor->setSender(&mw);
+    interceptor->setSender(&mainWnd);
     service.setInputInterceptor(interceptor);
 
     ToolBase tool;
@@ -433,9 +449,10 @@ void CarouselInteractionServiceTest::shouldSetupNullToInterceptorWhenActiveToolI
 //------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldNotThrowIfPreviousActiveToolIsNull()
 {
-    CONSTRUCT_APP
+    MockApplication& app = dynamic_cast<MockApplication &>(*qApp);
+    QMainWindow mainWnd; MockComponentManager manager;
 
-    CarouselInteractionService service(app);
+    CarouselInteractionService service(app, &mainWnd, &manager);
 
     MockTool tool;
     service.setActiveTool(&tool);
@@ -446,11 +463,12 @@ void CarouselInteractionServiceTest::shouldNotThrowIfPreviousActiveToolIsNull()
 //------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldSetupNewlyCurrentToolToInterceptor()
 {
-    CONSTRUCT_APP
+    MockApplication& app = dynamic_cast<MockApplication &>(*qApp);
+    QMainWindow mainWnd; MockComponentManager manager;
 
-    CarouselInteractionService service(app);
+    CarouselInteractionService service(app, &mainWnd, &manager);
     MockInputInterceptor *interceptor = new MockInputInterceptor();
-    interceptor->setSender(&mw);
+    interceptor->setSender(&mainWnd);
     service.setInputInterceptor(interceptor);
 
     MockTool tool;
@@ -462,11 +480,12 @@ void CarouselInteractionServiceTest::shouldSetupNewlyCurrentToolToInterceptor()
 //------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldNotThrowIfInterceptorIsNull()
 {
-    CONSTRUCT_APP
+    MockApplication& app = dynamic_cast<MockApplication &>(*qApp);
+    QMainWindow mainWnd; MockComponentManager manager;
 
-    CarouselInteractionService service(app);
+    CarouselInteractionService service(app, &mainWnd, &manager);
     MockInputInterceptor *interceptor = new MockInputInterceptor();
-    interceptor->setSender(&mw);
+    interceptor->setSender(&mainWnd);
     service.setInputInterceptor(interceptor);
 
     MockTool tool;
@@ -478,9 +497,10 @@ void CarouselInteractionServiceTest::shouldNotThrowIfInterceptorIsNull()
 //------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldNotThrowIfInterceptorIsNullWhenActiveToolIsDeactivated()
 {
-    CONSTRUCT_APP
+    MockApplication& app = dynamic_cast<MockApplication &>(*qApp);
+    QMainWindow mainWnd; MockComponentManager manager;
 
-    CarouselInteractionService service(app);
+    CarouselInteractionService service(app, &mainWnd, &manager);
 
     ToolBase tool;
     service.setActiveTool(&tool);

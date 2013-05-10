@@ -45,7 +45,20 @@ class INTERACTIVITY_API CarouselInteractionService : public IInteractionService
 {
     Q_OBJECT
 public:
+    /*!
+     * @details
+     *   Initializes a new instance of the CarouselInteractionService class using
+     *   @a application's service locator to locate to the QMainWindow IComponentManager
+     *   instances.
+     */
     CarouselInteractionService(AbstractApplication &application, QObject *parent = nullptr);
+
+    /*!
+     * @details
+     *   Initializes a new instance of the CarouselInteractionService class using
+     *   specified instances of the @a application, @a mainWindow and @a manager.
+     */
+    CarouselInteractionService(AbstractApplication &application, QMainWindow *mainWindow, IComponentManager *manager, QObject *parent = nullptr);
     ~CarouselInteractionService();
 
     /*!
@@ -136,7 +149,7 @@ public:
      * @details
      *   Sets the configuration delegate responsible for the configuring
      *   started up component: IComponentConfigurationDelegate::configure() method
-     *   will be binded to the AbstractApplication::componentStarted() signal.
+     *   will be binded to the IComponentManager::componentStarted() signal.
      *
      *   CarouselComponentConfigurationDelegate is used by default. Note, that
      *   CarouselInteractionService takes ownership of the configuration delegate.
@@ -165,7 +178,9 @@ protected slots:
     void onToolExecutingStopped();
 
 private:
-    AbstractApplication &m_app;
+    void makeConnections();
+
+private:
     IInputInterceptor *m_inputInterceptor;
     IComponentConfigurationDelegate *m_componentConfigurationDelegate;
     IComponentManager *m_componentManager;
