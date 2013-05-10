@@ -50,6 +50,7 @@ protected:
      *   Registers ComponentsDialog in the dialog service.
      *   Registers commands:
      *     @li EnableComponentCommand
+     *     @li InstallComponentsCommand
      * @param initData should be a reference to AbstractApplication object.
      * @return @a false, if initData is not a reference to AbstractApplication object.
      *   Otherwise, return @a true.

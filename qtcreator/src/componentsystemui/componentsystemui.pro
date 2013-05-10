@@ -14,6 +14,7 @@ INCLUDEPATH += $$HPP_SOURCE_TREE/componentsystemui
 LIBS += -L$${DESTDIR} -lComponentSystem \
                       -lInteractivity \
                       -lFramework \
+                      -lUtils \
 
 ###############################################################################
 # Copy definition to the output directory, right near the library

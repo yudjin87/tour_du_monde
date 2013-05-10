@@ -47,6 +47,7 @@ ComponentsDialog::ComponentsDialog(ComponentDefinitionsModel *model, QWidget *pa
     m_ui->tableView->resizeColumnsToContents();
 
     connect(m_ui->closeButton, SIGNAL(clicked()), SLOT(close()));
+    connect(m_ui->installButton, SIGNAL(clicked()), m_model, SLOT(onInstall()));
 }
 
 //------------------------------------------------------------------------------

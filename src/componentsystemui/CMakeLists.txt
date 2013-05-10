@@ -10,6 +10,7 @@ set(__SOURCES
     ${CRSL_TARGET_SOURCES}/ComponentsDialog.cpp 
     ${CRSL_TARGET_SOURCES}/ComponentSystemUIComponent.cpp 
     ${CRSL_TARGET_SOURCES}/EnableComponentCommand.cpp 
+    ${CRSL_TARGET_SOURCES}/InstallComponentsCommand.cpp 
 )
 
 ######################################################################
@@ -20,6 +21,7 @@ set(__HEADERS
     ${CRSL_TARGET_HEADERS}/componentsystem_ui_global.h 
     ${CRSL_TARGET_HEADERS}/ComponentSystemUIComponent.h 
     ${CRSL_TARGET_HEADERS}/EnableComponentCommand.h 
+    ${CRSL_TARGET_HEADERS}/InstallComponentsCommand.h 
 )
 
 ######################################################################

@@ -26,13 +26,16 @@
 
 #include "ComponentDefinitionsModel.h"
 #include "EnableComponentCommand.h"
+#include "InstallComponentsCommand.h"
 
 #include <componentsystem/ComponentDefinition.h>
 #include <componentsystem/IComponent.h>
 #include <utils/ObservableList.h>
 #include <utils/IServiceLocator.h>
 
+#include <QtGui/QFileDialog>
 #include <QtGui/QIcon>
+#include <QtGui/QMainWindow>
 #include <QtGui/QUndoStack>
 
 //------------------------------------------------------------------------------
@@ -55,6 +58,22 @@ ComponentDefinitionsModel::~ComponentDefinitionsModel()
 void ComponentDefinitionsModel::injectServiceLocator(IServiceLocator *locator)
 {
     m_locator = locator;
+}
+
+//------------------------------------------------------------------------------
+Qt::ItemFlags ComponentDefinitionsModel::flags(const QModelIndex &index) const
+{
+    Qt::ItemFlags flags = QAbstractItemModel::flags(index);
+    if (!index.isValid())
+        return flags;
+
+    const IComponent *comp = m_components.at(index.row());
+    const ComponentDefinition *def = comp->definition();
+
+    if (def->isBuiltIn())
+        return Qt::NoItemFlags;
+    else
+        return Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable;
 }
 
 //------------------------------------------------------------------------------
@@ -153,6 +172,41 @@ bool ComponentDefinitionsModel::setData(const QModelIndex &index, const QVariant
             || role != Qt::CheckStateRole)
         return false;
 
+    onToogleEnable(index);
+
+    // Reset availability state for all components
+    emit dataChanged(createIndex(0, 0), createIndex(m_components.size(), 0));
+    return true;
+}
+
+//------------------------------------------------------------------------------
+void ComponentDefinitionsModel::onDescription(const QModelIndex &index)
+{
+    Q_UNUSED(index)
+}
+
+//------------------------------------------------------------------------------
+void ComponentDefinitionsModel::onInstall()
+{
+    QFileDialog fileDialog(m_locator->locate<QMainWindow>(), "Install component");
+    fileDialog.setFileMode(QFileDialog::ExistingFiles);
+    fileDialog.setFilter("Components (*.definition)"); // TODO: get from the app settings
+    if (!fileDialog.exec())
+        return;
+
+    InstallComponentsCommand* command = m_locator->buildInstance<InstallComponentsCommand>();
+    command->setSourceDirectoryPath(fileDialog.directory().absolutePath());
+
+    foreach(const QString &fileName, fileDialog.selectedFiles())
+        command->addDefinitionPath(fileName);
+
+    QUndoStack *undo = m_locator->locate<QUndoStack>();
+    undo->push(command);
+}
+
+//------------------------------------------------------------------------------
+void ComponentDefinitionsModel::onToogleEnable(const QModelIndex &index)
+{
     Q_ASSERT(m_locator != nullptr);
 
     EnableComponentCommand* command = m_locator->buildInstance<EnableComponentCommand>();
@@ -161,27 +215,6 @@ bool ComponentDefinitionsModel::setData(const QModelIndex &index, const QVariant
 
     QUndoStack *undo = m_locator->locate<QUndoStack>();
     undo->push(command);
-
-
-    // Reset availability state for all components
-    emit dataChanged(createIndex(0, 0), createIndex(m_components.size(), 0));
-    return true;
-}
-
-//------------------------------------------------------------------------------
-Qt::ItemFlags ComponentDefinitionsModel::flags(const QModelIndex &index) const
-{
-    Qt::ItemFlags flags = QAbstractItemModel::flags(index);
-    if (!index.isValid())
-        return flags;
-
-    const IComponent *comp = m_components.at(index.row());
-    const ComponentDefinition *def = comp->definition();
-
-    if (def->isBuiltIn())
-        return Qt::NoItemFlags;
-    else
-        return Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable;
 }
 
 //------------------------------------------------------------------------------

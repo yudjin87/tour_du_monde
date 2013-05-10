@@ -24,36 +24,36 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include <QtCore/QStringList>
-#include <QtGui/QApplication>
+#include "FileUtils.h"
 
-#include "ComponentsDialogTest.h"
+#include <QDir>
+#include <QFile>
+#include <QFileInfo>
+#include <QFileInfoList>
 
-//------------------------------------------------------------------------------
-void runGuiManualTests(QStringList arguments);
-
-//------------------------------------------------------------------------------
-int main(int argc, char *argv[])
+namespace fileUtils
 {
-    QApplication app(argc, argv);
+bool removeTree(const QString &dirName)
+{
+    bool result = true;
+    QDir dir(dirName);
 
-    if (app.arguments().contains("-g")) {
-        runGuiManualTests(app.arguments());
-        return app.exec();
-    } else {
+    QDir::Filters filters = QDir::NoDotAndDotDot | QDir::System | QDir::Hidden  | QDir::AllDirs | QDir::Files;
+    if (!dir.exists(dirName))
+        return true;
 
+    foreach(QFileInfo info, dir.entryInfoList(filters, QDir::DirsFirst)) {
+        if (info.isDir())
+            result = removeTree(info.absoluteFilePath());
+        else
+            result = QFile::remove(info.absoluteFilePath());
+
+        if (!result)
+            return result;
     }
 
-    return 0;
+    result = dir.rmdir(dirName);
+    return result;
 }
 
-//------------------------------------------------------------------------------
-void runGuiManualTests(QStringList arguments)
-{
-    Q_UNUSED(arguments)
-
-    ComponentsDialogTest *componentsDialogTest = new ComponentsDialogTest(QApplication::instance());
-    componentsDialogTest->test();
-}
-
-//------------------------------------------------------------------------------
+} //namespace fileUtils

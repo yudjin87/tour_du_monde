@@ -6,6 +6,7 @@ include(cmake/target_utils)
 ######################################################################
 # Sources
 set(__SOURCES
+    ${CRSL_TARGET_SOURCES}/FileUtils.cpp 
     ${CRSL_TARGET_SOURCES}/ServiceLocator.cpp 
 )
 	
@@ -13,6 +14,7 @@ set(__SOURCES
 # Headers
 set(__HEADERS
     ${CRSL_TARGET_HEADERS}/Changes.h 
+    ${CRSL_TARGET_HEADERS}/FileUtils.h 
     ${CRSL_TARGET_HEADERS}/IListObserver.h 
     ${CRSL_TARGET_HEADERS}/IServiceLocator.h 
     ${CRSL_TARGET_HEADERS}/ListDictionary.h 

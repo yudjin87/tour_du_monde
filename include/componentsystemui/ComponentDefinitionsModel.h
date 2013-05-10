@@ -64,6 +64,11 @@ public:
 
     void injectServiceLocator(IServiceLocator *locator);
 
+public slots:
+    void onInstall();
+    void onDescription(const QModelIndex &index);
+    void onToogleEnable(const QModelIndex &index);
+
 private:
     const ObservableList<IComponent *> &m_components;
     IServiceLocator *m_locator;

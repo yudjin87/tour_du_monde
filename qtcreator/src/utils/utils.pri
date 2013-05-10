@@ -2,10 +2,12 @@ PROJECT_SOURCES = $$CPP_SOURCE_TREE/utils
 PROJECT_HEADERS = $$HPP_SOURCE_TREE/utils
 
 SOURCES += \
+    $$PROJECT_SOURCES/FileUtils.cpp \
     $$PROJECT_SOURCES/ServiceLocator.cpp \
 
 HEADERS += \
     $$PROJECT_HEADERS/Changes.h \
+    $$PROJECT_HEADERS/FileUtils.h \
     $$PROJECT_HEADERS/IListObserver.h \
     $$PROJECT_HEADERS/IServiceLocator.h \
     $$PROJECT_HEADERS/ListDictionary.h \

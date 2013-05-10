@@ -24,36 +24,23 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include <QtCore/QStringList>
-#include <QtGui/QApplication>
+#ifndef FILEUTILS_H
+#define FILEUTILS_H
 
-#include "ComponentsDialogTest.h"
+#include "utils/IServiceLocator.h"
 
-//------------------------------------------------------------------------------
-void runGuiManualTests(QStringList arguments);
+#include <QtCore/QString>
 
-//------------------------------------------------------------------------------
-int main(int argc, char *argv[])
+namespace fileUtils
 {
-    QApplication app(argc, argv);
+/*!
+ * @details
+ *   Deletes a directory tree along with all of its contents.
+ * @param dirName Path of directory to remove.
+ * @return @a true on success; @a false on error.
+ */
+UTILS_API bool removeTree(const QString &dirName);
 
-    if (app.arguments().contains("-g")) {
-        runGuiManualTests(app.arguments());
-        return app.exec();
-    } else {
+} //namespace fileUtils
 
-    }
-
-    return 0;
-}
-
-//------------------------------------------------------------------------------
-void runGuiManualTests(QStringList arguments)
-{
-    Q_UNUSED(arguments)
-
-    ComponentsDialogTest *componentsDialogTest = new ComponentsDialogTest(QApplication::instance());
-    componentsDialogTest->test();
-}
-
-//------------------------------------------------------------------------------
+#endif // FILEUTILS_H

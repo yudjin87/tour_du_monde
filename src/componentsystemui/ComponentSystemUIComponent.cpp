@@ -29,6 +29,7 @@
 #include "ComponentsDialog.h"
 
 #include "EnableComponentCommand.h"
+#include "InstallComponentsCommand.h"
 
 #include <componentsystem/ComponentExport.h>
 #include <componentsystem/IComponentManager.h>
@@ -41,6 +42,12 @@
 static void *createEnableComponentCommand(IComponentManager *manager)
 {
     return new EnableComponentCommand(manager);
+}
+
+// TODO: will be removed when c++11 is supported (with lambdas)
+static void *createInstallComponentsCommand(IComponentManager *manager)
+{
+    return new InstallComponentsCommand(manager);
 }
 
 //------------------------------------------------------------------------------
@@ -86,8 +93,12 @@ bool ComponentSystemUIComponent::onStartup(QObject *initData)
     dialogService->registerDialog<ComponentsDialog, ComponentDefinitionsModel>();
 
     IComponentManager *manager = locator.locate<IComponentManager>();
-    auto creator = std::bind(&createEnableComponentCommand, manager);
-    locator.registerType<EnableComponentCommand>(creator);
+    auto enableCreator = std::bind(&createEnableComponentCommand, manager);
+    locator.registerType<EnableComponentCommand>(enableCreator);
+
+    auto installCreator = std::bind(&createInstallComponentsCommand, manager);
+    locator.registerType<InstallComponentsCommand>(installCreator);
+
 
     return true;
 }

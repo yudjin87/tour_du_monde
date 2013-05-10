@@ -26,19 +26,13 @@
 
 #include "InstallComponentsOperation.h"
 
-#include <componentsystem/DirectoryInstaller.h>
-#include <componentsystem/FileComponentProvider.h>
-#include <componentsystem/IComponent.h>
-#include <componentsystem/IComponentManager.h>
-
+#include <componentsystemui/InstallComponentsCommand.h>
 #include <framework/AbstractApplication.h>
 #include <utils/IServiceLocator.h>
-#include <utils/ObservableList.h>
 
-#include <QtCore/QDir>
-#include <QtCore/QSettings>
 #include <QtGui/QFileDialog>
 #include <QtGui/QMainWindow>
+#include <QtGui/QUndoStack>
 
 //------------------------------------------------------------------------------
 InstallComponentsOperation::InstallComponentsOperation()
@@ -54,47 +48,20 @@ void InstallComponentsOperation::execute()
 {
     IServiceLocator &locator = m_app->serviceLocator();
 
-    QSettings settings;
-    QByteArray state = settings.value("Install_component_dialog").toByteArray();
     QFileDialog fileDialog(locator.locate<QMainWindow>(), "Install component");
     fileDialog.setFileMode(QFileDialog::ExistingFiles);
-    fileDialog.setFilter("Components (*.definition)");
-    fileDialog.restoreState(state);
+    fileDialog.setFilter("Components (*.definition)"); // TODO: get from the app settings
     if (!fileDialog.exec())
         return;
 
-    state = fileDialog.saveState();
-    settings.setValue("Install_component_dialog", state);
+    InstallComponentsCommand* command = locator.buildInstance<InstallComponentsCommand>();
+    command->setSourceDirectoryPath(fileDialog.directory().absolutePath());
 
-    // Get component names from the selected files
-    QStringList componentNames;
-    foreach(const QString &fileName, fileDialog.selectedFiles()) {
-        QFileInfo definitionFile(fileName);
-        componentNames.push_back(definitionFile.baseName());
-    }
+    foreach(const QString &fileName, fileDialog.selectedFiles())
+        command->addDefinitionPath(fileName);
 
-    // Add existed components
-    DirectoryInstaller installer(fileDialog.directory().absolutePath(), "./installedComponents");
-    IComponentManager *manager = locator.locate<IComponentManager>();
-    foreach(IComponent *comp, manager->components()) {
-        installer.addExistedComponent(comp);
-    }
-
-    installer.tryToInstall(componentNames);
-    QStringList installedDefinitions = installer.install();
-
-    // Startup installed components
-    QList<IComponent *> components;
-    foreach(const QString &fileName, installedDefinitions) {
-        FileComponentProvider provider(fileName);
-        IComponent *component = provider.loadComponent();
-        if (manager->addComponent(component))
-            components.push_back(component);
-        else
-            delete component;
-    }
-
-    manager->startupComponents(components);
+    QUndoStack *undo = locator.locate<QUndoStack>();
+    undo->push(command);
 }
 
 //------------------------------------------------------------------------------
