@@ -37,6 +37,9 @@ MapModel::MapModel(Map *data, QGraphicsScene *scene, QObject *parent)
     , mp_scene(scene)
 {
     connect(m_data, SIGNAL(layerAdded(AbstractLayer *)), SLOT(onLayerAdded(AbstractLayer*)));
+
+    foreach(AbstractLayer *layer, m_data->layers())
+        onLayerAdded(layer);
 }
 
 //------------------------------------------------------------------------------

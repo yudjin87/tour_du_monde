@@ -58,7 +58,11 @@ void DisplayComponent::onShutdown()
 {
     IServiceLocator &locator = m_app->serviceLocator();
 
-    locator.unregisterInstance<QGraphicsScene>();
+    QGraphicsScene *scene = locator.unregisterInstance<QGraphicsScene>();
+    QGraphicsView *view = scene->views().first();
+
+    delete view;
+    delete scene;
 }
 
 //------------------------------------------------------------------------------

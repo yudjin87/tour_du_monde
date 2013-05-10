@@ -43,6 +43,8 @@ public:
 
     void addLayer(AbstractLayer *layer);
 
+    QList<AbstractLayer *> layers() const;
+
 signals:
     void layerAdded(AbstractLayer *layer);
 
