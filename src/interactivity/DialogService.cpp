@@ -28,6 +28,15 @@
 
 #include <QtCore/QDebug>
 #include <QtGui/QDialog>
+
+#include <logging/LoggerFacade.h>
+
+//------------------------------------------------------------------------------
+namespace
+{
+static LoggerFacade Log = LoggerFacade::createLogger("DialogService");
+}
+
 //------------------------------------------------------------------------------
 DialogService::DialogService(QWidget *mainWindow, IServiceLocator *locator)
     : m_mainWindow(mainWindow)
@@ -54,8 +63,7 @@ void DialogService::registerConstructor(const QString &dlgModelType, IDialogCons
 bool DialogService::showDialogForModel(const QString &forDlgModelType, void *dlgModel) const
 {
     if (!m_viewsMap.contains(forDlgModelType)) {
-        qDebug(QString("The dialog with such model \"%1\" is not registered.")
-               .arg(forDlgModelType).toUtf8());
+        Log.w(QString("The dialog with such model \"%1\" is not registered.").arg(forDlgModelType));
         return false;
     }
 

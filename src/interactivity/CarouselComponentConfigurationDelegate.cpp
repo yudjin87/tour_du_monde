@@ -36,9 +36,18 @@
 #include "IToolBarCatalog.h"
 
 #include <componentsystem/IComponent.h>
+#include <logging/LoggerFacade.h>
 
 #include <QtGui/QAction>
 #include <QtGui/QMenu>
+
+#include <QtCore/QSettings>
+
+//------------------------------------------------------------------------------
+namespace
+{
+static LoggerFacade Log = LoggerFacade::createLogger("CarouselComponentConfigurationDelegate");
+}
 
 //------------------------------------------------------------------------------
 CarouselComponentConfigurationDelegate::CarouselComponentConfigurationDelegate()
@@ -61,10 +70,13 @@ CarouselComponentConfigurationDelegate::~CarouselComponentConfigurationDelegate(
 void CarouselComponentConfigurationDelegate::configure(IComponent *component, ICatalogs &catalogs, AbstractApplication &application)
 {
     IInteractiveExtension *interactiveExtension = component->extension<IInteractiveExtension>();
-    if (interactiveExtension == nullptr)
+    if (interactiveExtension == nullptr) {
+        Log.d(QString("Component \"%1\" does not have interactive extension for configuring. Skip it.").arg(component->name()));
         return;
+    }
 
-    // Connect to the catalog changes
+    Log.i("Prepare for the GUI configuration. Connect to the catalog changes.");
+
     ConfigurationChanges *changes = new ConfigurationChanges();
     changes->connect(&catalogs.operationCatalog(), SIGNAL(operationAdded(Operation *)),
                      SLOT(insertAddedOperation(Operation *)));
@@ -81,9 +93,9 @@ void CarouselComponentConfigurationDelegate::configure(IComponent *component, IC
     changes->connect(&catalogs.toolBarCatalog(), SIGNAL(toolbarAdded(QToolBar*)),
                      SLOT(insertAddedToolbar(QToolBar *)));
 
-// TODO: implement me!
-//    changes->connect(&catalogs.menuCatalog(), SIGNAL(subMenuAdded(QAction*)),
-//                     SLOT(insertInsertedOperation(QAction *)));
+    // TODO: implement me!
+    //    changes->connect(&catalogs.menuCatalog(), SIGNAL(subMenuAdded(QAction*)),
+    //                     SLOT(insertInsertedOperation(QAction *)));
 
     m_changes.insert(component, changes);
 
@@ -95,16 +107,29 @@ void CarouselComponentConfigurationDelegate::configure(IComponent *component, IC
     catalogs.dockWidgetCatalog().disconnect(changes);
     catalogs.menuCatalog().disconnect(changes);
     catalogs.toolBarCatalog().disconnect(changes);
+
+    Log.d(QString("GUI configuration finished. Added dock widgets: %1; added menus: %2; added toolbars: %3; removed menus: %4.")
+          .arg(changes->addedDockWidgets().size())
+          .arg(changes->addedMenus().size())
+          .arg(changes->addedToolbars().size())
+          .arg(changes->removedMenus().size()));
 }
 
 //------------------------------------------------------------------------------
-void CarouselComponentConfigurationDelegate::deconfigure(IComponent * component, ICatalogs &catalogs)
+void CarouselComponentConfigurationDelegate::deconfigure(IComponent *component, ICatalogs &catalogs)
 {
     IInteractiveExtension *interactiveExtension = component->extension<IInteractiveExtension>();
-    if (interactiveExtension == nullptr)
+    if (interactiveExtension == nullptr) {
+        Log.d(QString("Component \"%1\" does not have interactive extension for configuring. Skip it.").arg(component->name()));
         return;
+    }
 
     const ConfigurationChanges *changes = changesByComponent(component);
+
+    Log.i(QString("Start GUI deconfiguration. Will be removed dock widgets: %1; menus: %2; toolbars: %3.")
+            .arg(changes->addedDockWidgets().size())
+            .arg(changes->addedMenus().size())
+            .arg(changes->addedToolbars().size()));
 
     // Deleting inserted operations from the widgets
     // TODO: implement me!

@@ -31,16 +31,22 @@
 #include "IInputInterceptor.h"
 #include "ITool.h"
 
-#include <framework/AbstractApplication.h>
 #include <componentsystem/IComponent.h>
 #include <componentsystem/IComponentManager.h>
+#include <framework/AbstractApplication.h>
+#include <logging/LoggerFacade.h>
 #include <utils/IServiceLocator.h>
 #include <utils/ObservableList.h>
 
 #include <QtCore/QSettings>
 #include <QtGui/QMainWindow>
 
-#include <assert.h>
+//------------------------------------------------------------------------------
+namespace
+{
+static LoggerFacade Log = LoggerFacade::createLogger("CarouselInteractionService");
+}
+
 //------------------------------------------------------------------------------
 CarouselInteractionService::CarouselInteractionService(AbstractApplication &application, QObject *parent /*= nullptr*/)
     : m_app(application)
@@ -54,10 +60,10 @@ CarouselInteractionService::CarouselInteractionService(AbstractApplication &appl
     setParent(parent);
 
     m_mainWindow = application.serviceLocator().locate<QMainWindow>();
-    assert(m_mainWindow != nullptr);
+    Q_ASSERT(m_mainWindow != nullptr);
 
     m_componentManager = application.serviceLocator().locate<IComponentManager>();
-    assert(m_componentManager != nullptr);
+    Q_ASSERT(m_componentManager != nullptr);
 
     m_catalogs = new Catalogs(*m_mainWindow, &application);
 
@@ -123,9 +129,12 @@ QMainWindow &CarouselInteractionService::mainWindow()
 //------------------------------------------------------------------------------
 void CarouselInteractionService::resetUi()
 {
-    if (m_componentConfigurationDelegate == nullptr)
+    if (m_componentConfigurationDelegate == nullptr) {
+        Log.d("There is no any configuration delegate - UI reseting is skipped.");
         return;
+    }
 
+    Log.i("Reset UI.");
     foreach(IComponent *comp, m_componentManager->components()) {
         m_componentConfigurationDelegate->deconfigure(comp, *m_catalogs);
         m_componentConfigurationDelegate->configure(comp, *m_catalogs, m_app);
@@ -135,17 +144,24 @@ void CarouselInteractionService::resetUi()
 //------------------------------------------------------------------------------
 void CarouselInteractionService::setActiveTool(ITool *activeTool)
 {
+    Log.i("Set new active tool.");
+
     if (activeTool != nullptr) {
+        Log.d("Connect to new tool's signals.");
         QObject *tool = dynamic_cast<QObject *>(activeTool);
         Q_ASSERT(tool != nullptr);
         this->connect(tool, SIGNAL(executingStopped()), SLOT(onToolExecutingStopped()));
     }
 
-    if (m_activeTool != nullptr)
+    if (m_activeTool != nullptr) {
+        Log.d("Stop previous tool.");
         m_activeTool->stopExecuting();
+    }
 
-    if (m_inputInterceptor != nullptr)
+    if (m_inputInterceptor != nullptr) {
+        Log.d("Set new tool as receiver to the interceptor.");
         m_inputInterceptor->setReceiver(activeTool);
+    }
 
     m_activeTool = activeTool;
 }
@@ -175,6 +191,7 @@ void CarouselInteractionService::setInputInterceptor(IInputInterceptor *inputInt
 //------------------------------------------------------------------------------
 void CarouselInteractionService::saveUiState(int version /*= 0*/)
 {
+    Log.i("Save UI state.");
     QSettings settings;
     settings.setValue(m_mainWindow->objectName() + "/state", m_mainWindow->saveState(version));
     settings.setValue(m_mainWindow->objectName() +"/geometry", m_mainWindow->saveGeometry());
@@ -183,6 +200,7 @@ void CarouselInteractionService::saveUiState(int version /*= 0*/)
 //------------------------------------------------------------------------------
 void CarouselInteractionService::loadUiState(int version /* = 0*/)
 {
+    Log.i("Load UI state.");
     QSettings settings;
     m_mainWindow->restoreState(settings.value(m_mainWindow->objectName() +"/state").toByteArray(), version);
     m_mainWindow->restoreGeometry(settings.value(m_mainWindow->objectName() +"/geometry").toByteArray());
@@ -213,6 +231,7 @@ void CarouselInteractionService::onComponentAboutToShutDown(IComponent *componen
 //------------------------------------------------------------------------------
 void CarouselInteractionService::onComponentManagerAboutToShutDown()
 {
+    Log.i("Save changes in UI before shutdown.");
     saveUiState();
 }
 
