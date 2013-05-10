@@ -11,7 +11,7 @@
 //------------------------------------------------------------------------------
 namespace
 {
-static LoggerFacade log = LoggerFacade::createLogger("ComponentLoader");
+static LoggerFacade Log = LoggerFacade::createLogger("ComponentLoader");
 }
 
 //------------------------------------------------------------------------------
@@ -86,7 +86,7 @@ bool ComponentLoader::load()
         return true;
 
     if (m_fileName.isEmpty()) {
-        log.w("Cannot load component - file name is empty.");
+        Log.w("Cannot load component - file name is empty.");
         return false;
     }
 
@@ -96,7 +96,7 @@ bool ComponentLoader::load()
     m_library->setLoadHints(loadHints());
     if (!m_library->load()) {
         m_errorString = m_library->errorString();
-        log.e(QString("Cannot load component. Error: %1").arg(m_errorString));
+        Log.e(QString("Cannot load component. Error: %1").arg(m_errorString));
         return false;
     }
 
@@ -105,7 +105,7 @@ bool ComponentLoader::load()
     if (m_createFunc == nullptr) {
         m_errorString = QString("Cannot found create function \"%1\" at the \"%2\". See internal error: %3")
                 .arg(m_createFuncName, m_library->fileName(), m_library->errorString());
-        log.e(m_errorString);
+        Log.e(m_errorString);
         return false;
     }
 
@@ -114,7 +114,7 @@ bool ComponentLoader::load()
     if (m_releaseFunc == nullptr) {
         m_errorString = QString("Cannot found release function \"%1\" at the \"%2\". See internal error: %3")
                 .arg(m_releaseFuncName, m_library->fileName(), m_library->errorString());
-        log.e(m_errorString);
+        Log.e(m_errorString);
         return false;
     }
 
@@ -123,7 +123,7 @@ bool ComponentLoader::load()
 
     m_loaded = true;
 
-    log.d(QString("Component \"%1\" was successfully loaded.").arg(m_fileName));
+    Log.d(QString("Component \"%1\" was successfully loaded.").arg(m_fileName));
 
     return true;
 }
@@ -139,7 +139,7 @@ void ComponentLoader::setFileName(const QString &fileName)
 {
     QFileInfo file(fileName);
     if (!file.exists()) {
-        log.w(QString("Cannot use \"%1\" file name. It does not exist.").arg(fileName));
+        Log.w(QString("Cannot use \"%1\" file name. It does not exist.").arg(fileName));
         return;
     }
 
@@ -175,11 +175,11 @@ bool ComponentLoader::unload()
 bool ComponentLoader::deleteInstance()
 {
     if (!m_loaded) {
-        log.w("Cannot delete instance, because it was not load.");
+        Log.w("Cannot delete instance, because it was not load.");
         return false;
     }
 
-    log.d("Delete loaded instance.");
+    Log.d("Delete loaded instance.");
     m_releaseFunc(m_instance);
     m_releaseFunc = nullptr;
     m_createFunc = nullptr;

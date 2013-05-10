@@ -40,7 +40,7 @@
 //------------------------------------------------------------------------------
 namespace
 {
-static LoggerFacade log = LoggerFacade::createLogger("ComponentInstaller");
+static LoggerFacade Log = LoggerFacade::createLogger("ComponentInstaller");
 }
 
 //------------------------------------------------------------------------------
@@ -157,11 +157,11 @@ DependenciesSolvingResult ComponentInstaller::tryToInstall(const QStringList &co
 QStringList ComponentInstaller::install()
 {
     if (m_componentsToInstall.isEmpty()) {
-        log.w("Nothing to install - empty collection.");
+        Log.w("Nothing to install - empty collection.");
         return QStringList();
     }
 
-    log.i(QString("Install %1 components...").arg(m_componentsToInstall.size()));
+    Log.i(QString("Install %1 components...").arg(m_componentsToInstall.size()));
     loadComponents(m_componentsToInstall);
 
     QStringList copiedDefinitions;
@@ -176,14 +176,14 @@ QStringList ComponentInstaller::install()
         QString libraryFileName = componentPath + QDir::separator() + library.fileName();
         QFile::copy(comp->definition()->componentLocation(), libraryFileName);
 
-        log.i(QString("Component \"%1\" has been installed to the \"%2\" directory.")
+        Log.i(QString("Component \"%1\" has been installed to the \"%2\" directory.")
               .arg(comp->name())
               .arg(componentPath));
 
         copiedDefinitions.push_back(definitionFileName);
     }
 
-    log.i("Installation finished.");
+    Log.i("Installation finished.");
 
     return copiedDefinitions;
 }

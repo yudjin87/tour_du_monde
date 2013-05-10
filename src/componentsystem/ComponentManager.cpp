@@ -39,7 +39,7 @@
 //------------------------------------------------------------------------------
 namespace
 {
-static LoggerFacade log = LoggerFacade::createLogger("ComponentManager");
+static LoggerFacade Log = LoggerFacade::createLogger("ComponentManager");
 }
 
 //------------------------------------------------------------------------------
@@ -90,7 +90,7 @@ bool ComponentManager::addComponent(IComponent *component)
     if (!result)
         return false;
 
-    log.d(QString("Component \"%1\" is added. Reset check result.").arg(component->name()));
+    Log.d(QString("Component \"%1\" is added. Reset check result.").arg(component->name()));
     resetCheck();
     return result;
 }
@@ -99,7 +99,7 @@ bool ComponentManager::addComponent(IComponent *component)
 DependenciesSolvingResult ComponentManager::check()
 {
     if (isChecked()) {
-        log.d("Already checked. Skip new check request.");
+        Log.d("Already checked. Skip new check request.");
         return m_checkResult;
     }
 
@@ -169,16 +169,16 @@ QList<IComponent *> ComponentManager::startedComponents() const
 void ComponentManager::shutdown()
 {
     if (!m_started) {
-        log.e("Shutdown is called but startup was not!");
+        Log.e("Shutdown is called but startup was not!");
         return;
     }
 
-    log.i("Prepare for shut down: shut down all components.");
+    Log.i("Prepare for shut down: shut down all components.");
     onAboutToShutDown();
     m_shutDownFunc = &ComponentManager::forceShutdownCheckedComponent;
     shutdownAllComponents();
     m_shutDownFunc = &ComponentManager::shutdownCheckedComponent;
-    log.i("All components have been shut down.");
+    Log.i("All components have been shut down.");
 }
 
 //------------------------------------------------------------------------------
@@ -199,30 +199,30 @@ DependenciesSolvingResult ComponentManager::shutdownAllComponents()
 DependenciesSolvingResult ComponentManager::shutdownComponents(const QList<IComponent *> &components)
 {
     if (components.empty()) {
-        log.d("Nothing to shutdown - empty collection.");
+        Log.d("Nothing to shutdown - empty collection.");
         return DependenciesSolvingResult();
     }
 
-    log.d("Reverse components order before shut down.");
+    Log.d("Reverse components order before shut down.");
 
     DependenciesSolvingResult solvingResult = m_components->completeListWithParents(components);
     QList<IComponent *> componentsToShutdown = solvingResult.ordered();
     QList<IComponent *> realyShutdownComponents;
     foreach(IComponent *comp, componentsToShutdown) {
         if (!m_components->components().contains(comp)) {
-            log.i(QString("Can not shutdown unexisting component: \"%1\".").arg(comp->name()));
+            Log.i(QString("Can not shutdown unexisting component: \"%1\".").arg(comp->name()));
             continue;
         }
 
         if (!comp->started()) {
-            log.i(QString("\"%1\" component is already shut down. Skip it.").arg(comp->name()));
+            Log.i(QString("\"%1\" component is already shut down. Skip it.").arg(comp->name()));
             continue;
         }
 
         realyShutdownComponents.push_back(comp);
         onComponentAboutToShutDown(comp);
         (this->*(m_shutDownFunc))(comp);
-        log.i(QString("\"%1\" component is shut down.").arg(comp->name()));
+        Log.i(QString("\"%1\" component is shut down.").arg(comp->name()));
         onComponentShutDown(comp);
     }
 
@@ -233,16 +233,16 @@ DependenciesSolvingResult ComponentManager::shutdownComponents(const QList<IComp
 DependenciesSolvingResult ComponentManager::startup()
 {
     if (m_started) {
-        log.e("Startup is called second time without shut down!");
+        Log.e("Startup is called second time without shut down!");
         return DependenciesSolvingResult();
     }
 
-    log.i("Preparing for startup. Start all enabled components that were added to the manager.");
+    Log.i("Preparing for startup. Start all enabled components that were added to the manager.");
     m_startUpFunc = &ComponentManager::startCheckedComponent;
     DependenciesSolvingResult result = startupAllComponents();
     m_startUpFunc = &ComponentManager::enableAndStartComponent;
 
-    log.i(QString("Startup finished. %1 started and %2 orphans from %3 components.")
+    Log.i(QString("Startup finished. %1 started and %2 orphans from %3 components.")
           .arg(result.ordered().size())
           .arg(result.orphans().size())
           .arg(result.ordered().size() + result.orphans().size()));
@@ -271,7 +271,7 @@ DependenciesSolvingResult ComponentManager::startupAllComponents()
 DependenciesSolvingResult ComponentManager::startupComponents(QList<IComponent *> components)
 {
     if (components.empty()) {
-        log.d("Nothing to start - empty collection.");
+        Log.d("Nothing to start - empty collection.");
         return DependenciesSolvingResult();
     }
 
@@ -290,21 +290,21 @@ DependenciesSolvingResult ComponentManager::startupComponents(QList<IComponent *
             continue;
 
         if (!m_components->components().contains(comp)) {
-            log.i(QString("Can not start unexisting component: \"%1\".").arg(comp->name()));
+            Log.i(QString("Can not start unexisting component: \"%1\".").arg(comp->name()));
             continue;
         }
 
         if (comp->started()) {
-            log.i(QString("\"%1\" component is already started. Skip it.").arg(comp->name()));
+            Log.i(QString("\"%1\" component is already started. Skip it.").arg(comp->name()));
             continue;
         }
 
         if ((this->*(m_startUpFunc))(comp)) {
-            log.i(QString("\"%1\" component is started.").arg(comp->name()));
+            Log.i(QString("\"%1\" component is started.").arg(comp->name()));
             onComponentStarted(comp);
             realyStartedComponents.push_back(comp);
         } else {
-            log.i(QString("Can not startup component: \"%1\".").arg(comp->name()));
+            Log.i(QString("Can not startup component: \"%1\".").arg(comp->name()));
 
             QStringList skipedChildren;
             DependenciesSolvingResult children = m_components->completeListWithParent(comp);
@@ -314,7 +314,7 @@ DependenciesSolvingResult ComponentManager::startupComponents(QList<IComponent *
             }
 
             QString info = QString("Following child component(s) will not started too: %1.").arg(skipedChildren.join(","));
-            log.i(info);
+            Log.i(info);
         }
     }
 
@@ -354,10 +354,10 @@ void ComponentManager::onComponentShutDown(IComponent *component)
 //------------------------------------------------------------------------------
 bool ComponentManager::startCheckedComponent(IComponent *component)
 {
-    log.i("Ensure before startup that component is available.");
+    Log.i("Ensure before startup that component is available.");
 
     if (component->availability() != IComponent::Enabled) {
-        log.i(QString("Can not startup unavailable component: \"%1\".").arg(component->name()));
+        Log.i(QString("Can not startup unavailable component: \"%1\".").arg(component->name()));
         return false;
     }
 
@@ -392,7 +392,7 @@ void ComponentManager::forceShutdownCheckedComponent(IComponent *component)
 bool ComponentManager::addComponentInternal(IComponent *component)
 {
     if (!m_components->addComponent(component)) {
-        log.i(QString("Cannot add component \"%1\", because it already exist.").arg(component->name()));
+        Log.i(QString("Cannot add component \"%1\", because it already exist.").arg(component->name()));
         return false;
     }
 

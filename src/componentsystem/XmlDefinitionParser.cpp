@@ -34,7 +34,7 @@
 //------------------------------------------------------------------------------
 namespace
 {
-static LoggerFacade log = LoggerFacade::createLogger("XmlDefinitionParser");
+static LoggerFacade Log = LoggerFacade::createLogger("XmlDefinitionParser");
 }
 
 //------------------------------------------------------------------------------
@@ -78,7 +78,7 @@ bool XmlDefinitionParser::read(const QString &text)
     clear();
     QDomDocument doc("ComponentDescriptionDocument");
     if (!doc.setContent(text, &m_error)) {
-        log.e(QString("Cannot read definition. %1").arg(m_error));
+        Log.e(QString("Cannot read definition. %1").arg(m_error));
         return false;
     }
 
@@ -91,7 +91,7 @@ bool XmlDefinitionParser::read(const QByteArray &text)
     clear();
     QDomDocument doc("ComponentDescriptionDocument");
     if (!doc.setContent(text, &m_error)) {
-        log.e(QString("Cannot read definition. %1").arg(m_error));
+        Log.e(QString("Cannot read definition. %1").arg(m_error));
         return false;
     }
 
@@ -104,7 +104,7 @@ bool XmlDefinitionParser::read(QIODevice *dev)
     clear();
     QDomDocument doc("ComponentDescriptionDocument");
     if (!doc.setContent(dev, &m_error)) {
-        log.e(QString("Cannot read definition. %1").arg(m_error));
+        Log.e(QString("Cannot read definition. %1").arg(m_error));
         return false;
     }
 
@@ -147,20 +147,20 @@ bool XmlDefinitionParser::parseXml(QDomDocument &document)
     QDomElement root = document.documentElement();
     if (root.nodeName() != COMPONENT_TAG) {
         m_error = QString("Root tag is wrong. \"%1\" is expected").arg(COMPONENT_TAG);
-        log.e(QString("Error during definition parsing. %1").arg(m_error));
+        Log.e(QString("Error during definition parsing. %1").arg(m_error));
         return false;
     }
 
     if (!root.hasAttribute(COMPONENT_NAME_ATTRIBUTE)){
         m_error = QString("Component name attribute is wrong. \"%1\" is expected").arg(COMPONENT_NAME_ATTRIBUTE);
-        log.e(QString("Error during definition parsing. %1").arg(m_error));
+        Log.e(QString("Error during definition parsing. %1").arg(m_error));
         return false;
     }
 
     m_componentName = root.attribute(COMPONENT_NAME_ATTRIBUTE).trimmed();
     if (m_componentName.isEmpty()){
         m_error = "Component name is empty";
-        log.e(QString("Error during definition parsing. %1").arg(m_error));
+        Log.e(QString("Error during definition parsing. %1").arg(m_error));
         return false;
     }
 

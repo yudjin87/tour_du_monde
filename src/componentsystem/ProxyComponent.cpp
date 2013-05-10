@@ -36,7 +36,7 @@
 //------------------------------------------------------------------------------
 namespace
 {
-static LoggerFacade log = LoggerFacade::createLogger("ProxyComponent");
+static LoggerFacade Log = LoggerFacade::createLogger("ProxyComponent");
 }
 
 //------------------------------------------------------------------------------
@@ -61,7 +61,7 @@ ProxyComponent::ProxyComponent(ComponentDefinition *definition, IComponentLoader
 void *ProxyComponent::getExtension(const QString &byTypeId) const
 {
     if (m_component == nullptr) {
-        log.w("Cannot get extension, because component still has not been loaded.");
+        Log.w("Cannot get extension, because component still has not been loaded.");
         return nullptr;
     }
 
@@ -82,12 +82,12 @@ bool ProxyComponent::initialize()
         return true;
 
     if (m_loader == nullptr) {
-        log.w("Cannot initialize with null loader.");
+        Log.w("Cannot initialize with null loader.");
         return false;
     }
 
     if (definition()->componentName().trimmed().isEmpty()) {
-        log.w("Cannot initialize with empty component name.");
+        Log.w("Cannot initialize with empty component name.");
         return false;
     }
 
@@ -98,7 +98,7 @@ bool ProxyComponent::initialize()
     // Library file should exist and should be readable
     QFileInfo checkFile(libraryPath);
     if (!checkFile.isReadable()) {
-        log.w(QString("Cannot initialize because component lirary file \"%1\" does not exist or it is not readable.")
+        Log.w(QString("Cannot initialize because component lirary file \"%1\" does not exist or it is not readable.")
               .arg(libraryPath));
         return false;
     }
@@ -132,17 +132,17 @@ void ProxyComponent::onShutdown()
 bool ProxyComponent::onStartup(QObject *initData)
 {
     if (!m_initialized) {
-        log.w("Cannot start up without initialization.");
+        Log.w("Cannot start up without initialization.");
         return false;
     }
 
     if (m_loader == nullptr) {
-        log.w("Cannot start up with null loader.");
+        Log.w("Cannot start up with null loader.");
         return false;
     }
 
     if (!m_loader->load()) {
-        log.w("Cannot start up because loading failed.");
+        Log.w("Cannot start up because loading failed.");
         return false;
     }
 
@@ -151,7 +151,7 @@ bool ProxyComponent::onStartup(QObject *initData)
     if (m_component == nullptr)
         return false;
 
-    log.d("Start up loaded component.");
+    Log.d("Start up loaded component.");
     return m_component->startup(initData);
 }
 

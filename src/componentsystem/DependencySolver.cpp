@@ -34,7 +34,7 @@
 //------------------------------------------------------------------------------
 namespace
 {
-static LoggerFacade log = LoggerFacade::createLogger("DependencySolver");
+static LoggerFacade Log = LoggerFacade::createLogger("DependencySolver");
 }
 
 //------------------------------------------------------------------------------
@@ -54,7 +54,7 @@ DependencySolver::~DependencySolver()
 void DependencySolver::addComponent(const QString &name)
 {
     if (name.isEmpty()) {
-        log.w("The provided component name must not be null or empty.");
+        Log.w("The provided component name must not be null or empty.");
         return;
     }
 
@@ -66,17 +66,17 @@ void DependencySolver::addComponent(const QString &name)
 void DependencySolver::addDependency(const QString &childComponent, const QString &parentComponent)
 {
     if (childComponent.isEmpty()) {
-        log.w("The provided child component component name must not be null or empty.");
+        Log.w("The provided child component component name must not be null or empty.");
         return;
     }
 
     if (parentComponent.isEmpty()) {
-        log.w("The provided parent component name must not be null or empty.");
+        Log.w("The provided parent component name must not be null or empty.");
         return;
     }
 
     if (!m_knownComponents.contains(childComponent)) {
-        log.w(QString("Cannot add dependency for unknown component \"%1\". Add it first.").arg(childComponent));
+        Log.w(QString("Cannot add dependency for unknown component \"%1\". Add it first.").arg(childComponent));
         return;
     }
 

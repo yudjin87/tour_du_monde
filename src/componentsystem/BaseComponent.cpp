@@ -35,7 +35,7 @@
 //------------------------------------------------------------------------------
 namespace
 {
-static LoggerFacade log = LoggerFacade::createLogger("BaseComponent");
+static LoggerFacade Log = LoggerFacade::createLogger("BaseComponent");
 }
 
 //------------------------------------------------------------------------------
@@ -110,7 +110,7 @@ bool BaseComponent::started() const
 void BaseComponent::shutdown()
 {
     if (!m_isStarted) {
-        log.w(QString("Component \"%1\" is being shut down, but it was not started up.").arg(name()));
+        Log.w(QString("Component \"%1\" is being shut down, but it was not started up.").arg(name()));
         return;
     }
 
@@ -122,7 +122,7 @@ void BaseComponent::shutdown()
 bool BaseComponent::startup(QObject *initData)
 {
     if (m_isStarted) {
-        log.w(QString("Component \"%1\" is being started up, but it was not shut down.").arg(name()));
+        Log.w(QString("Component \"%1\" is being started up, but it was not shut down.").arg(name()));
         return true;
     }
 

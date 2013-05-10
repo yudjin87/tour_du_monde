@@ -34,7 +34,7 @@
 //------------------------------------------------------------------------------
 namespace
 {
-static LoggerFacade log = LoggerFacade::createLogger("ComponentDependencies");
+static LoggerFacade Log = LoggerFacade::createLogger("ComponentDependencies");
 }
 
 //------------------------------------------------------------------------------
@@ -53,12 +53,12 @@ ComponentDependencies::~ComponentDependencies()
 bool ComponentDependencies::addComponent(IComponent *component)
 {
     if (component == nullptr) {
-        log.w("Attemp to add null component. Ignoring it.");
+        Log.w("Attemp to add null component. Ignoring it.");
         return false;
     }
 
     if (componentByName(component->name()) != nullptr) {
-        log.w("Attemp to add already existing component. Ignoring it.");
+        Log.w("Attemp to add already existing component. Ignoring it.");
         return false;
     }
 
@@ -253,12 +253,12 @@ DependenciesSolvingResult ComponentDependencies::solveDependencies(const QList<I
 
     bool hasCyclic = !solver.solve(ordered, orphans, missing);
     if (hasCyclic) {
-        log.w("At least one cyclic dependency has been found in the component manager. Cycles in the component dependencies must be avoided.");
+        Log.w("At least one cyclic dependency has been found in the component manager. Cycles in the component dependencies must be avoided.");
         return DependenciesSolvingResult(ordered, orphans, missing, components, hasCyclic);
     }
 
     if (!missing.isEmpty()) {
-        log.w(QString("A component declared a dependency on another component which is not declared to be loaded. Missing component(s): %1")
+        Log.w(QString("A component declared a dependency on another component which is not declared to be loaded. Missing component(s): %1")
                .arg(missing.join(", ")).toLatin1());
     }
 

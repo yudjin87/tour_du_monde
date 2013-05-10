@@ -37,7 +37,7 @@
 //------------------------------------------------------------------------------
 namespace
 {
-static LoggerFacade log = LoggerFacade::createLogger("CarouselBootloader");
+static LoggerFacade Log = LoggerFacade::createLogger("CarouselBootloader");
 }
 
 //------------------------------------------------------------------------------
@@ -54,12 +54,12 @@ CarouselBootloader::~CarouselBootloader()
 //------------------------------------------------------------------------------
 void CarouselBootloader::configureComponentManager()
 {
-    log.i("Initializing component manager.");
-    log.i(QString("Adding %1 components to the component manager.").arg(m_componentProvider->components().count()));
+    Log.i("Initializing component manager.");
+    Log.i(QString("Adding %1 components to the component manager.").arg(m_componentProvider->components().count()));
 
     foreach(IComponent *component, m_componentProvider->components()) {
         m_componentManager->addComponent(component);
-        log.i(QString("%1 component has been added to the component manager.").arg(component->name()));
+        Log.i(QString("%1 component has been added to the component manager.").arg(component->name()));
     }
 }
 
@@ -85,33 +85,33 @@ void CarouselBootloader::safeRun()
     m_logger = createLoggerEngine();
 
     LoggerFacade::installLoggerEngine(m_logger);
-    log.i("Logger has been created.");
+    Log.i("Logger has been created.");
 
-    log.i("Creating IComponentManager.");
+    Log.i("Creating IComponentManager.");
     m_componentManager = createComponentManager();
 
-    log.i("Creating IComponentProvider.");
+    Log.i("Creating IComponentProvider.");
     m_componentProvider = createComponentProvider();
 
-    log.i("Creating IServiceLocator.");
+    Log.i("Creating IServiceLocator.");
     m_serviceLocator = createServiceLocator();
 
-    log.i("Creating MainWindow.");
+    Log.i("Creating MainWindow.");
     m_mainWindow = createMainWindow();
 
-    log.i("Configuring IComponentProvider.");
+    Log.i("Configuring IComponentProvider.");
     configureComponentProvider();
 
-    log.i("Configuring IServiceLocator.");
+    Log.i("Configuring IServiceLocator.");
     configureServiceLocator();
 
-    log.i("Initializing IComponentProvider.");
+    Log.i("Initializing IComponentProvider.");
     initialiseComponentProvider();
 
-    log.i("Configuring IComponentManager.");
+    Log.i("Configuring IComponentManager.");
     configureComponentManager();
 
-    log.i("Loading sequence completed.");
+    Log.i("Loading sequence completed.");
 }
 
 //------------------------------------------------------------------------------

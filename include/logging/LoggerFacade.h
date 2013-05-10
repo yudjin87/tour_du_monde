@@ -50,7 +50,7 @@
  *   to LoggerFacade instance through the loggerEngine():
  *
  * @code
- *   LoggerFacade log = LoggerFacade::loggerEngine()->getLogger("MyLoggerName");
+ *   LoggerFacade Log = LoggerFacade::loggerEngine()->getLogger("MyLoggerName");
  * @endcode
  *
  *   To instantiate your own logger facade to the application logging engine you have to override
@@ -69,7 +69,7 @@ public:
      *
      *   You should use it every time when you want to get a logger:
      * @code
-     *   LoggerFacade log = LoggerFacade::createLogger("MyLoggerName");
+     *   LoggerFacade Log = LoggerFacade::createLogger("MyLoggerName");
      * @endcode
      */
     static LoggerFacade createLogger(const QString &name);
