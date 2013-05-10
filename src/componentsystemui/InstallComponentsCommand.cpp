@@ -117,6 +117,11 @@ bool InstallComponentsCommand::tryRedo()
 //------------------------------------------------------------------------------
 void InstallComponentsCommand::redo()
 {
+    if (!m_installedComponents.empty()) {
+        // Redo after undo installing
+        m_manager->startupComponents(m_installedComponents);
+        return;
+    }
     // Get component names from the files
     QStringList componentNames;
     foreach(const QString &fileName, m_definitionFiles) {
@@ -155,14 +160,7 @@ void InstallComponentsCommand::redo()
 //------------------------------------------------------------------------------
 void InstallComponentsCommand::undo()
 {
-//    m_manager->shutdownComponents(m_installedComponents);
-
-//    foreach(IComponent *component, m_installedComponents) {
-//        m_manager->removeComponent(component);
-//        const QString &definitionFileName = component->definition()->definitionLocation();
-//        QFileInfo definitionFile(definitionFileName);
-//        fileUtils::removeTree(definitionFile.absolutePath());
-//    }
+    m_manager->shutdownComponents(m_installedComponents);
 }
 
 //------------------------------------------------------------------------------
