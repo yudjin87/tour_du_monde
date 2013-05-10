@@ -6,6 +6,7 @@ include(cmake/target_utils)
 ######################################################################
 # Sources
 set(__SOURCES
+    ${CRSL_TARGET_SOURCES}/LoggerFacade.cpp 
     ${CRSL_TARGET_SOURCES}/NullLogger.cpp 
     ${CRSL_TARGET_SOURCES}/TextLogger.cpp 
 )
@@ -13,7 +14,7 @@ set(__SOURCES
 ######################################################################
 # Headers
 set(__HEADERS
-    ${CRSL_TARGET_HEADERS}/ILogger.h 
+    ${CRSL_TARGET_HEADERS}/LoggerFacade.h 
     ${CRSL_TARGET_HEADERS}/logging_global.h 
     ${CRSL_TARGET_HEADERS}/NullLogger.h 
     ${CRSL_TARGET_HEADERS}/TextLogger.h 
