@@ -26,70 +26,12 @@
 
 #include "PainterApplication.h"
 
-#include <booting/IBootloader.h>
-#include <componentsystem/IComponentManager.h>
-#include <utils/IServiceLocator.h>
-
-#include <QtGui/QMainWindow>
-
 //------------------------------------------------------------------------------
-PainterApplication::PainterApplication(int &argc, char **argv, int flags)
-    : AbstractApplication(argc, argv, flags)
-    , mp_serviceLocator(nullptr)
+PainterApplication::PainterApplication(int &argc, char **argv)
+    : AbstractApplication(argc, argv)
 {
-    connect(this, SIGNAL(aboutToQuit()), SLOT(cleanUp()));
     setApplicationName("painter");
     setOrganizationName("carousel-demo");
-}
-
-//------------------------------------------------------------------------------
-PainterApplication::PainterApplication(int &argc, char **argv, bool GUIenabled, int flags)
-    : AbstractApplication(argc, argv, GUIenabled, flags)
-    , mp_serviceLocator(nullptr)
-{
-    connect(this, SIGNAL(aboutToQuit()), SLOT(cleanUp()));
-}
-
-//------------------------------------------------------------------------------
-PainterApplication::PainterApplication(int &argc, char **argv, QApplication::Type type, int flags)
-    : AbstractApplication(argc, argv, type, flags)
-    , mp_serviceLocator(nullptr)
-{
-    connect(this, SIGNAL(aboutToQuit()), SLOT(cleanUp()));
-}
-
-//------------------------------------------------------------------------------
-PainterApplication::~PainterApplication()
-{
-    mp_serviceLocator = nullptr;
-}
-
-//------------------------------------------------------------------------------
-int PainterApplication::run(IBootloader &bootloader)
-{
-    bootloader.run();
-    mp_serviceLocator = bootloader.serviceLocator();
-
-    IComponentManager *componentManager = mp_serviceLocator->locate<IComponentManager>();
-    componentManager->startup();
-
-    QMainWindow *mainWindow = mp_serviceLocator->locate<QMainWindow>();
-    mainWindow->show();
-
-    return AbstractApplication::exec();
-}
-
-//------------------------------------------------------------------------------
-IServiceLocator &PainterApplication::serviceLocator()
-{
-    return *mp_serviceLocator;
-}
-
-//------------------------------------------------------------------------------
-void PainterApplication::cleanUp()
-{
-    IComponentManager *componentManager = mp_serviceLocator->locate<IComponentManager>();
-    componentManager->shutdown();
 }
 
 //------------------------------------------------------------------------------

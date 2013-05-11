@@ -26,27 +26,78 @@
 
 #include "AbstractApplication.h"
 
+#include <booting/IBootloader.h>
+#include <componentsystem/IComponentManager.h>
+#include <utils/IServiceLocator.h>
+
+#include <QtGui/QMainWindow>
+
 //------------------------------------------------------------------------------
 AbstractApplication::AbstractApplication(int &argc, char **argv, int flags)
     : QApplication(argc, argv, flags)
+    , m_serviceLocator(nullptr)
 {
 }
 
 //------------------------------------------------------------------------------
 AbstractApplication::AbstractApplication(int &argc, char **argv, bool GUIenabled, int flags)
     : QApplication(argc, argv, GUIenabled, flags)
+    , m_serviceLocator(nullptr)
 {
 }
 
 //------------------------------------------------------------------------------
 AbstractApplication::AbstractApplication(int &argc, char **argv, QApplication::Type type, int flags)
     : QApplication(argc, argv, type, flags)
+    , m_serviceLocator(nullptr)
 {
 }
 
 //------------------------------------------------------------------------------
 AbstractApplication::~AbstractApplication()
 {
+}
+
+//------------------------------------------------------------------------------
+IServiceLocator &AbstractApplication::serviceLocator()
+{
+    return *m_serviceLocator;
+}
+
+//------------------------------------------------------------------------------
+int AbstractApplication::runApplicationLoop(IBootloader &bootloader)
+{
+    startLoadingSequence(bootloader);
+
+    finishLoadingSequence();
+
+    return QApplication::exec();
+}
+
+//------------------------------------------------------------------------------
+void AbstractApplication::startLoadingSequence(IBootloader &bootloader)
+{
+    bootloader.run();
+    m_serviceLocator = bootloader.serviceLocator();
+
+    connect(this, SIGNAL(aboutToQuit()), this, SLOT(onAboutToQuit()));
+}
+
+//------------------------------------------------------------------------------
+void AbstractApplication::finishLoadingSequence()
+{
+    IComponentManager *componentManager = m_serviceLocator->locate<IComponentManager>();
+    componentManager->startup();
+
+    QMainWindow *mainWindow = m_serviceLocator->locate<QMainWindow>();
+    mainWindow->show();
+}
+
+//------------------------------------------------------------------------------
+void AbstractApplication::onAboutToQuit()
+{
+    IComponentManager *componentManager = m_serviceLocator->locate<IComponentManager>();
+    componentManager->shutdown();
 }
 
 //------------------------------------------------------------------------------

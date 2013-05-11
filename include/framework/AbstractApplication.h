@@ -31,7 +31,9 @@
 
 #include <QtGui/QApplication>
 
+class IBootloader;
 class IServiceLocator;
+class QMainWindow;
 
 class FRAMEWORK_API AbstractApplication : public QApplication
 {
@@ -43,7 +45,17 @@ public:
     AbstractApplication(int &argc, char **argv, Type type, int flags = ApplicationFlags);
     ~AbstractApplication();
 
-    virtual IServiceLocator &serviceLocator() = 0;
+    virtual IServiceLocator &serviceLocator();
+
+    virtual int runApplicationLoop(IBootloader &bootloader);
+
+protected slots:
+    virtual void startLoadingSequence(IBootloader &bootloader);
+    virtual void finishLoadingSequence();
+    virtual void onAboutToQuit();
+
+private:
+    IServiceLocator *m_serviceLocator;
 };
 
 #endif // ABSTRACTAPPLICATION_H

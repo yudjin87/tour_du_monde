@@ -35,20 +35,7 @@ class PainterApplication : public AbstractApplication
 {
     Q_OBJECT
 public:
-    PainterApplication(int &argc, char **argv, int flags = ApplicationFlags);
-    PainterApplication(int &argc, char **argv, bool GUIenabled, int flags = ApplicationFlags);
-    PainterApplication(int &argc, char **argv, Type type, int flags = ApplicationFlags);
-    ~PainterApplication();
-
-    int run(IBootloader &bootloader);
-
-    IServiceLocator &serviceLocator();
-
-private slots:
-    void cleanUp();
-
-private:
-    IServiceLocator *mp_serviceLocator;
+    PainterApplication(int &argc, char **argv);
 };
 
 #endif // PAINTERAPPLICATION_H
