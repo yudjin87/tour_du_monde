@@ -33,6 +33,10 @@ add_library(${CRSL_PROJECT_NAME} ${CRSL_LIB_TYPE} ${__SOURCES} ${__HEADERS} ${__
 # Setup output path
 crsl_setup_output_path(bin)
 
+######################################################################
+# Add targets to a list of libraries to linking
+target_link_libraries(${CRSL_PROJECT_NAME} ComponentSystem)
+
 ###############################################################################
 # Qt dependencies
 target_link_libraries(${CRSL_PROJECT_NAME} ${QT_QTCORE_LIBRARY})
