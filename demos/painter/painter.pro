@@ -2,6 +2,7 @@ TEMPLATE = subdirs
 CONFIG  += ordered
 
 SUBDIRS += \
+    componentManagement \
     app \
     geometry \
     display \
@@ -14,5 +15,5 @@ SUBDIRS += \
     #geometry_test
     addShapeOperation \
     navigationOperations \
-    componentManagement
+
 

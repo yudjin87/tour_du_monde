@@ -27,6 +27,7 @@
 #include "Bootloader.h"
 #include "MainWindow.h"
 
+#include <componentManagement/ComponentManagementComponent.h>
 #include <componentsystem/CompositeComponentProvider.h>
 #include <componentsystem/DirectoryComponentProvider.h>
 #include <componentsystem/IComponentManager.h>
@@ -46,11 +47,11 @@ Bootloader::Bootloader()
 void Bootloader::configureComponentProvider()
 {
     CompositeComponentProvider *provider = static_cast<CompositeComponentProvider *>(m_componentProvider);
-    provider->addProvider(new DirectoryComponentProvider("./components"));
     provider->addProvider(new DirectoryComponentProvider("./installedComponents"));
     provider->registerComponent(new InteractionServiceComponent());
     provider->registerComponent(new ComponentSystemUIComponent());
     provider->registerComponent(new UndoComponent());
+    provider->registerComponent(new ComponentManagementComponent());
 }
 
 //------------------------------------------------------------------------------

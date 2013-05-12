@@ -8,6 +8,8 @@ TEMPLATE = app
 
 DESTDIR = $${BIN_OUTPUT_PATH}/bin
 
+LIBS += -L$${DESTDIR}/components -lComponentManagement
+
 LIBS += -L$${CAROUSEL_BIN} -lComponentSystem \
                            -lBooting \
                            -lFramework \
