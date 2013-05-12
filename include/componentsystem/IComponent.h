@@ -30,6 +30,7 @@
 #include "componentsystem/componentsystem_global.h"
 #include "componentsystem/IComponentExtension.h"
 
+#include <QtCore/QMetaType>
 #include <QtCore/QObject>
 #include <QtCore/QString>
 
@@ -214,6 +215,9 @@ const TExtension *IComponent::extension() const
 
     return reinterpret_cast<TExtension *>(extension);
 }
+
+Q_DECLARE_METATYPE(IComponent*)
+Q_DECLARE_METATYPE(IComponent::Availability)
 
 //------------------------------------------------------------------------------
 #endif // ICOMPONENT_H

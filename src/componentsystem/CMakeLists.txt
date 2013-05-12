@@ -22,6 +22,7 @@ set(__SOURCES
     ${CRSL_TARGET_SOURCES}/DirectoryInstaller.cpp 
     ${CRSL_TARGET_SOURCES}/DirectoryWatchingComponentProvider.cpp 
     ${CRSL_TARGET_SOURCES}/FileComponentProvider.cpp 
+    ${CRSL_TARGET_SOURCES}/IComponent.cpp 
     ${CRSL_TARGET_SOURCES}/ProxyComponent.cpp 
     ${CRSL_TARGET_SOURCES}/WebInstaller.cpp 
     ${CRSL_TARGET_SOURCES}/XmlDefinitionParser.cpp 
