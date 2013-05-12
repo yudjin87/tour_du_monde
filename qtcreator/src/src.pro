@@ -12,3 +12,4 @@ SUBDIRS += \
     interactivity \
     componentsystemui \
     undo \
+    jsscripting \

@@ -1,15 +1,15 @@
 include (../../carousel.pri)
-include (undo.pri)
+include (jsscripting.pri)
 
 QT      += gui
 QT      += core
 TEMPLATE = lib
 
-TARGET = Undo
+TARGET = JsScripting
 
-DEFINES += UNDO_LIBRARY
+DEFINES += JSSCRIPTING_LIBRARY
 
-INCLUDEPATH += $$HPP_SOURCE_TREE/undo
+INCLUDEPATH += $$HPP_SOURCE_TREE/jsscripting
 
 LIBS += -L$${DESTDIR} -lComponentSystem \
                       -lFramework \

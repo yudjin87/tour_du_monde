@@ -1,0 +1,7 @@
+ <component name="JsScripting">
+     <productName>JsScripting</productName>
+     <parents>
+         <parentComponent name="Interactivity"/>
+     </parents>
+     <location>./JsScripting</location>
+ </component>

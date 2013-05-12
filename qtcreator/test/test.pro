@@ -9,6 +9,6 @@ SUBDIRS += \
     componentsystem_test_libs \
     componentsystemui_test \
     interactivity_test \
-    #interactivityUI_test \
     logging_test \
-    utils_test
+    utils_test \
+    jsscripting_test \
