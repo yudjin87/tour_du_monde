@@ -82,7 +82,8 @@ function(crsl_build_project __BUILD_TYPE __BUILD_TREE_PATH __NATIVE_PARAMS __BUI
     execute_process(COMMAND ${CMAKE_COMMAND}
       --build .  
       --config ${__BUILD_TYPE}
-      WORKING_DIRECTORY ${__BUILD_TREE_PATH})
+      WORKING_DIRECTORY ${__BUILD_TREE_PATH}
+      RESULT_VARIABLE BUILD_RESULT)
   else()
       execute_process(COMMAND ${CMAKE_COMMAND}
       --build .  
