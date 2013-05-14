@@ -35,6 +35,7 @@ EnableComponentCommand::EnableComponentCommand(IComponentManager *manager, QUndo
     : QUndoCommand(parent)
     , m_manager(manager)
 {
+    setText("enabling components");
 }
 
 //------------------------------------------------------------------------------

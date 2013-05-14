@@ -66,6 +66,7 @@ void RedoOperation::initialize(QObject *startUpData)
 void RedoOperation::onActionChanged()
 {
     setEnabled(m_action->isEnabled());
+    setText(m_action->text());
 }
 
 //------------------------------------------------------------------------------

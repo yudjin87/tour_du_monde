@@ -66,6 +66,7 @@ void UndoOperation::initialize(QObject *startUpData)
 void UndoOperation::onActionChanged()
 {
     setEnabled(m_action->isEnabled());
+    setText(m_action->text());
 }
 
 //------------------------------------------------------------------------------

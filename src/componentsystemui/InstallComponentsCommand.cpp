@@ -46,6 +46,7 @@ InstallComponentsCommand::InstallComponentsCommand(IComponentManager *manager, Q
     , m_addAfterInstallation(true)
     , m_startAfterInstallation(true)
 {
+    setText("installing new components");
 }
 
 //------------------------------------------------------------------------------
