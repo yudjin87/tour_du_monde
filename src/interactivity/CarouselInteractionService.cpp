@@ -160,6 +160,7 @@ void CarouselInteractionService::setActiveTool(ITool *activeTool)
         QObject *tool = dynamic_cast<QObject *>(activeTool);
         Q_ASSERT(tool != nullptr);
         this->connect(tool, SIGNAL(executingStopped()), SLOT(onToolExecutingStopped()));
+        this->connect(tool, SIGNAL(destroyed()), SLOT(onToolDeleted()));
     }
 
     if (m_activeTool != nullptr) {
@@ -250,6 +251,12 @@ void CarouselInteractionService::onToolExecutingStopped()
     m_activeTool = nullptr;
     if (m_inputInterceptor != nullptr)
         m_inputInterceptor->setReceiver(nullptr);
+}
+
+//------------------------------------------------------------------------------
+void CarouselInteractionService::onToolDeleted()
+{
+    onToolExecutingStopped();
 }
 
 //------------------------------------------------------------------------------

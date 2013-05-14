@@ -176,6 +176,7 @@ protected slots:
     void onComponentAboutToShutDown(IComponent *component);
     void onComponentManagerAboutToShutDown();
     void onToolExecutingStopped();
+    void onToolDeleted();
 
 private:
     void makeConnections();

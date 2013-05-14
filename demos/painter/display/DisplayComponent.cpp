@@ -61,8 +61,11 @@ void DisplayComponent::onShutdown()
     QGraphicsScene *scene = locator.unregisterInstance<QGraphicsScene>();
     QGraphicsView *view = scene->views().first();
 
-    delete view;
     delete scene;
+    delete view;
+
+    IInteractionService* interactionService = m_app->serviceLocator().locate<IInteractionService>();
+    interactionService->setInputInterceptor(nullptr);
 }
 
 //------------------------------------------------------------------------------

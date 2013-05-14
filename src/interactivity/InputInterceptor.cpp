@@ -88,6 +88,9 @@ void InputInterceptor::setSender(QWidget *interceptedWidget)
 void InputInterceptor::setReceiver(IInputReceiver *receiver)
 {
     m_receiver = receiver;
+    if (m_receiver != nullptr)
+        connect(dynamic_cast<QObject *>(m_receiver), SIGNAL(destroyed()), SLOT(onReceiverDeleted()));
+
     m_isWorking = invalidate(m_interceptedWidget);
 }
 
@@ -178,6 +181,13 @@ bool InputInterceptor::invalidate(QWidget *interceptedWidget)
 void InputInterceptor::onSenderDeleted()
 {
     m_interceptedWidget = nullptr;
+    m_isWorking = invalidate(m_interceptedWidget);
+}
+
+//------------------------------------------------------------------------------
+void InputInterceptor::onReceiverDeleted()
+{
+    m_receiver = nullptr;
     m_isWorking = invalidate(m_interceptedWidget);
 }
 

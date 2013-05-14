@@ -140,6 +140,22 @@ void CarouselInteractionServiceTest::shouldSetupCurrentToolToInterceptor()
 }
 
 //------------------------------------------------------------------------------
+void CarouselInteractionServiceTest::shouldNullToolAfterItsDeletion()
+{
+    MockApplication& app = dynamic_cast<MockApplication &>(*qApp);
+    QMainWindow mainWnd; MockComponentManager manager;
+
+    CarouselInteractionService service(app, &mainWnd, &manager);
+    {
+        MockTool tool;
+        service.setActiveTool(&tool);
+        QVERIFY(service.activeTool() != nullptr);
+    }
+
+    QVERIFY(service.activeTool() == nullptr);
+}
+
+//------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldNotThrowIfPreviousInterceptorIsNull()
 {
     MockApplication& app = dynamic_cast<MockApplication &>(*qApp);

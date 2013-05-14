@@ -45,6 +45,7 @@ private Q_SLOTS:
 
     void shouldSetupInputInterceptor();
     void shouldSetupCurrentToolToInterceptor();
+    void shouldNullToolAfterItsDeletion();
     void shouldNotThrowIfPreviousInterceptorIsNull();
     void shouldNotThrowIfNewInterceptorIsNull();
     void shouldDeletePreviousInputInterceptor();

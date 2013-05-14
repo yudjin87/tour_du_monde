@@ -248,6 +248,24 @@ void InputInterceptorTest::shouldNotBeWorkingAfterSenderDeletion()
 }
 
 //------------------------------------------------------------------------------
+void InputInterceptorTest::shouldNotBeWorkingAfterReceiverDeletion()
+{
+    InputInterceptor interceptor;
+    interceptor.activate();
+    QWidget widget;
+    interceptor.setSender(&widget);
+
+    {
+        MockTool tool;
+        interceptor.setReceiver(&tool);
+        QCOMPARE(interceptor.isWorking(), true);
+    }
+
+    QCOMPARE(interceptor.isWorking(), false);
+    QVERIFY(interceptor.receiver() == nullptr);
+}
+
+//------------------------------------------------------------------------------
 void InputInterceptorTest::shouldCallReceiverIfWorking()
 {
     QWidget widget;

@@ -138,6 +138,7 @@ private:
 
 private slots:
     void onSenderDeleted();
+    void onReceiverDeleted();
 
 private:
     QWidget *m_interceptedWidget;
