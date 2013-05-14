@@ -33,7 +33,6 @@
 #include <QtCore/QString>
 
 #include <functional>
-#include <typeinfo>
 
 typedef std::function<void*(void)> factoryMethod;
 
@@ -55,7 +54,7 @@ typedef std::function<void*(void)> factoryMethod;
  *   to create pure abstract class (interface) without knowledge of concrete class.
  *
  *   The services and type factories are unique in the registry, and this uniqueness is defined by
- *   the two parameters: registered type name (obtained through @a typeid() operator) and the tag.
+ *   the two parameters: registered class name (obtained through @a meta-object) and the tag.
  *   So, if you want to register existing service type or existing type factory you have to adding
  *   the unique tag for it.
  *   The service or type factory registered without special tag will be tagged with "" (empty
@@ -66,15 +65,18 @@ typedef std::function<void*(void)> factoryMethod;
  *
  *   Here is simple example of service locator usage:
  * @code
- *   class IA {
+ *   class IA : public QObject {
+ *     Q_OBJECT
  *     public: virtual ~IA(){}
  *     };
  *
  *   class A : public IA {
+ *     Q_OBJECT
  *     public: A(){}
  *     };
  *
  *   class IB {
+ *     Q_OBJECT
  *     public: virtual ~IB(){}
  *     };
  *
@@ -85,11 +87,13 @@ typedef std::function<void*(void)> factoryMethod;
  *       IA* m_a;
  *     };
  *
- *   class IC {
+ *   class IC : public QObject{
+ *     Q_OBJECT
  *     public: virtual ~IC(){}
  *     };
  *
  *   class C : public IC {
+ *     Q_OBJECT
  *     public:
  *       C(IB* b, IA* a) : m_b(b) , m_a(a) {}
  *
@@ -286,7 +290,7 @@ protected:
      * @return The raw pointer corresponded with specified interface id and tag if such found.
      *   Null pointer otherwise.
      */
-    virtual void *buildInstanceImpl(const QString &byTypeId, const QString &tag) const = 0;
+    virtual void *buildInstanceImpl(const QString &forClassName, const QString &tag) const = 0;
 
     /*!
      * @details
@@ -295,37 +299,37 @@ protected:
      * @return The raw pointer corresponded with specified type id and tag if such found.
      *   Null pointer otherwise.
      */
-    virtual void *getService(const QString &byTypeId, const QString &tag) const = 0;
+    virtual void *getService(const QString &forClassName, const QString &tag) const = 0;
 
     /*!
      * @details
      *   When overridden in derived classes registers a raw pointer with specified
      *   tag in inner objects dictionary.
-     * @param forTypeId
+     * @param forClassName
      *   The name of type which @a instance should be associated with.
      */
-    virtual void registerInstanceImpl(void *instance, const QString &forTypeId, const QString &tag) = 0;
+    virtual void registerInstanceImpl(void *instance, const QString &forClassName, const QString &tag) = 0;
 
     /*!
      * @details
      *   When overridden in derived classes unregisters (removes) a service instance with specified
      *   type id and tag from the inner objects dictionary (if any).
-     * @param forTypeId
+     * @param forClassName
      *   The name of type which removed instance should be associated with.
      * @return The raw pointer corresponded with specified type id and tag if such found.
      *   Null pointer otherwise.
      */
-    virtual void *unregisterInstanceImpl(const QString &forTypeId, const QString &tag) = 0;
+    virtual void *unregisterInstanceImpl(const QString &forClassName, const QString &tag) = 0;
 
     /*!
      * @details
      *   When overridden in derived classes binds an interface type id with
      *   specified factory method (that should create instance of interface) and
      *   with specified tag in inner objects dictionary.
-     * @param forTypeId
+     * @param forClassName
      *   The name of type which @a factory method should be associated with.
      */
-    virtual void registerTypeImpl(const QString &typeIdName, factoryMethod method, const QString &tag) = 0;
+    virtual void registerTypeImpl(const QString &forClassName, factoryMethod method, const QString &tag) = 0;
 
 private:
     Q_DISABLE_COPY(IServiceLocator)
@@ -365,8 +369,8 @@ TInterface *IServiceLocator::buildInstance() const
 template<typename TInterface>
 TInterface *IServiceLocator::buildInstance(const QString &tag) const
 {
-    const char *typeIdName = typeid(TInterface).name();
-    void *data = this->buildInstanceImpl(typeIdName, tag);
+    const char *className = TInterface::staticMetaObject.className();
+    void *data = this->buildInstanceImpl(className, tag);
 
     // TODO: use static checks (c++11) during type registering and building.
     QObject *obj = reinterpret_cast<QObject *>(data);
@@ -386,8 +390,8 @@ TService *IServiceLocator::locate()
 template<typename TService>
 TService *IServiceLocator::locate(const QString &tag)
 {
-    const QString &service_name = typeid(TService).name();
-    void *data = this->getService(service_name, tag);
+    const QString &className = TService::staticMetaObject.className();
+    void *data = this->getService(className, tag);
 
     QObject *obj = reinterpret_cast<QObject *>(data);
     TService *service = qobject_cast<TService *>(obj);
@@ -406,8 +410,8 @@ void IServiceLocator::registerInstance(TService *instance)
 template<typename TService>
 void IServiceLocator::registerInstance(TService *instance, const QString &tag)
 {
-    const QString &service_name = typeid(TService).name();
-    this->registerInstanceImpl(reinterpret_cast<void *>(instance), service_name, tag);
+    const QString &className = TService::staticMetaObject.className();
+    this->registerInstanceImpl(reinterpret_cast<void *>(instance), className, tag);
 }
 
 //------------------------------------------------------------------------------
@@ -421,8 +425,8 @@ void IServiceLocator::registerType(factoryMethod method)
 template<typename TInterface>
 void IServiceLocator::registerType(factoryMethod method, const QString &tag)
 {
-    const char *typeIdName = typeid(TInterface).name();
-    this->registerTypeImpl(typeIdName, method, tag);
+    const char *className = TInterface::staticMetaObject.className();
+    this->registerTypeImpl(className, method, tag);
 }
 
 //------------------------------------------------------------------------------
@@ -436,8 +440,8 @@ TService *IServiceLocator::unregisterInstance()
 template<typename TService>
 TService *IServiceLocator::unregisterInstance(const QString &tag)
 {
-    const char *typeIdName = typeid(TService).name();
-    void *data = this->unregisterInstanceImpl(typeIdName, tag);
+    const char *className = TService::staticMetaObject.className();
+    void *data = this->unregisterInstanceImpl(className, tag);
 
     // TODO: use static checks (c++11) during type registering and building.
     QObject *obj = reinterpret_cast<QObject *>(data);

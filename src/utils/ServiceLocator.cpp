@@ -46,36 +46,36 @@ ServiceLocator::~ServiceLocator()
 }
 
 //------------------------------------------------------------------------------
-void ServiceLocator::registerTypeImpl(const QString &typeIdName, factoryMethod method, const QString &tag)
+void ServiceLocator::registerTypeImpl(const QString &forClassName, factoryMethod method, const QString &tag)
   {
-    m_creators->registerInstance(method, typeIdName, tag);
+    m_creators->registerInstance(method, forClassName, tag);
 }
 
 //------------------------------------------------------------------------------
-void *ServiceLocator::unregisterInstanceImpl(const QString &forTypeId, const QString &tag)
+void *ServiceLocator::unregisterInstanceImpl(const QString &forClassName, const QString &tag)
 {
-    void *foundInstance = m_objects->unregisterInstance(forTypeId, tag);
+    void *foundInstance = m_objects->unregisterInstance(forClassName, tag);
     return foundInstance;
 }
 
 //------------------------------------------------------------------------------
-void *ServiceLocator::buildInstanceImpl(const QString &typeIdName, const QString &tag) const
+void *ServiceLocator::buildInstanceImpl(const QString &forClassName, const QString &tag) const
   {
-  const factoryMethod &creator = m_creators->getInstance(typeIdName, tag);
+  const factoryMethod &creator = m_creators->getInstance(forClassName, tag);
   void *data = creator();
   return data;
   }
 
 //------------------------------------------------------------------------------
-void *ServiceLocator::getService(const QString &byTypeId, const QString &tag) const
+void *ServiceLocator::getService(const QString &forClassName, const QString &tag) const
 {
-    return m_objects->getInstance(byTypeId, tag);
+    return m_objects->getInstance(forClassName, tag);
 }
 
 //------------------------------------------------------------------------------
-void ServiceLocator::registerInstanceImpl(void *instance, const QString &forTypeId, const QString &tag)
+void ServiceLocator::registerInstanceImpl(void *instance, const QString &forClassName, const QString &tag)
 {
-    m_objects->registerInstance(instance, forTypeId, tag);
+    m_objects->registerInstance(instance, forClassName, tag);
 }
 
 //------------------------------------------------------------------------------

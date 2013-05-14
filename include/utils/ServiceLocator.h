@@ -56,7 +56,7 @@ protected:
      * @return The raw pointer corresponded with specified interface id and tag if such found.
      *   Null pointer otherwise.
      */
-    void *buildInstanceImpl(const QString &byTypeId, const QString &tag) const;
+    void *buildInstanceImpl(const QString &forClassName, const QString &tag) const;
 
     /*!
      * @details
@@ -65,35 +65,35 @@ protected:
      * @return The raw pointer corresponded with specified type id and tag if such found.
      *   Null pointer otherwise.
      */
-    void *getService(const QString &byTypeId, const QString &tag) const;
+    void *getService(const QString &forClassName, const QString &tag) const;
 
     /*!
      * @details
      *   Registers a raw pointer with specified tag in inner objects dictionary.
-     * @param forTypeId
+     * @param forClassName
      *   The name of type which @a instance should be associated with.
      */
-    void registerInstanceImpl(void *instance, const QString &forTypeId, const QString &tag);
+    void registerInstanceImpl(void *instance, const QString &forClassName, const QString &tag);
 
     /*!
      * @details
      *   Binds an interface type id with specified factory method (that should create
      *   instance of interface) and with specified tag in inner objects dictionary.
-     * @param forTypeId
+     * @param forClassName
      *   The name of type which @a factory method should be associated with.
      */
-    void registerTypeImpl(const QString &typeIdName, factoryMethod method, const QString &tag);
+    void registerTypeImpl(const QString &forClassName, factoryMethod method, const QString &tag);
 
     /*!
      * @details
      *   When overridden in derived classes unregisters (removes) a service instance with specified
      *   type id and tag from the inner objects dictionary (if any).
-     * @param forTypeId
+     * @param forClassName
      *   The name of type which removed instance should be associated with.
      * @return The raw pointer corresponded with specified type id and tag if such found.
      *   Null pointer otherwise.
      */
-    void *unregisterInstanceImpl(const QString &forTypeId, const QString &tag);
+    void *unregisterInstanceImpl(const QString &forClassName, const QString &tag);
 
 protected:
     TypeObjectsMap<void *> *m_objects;
