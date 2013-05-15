@@ -25,22 +25,14 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "AddShapeOperation.h"
-
-#include <carto/Map.h>
-#include <carto/FeatureLayer.h>
-#include <dom/IPainterDocument.h>
-#include <dom/IPainterDocumentController.h>
-#include <geodatabase/IFeatureWorkspace.h>
-#include <geodatabase/IShapeFileWorkspaceFactory.h>
-#include <geodatabase/IFeatureClass.h>
+#include "AddShapesCommand.h"
 
 #include <framework/AbstractApplication.h>
 #include <utils/IServiceLocator.h>
 
-#include <QtCore/QDir>
-#include <QtCore/QSettings>
 #include <QtGui/QFileDialog>
 #include <QtGui/QMainWindow>
+#include <QtGui/QUndoStack>
 
 //------------------------------------------------------------------------------
 AddShapeOperation::AddShapeOperation()
@@ -56,30 +48,17 @@ void AddShapeOperation::execute()
 {
     IServiceLocator &locator = m_app->serviceLocator();
 
-    QSettings settings;
-    QByteArray state = settings.value("Open_shape_dialog").toByteArray();
     QFileDialog fileDialog(locator.locate<QMainWindow>(), "Open shape");
     fileDialog.setFilter("Shape Files (*.shp)");
-    fileDialog.restoreState(state);
+    fileDialog.setFileMode(QFileDialog::ExistingFiles);
     if (!fileDialog.exec())
         return;
 
-    state = fileDialog.saveState();
-    settings.setValue("Open_shape_dialog", state);
+    AddShapesCommand *addShapesCommand = locator.buildInstance<AddShapesCommand>();
+    addShapesCommand->addShapeFiles(fileDialog.selectedFiles());
 
-    QDir workspaceLocation = fileDialog.directory();
-    QString fileName = fileDialog.selectedFiles().first();
-
-
-    IPainterDocumentController* docController = m_app->serviceLocator().locate<IPainterDocumentController>();
-    IPainterDocument *doc = docController->document();
-
-    IShapeFileWorkspaceFactory *factory = locator.buildInstance<IShapeFileWorkspaceFactory>();
-    IFeatureWorkspace *workspace = (IFeatureWorkspace *) factory->openFromFile(workspaceLocation.absolutePath());
-    IFeatureClass *railwaysClass = workspace->openFeatureClass(fileName);
-    FeatureLayer *railwaysLayer = new FeatureLayer();
-    railwaysLayer->setFeatureClass(railwaysClass);
-    doc->map().addLayer(railwaysLayer);
+    QUndoStack *undoStack = locator.locate<QUndoStack>();
+    undoStack->push(addShapesCommand);
 }
 
 //------------------------------------------------------------------------------

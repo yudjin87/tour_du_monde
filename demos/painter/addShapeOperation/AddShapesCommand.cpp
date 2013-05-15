@@ -24,69 +24,67 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "AddShapeOperationComponent.h"
-#include "AddShapeOperationInteractiveExtension.h"
 #include "AddShapesCommand.h"
 
-#include <componentsystem/ComponentDefinition.h>
-#include <componentsystem/ComponentExport.h>
-#include <framework/AbstractApplication.h>
+#include <carto/Map.h>
+#include <carto/FeatureLayer.h>
+#include <dom/IPainterDocument.h>
+#include <dom/IPainterDocumentController.h>
+#include <geodatabase/IFeatureWorkspace.h>
+#include <geodatabase/IShapeFileWorkspaceFactory.h>
+#include <geodatabase/IFeatureClass.h>
 #include <utils/IServiceLocator.h>
 
-#include <functional>
+#include <QtCore/QFileInfo>
+#include <QtCore/QScopedPointer>
 
 //------------------------------------------------------------------------------
-static const QByteArray productName("AddShapeOperation");
+typedef QScopedPointer<IShapeFileWorkspaceFactory> IShapeFileWorkspaceFactoryPtr;
 
 //------------------------------------------------------------------------------
-// TODO: will be removed when c++11 is supported (with lambdas)
-void *createAddShapesCommand(IServiceLocator *locator)
+AddShapesCommand::AddShapesCommand(IServiceLocator *locator, QUndoCommand *parent)
+    : QUndoCommand(parent)
+    , m_locator(locator)
 {
-    return new AddShapesCommand(locator);
+    setText("adding shape layer(s)");
 }
 
 //------------------------------------------------------------------------------
-AddShapeOperationComponent::AddShapeOperationComponent(QObject *parent /*= nullptr*/)
-    : BaseComponent("AddShapeOperation", parent)
-{
-    IInteractiveExtension *interactiveExtension = new AddShapeOperationInteractiveExtension(this);
-    registerExtension<IInteractiveExtension>(interactiveExtension);
-
-    addParent("Dom");
-    addParent("Geodatabase");
-    addParent("Display");
-    addParent("Carto");
-    addParent("CartoUI");
-    addParent("Undo");
-    setProductName(productName);
-}
-
-//------------------------------------------------------------------------------
-AddShapeOperationComponent::~AddShapeOperationComponent()
+AddShapesCommand::~AddShapesCommand()
 {
 }
 
 //------------------------------------------------------------------------------
-bool AddShapeOperationComponent::onStartup(QObject *ip_initData)
+void AddShapesCommand::addShapeFiles(const QStringList &files)
 {
-    AbstractApplication *app = qobject_cast<AbstractApplication *>(ip_initData);
-    if (app == nullptr)
-        return false;
-
-    IServiceLocator &locator = app->serviceLocator();
-
-    auto creator = std::bind(&createAddShapesCommand, &locator);
-    locator.registerType<AddShapesCommand>(creator);
-
-    return true;
+    m_files = files;
 }
 
 //------------------------------------------------------------------------------
-void AddShapeOperationComponent::onShutdown()
+void AddShapesCommand::redo()
 {
+    foreach(const QString &fileName, m_files) {
+        QFileInfo shapeFile(fileName);
+        const QString &workingDirectory = shapeFile.absolutePath();
+
+        IPainterDocumentController* docController = m_locator->locate<IPainterDocumentController>();
+        IPainterDocument *doc = docController->document();
+
+        IShapeFileWorkspaceFactoryPtr factory(m_locator->buildInstance<IShapeFileWorkspaceFactory>());
+        IFeatureWorkspace *workspace = (IFeatureWorkspace *) factory->openFromFile(workingDirectory);
+
+        IFeatureClass *railwaysClass = workspace->openFeatureClass(fileName);
+        FeatureLayer *railwaysLayer = new FeatureLayer();
+        railwaysLayer->setFeatureClass(railwaysClass);
+        doc->map().addLayer(railwaysLayer);
+    }
 }
 
 //------------------------------------------------------------------------------
-EXPORT_COMPONENT(AddShapeOperationComponent)
+void AddShapesCommand::undo()
+{
+
+}
 
 //------------------------------------------------------------------------------
+

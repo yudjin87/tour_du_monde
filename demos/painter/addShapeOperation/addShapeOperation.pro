@@ -25,12 +25,14 @@ HEADERS += \
     AddShapeOperationComponent.h \
     addShapeOperation_api.h \
     AddShapeOperation.h \
-    AddShapeOperationInteractiveExtension.h
+    AddShapeOperationInteractiveExtension.h \
+    AddShapesCommand.h
 
 SOURCES += \
     AddShapeOperationComponent.cpp \
     AddShapeOperation.cpp \
-    AddShapeOperationInteractiveExtension.cpp
+    AddShapeOperationInteractiveExtension.cpp \
+    AddShapesCommand.cpp
 
 RESOURCES += \
     core.qrc
