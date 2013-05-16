@@ -1,5 +1,6 @@
  <component name="ComponentSystemUI">
      <productName>ComponentSystemUI</productName>
+     <provider>Carousel Team</provider>
      <description>
      </description>
      <location>./ComponentSystemUI</location>

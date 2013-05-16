@@ -47,6 +47,7 @@ UndoComponent::UndoComponent(QObject *parent)
 
     setProductName("Undo");
     setDescription(description);
+    setProvider("Carousel Team");
     addParent("Interactivity");
 }
 

@@ -65,6 +65,7 @@ InteractionServiceComponent::InteractionServiceComponent(QObject *parent)
 {
     setProductName("Interactivity");
     setDescription(description);
+    setProvider("Carousel Team");
 }
 
 //------------------------------------------------------------------------------

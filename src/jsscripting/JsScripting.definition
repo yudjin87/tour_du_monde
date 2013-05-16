@@ -1,5 +1,6 @@
  <component name="JsScripting">
      <productName>JsScripting</productName>
+     <provider>Carousel Team</provider>
      <parents>
          <parentComponent name="Interactivity"/>
      </parents>

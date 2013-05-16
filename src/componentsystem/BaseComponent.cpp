@@ -189,6 +189,12 @@ void BaseComponent::setProductName(const QString &productName)
 }
 
 //------------------------------------------------------------------------------
+void BaseComponent::setProvider(const QString &provider)
+{
+    m_definition->setProvider(provider);
+}
+
+//------------------------------------------------------------------------------
 void BaseComponent::onAvailabilityChanged(Availability newMode)
 {
     emit availabilityChanged(newMode);

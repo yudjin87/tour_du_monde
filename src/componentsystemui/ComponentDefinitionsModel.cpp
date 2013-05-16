@@ -103,7 +103,7 @@ QVariant ComponentDefinitionsModel::headerData(int section, Qt::Orientation orie
     switch (section) {
     case 0: return "Internal name";
     case 1: return "Name";
-    case 2: return "Description";
+    case 2: return "Provider";
     default: return QVariant();
     }
 }
@@ -123,7 +123,7 @@ QVariant ComponentDefinitionsModel::data(const QModelIndex &index, int role) con
         switch (index.column()) {
         case 0: return def->componentName();
         case 1: return def->productName();
-        case 2: return def->description();
+        case 2: return def->provider();
         default:
             qWarning("data: invalid display value column %d", index.column());
             break;

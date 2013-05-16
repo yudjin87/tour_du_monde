@@ -220,6 +220,12 @@ protected:
 
     /*!
      * @details
+     *   Sets the provider name.
+     */
+    void setProvider(const QString &provider);
+
+    /*!
+     * @details
      *   This method emits availabilityChanged() signal when extension's
      *   availability changed.
      * @sa setAvailability, availabilityChanged
