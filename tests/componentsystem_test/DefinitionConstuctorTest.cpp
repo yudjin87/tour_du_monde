@@ -49,6 +49,7 @@ void DefinitionConstuctorTest::construct_ShouldConstructDefinitionFromParser()
     parser.m_componentName = "TestComponent2";
     parser.m_description = "ABCD";
     parser.m_productName = "Carousel";
+    parser.m_provider = "CarouselTeam";
     parser.m_parents.append("ComponentA");
     parser.m_parents.append("Component2");
     QDir absolutePath = QCoreApplication::applicationDirPath();
@@ -66,11 +67,26 @@ void DefinitionConstuctorTest::construct_ShouldConstructDefinitionFromParser()
     QCOMPARE(definition.componentName(), QString("TestComponent2"));
     QCOMPARE(definition.description(), QString("ABCD"));
     QCOMPARE(definition.productName(), QString("Carousel"));
+    QCOMPARE(definition.provider(), QString("CarouselTeam"));
     QCOMPARE(definition.componentLocation(), fileName);
     QCOMPARE(definition.definitionLocation(), definitionFileName);
     QCOMPARE(definition.parents().size(), 2);
     QVERIFY(definition.parents().contains("ComponentA"));
     QVERIFY(definition.parents().contains("Component2"));
+}
+
+//------------------------------------------------------------------------------
+void DefinitionConstuctorTest::construct_ShouldUseDefaultProviderIfParserReturnsEmpty()
+{
+    FakeDefinitionParser parser;
+    parser.m_productName = "Carousel";
+    parser.m_provider = "";
+
+    ComponentDefinition definition;
+    DefinitionConstuctor constuctor;
+    constuctor.construct(&definition, &parser);
+
+    QCOMPARE(definition.provider(), ComponentDefinition::defaultProvider());
 }
 
 //------------------------------------------------------------------------------

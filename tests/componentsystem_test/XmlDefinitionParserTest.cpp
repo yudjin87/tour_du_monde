@@ -43,6 +43,7 @@ void XmlDefinitionParserTest::shouldReadValues()
     bool result = parser.read(simpleXml);
 
     QVERIFY(result);
+    QCOMPARE(parser.provider(), QString("CarouselTeam"));
     QCOMPARE(parser.componentName(), QString("TestingComponentDescription"));
     QCOMPARE(parser.description(), QString("Component Description"));
     QCOMPARE(parser.productName(), QString("Testing Component Description"));
@@ -112,6 +113,7 @@ void XmlDefinitionParserTest::shouldReturnFalseIfComponentNameAttrIsEmpty()
 const QByteArray XmlDefinitionParserTest::simpleXml(
         "<component name=\"TestingComponentDescription\">"
         "    <productName>Testing Component Description</productName>"
+        "    <provider>CarouselTeam</provider> "
         "    <description>Component Description</description>"
         "    <location>/a/b/c/TestingComponentDescription</location>"
         "    <parents>"

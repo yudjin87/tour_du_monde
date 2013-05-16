@@ -27,47 +27,47 @@ int main(int argc, char *argv[])
     NullLogger log;
     LoggerFacade::installLoggerEngine(&log);
 
-    BaseComponentTest baseComponentTest;
-    QTest::qExec(&baseComponentTest, argc, argv);
+//    BaseComponentTest baseComponentTest;
+//    QTest::qExec(&baseComponentTest, argc, argv);
 
-    CompositeComponentProviderTest compositeComponentProviderTest;
-    QTest::qExec(&compositeComponentProviderTest, argc, argv);
+//    CompositeComponentProviderTest compositeComponentProviderTest;
+//    QTest::qExec(&compositeComponentProviderTest, argc, argv);
 
-    DependencySolverTest dependencySolverTest;
-    QTest::qExec(&dependencySolverTest, argc, argv);
+//    DependencySolverTest dependencySolverTest;
+//    QTest::qExec(&dependencySolverTest, argc, argv);
 
-    ComponentManagerTest componentManagerTest;
-    QTest::qExec(&componentManagerTest, argc, argv);
+//    ComponentManagerTest componentManagerTest;
+//    QTest::qExec(&componentManagerTest, argc, argv);
 
-    ComponentDefinitionTest componentDescriptionExtensionTest;
-    QTest::qExec(&componentDescriptionExtensionTest, argc, argv);
+//    ComponentDefinitionTest componentDescriptionExtensionTest;
+//    QTest::qExec(&componentDescriptionExtensionTest, argc, argv);
 
-    ProxyComponentTest proxyComponentTest;
-    QTest::qExec(&proxyComponentTest, argc, argv);
+//    ProxyComponentTest proxyComponentTest;
+//    QTest::qExec(&proxyComponentTest, argc, argv);
 
-    XmlDefinitionParserTest xmlDescriptionParserTest;
-    QTest::qExec(&xmlDescriptionParserTest, argc, argv);
+//    XmlDefinitionParserTest xmlDescriptionParserTest;
+//    QTest::qExec(&xmlDescriptionParserTest, argc, argv);
 
-    ComponentLoaderTest componentLoaderTest;
-    QTest::qExec(&componentLoaderTest, argc, argv);
+//    ComponentLoaderTest componentLoaderTest;
+//    QTest::qExec(&componentLoaderTest, argc, argv);
 
-    DirectoryComponentProviderTest directoryComponentProviderTest;
-    QTest::qExec(&directoryComponentProviderTest, argc, argv);
+//    DirectoryComponentProviderTest directoryComponentProviderTest;
+//    QTest::qExec(&directoryComponentProviderTest, argc, argv);
 
-    ComponentDependenciesTest componentDependenciesTest;
-    QTest::qExec(&componentDependenciesTest, argc, argv);
+//    ComponentDependenciesTest componentDependenciesTest;
+//    QTest::qExec(&componentDependenciesTest, argc, argv);
 
-    DirectoryWatchingComponentProviderTest directoryWatchingComponentProviderTest;
-    QTest::qExec(&directoryWatchingComponentProviderTest, argc, argv);
+//    DirectoryWatchingComponentProviderTest directoryWatchingComponentProviderTest;
+//    QTest::qExec(&directoryWatchingComponentProviderTest, argc, argv);
 
-    FileComponentProviderTest fileComponentProviderTest;
-    QTest::qExec(&fileComponentProviderTest, argc, argv);
+//    FileComponentProviderTest fileComponentProviderTest;
+//    QTest::qExec(&fileComponentProviderTest, argc, argv);
 
     DefinitionConstuctorTest definitionConstuctorTest;
     QTest::qExec(&definitionConstuctorTest, argc, argv);
 
-    ComponentInstallerTest componentInstallerTest;
-    QTest::qExec(&componentInstallerTest, argc, argv);
+//    ComponentInstallerTest componentInstallerTest;
+//    QTest::qExec(&componentInstallerTest, argc, argv);
 
     // clean stuff
     QSettings settings;

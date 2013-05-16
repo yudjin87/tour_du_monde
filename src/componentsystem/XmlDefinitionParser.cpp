@@ -45,6 +45,7 @@ static const char *COMPONENT_TAG = "component";
 static const char *COMPONENT_LOCATION_TAG = "location";
 static const char *DESCRIPTION_TAG = "description";
 static const char *PRODUCT_NAME_TAG = "productName";
+static const char *PROVIDER_NAME_TAG = "provider";
 static const char *PARENT_COMPONENT_TAG = "parentComponent";
 static const char *PARENTS_TAG = "parents";
 
@@ -55,6 +56,7 @@ XmlDefinitionParser::XmlDefinitionParser(QObject *parent)
     , m_componentLocation("")
     , m_description("")
     , m_productName("")
+    , m_provider("")
     , m_error("")
     , m_parents()
 {
@@ -142,6 +144,12 @@ const QString &XmlDefinitionParser::productName() const
 }
 
 //------------------------------------------------------------------------------
+const QString &XmlDefinitionParser::provider() const
+{
+    return m_provider;
+}
+
+//------------------------------------------------------------------------------
 bool XmlDefinitionParser::parseXml(QDomDocument &document)
 {
     QDomElement root = document.documentElement();
@@ -169,6 +177,9 @@ bool XmlDefinitionParser::parseXml(QDomDocument &document)
 
     QDomNode productName = root.elementsByTagName(PRODUCT_NAME_TAG).at(0);
     m_productName = productName.toElement().text();
+
+    QDomNode provider = root.elementsByTagName(PROVIDER_NAME_TAG).at(0);
+    m_provider = provider.toElement().text();
 
     QDomNode location = root.elementsByTagName(COMPONENT_LOCATION_TAG).at(0);
     m_componentLocation = location.toElement().text();

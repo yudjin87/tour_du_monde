@@ -12,6 +12,7 @@ FakeDefinitionParser::FakeDefinitionParser()
     , m_componentLocation("")
     , m_description("")
     , m_productName("")
+    , m_provider("")
     , m_error("")
     , m_parents()
 {
@@ -77,6 +78,12 @@ const QStringList &FakeDefinitionParser::parents() const
 const QString &FakeDefinitionParser::productName() const
 {
     return m_productName;
+}
+
+//------------------------------------------------------------------------------
+const QString &FakeDefinitionParser::provider() const
+{
+    return m_provider;
 }
 
 //------------------------------------------------------------------------------

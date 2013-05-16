@@ -28,11 +28,15 @@
 #include "IComponent.h"
 
 //------------------------------------------------------------------------------
+static const char *DEFAULT_PROVIDER = "Unknown";
+
+//------------------------------------------------------------------------------
 ComponentDefinition::ComponentDefinition()
     : m_component(nullptr)
     , m_componentName("Undefined_ProxyComponent")
     , m_description("")
     , m_productName("")
+    , m_provider(ComponentDefinition::defaultProvider())
     , m_componentLocation("")
     , m_definitionLocation("")
     , m_parents()
@@ -46,6 +50,7 @@ ComponentDefinition::ComponentDefinition(const QString &componentName, bool isBu
     , m_componentName(componentName)
     , m_description("")
     , m_productName("")
+    , m_provider(ComponentDefinition::defaultProvider())
     , m_componentLocation("")
     , m_definitionLocation("")
     , m_parents()
@@ -93,6 +98,12 @@ ComponentDefinition &ComponentDefinition::operator =(const ComponentDefinition &
     m_isBuiltIn = other.m_isBuiltIn;
 
     return *this;
+}
+
+//------------------------------------------------------------------------------
+QString ComponentDefinition::defaultProvider()
+{
+    return DEFAULT_PROVIDER;
 }
 
 //------------------------------------------------------------------------------
@@ -150,6 +161,12 @@ const QString &ComponentDefinition::productName() const
 }
 
 //------------------------------------------------------------------------------
+const QString &ComponentDefinition::provider() const
+{
+    return m_provider;
+}
+
+//------------------------------------------------------------------------------
 void ComponentDefinition::setComponent(IComponent *component)
 {
     m_component = component;
@@ -171,6 +188,12 @@ void ComponentDefinition::setDescription(const QString &description)
 void ComponentDefinition::setProductName(const QString &productName)
 {
     m_productName = productName;
+}
+
+//------------------------------------------------------------------------------
+void ComponentDefinition::setProvider(const QString &provider)
+{
+    m_provider = provider;
 }
 
 //------------------------------------------------------------------------------

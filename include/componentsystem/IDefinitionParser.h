@@ -97,6 +97,13 @@ public:
 
     /*!
      * @details
+     *   Gets the the name of component's provider, the person or company,
+     *   who creates this component.
+     */
+    virtual const QString &provider() const = 0;
+
+    /*!
+     * @details
      *   This function parses the string @a text and sets component meta information.
      *
      *   If a parse error occurs (incorrect format, required information is missed, etc),

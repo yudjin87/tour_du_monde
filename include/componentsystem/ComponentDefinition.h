@@ -79,6 +79,8 @@ public:
     ComponentDefinition &operator=(const ComponentDefinition &other);
 
 public:
+    static QString defaultProvider();
+
     void addParent(const QString &parent);
 
     /*!
@@ -137,6 +139,22 @@ public:
      */
     const QString &productName() const;
 
+    /*!
+     * @details
+     *   Gets the the name of component's provider, the person or company,
+     *   who creates this component.
+     *
+     *   @a Unknown is by default.
+     */
+    const QString &provider() const;
+
+    /*!
+     * @details
+     *   Sets the component.
+     *
+     * @note it does not have ownership for the component
+     *   neither change description for the component.
+     */
     void setComponent(IComponent *component);
 
     /*!
@@ -159,6 +177,12 @@ public:
 
     /*!
      * @details
+     *   Sets the provider name.
+     */
+    void setProvider(const QString &provider);
+
+    /*!
+     * @details
      *   Sets the component file location.
      */
     void setComponentLocation(const QString &componentLocation);
@@ -174,6 +198,7 @@ private:
     QString m_componentName;
     QString m_description;
     QString m_productName;
+    QString m_provider;
     QString m_componentLocation;
     QString m_definitionLocation;
     QStringList m_parents;

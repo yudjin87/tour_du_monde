@@ -111,6 +111,13 @@ public:
 
     /*!
      * @details
+     *   Gets the the name of component's provider, the person or company,
+     *   who creates this component.
+     */
+    const QString &provider() const;
+
+    /*!
+     * @details
      *   This function parses the xml string @a text and sets component meta information.
      *
      *   If a parse error occurs (incorrect format, missing xml tags or attributes, etc),
@@ -155,6 +162,7 @@ protected:
     QString m_componentLocation;
     QString m_description;
     QString m_productName;
+    QString m_provider;
     QString m_error;
     QStringList m_parents;
 };

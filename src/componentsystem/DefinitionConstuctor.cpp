@@ -69,6 +69,9 @@ bool DefinitionConstuctor::construct(ComponentDefinition *definition, const IDef
     definition->setComponentName(name);
     definition->setDescription(parser->description());
     definition->setProductName(parser->productName());
+    definition->setProvider(parser->provider().trimmed().isEmpty()
+                            ? ComponentDefinition::defaultProvider()
+                            : parser->provider());
 
     const QString &componentLocation = parser->componentLocation().trimmed().isEmpty()
             ? name
