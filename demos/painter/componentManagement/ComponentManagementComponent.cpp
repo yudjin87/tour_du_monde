@@ -43,6 +43,7 @@ ComponentManagementComponent::ComponentManagementComponent(QObject *parent /*= n
 
     addParent("ComponentSystemUI");
     setProductName(productName);
+    setProvider("Carousel");
 }
 
 //------------------------------------------------------------------------------

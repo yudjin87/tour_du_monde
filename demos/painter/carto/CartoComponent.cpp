@@ -42,6 +42,7 @@ CartoComponent::CartoComponent()
     addParent("Geodatabase");
     addParent("Geometry");
     setProductName(productName);
+    setProvider("Carousel");
 }
 
 //------------------------------------------------------------------------------

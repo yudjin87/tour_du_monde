@@ -1,5 +1,6 @@
  <component name="CartoUI">
      <productName>CartoUI</productName>
+     <provider>Carousel</provider>
      <location>./CartoUI</location>
      <parents>
          <parentComponent name="Dom"/>

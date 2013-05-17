@@ -39,6 +39,7 @@ GeometryComponent::GeometryComponent()
     : BaseComponent("Geometry")
 {
     setProductName(productName);
+    setProvider("Carousel");
 }
 
 //------------------------------------------------------------------------------

@@ -52,6 +52,7 @@ CartoUIComponent::CartoUIComponent(QObject *parent /*= nullptr*/)
     addParent("Display");
     addParent("Carto");
     setProductName(productName);
+    setProvider("Carousel");
 }
 
 //------------------------------------------------------------------------------

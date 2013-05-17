@@ -51,6 +51,7 @@ GeodatabaseComponent::GeodatabaseComponent()
 {
     addParent("Geometry");
     setProductName(productName);
+    setProvider("Carousel");
 }
 
 //------------------------------------------------------------------------------

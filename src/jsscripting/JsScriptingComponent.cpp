@@ -40,7 +40,7 @@ JsScriptingComponent::JsScriptingComponent(QObject *parent)
 {
     setProductName("JsScripting");
     setDescription(description);
-    setProvider("Carousel Team");
+    setProvider("Carousel");
     addParent("Interactivity");
 }
 

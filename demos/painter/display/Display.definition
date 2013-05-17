@@ -1,5 +1,6 @@
  <component name="Display">
      <productName>Display</productName>
+     <provider>Carousel</provider>
      <location>./Display</location>
      <parents>
          <parentComponent name="Interactivity"/>

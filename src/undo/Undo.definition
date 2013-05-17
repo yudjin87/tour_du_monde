@@ -1,6 +1,6 @@
  <component name="Undo">
      <productName>Undo</productName>
-     <provider>Carousel Team</provider>
+     <provider>Carousel</provider>
      <parents>
          <parentComponent name="Interactivity"/>
      </parents>

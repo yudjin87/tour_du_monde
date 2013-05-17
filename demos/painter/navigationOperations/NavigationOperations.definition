@@ -1,5 +1,6 @@
  <component name="NavigationOperations">
      <productName>NavigationOperations</productName>
+     <provider>Carousel</provider>
      <parents>
          <parentComponent name="Dom"/>
          <parentComponent name="Geodatabase"/>

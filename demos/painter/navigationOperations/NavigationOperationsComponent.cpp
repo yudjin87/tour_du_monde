@@ -47,6 +47,7 @@ NavigationOperationsComponent::NavigationOperationsComponent(QObject *parent /*=
     addParent("Carto");
     addParent("Undo");
     setProductName(productName);
+    setProvider("Carousel");
 }
 
 //------------------------------------------------------------------------------

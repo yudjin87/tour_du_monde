@@ -60,7 +60,7 @@ ComponentSystemUIComponent::ComponentSystemUIComponent(QObject *parent)
 {
     setProductName("ComponentSystemUI");
     setDescription(description);
-    setProvider("Carousel Team");
+    setProvider("Carousel");
     addParent("Interactivity");
 }
 
