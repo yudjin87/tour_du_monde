@@ -37,7 +37,7 @@ class AddShapesCommand : public QObject, public QUndoCommand
 {
     Q_OBJECT
 public:
-    AddShapesCommand(IServiceLocator *locator, QUndoCommand* parent = nullptr);
+    AddShapesCommand(IServiceLocator *locator, QUndoCommand* parent = 0);
     ~AddShapesCommand();
 
     void addShapeFiles(const QStringList &files);

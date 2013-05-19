@@ -38,16 +38,20 @@ class FeatureLayerModel
 {
 public:
     FeatureLayerModel(const FeatureLayer *data);
+    ~FeatureLayerModel();
 
     void draw(QGraphicsScene *scene);
 
 private:
-    QList<QAbstractGraphicsShapeItem *> *drawPoint(const AbstractGeometry *pointGeometry, QGraphicsScene *scene) const;
-    QList<QAbstractGraphicsShapeItem *> *drawPolygon(const AbstractGeometry *polygonGeometry, QGraphicsScene *scene) const;
-    QList<QAbstractGraphicsShapeItem *> *drawPolyline(const AbstractGeometry *polylineGeometry, QGraphicsScene *scene) const;
+    QList<QAbstractGraphicsShapeItem *> drawPoint(const AbstractGeometry *pointGeometry, QGraphicsScene *scene) const;
+    QList<QAbstractGraphicsShapeItem *> drawPolygon(const AbstractGeometry *polygonGeometry, QGraphicsScene *scene) const;
+    QList<QAbstractGraphicsShapeItem *> drawPolyline(const AbstractGeometry *polylineGeometry, QGraphicsScene *scene) const;
 
 private:
     const FeatureLayer *mp_data;
+    QList<QAbstractGraphicsShapeItem *> m_points;
+    QList<QAbstractGraphicsShapeItem *> m_polygons;
+    QList<QAbstractGraphicsShapeItem *> m_polylines;
 };
 
 #endif // FEATURELAYERVIEW_H

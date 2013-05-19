@@ -71,12 +71,14 @@ void AddShapesCommand::redo()
         IPainterDocument *doc = docController->document();
 
         IShapeFileWorkspaceFactoryPtr factory(m_locator->buildInstance<IShapeFileWorkspaceFactory>());
-        IFeatureWorkspace *workspace = (IFeatureWorkspace *) factory->openFromFile(workingDirectory);
+        IFeatureWorkspace *workspace = (IFeatureWorkspace *)factory->openFromFile(workingDirectory);
 
         IFeatureClass *railwaysClass = workspace->openFeatureClass(fileName);
         FeatureLayer *railwaysLayer = new FeatureLayer();
         railwaysLayer->setFeatureClass(railwaysClass);
         doc->map().addLayer(railwaysLayer);
+
+        delete workspace;
     }
 }
 

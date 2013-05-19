@@ -45,10 +45,25 @@
 #include <QtGui/QGraphicsPathItem>
 #include <QtGui/QGraphicsPolygonItem>
 
+#include <QtCore/QtAlgorithms>
+
 //------------------------------------------------------------------------------
 FeatureLayerModel::FeatureLayerModel(const FeatureLayer *data)
     : mp_data(data)
+    , m_points()
+    , m_polygons()
+    , m_polylines()
 {
+}
+
+//------------------------------------------------------------------------------
+FeatureLayerModel::~FeatureLayerModel()
+{
+    qDeleteAll(m_points);
+
+    qDeleteAll(m_polygons);
+
+    qDeleteAll(m_polylines);
 }
 
 //------------------------------------------------------------------------------
@@ -58,17 +73,17 @@ void FeatureLayerModel::draw(QGraphicsScene *scene)
     {
     case GeometryPoint:
         foreach(IFeature *feature, mp_data->featureClass()->getFeatures())
-            drawPoint(feature->geometry(), scene);
+            m_points.append(drawPoint(feature->geometry(), scene));
         break;
 
     case GeometryPolyline:
         foreach(IFeature *feature, mp_data->featureClass()->getFeatures())
-            drawPolyline(feature->geometry(), scene);
+            m_polylines.append(drawPolyline(feature->geometry(), scene));
         break;
 
     case GeometryPolygon:
         foreach(IFeature *feature, mp_data->featureClass()->getFeatures())
-            drawPolygon(feature->geometry(), scene);
+            m_polygons.append(drawPolygon(feature->geometry(), scene));
         break;
 
     default:
@@ -77,10 +92,10 @@ void FeatureLayerModel::draw(QGraphicsScene *scene)
 }
 
 //------------------------------------------------------------------------------
-QList<QAbstractGraphicsShapeItem *> *FeatureLayerModel::drawPoint(const AbstractGeometry *pointGeometry, QGraphicsScene *scene) const
+QList<QAbstractGraphicsShapeItem *> FeatureLayerModel::drawPoint(const AbstractGeometry *pointGeometry, QGraphicsScene *scene) const
 {
     if (scene == 0)
-        return 0;
+        return QList<QAbstractGraphicsShapeItem *>();
 
     const Point *point = static_cast<const Point *>(pointGeometry);
     GraphicsPoinItem *item = new GraphicsPoinItem(point->point());
@@ -89,19 +104,19 @@ QList<QAbstractGraphicsShapeItem *> *FeatureLayerModel::drawPoint(const Abstract
 
     scene->addItem(item);
 
-    QList<QAbstractGraphicsShapeItem *> *list = new QList<QAbstractGraphicsShapeItem *>();
-    list->push_back(item);
+    QList<QAbstractGraphicsShapeItem *> list;
+    list.push_back(item);
 
     return list;
 }
 
 //------------------------------------------------------------------------------
-QList<QAbstractGraphicsShapeItem *> *FeatureLayerModel::drawPolygon(const AbstractGeometry *polygonGeometry, QGraphicsScene *scene) const
+QList<QAbstractGraphicsShapeItem *> FeatureLayerModel::drawPolygon(const AbstractGeometry *polygonGeometry, QGraphicsScene *scene) const
 {
     if (scene == 0)
-        return 0;
+        return QList<QAbstractGraphicsShapeItem *>();
 
-    QList<QAbstractGraphicsShapeItem *> *list = new QList<QAbstractGraphicsShapeItem *>();
+    QList<QAbstractGraphicsShapeItem *> list;
 
     const Polygon *polygon = static_cast<const Polygon *>(polygonGeometry);
     const RingList &rings = polygon->rings();
@@ -109,7 +124,7 @@ QList<QAbstractGraphicsShapeItem *> *FeatureLayerModel::drawPolygon(const Abstra
         const SegmentList &segments = ring->segments();
         foreach(const Segment *segment, segments) {
             QGraphicsPolygonItem *item = scene->addPolygon(segment->curve(), mp_data->renderer()->pen(), mp_data->renderer()->brush());
-            list->push_back(item);
+            list.push_back(item);
         }
     }
 
@@ -117,12 +132,12 @@ QList<QAbstractGraphicsShapeItem *> *FeatureLayerModel::drawPolygon(const Abstra
 }
 
 //------------------------------------------------------------------------------
-QList<QAbstractGraphicsShapeItem *> *FeatureLayerModel::drawPolyline(const AbstractGeometry *polylineGeometry, QGraphicsScene *scene) const
+QList<QAbstractGraphicsShapeItem *> FeatureLayerModel::drawPolyline(const AbstractGeometry *polylineGeometry, QGraphicsScene *scene) const
 {
     if (scene == 0)
-        return 0;
+        return QList<QAbstractGraphicsShapeItem *>();
 
-    QList<QAbstractGraphicsShapeItem *> *list = new QList<QAbstractGraphicsShapeItem *>();
+    QList<QAbstractGraphicsShapeItem *> list;
 
     const Polyline *polyline = static_cast<const Polyline *>(polylineGeometry);
     const RingList &rings = polyline->rings();
@@ -135,7 +150,7 @@ QList<QAbstractGraphicsShapeItem *> *FeatureLayerModel::drawPolyline(const Abstr
                 path.lineTo(poly[i]);
 
             QGraphicsPathItem *item = scene->addPath(path, mp_data->renderer()->pen());
-            list->push_back(item);
+            list.push_back(item);
         }
     }
 
