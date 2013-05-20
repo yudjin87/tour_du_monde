@@ -27,14 +27,16 @@ HEADERS += \
     CartoUIInteractiveExtension.h \
     FeatureLayerModel.h \
     MapModel.h \
-    GraphicsPoinItem.h
+    GraphicsPoinItem.h \
+    LayersTreeModel.h
 
 SOURCES += \
     CartoUIComponent.cpp \
     CartoUIInteractiveExtension.cpp \
     FeatureLayerModel.cpp \
     MapModel.cpp \
-    GraphicsPoinItem.cpp
+    GraphicsPoinItem.cpp \
+    LayersTreeModel.cpp
 
 OTHER_FILES += \
     CartoUI.definition
@@ -42,3 +44,5 @@ OTHER_FILES += \
 ###############################################################################
 # Copy definition to the output directory, right near the library
 copyExtraFiles($$OTHER_FILES, $$DESTDIR)
+
+FORMS +=

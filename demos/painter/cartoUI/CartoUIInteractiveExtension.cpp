@@ -25,13 +25,17 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "CartoUIInteractiveExtension.h"
+#include "LayersTreeModel.h"
 
+#include <dom/IPainterDocument.h>
+#include <dom/IPainterDocumentController.h>
 #include <framework/AbstractApplication.h>
 #include <interactivity/ICatalogs.h>
 #include <interactivity/IDockWidgetCatalog.h>
 #include <utils/IServiceLocator.h>
 
 #include <QtGui/QDockWidget>
+#include <QtGui/QListView>
 
 //------------------------------------------------------------------------------
 CartoUIInteractiveExtension::CartoUIInteractiveExtension(QObject *parent /*= nullptr*/)
@@ -40,13 +44,15 @@ CartoUIInteractiveExtension::CartoUIInteractiveExtension(QObject *parent /*= nul
 }
 
 //------------------------------------------------------------------------------
-void CartoUIInteractiveExtension::configureGui(ICatalogs &i_inCatalogs, AbstractApplication &i_application)
+void CartoUIInteractiveExtension::configureGui(ICatalogs &inCatalogs, AbstractApplication &application)
 {
-    Q_UNUSED(i_inCatalogs);
-    Q_UNUSED(i_application);
+    IPainterDocumentController* docController = application.serviceLocator().locate<IPainterDocumentController>();
+    IPainterDocument *doc = docController->document();
 
-    //IDockWidgetCatalog &catalog = i_inCatalogs.dockWidgetCatalog();
-    //catalog.addDockWidget(new ShapeCanvas(), "Shapes canvas");
+    IDockWidgetCatalog &catalog = inCatalogs.dockWidgetCatalog();
+    QListView *view = new QListView();
+    view->setModel(new LayersTreeModel(&doc->map(), view));
+    catalog.addDockWidget(view, "Layers tree");
 }
 
 //------------------------------------------------------------------------------
