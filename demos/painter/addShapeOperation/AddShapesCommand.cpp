@@ -76,6 +76,7 @@ void AddShapesCommand::redo()
         IFeatureClass *railwaysClass = workspace->openFeatureClass(fileName);
         FeatureLayer *railwaysLayer = new FeatureLayer();
         railwaysLayer->setFeatureClass(railwaysClass);
+        railwaysLayer->setName(shapeFile.baseName());
         doc->map().addLayer(railwaysLayer);
 
         delete workspace;
