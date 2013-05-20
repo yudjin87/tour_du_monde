@@ -99,6 +99,26 @@ void DependencySolverTest::canSolveBundle()
 }
 
 //------------------------------------------------------------------------------
+void DependencySolverTest::canSolveComplexBundleWithMissingComponents()
+{
+    // Parent <- Child <- GrandChild
+    DependencySolver solver;
+    solver.addComponent("Child");
+    solver.addComponent("GrandChild");
+    solver.addDependency("Child", "Parent");
+    solver.addDependency("GrandChild", "Child");
+
+    QStringList ordered; QStringList orphans; QStringList missing;
+    bool result = solver.solve(ordered, orphans, missing);
+
+    QVERIFY(result);
+
+    QCOMPARE(ordered.size(), 0);
+    QCOMPARE(missing.size(), 1); // Parent
+    QCOMPARE(orphans.size(), 2); // GrandChild, Child
+}
+
+//------------------------------------------------------------------------------
 void DependencySolverTest::failsWithComplexCycle()
 {
     DependencySolver solver;

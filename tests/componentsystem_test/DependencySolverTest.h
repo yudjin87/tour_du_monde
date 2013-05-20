@@ -16,6 +16,7 @@ private Q_SLOTS:
     void canSolveAcyclicDependencies();
     void failsWithSimpleCycle();
     void canSolveBundle();
+    void canSolveComplexBundleWithMissingComponents();
     void failsWithComplexCycle();
     void shouldFillMissingComponents();
     void shouldFillOrphanComponents();

@@ -99,6 +99,7 @@ private:
     void addToDependencyMatrix(const QString &component);
     void addToKnownComponents(const QString &component);
     QStringList findLeaves(const QStringList &skip) const;
+    void removeMissingComponents(const QString &unknownComponent, QStringList &orderedList, QStringList &orphans) const;
 
 private:
     ListDictionary<QString, QString> *m_dependencyMatrix;

@@ -109,26 +109,33 @@ bool DependencySolver::solve(QStringList &ordered, QStringList &orphans, QString
     }
 
     // Clean ordered list
-    foreach (const QString &component, orderedList) {
-        if (m_knownComponents.contains(component))
+    foreach (const QString &unknownComponent, orderedList) {
+        if (m_knownComponents.contains(unknownComponent))
             continue;
 
         // Remove missing from sorted
-        missing.append(component);
-        orderedList.removeOne(component);
+        missing.append(unknownComponent);
+        orderedList.removeOne(unknownComponent);
 
         // Remove orphans from sorted
-        const QStringList &children = *m_dependencyMatrix->value(component);
-        foreach (const QString &orphan, children) {
-            orderedList.removeOne(orphan);
-            orphans.append(orphan);
-        }
+        removeMissingComponents(unknownComponent, orderedList, orphans);
     }
 
     std::reverse(orderedList.begin(), orderedList.end());
     ordered = orderedList;
 
     return true;
+}
+
+//------------------------------------------------------------------------------
+void DependencySolver::removeMissingComponents(const QString &unknownComponent, QStringList &orderedList, QStringList &orphans) const
+{
+    const QStringList &children = *m_dependencyMatrix->value(unknownComponent);
+    foreach (const QString &orphan, children) {
+        orderedList.removeOne(orphan);
+        orphans.append(orphan);
+        removeMissingComponents(orphan, orderedList, orphans);
+    }
 }
 
 //------------------------------------------------------------------------------
