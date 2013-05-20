@@ -45,7 +45,7 @@ NavigationOperationsComponent::NavigationOperationsComponent(QObject *parent /*=
     addParent("Geodatabase");
     addParent("Display");
     addParent("Carto");
-    addParent("Undo");
+    addParent("AddShapeOperation");
     setProductName(productName);
     setProvider("Carousel");
 }
