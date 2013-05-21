@@ -93,9 +93,6 @@ void ComponentSystemUIComponent::onShutdown()
 //------------------------------------------------------------------------------
 bool ComponentSystemUIComponent::onStartup(QObject *initData)
 {
-    if (initData == nullptr)
-        return false;
-
     AbstractApplication *app = dynamic_cast<AbstractApplication *>(initData);
     if (app == nullptr)
         return false;
