@@ -43,7 +43,6 @@ QVariant LayersTreeModel::data(const QModelIndex &index, int role) const
 void LayersTreeModel::onLayerAdded(AbstractLayer *layer)
 {
     Q_UNUSED(layer);
-    qDebug(layer->name().toUtf8());
     beginInsertRows(QModelIndex(), 0, m_map->layers().size());
     endInsertRows();
 }

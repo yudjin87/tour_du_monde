@@ -15,6 +15,7 @@ LIBS += -L$${DESTDIR} -lComponentSystem \
                       -lInteractivity \
                       -lFramework \
                       -lUtils \
+                      -lLogging \
 
 ###############################################################################
 # Copy definition to the output directory, right near the library

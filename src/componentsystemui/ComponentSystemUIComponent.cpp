@@ -35,7 +35,14 @@
 #include <componentsystem/IComponentManager.h>
 #include <interactivity/IDialogService.h>
 #include <framework/AbstractApplication.h>
+#include <logging/LoggerFacade.h>
 #include <utils/IServiceLocator.h>
+
+//------------------------------------------------------------------------------
+namespace
+{
+static LoggerFacade Log = LoggerFacade::createLogger("ComponentSystemUIComponent");
+}
 
 //------------------------------------------------------------------------------
 // TODO: will be removed when c++11 is supported (with lambdas)
@@ -68,7 +75,7 @@ ComponentSystemUIComponent::ComponentSystemUIComponent(QObject *parent)
 ComponentSystemUIComponent::~ComponentSystemUIComponent()
 {
     if (started())
-        qWarning("Logic error: onShutdown() was not called.");
+        Log.w("Logic error: onShutdown() was not called.");
 }
 
 //------------------------------------------------------------------------------
@@ -99,7 +106,6 @@ bool ComponentSystemUIComponent::onStartup(QObject *initData)
 
     auto installCreator = std::bind(&createInstallComponentsCommand, manager);
     locator.registerType<InstallComponentsCommand>(installCreator);
-
 
     return true;
 }

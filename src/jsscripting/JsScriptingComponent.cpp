@@ -28,7 +28,16 @@
 
 #include <componentsystem/ComponentExport.h>
 #include <framework/AbstractApplication.h>
+#include <logging/LoggerFacade.h>
 #include <utils/IServiceLocator.h>
+
+#include <QtGui/QMainWindow>
+
+//------------------------------------------------------------------------------
+namespace
+{
+static LoggerFacade Log = LoggerFacade::createLogger("JsScriptingComponent");
+}
 
 //------------------------------------------------------------------------------
 static const QByteArray description(
@@ -48,7 +57,7 @@ JsScriptingComponent::JsScriptingComponent(QObject *parent)
 JsScriptingComponent::~JsScriptingComponent()
 {
     if (started())
-        qWarning("Logic error: onShutdown() was not called.");
+        Log.w("Logic error: onShutdown() was not called.");
 }
 
 //------------------------------------------------------------------------------

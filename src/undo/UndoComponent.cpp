@@ -29,9 +29,17 @@
 
 #include <componentsystem/ComponentExport.h>
 #include <framework/AbstractApplication.h>
+#include <logging/LoggerFacade.h>
 #include <utils/IServiceLocator.h>
 
 #include <QtGui/QUndoStack>
+
+//------------------------------------------------------------------------------
+namespace
+{
+static LoggerFacade Log = LoggerFacade::createLogger("UndoComponent");
+}
+
 
 //------------------------------------------------------------------------------
 static const QByteArray description(
@@ -55,7 +63,7 @@ UndoComponent::UndoComponent(QObject *parent)
 UndoComponent::~UndoComponent()
 {
     if (started())
-        qWarning("Logic error: onShutdown() was not called.");
+        Log.w("Logic error: onShutdown() was not called.");
 }
 
 //------------------------------------------------------------------------------

@@ -153,12 +153,12 @@ DependenciesSolvingResult ComponentDependencies::completeListWithParents(const Q
 
     bool hasCyclic = !solver.solve(ordered, orphans, missing);
     if (hasCyclic) {
-        qDebug("At least one cyclic dependency has been found in the component manager. Cycles in the component dependencies must be avoided.");
+        Log.d("At least one cyclic dependency has been found in the component manager. Cycles in the component dependencies must be avoided.");
         return DependenciesSolvingResult(ordered, orphans, missing, m_components.toList(), hasCyclic);
     }
 
     if (!missing.isEmpty()) {
-        qDebug(QString("A component declared a dependency on another component which is not declared to be loaded. Missing component(s): %1")
+        Log.d(QString("A component declared a dependency on another component which is not declared to be loaded. Missing component(s): %1")
                .arg(missing.join(", ")).toLatin1());
     }
 

@@ -32,9 +32,16 @@
 #include <componentsystem/ComponentExport.h>
 #include <componentsystem/IComponentManager.h>
 #include <framework/AbstractApplication.h>
+#include <logging/LoggerFacade.h>
 #include <utils/IServiceLocator.h>
 
 #include <QtGui/QMainWindow>
+
+//------------------------------------------------------------------------------
+namespace
+{
+static LoggerFacade Log = LoggerFacade::createLogger("InteractionServiceComponent");
+}
 
 //------------------------------------------------------------------------------
 class InteractionServiceComponent::InteractionServiceComponentPrivate
@@ -99,14 +106,14 @@ InteractionServiceComponent::InteractionServiceComponentPrivate::InteractionServ
 InteractionServiceComponent::InteractionServiceComponentPrivate::~InteractionServiceComponentPrivate()
 {
     if (m_service != nullptr || m_dialogService != nullptr )
-        qWarning("Logic error: onShutdown() was not called.");
+        Log.w("Logic error: onShutdown() was not called.");
 }
 
 //------------------------------------------------------------------------------
 void InteractionServiceComponent::InteractionServiceComponentPrivate::onShutdown()
 {
     if (m_service == nullptr || m_dialogService == nullptr )
-        qWarning("Logic error: onStartup() should be called before onShutdown().");
+         Log.w("Logic error: onStartup() should be called before onShutdown().");
 
     AbstractApplication *app = dynamic_cast<AbstractApplication *>(qApp);
     IServiceLocator &locator = app->serviceLocator();
@@ -124,7 +131,7 @@ void InteractionServiceComponent::InteractionServiceComponentPrivate::onShutdown
 bool InteractionServiceComponent::InteractionServiceComponentPrivate::onStartup(QObject *initData)
 {
     if (m_service != nullptr || m_dialogService != nullptr )
-        qWarning("Logic error: onShutdown() was not called.");
+         Log.w("Logic error: onShutdown() was not called.");
 
     if (initData == nullptr)
         return false;
