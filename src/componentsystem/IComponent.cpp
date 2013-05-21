@@ -32,3 +32,11 @@ int IComponentListMetatypeId = qRegisterMetaType<QList<IComponent*>>("QList<ICom
 int IComponentAvailabilityId = qRegisterMetaType<IComponent::Availability>("IComponent::Availability");
 
 //------------------------------------------------------------------------------
+QStringList toStringList(const QList<IComponent *> &components)
+{
+    QStringList names;
+    foreach (IComponent *comp, components)
+        names.push_back(comp->name());
+
+    return names;
+}

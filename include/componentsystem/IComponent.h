@@ -33,6 +33,7 @@
 #include <QtCore/QMetaType>
 #include <QtCore/QObject>
 #include <QtCore/QString>
+#include <QtCore/QStringList>
 
 #include <typeinfo>
 
@@ -147,6 +148,8 @@ public:
      *   dependencies.
      *
      *   It is a shortcut for the definition()->name().
+     *
+     * @sa toStringList
      */
     virtual const QString &name() const = 0;
 
@@ -196,6 +199,12 @@ signals:
      */
     void availabilityChanged(IComponent::Availability);
 };
+
+/*!
+ * @details
+ *   Returns list of component names.
+ */
+QStringList toStringList(const QList<IComponent *> &components);
 
 //------------------------------------------------------------------------------
 template<typename TExtension>
