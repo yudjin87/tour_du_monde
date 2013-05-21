@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- 
+
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -24,43 +24,51 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "CartoUIInteractiveExtension.h"
-#include "LayersTreeModel.h"
 #include "ToogleLayerTreeOperation.h"
 
-#include <dom/IPainterDocument.h>
-#include <dom/IPainterDocumentController.h>
 #include <framework/AbstractApplication.h>
-#include <interactivity/ICatalogs.h>
-#include <interactivity/IDockWidgetCatalog.h>
-#include <interactivity/IMenuCatalog.h>
-#include <interactivity/IOperationCatalog.h>
 #include <utils/IServiceLocator.h>
 
-#include <QtGui/QDockWidget>
-#include <QtGui/QMenu>
-#include <QtGui/QListView>
+#include <QtGui/QUndoStack>
 
 //------------------------------------------------------------------------------
-CartoUIInteractiveExtension::CartoUIInteractiveExtension(QObject *parent /*= nullptr*/)
+ToogleLayerTreeOperation::ToogleLayerTreeOperation(QAction *toogleAction)
+    : Operation("Toogle layer tree")
+    , m_action(toogleAction)
 {
-    setParent(parent);
+    setCheckable(true);
+    setIcon(QIcon(":/cartoUI/images/layerTree.png"));
+    setIconVisibleInMenu(true);
 }
 
 //------------------------------------------------------------------------------
-void CartoUIInteractiveExtension::configureGui(ICatalogs &inCatalogs, AbstractApplication &application)
+void ToogleLayerTreeOperation::execute()
 {
-    IPainterDocumentController* docController = application.serviceLocator().locate<IPainterDocumentController>();
-    IPainterDocument *doc = docController->document();
-
-    IDockWidgetCatalog &catalog = inCatalogs.dockWidgetCatalog();
-    QListView *view = new QListView();
-    view->setModel(new LayersTreeModel(&doc->map(), view));
-    QDockWidget *layersDock = catalog.addDockWidget(view, "Layers tree");
-
-    Operation *toogleTree = inCatalogs.operationCatalog().add(new ToogleLayerTreeOperation(layersDock->toggleViewAction()));
-    QMenu *viewMenu = inCatalogs.menuCatalog().addMenu("View");
-    viewMenu->addAction(toogleTree);
+    m_action->trigger();
 }
 
 //------------------------------------------------------------------------------
+void ToogleLayerTreeOperation::stopExecuting()
+{
+    m_action->trigger();
+}
+
+//------------------------------------------------------------------------------
+void ToogleLayerTreeOperation::initialize(QObject *startUpData)
+{
+    AbstractApplication *app = qobject_cast<AbstractApplication *>(startUpData);
+    if (app == nullptr)
+        return;
+
+    connect(m_action, SIGNAL(toggled()), SLOT(onActionChanged()));
+}
+
+//------------------------------------------------------------------------------
+void ToogleLayerTreeOperation::onActionChanged()
+{
+    if (m_action->isChecked() != isChecked())
+        setChecked(m_action->isChecked());
+}
+
+//------------------------------------------------------------------------------
+

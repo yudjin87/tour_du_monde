@@ -28,7 +28,8 @@ HEADERS += \
     FeatureLayerModel.h \
     MapModel.h \
     GraphicsPoinItem.h \
-    LayersTreeModel.h
+    LayersTreeModel.h \
+    ToogleLayerTreeOperation.h \
 
 SOURCES += \
     CartoUIComponent.cpp \
@@ -36,7 +37,8 @@ SOURCES += \
     FeatureLayerModel.cpp \
     MapModel.cpp \
     GraphicsPoinItem.cpp \
-    LayersTreeModel.cpp
+    LayersTreeModel.cpp \
+    ToogleLayerTreeOperation.cpp
 
 OTHER_FILES += \
     CartoUI.definition
@@ -46,3 +48,6 @@ OTHER_FILES += \
 copyExtraFiles($$OTHER_FILES, $$DESTDIR)
 
 FORMS +=
+
+RESOURCES += \
+    cartoUI.qrc
