@@ -48,28 +48,6 @@ static LoggerFacade Log = LoggerFacade::createLogger("CarouselInteractionService
 }
 
 //------------------------------------------------------------------------------
-CarouselInteractionService::CarouselInteractionService(AbstractApplication &application, QObject *parent /*= nullptr*/)
-    : m_inputInterceptor(nullptr)
-    , m_componentConfigurationDelegate(new CarouselComponentConfigurationDelegate(application))
-    , m_componentManager(nullptr)
-    , m_activeTool(nullptr)
-    , m_catalogs(nullptr)
-    , m_mainWindow(nullptr)
-{
-    setParent(parent);
-
-    m_mainWindow = application.serviceLocator().locate<QMainWindow>();
-    Q_ASSERT(m_mainWindow != nullptr);
-
-    m_componentManager = application.serviceLocator().locate<IComponentManager>();
-    Q_ASSERT(m_componentManager != nullptr);
-
-    m_catalogs = new Catalogs(*m_mainWindow, &application);
-
-    makeConnections();
-}
-
-//------------------------------------------------------------------------------
 CarouselInteractionService::CarouselInteractionService(AbstractApplication &application, QMainWindow *mainWindow, IComponentManager *manager, QObject *parent)
     : m_inputInterceptor(nullptr)
     , m_componentConfigurationDelegate(new CarouselComponentConfigurationDelegate(application))

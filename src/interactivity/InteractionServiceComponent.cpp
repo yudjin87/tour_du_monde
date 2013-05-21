@@ -30,6 +30,7 @@
 #include "DialogService.h"
 
 #include <componentsystem/ComponentExport.h>
+#include <componentsystem/IComponentManager.h>
 #include <framework/AbstractApplication.h>
 #include <utils/IServiceLocator.h>
 
@@ -97,16 +98,14 @@ InteractionServiceComponent::InteractionServiceComponentPrivate::InteractionServ
 //------------------------------------------------------------------------------
 InteractionServiceComponent::InteractionServiceComponentPrivate::~InteractionServiceComponentPrivate()
 {
-    if (m_service != nullptr
-            || m_dialogService != nullptr )
+    if (m_service != nullptr || m_dialogService != nullptr )
         qWarning("Logic error: onShutdown() was not called.");
 }
 
 //------------------------------------------------------------------------------
 void InteractionServiceComponent::InteractionServiceComponentPrivate::onShutdown()
 {
-    if (m_service == nullptr
-            || m_dialogService == nullptr )
+    if (m_service == nullptr || m_dialogService == nullptr )
         qWarning("Logic error: onStartup() should be called before onShutdown().");
 
     AbstractApplication *app = dynamic_cast<AbstractApplication *>(qApp);
@@ -124,8 +123,7 @@ void InteractionServiceComponent::InteractionServiceComponentPrivate::onShutdown
 //------------------------------------------------------------------------------
 bool InteractionServiceComponent::InteractionServiceComponentPrivate::onStartup(QObject *initData)
 {
-    if (m_service != nullptr
-            || m_dialogService != nullptr )
+    if (m_service != nullptr || m_dialogService != nullptr )
         qWarning("Logic error: onShutdown() was not called.");
 
     if (initData == nullptr)
@@ -137,14 +135,14 @@ bool InteractionServiceComponent::InteractionServiceComponentPrivate::onStartup(
 
     IServiceLocator &locator = app->serviceLocator();
 
-    // IInteractionService registration
-    m_service = new CarouselInteractionService(*app);
-    locator.registerInstance<IInteractionService>(m_service);
-
     // IDialogService registration
     QMainWindow *mainWindow = locator.locate<QMainWindow>();
     m_dialogService = new DialogService(mainWindow, &locator);
     locator.registerInstance<IDialogService>(m_dialogService);
+
+    // IInteractionService registration
+    m_service = new CarouselInteractionService(*app, mainWindow, locator.locate<IComponentManager>());
+    locator.registerInstance<IInteractionService>(m_service);
 
     return true;
 }

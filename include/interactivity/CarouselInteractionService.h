@@ -48,14 +48,6 @@ public:
     /*!
      * @details
      *   Initializes a new instance of the CarouselInteractionService class using
-     *   @a application's service locator to locate to the QMainWindow IComponentManager
-     *   instances.
-     */
-    CarouselInteractionService(AbstractApplication &application, QObject *parent = nullptr);
-
-    /*!
-     * @details
-     *   Initializes a new instance of the CarouselInteractionService class using
      *   specified instances of the @a application, @a mainWindow and @a manager.
      */
     CarouselInteractionService(AbstractApplication &application, QMainWindow *mainWindow, IComponentManager *manager, QObject *parent = nullptr);
