@@ -26,9 +26,6 @@
 
 #include "ShowComponentsOperation.h"
 
-#include <componentsystem/IComponent.h>
-#include <componentsystem/ComponentDependencies.h>
-#include <componentsystem/IComponentManager.h>
 #include <componentsystemui/ComponentDefinitionsModel.h>
 
 #include <interactivity/IDialogService.h>
@@ -49,11 +46,11 @@ ShowComponentsOperation::ShowComponentsOperation()
 void ShowComponentsOperation::execute()
 {
     IServiceLocator &locator = m_app->serviceLocator();
-    IComponentManager *manager = locator.locate<IComponentManager>();
     IDialogService *dialogService = locator.locate<IDialogService>();
 
-    ComponentDefinitionsModel model(manager->dependencies().components());
-    dialogService->showDialog(&model);
+    ComponentDefinitionsModel *model = locator.buildInstance<ComponentDefinitionsModel>();
+    dialogService->showDialog(model);
+    delete model;
 }
 
 //------------------------------------------------------------------------------

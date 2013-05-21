@@ -47,7 +47,9 @@ protected:
 
     /*!
      * @details
-     *   Registers ComponentsDialog in the dialog service.
+     *   Registers services:
+     *     @li ComponentsDialog in the dialog service.
+     *     @li ComponentDefinitionsModel
      *   Registers commands:
      *     @li EnableComponentCommand
      *     @li InstallComponentsCommand

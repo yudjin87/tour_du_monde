@@ -32,6 +32,7 @@
 #include "InstallComponentsCommand.h"
 
 #include <componentsystem/ComponentExport.h>
+#include <componentsystem/ComponentDependencies.h>
 #include <componentsystem/IComponentManager.h>
 #include <interactivity/IDialogService.h>
 #include <framework/AbstractApplication.h>
@@ -46,12 +47,16 @@ static LoggerFacade Log = LoggerFacade::createLogger("ComponentSystemUIComponent
 
 //------------------------------------------------------------------------------
 // TODO: will be removed when c++11 is supported (with lambdas)
+static void *createComponentDefinitionsModel(IComponentManager *manager)
+{
+    return new ComponentDefinitionsModel(manager->dependencies().components());
+}
+
 static void *createEnableComponentCommand(IComponentManager *manager)
 {
     return new EnableComponentCommand(manager);
 }
 
-// TODO: will be removed when c++11 is supported (with lambdas)
 static void *createInstallComponentsCommand(IComponentManager *manager)
 {
     return new InstallComponentsCommand(manager);
@@ -96,16 +101,21 @@ bool ComponentSystemUIComponent::onStartup(QObject *initData)
         return false;
 
     IServiceLocator &locator = app->serviceLocator();
-
-    IDialogService *dialogService = locator.locate<IDialogService>();
-    dialogService->registerDialog<ComponentsDialog, ComponentDefinitionsModel>();
-
     IComponentManager *manager = locator.locate<IComponentManager>();
+
+    // Commands
     auto enableCreator = std::bind(&createEnableComponentCommand, manager);
     locator.registerType<EnableComponentCommand>(enableCreator);
 
     auto installCreator = std::bind(&createInstallComponentsCommand, manager);
     locator.registerType<InstallComponentsCommand>(installCreator);
+
+    // Services
+    IDialogService *dialogService = locator.locate<IDialogService>();
+    dialogService->registerDialog<ComponentsDialog, ComponentDefinitionsModel>();
+
+    auto componentDefinitionsModelCreator = std::bind(&createComponentDefinitionsModel, manager);
+    locator.registerType<ComponentDefinitionsModel>(componentDefinitionsModelCreator);
 
     return true;
 }
