@@ -26,7 +26,6 @@
 
 #include "RedoOperation.h"
 
-#include <framework/AbstractApplication.h>
 #include <utils/IServiceLocator.h>
 
 #include <QtGui/QUndoStack>
@@ -47,14 +46,9 @@ void RedoOperation::execute()
 }
 
 //------------------------------------------------------------------------------
-void RedoOperation::initialize(QObject *startUpData)
+void RedoOperation::initialize(IServiceLocator *serviceLocator)
 {
-    AbstractApplication *app = qobject_cast<AbstractApplication *>(startUpData);
-    if (app == nullptr)
-        return;
-
-    IServiceLocator &locator = app->serviceLocator();
-    QUndoStack *stack = locator.locate<QUndoStack>();
+    QUndoStack *stack = serviceLocator->locate<QUndoStack>();
 
     m_action = stack->createRedoAction(this);
     setEnabled(m_action->isEnabled());

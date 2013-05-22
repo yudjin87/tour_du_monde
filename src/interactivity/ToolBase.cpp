@@ -28,14 +28,13 @@
 
 #include "IInteractionService.h"
 
-#include <framework/AbstractApplication.h>
 #include <utils/IServiceLocator.h>
 
 #include <assert.h>
 //------------------------------------------------------------------------------
 ToolBase::ToolBase(QActionGroup *actionGroup)
     : Operation(actionGroup)
-    , m_app(nullptr)
+    , m_serviceLocator(nullptr)
     , m_interactionService(nullptr)
 {
     setCheckable(true);
@@ -44,7 +43,7 @@ ToolBase::ToolBase(QActionGroup *actionGroup)
 //------------------------------------------------------------------------------
 ToolBase::ToolBase(const QString &text, QActionGroup *actionGroup)
     : Operation(text, actionGroup)
-    , m_app(nullptr)
+    , m_serviceLocator(nullptr)
     , m_interactionService(nullptr)
 {
     setCheckable(true);
@@ -53,7 +52,7 @@ ToolBase::ToolBase(const QString &text, QActionGroup *actionGroup)
 //------------------------------------------------------------------------------
 ToolBase::ToolBase(const QIcon &icon, const QString &text, QActionGroup *actionGroup)
     : Operation(icon, text, actionGroup)
-    , m_app(nullptr)
+    , m_serviceLocator(nullptr)
     , m_interactionService(nullptr)
 {
     setCheckable(true);
@@ -62,7 +61,7 @@ ToolBase::ToolBase(const QIcon &icon, const QString &text, QActionGroup *actionG
 //------------------------------------------------------------------------------
 ToolBase::~ToolBase()
 {
-    m_app = nullptr;
+    m_serviceLocator = nullptr;
     m_interactionService = nullptr;
 }
 
@@ -79,12 +78,12 @@ void ToolBase::stopExecuting()
 }
 
 //------------------------------------------------------------------------------
-void ToolBase::initialize(QObject *startUpData)
+void ToolBase::initialize(IServiceLocator *serviceLocator)
 {
-    m_app = dynamic_cast<AbstractApplication *>(startUpData);
-    assert(m_app != nullptr);
+    m_serviceLocator = serviceLocator;
+    assert(serviceLocator != nullptr);
 
-    m_interactionService = m_app->serviceLocator().locate<IInteractionService>();
+    m_interactionService = m_serviceLocator->locate<IInteractionService>();
     assert(m_interactionService != nullptr);
 }
 

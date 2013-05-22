@@ -116,15 +116,15 @@ public:
      * @details
      *   When all components are registered, each component started up with given initialization
      *   data.
-     * @param initData is a reference to the object with which this component is started. Usually
-     *   it will be reference to your own AbstractApplication root object, through you can obtain any data.
+     * @param serviceLocator is a reference to the services pool. It is needed to register/locate to
+     *   common services and other components' services.
      * @return @a true, if component started up successful. Otherwise - return @a false. E.g. if component
      *   started twice - it is return @a false on the second time, because it is already started.
      *
      * @note You should not use this method directly, use IComponentManager::startupComponent()
      *   instead.
      */
-    bool startup(QObject *initData);
+    bool startup(IServiceLocator *serviceLocator);
 
 protected:
     /*!
@@ -187,10 +187,10 @@ protected:
      *   It is a defensive declaration of the public startup() method, that invokes only if component is 
      *   not started.
      *   When override in derived classes starts up the component. Nothing to do by default.
-     * @param initData is a reference to the object with which this component is started. Usually
-     *   it will be reference to your own AbstractApplication root object, through you can obtain any data.
+     * @param serviceLocator is a reference to the services pool. It is needed to register/locate to
+     *   common services and other components' services.
      */
-    virtual bool onStartup(QObject *initData);
+    virtual bool onStartup(IServiceLocator *serviceLocator);
 
     void addParent(const QString &parent);
 

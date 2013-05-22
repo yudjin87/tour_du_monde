@@ -9,7 +9,6 @@
 #include "Utils.h"
 
 #include <componentsystem/ComponentManager.h>
-#include <utils/ServiceLocator.h>
 
 #include <QtTest/QtTest>
 
@@ -21,7 +20,7 @@ ComponentManagerTest::ComponentManagerTest()
 //------------------------------------------------------------------------------
 void ComponentManagerTest::addComponent_shouldAddComponentToTheStoppedComponents()
 {
-    ComponentManager manager;
+    ComponentManager manager(&m_locator);
     IComponent *componentA = createComponent("A");
     IComponent *componentB = createComponent("B");
     manager.addComponent(componentA);
@@ -36,7 +35,7 @@ void ComponentManagerTest::addComponent_shouldAddComponentToTheStoppedComponents
 void ComponentManagerTest::addComponent_shouldSetCheckedFlagToFalse()
 {
     IComponent *componentA = createComponent("A");
-    ComponentManager manager;
+    ComponentManager manager(&m_locator);
     manager.check();
 
     QVERIFY(manager.isChecked());
@@ -50,7 +49,7 @@ void ComponentManagerTest::addComponent_shouldSetCheckedFlagToFalse()
 void ComponentManagerTest::check_shouldCallResolving()
 {
     MockComponentDependencies *dependencies = new MockComponentDependencies();
-    ComponentManager manager(dependencies, nullptr);
+    ComponentManager manager(&m_locator, dependencies, nullptr);
 
     manager.check();
 
@@ -60,7 +59,7 @@ void ComponentManagerTest::check_shouldCallResolving()
 //------------------------------------------------------------------------------
 void ComponentManagerTest::check_shouldSetCheckedFlag()
 {
-    ComponentManager manager;
+    ComponentManager manager(&m_locator);
 
     QCOMPARE(manager.isChecked(), false);
 
@@ -73,7 +72,7 @@ void ComponentManagerTest::check_shouldSetCheckedFlag()
 void ComponentManagerTest::check_shouldNotResolveComponentsAgainIfCheckedFlagIsTrue()
 {
     MockComponentDependencies *dependencies = new MockComponentDependencies();
-    ComponentManager manager(dependencies, nullptr);
+    ComponentManager manager(&m_locator, dependencies, nullptr);
 
     manager.check();
 
@@ -92,7 +91,7 @@ void ComponentManagerTest::check_shouldFillMissingComponents()
     MockComponent *componentC = createComponent("C");
     MockChildComponent *componentB = createParentComponent("B", "A"); //dependent from A;
 
-    ComponentManager manager;
+    ComponentManager manager(&m_locator);
     manager.addComponent(componentB);
     manager.addComponent(componentC);
 
@@ -109,7 +108,7 @@ void ComponentManagerTest::check_shouldFillOrphanComponents()
     MockComponent *componentC = createComponent("C");
     MockChildComponent *componentB = createParentComponent("B", "A"); //dependent from A;
 
-    ComponentManager manager;
+    ComponentManager manager(&m_locator);
     manager.addComponent(componentB);
     manager.addComponent(componentC);
 
@@ -124,7 +123,7 @@ void ComponentManagerTest::startup_shouldShouldNotCallIfAlreadyDid()
 {
     MockComponent *component = createComponent("A");
 
-    ComponentManager manager;
+    ComponentManager manager(&m_locator);
     QSignalSpy spy(&manager, SIGNAL(componentStarted(IComponent *)));
 
     manager.addComponent(component);
@@ -143,7 +142,7 @@ void ComponentManagerTest::startup_shouldStartComponents()
     TestDescriptionComponent *descriptionComponent = new TestDescriptionComponent();
     descriptionComponent->setAvailability(IComponent::Enabled);
 
-    ComponentManager manager;
+    ComponentManager manager(&m_locator);
     manager.addComponent(descriptionComponent);
 
     manager.startup();
@@ -158,7 +157,7 @@ void ComponentManagerTest::startup_shouldNotStartDisabledComponent()
     disabledComponent->setAvailability(IComponent::Disabled);
     QSignalSpy spy(disabledComponent, SIGNAL(whenStarted(QString)));
 
-    ComponentManager manager;
+    ComponentManager manager(&m_locator);
     manager.addComponent(disabledComponent);
 
     manager.startup();
@@ -172,7 +171,7 @@ void ComponentManagerTest::startupAllComponents_shouldCallCheck()
     IComponent *componentA = createComponent("A");
     IComponent *componentB = createComponent("B");
 
-    ComponentManager manager;
+    ComponentManager manager(&m_locator);
 
     QCOMPARE(manager.isChecked(), false);
 
@@ -187,7 +186,7 @@ void ComponentManagerTest::startupAllComponents_shouldCallCheck()
 //------------------------------------------------------------------------------
 void ComponentManagerTest::startupAllComponents_shouldRemoveThemFromStoppedList()
 {
-    ComponentManager manager;
+    ComponentManager manager(&m_locator);
     IComponent *componentA = createComponent("A");
     IComponent *componentB = createComponent("B");
     manager.addComponent(componentA);
@@ -203,7 +202,7 @@ void ComponentManagerTest::startupAllComponents_shouldRemoveThemFromStoppedList(
 //------------------------------------------------------------------------------
 void ComponentManagerTest::startupAllComponents_shouldAddThemToTheStartedList()
 {
-    ComponentManager manager;
+    ComponentManager manager(&m_locator);
     IComponent *componentA = createComponent("A");
     IComponent *componentB = createComponent("B");
     manager.addComponent(componentA);
@@ -221,7 +220,7 @@ void ComponentManagerTest::startupAllComponents_shouldAddThemToTheStartedList()
 //------------------------------------------------------------------------------
 void ComponentManagerTest::startupAllComponents_shouldEmit()
 {
-    ComponentManager manager;
+    ComponentManager manager(&m_locator);
     QSignalSpy spy(&manager, SIGNAL(componentStarted(IComponent *)));
 
     MockComponent *mockComponent = new MockComponent();
@@ -237,7 +236,7 @@ void ComponentManagerTest::startupAllComponents_shouldStartComponents()
     TestDescriptionComponent *descriptionComponent = new TestDescriptionComponent();
     descriptionComponent->setAvailability(IComponent::Enabled);
 
-    ComponentManager manager;
+    ComponentManager manager(&m_locator);
     manager.addComponent(descriptionComponent);
 
     manager.startupAllComponents();
@@ -248,7 +247,7 @@ void ComponentManagerTest::startupAllComponents_shouldStartComponents()
 //------------------------------------------------------------------------------
 void ComponentManagerTest::shutdownAllComponents_shouldEmit()
 {
-    ComponentManager manager;
+    ComponentManager manager(&m_locator);
     QSignalSpy spy(&manager, SIGNAL(componentShutDown(IComponent *)));
 
     MockComponent *mockComponent = new MockComponent();
@@ -262,7 +261,7 @@ void ComponentManagerTest::shutdownAllComponents_shouldEmit()
 //------------------------------------------------------------------------------
 void ComponentManagerTest::shutdownAllComponents_shouldEmitAboutSignal()
 {
-    ComponentManager manager;
+    ComponentManager manager(&m_locator);
     QSignalSpy spy(&manager, SIGNAL(componentAboutToShutDown(IComponent *)));
 
     MockComponent *mockComponent = new MockComponent();
@@ -276,7 +275,7 @@ void ComponentManagerTest::shutdownAllComponents_shouldEmitAboutSignal()
 //------------------------------------------------------------------------------
 void ComponentManagerTest::shutdownAllComponents_shouldRemoveThemFromStartedList()
 {
-    ComponentManager manager;
+    ComponentManager manager(&m_locator);
     IComponent *componentA = createComponent("A");
     IComponent *componentB = createComponent("B");
     manager.addComponent(componentA);
@@ -295,7 +294,7 @@ void ComponentManagerTest::shutdownAllComponents_shouldRemoveThemFromStartedList
 //------------------------------------------------------------------------------
 void ComponentManagerTest::shutdownAllComponents_shouldAddThemToTheStoppedList()
 {
-    ComponentManager manager;
+    ComponentManager manager(&m_locator);
     IComponent *componentA = createComponent("A");
     IComponent *componentB = createComponent("B");
     manager.addComponent(componentA);
@@ -315,7 +314,7 @@ void ComponentManagerTest::shutdownAllComponents_shouldNotShutdownUnexistingComp
     MockComponent *componentA = createComponent("A");
     QSignalSpy spy(componentA, SIGNAL(whenShutdown(QString)));
 
-    ComponentManager manager;
+    ComponentManager manager(&m_locator);
     manager.startupComponent(componentA);
 
     manager.shutdownAllComponents();
@@ -333,7 +332,7 @@ void ComponentManagerTest::shutdownAllComponents_shouldNotShutdownBuiltInCompone
 
     QCOMPARE(componentA->started(), true);
 
-    ComponentManager manager;
+    ComponentManager manager(&m_locator);
     manager.addComponent(componentA);
     manager.startupAllComponents();
     manager.shutdownAllComponents();
@@ -348,7 +347,7 @@ void ComponentManagerTest::shutdownAllComponents_shouldDisableComponent()
 {
     MockComponent *component = createComponent("A");
 
-    ComponentManager manager;
+    ComponentManager manager(&m_locator);
     manager.addComponent(component);
 
     manager.startupAllComponents();
@@ -363,7 +362,7 @@ void ComponentManagerTest::shutdownComponents_shouldReturnJustShutDownComponents
     MockComponent *componentA = createComponent("A");
     MockChildComponent *componentB = createParentComponent("B", "A");
 
-    ComponentManager manager;
+    ComponentManager manager(&m_locator);
     manager.addComponent(componentA);
     manager.addComponent(componentB);
 
@@ -383,7 +382,7 @@ void ComponentManagerTest::shutdown_shouldShutdownAllComponents()
     MockComponent *componentA = createComponent("A");
     QSignalSpy spy(componentA, SIGNAL(whenShutdown(QString)));
 
-    ComponentManager manager;
+    ComponentManager manager(&m_locator);
     manager.addComponent(componentA);
     manager.startupComponent(componentA);
 
@@ -399,7 +398,7 @@ void ComponentManagerTest::shutdown_shouldShutdownBuiltInComponents()
     MockComponent *componentA = new MockComponent("A", true);
     QSignalSpy spy(componentA, SIGNAL(whenShutdown(QString)));
 
-    ComponentManager manager;
+    ComponentManager manager(&m_locator);
     manager.addComponent(componentA);
     manager.startupComponent(componentA);
 
@@ -414,7 +413,7 @@ void ComponentManagerTest::shutdown_shouldNotDisableComponent()
 {
     MockComponent *component = createComponent("A");
 
-    ComponentManager manager;
+    ComponentManager manager(&m_locator);
     manager.addComponent(component);
 
     manager.startupAllComponents();
@@ -426,7 +425,7 @@ void ComponentManagerTest::shutdown_shouldNotDisableComponent()
 //------------------------------------------------------------------------------
 void ComponentManagerTest::shutdown_shouldEmit()
 {
-    ComponentManager manager;
+    ComponentManager manager(&m_locator);
     QSignalSpy spy(&manager, SIGNAL(aboutToShutDown()));
 
     manager.startup();
@@ -440,13 +439,12 @@ void ComponentManagerTest::startupAllComponents_shouldPassInitDataToComponent()
 {
     MockComponent *mockComponent = new MockComponent();
 
-    ComponentManager manager;
+    ComponentManager manager(&m_locator);
     manager.addComponent(mockComponent);
 
-    manager.setInitializationData(this);
     manager.startupAllComponents();
 
-    QCOMPARE(mockComponent->m_initData, this);
+    QCOMPARE(mockComponent->m_serviceLocator, &m_locator);
 }
 
 //------------------------------------------------------------------------------
@@ -456,7 +454,7 @@ void ComponentManagerTest::startupAllComponents_shouldEnableDisabledComponent()
     disabledComponent->setAvailability(IComponent::Disabled);
     QSignalSpy spy(disabledComponent, SIGNAL(whenStarted(QString)));
 
-    ComponentManager manager;
+    ComponentManager manager(&m_locator);
     manager.addComponent(disabledComponent);
 
     manager.startupAllComponents();
@@ -468,7 +466,7 @@ void ComponentManagerTest::startupAllComponents_shouldEnableDisabledComponent()
 //------------------------------------------------------------------------------
 void ComponentManagerTest::startupAllComponents_shouldHandleNullComponent()
 {
-    ComponentManager manager;
+    ComponentManager manager(&m_locator);
     manager.startupComponent(nullptr);
 
     // just dot't crash
@@ -484,7 +482,7 @@ void ComponentManagerTest::startupAllComponents_shouldPassComponentsInRightOrder
     MockChildComponent *componentD = createParentComponent("D", "C"); //dependent from C;
     MockChildComponent *componentE = createParentComponent("E", "C"); //dependent from C;
 
-    MockComponentManager manager;
+    MockComponentManager manager(&m_locator);
 
     // Add the components in random order
     manager.addComponent(componentB);
@@ -518,7 +516,7 @@ void ComponentManagerTest::startupAllComponents_shouldPassComponentsInRightOrder
     MockChildComponent *componentD = createParentComponent("D", "B", "C"); //dependent from B & C;
     MockChildComponent *componentE = createParentComponent("E", "A", "C"); //dependent from A & C;
 
-    MockComponentManager manager;
+    MockComponentManager manager(&m_locator);
 
     // Add the components in random order
     manager.addComponent(componentB);
@@ -548,7 +546,7 @@ void ComponentManagerTest::shutdownAllComponents_shouldPassComponentsInRightOrde
     MockChildComponent *componentD = createParentComponent("D", "C"); //dependent from C;
     MockChildComponent *componentE = createParentComponent("E", "C"); //dependent from C;
 
-    MockComponentManager manager;
+    MockComponentManager manager(&m_locator);
     manager.addComponent(componentB);
     manager.addComponent(componentA);
     manager.addComponent(componentD);
@@ -577,7 +575,7 @@ void ComponentManagerTest::startupComponent_shouldPassRightComponentsInRightOrde
     MockChildComponent *componentD = createParentComponent("D", "C"); //dependent from C;
     MockChildComponent *componentE = createParentComponent("E", "C"); //dependent from C;
 
-    MockComponentManager manager;
+    MockComponentManager manager(&m_locator);
     // Add the components in random order
     manager.addComponent(componentB);
     manager.addComponent(componentA);
@@ -608,7 +606,7 @@ void ComponentManagerTest::shutdownComponent_shouldPassComponentsInReverseOrder(
     MockChildComponent *componentD = createParentComponent("D", "C"); //dependent from C;
     MockChildComponent *componentE = createParentComponent("E", "C"); //dependent from C;
 
-    MockComponentManager manager;
+    MockComponentManager manager(&m_locator);
     // Add the components in random order
     manager.addComponent(componentB);
     manager.addComponent(componentA);
@@ -640,7 +638,7 @@ void ComponentManagerTest::startupAllComponents_shouldNotStartChildComponentsIfP
     MockChildComponent *componentB = createParentComponent("B", "A"); //dependent from A;
     MockChildComponent *componentC = createParentComponent("C", "B"); //dependent from B;
 
-    ComponentManager manager;
+    ComponentManager manager(&m_locator);
     manager.addComponent(componentB);
     manager.addComponent(componentA);
     manager.addComponent(componentC);
@@ -660,7 +658,7 @@ void ComponentManagerTest::startupAllComponents_shouldStartOrphanComponentIfPare
     MockComponent *componentC = createComponent("C");
     MockChildComponent *componentB = createParentComponent("B", "A"); //dependent from A;
 
-    ComponentManager manager;
+    ComponentManager manager(&m_locator);
     manager.addComponent(componentB);
     manager.addComponent(componentC);
 
@@ -684,7 +682,7 @@ void ComponentManagerTest::startupComponents_shouldStartOrphanComponentsWhenPare
     MockComponent *componentC = createComponent("C");
     MockChildComponent *componentB = createParentComponent("B", "A"); //dependent from A;
 
-    ComponentManager manager;
+    ComponentManager manager(&m_locator);
     manager.addComponent(componentB);
     manager.addComponent(componentC);
 
@@ -710,7 +708,7 @@ void ComponentManagerTest::startupComponents_shouldNotStartOrphanComponentsWhenO
     MockComponent *componentC = createComponent("C");
     MockChildComponent *componentB = createParentComponent("B", "A"); //dependent from A;
 
-    ComponentManager manager;
+    ComponentManager manager(&m_locator);
     manager.addComponent(componentB);
     manager.addComponent(componentC);
 
@@ -735,7 +733,7 @@ void ComponentManagerTest::startupComponents_shouldReturnJustStartedComponents()
     MockComponent *componentA = createComponent("A");
     MockChildComponent *componentB = createParentComponent("B", "A");
 
-    ComponentManager manager;
+    ComponentManager manager(&m_locator);
     manager.addComponent(componentA);
     manager.startup();
     manager.addComponent(componentB);

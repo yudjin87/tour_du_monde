@@ -123,7 +123,7 @@ public:
      *
      *   Does nothing by default.
      */
-    void initialize(QObject *startUpData);
+    void initialize(IServiceLocator *serviceLocator);
 
     /*!
      * @details

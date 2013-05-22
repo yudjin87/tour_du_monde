@@ -27,12 +27,10 @@
 #include "AddShapeOperationInteractiveExtension.h"
 #include "AddShapeOperation.h"
 
-#include <framework/AbstractApplication.h>
 #include <interactivity/ICatalogs.h>
 #include <interactivity/IOperationCatalog.h>
 #include <interactivity/IMenuCatalog.h>
 #include <interactivity/IToolBarCatalog.h>
-#include <utils/IServiceLocator.h>
 
 #include <QtGui/QMenu>
 #include <QtGui/QToolBar>
@@ -44,19 +42,18 @@ AddShapeOperationInteractiveExtension::AddShapeOperationInteractiveExtension(QOb
 }
 
 //------------------------------------------------------------------------------
-void AddShapeOperationInteractiveExtension::configureGui(ICatalogs &i_inCatalogs, AbstractApplication &i_application)
+void AddShapeOperationInteractiveExtension::configureGui(ICatalogs &inCatalogs, IServiceLocator *serviceLocator)
 {
-    Q_UNUSED(i_inCatalogs);
-    Q_UNUSED(i_application);
+    Q_UNUSED(serviceLocator);
 
-    IOperationCatalog &operationCatalog = i_inCatalogs.operationCatalog();
+    IOperationCatalog &operationCatalog = inCatalogs.operationCatalog();
     Operation *addShape = operationCatalog.add(new AddShapeOperation());
 
-    IToolBarCatalog &toolbarCatalog = i_inCatalogs.toolBarCatalog();
+    IToolBarCatalog &toolbarCatalog = inCatalogs.toolBarCatalog();
     QToolBar *toolBar = toolbarCatalog.add("Shapes");
     toolBar->addAction(addShape);
 
-    IMenuCatalog &menuCatalog = i_inCatalogs.menuCatalog();
+    IMenuCatalog &menuCatalog = inCatalogs.menuCatalog();
     QMenu *menu = menuCatalog.addMenu("Tools");
     menu->addAction(addShape);
 }

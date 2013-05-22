@@ -27,8 +27,8 @@
 #include "MockCarouselInteractionService.h"
 
 //------------------------------------------------------------------------------
-MockCarouselInteractionService::MockCarouselInteractionService(AbstractApplication &application, QMainWindow *mainWindow, IComponentManager *manager, QObject *parent)
-    : CarouselInteractionService(application, mainWindow, manager, parent)
+MockCarouselInteractionService::MockCarouselInteractionService(IServiceLocator *serviceLocator, QMainWindow *mainWindow, IComponentManager *manager, QObject *parent)
+    : CarouselInteractionService(serviceLocator, mainWindow, manager, parent)
     , loadUiCalled(0)
     , saveUiCalled(0)
 {

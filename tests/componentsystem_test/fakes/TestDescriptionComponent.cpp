@@ -17,7 +17,7 @@ TestDescriptionComponent::TestDescriptionComponent(const QString &name)
 }
 
 //------------------------------------------------------------------------------
-bool TestDescriptionComponent::onStartup(QObject *)
+bool TestDescriptionComponent::onStartup(IServiceLocator *)
 {
     emit whenStarted(name());
     return startUpResult;

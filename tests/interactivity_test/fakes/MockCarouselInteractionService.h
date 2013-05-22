@@ -33,7 +33,7 @@ class MockCarouselInteractionService : public CarouselInteractionService
 {
     Q_OBJECT
 public:
-    MockCarouselInteractionService(AbstractApplication &application, QMainWindow *mainWindow, IComponentManager *manager, QObject *parent = nullptr);
+    MockCarouselInteractionService(IServiceLocator *serviceLocator, QMainWindow *mainWindow, IComponentManager *manager, QObject *parent = nullptr);
     
     void loadUiState(int version = 0);
     void saveUiState(int version = 0);

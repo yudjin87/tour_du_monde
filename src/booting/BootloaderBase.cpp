@@ -94,7 +94,7 @@ void BootloaderBase::configureComponentProvider()
 //------------------------------------------------------------------------------
 IComponentManager *BootloaderBase::createComponentManager()
 {
-    return new ComponentManager(new ComponentDependencies(), nullptr);
+    return new ComponentManager(m_serviceLocator, new ComponentDependencies(), nullptr);
 }
 
 //------------------------------------------------------------------------------

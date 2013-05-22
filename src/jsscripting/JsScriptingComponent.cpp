@@ -27,7 +27,6 @@
 #include "JsScriptingComponent.h"
 
 #include <componentsystem/ComponentExport.h>
-#include <framework/AbstractApplication.h>
 #include <logging/LoggerFacade.h>
 #include <utils/IServiceLocator.h>
 
@@ -66,17 +65,10 @@ void JsScriptingComponent::onShutdown()
 }
 
 //------------------------------------------------------------------------------
-bool JsScriptingComponent::onStartup(QObject *initData)
+bool JsScriptingComponent::onStartup(IServiceLocator *serviceLocator)
 {
-    if (initData == nullptr)
+    if (serviceLocator == nullptr)
         return false;
-
-    AbstractApplication *app = dynamic_cast<AbstractApplication *>(initData);
-    if (app == nullptr)
-        return false;
-
-    IServiceLocator &locator = app->serviceLocator();
-    Q_UNUSED(locator)
 
     return true;
 }

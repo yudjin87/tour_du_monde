@@ -29,18 +29,16 @@
 
 #include <interactivity/Operation.h>
 
-class AbstractApplication;
-
 class InstallComponentsOperation : public Operation
 {
 public:
     InstallComponentsOperation();
 
     void execute();
-    void initialize(QObject *ip_startUpData);
+    void initialize(IServiceLocator *serviceLocator);
 
 private:
-    AbstractApplication *m_app;
+    IServiceLocator *m_serviceLocator;
 };
 
 #endif // INSTALLCOMPONENTSOPERATION_H

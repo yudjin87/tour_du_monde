@@ -37,7 +37,7 @@ class ComponentManagementInteractiveExtension : public QObject, public IInteract
 public:
     ComponentManagementInteractiveExtension(QObject *parent = nullptr);
 
-    void configureGui(ICatalogs &i_inCatalogs, AbstractApplication &i_application);
+    void configureGui(ICatalogs &inCatalogs, IServiceLocator *serviceLocator);
 };
 
 

@@ -30,7 +30,6 @@
 
 #include <dom/IPainterDocument.h>
 #include <dom/IPainterDocumentController.h>
-#include <framework/AbstractApplication.h>
 #include <interactivity/ICatalogs.h>
 #include <interactivity/IDockWidgetCatalog.h>
 #include <interactivity/IMenuCatalog.h>
@@ -48,9 +47,9 @@ CartoUIInteractiveExtension::CartoUIInteractiveExtension(QObject *parent /*= nul
 }
 
 //------------------------------------------------------------------------------
-void CartoUIInteractiveExtension::configureGui(ICatalogs &inCatalogs, AbstractApplication &application)
+void CartoUIInteractiveExtension::configureGui(ICatalogs &inCatalogs, IServiceLocator *serviceLocator)
 {
-    IPainterDocumentController* docController = application.serviceLocator().locate<IPainterDocumentController>();
+    IPainterDocumentController* docController = serviceLocator->locate<IPainterDocumentController>();
     IPainterDocument *doc = docController->document();
 
     IDockWidgetCatalog &catalog = inCatalogs.dockWidgetCatalog();

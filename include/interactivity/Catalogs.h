@@ -29,13 +29,13 @@
 
 #include "ICatalogs.h"
 
-class OperationCatalog;
+class IServiceLocator;
 class DockWidgetCatalog;
 class MenuCatalog;
+class OperationCatalog;
 class ToolBarCatalog;
 
 class QMainWindow;
-class QObject;
 
 /*!
  * @brief
@@ -54,7 +54,7 @@ public:
      *   for the MenuCatalog creation. Note, that MenuCatalog requires
      *   that QMenuBar has been added to the specified QMainWindow.
      */
-    Catalogs(QMainWindow &shell, QObject *startUpData);
+    Catalogs(QMainWindow &shell, IServiceLocator *serviceLocator);
     ~Catalogs();
 
     /*!

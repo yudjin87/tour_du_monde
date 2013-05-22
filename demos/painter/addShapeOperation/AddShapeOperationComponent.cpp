@@ -30,7 +30,6 @@
 
 #include <componentsystem/ComponentDefinition.h>
 #include <componentsystem/ComponentExport.h>
-#include <framework/AbstractApplication.h>
 #include <utils/IServiceLocator.h>
 
 #include <functional>
@@ -68,16 +67,13 @@ AddShapeOperationComponent::~AddShapeOperationComponent()
 }
 
 //------------------------------------------------------------------------------
-bool AddShapeOperationComponent::onStartup(QObject *ip_initData)
+bool AddShapeOperationComponent::onStartup(IServiceLocator *serviceLocator)
 {
-    AbstractApplication *app = qobject_cast<AbstractApplication *>(ip_initData);
-    if (app == nullptr)
+    if (serviceLocator == nullptr)
         return false;
 
-    IServiceLocator &locator = app->serviceLocator();
-
-    auto creator = std::bind(&createAddShapesCommand, &locator);
-    locator.registerType<AddShapesCommand>(creator);
+    auto creator = std::bind(&createAddShapesCommand, serviceLocator);
+    serviceLocator->registerType<AddShapesCommand>(creator);
 
     return true;
 }

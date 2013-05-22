@@ -30,12 +30,10 @@
 #include "ZoomInOperation.h"
 #include "ZoomOutOperation.h"
 
-#include <framework/AbstractApplication.h>
 #include <interactivity/ICatalogs.h>
 #include <interactivity/IOperationCatalog.h>
 #include <interactivity/IMenuCatalog.h>
 #include <interactivity/IToolBarCatalog.h>
-#include <utils/IServiceLocator.h>
 
 #include <QtGui/QMenu>
 #include <QtGui/QToolBar>
@@ -47,25 +45,24 @@ NavigationOperationsInteractiveExtension::NavigationOperationsInteractiveExtensi
 }
 
 //------------------------------------------------------------------------------
-void NavigationOperationsInteractiveExtension::configureGui(ICatalogs &i_inCatalogs, AbstractApplication &i_application)
+void NavigationOperationsInteractiveExtension::configureGui(ICatalogs &inCatalogs, IServiceLocator *serviceLocator)
 {
-    Q_UNUSED(i_inCatalogs);
-    Q_UNUSED(i_application);
+    Q_UNUSED(serviceLocator);
 
-    IOperationCatalog &operationCatalog = i_inCatalogs.operationCatalog();
+    IOperationCatalog &operationCatalog = inCatalogs.operationCatalog();
     Operation *zoomAll = operationCatalog.add(new ZoomAllOperation());
     Operation *zoomIn = operationCatalog.add(new ZoomInOperation());
     Operation *zoomOut = operationCatalog.add(new ZoomOutOperation());
     Operation *pan = operationCatalog.add(new PanTool());
 
-    IToolBarCatalog &toolbarCatalog = i_inCatalogs.toolBarCatalog();
+    IToolBarCatalog &toolbarCatalog = inCatalogs.toolBarCatalog();
     QToolBar *toolBar = toolbarCatalog.add("Navigation");
     toolBar->addAction(zoomAll);
     toolBar->addAction(zoomIn);
     toolBar->addAction(zoomOut);
     toolBar->addAction(pan);
 
-    IMenuCatalog &menuCatalog = i_inCatalogs.menuCatalog();
+    IMenuCatalog &menuCatalog = inCatalogs.menuCatalog();
     QMenu *tools = menuCatalog.findMenu("Tools");
     QMenu *menu = tools->addMenu("Navigation");
     menu->addAction(zoomAll);

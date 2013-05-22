@@ -31,7 +31,7 @@
 
 #include <componentsystem/BaseComponent.h>
 
-class AbstractApplication;
+class IServiceLocator;
 
 class DISPLAY_API DisplayComponent : public BaseComponent
 {
@@ -41,11 +41,11 @@ public:
     ~DisplayComponent();
 
 protected:
-    bool onStartup(QObject *ip_initData);
+    bool onStartup(IServiceLocator *serviceLocator);
     void onShutdown();
 
 private:
-    AbstractApplication *m_app;
+    IServiceLocator *m_serviceLocator;
 
 private:
     Q_DISABLE_COPY(DisplayComponent)

@@ -31,8 +31,8 @@
 
 #include <componentsystem/IComponentExtension.h>
 
-class AbstractApplication;
 class ICatalogs;
+class IServiceLocator;
 
 /*!
  * @brief
@@ -59,10 +59,10 @@ public:
      *   Place your code here to register component-specific operations,
      *   dockable widgets and others in the specified catalogs.
      *
-     *   You can use @a application to obtain application model, for
+     *   You can use @a serviceLocator to obtain application model, for
      *   example, to use it in the Qt View-Model approach.
      */
-    virtual void configureGui(ICatalogs &inCatalogs, AbstractApplication &application) = 0;
+    virtual void configureGui(ICatalogs &inCatalogs, IServiceLocator *serviceLocator) = 0;
 
 private:
     Q_DISABLE_COPY(IInteractiveExtension)

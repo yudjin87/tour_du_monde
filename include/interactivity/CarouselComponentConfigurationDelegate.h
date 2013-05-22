@@ -33,6 +33,8 @@
 
 #include <QtCore/QMap>
 
+class IServiceLocator;
+
 /*!
  * @brief
  *   Default implementation of the IComponentConfigurationDelegate for
@@ -47,7 +49,7 @@ class INTERACTIVITY_API CarouselComponentConfigurationDelegate : public ICompone
 {
   Q_OBJECT
 public:
-    CarouselComponentConfigurationDelegate(AbstractApplication &application);
+    CarouselComponentConfigurationDelegate(IServiceLocator *serviceLocator);
     ~CarouselComponentConfigurationDelegate();
 
 public slots:
@@ -80,7 +82,7 @@ public slots:
 
 private:
     QMap<IComponent *, ConfigurationChanges *> m_changes;
-    AbstractApplication &m_app;
+    IServiceLocator *m_serviceLocator;
 };
 
 #endif // CAROUSELCONFIGURATIONDELEGATE_H

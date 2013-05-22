@@ -3,19 +3,17 @@
 
 #include <interactivity/ToolBase.h>
 
-class AbstractApplication;
-
 class PanTool : public ToolBase
 {
 public:
     PanTool();
 
     void execute();
-    void initialize(QObject *ip_startUpData);
+    void initialize(IServiceLocator *serviceLocator);
     void onMouseMove(QMouseEvent *ip_event);
     void stopExecuting();
 
 private:
-    AbstractApplication *m_app;
+    IServiceLocator *m_serviceLocator;
 };
 #endif // PANOPERATION_H

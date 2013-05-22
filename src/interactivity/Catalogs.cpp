@@ -36,7 +36,7 @@
 #include <assert.h>
 
 //------------------------------------------------------------------------------
-Catalogs::Catalogs(QMainWindow &shell, QObject *startUpData)
+Catalogs::Catalogs(QMainWindow &shell, IServiceLocator *serviceLocator)
     : m_operationCatalog(new OperationCatalog())
     , m_dockWidgetCatalog(new DockWidgetCatalog(shell))
     , m_menuCatalog(nullptr)
@@ -45,7 +45,7 @@ Catalogs::Catalogs(QMainWindow &shell, QObject *startUpData)
     assert(shell.menuBar() != nullptr);
 
     m_menuCatalog = new MenuCatalog(*shell.menuBar());
-    m_operationCatalog->setStartupData(startUpData);
+    m_operationCatalog->setStartupData(serviceLocator);
 }
 
 //------------------------------------------------------------------------------

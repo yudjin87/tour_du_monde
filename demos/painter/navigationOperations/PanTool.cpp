@@ -1,6 +1,5 @@
 #include "PanTool.h"
 
-#include <framework/AbstractApplication.h>
 #include <utils/IServiceLocator.h>
 
 #include <QtGui/QGraphicsScene>
@@ -12,7 +11,7 @@
 //------------------------------------------------------------------------------
 PanTool::PanTool()
     : ToolBase("Pan")
-    , m_app(nullptr)
+    , m_serviceLocator(nullptr)
 {
     setIcon(QIcon(":/navigation/images/pan.png"));
     setIconVisibleInMenu(true);
@@ -22,21 +21,17 @@ PanTool::PanTool()
 void PanTool::execute()
 {
     ToolBase::execute();
-    IServiceLocator &locator = m_app->serviceLocator();
 
-    QGraphicsScene *scene = locator.locate<QGraphicsScene>();
+    QGraphicsScene *scene = m_serviceLocator->locate<QGraphicsScene>();
     QGraphicsView *view = scene->views().first();
     view->setDragMode(QGraphicsView::ScrollHandDrag);
-//    view->fitInView(view->sceneRect());
 }
 
 //------------------------------------------------------------------------------
-void PanTool::initialize(QObject *ip_startUpData)
+void PanTool::initialize(IServiceLocator *serviceLocator)
 {
-    ToolBase::initialize(ip_startUpData);
-    m_app = qobject_cast<AbstractApplication *>(ip_startUpData);
-    if (m_app == nullptr)
-        return;
+    ToolBase::initialize(serviceLocator);
+    m_serviceLocator = serviceLocator;
 }
 //------------------------------------------------------------------------------
 void PanTool::onMouseMove(QMouseEvent *ip_event)
@@ -48,9 +43,8 @@ void PanTool::onMouseMove(QMouseEvent *ip_event)
 void PanTool::stopExecuting()
 {
     ToolBase::stopExecuting();
-    IServiceLocator &locator = m_app->serviceLocator();
 
-    QGraphicsScene *scene = locator.locate<QGraphicsScene>();
+    QGraphicsScene *scene = m_serviceLocator->locate<QGraphicsScene>();
     QGraphicsView *view = scene->views().first();
     view->setDragMode(QGraphicsView::NoDrag);
 }

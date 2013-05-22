@@ -1,15 +1,15 @@
 #include "MockComponentManager.h"
 
 //------------------------------------------------------------------------------
-MockComponentManager::MockComponentManager(QObject *parent)
-    : ComponentManager(parent)
+MockComponentManager::MockComponentManager(IServiceLocator *serviceLocator, QObject *parent)
+    : ComponentManager(serviceLocator, parent)
     , callCheck(false)
 {
 }
 
 //------------------------------------------------------------------------------
-MockComponentManager::MockComponentManager(IComponentDependencies *dependencies, QObject *parent)
-    : ComponentManager(dependencies, parent)
+MockComponentManager::MockComponentManager(IServiceLocator *serviceLocator, IComponentDependencies *dependencies, QObject *parent)
+    : ComponentManager(serviceLocator, dependencies, parent)
     , callCheck(false)
 {
 }

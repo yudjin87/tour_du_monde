@@ -31,7 +31,7 @@
 #include <QtCore/QtAlgorithms>
 //------------------------------------------------------------------------------
 OperationCatalog::OperationCatalog()
-    : m_startupData(nullptr)
+    : m_serviceLocator(nullptr)
 {
 }
 
@@ -45,7 +45,7 @@ OperationCatalog::~OperationCatalog()
 Operation *OperationCatalog::add(Operation *newOperation)
 {
     m_operations.push_back(newOperation);
-    newOperation->initialize(m_startupData);
+    newOperation->initialize(m_serviceLocator);
 
     onOperationAdded(newOperation);
 
@@ -100,9 +100,9 @@ const Operation *OperationCatalog::find(const QString &name) const
 }
 
 //------------------------------------------------------------------------------
-void OperationCatalog::setStartupData(QObject *startupData)
+void OperationCatalog::setStartupData(IServiceLocator *serviceLocator)
 {
-    m_startupData = startupData;
+    m_serviceLocator = serviceLocator;
 }
 
 //------------------------------------------------------------------------------

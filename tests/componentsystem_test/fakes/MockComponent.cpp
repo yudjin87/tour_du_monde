@@ -5,7 +5,7 @@
 //------------------------------------------------------------------------------
 MockComponent::MockComponent(const QString &name, bool isBuiltIn)
     : BaseComponent(new ComponentDefinition(name, isBuiltIn))
-    , m_initData(nullptr)
+    , m_serviceLocator(nullptr)
     , m_returnValue(true)
     , m_registrator(nullptr)
 {
@@ -18,9 +18,9 @@ MockComponent::~MockComponent()
 }
 
 //------------------------------------------------------------------------------
-QObject *MockComponent::data() const
+IServiceLocator *MockComponent::data() const
 {
-    return m_initData;
+    return m_serviceLocator;
 }
 
 //------------------------------------------------------------------------------
@@ -30,9 +30,9 @@ void MockComponent::setRegistrator(QList<MockComponent *> *registrator)
 }
 
 //------------------------------------------------------------------------------
-bool MockComponent::onStartup(QObject *initData)
+bool MockComponent::onStartup(IServiceLocator *serviceLocator)
 {
-    m_initData = initData;
+    m_serviceLocator = serviceLocator;
     emit whenStarted(name());
     return m_returnValue;
 }

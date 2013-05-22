@@ -31,7 +31,7 @@
 
 #include <QtCore/QString>
 
-class QObject;
+class IServiceLocator;
 
 /*!
  * @brief
@@ -82,7 +82,7 @@ public:
      *
      *   Does nothing by default.
      */
-    virtual void initialize(QObject *startUpData) = 0;
+    virtual void initialize(IServiceLocator *serviceLocator) = 0;
 
     /*!
      * @details

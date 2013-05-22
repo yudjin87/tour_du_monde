@@ -119,14 +119,14 @@ void BaseComponent::shutdown()
 }
 
 //------------------------------------------------------------------------------
-bool BaseComponent::startup(QObject *initData)
+bool BaseComponent::startup(IServiceLocator *serviceLocator)
 {
     if (m_isStarted) {
         Log.w(QString("Component \"%1\" is being started up, but it was not shut down.").arg(name()));
         return true;
     }
 
-    m_isStarted = onStartup(initData);
+    m_isStarted = onStartup(serviceLocator);
     return m_isStarted;
 }
 
@@ -137,7 +137,7 @@ void BaseComponent::onShutdown()
 }
 
 //------------------------------------------------------------------------------
-bool BaseComponent::onStartup(QObject *)
+bool BaseComponent::onStartup(IServiceLocator *)
 {
     // nothing to do in the base implementation
     return true;

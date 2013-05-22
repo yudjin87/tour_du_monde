@@ -10,7 +10,6 @@ DEFINES += GEOMETRY_LIB_IMPORT
 
 LIBS += -L$${CAROUSEL_BIN} -lUtils \
                            -lComponentSystem \
-                           -lFramework \
 
 DESTDIR = $${DESTDIR}/externalSource
 

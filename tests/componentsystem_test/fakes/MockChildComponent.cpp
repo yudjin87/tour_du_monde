@@ -21,7 +21,7 @@ const QStringList &MockChildComponent::parents() const
 }
 
 //------------------------------------------------------------------------------
-bool MockChildComponent::onStartup(QObject *)
+bool MockChildComponent::onStartup(IServiceLocator *)
 {
     emit whenStarted(name());
     return true;

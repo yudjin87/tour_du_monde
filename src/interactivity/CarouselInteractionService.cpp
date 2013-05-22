@@ -33,9 +33,7 @@
 
 #include <componentsystem/IComponent.h>
 #include <componentsystem/IComponentManager.h>
-#include <framework/AbstractApplication.h>
 #include <logging/LoggerFacade.h>
-#include <utils/IServiceLocator.h>
 #include <utils/ObservableList.h>
 
 #include <QtCore/QSettings>
@@ -48,9 +46,9 @@ static LoggerFacade Log = LoggerFacade::createLogger("CarouselInteractionService
 }
 
 //------------------------------------------------------------------------------
-CarouselInteractionService::CarouselInteractionService(AbstractApplication &application, QMainWindow *mainWindow, IComponentManager *manager, QObject *parent)
+CarouselInteractionService::CarouselInteractionService(IServiceLocator *serviceLocator, QMainWindow *mainWindow, IComponentManager *manager, QObject *parent)
     : m_inputInterceptor(nullptr)
-    , m_componentConfigurationDelegate(new CarouselComponentConfigurationDelegate(application))
+    , m_componentConfigurationDelegate(new CarouselComponentConfigurationDelegate(serviceLocator))
     , m_componentManager(manager)
     , m_activeTool(nullptr)
     , m_catalogs(nullptr)
@@ -58,7 +56,7 @@ CarouselInteractionService::CarouselInteractionService(AbstractApplication &appl
 {
     setParent(parent);
 
-    m_catalogs = new Catalogs(*m_mainWindow, &application);
+    m_catalogs = new Catalogs(*m_mainWindow, serviceLocator);
 
     makeConnections();
 }

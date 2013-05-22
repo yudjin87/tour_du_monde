@@ -31,7 +31,7 @@
 #include "ShapeFileFeatureWorkspace.h"
 
 //------------------------------------------------------------------------------
-ShapeFileWorkspaceFactory::ShapeFileWorkspaceFactory(IServiceLocator &locator)
+ShapeFileWorkspaceFactory::ShapeFileWorkspaceFactory(IServiceLocator *locator)
     : m_locator(locator)
 {
     setObjectName("ShapeFileWorkspaceFactory");

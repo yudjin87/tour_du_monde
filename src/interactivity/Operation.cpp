@@ -71,7 +71,7 @@ void Operation::stopExecuting()
 }
 
 //------------------------------------------------------------------------------
-void Operation::initialize(QObject * /*startUpData*/)
+void Operation::initialize(IServiceLocator * /*serviceLocator*/)
 {
     //Does nothing by default.
 }

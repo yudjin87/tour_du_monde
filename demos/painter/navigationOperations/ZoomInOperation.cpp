@@ -26,7 +26,6 @@
 
 #include "ZoomInOperation.h"
 
-#include <framework/AbstractApplication.h>
 #include <utils/IServiceLocator.h>
 
 #include <QtGui/QGraphicsScene>
@@ -35,7 +34,7 @@
 //------------------------------------------------------------------------------
 ZoomInOperation::ZoomInOperation()
     : Operation("Zoom in")
-    , m_app(nullptr)
+    , m_serviceLocator(nullptr)
 {
     setIcon(QIcon(":/navigation/images/zoom_in.png"));
     setIconVisibleInMenu(true);
@@ -44,19 +43,15 @@ ZoomInOperation::ZoomInOperation()
 //------------------------------------------------------------------------------
 void ZoomInOperation::execute()
 {
-    IServiceLocator &locator = m_app->serviceLocator();
-
-    QGraphicsScene *scene = locator.locate<QGraphicsScene>();
+    QGraphicsScene *scene = m_serviceLocator->locate<QGraphicsScene>();
     QGraphicsView *view = scene->views().first();
     view->scale(2, 2);
 }
 
 //------------------------------------------------------------------------------
-void ZoomInOperation::initialize(QObject *ip_startUpData)
+void ZoomInOperation::initialize(IServiceLocator *serviceLocator)
 {
-    m_app = qobject_cast<AbstractApplication *>(ip_startUpData);
-    if (m_app == nullptr)
-        return;
+    m_serviceLocator = serviceLocator;
 }
 
 //------------------------------------------------------------------------------

@@ -28,7 +28,6 @@
 #include "UndoInteractiveExtension.h"
 
 #include <componentsystem/ComponentExport.h>
-#include <framework/AbstractApplication.h>
 #include <logging/LoggerFacade.h>
 #include <utils/IServiceLocator.h>
 
@@ -77,20 +76,14 @@ void UndoComponent::onShutdown()
 }
 
 //------------------------------------------------------------------------------
-bool UndoComponent::onStartup(QObject *initData)
+bool UndoComponent::onStartup(IServiceLocator *serviceLocator)
 {
-    if (initData == nullptr)
+    if (serviceLocator == nullptr)
         return false;
-
-    AbstractApplication *app = dynamic_cast<AbstractApplication *>(initData);
-    if (app == nullptr)
-        return false;
-
-    IServiceLocator &locator = app->serviceLocator();
 
     // QUndoStack registration
     m_undoStack = new QUndoStack();
-    locator.registerInstance<QUndoStack>(m_undoStack);
+    serviceLocator->registerInstance<QUndoStack>(m_undoStack);
 
     return true;
 }

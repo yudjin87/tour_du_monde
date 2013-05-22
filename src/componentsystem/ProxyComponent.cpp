@@ -129,7 +129,7 @@ void ProxyComponent::onShutdown()
 }
 
 //------------------------------------------------------------------------------
-bool ProxyComponent::onStartup(QObject *initData)
+bool ProxyComponent::onStartup(IServiceLocator *serviceLocator)
 {
     if (!m_initialized) {
         Log.w("Cannot start up without initialization.");
@@ -152,7 +152,7 @@ bool ProxyComponent::onStartup(QObject *initData)
         return false;
 
     Log.d("Start up loaded component.");
-    return m_component->startup(initData);
+    return m_component->startup(serviceLocator);
 }
 
 //------------------------------------------------------------------------------

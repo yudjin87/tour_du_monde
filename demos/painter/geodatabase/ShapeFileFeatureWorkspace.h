@@ -35,7 +35,7 @@ class IServiceLocator;
 class GEODATABASE_API ShapeFileFeatureWorkspace : public IFeatureWorkspace
 {
 public:
-    ShapeFileFeatureWorkspace(const QString &workspacePath, IServiceLocator &locator);
+    ShapeFileFeatureWorkspace(const QString &workspacePath, IServiceLocator *locator);
     ~ShapeFileFeatureWorkspace();
 
     OwnedList<IDataset *> *datasets(esriDatasetType byType);
@@ -46,7 +46,7 @@ public:
 
 private:
     QString m_workspacePath;
-    IServiceLocator &m_locator;
+    IServiceLocator *m_locator;
 };
 
 #endif // SHAPEFILEFEATUREWORKSPACE_H

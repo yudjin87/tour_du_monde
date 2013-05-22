@@ -29,7 +29,6 @@
 
 #include <componentsystem/ComponentDefinition.h>
 #include <componentsystem/ComponentExport.h>
-#include <framework/AbstractApplication.h>
 
 //------------------------------------------------------------------------------
 static const QByteArray productName("ComponentManagement");
@@ -52,10 +51,9 @@ ComponentManagementComponent::~ComponentManagementComponent()
 }
 
 //------------------------------------------------------------------------------
-bool ComponentManagementComponent::onStartup(QObject *ip_initData)
+bool ComponentManagementComponent::onStartup(IServiceLocator *serviceLocator)
 {
-    AbstractApplication *app = qobject_cast<AbstractApplication *>(ip_initData);
-    if (app == nullptr)
+    if (serviceLocator == nullptr)
         return false;
 
     return true;

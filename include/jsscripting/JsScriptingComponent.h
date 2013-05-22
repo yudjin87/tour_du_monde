@@ -49,7 +49,7 @@ protected:
      */
     void onShutdown();
 
-    bool onStartup(QObject *initData);
+    bool onStartup(IServiceLocator *serviceLocator);
 };
 
 #endif // JSSCRIPTINGCOMPONENT_H

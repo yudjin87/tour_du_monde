@@ -85,10 +85,10 @@ protected:
      *   It is a defensive declaration of the public startup() method, that invokes only if component is
      *   not started.
      *   When override in derived classes starts up the component. Nothing to do by default.
-     * @param initData is a reference to the object with which this component is started. Usually
-     *   it will be reference to your own AbstractApplication root object, through you can obtain any data.
+     * @param serviceLocator is a reference to the services pool. It is needed to register/locate to
+     *   common services and other components' services.
      */
-    virtual bool onStartup(QObject *initData);
+    virtual bool onStartup(IServiceLocator *serviceLocator);
 
 private:
     Q_DISABLE_COPY(ProxyComponent)

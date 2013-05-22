@@ -26,7 +26,6 @@
 
 #include "CarouselComponentConfigurationDelegateTest.h"
 
-#include "fakes/MockApplication.h"
 #include "fakes/MockOperation.h"
 #include "fakes/MockInteractiveExtension.h"
 #include "fakes/MockNonInteractiveExtension.h"
@@ -43,7 +42,6 @@
 #include <QtGui/QMainWindow>
 #include <QtTest/QtTest>
 
-static MockApplication &mockApp = static_cast<MockApplication &>(*qApp);
 //------------------------------------------------------------------------------
 void configureCatalogs(ICatalogs &catalogs);
 
@@ -56,7 +54,7 @@ CarouselComponentConfigurationDelegateTest::CarouselComponentConfigurationDelega
 //------------------------------------------------------------------------------
 void CarouselComponentConfigurationDelegateTest::shouldCallConfigureGuiIfComponentHasInteractiveExtension()
 {
-    CarouselComponentConfigurationDelegate delegate(mockApp);
+    CarouselComponentConfigurationDelegate delegate(&m_locator);
     MockInteractiveExtension component;
 
     QMainWindow mw; Catalogs ctlgs(mw, nullptr);
@@ -68,7 +66,7 @@ void CarouselComponentConfigurationDelegateTest::shouldCallConfigureGuiIfCompone
 //------------------------------------------------------------------------------
 void CarouselComponentConfigurationDelegateTest::shouldNotThrowIfComponentHasNoInteractiveExtension()
 {
-    CarouselComponentConfigurationDelegate delegate(mockApp);
+    CarouselComponentConfigurationDelegate delegate(&m_locator);
     MockNonInteractiveExtension component;
 
     QMainWindow mw; Catalogs ctlgs(mw, nullptr);
@@ -80,7 +78,7 @@ void CarouselComponentConfigurationDelegateTest::shouldNotThrowIfComponentHasNoI
 //------------------------------------------------------------------------------
 void CarouselComponentConfigurationDelegateTest::shouldRegisterChangesForComponent()
 {
-    CarouselComponentConfigurationDelegate delegate(mockApp);
+    CarouselComponentConfigurationDelegate delegate(&m_locator);
     MockInteractiveExtension component;
     component.m_interactiveExtension->setCunfigureFunc(&configureCatalogs);
     QMainWindow mw; Catalogs ctlgs(mw, nullptr);
@@ -97,7 +95,7 @@ void CarouselComponentConfigurationDelegateTest::shouldRegisterChangesForCompone
 //------------------------------------------------------------------------------
 void CarouselComponentConfigurationDelegateTest::shouldReturnNullForUnconfiguredComponent()
 {
-    CarouselComponentConfigurationDelegate delegate(mockApp);
+    CarouselComponentConfigurationDelegate delegate(&m_locator);
     MockInteractiveExtension component;
     component.m_interactiveExtension->setCunfigureFunc(&configureCatalogs);
     QMainWindow mw; Catalogs ctlgs(mw, nullptr);
@@ -112,7 +110,7 @@ void CarouselComponentConfigurationDelegateTest::shouldReturnNullForUnconfigured
 //------------------------------------------------------------------------------
 void CarouselComponentConfigurationDelegateTest::shouldNotRegisterChangesAfterConfiguring()
 {
-    CarouselComponentConfigurationDelegate delegate(mockApp);
+    CarouselComponentConfigurationDelegate delegate(&m_locator);
     MockInteractiveExtension component;
     component.m_interactiveExtension->setCunfigureFunc(&configureCatalogs);
     QMainWindow mw; Catalogs ctlgs(mw, nullptr);
@@ -130,7 +128,7 @@ void CarouselComponentConfigurationDelegateTest::shouldNotRegisterChangesAfterCo
 //------------------------------------------------------------------------------
 void CarouselComponentConfigurationDelegateTest::shouldDeconfigureComponent()
 {
-    CarouselComponentConfigurationDelegate delegate(mockApp);
+    CarouselComponentConfigurationDelegate delegate(&m_locator);
     MockInteractiveExtension component;
     component.m_interactiveExtension->setCunfigureFunc(&configureCatalogs);
     QMainWindow mw; Catalogs ctlgs(mw, nullptr);

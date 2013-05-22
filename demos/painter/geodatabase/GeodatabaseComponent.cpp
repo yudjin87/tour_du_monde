@@ -30,7 +30,6 @@
 
 #include <componentsystem/ComponentDefinition.h>
 #include <componentsystem/ComponentExport.h>
-#include <framework/AbstractApplication.h>
 #include <utils/IServiceLocator.h>
 
 #include <functional>
@@ -42,7 +41,7 @@ static const QByteArray productName("Geodatabase");
 // TODO: will be removed when c++11 is supported (with lambdas)
 void *createShapeFileWorkspaceFactory(IServiceLocator *locator)
 {
-    return new ShapeFileWorkspaceFactory(*locator);
+    return new ShapeFileWorkspaceFactory(locator);
 }
 
 //------------------------------------------------------------------------------
@@ -60,16 +59,14 @@ GeodatabaseComponent::~GeodatabaseComponent()
 }
 
 //------------------------------------------------------------------------------
-bool GeodatabaseComponent::onStartup(QObject *ip_initData)
+bool GeodatabaseComponent::onStartup(IServiceLocator *serviceLocator)
 {
-    AbstractApplication *app = qobject_cast<AbstractApplication *>(ip_initData);
-    if (app == nullptr)
+    if (serviceLocator == nullptr)
         return false;
 
-    IServiceLocator &locator = app->serviceLocator();
-    auto creator = std::bind(&createShapeFileWorkspaceFactory, &locator);
-    locator.registerType<IShapeFileWorkspaceFactory>(creator);
-    locator.bindType<IShapeFileReader, ShapeFileReader>();
+    auto creator = std::bind(&createShapeFileWorkspaceFactory, serviceLocator);
+    serviceLocator->registerType<IShapeFileWorkspaceFactory>(creator);
+    serviceLocator->bindType<IShapeFileReader, ShapeFileReader>();
 
     return true;
 }

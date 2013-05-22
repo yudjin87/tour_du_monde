@@ -29,7 +29,6 @@
 
 #include <componentsystem/ComponentDefinition.h>
 #include <componentsystem/ComponentExport.h>
-#include <framework/AbstractApplication.h>
 #include <utils/IServiceLocator.h>
 
 //------------------------------------------------------------------------------
@@ -58,22 +57,19 @@ void DomComponent::onShutdown()
     if (mp_docController == nullptr)
         qWarning("Logic error: onStartup() should be called before onShutdown().");
 
-    IServiceLocator &locator = m_app->serviceLocator();
-
-    delete locator.unregisterInstance<IPainterDocumentController>();
+    delete m_serviceLocator->unregisterInstance<IPainterDocumentController>();
     mp_docController = nullptr;
 }
 
 //------------------------------------------------------------------------------
-bool DomComponent::onStartup(QObject *ip_initData)
+bool DomComponent::onStartup(IServiceLocator *serviceLocator)
 {
-    m_app = qobject_cast<AbstractApplication *>(ip_initData);
-    if (m_app == nullptr)
+    m_serviceLocator = serviceLocator;
+    if (m_serviceLocator == nullptr)
         return false;
 
-
     mp_docController = new PainterDocumentController();
-    m_app->serviceLocator().registerInstance<IPainterDocumentController>(mp_docController);
+    m_serviceLocator->registerInstance<IPainterDocumentController>(mp_docController);
 
     return true;
 }

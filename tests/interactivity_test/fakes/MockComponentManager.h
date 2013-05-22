@@ -32,7 +32,7 @@
 class MockComponentManager : public ComponentManager
 {
 public:
-    MockComponentManager();
+    MockComponentManager(IServiceLocator *serviceLocator);
 
     void callOnComponentStarted(IComponent *component);
     void callOnComponentAboutToShutDown(IComponent *component);

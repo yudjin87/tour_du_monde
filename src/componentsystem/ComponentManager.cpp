@@ -43,10 +43,10 @@ static LoggerFacade Log = LoggerFacade::createLogger("ComponentManager");
 }
 
 //------------------------------------------------------------------------------
-ComponentManager::ComponentManager(QObject *parent)
+ComponentManager::ComponentManager(IServiceLocator *serviceLocator, QObject *parent)
     : m_shutDownFunc(&ComponentManager::shutdownCheckedComponent)
     , m_startUpFunc(&ComponentManager::enableAndStartComponent)
-    , m_initializationData(QCoreApplication::instance())
+    , m_serviceLocator(serviceLocator)
     , m_components(new ComponentDependencies())
     , m_startedComponents(QList<IComponent *>())
     , m_stoppedComponents(QList<IComponent *>())
@@ -58,10 +58,10 @@ ComponentManager::ComponentManager(QObject *parent)
 }
 
 //------------------------------------------------------------------------------
-ComponentManager::ComponentManager(IComponentDependencies *dependencies, QObject *parent)
+ComponentManager::ComponentManager(IServiceLocator *serviceLocator, IComponentDependencies *dependencies, QObject *parent)
     : m_shutDownFunc(&ComponentManager::shutdownCheckedComponent)
     , m_startUpFunc(&ComponentManager::enableAndStartComponent)
-    , m_initializationData(QCoreApplication::instance())
+    , m_serviceLocator(serviceLocator)
     , m_components(dependencies)
     , m_startedComponents(QList<IComponent *>())
     , m_stoppedComponents(QList<IComponent *>())
@@ -130,9 +130,9 @@ bool ComponentManager::isChecked() const
 }
 
 //------------------------------------------------------------------------------
-QObject *ComponentManager::initializationData() const
+IServiceLocator *ComponentManager::serviceLocator() const
 {
-    return m_initializationData;
+    return m_serviceLocator;
 }
 
 //------------------------------------------------------------------------------
@@ -145,12 +145,6 @@ QStringList ComponentManager::missingComponents() const
 QList<IComponent *> ComponentManager::orphanComponents() const
 {
     return m_checkResult.orphans();
-}
-
-//------------------------------------------------------------------------------
-void ComponentManager::setInitializationData(QObject *initData)
-{
-    m_initializationData = initData;
 }
 
 //------------------------------------------------------------------------------
@@ -361,14 +355,14 @@ bool ComponentManager::startCheckedComponent(IComponent *component)
         return false;
     }
 
-    return component->startup(m_initializationData);
+    return component->startup(m_serviceLocator);
 }
 
 //------------------------------------------------------------------------------
 bool ComponentManager::enableAndStartComponent(IComponent *component)
 {
     component->setAvailability(IComponent::Enabled);
-    return component->startup(m_initializationData);
+    return component->startup(m_serviceLocator);
 }
 
 //------------------------------------------------------------------------------

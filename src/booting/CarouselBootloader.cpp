@@ -87,14 +87,14 @@ void CarouselBootloader::safeRun()
     LoggerFacade::installLoggerEngine(m_logger);
     Log.i("Logger has been created.");
 
+    Log.i("Creating IServiceLocator.");
+    m_serviceLocator = createServiceLocator();
+
     Log.i("Creating IComponentManager.");
     m_componentManager = createComponentManager();
 
     Log.i("Creating IComponentProvider.");
     m_componentProvider = createComponentProvider();
-
-    Log.i("Creating IServiceLocator.");
-    m_serviceLocator = createServiceLocator();
 
     Log.i("Creating MainWindow.");
     m_mainWindow = createMainWindow();

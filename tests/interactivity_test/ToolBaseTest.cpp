@@ -30,7 +30,7 @@
 #include "fakes/MockInteractionService.h"
 
 #include <interactivity/ToolBase.h>
-#include <utils/IServiceLocator.h>
+#include <utils/ServiceLocator.h>
 
 #include <QtTest/QTest>
 
@@ -50,11 +50,11 @@ void ToolBaseTest::shouldBeCheckable()
 //------------------------------------------------------------------------------
 void ToolBaseTest::shouldSubstituteActiveToolByItself()
 {
-    MockApplication& app = static_cast<MockApplication &>(*qApp);
+    ServiceLocator serviceLocator;
     MockInteractionService service;
-    app.serviceLocator().registerInstance<IInteractionService>(&service);
+    serviceLocator.registerInstance<IInteractionService>(&service);
     ToolBase tool;
-    tool.initialize(&app);
+    tool.initialize(&serviceLocator);
 
     tool.execute();
     QVERIFY(service.m_activeTool == &tool);

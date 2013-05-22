@@ -29,18 +29,16 @@
 
 #include <interactivity/Operation.h>
 
-class AbstractApplication;
-
 class ZoomAllOperation : public Operation
 {
 public:
     ZoomAllOperation();
 
     void execute();
-    void initialize(QObject *ip_startUpData);
+    void initialize(IServiceLocator *serviceLocator);
 
 private:
-    AbstractApplication *m_app;
+    IServiceLocator *m_serviceLocator;
 };
 
 #endif // ZOOMALLOPERATION_H

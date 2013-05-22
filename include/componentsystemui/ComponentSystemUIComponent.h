@@ -53,11 +53,11 @@ protected:
      *   Registers commands:
      *     @li EnableComponentCommand
      *     @li InstallComponentsCommand
-     * @param initData should be a reference to AbstractApplication object.
-     * @return @a false, if initData is not a reference to AbstractApplication object.
+     * @param serviceLocator should be a reference to the IServiceLocator object.
+     * @return @a false, if serviceLocator is a null pointer.
      *   Otherwise, return @a true.
      */
-    bool onStartup(QObject *initData);
+    bool onStartup(IServiceLocator *serviceLocator);
 };
 
 #endif // COMPONENTSYSTEMUICOMPONENT_H

@@ -38,7 +38,7 @@ public:
     ~GeometryComponent();
 
 protected:
-    bool onStartup(QObject *ip_initData);
+    bool onStartup(IServiceLocator *serviceLocator);
 };
 
 #endif // GEOMETRYCOMPONENT_H

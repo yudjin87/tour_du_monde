@@ -38,7 +38,7 @@ public:
     ~GeodatabaseComponent();
 
 protected:
-    bool onStartup(QObject *ip_initData);
+    bool onStartup(IServiceLocator *serviceLocator);
 };
 
 #endif // GEODATABASECOMPONENT_H

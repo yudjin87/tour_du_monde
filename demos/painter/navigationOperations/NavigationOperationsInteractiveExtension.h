@@ -37,7 +37,7 @@ class NavigationOperationsInteractiveExtension : public QObject, public IInterac
 public:
     NavigationOperationsInteractiveExtension(QObject *parent = nullptr);
 
-    void configureGui(ICatalogs &i_inCatalogs, AbstractApplication &i_application);
+    void configureGui(ICatalogs &inCatalogs, IServiceLocator *serviceLocator);
 };
 
 #endif // NAVIGATIONOPERATIONS_INTERACTIVEEXTENSION_H

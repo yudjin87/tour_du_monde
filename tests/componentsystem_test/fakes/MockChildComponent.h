@@ -15,7 +15,7 @@ public:
     QStringList &parents();
 
 protected:
-    bool onStartup(QObject *initData);
+    bool onStartup(IServiceLocator *serviceLocator);
     void onShutdown();
 
 signals:

@@ -26,7 +26,6 @@
 
 #include "UndoOperation.h"
 
-#include <framework/AbstractApplication.h>
 #include <utils/IServiceLocator.h>
 
 #include <QtGui/QUndoStack>
@@ -47,14 +46,9 @@ void UndoOperation::execute()
 }
 
 //------------------------------------------------------------------------------
-void UndoOperation::initialize(QObject *startUpData)
+void UndoOperation::initialize(IServiceLocator *serviceLocator)
 {
-    AbstractApplication *app = qobject_cast<AbstractApplication *>(startUpData);
-    if (app == nullptr)
-        return;
-
-    IServiceLocator &locator = app->serviceLocator();
-    QUndoStack *stack = locator.locate<QUndoStack>();
+    QUndoStack *stack = serviceLocator->locate<QUndoStack>();
 
     m_action = stack->createUndoAction(this);
     setEnabled(m_action->isEnabled());

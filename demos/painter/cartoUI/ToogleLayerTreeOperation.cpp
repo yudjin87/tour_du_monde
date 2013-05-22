@@ -26,9 +26,6 @@
 
 #include "ToogleLayerTreeOperation.h"
 
-#include <framework/AbstractApplication.h>
-#include <utils/IServiceLocator.h>
-
 #include <QtGui/QUndoStack>
 
 //------------------------------------------------------------------------------
@@ -54,12 +51,9 @@ void ToogleLayerTreeOperation::stopExecuting()
 }
 
 //------------------------------------------------------------------------------
-void ToogleLayerTreeOperation::initialize(QObject *startUpData)
+void ToogleLayerTreeOperation::initialize(IServiceLocator *serviceLocator)
 {
-    AbstractApplication *app = qobject_cast<AbstractApplication *>(startUpData);
-    if (app == nullptr)
-        return;
-
+    Q_UNUSED(serviceLocator)
     connect(m_action, SIGNAL(toggled()), SLOT(onActionChanged()));
 }
 

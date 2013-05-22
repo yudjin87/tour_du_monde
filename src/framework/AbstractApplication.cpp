@@ -59,12 +59,6 @@ AbstractApplication::~AbstractApplication()
 }
 
 //------------------------------------------------------------------------------
-IServiceLocator &AbstractApplication::serviceLocator()
-{
-    return *m_serviceLocator;
-}
-
-//------------------------------------------------------------------------------
 int AbstractApplication::runApplicationLoop(IBootloader &bootloader)
 {
     startLoadingSequence(bootloader);

@@ -30,7 +30,6 @@
 #include "Operation.h"
 #include "ITool.h"
 
-class AbstractApplication;
 class IInteractionService;
 
 /*!
@@ -109,7 +108,7 @@ public:
      *   When subclassing ToolBase, use the initialize() method to get a hook to the
      *   application.
      */
-    void initialize(QObject *startUpData);
+    void initialize(IServiceLocator *serviceLocator);
 
     /*!
      * @details
@@ -161,7 +160,7 @@ public:
     void onMouseUp(QMouseEvent *event);
 
 private:
-    AbstractApplication *m_app;
+    IServiceLocator *m_serviceLocator;
     IInteractionService *m_interactionService;
 };
 

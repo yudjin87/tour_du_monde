@@ -41,7 +41,7 @@ public:
 
     void execute();
     void stopExecuting();
-    void initialize(QObject *startUpData);
+    void initialize(IServiceLocator *serviceLocator);
 
 private slots:
     void onActionChanged();

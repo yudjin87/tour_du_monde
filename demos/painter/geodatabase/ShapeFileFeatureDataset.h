@@ -37,7 +37,7 @@ class QFile;
 class ShapeFileFeatureDataset : public IFeatureDataset
 {
 public:
-    ShapeFileFeatureDataset(IWorkspace &workspace, const QString &name, IServiceLocator &locator);
+    ShapeFileFeatureDataset(IWorkspace &workspace, const QString &name, IServiceLocator *locator);
     ~ShapeFileFeatureDataset();
 
     GeometryType geometryType();
@@ -62,7 +62,7 @@ private:
     static const QString m_shapeFileExt;
     IWorkspace &m_workspace;
     QString m_name;
-    IServiceLocator &m_locator;
+    IServiceLocator *m_locator;
     QFile *mp_file;
     bool m_isOpen;
 };

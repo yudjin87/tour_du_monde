@@ -28,7 +28,6 @@
 
 #include <componentsystem/ComponentDefinition.h>
 #include <componentsystem/ComponentExport.h>
-#include <framework/AbstractApplication.h>
 #include <interactivity/IInteractionService.h>
 #include <interactivity/InputInterceptor.h>
 #include <utils/IServiceLocator.h>
@@ -57,35 +56,33 @@ DisplayComponent::~DisplayComponent()
 //------------------------------------------------------------------------------
 void DisplayComponent::onShutdown()
 {
-    IServiceLocator &locator = m_app->serviceLocator();
-
-    QGraphicsScene *scene = locator.unregisterInstance<QGraphicsScene>();
+    QGraphicsScene *scene = m_serviceLocator->unregisterInstance<QGraphicsScene>();
     QGraphicsView *view = scene->views().first();
 
     delete scene;
     delete view;
 
-    IInteractionService* interactionService = m_app->serviceLocator().locate<IInteractionService>();
+    IInteractionService* interactionService = m_serviceLocator->locate<IInteractionService>();
     interactionService->setInputInterceptor(nullptr);
 }
 
 //------------------------------------------------------------------------------
-bool DisplayComponent::onStartup(QObject *ip_initData)
+bool DisplayComponent::onStartup(IServiceLocator *serviceLocator)
 {
-    m_app = qobject_cast<AbstractApplication *>(ip_initData);
-    if (m_app == nullptr)
+    m_serviceLocator = serviceLocator;
+    if (m_serviceLocator == nullptr)
         return false;
 
     QGraphicsScene *scene = new QGraphicsScene();
     QGraphicsView *view = new QGraphicsView(scene);
     view->scale(50000, 50000);
 
-    QMainWindow *mainWindow = m_app->serviceLocator().locate<QMainWindow>();
+    QMainWindow *mainWindow = m_serviceLocator->locate<QMainWindow>();
     mainWindow->setCentralWidget(view);
 
-    m_app->serviceLocator().registerInstance<QGraphicsScene>(scene);
+    m_serviceLocator->registerInstance<QGraphicsScene>(scene);
 
-    IInteractionService* interactionService = m_app->serviceLocator().locate<IInteractionService>();
+    IInteractionService* interactionService = m_serviceLocator->locate<IInteractionService>();
     interactionService->setInputInterceptor(new InputInterceptor());
     interactionService->inputInterceptor()->setSender(view->viewport());
     interactionService->inputInterceptor()->activate();

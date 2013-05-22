@@ -28,6 +28,8 @@
 #include "fakes/MockOperation.h"
 
 #include <interactivity/OperationCatalog.h>
+#include <utils/ServiceLocator.h>
+
 #include <QtTest/QtTest>
 #include <QtTest/QSignalSpy>
 
@@ -72,13 +74,13 @@ void OperationCatalogTest::shouldInitializeAddedOperation()
 void OperationCatalogTest::shouldInitializeAddedOperationWithStartupData()
 {
     OperationCatalog catalog;
-    QObject data;
-    catalog.setStartupData(&data);
+    ServiceLocator serviceLocator;
+    catalog.setStartupData(&serviceLocator);
 
     MockOperation *operation = new MockOperation();
     catalog.add(operation);
 
-    QCOMPARE(&data, operation->m_startUpData);
+    QCOMPARE(&serviceLocator, operation->m_serviceLocator);
 }
 
 //------------------------------------------------------------------------------

@@ -28,7 +28,7 @@
 #include "ShapeFileFeatureDataset.h"
 
 //------------------------------------------------------------------------------
-ShapeFileFeatureWorkspace::ShapeFileFeatureWorkspace(const QString &workspacePath, IServiceLocator &locator)
+ShapeFileFeatureWorkspace::ShapeFileFeatureWorkspace(const QString &workspacePath, IServiceLocator *locator)
     : m_workspacePath(workspacePath)
     , m_locator(locator)
 {

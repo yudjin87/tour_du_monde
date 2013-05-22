@@ -27,8 +27,8 @@
 #include "MockComponentManager.h"
 
 //------------------------------------------------------------------------------
-MockComponentManager::MockComponentManager()
-    : ComponentManager()
+MockComponentManager::MockComponentManager(IServiceLocator *serviceLocator)
+    : ComponentManager(serviceLocator)
 {
 }
 

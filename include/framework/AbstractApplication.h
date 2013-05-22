@@ -45,8 +45,6 @@ public:
     AbstractApplication(int &argc, char **argv, Type type, int flags = ApplicationFlags);
     ~AbstractApplication();
 
-    virtual IServiceLocator &serviceLocator();
-
     virtual int runApplicationLoop(IBootloader &bootloader);
 
 protected slots:

@@ -27,6 +27,8 @@
 #ifndef CAROUSELCOMPONENTCONFIGURATIONDELEGATETEST_H
 #define CAROUSELCOMPONENTCONFIGURATIONDELEGATETEST_H
 
+#include <utils/ServiceLocator.h>
+
 #include <QtCore/QObject>
 
 class CarouselComponentConfigurationDelegateTest : public QObject
@@ -42,6 +44,9 @@ private Q_SLOTS:
     void shouldReturnNullForUnconfiguredComponent();
     void shouldNotRegisterChangesAfterConfiguring();
     void shouldDeconfigureComponent();
+
+private:
+    ServiceLocator m_locator;
 };
 
 #endif // CAROUSELCOMPONENTCONFIGURATIONDELEGATETEST_H

@@ -28,7 +28,6 @@
 #include "RedoOperation.h"
 #include "UndoOperation.h"
 
-#include <framework/AbstractApplication.h>
 #include <interactivity/ICatalogs.h>
 #include <interactivity/IOperationCatalog.h>
 #include <interactivity/IMenuCatalog.h>
@@ -45,9 +44,9 @@ UndoInteractiveExtension::UndoInteractiveExtension(QObject *parent /*= nullptr*/
 }
 
 //------------------------------------------------------------------------------
-void UndoInteractiveExtension::configureGui(ICatalogs &inCatalogs, AbstractApplication &application)
+void UndoInteractiveExtension::configureGui(ICatalogs &inCatalogs, IServiceLocator *serviceLocator)
 {
-    Q_UNUSED(application)
+    Q_UNUSED(serviceLocator)
 
     IOperationCatalog &operationCatalog = inCatalogs.operationCatalog();
     Operation *undo = operationCatalog.add(new UndoOperation());

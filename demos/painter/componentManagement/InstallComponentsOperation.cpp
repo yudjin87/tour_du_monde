@@ -27,7 +27,6 @@
 #include "InstallComponentsOperation.h"
 
 #include <componentsystemui/InstallComponentsCommand.h>
-#include <framework/AbstractApplication.h>
 #include <utils/IServiceLocator.h>
 
 #include <QtGui/QFileDialog>
@@ -37,7 +36,7 @@
 //------------------------------------------------------------------------------
 InstallComponentsOperation::InstallComponentsOperation()
     : Operation("Install components")
-    , m_app(nullptr)
+    , m_serviceLocator(nullptr)
 {
     setIcon(QIcon(":/componentManagement/images/install_component.png"));
     setIconVisibleInMenu(true);
@@ -46,30 +45,26 @@ InstallComponentsOperation::InstallComponentsOperation()
 //------------------------------------------------------------------------------
 void InstallComponentsOperation::execute()
 {
-    IServiceLocator &locator = m_app->serviceLocator();
-
-    QFileDialog fileDialog(locator.locate<QMainWindow>(), "Install component");
+    QFileDialog fileDialog(m_serviceLocator->locate<QMainWindow>(), "Install component");
     fileDialog.setFileMode(QFileDialog::ExistingFiles);
     fileDialog.setFilter("Components (*.definition)"); // TODO: get from the app settings
     if (!fileDialog.exec())
         return;
 
-    InstallComponentsCommand* command = locator.buildInstance<InstallComponentsCommand>();
+    InstallComponentsCommand* command = m_serviceLocator->buildInstance<InstallComponentsCommand>();
     command->setSourceDirectoryPath(fileDialog.directory().absolutePath());
 
     foreach(const QString &fileName, fileDialog.selectedFiles())
         command->addDefinitionPath(fileName);
 
-    QUndoStack *undo = locator.locate<QUndoStack>();
+    QUndoStack *undo = m_serviceLocator->locate<QUndoStack>();
     undo->push(command);
 }
 
 //------------------------------------------------------------------------------
-void InstallComponentsOperation::initialize(QObject *ip_startUpData)
+void InstallComponentsOperation::initialize(IServiceLocator *serviceLocator)
 {
-    m_app = qobject_cast<AbstractApplication *>(ip_startUpData);
-    if (m_app == nullptr)
-        return;
+    m_serviceLocator = serviceLocator;
 }
 
 //------------------------------------------------------------------------------

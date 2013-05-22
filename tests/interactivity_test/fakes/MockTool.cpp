@@ -5,7 +5,7 @@ MockTool::MockTool()
     : executeCalled(false)
     , stopExecutingCalled(false)
     , initializeCalled(false)
-    , startUpData(nullptr)
+    , serviceLocator(nullptr)
     , contextMenuCalled(false)
     , doubleClickCalled(false)
     , keyDownCalled(false)
@@ -36,10 +36,10 @@ void MockTool::stopExecuting()
 }
 
 //------------------------------------------------------------------------------
-void MockTool::initialize(QObject *data)
+void MockTool::initialize(IServiceLocator *serviceLocator)
 {
     initializeCalled = true;
-    startUpData = data;
+    serviceLocator = serviceLocator;
 }
 
 //------------------------------------------------------------------------------

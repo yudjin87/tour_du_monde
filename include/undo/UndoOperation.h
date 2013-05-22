@@ -38,7 +38,7 @@ public:
     UndoOperation();
 
     void execute();
-    void initialize(QObject *startUpData);
+    void initialize(IServiceLocator *serviceLocator);
 
 private slots:
     void onActionChanged();

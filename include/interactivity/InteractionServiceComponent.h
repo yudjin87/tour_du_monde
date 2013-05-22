@@ -64,12 +64,12 @@ protected:
     /*!
      * @details
      *   Registers IInteractionService in the service locator and initializes
-     *   it with @a initData.
-     * @param initData should be a reference to AbstractApplication object.
-     * @return @a false, if initData is not a reference to AbstractApplication object.
+     *   it with @a serviceLocator.
+     * @param serviceLocator should be a reference to the IServiceLocator object.
+     * @return @a false, if serviceLocator is a null pointer.
      *   Otherwise, return @a true.
      */
-    bool onStartup(QObject *initData);
+    bool onStartup(IServiceLocator *serviceLocator);
 
 private:
     class InteractionServiceComponentPrivate;

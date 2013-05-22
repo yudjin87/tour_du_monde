@@ -29,6 +29,8 @@
 
 #include <QtCore/QObject>
 
+#include <utils/ServiceLocator.h>
+
 class CarouselInteractionService;
 
 class CarouselInteractionServiceTest : public QObject
@@ -71,6 +73,9 @@ private Q_SLOTS:
     void shouldNotThrowIfPreviousActiveToolIsNull();
     void shouldNotThrowIfInterceptorIsNull();
     void shouldNotThrowIfInterceptorIsNullWhenActiveToolIsDeactivated();
+
+private:
+    ServiceLocator m_serviceLocator;
 };
 
 #endif // CAROUSELINTERACTIONSERVICETEST_H

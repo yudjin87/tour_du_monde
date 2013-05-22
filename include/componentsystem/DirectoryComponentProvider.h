@@ -53,9 +53,9 @@ class FileComponentProvider;
  *   public:
  *       MyComponent(QObject *parent = nullptr);
  *   protected:
- *       bool onStartup(QObject *initData);
+ *       bool onStartup(IServiceLocator *serviceLocator);
  *   private:
- *       AbstractApplication *m_app;
+ *       IServiceLocator *m_serviceLocator;
  *   };
  * @endcode
  *
@@ -67,14 +67,14 @@ class FileComponentProvider;
  *
  *   MyComponent::MyComponent(QObject *parent)
  *      : BaseComponent("MyComponent", parent)
- *      , m_app(nullptr)
+ *      , m_serviceLocator(nullptr)
  *   {
  *   }
  *
- *   bool MyComponent::onStartup(QObject *initData)
+ *   bool MyComponent::onStartup(IServiceLocator *serviceLocator)
  *   {
- *       m_app = dynamic_cast<AbstractApplication *>(initData);
- *       return (m_app != nullptr);
+ *       m_serviceLocator = serviceLocator;
+ *       return (m_serviceLocator != nullptr);
  *   }
  *
  *   EXPORT_COMPONENT(MyComponent)

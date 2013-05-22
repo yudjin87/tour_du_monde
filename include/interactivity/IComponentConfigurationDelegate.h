@@ -31,10 +31,10 @@
 
 #include <QtCore/QObject>
 
-class AbstractApplication;
 class ConfigurationChanges;
 class IComponent;
 class ICatalogs;
+
 
 /*!
  * @brief

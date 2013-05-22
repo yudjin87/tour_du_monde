@@ -35,12 +35,12 @@ class ShapeFileWorkspaceFactory : public IShapeFileWorkspaceFactory
 {
     Q_OBJECT
 public:
-    ShapeFileWorkspaceFactory(IServiceLocator &locator);
+    ShapeFileWorkspaceFactory(IServiceLocator *locator);
 
     IWorkspace* openFromFile(const QString &workspacePath);
 
 private:
-    IServiceLocator &m_locator;
+    IServiceLocator *m_locator;
 };
 
 #endif // SHAPEFILEWORKSPACEFACTORY_H

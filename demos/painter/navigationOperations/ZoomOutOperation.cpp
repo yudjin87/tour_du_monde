@@ -26,7 +26,6 @@
 
 #include "ZoomOutOperation.h"
 
-#include <framework/AbstractApplication.h>
 #include <utils/IServiceLocator.h>
 
 #include <QtGui/QGraphicsScene>
@@ -35,7 +34,7 @@
 //------------------------------------------------------------------------------
 ZoomOutOperation::ZoomOutOperation()
     : Operation("Zoom out")
-    , m_app(nullptr)
+    , m_serviceLocator(nullptr)
 {
     setIcon(QIcon(":/navigation/images/zoom_out.png"));
     setIconVisibleInMenu(true);
@@ -44,19 +43,15 @@ ZoomOutOperation::ZoomOutOperation()
 //------------------------------------------------------------------------------
 void ZoomOutOperation::execute()
 {
-    IServiceLocator &locator = m_app->serviceLocator();
-
-    QGraphicsScene *scene = locator.locate<QGraphicsScene>();
+    QGraphicsScene *scene = m_serviceLocator->locate<QGraphicsScene>();
     QGraphicsView *view = scene->views().first();
     view->scale(0.5, 0.5);
 }
 
 //------------------------------------------------------------------------------
-void ZoomOutOperation::initialize(QObject *ip_startUpData)
+void ZoomOutOperation::initialize(IServiceLocator *serviceLocator)
 {
-    m_app = qobject_cast<AbstractApplication *>(ip_startUpData);
-    if (m_app == nullptr)
-        return;
+    m_serviceLocator = serviceLocator;
 }
 
 //------------------------------------------------------------------------------

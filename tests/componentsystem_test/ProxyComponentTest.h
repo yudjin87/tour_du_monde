@@ -29,6 +29,8 @@
 
 #include <QtCore/QObject>
 
+#include <utils/ServiceLocator.h>
+
 class ProxyComponentTest : public QObject
 {
     Q_OBJECT
@@ -58,6 +60,7 @@ private slots:
 private:
     const QString definitionLocation;
     QString componentFileName;
+    ServiceLocator m_locator;
 };
 
 #endif // PROXYCOMPONENTTEST_H

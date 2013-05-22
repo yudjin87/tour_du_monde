@@ -32,7 +32,6 @@
 #include <componentsystem/ComponentExport.h>
 #include <dom/IPainterDocument.h>
 #include <dom/IPainterDocumentController.h>
-#include <framework/AbstractApplication.h>
 #include <utils/IServiceLocator.h>
 
 #include <QtGui/QGraphicsScene>
@@ -43,6 +42,7 @@ static const QByteArray productName("ShapesView");
 //------------------------------------------------------------------------------
 CartoUIComponent::CartoUIComponent(QObject *parent /*= nullptr*/)
     : BaseComponent("ShapesView", parent)
+    , m_serviceLocator(nullptr)
 {
     IInteractiveExtension *interactiveExtension = new CartoUIInteractiveExtension(this);
     registerExtension<IInteractiveExtension>(interactiveExtension);
@@ -61,16 +61,16 @@ CartoUIComponent::~CartoUIComponent()
 }
 
 //------------------------------------------------------------------------------
-bool CartoUIComponent::onStartup(QObject *ip_initData)
+bool CartoUIComponent::onStartup(IServiceLocator *serviceLocator)
 {
-    AbstractApplication *app = qobject_cast<AbstractApplication *>(ip_initData);
-    if (app == nullptr)
+    m_serviceLocator = serviceLocator;
+    if (m_serviceLocator == nullptr)
         return false;
 
-    IPainterDocumentController* docController = app->serviceLocator().locate<IPainterDocumentController>();
+    IPainterDocumentController* docController = serviceLocator->locate<IPainterDocumentController>();
     IPainterDocument *doc = docController->document();
 
-    QGraphicsScene *scene = app->serviceLocator().locate<QGraphicsScene>();
+    QGraphicsScene *scene = serviceLocator->locate<QGraphicsScene>();
     MapModel *map = new MapModel(&doc->map(), scene, this);
     Q_UNUSED(map);
     return true;
@@ -79,6 +79,8 @@ bool CartoUIComponent::onStartup(QObject *ip_initData)
 //------------------------------------------------------------------------------
 void CartoUIComponent::onShutdown()
 {
+    MapModel *map = m_serviceLocator->unregisterInstance<MapModel>();
+    delete map;
 }
 
 //------------------------------------------------------------------------------

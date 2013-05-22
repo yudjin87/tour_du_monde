@@ -46,7 +46,7 @@ typedef QScopedPointer<IGeometryFactory> GeometryFactoryPtr;
 const QString ShapeFileFeatureDataset::m_shapeFileExt = ".shp";
 
 //------------------------------------------------------------------------------
-ShapeFileFeatureDataset::ShapeFileFeatureDataset(IWorkspace &workspace, const QString &name, IServiceLocator &locator)
+ShapeFileFeatureDataset::ShapeFileFeatureDataset(IWorkspace &workspace, const QString &name, IServiceLocator *locator)
     : m_workspace(workspace)
     , m_name(name)
     , m_locator(locator)
@@ -81,7 +81,7 @@ QRectF ShapeFileFeatureDataset::extent()
     if (!prepareToReading(name()))
         return rect;
 
-    ReaderPtr reader(m_locator.buildInstance<IShapeFileReader>());
+    ReaderPtr reader(m_locator->buildInstance<IShapeFileReader>());
     reader->setInputDevice(mp_file);
 
     ShapeFileHeader header;
@@ -112,13 +112,13 @@ IFeatureClass *ShapeFileFeatureDataset::classByName(const QString &className)
     if (!prepareToReading(clName))
         return nullptr;
 
-    ReaderPtr reader(m_locator.buildInstance<IShapeFileReader>());
+    ReaderPtr reader(m_locator->buildInstance<IShapeFileReader>());
     reader->setInputDevice(mp_file);
 
     ShapeFileHeader header;
     reader->readHeader(header);
 
-    GeometryFactoryPtr geometryFactory(m_locator.buildInstance<IGeometryFactory>());
+    GeometryFactoryPtr geometryFactory(m_locator->buildInstance<IGeometryFactory>());
     GeometryType type = geometryFactory->geometryTypeFromShapeType(header.shapeType);
     IFeatureClass *featureClass = createFeatureClass(type, header.bBox);
 
@@ -155,7 +155,7 @@ GeometryType ShapeFileFeatureDataset::geometryType()
     if (!prepareToReading(name()))
         return type;
 
-    ReaderPtr reader(m_locator.buildInstance<IShapeFileReader>());
+    ReaderPtr reader(m_locator->buildInstance<IShapeFileReader>());
     reader->setInputDevice(mp_file);
 
     ShapeFileHeader header;
@@ -163,7 +163,7 @@ GeometryType ShapeFileFeatureDataset::geometryType()
 
     finishReading();
 
-    GeometryFactoryPtr geometryFactory(m_locator.buildInstance<IGeometryFactory>());
+    GeometryFactoryPtr geometryFactory(m_locator->buildInstance<IGeometryFactory>());
 
     return geometryFactory->geometryTypeFromShapeType(header.shapeType);
 }

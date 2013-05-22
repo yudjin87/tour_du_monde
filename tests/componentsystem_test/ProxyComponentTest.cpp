@@ -129,7 +129,7 @@ void ProxyComponentTest::extensionShouldReturnRealComponentExtension()
     ProxyComponent component(def, loader, nullptr);
     component.initialize();
 
-    component.startup(this);
+    component.startup(&m_locator);
 
     IComponentExtension1 *loadedComponentExtension = component.extension<IComponentExtension1>();
     QVERIFY(loadedComponentExtension != nullptr);
@@ -154,7 +154,7 @@ void ProxyComponentTest::startupShouldLoadComponent()
     ProxyComponent component(def, loader, nullptr);
     component.initialize();
 
-    component.startup(this);
+    component.startup(&m_locator);
 
     QCOMPARE(loader->loadCalled, 1);
 }
@@ -164,7 +164,7 @@ void ProxyComponentTest::startupShouldReturnFalseIfInitialzeWasNotCalled()
 {
     ProxyComponent component(new ComponentDefinition());
 
-    bool result = component.startup(this);
+    bool result = component.startup(&m_locator);
 
     QCOMPARE(result, false);
 }
@@ -177,7 +177,7 @@ void ProxyComponentTest::startupShouldReturnFalseIfLoadFailed()
     ProxyComponent component(new ComponentDefinition(), loader, nullptr);
     component.initialize();
 
-    bool result = component.startup(this);
+    bool result = component.startup(&m_locator);
 
     QCOMPARE(result, false);
 }
@@ -192,7 +192,7 @@ void ProxyComponentTest::startupShouldCallStartupOnTheLoadedComponent()
     ProxyComponent component(def, loader, nullptr);
     component.initialize();
 
-    component.startup(this);
+    component.startup(&m_locator);
 
     QVERIFY(loader->mockComponent->started());
 }
@@ -207,7 +207,7 @@ void ProxyComponentTest::startupShouldReturnResultOfTheLoadedComponentStartup()
     ProxyComponent component(def, loader, nullptr);
     component.initialize();
 
-    bool result = component.startup(this);
+    bool result = component.startup(&m_locator);
 
     QCOMPARE(result, true);
 }
@@ -221,7 +221,7 @@ void ProxyComponentTest::shutdownShouldUnloadComponent()
     def->setComponentLocation(componentFileName);
     ProxyComponent component(def, loader, nullptr);
     component.initialize();
-    component.startup(this);
+    component.startup(&m_locator);
 
     component.shutdown();
 
@@ -237,7 +237,7 @@ void ProxyComponentTest::shutdownShouldShutdownLoadedComponent()
     def->setComponentLocation(componentFileName);
     ProxyComponent component(def, loader, nullptr);
     component.initialize();
-    component.startup(this);
+    component.startup(&m_locator);
 
     QVERIFY(loader->mockComponent->started());
     component.shutdown();

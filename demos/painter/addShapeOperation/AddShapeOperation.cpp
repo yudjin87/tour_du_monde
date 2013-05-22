@@ -27,7 +27,6 @@
 #include "AddShapeOperation.h"
 #include "AddShapesCommand.h"
 
-#include <framework/AbstractApplication.h>
 #include <utils/IServiceLocator.h>
 
 #include <QtGui/QFileDialog>
@@ -37,7 +36,7 @@
 //------------------------------------------------------------------------------
 AddShapeOperation::AddShapeOperation()
     : Operation("Open shape")
-    , m_app(nullptr)
+    , m_serviceLocator(nullptr)
 {
     setIcon(QIcon(":/core/images/add.png"));
     setIconVisibleInMenu(true);
@@ -46,27 +45,23 @@ AddShapeOperation::AddShapeOperation()
 //------------------------------------------------------------------------------
 void AddShapeOperation::execute()
 {
-    IServiceLocator &locator = m_app->serviceLocator();
-
-    QFileDialog fileDialog(locator.locate<QMainWindow>(), "Open shape");
+    QFileDialog fileDialog(m_serviceLocator->locate<QMainWindow>(), "Open shape");
     fileDialog.setFilter("Shape Files (*.shp)");
     fileDialog.setFileMode(QFileDialog::ExistingFiles);
     if (!fileDialog.exec())
         return;
 
-    AddShapesCommand *addShapesCommand = locator.buildInstance<AddShapesCommand>();
+    AddShapesCommand *addShapesCommand = m_serviceLocator->buildInstance<AddShapesCommand>();
     addShapesCommand->addShapeFiles(fileDialog.selectedFiles());
 
-    QUndoStack *undoStack = locator.locate<QUndoStack>();
+    QUndoStack *undoStack = m_serviceLocator->locate<QUndoStack>();
     undoStack->push(addShapesCommand);
 }
 
 //------------------------------------------------------------------------------
-void AddShapeOperation::initialize(QObject *ip_startUpData)
+void AddShapeOperation::initialize(IServiceLocator *serviceLocator)
 {
-    m_app = qobject_cast<AbstractApplication *>(ip_startUpData);
-    if (m_app == nullptr)
-        return;
+    m_serviceLocator = serviceLocator;
 }
 
 //------------------------------------------------------------------------------

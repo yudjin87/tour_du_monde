@@ -28,7 +28,6 @@
 #include "GeometryFactory.h"
 
 #include <componentsystem/ComponentExport.h>
-#include <framework/AbstractApplication.h>
 #include <utils/IServiceLocator.h>
 
 //------------------------------------------------------------------------------
@@ -48,14 +47,12 @@ GeometryComponent::~GeometryComponent()
 }
 
 //------------------------------------------------------------------------------
-bool GeometryComponent::onStartup(QObject *ip_initData)
+bool GeometryComponent::onStartup(IServiceLocator *serviceLocator)
 {
-    AbstractApplication *app = qobject_cast<AbstractApplication *>(ip_initData);
-    if (app == nullptr)
+    if (serviceLocator == nullptr)
         return false;
 
-    IServiceLocator &locator = app->serviceLocator();
-    locator.bindType<IGeometryFactory, GeometryFactory>();
+    serviceLocator->bindType<IGeometryFactory, GeometryFactory>();
 
     return true;
 }

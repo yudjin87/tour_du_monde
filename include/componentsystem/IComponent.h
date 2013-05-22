@@ -38,6 +38,8 @@
 #include <typeinfo>
 
 class ComponentDefinition;
+class IServiceLocator;
+
 /*!
  * @brief
  *   The abstract IComponent class defines contract for the components deployed in the application.
@@ -181,15 +183,15 @@ public:
      * @details
      *   When all components are registered, each component started up with given initialization
      *   data.
-     * @param initData is a reference to the object with which this component is started. Usually
-     *   it will be reference to your own AbstractApplication root object, through you can obtain any data.
+     * @param serviceLocator is a reference to the services pool. It is needed to register/locate to
+     *   common services and other components' services.
      * @return @a true, if component started up successful. Otherwise - return @a false. E.g. if component
      *   started twice - it is return @a false on the second time, because it is already started.
      *
      * @note You should not use this method directly, use IComponentManager::startupComponent()
      *   instead.
      */
-    virtual bool startup(QObject *initData) = 0;
+    virtual bool startup(IServiceLocator *serviceLocator) = 0;
 
 signals:
     /*!

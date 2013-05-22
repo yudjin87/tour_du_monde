@@ -36,6 +36,7 @@
 
 class IComponent;
 class IComponentDependencies;
+class IServiceLocator;
 
 template <typename TItem>
 class ObservableList;
@@ -51,8 +52,8 @@ class ObservableList;
  *   started during run-time.
  *
  *   Then, after checking and resolving dependencies, all enabled components will be started
- *   with AbstractApplication reference as @a initialziation @a data.
- *   It enables components to get access to your application.
+ *   with IServiceLocator reference as @a initialziation @a data.
+ *   It enables components to get access to shared servces of your application.
  *
  *   Also manager uses IComponentDependencies for components sorting and finding components dependencies.
  *
@@ -128,7 +129,7 @@ public:
      *   Gets an initialization data that will be passed to the started components.
      * @sa startupComponent()
      */
-    virtual QObject *initializationData() const = 0;
+    virtual IServiceLocator *serviceLocator() const = 0;
 
     /*!
      * @details
@@ -153,13 +154,6 @@ public:
      * @sa missingComponents()
      */
     virtual QList<IComponent *> orphanComponents() const = 0;
-
-    /*!
-     * @details
-     *   Sets an initialization data that will be passed to the started components.
-     * @sa startupComponent()
-     */
-    virtual void setInitializationData(QObject *initData) = 0;
 
     /*!
      * @details

@@ -11,12 +11,12 @@ public:
 
     ~MockComponent();
 
-    QObject *data() const;
+    IServiceLocator *data() const;
 
     void setRegistrator(QList<MockComponent *> *registrator);
 
 protected:
-    bool onStartup(QObject *initData);
+    bool onStartup(IServiceLocator *serviceLocator);
     void onShutdown();
 
 signals:
@@ -24,7 +24,7 @@ signals:
     void whenShutdown(const QString &name);
 
 public:
-    QObject *m_initData;
+    IServiceLocator *m_serviceLocator;
     bool m_returnValue;
     QList<MockComponent *> *m_registrator;
 };

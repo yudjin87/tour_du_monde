@@ -29,18 +29,16 @@
 
 #include <interactivity/Operation.h>
 
-class AbstractApplication;
-
 class AddShapeOperation : public Operation
 {
 public:
     AddShapeOperation();
 
     void execute();
-    void initialize(QObject *ip_startUpData);
+    void initialize(IServiceLocator *serviceLocator);
 
 private:
-    AbstractApplication *m_app;
+    IServiceLocator *m_serviceLocator;
 };
 
 #endif // ADDSHAPEOPERATION_H

@@ -27,10 +27,7 @@
 #include "ShowComponentsOperation.h"
 
 #include <componentsystemui/ComponentDefinitionsModel.h>
-
 #include <interactivity/IDialogService.h>
-
-#include <framework/AbstractApplication.h>
 #include <utils/IServiceLocator.h>
 
 #include <QtGui/QMainWindow>
@@ -38,27 +35,24 @@
 //------------------------------------------------------------------------------
 ShowComponentsOperation::ShowComponentsOperation()
     : Operation("Show components")
-    , m_app(nullptr)
+    , m_serviceLocator(nullptr)
 {
 }
 
 //------------------------------------------------------------------------------
 void ShowComponentsOperation::execute()
 {
-    IServiceLocator &locator = m_app->serviceLocator();
-    IDialogService *dialogService = locator.locate<IDialogService>();
+    IDialogService *dialogService = m_serviceLocator->locate<IDialogService>();
 
-    ComponentDefinitionsModel *model = locator.buildInstance<ComponentDefinitionsModel>();
+    ComponentDefinitionsModel *model = m_serviceLocator->buildInstance<ComponentDefinitionsModel>();
     dialogService->showDialog(model);
     delete model;
 }
 
 //------------------------------------------------------------------------------
-void ShowComponentsOperation::initialize(QObject *ip_startUpData)
+void ShowComponentsOperation::initialize(IServiceLocator *serviceLocator)
 {
-    m_app = qobject_cast<AbstractApplication *>(ip_startUpData);
-    if (m_app == nullptr)
-        return;
+    m_serviceLocator = serviceLocator;
 }
 
 //------------------------------------------------------------------------------

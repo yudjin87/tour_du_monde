@@ -31,7 +31,7 @@
 
 #include "IOperationCatalog.h"
 
-class QObject;
+class IServiceLocator;
 
 /*!
  * @brief
@@ -123,10 +123,10 @@ public:
 
     /*!
      * @details
-     *   Sets the reference to the startup data operations
+     *   Sets the reference to the service locator wich operations
      *   will be initialized with.
      */
-    void setStartupData(QObject *startupData);
+    void setStartupData(IServiceLocator *serviceLocator);
 
 protected:
     /*!
@@ -138,7 +138,7 @@ protected:
 
 private:
     QList<Operation *> m_operations;
-    QObject *m_startupData;
+    IServiceLocator *m_serviceLocator;
 };
 
 #endif // OPERATIONCATALOG_H

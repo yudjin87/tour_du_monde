@@ -15,7 +15,7 @@ public:
     void execute();
     QString category() const;
     void stopExecuting();
-    void initialize(QObject *data);
+    void initialize(IServiceLocator *serviceLocator);
     QString name() const;
 
     // ITool:
@@ -35,7 +35,7 @@ public:
     bool executeCalled;
     bool stopExecutingCalled;
     bool initializeCalled;
-    QObject *startUpData;
+    IServiceLocator *serviceLocator;
 
     // ITool:
     bool contextMenuCalled;

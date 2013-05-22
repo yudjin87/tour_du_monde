@@ -43,8 +43,8 @@
  *   started during run-time.
  *
  *   Then, after checking and resolving dependencies, all enabled components will be started
- *   with AbstractApplication reference as @a initialziation @a data.
- *   It enables components to get access to your application.
+ *   with IServiceLocator reference as @a initialziation @a data.
+ *   It enables components to get access to shared servces of your application.
  *
  *   Also manager uses IComponentDependencies for components sorting and finding components dependencies.
  *
@@ -59,14 +59,14 @@ public:
      *   Creates an instance of the ComponentManager class with default ComponentInitialiser and
      *   ComponentDependencies instances.
      */
-    explicit ComponentManager(QObject *parent = nullptr);
+    explicit ComponentManager(IServiceLocator *serviceLocator, QObject *parent = nullptr);
 
     /*!
      * @details
      *   Creates an instance of the ComponentManager class with specified @a dependencies and
      *   default ComponentInitialiser instance.
      */
-    explicit ComponentManager(IComponentDependencies *dependencies, QObject *parent = nullptr);
+    explicit ComponentManager(IServiceLocator *serviceLocator, IComponentDependencies *dependencies, QObject *parent = nullptr);
 
    ~ComponentManager();
 
@@ -133,7 +133,7 @@ public:
      *   Gets an initialization data that will be passed to the started components.
      * @sa startupComponent()
      */
-    QObject *initializationData() const;
+    IServiceLocator *serviceLocator() const;
 
     /*!
      * @details
@@ -158,13 +158,6 @@ public:
      * @sa missingComponents()
      */
     QList<IComponent *> orphanComponents() const;
-
-    /*!
-     * @details
-     *   Sets an initialization data that will be passed to the started components.
-     * @sa startupComponent()
-     */
-    void setInitializationData(QObject *initData);
 
     /*!
      * @details
@@ -398,7 +391,7 @@ private:
     typedef bool (ComponentManager::*StartUpFunc)(IComponent *);
     ShutDownFunc m_shutDownFunc;
     StartUpFunc m_startUpFunc;
-    QObject *m_initializationData;
+    IServiceLocator *m_serviceLocator;
     IComponentDependencies *m_components;
     QList<IComponent *> m_startedComponents;
     QList<IComponent *> m_stoppedComponents;

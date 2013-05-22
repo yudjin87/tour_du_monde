@@ -38,8 +38,9 @@ class IServiceLocator;
  *   that specific implementations can override.
  * @details
  *   After bootloading process the configured IServiceLocator is available through
- *   serviceLocator() method. You can access IServiceLocator reference using AbstractApplication
- *   and register/locate to the common services and your components' services.
+ *   serviceLocator() method. Later it will be injected to the all components and other
+ *   elements during their start or initialization. It is needed to register/locate to
+ *   common services and your components' services.
  */
 class BOOTING_API IBootloader : public QObject
 {

@@ -1,6 +1,8 @@
 #ifndef COMPONENTMANAGERTEST_H
 #define COMPONENTMANAGERTEST_H
 
+#include <utils/ServiceLocator.h>
+
 #include <QtCore/QObject>
 
 class ComponentManagerTest : public QObject
@@ -58,6 +60,9 @@ private slots:
     void startupAllComponents_shouldPassComponentsInRightOrder_ComplexDependencies();
     void shutdownComponent_shouldPassComponentsInReverseOrder();
     void shutdownAllComponents_shouldPassComponentsInRightOrder();
+
+private:
+    ServiceLocator m_locator;
 };
 
 #endif // COMPONENTMANAGERTEST_H

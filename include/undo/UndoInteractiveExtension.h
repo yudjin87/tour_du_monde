@@ -37,7 +37,7 @@ class UndoInteractiveExtension : public QObject, public IInteractiveExtension
 public:
     UndoInteractiveExtension(QObject *parent = nullptr);
 
-    void configureGui(ICatalogs &inCatalogs, AbstractApplication &application);
+    void configureGui(ICatalogs &inCatalogs, IServiceLocator *serviceLocator);
 };
 
 

@@ -35,7 +35,6 @@
 #include <componentsystem/ComponentDependencies.h>
 #include <componentsystem/IComponentManager.h>
 #include <interactivity/IDialogService.h>
-#include <framework/AbstractApplication.h>
 #include <logging/LoggerFacade.h>
 #include <utils/IServiceLocator.h>
 
@@ -91,28 +90,26 @@ void ComponentSystemUIComponent::onShutdown()
 }
 
 //------------------------------------------------------------------------------
-bool ComponentSystemUIComponent::onStartup(QObject *initData)
+bool ComponentSystemUIComponent::onStartup(IServiceLocator *serviceLocator)
 {
-    AbstractApplication *app = dynamic_cast<AbstractApplication *>(initData);
-    if (app == nullptr)
+    if (serviceLocator == nullptr)
         return false;
 
-    IServiceLocator &locator = app->serviceLocator();
-    IComponentManager *manager = locator.locate<IComponentManager>();
+    IComponentManager *manager = serviceLocator->locate<IComponentManager>();
 
     // Commands
     auto enableCreator = std::bind(&createEnableComponentCommand, manager);
-    locator.registerType<EnableComponentCommand>(enableCreator);
+    serviceLocator->registerType<EnableComponentCommand>(enableCreator);
 
     auto installCreator = std::bind(&createInstallComponentsCommand, manager);
-    locator.registerType<InstallComponentsCommand>(installCreator);
+    serviceLocator->registerType<InstallComponentsCommand>(installCreator);
 
     // Services
-    IDialogService *dialogService = locator.locate<IDialogService>();
+    IDialogService *dialogService = serviceLocator->locate<IDialogService>();
     dialogService->registerDialog<ComponentsDialog, ComponentDefinitionsModel>();
 
     auto componentDefinitionsModelCreator = std::bind(&createComponentDefinitionsModel, manager);
-    locator.registerType<ComponentDefinitionsModel>(componentDefinitionsModelCreator);
+    serviceLocator->registerType<ComponentDefinitionsModel>(componentDefinitionsModelCreator);
 
     return true;
 }

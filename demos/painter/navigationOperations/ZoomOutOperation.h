@@ -29,18 +29,16 @@
 
 #include <interactivity/Operation.h>
 
-class AbstractApplication;
-
 class ZoomOutOperation : public Operation
 {
 public:
     ZoomOutOperation();
 
     void execute();
-    void initialize(QObject *ip_startUpData);
+    void initialize(IServiceLocator *serviceLocator);
 
 private:
-    AbstractApplication *m_app;
+    IServiceLocator *m_serviceLocator;
 };
 
 #endif // ZOOMOUTOPERATION_H

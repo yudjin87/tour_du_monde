@@ -58,7 +58,7 @@ public:
     {
     }
 
-    void configureGui(ICatalogs &inCatalogs, AbstractApplication &)
+    void configureGui(ICatalogs &inCatalogs, IServiceLocator *)
     {
         m_configureCalled = true;
 

@@ -29,12 +29,10 @@
 #include "InstallComponentsOperation.h"
 #include "ShowComponentsOperation.h"
 
-#include <framework/AbstractApplication.h>
 #include <interactivity/ICatalogs.h>
 #include <interactivity/IOperationCatalog.h>
 #include <interactivity/IMenuCatalog.h>
 #include <interactivity/IToolBarCatalog.h>
-#include <utils/IServiceLocator.h>
 
 #include <QtGui/QMenu>
 #include <QtGui/QToolBar>
@@ -46,20 +44,20 @@ ComponentManagementInteractiveExtension::ComponentManagementInteractiveExtension
 }
 
 //------------------------------------------------------------------------------
-void ComponentManagementInteractiveExtension::configureGui(ICatalogs &i_inCatalogs, AbstractApplication &i_application)
+void ComponentManagementInteractiveExtension::configureGui(ICatalogs &inCatalogs, IServiceLocator *serviceLocator)
 {
-    Q_UNUSED(i_application);
+    Q_UNUSED(serviceLocator);
 
-    IOperationCatalog &operationCatalog = i_inCatalogs.operationCatalog();
+    IOperationCatalog &operationCatalog = inCatalogs.operationCatalog();
     Operation *installComponents = operationCatalog.add(new InstallComponentsOperation());
     Operation *showComponents = operationCatalog.add(new ShowComponentsOperation());
 
-    IToolBarCatalog &toolbarCatalog = i_inCatalogs.toolBarCatalog();
+    IToolBarCatalog &toolbarCatalog = inCatalogs.toolBarCatalog();
     QToolBar *toolBar = toolbarCatalog.add("Components");
     toolBar->addAction(installComponents);
     toolBar->addAction(showComponents);
 
-    IMenuCatalog &menuCatalog = i_inCatalogs.menuCatalog();
+    IMenuCatalog &menuCatalog = inCatalogs.menuCatalog();
     QMenu *menu = menuCatalog.addMenu("Components");
     menu->addAction(installComponents);
     menu->addAction(showComponents);

@@ -29,9 +29,9 @@
 
 #include "IInteractionService.h"
 
-class AbstractApplication;
 class IComponent;
 class IComponentManager;
+class IServiceLocator;
 class Catalogs;
 class QMainWindow;
 
@@ -50,7 +50,7 @@ public:
      *   Initializes a new instance of the CarouselInteractionService class using
      *   specified instances of the @a application, @a mainWindow and @a manager.
      */
-    CarouselInteractionService(AbstractApplication &application, QMainWindow *mainWindow, IComponentManager *manager, QObject *parent = nullptr);
+    CarouselInteractionService(IServiceLocator *serviceLocator, QMainWindow *mainWindow, IComponentManager *manager, QObject *parent = nullptr);
     ~CarouselInteractionService();
 
     /*!
