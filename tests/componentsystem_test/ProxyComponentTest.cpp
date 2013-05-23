@@ -223,7 +223,7 @@ void ProxyComponentTest::shutdownShouldUnloadComponent()
     component.initialize();
     component.startup(&m_locator);
 
-    component.shutdown();
+    component.shutdown(&m_locator);
 
     QCOMPARE(loader->unloadCalled, 1);
 }
@@ -240,7 +240,7 @@ void ProxyComponentTest::shutdownShouldShutdownLoadedComponent()
     component.startup(&m_locator);
 
     QVERIFY(loader->mockComponent->started());
-    component.shutdown();
+    component.shutdown(&m_locator);
 
     QVERIFY(!loader->mockComponent->started());
 }

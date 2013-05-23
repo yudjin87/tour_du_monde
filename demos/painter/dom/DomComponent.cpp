@@ -52,24 +52,20 @@ DomComponent::~DomComponent()
 }
 
 //------------------------------------------------------------------------------
-void DomComponent::onShutdown()
+void DomComponent::onShutdown(IServiceLocator *serviceLocator)
 {
     if (mp_docController == nullptr)
         qWarning("Logic error: onStartup() should be called before onShutdown().");
 
-    delete m_serviceLocator->unregisterInstance<IPainterDocumentController>();
+    delete serviceLocator->unregisterInstance<IPainterDocumentController>();
     mp_docController = nullptr;
 }
 
 //------------------------------------------------------------------------------
 bool DomComponent::onStartup(IServiceLocator *serviceLocator)
 {
-    m_serviceLocator = serviceLocator;
-    if (m_serviceLocator == nullptr)
-        return false;
-
     mp_docController = new PainterDocumentController();
-    m_serviceLocator->registerInstance<IPainterDocumentController>(mp_docController);
+    serviceLocator->registerInstance<IPainterDocumentController>(mp_docController);
 
     return true;
 }

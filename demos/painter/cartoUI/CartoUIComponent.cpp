@@ -42,7 +42,6 @@ static const QByteArray productName("ShapesView");
 //------------------------------------------------------------------------------
 CartoUIComponent::CartoUIComponent(QObject *parent /*= nullptr*/)
     : BaseComponent("ShapesView", parent)
-    , m_serviceLocator(nullptr)
 {
     IInteractiveExtension *interactiveExtension = new CartoUIInteractiveExtension(this);
     registerExtension<IInteractiveExtension>(interactiveExtension);
@@ -63,10 +62,6 @@ CartoUIComponent::~CartoUIComponent()
 //------------------------------------------------------------------------------
 bool CartoUIComponent::onStartup(IServiceLocator *serviceLocator)
 {
-    m_serviceLocator = serviceLocator;
-    if (m_serviceLocator == nullptr)
-        return false;
-
     IPainterDocumentController* docController = serviceLocator->locate<IPainterDocumentController>();
     IPainterDocument *doc = docController->document();
 
@@ -77,9 +72,9 @@ bool CartoUIComponent::onStartup(IServiceLocator *serviceLocator)
 }
 
 //------------------------------------------------------------------------------
-void CartoUIComponent::onShutdown()
+void CartoUIComponent::onShutdown(IServiceLocator *serviceLocator)
 {
-    MapModel *map = m_serviceLocator->unregisterInstance<MapModel>();
+    MapModel *map = serviceLocator->unregisterInstance<MapModel>();
     delete map;
 }
 

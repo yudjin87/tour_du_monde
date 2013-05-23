@@ -49,9 +49,6 @@ GeometryComponent::~GeometryComponent()
 //------------------------------------------------------------------------------
 bool GeometryComponent::onStartup(IServiceLocator *serviceLocator)
 {
-    if (serviceLocator == nullptr)
-        return false;
-
     serviceLocator->bindType<IGeometryFactory, GeometryFactory>();
 
     return true;

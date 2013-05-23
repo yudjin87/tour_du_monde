@@ -54,35 +54,31 @@ DisplayComponent::~DisplayComponent()
 }
 
 //------------------------------------------------------------------------------
-void DisplayComponent::onShutdown()
+void DisplayComponent::onShutdown(IServiceLocator *serviceLocator)
 {
-    QGraphicsScene *scene = m_serviceLocator->unregisterInstance<QGraphicsScene>();
+    QGraphicsScene *scene = serviceLocator->unregisterInstance<QGraphicsScene>();
     QGraphicsView *view = scene->views().first();
 
     delete scene;
     delete view;
 
-    IInteractionService* interactionService = m_serviceLocator->locate<IInteractionService>();
+    IInteractionService* interactionService = serviceLocator->locate<IInteractionService>();
     interactionService->setInputInterceptor(nullptr);
 }
 
 //------------------------------------------------------------------------------
 bool DisplayComponent::onStartup(IServiceLocator *serviceLocator)
 {
-    m_serviceLocator = serviceLocator;
-    if (m_serviceLocator == nullptr)
-        return false;
-
     QGraphicsScene *scene = new QGraphicsScene();
     QGraphicsView *view = new QGraphicsView(scene);
     view->scale(50000, 50000);
 
-    QMainWindow *mainWindow = m_serviceLocator->locate<QMainWindow>();
+    QMainWindow *mainWindow = serviceLocator->locate<QMainWindow>();
     mainWindow->setCentralWidget(view);
 
-    m_serviceLocator->registerInstance<QGraphicsScene>(scene);
+    serviceLocator->registerInstance<QGraphicsScene>(scene);
 
-    IInteractionService* interactionService = m_serviceLocator->locate<IInteractionService>();
+    IInteractionService* interactionService = serviceLocator->locate<IInteractionService>();
     interactionService->setInputInterceptor(new InputInterceptor());
     interactionService->inputInterceptor()->setSender(view->viewport());
     interactionService->inputInterceptor()->activate();

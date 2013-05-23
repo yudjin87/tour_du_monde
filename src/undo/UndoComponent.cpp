@@ -66,7 +66,7 @@ UndoComponent::~UndoComponent()
 }
 
 //------------------------------------------------------------------------------
-void UndoComponent::onShutdown()
+void UndoComponent::onShutdown(IServiceLocator *serviceLocator)
 {
     // TODO:
     // Unregister them before deletion!
@@ -78,9 +78,6 @@ void UndoComponent::onShutdown()
 //------------------------------------------------------------------------------
 bool UndoComponent::onStartup(IServiceLocator *serviceLocator)
 {
-    if (serviceLocator == nullptr)
-        return false;
-
     // QUndoStack registration
     m_undoStack = new QUndoStack();
     serviceLocator->registerInstance<QUndoStack>(m_undoStack);

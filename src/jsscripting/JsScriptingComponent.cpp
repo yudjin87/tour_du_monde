@@ -60,16 +60,14 @@ JsScriptingComponent::~JsScriptingComponent()
 }
 
 //------------------------------------------------------------------------------
-void JsScriptingComponent::onShutdown()
+void JsScriptingComponent::onShutdown(IServiceLocator *serviceLocator)
 {
 }
 
 //------------------------------------------------------------------------------
 bool JsScriptingComponent::onStartup(IServiceLocator *serviceLocator)
 {
-    if (serviceLocator == nullptr)
-        return false;
-
+    Q_UNUSED(serviceLocator)
     return true;
 }
 

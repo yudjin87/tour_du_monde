@@ -52,9 +52,7 @@ CartoComponent::~CartoComponent()
 //------------------------------------------------------------------------------
 bool CartoComponent::onStartup(IServiceLocator *serviceLocator)
 {
-    if (serviceLocator == nullptr)
-        return false;
-
+    Q_UNUSED(serviceLocator)
     return true;
 }
 

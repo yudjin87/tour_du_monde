@@ -42,10 +42,7 @@ public:
 
 protected:
     bool onStartup(IServiceLocator *serviceLocator);
-    void onShutdown();
-
-private:
-    IServiceLocator *m_serviceLocator;
+    void onShutdown(IServiceLocator *serviceLocator);
 
 private:
     Q_DISABLE_COPY(DisplayComponent)

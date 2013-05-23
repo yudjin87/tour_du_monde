@@ -40,10 +40,7 @@ public:
 
 protected:
     bool onStartup(IServiceLocator *serviceLocator);
-    void onShutdown();
-
-private:
-    IServiceLocator *m_serviceLocator;
+    void onShutdown(IServiceLocator *serviceLocator);
 };
 
 #endif // SHAPESVIEWCOMPONENT_H

@@ -5,7 +5,7 @@
 
 #include <componentsystem/BaseComponent.h>
 #include <componentsystem/ComponentDefinition.h>
-#include <utils/IServiceLocator.h>
+#include <utils/ServiceLocator.h>
 
 #include <QtTest/QtTest>
 #include <QtCore/QSettings>
@@ -130,7 +130,8 @@ void BaseComponentTest::shouldShutdownIfAlreadyStoped()
     MockComponent mockComponent;
     QSignalSpy spy(&mockComponent, SIGNAL(whenShutdown(const QString &)));
 
-    mockComponent.shutdown();
+    ServiceLocator locator;
+    mockComponent.shutdown(&locator);
 
     // make sure the signal wasn't emitted
     QCOMPARE(spy.count(), 0);

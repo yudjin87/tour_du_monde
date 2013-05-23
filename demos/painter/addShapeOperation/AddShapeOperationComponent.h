@@ -40,7 +40,7 @@ public:
 
 protected:
     bool onStartup(IServiceLocator *serviceLocator);
-    void onShutdown();
+    void onShutdown(IServiceLocator *serviceLocator);
 };
 
 #endif // ADDSHAPEOPERATIONCOMPONENT_H

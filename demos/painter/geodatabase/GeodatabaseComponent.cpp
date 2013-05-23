@@ -61,9 +61,6 @@ GeodatabaseComponent::~GeodatabaseComponent()
 //------------------------------------------------------------------------------
 bool GeodatabaseComponent::onStartup(IServiceLocator *serviceLocator)
 {
-    if (serviceLocator == nullptr)
-        return false;
-
     auto creator = std::bind(&createShapeFileWorkspaceFactory, serviceLocator);
     serviceLocator->registerType<IShapeFileWorkspaceFactory>(creator);
     serviceLocator->bindType<IShapeFileReader, ShapeFileReader>();

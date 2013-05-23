@@ -171,7 +171,7 @@ public:
      * @note You should not use this method directly, use IComponentManager::shutdownComponent()
      *   instead.
      */
-    virtual void shutdown() = 0;
+    virtual void shutdown(IServiceLocator *serviceLocator) = 0;
 
     /*!
      * @details

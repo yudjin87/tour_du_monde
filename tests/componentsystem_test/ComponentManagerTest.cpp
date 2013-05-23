@@ -131,7 +131,9 @@ void ComponentManagerTest::startup_shouldShouldNotCallIfAlreadyDid()
     manager.startup();
     QCOMPARE(spy.count(), 1);
 
-    component->shutdown();
+    ServiceLocator locator;
+    component->shutdown(&locator);
+
     manager.startup();
     QCOMPARE(spy.count(), 1);
 }

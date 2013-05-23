@@ -57,15 +57,14 @@ NavigationOperationsComponent::~NavigationOperationsComponent()
 //------------------------------------------------------------------------------
 bool NavigationOperationsComponent::onStartup(IServiceLocator *serviceLocator)
 {
-    if (serviceLocator == nullptr)
-        return false;
-
+    Q_UNUSED(serviceLocator)
     return true;
 }
 
 //------------------------------------------------------------------------------
-void NavigationOperationsComponent::onShutdown()
+void NavigationOperationsComponent::onShutdown(IServiceLocator *serviceLocator)
 {
+    Q_UNUSED(serviceLocator)
 }
 
 //------------------------------------------------------------------------------

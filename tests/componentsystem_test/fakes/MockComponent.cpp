@@ -38,8 +38,9 @@ bool MockComponent::onStartup(IServiceLocator *serviceLocator)
 }
 
 //------------------------------------------------------------------------------
-void MockComponent::onShutdown()
+void MockComponent::onShutdown(IServiceLocator *serviceLocator)
 {
+    Q_UNUSED(serviceLocator)
     if (m_registrator != nullptr)
         m_registrator->push_back(this);
 

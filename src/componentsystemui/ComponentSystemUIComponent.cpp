@@ -83,7 +83,7 @@ ComponentSystemUIComponent::~ComponentSystemUIComponent()
 }
 
 //------------------------------------------------------------------------------
-void ComponentSystemUIComponent::onShutdown()
+void ComponentSystemUIComponent::onShutdown(IServiceLocator *serviceLocator)
 {
     // TODO:
     // Unregister dialogs!
@@ -92,9 +92,6 @@ void ComponentSystemUIComponent::onShutdown()
 //------------------------------------------------------------------------------
 bool ComponentSystemUIComponent::onStartup(IServiceLocator *serviceLocator)
 {
-    if (serviceLocator == nullptr)
-        return false;
-
     IComponentManager *manager = serviceLocator->locate<IComponentManager>();
 
     // Commands

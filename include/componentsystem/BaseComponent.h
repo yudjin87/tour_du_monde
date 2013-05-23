@@ -104,7 +104,7 @@ public:
      * @note You should not use this method directly, use IComponentManager::shutdownComponent()
      *   instead.
      */
-    void shutdown();
+    void shutdown(IServiceLocator *serviceLocator);
 
     /*!
      * @details
@@ -180,7 +180,7 @@ protected:
      *   It is a defensive declaration of the public shutdown() method, that invokes only after startup().
      *   When override in derived classes shuts down the component. Nothing to do by default.
      */
-    virtual void onShutdown();
+    virtual void onShutdown(IServiceLocator *serviceLocator);
 
     /*!
      * @details

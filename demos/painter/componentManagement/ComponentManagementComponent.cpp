@@ -53,15 +53,14 @@ ComponentManagementComponent::~ComponentManagementComponent()
 //------------------------------------------------------------------------------
 bool ComponentManagementComponent::onStartup(IServiceLocator *serviceLocator)
 {
-    if (serviceLocator == nullptr)
-        return false;
-
+    Q_UNUSED(serviceLocator)
     return true;
 }
 
 //------------------------------------------------------------------------------
-void ComponentManagementComponent::onShutdown()
+void ComponentManagementComponent::onShutdown(IServiceLocator *serviceLocator)
 {
+    Q_UNUSED(serviceLocator)
 }
 
 //------------------------------------------------------------------------------

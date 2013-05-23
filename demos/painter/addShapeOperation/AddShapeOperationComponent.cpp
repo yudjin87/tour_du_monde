@@ -69,9 +69,6 @@ AddShapeOperationComponent::~AddShapeOperationComponent()
 //------------------------------------------------------------------------------
 bool AddShapeOperationComponent::onStartup(IServiceLocator *serviceLocator)
 {
-    if (serviceLocator == nullptr)
-        return false;
-
     auto creator = std::bind(&createAddShapesCommand, serviceLocator);
     serviceLocator->registerType<AddShapesCommand>(creator);
 
@@ -79,8 +76,9 @@ bool AddShapeOperationComponent::onStartup(IServiceLocator *serviceLocator)
 }
 
 //------------------------------------------------------------------------------
-void AddShapeOperationComponent::onShutdown()
+void AddShapeOperationComponent::onShutdown(IServiceLocator *serviceLocator)
 {
+    Q_UNUSED(serviceLocator)
 }
 
 //------------------------------------------------------------------------------

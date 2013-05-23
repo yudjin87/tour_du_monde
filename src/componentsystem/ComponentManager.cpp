@@ -373,13 +373,13 @@ void ComponentManager::shutdownCheckedComponent(IComponent *component)
         return;
 
     component->setAvailability(IComponent::Disabled);
-    component->shutdown();
+    component->shutdown(m_serviceLocator);
 }
 
 //------------------------------------------------------------------------------
 void ComponentManager::forceShutdownCheckedComponent(IComponent *component)
 {
-    component->shutdown();
+    component->shutdown(m_serviceLocator);
 }
 
 //------------------------------------------------------------------------------

@@ -107,7 +107,7 @@ bool BaseComponent::started() const
 }
 
 //------------------------------------------------------------------------------
-void BaseComponent::shutdown()
+void BaseComponent::shutdown(IServiceLocator *serviceLocator)
 {
     if (!m_isStarted) {
         Log.w(QString("Component \"%1\" is being shut down, but it was not started up.").arg(name()));
@@ -115,7 +115,7 @@ void BaseComponent::shutdown()
     }
 
     m_isStarted = false;
-    onShutdown();
+    onShutdown(serviceLocator);
 }
 
 //------------------------------------------------------------------------------
@@ -131,8 +131,9 @@ bool BaseComponent::startup(IServiceLocator *serviceLocator)
 }
 
 //------------------------------------------------------------------------------
-void BaseComponent::onShutdown()
+void BaseComponent::onShutdown(IServiceLocator *serviceLocator)
 {
+    Q_UNUSED(serviceLocator)
     // nothing to do in the base implementation
 }
 

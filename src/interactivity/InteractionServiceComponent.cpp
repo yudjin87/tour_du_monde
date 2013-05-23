@@ -49,13 +49,12 @@ public:
     InteractionServiceComponentPrivate();
     ~InteractionServiceComponentPrivate();
 
-    void onShutdown();
+    void onShutdown(IServiceLocator *serviceLocator);
     bool onStartup(IServiceLocator *serviceLocator);
 
 private:
     CarouselInteractionService *m_service;
     IDialogService *m_dialogService;
-    IServiceLocator *m_serviceLocator;
 };
 
 //------------------------------------------------------------------------------
@@ -84,9 +83,9 @@ InteractionServiceComponent::~InteractionServiceComponent()
 }
 
 //------------------------------------------------------------------------------
-void InteractionServiceComponent::onShutdown()
+void InteractionServiceComponent::onShutdown(IServiceLocator *serviceLocator)
 {
-    d->onShutdown();
+    d->onShutdown(serviceLocator);
 }
 
 //------------------------------------------------------------------------------
@@ -105,21 +104,21 @@ InteractionServiceComponent::InteractionServiceComponentPrivate::InteractionServ
 //------------------------------------------------------------------------------
 InteractionServiceComponent::InteractionServiceComponentPrivate::~InteractionServiceComponentPrivate()
 {
-    if (m_service != nullptr || m_dialogService != nullptr )
+    if (m_service == nullptr || m_dialogService != nullptr )
         Log.w("Logic error: onShutdown() was not called.");
 }
 
 //------------------------------------------------------------------------------
-void InteractionServiceComponent::InteractionServiceComponentPrivate::onShutdown()
+void InteractionServiceComponent::InteractionServiceComponentPrivate::onShutdown(IServiceLocator *serviceLocator)
 {
     if (m_service == nullptr || m_dialogService == nullptr )
          Log.w("Logic error: onStartup() should be called before onShutdown().");
 
-    IInteractionService *service = m_serviceLocator->unregisterInstance<IInteractionService>();
+    IInteractionService *service = serviceLocator->unregisterInstance<IInteractionService>();
     delete service;
     m_service = nullptr;
 
-    IDialogService *dialogService = m_serviceLocator->unregisterInstance<IDialogService>();
+    IDialogService *dialogService = serviceLocator->unregisterInstance<IDialogService>();
     delete dialogService;
     m_dialogService = nullptr;
 }
@@ -130,19 +129,14 @@ bool InteractionServiceComponent::InteractionServiceComponentPrivate::onStartup(
     if (m_service != nullptr || m_dialogService != nullptr )
          Log.w("Logic error: onShutdown() was not called.");
 
-    if (serviceLocator == nullptr)
-        return false;
-
-    m_serviceLocator = serviceLocator;
-
     // IDialogService registration
-    QMainWindow *mainWindow = m_serviceLocator->locate<QMainWindow>();
-    m_dialogService = new DialogService(mainWindow, m_serviceLocator);
-    m_serviceLocator->registerInstance<IDialogService>(m_dialogService);
+    QMainWindow *mainWindow = serviceLocator->locate<QMainWindow>();
+    m_dialogService = new DialogService(mainWindow, serviceLocator);
+    serviceLocator->registerInstance<IDialogService>(m_dialogService);
 
     // IInteractionService registration
-    m_service = new CarouselInteractionService(m_serviceLocator, mainWindow, m_serviceLocator->locate<IComponentManager>());
-    m_serviceLocator->registerInstance<IInteractionService>(m_service);
+    m_service = new CarouselInteractionService(serviceLocator, mainWindow, serviceLocator->locate<IComponentManager>());
+    serviceLocator->registerInstance<IInteractionService>(m_service);
 
     return true;
 }

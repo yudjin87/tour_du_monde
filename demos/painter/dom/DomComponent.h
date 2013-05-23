@@ -40,12 +40,11 @@ public:
     ~DomComponent();
 
 protected:
-    void onShutdown();
+    void onShutdown(IServiceLocator *serviceLocator);
     bool onStartup(IServiceLocator *serviceLocator);
 
 private:
     PainterDocumentController *mp_docController;
-    IServiceLocator *m_serviceLocator;
 };
 
 #endif // DOMCOMPONENT_H

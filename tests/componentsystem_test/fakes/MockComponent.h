@@ -17,7 +17,7 @@ public:
 
 protected:
     bool onStartup(IServiceLocator *serviceLocator);
-    void onShutdown();
+    void onShutdown(IServiceLocator *serviceLocator);
 
 signals:
     void whenStarted(const QString &name);

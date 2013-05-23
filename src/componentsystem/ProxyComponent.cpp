@@ -118,9 +118,9 @@ IComponent *ProxyComponent::loadedComponent() const
 }
 
 //------------------------------------------------------------------------------
-void ProxyComponent::onShutdown()
+void ProxyComponent::onShutdown(IServiceLocator *serviceLocator)
 {
-    m_component->shutdown();
+    m_component->shutdown(serviceLocator);
     bool result = m_loader->deleteInstance();
     Q_UNUSED(result)
     Q_ASSERT(result);

@@ -43,7 +43,7 @@ protected:
      * @details
      *   Shuts down the component.
      */
-    void onShutdown();
+    void onShutdown(IServiceLocator *serviceLocator);
 
     /*!
      * @details

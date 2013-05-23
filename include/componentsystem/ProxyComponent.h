@@ -78,7 +78,7 @@ protected:
      *   It is a defensive declaration of the public shutdown() method, that invokes only after startup().
      *   When override in derived classes shuts down the component. Nothing to do by default.
      */
-    virtual void onShutdown();
+    virtual void onShutdown(IServiceLocator *serviceLocator);
 
     /*!
      * @details
