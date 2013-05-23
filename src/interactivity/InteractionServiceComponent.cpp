@@ -104,7 +104,7 @@ InteractionServiceComponent::InteractionServiceComponentPrivate::InteractionServ
 //------------------------------------------------------------------------------
 InteractionServiceComponent::InteractionServiceComponentPrivate::~InteractionServiceComponentPrivate()
 {
-    if (m_service == nullptr || m_dialogService != nullptr )
+    if (m_service != nullptr || m_dialogService != nullptr )
         Log.w("Logic error: onShutdown() was not called.");
 }
 
