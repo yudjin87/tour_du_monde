@@ -62,6 +62,7 @@ JsScriptingComponent::~JsScriptingComponent()
 //------------------------------------------------------------------------------
 void JsScriptingComponent::onShutdown(IServiceLocator *serviceLocator)
 {
+    Q_UNUSED(serviceLocator)
 }
 
 //------------------------------------------------------------------------------

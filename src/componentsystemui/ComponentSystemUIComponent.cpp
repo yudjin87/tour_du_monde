@@ -85,6 +85,7 @@ ComponentSystemUIComponent::~ComponentSystemUIComponent()
 //------------------------------------------------------------------------------
 void ComponentSystemUIComponent::onShutdown(IServiceLocator *serviceLocator)
 {
+    Q_UNUSED(serviceLocator)
     // TODO:
     // Unregister dialogs!
 }

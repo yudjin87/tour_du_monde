@@ -47,7 +47,6 @@ static const QByteArray description(
 //------------------------------------------------------------------------------
 UndoComponent::UndoComponent(QObject *parent)
     : BaseComponent("Undo", parent)
-    , m_undoStack(nullptr)
 {
     IInteractiveExtension *interactiveExtension = new UndoInteractiveExtension(this);
     registerExtension<IInteractiveExtension>(interactiveExtension);
@@ -68,19 +67,16 @@ UndoComponent::~UndoComponent()
 //------------------------------------------------------------------------------
 void UndoComponent::onShutdown(IServiceLocator *serviceLocator)
 {
-    // TODO:
-    // Unregister them before deletion!
-
-    delete m_undoStack;
-    m_undoStack = nullptr;
+    QUndoStack *undoStack = serviceLocator->unregisterInstance<QUndoStack>();
+    delete undoStack;
 }
 
 //------------------------------------------------------------------------------
 bool UndoComponent::onStartup(IServiceLocator *serviceLocator)
 {
     // QUndoStack registration
-    m_undoStack = new QUndoStack();
-    serviceLocator->registerInstance<QUndoStack>(m_undoStack);
+    QUndoStack *undoStack = new QUndoStack();
+    serviceLocator->registerInstance<QUndoStack>(undoStack);
 
     return true;
 }

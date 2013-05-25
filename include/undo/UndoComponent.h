@@ -31,8 +31,6 @@
 
 #include <componentsystem/BaseComponent.h>
 
-class QUndoStack;
-
 /*!
  * @brief
  * @details
@@ -61,9 +59,6 @@ protected:
      *   Otherwise, return @a true.
      */
     bool onStartup(IServiceLocator *serviceLocator);
-
-private:
-    QUndoStack *m_undoStack;
 };
 
 #endif // UNDOCOMPONENT_H
