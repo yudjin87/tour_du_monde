@@ -4,5 +4,6 @@
      <location>./Display</location>
      <parents>
          <parentComponent name="Interactivity"/>
+         <parentComponent name="Geometry"/>
      </parents>
  </component>
