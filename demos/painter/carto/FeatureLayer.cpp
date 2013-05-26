@@ -28,6 +28,8 @@
 
 #include <display/FeatureRenderer.h>
 #include <display/SimpleMarkerSymbol.h>
+#include <display/SimpleLineSymbol.h>
+
 #include <geodatabase/Feature.h>
 #include <geodatabase/IFeatureClass.h>
 
@@ -93,10 +95,9 @@ void FeatureLayer::setFeatureClass(IFeatureClass *featureClass)
         m_symbol = new SimpleMarkerSymbol();
         break;
 
-//    case GeometryPolyline:
-//        foreach(Feature *feature, mp_featureClass->getFeatures())
-//            mp_featureRenderer->drawPolyline(feature->geometry());
-//        break;
+    case GeometryPolyline:
+        m_symbol = new SimpleLineSymbol();
+        break;
 
 //    case GeometryPolygon:
 //        foreach(Feature *feature, mp_featureClass->getFeatures())
