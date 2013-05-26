@@ -33,6 +33,7 @@
 #include <QtCore/QObject>
 
 class AbstractLayer;
+class IDisplay;
 
 class CARTO_API Map : public QObject
 {
@@ -45,11 +46,17 @@ public:
 
     QList<AbstractLayer *> layers() const;
 
+public slots:
+    void refresh();
+
+    void setDisplay(IDisplay *display);
+
 signals:
     void layerAdded(AbstractLayer *layer);
 
 private:
-    QList<AbstractLayer *> m_layers;
+    IDisplay *m_display;
+    QList<AbstractLayer *> m_layers;    
 };
 
 #endif // MAP_H

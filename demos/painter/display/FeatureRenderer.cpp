@@ -26,104 +26,49 @@
 
 #include "FeatureRenderer.h"
 
-#include <geometry/AbstractGeometry.h>
-#include <geometry/Polygon.h>
-#include <geometry/Polyline.h>
-#include <geometry/Ring.h>
-#include <geometry/Point.h>
-#include <geometry/Segment.h>
-
-#include <QtGui/QGraphicsScene>
-#include <QtGui/QAbstractGraphicsShapeItem>
-#include <QtGui/QGraphicsPathItem>
-#include <QtGui/QGraphicsPolygonItem>
-
-#include <stdlib.h>
+#include <display/IDisplay.h>
+#include <display/ISymbol.h>
+#include <geodatabase/IFeature.h>
 
 //------------------------------------------------------------------------------
-FeatureRenderer::FeatureRenderer()
-    //: mp_scene(0)
-    : m_pen(QColor(rand() % 255, rand() % 255, rand() % 255))
-    , m_brush(QColor(rand() % 255, rand() % 255, rand() % 255))
+FeatureRenderer::FeatureRenderer(QObject *parent)
+    : QObject(parent)
+    , m_symbol(nullptr)
 {
-    m_pen.setCosmetic(true);
 }
 
 //------------------------------------------------------------------------------
 FeatureRenderer::~FeatureRenderer()
 {
-    //mp_scene = 0;
-}
-
-/*
-//------------------------------------------------------------------------------
-QList<QAbstractGraphicsShapeItem *> *FeatureRenderer::drawPoint(const AbstractGeometry *pointGeometry)
-{
-    if (mp_scene == 0)
-        return 0;
-
-    const Point *point = static_cast<const Point *>(pointGeometry);
-    QGraphicsItem *item = mp_scene->addEllipse(point->value().x(), point->value().y(), 5, 5, QPen(), QBrush(QColor(255, 0, 0)));
-    QAbstractGraphicsShapeItem *abstractItem = static_cast<QAbstractGraphicsShapeItem *>(item);
-
-    QList<QAbstractGraphicsShapeItem *> *list = new QList<QAbstractGraphicsShapeItem *>();
-    list->push_back(abstractItem);
-
-    return list;
 }
 
 //------------------------------------------------------------------------------
-QList<QAbstractGraphicsShapeItem *> *FeatureRenderer::drawPolygon(const AbstractGeometry *polygonGeometry)
+void FeatureRenderer::draw(const QList<IFeature *> &features, IDisplay *display)
 {
-    if (mp_scene == 0)
-        return 0;
-
-    QList<QAbstractGraphicsShapeItem *> *list = new QList<QAbstractGraphicsShapeItem *>();
-
-    const Polygon *polygon = static_cast<const Polygon *>(polygonGeometry);
-    const RingList &rings = polygon->value();
-    foreach(const Ring *ring, rings) {
-        const SegmentList &segments = ring->value();
-        foreach(const Segment *segment, segments) {
-            QGraphicsPolygonItem *item = mp_scene->addPolygon(segment->value(), QPen(), QBrush(QColor(rand() % 255, rand() % 255, rand() % 255)));
-            list->push_back(item);
-        }
+    m_symbol->setupDisplay(display);
+    foreach (const IFeature *feature, features) {
+        m_symbol->draw(feature->geometry());
     }
 
-    return list;
+    m_symbol->resetDisplay();
 }
 
 //------------------------------------------------------------------------------
-QList<QAbstractGraphicsShapeItem *> *FeatureRenderer::drawPolyline(const AbstractGeometry *polylineGeometry)
+ISymbol *FeatureRenderer::symbol()
 {
-    if (mp_scene == 0)
-        return 0;
-
-    QList<QAbstractGraphicsShapeItem *> *list = new QList<QAbstractGraphicsShapeItem *>();
-
-    const Polyline *polyline = static_cast<const Polyline *>(polylineGeometry);
-    const RingList &rings = polyline->value();
-    foreach(const Ring *ring, rings) {
-        const SegmentList &segments = ring->value();
-        foreach(const Segment *segment, segments) {
-            const QPolygonF &poly = segment->value();
-            QPainterPath path(poly[0]);
-            for (int i = 1; i < poly.size(); ++i)
-                path.lineTo(poly[i]);
-
-            QGraphicsPathItem *item = mp_scene->addPath(path, QPen(QColor(rand() % 255, rand() % 255, rand() % 255)), QBrush());
-            list->push_back(item);
-        }
-    }
-
-    return list;
+    return m_symbol;
 }
 
 //------------------------------------------------------------------------------
-void FeatureRenderer::setScene(QGraphicsScene *scene)
+const ISymbol *FeatureRenderer::symbol() const
 {
-    mp_scene = scene;
+    return m_symbol;
 }
 
 //------------------------------------------------------------------------------
-*/
+void FeatureRenderer::setSymbol(ISymbol *symbol)
+{
+    m_symbol = symbol;
+}
+
+//------------------------------------------------------------------------------

@@ -62,20 +62,20 @@ CartoUIComponent::~CartoUIComponent()
 //------------------------------------------------------------------------------
 bool CartoUIComponent::onStartup(IServiceLocator *serviceLocator)
 {
-    IPainterDocumentController* docController = serviceLocator->locate<IPainterDocumentController>();
-    IPainterDocument *doc = docController->document();
+//    IPainterDocumentController* docController = serviceLocator->locate<IPainterDocumentController>();
+//    IPainterDocument *doc = docController->document();
 
-    QGraphicsScene *scene = serviceLocator->locate<QGraphicsScene>();
-    MapModel *map = new MapModel(&doc->map(), scene, this);
-    Q_UNUSED(map);
+//    QGraphicsScene *scene = serviceLocator->locate<QGraphicsScene>();
+//    MapModel *map = new MapModel(&doc->map(), scene, this);
+//    Q_UNUSED(map);
     return true;
 }
 
 //------------------------------------------------------------------------------
 void CartoUIComponent::onShutdown(IServiceLocator *serviceLocator)
 {
-    MapModel *map = serviceLocator->unregisterInstance<MapModel>();
-    delete map;
+//    MapModel *map = serviceLocator->unregisterInstance<MapModel>();
+//    delete map;
 }
 
 //------------------------------------------------------------------------------

@@ -40,7 +40,7 @@ public:
     GeometryType shapeType() const;
 
     IFeature &createFeature();
-    const FeatureList &getFeatures() const;
+    const FeatureList &features() const;
 
 private:
     GeometryType m_type;

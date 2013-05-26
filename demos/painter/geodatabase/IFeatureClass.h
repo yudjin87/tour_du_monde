@@ -22,7 +22,7 @@ public:
     virtual GeometryType shapeType() const = 0;
 
     virtual IFeature &createFeature() = 0;
-    virtual const FeatureList &getFeatures() const = 0;
+    virtual const FeatureList &features() const = 0;
 
 private:
     Q_DISABLE_COPY(IFeatureClass)

@@ -45,7 +45,7 @@ SymbolBase::~SymbolBase()
 }
 
 //------------------------------------------------------------------------------
-void SymbolBase::draw(AbstractGeometry *geometry)
+void SymbolBase::draw(const AbstractGeometry *geometry)
 {
     if (m_painter == nullptr)
         m_painter = m_display->startDrawing();
@@ -53,17 +53,17 @@ void SymbolBase::draw(AbstractGeometry *geometry)
     switch (geometry->type())
     {
     case GeometryPoint: {
-        Point *point = static_cast<Point *>(geometry);
+        const Point *point = static_cast<const Point *>(geometry);
         drawPoint(*point, *m_painter);
         break;
     }
     case GeometryPolygon: {
-        Polygon *polygon = static_cast<Polygon *>(geometry);
+        const Polygon *polygon = static_cast<const Polygon *>(geometry);
         drawPolygon(*polygon, *m_painter);
         break;
     }
     case GeometryPolyline: {
-        Polyline *polyline = static_cast<Polyline *>(geometry);
+        const Polyline *polyline = static_cast<const Polyline *>(geometry);
         drawPolyline(*polyline, *m_painter);
         break;
     }
@@ -89,21 +89,21 @@ void SymbolBase::resetDisplay()
 }
 
 //------------------------------------------------------------------------------
-void SymbolBase::drawPoint(Point &point, QPainter &painter)
+void SymbolBase::drawPoint(const Point &point, QPainter &painter)
 {
     Q_UNUSED(point)
     Q_UNUSED(painter)
 }
 
 //------------------------------------------------------------------------------
-void SymbolBase::drawPolygon(Polygon &polygon, QPainter &painter)
+void SymbolBase::drawPolygon(const Polygon &polygon, QPainter &painter)
 {
     Q_UNUSED(polygon)
     Q_UNUSED(painter)
 }
 
 //------------------------------------------------------------------------------
-void SymbolBase::drawPolyline(Polyline &polyline, QPainter &painter)
+void SymbolBase::drawPolyline(const Polyline &polyline, QPainter &painter)
 {
     Q_UNUSED(polyline)
     Q_UNUSED(painter)

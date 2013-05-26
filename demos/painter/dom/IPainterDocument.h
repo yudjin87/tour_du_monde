@@ -40,7 +40,9 @@ public:
     IPainterDocument(){}
     virtual ~IPainterDocument(){}
 
-    virtual Map &map() = 0;
+    virtual Map *map() = 0;
+
+    virtual void addMap(Map *map) = 0;
 
 private:
     Q_DISABLE_COPY(IPainterDocument)

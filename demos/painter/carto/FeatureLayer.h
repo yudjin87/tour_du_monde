@@ -31,9 +31,9 @@
 
 #include <QtCore/QList>
 
-class IFeatureClass;
 class FeatureRenderer;
-class QGraphicsItem;
+class IFeatureClass;
+class ISymbol;
 
 class CARTO_API FeatureLayer : public AbstractLayer
 {
@@ -42,7 +42,8 @@ public:
     ~FeatureLayer();
 
     FeatureRenderer *renderer() const {return mp_featureRenderer;}
-    //void draw(QGraphicsScene *scene);
+
+    void draw(IDisplay *display);
 
     QRectF extent() const;
 
@@ -58,7 +59,7 @@ protected:
 private:
     IFeatureClass *mp_featureClass;
     FeatureRenderer *mp_featureRenderer;
-    QList<QGraphicsItem *> m_items;
+    ISymbol *m_symbol;
 };
 
 #endif // FEATURELAYER_H

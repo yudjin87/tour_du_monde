@@ -29,6 +29,7 @@
 
 #include <componentsystem/ComponentDefinition.h>
 #include <componentsystem/ComponentExport.h>
+#include <display/IDisplay.h>
 #include <utils/IServiceLocator.h>
 
 //------------------------------------------------------------------------------
@@ -64,7 +65,8 @@ void DomComponent::onShutdown(IServiceLocator *serviceLocator)
 //------------------------------------------------------------------------------
 bool DomComponent::onStartup(IServiceLocator *serviceLocator)
 {
-    mp_docController = new PainterDocumentController();
+    IDisplay *display = serviceLocator->locate<IDisplay>();
+    mp_docController = new PainterDocumentController(display);
     serviceLocator->registerInstance<IPainterDocumentController>(mp_docController);
 
     return true;

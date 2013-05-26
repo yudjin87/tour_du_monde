@@ -25,6 +25,7 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "DisplayComponent.h"
+#include "SimpleDisplay.h"
 
 #include <componentsystem/ComponentDefinition.h>
 #include <componentsystem/ComponentExport.h>
@@ -57,11 +58,11 @@ DisplayComponent::~DisplayComponent()
 //------------------------------------------------------------------------------
 void DisplayComponent::onShutdown(IServiceLocator *serviceLocator)
 {
-    QGraphicsScene *scene = serviceLocator->unregisterInstance<QGraphicsScene>();
-    QGraphicsView *view = scene->views().first();
+//    QGraphicsScene *scene = serviceLocator->unregisterInstance<QGraphicsScene>();
+//    QGraphicsView *view = scene->views().first();
 
-    delete scene;
-    delete view;
+//    delete scene;
+//    delete view;
 
     IInteractionService* interactionService = serviceLocator->locate<IInteractionService>();
     interactionService->setInputInterceptor(nullptr);
@@ -70,18 +71,21 @@ void DisplayComponent::onShutdown(IServiceLocator *serviceLocator)
 //------------------------------------------------------------------------------
 bool DisplayComponent::onStartup(IServiceLocator *serviceLocator)
 {
-    QGraphicsScene *scene = new QGraphicsScene();
-    QGraphicsView *view = new QGraphicsView(scene);
-    view->scale(50000, 50000);
+//    QGraphicsScene *scene = new QGraphicsScene();
+//    QGraphicsView *view = new QGraphicsView(scene);
+//    view->scale(50000, 50000);
 
     QMainWindow *mainWindow = serviceLocator->locate<QMainWindow>();
-    mainWindow->setCentralWidget(view);
+    //mainWindow->setCentralWidget(view);
 
-    serviceLocator->registerInstance<QGraphicsScene>(scene);
+    SimpleDisplay *display = new SimpleDisplay(mainWindow);
+    mainWindow->setCentralWidget(display);
+    serviceLocator->registerInstance<IDisplay>(display);
 
     IInteractionService* interactionService = serviceLocator->locate<IInteractionService>();
     interactionService->setInputInterceptor(new InputInterceptor());
-    interactionService->inputInterceptor()->setSender(view->viewport());
+    //interactionService->inputInterceptor()->setSender(view->viewport());
+    interactionService->inputInterceptor()->setSender(display);
     interactionService->inputInterceptor()->activate();
 
     return true;

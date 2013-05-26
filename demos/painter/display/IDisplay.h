@@ -37,6 +37,7 @@ class QRect;
 
 class DISPLAY_API IDisplay : public QAbstractScrollArea
 {
+    Q_OBJECT
 public:
     IDisplay(){}
     virtual ~IDisplay(){}
@@ -44,7 +45,12 @@ public:
     virtual QPainter *startDrawing() = 0;
     virtual void finishDrawing(QPainter *painter) = 0;
 
-    virtual void changed() = 0;
+    virtual QRectF extent() const = 0;
+
+    virtual void setExtent(const QRectF& extent) = 0;
+
+signals:
+    void changed();
 
 private:
     Q_DISABLE_COPY(IDisplay)

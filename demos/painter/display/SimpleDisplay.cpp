@@ -39,8 +39,8 @@
 SimpleDisplay::SimpleDisplay(QWidget *parent)    
     : m_x_offset(0)
     , m_y_offset(0)
-    , mp_pixmap(nullptr)
-    , mp_currentPainter(nullptr)
+    , m_pixmap(nullptr)
+    , m_currentPainter(nullptr)
 
 {
     setParent(parent);
@@ -63,34 +63,38 @@ SimpleDisplay::SimpleDisplay(QWidget *parent)
 //------------------------------------------------------------------------------
 SimpleDisplay::~SimpleDisplay()
 {
-    delete mp_pixmap;
-    mp_pixmap = nullptr;
+    delete m_pixmap;
+    m_pixmap = nullptr;
 
-    delete mp_currentPainter;
-    mp_currentPainter = nullptr;
+    delete m_currentPainter;
+    m_currentPainter = nullptr;
 }
 
 //------------------------------------------------------------------------------
 QPainter *SimpleDisplay::startDrawing()
 {
-    if (mp_pixmap != nullptr) {
-        delete mp_pixmap;
-        mp_pixmap = nullptr;
+    if (m_pixmap != nullptr) {
+        delete m_pixmap;
+        m_pixmap = nullptr;
     }
 
-    mp_pixmap = new QPixmap(this->width(), this->height());
-    mp_pixmap->fill();
+    m_pixmap = new QPixmap(this->width(), this->height());
+    m_pixmap->fill(Qt::lightGray);
 
-    mp_currentPainter = new QPainter(mp_pixmap);
-    mp_currentPainter->setWindow(horizontalScrollBar()->value(), verticalScrollBar()->value(), this->width(), this->height());
+    m_currentPainter = new QPainter(m_pixmap);
+    m_currentPainter->setWindow(horizontalScrollBar()->value(), verticalScrollBar()->value(), this->width(), this->height());
+
+//    QTransform viewport(1.0f, 0.0f, 0.0f,
+//                        0.0f, -1.0f, 0.0f,
+//                        0.0f, this->height(), 1.0f);
 
     QTransform viewport(1.0f, 0.0f, 0.0f,
-                        0.0f, -1.0f, 0.0f,
-                        0.0f, this->height(), 1.0f);
+                        0.0f, 1.0f, 0.0f,
+                        0.0f, 0.0f, 1.0f);
 
-    mp_currentPainter->setTransform(viewport);
+    m_currentPainter->setTransform(viewport);
 
-    return mp_currentPainter;
+    return m_currentPainter;
 }
 
 //------------------------------------------------------------------------------
@@ -98,22 +102,39 @@ void SimpleDisplay::finishDrawing(QPainter *painter)
 {
     Q_UNUSED(painter)
 
-    delete mp_currentPainter;
-    mp_currentPainter = nullptr;
+    delete m_currentPainter;
+    m_currentPainter = nullptr;
+}
+
+//------------------------------------------------------------------------------
+QRectF SimpleDisplay::extent() const
+{
+    return m_extent;
+}
+
+//------------------------------------------------------------------------------
+void SimpleDisplay::setExtent(const QRectF &extent)
+{
+    m_extent = extent;
+
+    verticalScrollBar()->setRange(m_extent.top() - 10, m_extent.bottom() + 10);
+    horizontalScrollBar()->setRange(m_extent.left() - 10, m_extent.right() + 10);
 }
 
 //------------------------------------------------------------------------------
 void SimpleDisplay::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event)
+    if (m_pixmap == nullptr)
+        return;
 
     QPainter painter;
     painter.begin(viewport());
 
-    //qDebug(QString("m_x_offset: %1").arg(m_x_offset).toLatin1());
-    //qDebug(QString("m_y_offset: %1").arg(m_y_offset).toLatin1());
+    qDebug(QString("m_x_offset: %1").arg(m_x_offset).toLatin1());
+    qDebug(QString("m_y_offset: %1").arg(m_y_offset).toLatin1());
 
-    painter.drawPixmap(m_x_offset, m_y_offset, mp_pixmap->width(), mp_pixmap->height(), *mp_pixmap);
+    painter.drawPixmap(m_x_offset, m_y_offset, m_pixmap->width(), m_pixmap->height(), *m_pixmap);
     painter.end();
 }
 

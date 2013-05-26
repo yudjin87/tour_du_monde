@@ -30,36 +30,50 @@
 #include "display_api.h"
 
 #include <QtCore/QList>
+#include <QtCore/QObject>
 
-#include <QtGui/QPen>
-#include <QtGui/QBrush>
 
-class AbstractGeometry;
-class QAbstractGraphicsShapeItem;
-class QGraphicsScene;
+class IDisplay;
+class IFeature;
+class ISymbol;
 
-class DISPLAY_API FeatureRenderer
+class DISPLAY_API FeatureRenderer : public QObject
 {
+    Q_OBJECT
+
+    /*!
+     * @details
+     *   Gets or sets the symbol used to draw all features in a layer.
+     *
+     *   The symbol type matches the geometry of the layer being rendered,
+     *   so marker symbols are used to draw point layers, line symbols are used
+     *   to draw line features, and fill symbols are used to draw polygon features.
+     *
+     * @note that renderer does not take ownership for the symbol.
+     */
+    Q_PROPERTY(ISymbol* symbol READ symbol WRITE setSymbol)
+
 public:
-    FeatureRenderer();
+    FeatureRenderer(QObject *parent = nullptr);
     ~FeatureRenderer();
 
-    const QPen &pen() const { return m_pen;}
-    const QBrush &brush() const { return m_brush;}
+    /*!
+     * @details
+     *   Draws features from the specified cursor on the given display.
+     *
+     *   This method is typically called by the framework to renderer features
+     *   to a display. This could be in response to a refresh on the map.
+     *   This method typically iterates through all the features and renders each
+     *   feature with an appropriate symbol.
+     */
+    void draw(const QList<IFeature *> &features, IDisplay *display);
 
-    void setPen(const QPen &pen) {m_pen = pen;}
-    void setBrush(const QBrush &brush){m_brush = brush;}
-
-//    QList<QAbstractGraphicsShapeItem *> *drawPoint(const AbstractGeometry *pointGeometry);
-//    QList<QAbstractGraphicsShapeItem *> *drawPolygon(const AbstractGeometry *polygonGeometry);
-//    QList<QAbstractGraphicsShapeItem *> *drawPolyline(const AbstractGeometry *polylineGeometry);
-
-//    void setScene(QGraphicsScene *scene);
+    ISymbol *symbol();
+    const ISymbol *symbol() const;
+    void setSymbol(ISymbol *symbol);
 
 private:
-    //QGraphicsScene *mp_scene;
-    QPen m_pen;
-    QBrush m_brush;
+    ISymbol *m_symbol;
 };
 
 #endif // FEATURERENDERER_H

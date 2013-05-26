@@ -27,14 +27,15 @@
 #include "FeatureLayer.h"
 
 #include <display/FeatureRenderer.h>
+#include <display/SimpleMarkerSymbol.h>
 #include <geodatabase/Feature.h>
 #include <geodatabase/IFeatureClass.h>
 
-
 //------------------------------------------------------------------------------
 FeatureLayer::FeatureLayer()
-    : mp_featureClass(0)
+    : mp_featureClass(nullptr)
     , mp_featureRenderer(new FeatureRenderer())
+    , m_symbol(nullptr)
 {
 }
 
@@ -42,10 +43,22 @@ FeatureLayer::FeatureLayer()
 FeatureLayer::~FeatureLayer()
 {
     delete mp_featureClass;
-    mp_featureClass = 0;
+    mp_featureClass = nullptr;
 
     delete mp_featureRenderer;
-    mp_featureRenderer = 0;
+    mp_featureRenderer = nullptr;
+
+    delete m_symbol;
+    m_symbol = nullptr;
+}
+
+//------------------------------------------------------------------------------
+void FeatureLayer::draw(IDisplay *display)
+{
+    if (mp_featureClass == nullptr)
+        return;
+
+    mp_featureRenderer->draw(mp_featureClass->features(), display);
 }
 
 //------------------------------------------------------------------------------
@@ -53,34 +66,6 @@ QRectF FeatureLayer::extent() const
 {
     return mp_featureClass->extent();
 }
-
-//------------------------------------------------------------------------------
-//void FeatureLayer::draw(QGraphicsScene *scene)
-//{
-//    mp_featureRenderer->setScene(scene);
-
-//    switch (mp_featureClass->shapeType())
-//    {
-//    case GeometryType::PointType:
-//        foreach(Feature *feature, mp_featureClass->getFeatures())
-//            mp_featureRenderer->drawPoint(feature->geometry());
-//        break;
-
-//    case GeometryType::PolylineType:
-//        foreach(Feature *feature, mp_featureClass->getFeatures())
-//            mp_featureRenderer->drawPolyline(feature->geometry());
-//        break;
-
-//    case GeometryType::PolygonType:
-//        foreach(Feature *feature, mp_featureClass->getFeatures())
-//            mp_featureRenderer->drawPolygon(feature->geometry());
-//        break;
-
-//    default:
-//        break;
-//    }
-
-//}
 
 //------------------------------------------------------------------------------
 IFeatureClass *FeatureLayer::featureClass()
@@ -98,8 +83,31 @@ const IFeatureClass *FeatureLayer::featureClass() const
 void FeatureLayer::setFeatureClass(IFeatureClass *featureClass)
 {
     delete mp_featureClass;
-
     mp_featureClass = featureClass;
+
+    delete m_symbol;
+
+    switch (mp_featureClass->shapeType())
+    {
+    case GeometryPoint:
+        m_symbol = new SimpleMarkerSymbol();
+        break;
+
+//    case GeometryPolyline:
+//        foreach(Feature *feature, mp_featureClass->getFeatures())
+//            mp_featureRenderer->drawPolyline(feature->geometry());
+//        break;
+
+//    case GeometryPolygon:
+//        foreach(Feature *feature, mp_featureClass->getFeatures())
+//            mp_featureRenderer->drawPolygon(feature->geometry());
+//        break;
+
+    default:
+        break;
+    }
+
+    mp_featureRenderer->setSymbol(m_symbol);
 }
 
 //------------------------------------------------------------------------------

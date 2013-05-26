@@ -32,7 +32,7 @@
 #include <QtCore/QString>
 #include <QtCore/QRectF>
 
-class FeatureRenderer;
+class IDisplay;
 
 class CARTO_API AbstractLayer
 {
@@ -40,11 +40,10 @@ public:
     AbstractLayer();
     virtual ~AbstractLayer();
 
-    //virtual void draw(QGraphicsScene *scene) = 0;
+    virtual void draw(IDisplay *display) = 0;
 
     virtual QRectF extent() const = 0;
 
-    virtual FeatureRenderer *renderer() const = 0;
     const QString &name() const;
     void setName(const QString &name);
 

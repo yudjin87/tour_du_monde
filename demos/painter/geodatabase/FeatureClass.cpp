@@ -64,7 +64,7 @@ IFeature &FeatureClass::createFeature()
 }
 
 //------------------------------------------------------------------------------
-const FeatureList &FeatureClass::getFeatures() const
+const FeatureList &FeatureClass::features() const
 {
     return m_features;
 }

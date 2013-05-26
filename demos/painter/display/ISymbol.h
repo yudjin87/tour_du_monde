@@ -42,7 +42,7 @@ public:
      * @details
      *   Draws the specified shape.
      */
-    virtual void draw(AbstractGeometry *geometry) = 0;
+    virtual void draw(const AbstractGeometry *geometry) = 0;
 
     /*!
      * @details

@@ -32,13 +32,15 @@
 class PainterDocument : public IPainterDocument
 {
 public:
-    PainterDocument(Map *map);
+    PainterDocument();
     ~PainterDocument();
 
-    Map &map();
+    Map *map();
+
+    void addMap(Map *map);
 
 private:
-    Map *mp_map;
+    Map *m_map;
 };
 
 #endif // PAINTERDOCUMENT_H

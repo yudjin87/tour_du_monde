@@ -47,7 +47,7 @@ public slots:
      * @details
      *   Draws the specified shape.
      */
-    void draw(AbstractGeometry *geometry);
+    void draw(const AbstractGeometry *geometry);
 
     /*!
      * @details
@@ -64,9 +64,9 @@ public slots:
 protected:
     explicit SymbolBase(QObject *parent = 0);
 
-    virtual void drawPoint(Point &point, QPainter &painter);
-    virtual void drawPolygon(Polygon &polygon, QPainter &painter);
-    virtual void drawPolyline(Polyline &polyline, QPainter &painter);
+    virtual void drawPoint(const Point &point, QPainter &painter);
+    virtual void drawPolygon(const Polygon &polygon, QPainter &painter);
+    virtual void drawPolyline(const Polyline &polyline, QPainter &painter);
 
 private:
     IDisplay *m_display;

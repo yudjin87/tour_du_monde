@@ -29,19 +29,19 @@
 
 #include "IPainterDocumentController.h"
 
-class QGraphicsScene;
+class IDisplay;
 
 class PainterDocumentController : public IPainterDocumentController
 {
     Q_OBJECT
 public:
-    PainterDocumentController();
+    PainterDocumentController(IDisplay *display);
     ~PainterDocumentController();
 
     IPainterDocument *document();
 
 private:
-    IPainterDocument *mp_document;
+    IPainterDocument *m_document;
 };
 
 #endif // PAINTERDOCUMENTCONTROLLER_H

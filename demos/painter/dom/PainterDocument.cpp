@@ -29,22 +29,28 @@
 #include <carto/Map.h>
 
 //------------------------------------------------------------------------------
-PainterDocument::PainterDocument(Map *map)
-    : mp_map(map)
+PainterDocument::PainterDocument()
+    : m_map(nullptr)
 {
 }
 
 //------------------------------------------------------------------------------
 PainterDocument::~PainterDocument()
 {
-    delete mp_map;
-    mp_map = nullptr;
+    delete m_map;
+    m_map = nullptr;
 }
 
 //------------------------------------------------------------------------------
-Map &PainterDocument::map()
+Map *PainterDocument::map()
 {
-    return *mp_map;
+    return m_map;
+}
+
+//------------------------------------------------------------------------------
+void PainterDocument::addMap(Map *map)
+{
+    m_map = map;
 }
 
 //------------------------------------------------------------------------------

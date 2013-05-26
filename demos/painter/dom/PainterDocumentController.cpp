@@ -30,22 +30,25 @@
 #include <carto/Map.h>
 
 //------------------------------------------------------------------------------
-PainterDocumentController::PainterDocumentController()
-    : mp_document(new PainterDocument(new Map()))
+PainterDocumentController::PainterDocumentController(IDisplay *display)
+    : m_document(nullptr)
 {
+    m_document = new PainterDocument();
+    m_document->addMap(new Map());
+    m_document->map()->setDisplay(display);
 }
 
 //------------------------------------------------------------------------------
 PainterDocumentController::~PainterDocumentController()
 {
-    delete mp_document;
-    mp_document = nullptr;
+    delete m_document;
+    m_document = nullptr;
 }
 
 //------------------------------------------------------------------------------
 IPainterDocument *PainterDocumentController::document()
 {
-    return mp_document;
+    return m_document;
 }
 
 //------------------------------------------------------------------------------

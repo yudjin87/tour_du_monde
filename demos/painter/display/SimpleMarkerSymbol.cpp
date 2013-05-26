@@ -76,11 +76,11 @@ void SimpleMarkerSymbol::setOutlineSize(double outlineSize)
 }
 
 //------------------------------------------------------------------------------
-void SimpleMarkerSymbol::drawPoint(Point &point, QPainter &painter)
+void SimpleMarkerSymbol::drawPoint(const Point &point, QPainter &painter)
 {
     painter.setBrush(QBrush(color()));
 
-    painter.drawEllipse(point.point(), size(), size());
+    painter.drawEllipse(point.point(), size() / 2, size() / 2);
 }
 
 //------------------------------------------------------------------------------

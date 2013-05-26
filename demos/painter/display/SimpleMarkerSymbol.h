@@ -65,7 +65,7 @@ public:
     void setOutlineSize(double outlineSize);
 
 protected:
-    void drawPoint(Point &point, QPainter &painter);
+    void drawPoint(const Point &point, QPainter &painter);
 
 private:
     bool m_outline;

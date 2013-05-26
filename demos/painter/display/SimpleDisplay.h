@@ -44,8 +44,9 @@ public:
     QPainter *startDrawing();
     void finishDrawing(QPainter *painter);
 
-signals:
-    void changed();
+    QRectF extent() const;
+
+    void setExtent(const QRectF& extent);
 
 protected:
     void resizeEvent(QResizeEvent *event);
@@ -64,9 +65,10 @@ private:
     Q_DISABLE_COPY(SimpleDisplay)
 
 private:
+    QRectF m_extent;
     int m_x_offset;
     int m_y_offset;
-    QPixmap *mp_pixmap;
-    QPainter *mp_currentPainter;
+    QPixmap *m_pixmap;
+    QPainter *m_currentPainter;
 };
 #endif // DISPLAY_H

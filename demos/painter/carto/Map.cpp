@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- 
+
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -25,11 +25,14 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "Map.h"
-
 #include "AbstractLayer.h"
+
+#include <display/IDisplay.h>
 
 //------------------------------------------------------------------------------
 Map::Map()
+    : QObject()
+    , m_display(nullptr)
 {
 }
 
@@ -49,12 +52,29 @@ void Map::addLayer(AbstractLayer *layer)
     m_layers.push_back(layer);
     emit layerAdded(layer);
     //mp_layer->draw(mp_scene);
+
+    m_display->setExtent(layer->extent());
 }
 
 //------------------------------------------------------------------------------
 QList<AbstractLayer *> Map::layers() const
 {
     return m_layers;
+}
+
+//------------------------------------------------------------------------------
+void Map::refresh()
+{
+    foreach(AbstractLayer *layer, m_layers)
+        layer->draw(m_display);
+}
+
+//------------------------------------------------------------------------------
+void Map::setDisplay(IDisplay *display)
+{
+    m_display = display;
+
+    connect(m_display, SIGNAL(changed()), SLOT(refresh()));
 }
 
 //------------------------------------------------------------------------------
