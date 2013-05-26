@@ -37,25 +37,18 @@
 
 //------------------------------------------------------------------------------
 SimpleDisplay::SimpleDisplay(QWidget *parent)    
-    : m_x_offset(0)
-    , m_y_offset(0)
+    : m_offset(0, 0)
+    //, m_scale(0.0025)
+    , m_scale(1)
     , m_pixmap(nullptr)
     , m_currentPainter(nullptr)
 
 {
     setParent(parent);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
-    verticalScrollBar()->setPageStep(100);
-    verticalScrollBar()->setRange(-100, 100);
-    verticalScrollBar()->setSliderPosition(0);
-
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
-    horizontalScrollBar()->setPageStep(100);
-    horizontalScrollBar()->setRange(-100, 100);
-    horizontalScrollBar()->setSliderPosition(0);
 
     Throttle* throttle = new Throttle(this);
-
     connect(this, SIGNAL(needChange()), throttle, SLOT(start()));
     connect(throttle, SIGNAL(elapsed()), this, SLOT(emitChanged()));
 }
@@ -82,17 +75,17 @@ QPainter *SimpleDisplay::startDrawing()
     m_pixmap->fill(Qt::lightGray);
 
     m_currentPainter = new QPainter(m_pixmap);
-    m_currentPainter->setWindow(horizontalScrollBar()->value(), verticalScrollBar()->value(), this->width(), this->height());
-
-//    QTransform viewport(1.0f, 0.0f, 0.0f,
-//                        0.0f, -1.0f, 0.0f,
-//                        0.0f, this->height(), 1.0f);
+    m_currentPainter->setWindow(0, 0, width() * m_scale, height() * m_scale);
+    m_currentPainter->setViewport(0, 0, width(), height());
 
     QTransform viewport(1.0f, 0.0f, 0.0f,
                         0.0f, 1.0f, 0.0f,
-                        0.0f, 0.0f, 1.0f);
+                        -m_extent.left() - horizontalScrollBar()->value(), -m_extent.top() - verticalScrollBar()->value(), 1.0f);
 
-    m_currentPainter->setTransform(viewport);
+    m_currentPainter->setTransform(viewport, false);
+
+    m_transform = m_currentPainter->deviceTransform().inverted();
+    qDebug(QString("dx: %1").arg(m_transform.dx()).toLatin1());
 
     return m_currentPainter;
 }
@@ -117,8 +110,27 @@ void SimpleDisplay::setExtent(const QRectF &extent)
 {
     m_extent = extent;
 
-    verticalScrollBar()->setRange(m_extent.top() - 10, m_extent.bottom() + 10);
-    horizontalScrollBar()->setRange(m_extent.left() - 10, m_extent.right() + 10);
+    double dy = (m_extent.height() / m_scale - height());
+    double dx = (m_extent.width() / m_scale - width());
+
+    verticalScrollBar()->setRange(0, dy);
+    horizontalScrollBar()->setRange(0, dx);
+
+    //verticalScrollBar()->setSingleStep(100);
+    //horizontalScrollBar()->setSingleStep(m_scale);
+    qDebug(QString("height: %1").arg(dy).toLatin1());
+    qDebug(QString("width: %1").arg(dx).toLatin1());
+}
+
+//------------------------------------------------------------------------------
+void SimpleDisplay::mouseMoveEvent(QMouseEvent *event)
+{
+    QPointF p = event->posF();
+    qreal x;
+    qreal y;
+    m_transform.map(p.x(), p.y(), &x, &y);
+    qDebug(QString("x: %1").arg(x).toLatin1());
+    qDebug(QString("y: %1").arg(y).toLatin1());
 }
 
 //------------------------------------------------------------------------------
@@ -131,10 +143,10 @@ void SimpleDisplay::paintEvent(QPaintEvent *event)
     QPainter painter;
     painter.begin(viewport());
 
-    qDebug(QString("m_x_offset: %1").arg(m_x_offset).toLatin1());
-    qDebug(QString("m_y_offset: %1").arg(m_y_offset).toLatin1());
+//    qDebug(QString("m_x_offset: %1").arg(m_x_offset).toLatin1());
+//    qDebug(QString("m_y_offset: %1").arg(m_y_offset).toLatin1());
 
-    painter.drawPixmap(m_x_offset, m_y_offset, m_pixmap->width(), m_pixmap->height(), *m_pixmap);
+    painter.drawPixmap(m_offset.x(), m_offset.y(), m_pixmap->width(), m_pixmap->height(), *m_pixmap);
     painter.end();
 }
 
@@ -148,8 +160,7 @@ void SimpleDisplay::showEvent(QShowEvent *event)
 //------------------------------------------------------------------------------
 void SimpleDisplay::scrollContentsBy(int dx, int dy)
 {
-    m_x_offset += dx;
-    m_y_offset += dy;
+    m_offset += QPointF(dx, dy) / m_scale;
 
     viewport()->update();
     emit needChange();
@@ -158,8 +169,7 @@ void SimpleDisplay::scrollContentsBy(int dx, int dy)
 //------------------------------------------------------------------------------
 void SimpleDisplay::emitChanged()
 {
-    m_x_offset = 0;
-    m_y_offset = 0;
+    m_offset = QPointF(0, 0);
     emit changed();
 
     viewport()->update();
@@ -169,7 +179,9 @@ void SimpleDisplay::emitChanged()
 void SimpleDisplay::resizeEvent(QResizeEvent *event)
 {
     Q_UNUSED(event)
+    setExtent(m_extent);
     emit needChange();
 }
 
 //------------------------------------------------------------------------------
+

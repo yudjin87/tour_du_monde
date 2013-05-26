@@ -49,6 +49,7 @@ public:
     void setExtent(const QRectF& extent);
 
 protected:
+    void mouseMoveEvent(QMouseEvent *event);
     void resizeEvent(QResizeEvent *event);
     void paintEvent(QPaintEvent *event);
     void showEvent(QShowEvent * event);
@@ -66,9 +67,10 @@ private:
 
 private:
     QRectF m_extent;
-    int m_x_offset;
-    int m_y_offset;
+    QPointF m_offset;
+    double m_scale;
     QPixmap *m_pixmap;
     QPainter *m_currentPainter;
+    QTransform m_transform;
 };
 #endif // DISPLAY_H
