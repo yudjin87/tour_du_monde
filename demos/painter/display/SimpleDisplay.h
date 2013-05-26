@@ -27,14 +27,14 @@
 #ifndef DISPLAY_H
 #define DISPLAY_H
 
-#include "IAppDisplay.h"
+#include "IDisplay.h"
 
 #include <QtCore/QObject>
 #include <QtGui/QWidget>
 
 class QPixmap;
 
-class SimpleDisplay :  public IAppDisplay
+class SimpleDisplay :  public IDisplay
 {
     Q_OBJECT
 public:

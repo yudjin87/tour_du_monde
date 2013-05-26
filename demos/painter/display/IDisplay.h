@@ -35,11 +35,11 @@ class QPainter;
 class QPaintDevice;
 class QRect;
 
-class DISPLAY_API IAppDisplay : public QAbstractScrollArea
+class DISPLAY_API IDisplay : public QAbstractScrollArea
 {
 public:
-    IAppDisplay(){}
-    virtual ~IAppDisplay(){}
+    IDisplay(){}
+    virtual ~IDisplay(){}
 
     virtual QPainter *startDrawing() = 0;
     virtual void finishDrawing(QPainter *painter) = 0;
@@ -47,7 +47,7 @@ public:
     virtual void changed() = 0;
 
 private:
-    Q_DISABLE_COPY(IAppDisplay)
+    Q_DISABLE_COPY(IDisplay)
 };
 
 #endif // IDISPLAY_H
