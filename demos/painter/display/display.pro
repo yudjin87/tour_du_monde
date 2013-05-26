@@ -22,16 +22,23 @@ win32 {
 HEADERS += \
     display_api.h \
     DisplayComponent.h \
-    IAppDisplay.h \
+    IDisplay.h \
     SimpleDisplay.h \
     Throttle.h \
-    FeatureRenderer.h
+    FeatureRenderer.h \
+    ISymbol.h \
+    SymbolBase.h \
+    MarkerSymbol.h \
+    SimpleMarkerSymbol.h
 
 SOURCES += \
     DisplayComponent.cpp \
     SimpleDisplay.cpp \
     Throttle.cpp \
-    FeatureRenderer.cpp
+    FeatureRenderer.cpp \
+    SymbolBase.cpp \
+    MarkerSymbol.cpp \
+    SimpleMarkerSymbol.cpp
 
 FORMS +=
 
