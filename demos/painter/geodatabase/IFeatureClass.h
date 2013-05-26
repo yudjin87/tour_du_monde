@@ -4,12 +4,13 @@
 #include "geodatabase_api.h"
 #include <geometry/GeometryType.h>
 
-#include <QtCore/QList>
+#include <QtCore/QVector>
 #include <QtCore/QRectF>
 
 class IFeature;
+class ISpatialFilter;
 
-typedef QList<IFeature *> FeatureList;
+typedef QVector<IFeature *> FeatureList;
 
 class GEODATABASE_API IFeatureClass
 {
@@ -23,6 +24,8 @@ public:
 
     virtual IFeature &createFeature() = 0;
     virtual const FeatureList &features() const = 0;
+
+    virtual FeatureList search(const ISpatialFilter &filter) const = 0;
 
 private:
     Q_DISABLE_COPY(IFeatureClass)

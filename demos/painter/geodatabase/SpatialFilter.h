@@ -24,30 +24,28 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef FEATURECLASS_H
-#define FEATURECLASS_H
+#ifndef SPATIALFILTER_H
+#define SPATIALFILTER_H
 
-#include "IFeatureClass.h"
+#include "geodatabase/ISpatialFilter.h"
 
-class FeatureClass : public IFeatureClass
+class SpatialFilter : public ISpatialFilter
 {
 public:
-    FeatureClass(GeometryType shapeType, const QRectF &extent);
-    ~FeatureClass();
+    SpatialFilter();
 
-    QRectF extent() const;
+    /*!
+     * @details
+     *   Gets or sets the geometry used to find features.
+     *
+     * @note that filter does not take ownership for the geometry.
+     */
+    const AbstractGeometry *geometry() const;
 
-    GeometryType shapeType() const;
-
-    IFeature &createFeature();
-    const FeatureList &features() const;
-
-    FeatureList search(const ISpatialFilter &filter) const;
+    void setGeometry(const AbstractGeometry *geometry);
 
 private:
-    GeometryType m_type;
-    FeatureList m_features;
-    QRectF m_extent;
+    const AbstractGeometry *m_geometry;
 };
 
-#endif // FEATURECLASS_H
+#endif // SPATIALFILTER_H

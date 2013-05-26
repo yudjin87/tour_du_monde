@@ -26,6 +26,9 @@
 
 #include "FeatureClass.h"
 #include "Feature.h"
+#include "ISpatialFilter.h"
+
+#include <geometry/AbstractGeometry.h>
 
 //------------------------------------------------------------------------------
 FeatureClass::FeatureClass(GeometryType shapeType, const QRectF &extent)
@@ -67,6 +70,21 @@ IFeature &FeatureClass::createFeature()
 const FeatureList &FeatureClass::features() const
 {
     return m_features;
+}
+
+//------------------------------------------------------------------------------
+FeatureList FeatureClass::search(const ISpatialFilter &filter) const
+{
+    const AbstractGeometry *geometry = filter.geometry();
+    const QRectF &extent = geometry->extent();
+    FeatureList toReturn;
+    for(int i = 0, end = m_features.size(); i != end; ++i) {
+        IFeature *feature = m_features[i];
+        if (extent.intersects(feature->geometry()->extent()))
+            toReturn.push_back(feature);
+    }
+
+    return toReturn;
 }
 
 //------------------------------------------------------------------------------

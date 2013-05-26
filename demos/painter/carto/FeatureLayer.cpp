@@ -27,11 +27,14 @@
 #include "FeatureLayer.h"
 
 #include <display/FeatureRenderer.h>
+#include <display/IDisplay.h>
 #include <display/SimpleMarkerSymbol.h>
 #include <display/SimpleLineSymbol.h>
 
 #include <geodatabase/Feature.h>
 #include <geodatabase/IFeatureClass.h>
+#include <geodatabase/SpatialFilter.h>
+#include <geometry/Polygon.h>
 
 //------------------------------------------------------------------------------
 FeatureLayer::FeatureLayer()
@@ -60,7 +63,13 @@ void FeatureLayer::draw(IDisplay *display)
     if (mp_featureClass == nullptr)
         return;
 
-    mp_featureRenderer->draw(mp_featureClass->features(), display);
+    SpatialFilter filter;
+    Polygon extent(display->visibleExtent());
+    filter.setGeometry(&extent);
+
+    FeatureList features = mp_featureClass->search(filter);
+    qDebug(QString("draw %1 features").arg(features.size()).toLatin1());
+    mp_featureRenderer->draw(features, display);
 }
 
 //------------------------------------------------------------------------------

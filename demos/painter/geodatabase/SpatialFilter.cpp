@@ -24,30 +24,24 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef FEATURECLASS_H
-#define FEATURECLASS_H
+#include "SpatialFilter.h"
 
-#include "IFeatureClass.h"
-
-class FeatureClass : public IFeatureClass
+//------------------------------------------------------------------------------
+SpatialFilter::SpatialFilter()
+    : m_geometry(nullptr)
 {
-public:
-    FeatureClass(GeometryType shapeType, const QRectF &extent);
-    ~FeatureClass();
+}
 
-    QRectF extent() const;
+//------------------------------------------------------------------------------
+const AbstractGeometry *SpatialFilter::geometry() const
+{
+    return m_geometry;
+}
 
-    GeometryType shapeType() const;
+//------------------------------------------------------------------------------
+void SpatialFilter::setGeometry(const AbstractGeometry *geometry)
+{
+    m_geometry = geometry;
+}
 
-    IFeature &createFeature();
-    const FeatureList &features() const;
-
-    FeatureList search(const ISpatialFilter &filter) const;
-
-private:
-    GeometryType m_type;
-    FeatureList m_features;
-    QRectF m_extent;
-};
-
-#endif // FEATURECLASS_H
+//------------------------------------------------------------------------------
