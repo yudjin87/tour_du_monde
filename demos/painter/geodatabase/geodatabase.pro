@@ -35,7 +35,9 @@ HEADERS += \
     IFeatureClass.h \
     IFeature.h \
     GeodatabaseComponent.h \
-    IShapeFileWorkspaceFactory.h
+    IShapeFileWorkspaceFactory.h \
+    ISpatialFilter.h \
+    SpatialFilter.h
 
 SOURCES += \
     Feature.cpp \
@@ -44,7 +46,8 @@ SOURCES += \
     ShapeFileFeatureWorkspace.cpp \
     ShapeFileFeatureDataset.cpp \
     ShapeFileReader.cpp \
-    GeodatabaseComponent.cpp
+    GeodatabaseComponent.cpp \
+    SpatialFilter.cpp
 
 
 OTHER_FILES += Geodatabase.definition

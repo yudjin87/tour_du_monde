@@ -42,9 +42,12 @@ public:
     IDisplay(){}
     virtual ~IDisplay(){}
 
+    virtual QPainter *painter() = 0;
+
     virtual QPainter *startDrawing() = 0;
     virtual void finishDrawing(QPainter *painter) = 0;
 
+    virtual QRectF visibleExtent() const = 0;
     virtual QRectF extent() const = 0;
 
     virtual void setExtent(const QRectF& extent) = 0;

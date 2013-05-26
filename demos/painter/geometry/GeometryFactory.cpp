@@ -127,7 +127,11 @@ QMap<int, GeometryType> GeometryFactory::fillTypesMap()
 //------------------------------------------------------------------------------
 void GeometryFactory::createPoint(QDataStream &stream, Point *point)
 {
-    stream.readRawData(reinterpret_cast<char *>(&point->point()), sizeof(double) * 2);
+    double x;
+    double y;
+    stream.readRawData(reinterpret_cast<char *>(&x), sizeof(double));
+    stream.readRawData(reinterpret_cast<char *>(&y), sizeof(double));
+    point->setPoint(QPointF(x, y));
 }
 
 //------------------------------------------------------------------------------

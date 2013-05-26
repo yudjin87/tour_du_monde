@@ -43,7 +43,7 @@ FeatureRenderer::~FeatureRenderer()
 }
 
 //------------------------------------------------------------------------------
-void FeatureRenderer::draw(const QList<IFeature *> &features, IDisplay *display)
+void FeatureRenderer::draw(const QVector<IFeature *> &features, IDisplay *display)
 {
     m_symbol->setupDisplay(display);
     foreach (const IFeature *feature, features) {

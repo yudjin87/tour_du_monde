@@ -65,8 +65,11 @@ QList<AbstractLayer *> Map::layers() const
 //------------------------------------------------------------------------------
 void Map::refresh()
 {
+    QPainter *painter = m_display->startDrawing();
     foreach(AbstractLayer *layer, m_layers)
         layer->draw(m_display);
+
+    m_display->finishDrawing(painter);
 }
 
 //------------------------------------------------------------------------------

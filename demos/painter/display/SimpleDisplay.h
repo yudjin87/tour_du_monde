@@ -41,8 +41,12 @@ public:
     SimpleDisplay(QWidget *parent = nullptr);
     ~SimpleDisplay();
 
+    QPainter *painter();
+
     QPainter *startDrawing();
     void finishDrawing(QPainter *painter);
+
+    QRectF visibleExtent() const;
 
     QRectF extent() const;
 
@@ -71,6 +75,6 @@ private:
     double m_scale;
     QPixmap *m_pixmap;
     QPainter *m_currentPainter;
-    QTransform m_transform;
+    mutable QTransform m_transform;
 };
 #endif // DISPLAY_H

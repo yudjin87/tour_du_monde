@@ -48,7 +48,7 @@ SymbolBase::~SymbolBase()
 void SymbolBase::draw(const AbstractGeometry *geometry)
 {
     if (m_painter == nullptr)
-        m_painter = m_display->startDrawing();
+        m_painter = m_display->painter();
 
     switch (geometry->type())
     {
@@ -78,11 +78,10 @@ void SymbolBase::setupDisplay(IDisplay *display)
     m_display = display;
 }
 
-
 //------------------------------------------------------------------------------
 void SymbolBase::resetDisplay()
 {
-    m_display->finishDrawing(m_painter);
+    //m_display->finishDrawing(m_painter);
 
     m_painter = nullptr;
     m_display = nullptr;

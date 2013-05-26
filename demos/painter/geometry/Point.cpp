@@ -50,6 +50,7 @@ const QPointF &Point::point() const
 void Point::setPoint(const QPointF &value)
 {
     m_value = value;
+    setExtent(QRectF(value, QSize(1, 1)));
 }
 
 //------------------------------------------------------------------------------

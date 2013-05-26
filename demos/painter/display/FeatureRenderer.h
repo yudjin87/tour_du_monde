@@ -66,7 +66,7 @@ public:
      *   This method typically iterates through all the features and renders each
      *   feature with an appropriate symbol.
      */
-    void draw(const QList<IFeature *> &features, IDisplay *display);
+    void draw(const QVector<IFeature *> &features, IDisplay *display);
 
     ISymbol *symbol();
     const ISymbol *symbol() const;
