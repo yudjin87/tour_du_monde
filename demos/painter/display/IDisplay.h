@@ -52,6 +52,9 @@ public:
 
     virtual void setExtent(const QRectF& extent) = 0;
 
+    virtual double scale() const = 0;
+    virtual void setScale(double scale) = 0;
+
 signals:
     void changed();
 

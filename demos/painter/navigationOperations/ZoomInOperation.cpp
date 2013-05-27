@@ -26,10 +26,8 @@
 
 #include "ZoomInOperation.h"
 
+#include <display/IDisplay.h>
 #include <utils/IServiceLocator.h>
-
-#include <QtGui/QGraphicsScene>
-#include <QtGui/QGraphicsView>
 
 //------------------------------------------------------------------------------
 ZoomInOperation::ZoomInOperation()
@@ -43,9 +41,8 @@ ZoomInOperation::ZoomInOperation()
 //------------------------------------------------------------------------------
 void ZoomInOperation::execute()
 {
-    QGraphicsScene *scene = m_serviceLocator->locate<QGraphicsScene>();
-    QGraphicsView *view = scene->views().first();
-    view->scale(2, 2);
+    IDisplay *display = m_serviceLocator->locate<IDisplay>();
+    display->setScale(display->scale() * 1.1);
 }
 
 //------------------------------------------------------------------------------

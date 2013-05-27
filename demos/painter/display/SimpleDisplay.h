@@ -52,6 +52,9 @@ public:
 
     void setExtent(const QRectF& extent);
 
+    double scale() const;
+    void setScale(double scale);
+
 protected:
     void mouseMoveEvent(QMouseEvent *event);
     void resizeEvent(QResizeEvent *event);
