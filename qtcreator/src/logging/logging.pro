@@ -1,7 +1,7 @@
 include (../../carousel.pri)
 include (logging.pri)
 
-QT      -= gui
+QT      -= widgets
 TEMPLATE = lib
 
 TARGET = Logging

@@ -39,6 +39,9 @@ public:
     
 signals:
     void test(const QString &str);
+
+    // Hack to emit private (since Qt 5.0) directoryChanged() signal
+    void directoryChanged(const QString &str);
 };
 
 #endif // MOCKFILESYSTEMWATCHER_H

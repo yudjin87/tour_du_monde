@@ -1,7 +1,7 @@
 include (../test_shared.pri)
 include (interactivity_test.pri)
 
-QT       += gui
+QT       += widgets gui
 
 TARGET = interactivity_test
 

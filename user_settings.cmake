@@ -1,0 +1,5 @@
+set(DEBUG TRUE)
+set(QT_COPY_LIBRARIES TRUE)
+set(QT_ROOT_LOCATION_MSVC11-X64 "D:/dev/SimPlantNG/Qt/5.0.1/Output/MSVC-x64")
+set(QT_ROOT_LOCATION_MSVC11-X32 "D:/dev/SimPlantNG/Qt/5.0.1/Output/MSVC-x32")
+set(QT_ROOT_LOCATION_MINGW-X32 "D:/Qt/Qt5-Mingw-x32/5.0.2/mingw47_32")

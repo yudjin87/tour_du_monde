@@ -26,7 +26,7 @@
 
 #include "Point.h"
 
-#include <QtGui/QGraphicsEllipseItem>
+#include <QtWidgets/QGraphicsEllipseItem>
 
 //------------------------------------------------------------------------------
 Point::Point()

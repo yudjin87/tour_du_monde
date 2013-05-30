@@ -30,25 +30,11 @@
 #include <componentsystem/IComponentManager.h>
 #include <utils/IServiceLocator.h>
 
-#include <QtGui/QMainWindow>
+#include <QtWidgets/QMainWindow>
 
 //------------------------------------------------------------------------------
 AbstractApplication::AbstractApplication(int &argc, char **argv, int flags)
     : QApplication(argc, argv, flags)
-    , m_serviceLocator(nullptr)
-{
-}
-
-//------------------------------------------------------------------------------
-AbstractApplication::AbstractApplication(int &argc, char **argv, bool GUIenabled, int flags)
-    : QApplication(argc, argv, GUIenabled, flags)
-    , m_serviceLocator(nullptr)
-{
-}
-
-//------------------------------------------------------------------------------
-AbstractApplication::AbstractApplication(int &argc, char **argv, QApplication::Type type, int flags)
-    : QApplication(argc, argv, type, flags)
     , m_serviceLocator(nullptr)
 {
 }

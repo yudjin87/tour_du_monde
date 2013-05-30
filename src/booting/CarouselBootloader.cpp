@@ -32,7 +32,7 @@
 #include <logging/LoggerFacade.h>
 #include <utils/IServiceLocator.h>
 
-#include <QtGui/QMainWindow>
+#include <QtWidgets/QMainWindow>
 
 //------------------------------------------------------------------------------
 namespace

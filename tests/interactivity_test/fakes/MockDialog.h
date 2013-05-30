@@ -29,7 +29,7 @@
 
 #include "MockDialogModel.h"
 
-#include <QtGui/QDialog>
+#include <QtWidgets/QDialog>
 
 class MockDialog : public QDialog
 {

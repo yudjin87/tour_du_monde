@@ -14,7 +14,7 @@
               +/intermediate      <= Intermediate files
               +/unittest          <= Unittest applications
            +/mingw-x64-release
-           +/msvc10-x32-debug-static
+           +/msvc11-x32-debug-static
            +/msvc11-x64-release-static
            +/...
        +/msvc                     <= Source tree for the MSVC
@@ -52,8 +52,6 @@
  because cmake will generate Unix makefiles by default on MacOS.
  More generators:
 
-   cmake .. [params] -G "Visual Studio 10"
-   cmake .. [params] -G "Visual Studio 10 Win64"
    cmake .. [params] -G "Visual Studio 11"
    cmake .. [params] -G "Visual Studio 11 Win64"
 
@@ -76,7 +74,7 @@
  If you have both Qt binaries - for MinGW and for MSVC,
  you should specify path to the MinGW Qt:
    cmake -DMINGW=TRUE -P build_all.txt
-   QTDIR=/d/Qt/4.8.4-mingw-x64
+   QTDIR=/d/Qt/5.0.1-mingw-x64
  
 ##############################################################################
  For more information use Ctrl+F at the page

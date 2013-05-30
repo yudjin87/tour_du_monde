@@ -29,7 +29,7 @@
 
 #include "componentsystemui/componentsystem_ui_global.h"
 
-#include <QtGui/QDialog>
+#include <QtWidgets/QDialog>
 
 class ComponentDefinitionsModel;
 

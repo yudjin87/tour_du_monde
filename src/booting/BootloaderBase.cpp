@@ -32,7 +32,7 @@
 #include <logging/TextLogger.h>
 #include <utils/ServiceLocator.h>
 
-#include <QtGui/QMainWindow>
+#include <QtWidgets/QMainWindow>
 
 //------------------------------------------------------------------------------
 BootloaderBase::BootloaderBase()

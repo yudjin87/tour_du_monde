@@ -29,9 +29,9 @@
 #include <componentsystemui/InstallComponentsCommand.h>
 #include <utils/IServiceLocator.h>
 
-#include <QtGui/QFileDialog>
-#include <QtGui/QMainWindow>
-#include <QtGui/QUndoStack>
+#include <QtWidgets/QFileDialog>
+#include <QtWidgets/QMainWindow>
+#include <QtWidgets/QUndoStack>
 
 //------------------------------------------------------------------------------
 InstallComponentsOperation::InstallComponentsOperation()
@@ -47,7 +47,7 @@ void InstallComponentsOperation::execute()
 {
     QFileDialog fileDialog(m_serviceLocator->locate<QMainWindow>(), "Install component");
     fileDialog.setFileMode(QFileDialog::ExistingFiles);
-    fileDialog.setFilter("Components (*.definition)"); // TODO: get from the app settings
+    fileDialog.selectNameFilter("Components (*.definition)"); // TODO: get from the app settings
     if (!fileDialog.exec())
         return;
 

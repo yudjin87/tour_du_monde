@@ -97,7 +97,7 @@ message(STATUS "Project name: ${CRSL_PROJECT_NAME}" )
 
 ###############################################################################
 # Specify target platform's bit and operation system
-crsl_get_target_platform_bits(CRSL_TARGET_PLATFORM_BITS)
+crsl_get_target_platform_bits(CRSL_TARGET_PLATFORM_BITS CRSL_IS_X64)
 crsl_get_target_os(CRSL_TARGET_OS)
 crsl_get_compiler(CRSL_COMPILER)
 message(STATUS "Target system: " ${CRSL_TARGET_OS}${CRSL_TARGET_PLATFORM_BITS})
@@ -145,13 +145,15 @@ set(CAROUSEL_WD ${CMAKE_CURRENT_SOURCE_DIR})
 set(HPP_SOURCE_TREE ${CAROUSEL_WD}/include)
 set(CPP_SOURCE_TREE ${CAROUSEL_WD}/src)
 
+########################################################################################
+# Try to apply custom user settings
+include(user_settings.cmake.template OPTIONAL) # just for easy editing
+include(user_settings.cmake OPTIONAL)
+
 ###############################################################################
 # Configure the Qt stuff
-find_package(Qt4 REQUIRED)
-set(QT_DONT_USE_QTGUI TRUE)
-include(${QT_USE_FILE})
-
-message(STATUS "Used Qt version: ${QT_VERSION_MAJOR}.${QT_VERSION_MINOR}")
+include(cmake/import_qt5.cmake)
+include_directories("${Qt5_INCLUDE_DIRS}")
 
 ###############################################################################
 # ... and specify them as pathes in which the linker will look for libraries

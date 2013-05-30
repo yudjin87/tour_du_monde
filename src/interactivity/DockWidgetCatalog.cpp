@@ -27,8 +27,8 @@
 #include "DockWidgetCatalog.h"
 
 #include <QtCore/QtAlgorithms>
-#include <QtGui/QDockWidget>
-#include <QtGui/QMainWindow>
+#include <QtWidgets/QDockWidget>
+#include <QtWidgets/QMainWindow>
 
 //------------------------------------------------------------------------------
 DockWidgetCatalog::DockWidgetCatalog(QMainWindow &shell)

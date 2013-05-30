@@ -29,7 +29,7 @@
 
 #include <QtCore/QObject>
 #include <QtCore/QStringList>
-#include <QtGui/QUndoCommand>
+#include <QtWidgets/QUndoCommand>
 
 class IServiceLocator;
 

@@ -31,7 +31,7 @@
 #include <interactivity/DialogService.h>
 #include <utils/ServiceLocator.h>
 
-#include <QtGui/QWidget>
+#include <QtWidgets/QWidget>
 #include <QtTest/QTest>
 
 //------------------------------------------------------------------------------

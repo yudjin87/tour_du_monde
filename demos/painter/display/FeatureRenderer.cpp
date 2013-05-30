@@ -33,10 +33,10 @@
 #include <geometry/Point.h>
 #include <geometry/Segment.h>
 
-#include <QtGui/QGraphicsScene>
-#include <QtGui/QAbstractGraphicsShapeItem>
-#include <QtGui/QGraphicsPathItem>
-#include <QtGui/QGraphicsPolygonItem>
+#include <QtWidgets/QGraphicsScene>
+#include <QtWidgets/QAbstractGraphicsShapeItem>
+#include <QtWidgets/QGraphicsPathItem>
+#include <QtWidgets/QGraphicsPolygonItem>
 
 #include <stdlib.h>
 

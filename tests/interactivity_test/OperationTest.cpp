@@ -28,7 +28,7 @@
 
 #include "fakes/MockOperation.h"
 
-#include <QtGui/QWidget>
+#include <QtWidgets/QWidget>
 #include <QtTest/QtTest>
 
 //------------------------------------------------------------------------------

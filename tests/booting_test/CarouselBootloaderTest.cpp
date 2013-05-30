@@ -10,7 +10,7 @@
 #include <utils/IServiceLocator.h>
 #include <utils/ObservableList.h>
 
-#include <QtGui/QMainWindow>
+#include <QtWidgets/QMainWindow>
 #include <QtTest/QtTest>
 
 //------------------------------------------------------------------------------

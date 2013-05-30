@@ -18,7 +18,7 @@ set(__HEADERS
 
 ######################################################################
 # Qt generated files
-qt4_wrap_cpp(__HEADERS_MOC ${__HEADERS})
+qt5_wrap_cpp(__HEADERS_MOC ${__HEADERS})
 
 ######################################################################
 # Group sources into IDE's filters
@@ -39,5 +39,4 @@ target_link_libraries(${CRSL_PROJECT_NAME} ComponentSystem)
 
 ###############################################################################
 # Qt dependencies
-target_link_libraries(${CRSL_PROJECT_NAME} ${QT_QTCORE_LIBRARY})
-target_link_libraries(${CRSL_PROJECT_NAME} ${QT_QTGUI_LIBRARY})
+qt5_use_modules(${CRSL_PROJECT_NAME} Core Widgets)

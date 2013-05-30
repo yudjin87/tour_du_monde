@@ -152,7 +152,7 @@ TValue TypeObjectsMap<TValue>::getInstance(const QString &forClassName, const QS
 {
     InstanceObject<TValue> *foundObject = findInstance(forClassName, tag);
     if (foundObject == nullptr)
-      return nullptr;
+        return TValue();
 
     return foundObject->instance;
 }

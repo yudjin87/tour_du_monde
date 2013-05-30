@@ -30,7 +30,7 @@
 #include <interactivity/IDialogService.h>
 #include <utils/IServiceLocator.h>
 
-#include <QtGui/QMainWindow>
+#include <QtWidgets/QMainWindow>
 
 //------------------------------------------------------------------------------
 ShowComponentsOperation::ShowComponentsOperation()

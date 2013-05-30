@@ -1,7 +1,7 @@
 include (../../carousel.pri)
 include (utils.pri)
 
-QT      -= gui
+QT      -= widgets
 TEMPLATE = lib
 
 TARGET = Utils

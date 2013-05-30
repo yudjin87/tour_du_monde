@@ -21,7 +21,7 @@ file(GLOB __HEADERS_FAKES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} fakes/[^.]*.h)
 
 ######################################################################
 # Qt generated files
-qt4_wrap_cpp(__HEADERS_MOC ${__HEADERS} ${__HEADERS_FAKES})
+qt5_wrap_cpp(__HEADERS_MOC ${__HEADERS} ${__HEADERS_FAKES})
 
 ######################################################################
 # Group sources into IDE's filters
@@ -44,4 +44,4 @@ target_link_libraries(${CRSL_PROJECT_NAME} Interactivity Framework)
 
 ###############################################################################
 # Qt dependencies
-target_link_libraries(${CRSL_PROJECT_NAME} ${QT_QTTEST_LIBRARY})
+qt5_use_modules(${CRSL_PROJECT_NAME} Test Widgets)

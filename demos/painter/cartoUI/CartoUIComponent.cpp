@@ -34,7 +34,7 @@
 #include <dom/IPainterDocumentController.h>
 #include <utils/IServiceLocator.h>
 
-#include <QtGui/QGraphicsScene>
+#include <QtWidgets/QGraphicsScene>
 
 //------------------------------------------------------------------------------
 static const QByteArray productName("ShapesView");

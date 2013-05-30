@@ -30,7 +30,7 @@
 
 #include <QtGui/QShowEvent>
 
-#include <QtGui/QScrollBar>
+#include <QtWidgets/QScrollBar>
 #include <QtGui/QPaintDevice>
 #include <QtGui/QPainter>
 #include <QtGui/QPixmap>

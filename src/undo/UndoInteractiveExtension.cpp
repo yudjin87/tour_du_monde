@@ -34,8 +34,8 @@
 #include <interactivity/IToolBarCatalog.h>
 #include <utils/IServiceLocator.h>
 
-#include <QtGui/QMenu>
-#include <QtGui/QToolBar>
+#include <QtWidgets/QMenu>
+#include <QtWidgets/QToolBar>
 
 //------------------------------------------------------------------------------
 UndoInteractiveExtension::UndoInteractiveExtension(QObject *parent /*= nullptr*/)

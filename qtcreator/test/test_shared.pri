@@ -1,6 +1,6 @@
 include (../carousel.pri)
 
-QT       -= gui
+QT       -= widgets
 QT       += testlib
 QT       += core
 

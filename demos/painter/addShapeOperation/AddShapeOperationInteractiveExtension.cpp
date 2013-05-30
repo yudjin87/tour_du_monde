@@ -32,8 +32,8 @@
 #include <interactivity/IMenuCatalog.h>
 #include <interactivity/IToolBarCatalog.h>
 
-#include <QtGui/QMenu>
-#include <QtGui/QToolBar>
+#include <QtWidgets/QMenu>
+#include <QtWidgets/QToolBar>
 
 //------------------------------------------------------------------------------
 AddShapeOperationInteractiveExtension::AddShapeOperationInteractiveExtension(QObject *parent /*= nullptr*/)

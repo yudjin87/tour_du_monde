@@ -24,8 +24,8 @@ set(__OTHER_FILES
 
 ######################################################################
 # Qt generated files
-qt4_wrap_cpp(__HEADERS_MOC ${__HEADERS})
-qt4_add_resources(__GENERATED_RESOURCES ${__RESOURCES})
+qt5_wrap_cpp(__HEADERS_MOC ${__HEADERS})
+qt5_add_resources(__GENERATED_RESOURCES ${__RESOURCES})
 
 ######################################################################
 # Group sources into IDE's filters
@@ -47,8 +47,7 @@ target_link_libraries(${CRSL_PROJECT_NAME} Interactivity)
 
 ###############################################################################
 # Qt dependencies
-target_link_libraries(${CRSL_PROJECT_NAME} ${QT_QTCORE_LIBRARY})
-target_link_libraries(${CRSL_PROJECT_NAME} ${QT_QTGUI_LIBRARY})
+qt5_use_modules(${CRSL_PROJECT_NAME} Core Widgets)
 
 ###############################################################################
 # Copy definition to the output directory, right near the library

@@ -36,9 +36,9 @@
 #include <interactivity/IOperationCatalog.h>
 #include <utils/IServiceLocator.h>
 
-#include <QtGui/QDockWidget>
-#include <QtGui/QMenu>
-#include <QtGui/QListView>
+#include <QtWidgets/QDockWidget>
+#include <QtWidgets/QMenu>
+#include <QtWidgets/QListView>
 
 //------------------------------------------------------------------------------
 CartoUIInteractiveExtension::CartoUIInteractiveExtension(QObject *parent /*= nullptr*/)
