@@ -34,8 +34,8 @@
 #include <interactivity/IMenuCatalog.h>
 #include <interactivity/IToolBarCatalog.h>
 
-#include <QtGui/QMenu>
-#include <QtGui/QToolBar>
+#include <QtWidgets/QMenu>
+#include <QtWidgets/QToolBar>
 
 //------------------------------------------------------------------------------
 ComponentManagementInteractiveExtension::ComponentManagementInteractiveExtension(QObject *parent /*= nullptr*/)

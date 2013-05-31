@@ -33,9 +33,9 @@
 #include <interactivity/InputInterceptor.h>
 #include <utils/IServiceLocator.h>
 
-#include <QtGui/QGraphicsScene>
-#include <QtGui/QGraphicsView>
-#include <QtGui/QMainWindow>
+#include <QtWidgets/QGraphicsScene>
+#include <QtWidgets/QGraphicsView>
+#include <QtWidgets/QMainWindow>
 
 //------------------------------------------------------------------------------
 static const QByteArray productName("Display");

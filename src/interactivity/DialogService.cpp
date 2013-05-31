@@ -27,7 +27,7 @@
 #include "DialogService.h"
 
 #include <QtCore/QDebug>
-#include <QtGui/QDialog>
+#include <QtWidgets/QDialog>
 
 #include <logging/LoggerFacade.h>
 

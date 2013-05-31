@@ -28,8 +28,8 @@
 
 #include <interactivity/MenuCatalog.h>
 
-#include <QtGui/QMenuBar>
-#include <QtGui/QWidget>
+#include <QtWidgets/QMenuBar>
+#include <QtWidgets/QWidget>
 #include <QtTest/QtTest>
 #include <QtTest/QSignalSpy>
 

@@ -29,7 +29,7 @@
 
 #include "framework/framework_global.h"
 
-#include <QtGui/QApplication>
+#include <QtWidgets/QApplication>
 
 class IBootloader;
 class IServiceLocator;
@@ -39,10 +39,7 @@ class FRAMEWORK_API AbstractApplication : public QApplication
 {
     Q_OBJECT
 public:
-    AbstractApplication();
     AbstractApplication(int &argc, char **argv, int flags = ApplicationFlags);
-    AbstractApplication(int &argc, char **argv, bool GUIenabled, int flags = ApplicationFlags);
-    AbstractApplication(int &argc, char **argv, Type type, int flags = ApplicationFlags);
     ~AbstractApplication();
 
     virtual int runApplicationLoop(IBootloader &bootloader);

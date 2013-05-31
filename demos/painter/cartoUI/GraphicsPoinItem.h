@@ -2,7 +2,7 @@
 #define GRAPHICSPOINITEM_H
 
 #include <QtCore/QPointF>
-#include <QtGui/QAbstractGraphicsShapeItem>
+#include <QtWidgets/QAbstractGraphicsShapeItem>
 
 class GraphicsPoinItem : public QAbstractGraphicsShapeItem
 {

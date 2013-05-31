@@ -26,7 +26,7 @@
 
 #include "MenuCatalog.h"
 
-#include <QtGui/QMenuBar>
+#include <QtWidgets/QMenuBar>
 #include <QtCore/QEvent>
 #include <QtCore/QtAlgorithms>
 

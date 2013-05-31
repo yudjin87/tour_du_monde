@@ -27,7 +27,8 @@
 #include "MockDialogService.h"
 
 #include <QtCore/QTimer>
-#include <QtGui/QDialog>
+#include <QtWidgets/QDialog>
+
 //------------------------------------------------------------------------------
 MockDialogService::MockDialogService(QWidget *mainWindow, IServiceLocator *locator)
     : DialogService(mainWindow, locator)

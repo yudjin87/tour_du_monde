@@ -29,7 +29,7 @@
 
 #include "display_api.h"
 
-#include <QtGui/QAbstractScrollArea>
+#include <QtWidgets/QAbstractScrollArea>
 
 class QPainter;
 class QPaintDevice;

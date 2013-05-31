@@ -2,8 +2,8 @@
 
 #include <utils/IServiceLocator.h>
 
-#include <QtGui/QGraphicsScene>
-#include <QtGui/QGraphicsView>
+#include <QtWidgets/QGraphicsScene>
+#include <QtWidgets/QGraphicsView>
 #include <QtGui/QMouseEvent>
 
 #include <QtDebug>

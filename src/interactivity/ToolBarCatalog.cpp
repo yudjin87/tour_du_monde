@@ -26,9 +26,9 @@
 
 #include "ToolBarCatalog.h"
 
-#include <QtGui/QAction>
-#include <QtGui/QMainWindow>
-#include <QtGui/QToolBar>
+#include <QtWidgets/QAction>
+#include <QtWidgets/QMainWindow>
+#include <QtWidgets/QToolBar>
 #include <QtCore/QtAlgorithms>
 
 //------------------------------------------------------------------------------

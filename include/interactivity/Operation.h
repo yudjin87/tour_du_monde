@@ -31,7 +31,7 @@
 
 #include "IOperation.h"
 
-#include <QtGui/QAction>
+#include <QtWidgets/QAction>
 
 /*!
  * @brief

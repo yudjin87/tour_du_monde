@@ -594,8 +594,8 @@ void ComponentManagerTest::startupComponent_shouldPassRightComponentsInRightOrde
     QVERIFY(comps.indexOf(componentB) < comps.indexOf(componentC));
 
     // E and D components should not been passed
-    QCOMPARE(comps.contains(componentD), QBool(false));
-    QCOMPARE(comps.contains(componentE), QBool(false));
+    QCOMPARE(comps.contains(componentD), false);
+    QCOMPARE(comps.contains(componentE), false);
 }
 
 //------------------------------------------------------------------------------
@@ -627,8 +627,8 @@ void ComponentManagerTest::shutdownComponent_shouldPassComponentsInReverseOrder(
     QVERIFY(comps.indexOf(componentE) < comps.indexOf(componentC));
 
     // A and B components should not been passed
-    QCOMPARE(comps.contains(componentA), QBool(false));
-    QCOMPARE(comps.contains(componentB), QBool(false));
+    QCOMPARE(comps.contains(componentA), false);
+    QCOMPARE(comps.contains(componentB), false);
 }
 
 //------------------------------------------------------------------------------

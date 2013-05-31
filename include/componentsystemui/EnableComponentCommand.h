@@ -32,7 +32,7 @@
 #include <QtCore/QList>
 #include <QtCore/QSet>
 #include <QtCore/QObject>
-#include <QtGui/QUndoCommand>
+#include <QtWidgets/QUndoCommand>
 
 class IComponent;
 class IComponentManager;

@@ -31,7 +31,7 @@
 #include <QtDebug>
 
 #include <QtGui/QMouseEvent>
-#include <QtGui/QGraphicsView>
+#include <QtWidgets/QGraphicsView>
 
 //------------------------------------------------------------------------------
 RectRubberBand::RectRubberBand(QObject *parent)

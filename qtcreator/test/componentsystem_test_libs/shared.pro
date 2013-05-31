@@ -1,6 +1,6 @@
 include (../../carousel.pri)
 
-QT       -= gui
+QT       -= widgets
 TEMPLATE = lib
 
 CONFIG += dll

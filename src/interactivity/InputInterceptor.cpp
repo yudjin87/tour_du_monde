@@ -27,9 +27,9 @@
 #include "InputInterceptor.h"
 #include "ITool.h"
 
-#include <QtGui/QApplication>
 #include <QtGui/QContextMenuEvent>
-#include <QtGui/QWidget>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QWidget>
 
 //------------------------------------------------------------------------------
 InputInterceptor::InputInterceptor(QObject *parent)
@@ -79,7 +79,8 @@ void InputInterceptor::setSender(QWidget *interceptedWidget)
 {
     QWidget *old = m_interceptedWidget;
     m_interceptedWidget = interceptedWidget;
-    connect(m_interceptedWidget, SIGNAL(destroyed()), SLOT(onSenderDeleted()));
+    if (m_interceptedWidget != nullptr)
+        connect(m_interceptedWidget, SIGNAL(destroyed()), SLOT(onSenderDeleted()));
 
     m_isWorking = invalidate(old);
 }

@@ -28,7 +28,7 @@
 
 #include <utils/IServiceLocator.h>
 
-#include <QtGui/QUndoStack>
+#include <QtWidgets/QUndoStack>
 
 //------------------------------------------------------------------------------
 RedoOperation::RedoOperation()

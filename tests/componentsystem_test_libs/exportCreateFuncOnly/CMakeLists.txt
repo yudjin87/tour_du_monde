@@ -12,7 +12,7 @@ file(GLOB __SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.cpp)
 file(GLOB __HEADERS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.h)
 
 # Qt generated files
-qt4_wrap_cpp(__HEADERS_MOC ${__HEADERS})
+qt5_wrap_cpp(__HEADERS_MOC ${__HEADERS})
 
 ######################################################################
 # Group sources into IDE's filters

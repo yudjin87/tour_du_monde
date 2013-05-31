@@ -3,7 +3,7 @@
 
 #include <interactivity/InputInterceptor.h>
 
-#include <QtGui/QWidget>
+#include <QtWidgets/QWidget>
 #include <QtTest/QtTest>
 #include <QtTest/qtestkeyboard.h>
 

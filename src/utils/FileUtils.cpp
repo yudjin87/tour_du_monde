@@ -26,10 +26,10 @@
 
 #include "FileUtils.h"
 
-#include <QDir>
-#include <QFile>
-#include <QFileInfo>
-#include <QFileInfoList>
+#include <QtCore/QDir>
+#include <QtCore/QFile>
+#include <QtCore/QFileInfo>
+#include <QtCore/QFileInfoList>
 
 namespace fileUtils
 {

@@ -38,8 +38,8 @@ set(__OTHER_FILES
 
 ######################################################################
 # Qt generated files
-qt4_wrap_cpp(__HEADERS_MOC ${__HEADERS})
-qt4_wrap_ui(__UI_HEADERS ${__FORMS})
+qt5_wrap_cpp(__HEADERS_MOC ${__HEADERS})
+qt5_wrap_ui(__UI_HEADERS ${__FORMS})
 
 # As moc files are generated in the binary dir, tell CMake
 # to always look for includes there:
@@ -66,7 +66,7 @@ target_link_libraries(${CRSL_PROJECT_NAME} ComponentSystem Framework Interactivi
 
 ###############################################################################
 # Qt dependencies
-target_link_libraries(${CRSL_PROJECT_NAME} ${QT_QTGUI_LIBRARY})
+qt5_use_modules(${CRSL_PROJECT_NAME} Core Widgets)
 
 ###############################################################################
 # Copy definition to the output directory, right near the library

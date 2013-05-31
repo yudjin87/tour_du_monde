@@ -1,7 +1,7 @@
 include (../../carousel.pri)
 include (framework.pri)
 
-QT      += gui
+QT      += widgets
 TEMPLATE = lib
 
 TARGET = Framework

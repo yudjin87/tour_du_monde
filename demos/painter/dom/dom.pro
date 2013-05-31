@@ -14,6 +14,8 @@ win32 {
     LIBS += -L$${CAROUSEL_BIN} -lComponentSystem \
                                -lFramework
 
+    # TODO: fix linkage: DOM component should not be dependent from Display
+    LIBS += -L$${DESTDIR} -lDisplay
     LIBS += -L$${DESTDIR} -lCarto
 }
 

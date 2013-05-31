@@ -1,7 +1,7 @@
 include (../test_shared.pri)
 include (jsscripting_test.pri)
 
-QT       += gui
+QT       += widgets
 
 TARGET = jsscripting_test
 

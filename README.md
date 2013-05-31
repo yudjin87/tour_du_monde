@@ -51,13 +51,14 @@ Service Locator
 
 Build
 =====
-Read the BUILD.txt to generate MSVC/Xcode solutions using cmake.
+Read the BUILD.txt to generate MSVS/Xcode solutions using cmake.
 
 Supported compilers (tested ones):
 ==================================
 <ol>
-<li>msvc-10</li>
-<li>msvc-11</li>
-<li>mingw</li>
-<li>gcc-4.4.5</li>
+<li>msvc11 x32</li>
+<li>msvc11 x64</li>
+<li>mingw4.7 x32</li>
+<li>mingw4.7 x64</li>
+<li>gcc-4.4.5</li> - CHECK ON LINUX, IT WILL BE 4.7
 </ol>

@@ -1,7 +1,7 @@
 #include "BaseBootloaderTest.h"
 #include "CarouselBootloaderTest.h"
 
-#include <QtGui/QApplication>
+#include <QtWidgets/QApplication>
 
 #include <QtTest/QtTest>
 

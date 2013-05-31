@@ -29,8 +29,8 @@
 
 #include "ComponentDefinitionsModel.h"
 
-#include <QtGui/QSortFilterProxyModel>
-#include <QtGui/QTableView>
+#include <QtCore/QSortFilterProxyModel>
+#include <QtWidgets/QTableView>
 
 //------------------------------------------------------------------------------
 ComponentsDialog::ComponentsDialog(ComponentDefinitionsModel *model, QWidget *parent)

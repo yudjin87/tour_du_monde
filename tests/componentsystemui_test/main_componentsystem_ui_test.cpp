@@ -25,7 +25,7 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include <QtCore/QStringList>
-#include <QtGui/QApplication>
+#include <QtWidgets/QApplication>
 
 #include "ComponentsDialogTest.h"
 

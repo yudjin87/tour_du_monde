@@ -31,6 +31,8 @@
 #include <geometry/Polygon.h>
 #include <geometry/Polyline.h>
 
+#include <QtGui/QPainter>
+
 //------------------------------------------------------------------------------
 SymbolBase::SymbolBase(QObject *parent)
     : QObject(parent)

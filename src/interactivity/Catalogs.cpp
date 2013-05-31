@@ -31,7 +31,7 @@
 #include "MenuCatalog.h"
 #include "ToolBarCatalog.h"
 
-#include <QtGui/QMainWindow>
+#include <QtWidgets/QMainWindow>
 
 #include <assert.h>
 

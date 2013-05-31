@@ -1,6 +1,6 @@
 include(../shared.pri)
 
-QT       += core gui
+QT       += core widgets
 
 TARGET = Display
 
@@ -10,7 +10,8 @@ DEFINES += DISPLAY_LIB_IMPORT
 
 LIBS += -L$${CAROUSEL_BIN} -lInteractivity \
 
-DESTDIR = $${DESTDIR}/installedComponents/Display
+DESTDIR = $${DESTDIR}/externalSource
+#DESTDIR = $${DESTDIR}/installedComponents/Display
 
 win32 {
     LIBS += -L$${CAROUSEL_BIN} -lComponentSystem \

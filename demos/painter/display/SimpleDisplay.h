@@ -30,7 +30,7 @@
 #include "IDisplay.h"
 
 #include <QtCore/QObject>
-#include <QtGui/QWidget>
+#include <QtWidgets/QWidget>
 
 class QPixmap;
 
