@@ -148,7 +148,14 @@ set(CPP_SOURCE_TREE ${CAROUSEL_WD}/src)
 ########################################################################################
 # Try to apply custom user settings
 include(user_settings.cmake.template OPTIONAL) # just for easy editing
-include(user_settings.cmake OPTIONAL)
+
+message(STATUS "Load custom settings")
+if(EXISTS ${CAROUSEL_WD}/user_settings.cmake)
+    message(STATUS "Custom settings were loaded")
+    include(user_settings.cmake)
+else()
+    message(STATUS "File with custom settings 'user_settings.cmake' was not found. Default settings will be used. You can setup custom properties like path to the Qt by creating user_settings.cmake file. See user_settings.cmake.template for available variables.")
+endif()
 
 ###############################################################################
 # Configure the Qt stuff

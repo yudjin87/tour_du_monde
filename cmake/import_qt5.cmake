@@ -2,7 +2,6 @@
 # Finds Qt5 include directories, plugins and libraries
 
 string(TOUPPER ${CRSL_COMPILER}-x${CRSL_TARGET_PLATFORM_BITS} __COMPILER)
-message(STATUS "Qt directory: " ${__COMPILER})
 set(__QT_ROOT_DIR ${QT_ROOT_LOCATION_${__COMPILER}})
 
 if(WIN32)
@@ -13,9 +12,15 @@ elseif(APPLE)
     set(__PLATFORM_PLUGIN "qcocoa")
 endif(WIN32)
 
-set(ENV{CMAKE_PREFIX_PATH} ${__QT_ROOT_DIR})
-set(ENV{QTDIR} ${__QT_ROOT_DIR})
-message(STATUS "Qt directory: " $ENV{__QT_ROOT_DIR})
+if("${QT_ROOT_LOCATION_${__COMPILER}}" STREQUAL "")
+    set(__QT_ROOT_DIR $ENV{QTDIR})
+else()
+    set(ENV{CMAKE_PREFIX_PATH} ${__QT_ROOT_DIR})
+    set(ENV{QTDIR} ${__QT_ROOT_DIR})
+endif()
+
+message(STATUS "Qt directory: " ${__QT_ROOT_DIR})
+
 
 ########################################################################################
 # Find runtime libraries which will be copied during install.
@@ -32,7 +37,6 @@ set(__LIBRARIES_BASENAME
 
 foreach(__LIB_BASENAME ${__LIBRARIES_BASENAME})
   find_package(Qt5${__LIB_BASENAME} REQUIRED)
-  #if(Qt5${__LIB_BASENAME} STREQUAL "NOTFOUND"
 
   # map debug-static and release-static configurations
   set_target_properties(Qt5::${__LIB_BASENAME} PROPERTIES MAP_IMPORTED_CONFIG_RELEASE-STATIC "RELEASE")

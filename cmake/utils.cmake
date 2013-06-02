@@ -86,7 +86,10 @@ macro(crsl_use_default_project_output_path __TARGET_NAME __ROOT __COMPILER __BIT
   set(__LIBRARIES_DIR ${__ROOT}/${__COMPILER}${__BITS}-${__BUILD}/${__PREFIX})
 
   #message(STATUS "${__BUILD} output: ${__BUILD}")
-  message(STATUS "${__TARGET_NAME} output: ${__OUTPUT_DIR}")
+  if(DEBUG_VERBOSITY)
+    message(STATUS "${__TARGET_NAME} output: ${__OUTPUT_DIR}")
+  endif()
+
   set_target_properties(${__TARGET_NAME} PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${__OUTPUT_DIR})
   set_target_properties(${__TARGET_NAME} PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${__LIBRARIES_DIR})
   set_target_properties(${__TARGET_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${__OUTPUT_DIR})
