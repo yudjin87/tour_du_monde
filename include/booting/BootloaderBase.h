@@ -47,10 +47,7 @@ class QMainWindow;
  *   your own bootloading sequence, but it is recomended to derived from the CarouselBootloader
  *   class and override @a create<> and @a configure<> methods and keep bootloading sequence.
  *
- *   After bootloading process the configured IServiceLocator is available through
- *   serviceLocator() method. Later it will be injected to the all components and other
- *   elements during their start or initialization. It is needed to register/locate to
- *   common services and your components' services.
+ * @sa IBootloader
  */
 class BOOTING_API BootloaderBase : public IBootloader
 {

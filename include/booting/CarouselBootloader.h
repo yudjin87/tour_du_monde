@@ -35,6 +35,8 @@
  * @details
  *   This class must be overridden to provide application specific boot loading sequence. See safeRun()
  *   method for the details.
+ *
+ * @sa IBootloader
  */
 class BOOTING_API CarouselBootloader : public BootloaderBase
 {
