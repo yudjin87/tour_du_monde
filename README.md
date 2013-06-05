@@ -49,7 +49,7 @@ Installers
 Bootloaders
 -----------
 The bootloader instance is one of the first instances who starts Carousel mechanism.
-Mainly, is starts a @a registration @a phase.
+Mainly, is starts a **registration phase**.
 
 It creates and registers an IServiceLocator itself and common services, like LoggerFacade,
 IComponentManager and, optionally, QMainWindow for the GUI applications. QMainWindow is
@@ -57,46 +57,45 @@ just a shell or frame for the application, it is absolutely empty, but then new 
 could populate it with menus, toolbars, dock widgets and the central widget.
 
 Usually an IBootloader is implemented (in BootloaderBase or in more specific CarouselBootloader
-class) as a sequence of pairs @a create<smth>() - @a configure<smth>() methods, and each of them
+class) as a sequence of pairs **create<smth>() - configure<smth>()** methods, and each of them
 could be overridden to replace default instantiation or default configuration.
 For example, to use your own logger system it is just needed to override BootloaderBase::createLoggerEngine()
 method.
 
 After bootloading process the configured IServiceLocator is available through
 serviceLocator() method. Later it will be injected to the all components and other
-elements during @a configuration @a phase, when they will start or initialize. It is needed to register/locate to
+elements during **configuration phase**, when they will start or initialize. It is needed to register/locate to
 common services and your components' services.
 
 To start new application you also should to override BootloaderBase::createComponentProvider() or
 BootloaderBase::configureComponentProvider() method to determine way in which your application will
-be populated by the components. For example, here is a component @a provider which will load components
-from the @a "./components" directory at the @a start-time and which also has four built-in components,
-configured statically at the @a compile-time:
-@code
-IComponentProvider *MyBootloader::createComponentProvider()
-{
-    CompositeComponentProvider *provider = new CompositeComponentProvider();
-    provider->addProvider(new DirectoryComponentProvider("./components"));
-    provider->registerComponent(new InteractionServiceComponent());
-    provider->registerComponent(new ComponentSystemUIComponent());
-    provider->registerComponent(new UndoComponent());
-    return provider;
-}
-@endcode
+be populated by the components. For example, here is a component **provider** which will load components
+from the **"./components"** directory at the **start-time** and which also has four built-in components,
+configured statically at the **compile-time**:
+
+	IComponentProvider *MyBootloader::createComponentProvider()
+	{
+	    CompositeComponentProvider *provider = new CompositeComponentProvider();
+	    provider->addProvider(new DirectoryComponentProvider("./components"));
+	    provider->registerComponent(new InteractionServiceComponent());
+	    provider->registerComponent(new ComponentSystemUIComponent());
+	    provider->registerComponent(new UndoComponent());
+	    return provider;
+	}
 
 Then just pass bootloader to the application:
-@code
-#include "MyBootloader.h"
-#include <framework/AbstractApplication.h>
 
-int main(int argc, char *argv[])
-{
-    AbstractApplication application(argc, argv);
- 
-    MyBootloader bootloader;
-    return application.runApplicationLoop(bootloader);
-}
-@endcode
+	#include "MyBootloader.h"
+	#include <framework/AbstractApplication.h>
+	
+	int main(int argc, char *argv[])
+	{
+	    AbstractApplication application(argc, argv);
+	 
+	    MyBootloader bootloader;
+	    return application.runApplicationLoop(bootloader);
+	}
+
 
 Service Locator
 ---------------
