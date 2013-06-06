@@ -47,7 +47,12 @@ class INTERACTIVITY_API ToolBarCatalog : public IToolBarCatalog
 {
     Q_OBJECT
 public:
-    ToolBarCatalog(QMainWindow &shell);
+    /*!
+     * @details
+     * @constructor{MenuCatalog} with specified @a mainWindow where
+     *   toolbars will be added.
+     */
+    ToolBarCatalog(QMainWindow &mainWindow);
     ~ToolBarCatalog();
 
     /*!
@@ -135,7 +140,7 @@ private:
 
 protected:
     QList<QToolBar *> m_toolbars;
-    QMainWindow &m_shell;
+    QMainWindow &m_mainWindow;
 };
 
 #endif // TOOLBARCATALOG_H

@@ -45,7 +45,12 @@ class INTERACTIVITY_API DockWidgetCatalog : public IDockWidgetCatalog
 {
     Q_OBJECT
 public:
-    DockWidgetCatalog(QMainWindow &shell);
+    /*!
+     * @details
+     * @constructor{DockWidgetCatalog} with specified @a mainWindow where
+     *   dock widgets will be added.
+     */
+    DockWidgetCatalog(QMainWindow &mainWindow);
     ~DockWidgetCatalog();
 
     /*!
@@ -96,7 +101,7 @@ protected:
 
 private:
     QList<QDockWidget *> m_widgets;
-    QMainWindow &m_shell;
+    QMainWindow &m_mainWindow;
 };
 
 #endif // DOCKWINDOWCATALOG_H

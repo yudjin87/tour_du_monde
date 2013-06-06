@@ -70,7 +70,7 @@ class LOGGING_API TextLogger : public LoggerFacade
 public:
     /*!
      * @details
-     *   @constructor{TextLogger} with the specified output stream for the logging.
+     * @constructor{TextLogger} with the specified output stream for the logging.
      *
      *   Sets logger name to @a Root.
      */
@@ -78,7 +78,7 @@ public:
 
     /*!
      * @details
-     *   @constructor{TextLogger} with the specified name and output stream for the logging.
+     * @constructor{TextLogger} with the specified name and output stream for the logging.
      *
      *   The name will append in the log message.
      */

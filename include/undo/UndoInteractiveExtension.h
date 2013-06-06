@@ -49,7 +49,7 @@ public:
 
     /*!
      * @details
-     *    Adds undo/redo buttons to the menu and toolbar under the "Edit" category.
+     *   Adds undo/redo buttons to the menu and toolbar under the "Edit" category.
      *
      * @sa UndoOperation, RedoOperation
      */

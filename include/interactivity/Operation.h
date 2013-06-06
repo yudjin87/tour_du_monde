@@ -63,7 +63,7 @@ class INTERACTIVITY_API Operation : public QAction, virtual public IOperation
 public:
     /*!
      * @details
-     *   Constructs a operation with action group, if any.
+     * @constructor{Operation} with action group, if any.
      *   If the action group not null, this operation
      *   will be automatically inserted into the group.
      */
@@ -71,7 +71,7 @@ public:
 
     /*!
      * @details
-     *   Constructs a operation with action group, if any.
+     * @constructor{Operation} with action group, if any.
      *   If the action group not null, this operation
      *   will be automatically inserted into the group.
      *
@@ -84,7 +84,7 @@ public:
 
     /*!
      * @details
-     *   Constructs a operation with action group, if any.
+     * @constructor{Operation} with action group, if any.
      *   If the action group not null, this operation
      *   will be automatically inserted into the group.
      *

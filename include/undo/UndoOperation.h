@@ -50,13 +50,13 @@ public:
 
     /*!
      * @details
-     *    Calls wrapped action for undo.
+     *   Calls wrapped action for undo.
      */
     void execute();
 
     /*!
      * @details
-     *    Retrieves a wrapped action from the QUndoStack.
+     *   Retrieves a wrapped action from the QUndoStack.
      */
     void initialize(IServiceLocator *serviceLocator);
 

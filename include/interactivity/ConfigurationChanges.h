@@ -64,6 +64,10 @@ public:
     typedef QList<QToolBar *> ToolBars;
 
 public:
+    /*!
+     * @details
+     * @constructor{ConfigurationChanges} with empty changes.
+     */
     ConfigurationChanges();
     ~ConfigurationChanges();
 

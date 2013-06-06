@@ -39,6 +39,7 @@ class QMainWindow;
  * @brief
  *   This class is registered into the application services
  *   by the InteractionServiceComponent.
+ *
  * @sa IInteractionService.
  */
 class INTERACTIVITY_API CarouselInteractionService : public IInteractionService
@@ -47,8 +48,8 @@ class INTERACTIVITY_API CarouselInteractionService : public IInteractionService
 public:
     /*!
      * @details
-     *   Initializes a new instance of the CarouselInteractionService class using
-     *   specified instances of the @a application, @a mainWindow and @a manager.
+     * @constructor{CarouselInteractionService} using specified instances of the @a application,
+     *   @a mainWindow and @a manager.
      */
     CarouselInteractionService(IServiceLocator *serviceLocator, QMainWindow *mainWindow, IComponentManager *manager, QObject *parent = nullptr);
     ~CarouselInteractionService();
@@ -164,10 +165,39 @@ public:
     void setInputInterceptor(IInputInterceptor *inputInterceptor);
 
 protected slots:
+    /*!
+     * @details
+     *   Configures a @a component using configuration delegate (if any).
+     *   This slot is invoked when @a component is started up.
+     */
     void onComponentStartedUp(IComponent *component);
+
+    /*!
+     * @details
+     *   Deconfigures a @a component using configuration delegate (if any).
+     *   This slot is invoked when @a component is prepared for shut down.
+     */
     void onComponentAboutToShutDown(IComponent *component);
+
+    /*!
+     * @details
+     *   Saves UI state.
+     *   This slot is invoked when @a component @a manager prepares for shut down.
+     */
     void onComponentManagerAboutToShutDown();
+
+    /*!
+     * @details
+     *   Sets active tool and receiver to nullptr to the current interceptor (if any).
+     *   This slot is invoked when @a active @a tool is stopped.
+     */
     void onToolExecutingStopped();
+
+    /*!
+     * @details
+     *   Sets active tool and receiver to nullptr to the current interceptor (if any).
+     *   This slot is invoked when @a active @a tool instance is deleted.
+     */
     void onToolDeleted();
 
 private:
