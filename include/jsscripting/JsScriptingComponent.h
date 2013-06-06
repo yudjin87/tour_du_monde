@@ -33,12 +33,18 @@
 
 /*!
  * @brief
+ *   This class represents a component, that adds JavaScript facilities using QtScript module.
+ *   This component is still in progress.
  * @details
  */
 class JSSCRIPTING_API JsScriptingComponent : public BaseComponent
 {
     Q_OBJECT
 public:
+    /*!
+     * @details
+     * @constructor{UndoComponent}.
+     */
     JsScriptingComponent(QObject *parent = nullptr);
     ~JsScriptingComponent();
 
