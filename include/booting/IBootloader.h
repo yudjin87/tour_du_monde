@@ -104,6 +104,10 @@ public:
      * @details
      *   Gets the service locator, which should contains base objects after
      *   bootloading.
+     *
+     * @note You can use service locator instance only after running bootloading
+     *   sequence.
+     * @sa run
      */
     virtual IServiceLocator *serviceLocator() const = 0;
 

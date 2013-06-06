@@ -42,19 +42,29 @@ class BOOTING_API CarouselBootloader : public BootloaderBase
 {
     Q_OBJECT
 public:
+    /*!
+     * @constructor{CarouselBootloader}.
+     */
     CarouselBootloader();
+
+    /*!
+     * @details
+     *   Destructs the instance of the CarouselBootloader class and also sets up null pointer
+     *   to the LoggerFacade.
+     */
     ~CarouselBootloader();
 
 protected:
     /*!
      * @details
-     *   Add all components registered in provider to the component manager.
+     *   Adds all components registered in provider to the component manager.
      */
     void configureComponentManager();
 
     /*!
      * @details
-     *   Configure service locator adding the IComponentManager and IComponentProvider.
+     *   Configures service locator by adding the IComponentManager and IComponentProvider commonly
+     *   used services.
      *   May be overridden in a derived class to add specific services required by the application.
      */
     void configureServiceLocator();
