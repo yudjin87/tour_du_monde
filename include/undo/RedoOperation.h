@@ -31,15 +31,33 @@
 
 class QAction;
 
+/*!
+ * @brief
+ *   The RedoOperation class is a wrapper for the redo action of QUndoStack.
+ * @details
+ *   A wrapping is needed for access undo action as Operation sub-class to show it,
+ *   for example, in the customization dialog.
+ */
 class RedoOperation : public Operation
 {
-public:
     Q_OBJECT
-
 public:
+    /*!
+     * @details
+     * @constructor{RedoOperation}.
+     */
     RedoOperation();
 
+    /*!
+     * @details
+     *    Calls wrapped action for redo.
+     */
     void execute();
+
+    /*!
+     * @details
+     *    Retrieves a wrapped action from the QUndoStack.
+     */
     void initialize(IServiceLocator *serviceLocator);
 
 private slots:

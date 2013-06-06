@@ -37,6 +37,7 @@ RedoOperation::RedoOperation()
 {
     setIcon(QIcon(":/undo/images/redo.png"));
     setIconVisibleInMenu(true);
+    setShortcut(QKeySequence("Ctrl+Y"));
 }
 
 //------------------------------------------------------------------------------
