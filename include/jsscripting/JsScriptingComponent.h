@@ -43,7 +43,7 @@ class JSSCRIPTING_API JsScriptingComponent : public BaseComponent
 public:
     /*!
      * @details
-     * @constructor{UndoComponent}.
+     * @constructor{JsScriptingComponent}.
      */
     JsScriptingComponent(QObject *parent = nullptr);
     ~JsScriptingComponent();
