@@ -39,24 +39,45 @@ enum ChangedAction
 template <typename TItem>
 struct Changes
 {
+    /*!
+     * @details
+     * @constructor{Changes} for @a TItem type.
+     */
     Changes<TItem>()
         : action(Reset)
     {
     }
 
+    /*!
+     * @details
+     * @constructor{Changes} for @a TItem type with specified action type @a action and affected @a item.
+     */
     Changes<TItem>(ChangedAction action, const TItem &item)
         : action(action)
     {
         affectedItems.push_back(item);
     }
 
+    /*!
+     * @details
+     * @constructor{Changes} for @a TItem type with specified action type @a action and affected @a items.
+     */
     Changes<TItem>(ChangedAction action, const QList<TItem> &items)
         : action(action)
         , affectedItems(items)
     {
     }
 
+    /*!
+     * @details
+     * Gets an action that triggered changes.
+     */
     ChangedAction action;
+
+    /*!
+     * @details
+     * Gets affected @a items.
+     */
     QList<TItem> affectedItems;
 };
 
