@@ -100,7 +100,7 @@ bool ComponentLoader::load()
         return false;
     }
 
-    void *createFunc = m_library->resolve(m_createFuncName.toLatin1().data());
+    QFunctionPointer createFunc = m_library->resolve(m_createFuncName.toLatin1().data());
     m_createFunc = reinterpret_cast<createComponentFunc>(createFunc);
     if (m_createFunc == nullptr) {
         m_errorString = QString("Cannot found create function \"%1\" at the \"%2\". See internal error: %3")
@@ -109,7 +109,7 @@ bool ComponentLoader::load()
         return false;
     }
 
-    void *releaseFunc = m_library->resolve(m_releaseFuncName.toLatin1().data());
+    QFunctionPointer releaseFunc = m_library->resolve(m_releaseFuncName.toLatin1().data());
     m_releaseFunc = reinterpret_cast<releaseComponentFunc>(releaseFunc);
     if (m_releaseFunc == nullptr) {
         m_errorString = QString("Cannot found release function \"%1\" at the \"%2\". See internal error: %3")

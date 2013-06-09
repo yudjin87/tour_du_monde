@@ -68,6 +68,7 @@ UndoComponent::~UndoComponent()
 //------------------------------------------------------------------------------
 void UndoComponent::onShutdown(IServiceLocator *serviceLocator)
 {
+    Q_UNUSED(serviceLocator)
     // TODO:
     // Unregister them before deletion!
 
