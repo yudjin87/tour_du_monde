@@ -3,9 +3,9 @@
 #include "fakes/ComponentWithExtensions.h"
 #include "fakes/MockComponent.h"
 
-#include <componentsystem/BaseComponent.h>
-#include <componentsystem/ComponentDefinition.h>
-#include <utils/ServiceLocator.h>
+#include <carousel/componentsystem/BaseComponent.h>
+#include <carousel/componentsystem/ComponentDefinition.h>
+#include <carousel/utils/ServiceLocator.h>
 
 #include <QtTest/QtTest>
 #include <QtCore/QSettings>

@@ -1,5 +1,3 @@
-include (../carousel.pri)
-
 TEMPLATE = subdirs
 CONFIG  += ordered
 

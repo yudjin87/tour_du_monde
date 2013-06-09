@@ -27,7 +27,7 @@
 #ifndef MOCKINTERACTIONSERVICE_H
 #define MOCKINTERACTIONSERVICE_H
 
-#include <interactivity/IInteractionService.h>
+#include <components/interactivity/IInteractionService.h>
 
 class MockInteractionService : public IInteractionService
 {

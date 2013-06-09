@@ -27,7 +27,7 @@
 #ifndef MOCKCOMPONENTDEPENDENCIES_H
 #define MOCKCOMPONENTDEPENDENCIES_H
 
-#include <componentsystem/ComponentDependencies.h>
+#include <carousel/componentsystem/ComponentDependencies.h>
 
 class MockComponentDependencies : public ComponentDependencies
 {

@@ -1,7 +1,7 @@
 #include "DependencySolverTest.h"
 
-#include <componentsystem/IComponent.h>
-#include <componentsystem/DependencySolver.h>
+#include <carousel/componentsystem/IComponent.h>
+#include <carousel/componentsystem/DependencySolver.h>
 
 #include <QtTest/QtTest>
 

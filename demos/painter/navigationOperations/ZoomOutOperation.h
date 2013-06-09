@@ -27,7 +27,7 @@
 #ifndef ZOOMOUTOPERATION_H
 #define ZOOMOUTOPERATION_H
 
-#include <interactivity/Operation.h>
+#include <components/interactivity/Operation.h>
 
 class ZoomOutOperation : public Operation
 {

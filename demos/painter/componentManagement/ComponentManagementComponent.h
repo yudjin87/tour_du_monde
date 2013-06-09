@@ -29,7 +29,7 @@
 
 #include "componentManagement_api.h"
 
-#include <componentsystem/BaseComponent.h>
+#include <carousel/componentsystem/BaseComponent.h>
 
 class COMPONENTMANAGEMENT_API ComponentManagementComponent : public BaseComponent
 {

@@ -30,14 +30,14 @@
 #include "fakes/MockInteractiveExtension.h"
 #include "fakes/MockNonInteractiveExtension.h"
 
-#include <interactivity/CarouselComponentConfigurationDelegate.h>
-#include <interactivity/Catalogs.h>
-#include <interactivity/ConfigurationChanges.h>
-#include <interactivity/ICatalogs.h>
-#include <interactivity/IOperationCatalog.h>
-#include <interactivity/IDockWidgetCatalog.h>
-#include <interactivity/IMenuCatalog.h>
-#include <interactivity/IToolBarCatalog.h>
+#include <components/interactivity/CarouselComponentConfigurationDelegate.h>
+#include <components/interactivity/Catalogs.h>
+#include <components/interactivity/ConfigurationChanges.h>
+#include <components/interactivity/ICatalogs.h>
+#include <components/interactivity/IOperationCatalog.h>
+#include <components/interactivity/IDockWidgetCatalog.h>
+#include <components/interactivity/IMenuCatalog.h>
+#include <components/interactivity/IToolBarCatalog.h>
 
 #include <QtWidgets/QMainWindow>
 #include <QtTest/QtTest>

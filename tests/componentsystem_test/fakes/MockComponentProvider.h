@@ -1,7 +1,7 @@
 #ifndef MOCKCOMPONENTPROVIDER_H
 #define MOCKCOMPONENTPROVIDER_H
 
-#include <componentsystem/ComponentProvider.h>
+#include <carousel/componentsystem/ComponentProvider.h>
 
 class MockComponentProvider : public ComponentProvider
 {

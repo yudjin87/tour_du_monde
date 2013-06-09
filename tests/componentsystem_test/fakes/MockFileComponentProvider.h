@@ -30,8 +30,8 @@
 #include "FakeDefinitionParser.h"
 #include "MockDefaultConstructor.h"
 
-#include <componentsystem/FileComponentProvider.h>
-#include <componentsystem/ProxyComponent.h>
+#include <carousel/componentsystem/FileComponentProvider.h>
+#include <carousel/componentsystem/ProxyComponent.h>
 
 class MockProxyComponent;
 

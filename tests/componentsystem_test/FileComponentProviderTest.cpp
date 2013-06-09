@@ -29,8 +29,8 @@
 #include "fakes/MockFileComponentProvider.h"
 #include "Utils.h"
 
-#include <componentsystem/FileComponentProvider.h>
-#include <componentsystem/IComponent.h>
+#include <carousel/componentsystem/FileComponentProvider.h>
+#include <carousel/componentsystem/IComponent.h>
 
 #include <QtTest/QTest>
 #include <QtTest/QSignalSpy>

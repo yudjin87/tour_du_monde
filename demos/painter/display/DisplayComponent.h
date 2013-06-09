@@ -29,7 +29,7 @@
 
 #include "display_api.h"
 
-#include <componentsystem/BaseComponent.h>
+#include <carousel/componentsystem/BaseComponent.h>
 
 class IServiceLocator;
 

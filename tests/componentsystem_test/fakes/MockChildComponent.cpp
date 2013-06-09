@@ -1,6 +1,6 @@
 #include "MockChildComponent.h"
 
-#include <componentsystem/ComponentDefinition.h>
+#include <carousel/componentsystem/ComponentDefinition.h>
 
 //------------------------------------------------------------------------------
 MockChildComponent::MockChildComponent(const QString &name)

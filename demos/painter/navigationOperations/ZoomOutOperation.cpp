@@ -26,8 +26,9 @@
 
 #include "ZoomOutOperation.h"
 
+#include <carousel/utils/IServiceLocator.h>
+
 #include <display/IDisplay.h>
-#include <utils/IServiceLocator.h>
 
 //------------------------------------------------------------------------------
 ZoomOutOperation::ZoomOutOperation()

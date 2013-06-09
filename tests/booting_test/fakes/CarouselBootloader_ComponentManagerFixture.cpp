@@ -1,7 +1,7 @@
 #include "CarouselBootloader_ComponentManagerFixture.h"
 
-#include <componentsystem/BaseComponent.h>
-#include <componentsystem/IComponentProvider.h>
+#include <carousel/componentsystem/BaseComponent.h>
+#include <carousel/componentsystem/IComponentProvider.h>
 
 class ComponentStub : public BaseComponent
 {

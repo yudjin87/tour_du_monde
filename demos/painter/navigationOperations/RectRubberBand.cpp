@@ -26,7 +26,7 @@
 
 #include "RectRubberBand.h"
 
-#include <interactivity/InputInterceptor.h>
+#include <components/interactivity/InputInterceptor.h>
 
 #include <QtDebug>
 

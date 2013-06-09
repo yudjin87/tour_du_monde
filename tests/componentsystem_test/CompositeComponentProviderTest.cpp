@@ -3,8 +3,8 @@
 #include "fakes/MockComponentProvider.h"
 #include "fakes/MockCompositeComponentProvider.h"
 
-#include <componentsystem/CompositeComponentProvider.h>
-#include <componentsystem/ComponentProvider.h>
+#include <carousel/componentsystem/CompositeComponentProvider.h>
+#include <carousel/componentsystem/ComponentProvider.h>
 
 #include <QtTest/QtTest>
 

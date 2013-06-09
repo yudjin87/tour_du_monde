@@ -27,7 +27,7 @@
 #ifndef SHAPEVIEW_INTERACTIVEEXTENSION_H
 #define SHAPEVIEW_INTERACTIVEEXTENSION_H
 
-#include <interactivity/IInteractiveExtension.h>
+#include <components/interactivity/IInteractiveExtension.h>
 
 #include <QtCore/QObject>
 

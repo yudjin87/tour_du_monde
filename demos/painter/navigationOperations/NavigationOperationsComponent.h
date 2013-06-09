@@ -29,7 +29,7 @@
 
 #include "navigationOperations_api.h"
 
-#include <componentsystem/BaseComponent.h>
+#include <carousel/componentsystem/BaseComponent.h>
 
 class NAVIGATIONOPERATIONS_API NavigationOperationsComponent : public BaseComponent
 {

@@ -26,8 +26,9 @@
 
 #include "ZoomInOperation.h"
 
+#include <carousel/utils/IServiceLocator.h>
+
 #include <display/IDisplay.h>
-#include <utils/IServiceLocator.h>
 
 //------------------------------------------------------------------------------
 ZoomInOperation::ZoomInOperation()

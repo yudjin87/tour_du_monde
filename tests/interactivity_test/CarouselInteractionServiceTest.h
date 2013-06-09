@@ -29,7 +29,7 @@
 
 #include <QtCore/QObject>
 
-#include <utils/ServiceLocator.h>
+#include <carousel/utils/ServiceLocator.h>
 
 class CarouselInteractionService;
 

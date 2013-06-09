@@ -29,7 +29,7 @@
 
 #include "geodatabase_api.h"
 
-#include <componentsystem/BaseComponent.h>
+#include <carousel/componentsystem/BaseComponent.h>
 
 class GEODATABASE_API GeodatabaseComponent : public BaseComponent
 {

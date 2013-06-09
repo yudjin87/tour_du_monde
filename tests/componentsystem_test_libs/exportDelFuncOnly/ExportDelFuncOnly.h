@@ -1,7 +1,7 @@
 #ifndef EXPORTDELFUNCONLY_H
 #define EXPORTDELFUNCONLY_H
 
-#include <componentsystem/BaseComponent.h>
+#include <carousel/componentsystem/BaseComponent.h>
 
 class TestComponent : public BaseComponent
 {

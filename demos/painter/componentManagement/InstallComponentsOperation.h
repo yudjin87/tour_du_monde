@@ -27,7 +27,7 @@
 #ifndef INSTALLCOMPONENTSOPERATION_H
 #define INSTALLCOMPONENTSOPERATION_H
 
-#include <interactivity/Operation.h>
+#include <components/interactivity/Operation.h>
 
 class InstallComponentsOperation : public Operation
 {

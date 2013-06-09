@@ -1,5 +1,5 @@
 #include "TextLoggerTest.h"
-#include <logging/TextLogger.h>
+#include <carousel/logging/TextLogger.h>
 #include <QtTest/QtTest>
 
 //------------------------------------------------------------------------------

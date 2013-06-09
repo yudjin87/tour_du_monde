@@ -10,7 +10,7 @@
 #include "DialogServiceTest.h"
 #include "fakes/MockApplication.h"
 
-#include <logging/NullLogger.h>
+#include <carousel/logging/NullLogger.h>
 
 #include <QtTest/QtTest>
 

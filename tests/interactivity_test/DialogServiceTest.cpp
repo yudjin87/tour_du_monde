@@ -28,8 +28,8 @@
 #include "fakes/MockDialog.h"
 #include "fakes/MockDialogService.h"
 
-#include <interactivity/DialogService.h>
-#include <utils/ServiceLocator.h>
+#include <components/interactivity/DialogService.h>
+#include <carousel/utils/ServiceLocator.h>
 
 #include <QtWidgets/QWidget>
 #include <QtTest/QTest>

@@ -27,7 +27,7 @@
 #ifndef SHOWCOMPONENTSOPERATION_H
 #define SHOWCOMPONENTSOPERATION_H
 
-#include <interactivity/Operation.h>
+#include <components/interactivity/Operation.h>
 
 class ShowComponentsOperation : public Operation
 {

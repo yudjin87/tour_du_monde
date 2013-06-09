@@ -1,6 +1,6 @@
 #include "MockComponent.h"
 
-#include <componentsystem/ComponentDefinition.h>
+#include <carousel/componentsystem/ComponentDefinition.h>
 
 //------------------------------------------------------------------------------
 MockComponent::MockComponent(const QString &name, bool isBuiltIn)

@@ -31,8 +31,8 @@
 #include "fakes/TestDescriptionComponent.h"
 #include "Utils.h"
 
-#include <componentsystem/ComponentDependencies.h>
-#include <componentsystem/DependenciesSolvingResult.h>
+#include <carousel/componentsystem/ComponentDependencies.h>
+#include <carousel/componentsystem/DependenciesSolvingResult.h>
 
 #include <QtTest/QtTest>
 

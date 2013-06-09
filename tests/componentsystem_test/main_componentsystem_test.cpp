@@ -13,7 +13,7 @@
 #include "DefinitionConstuctorTest.h"
 #include "ComponentInstallerTest.h"
 
-#include <logging/NullLogger.h>
+#include <carousel/logging/NullLogger.h>
 
 #include <QtCore/QCoreApplication>
 #include <QtTest/QtTest>

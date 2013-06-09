@@ -27,7 +27,7 @@
 #include "ComponentDefinitionTest.h"
 #include "fakes/MockComponent.h"
 
-#include <componentsystem/ComponentDefinition.h>
+#include <carousel/componentsystem/ComponentDefinition.h>
 
 #include <QtTest/QTest>
 

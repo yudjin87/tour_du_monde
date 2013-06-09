@@ -26,7 +26,7 @@
 
 #include "MockApplication.h"
 
-#include <utils/ServiceLocator.h>
+#include <carousel/utils/ServiceLocator.h>
 //------------------------------------------------------------------------------
 MockApplication::MockApplication(int &argc, char **argv)
     : AbstractApplication(argc, argv)

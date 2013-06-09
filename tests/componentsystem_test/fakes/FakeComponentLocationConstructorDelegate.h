@@ -27,7 +27,7 @@
 #ifndef FAKECOMPONENTLOCATIONCONSTRUCTORDELEGATE_H
 #define FAKECOMPONENTLOCATIONCONSTRUCTORDELEGATE_H
 
-#include <componentsystem/IComponentLocationConstructorDelegate.h>
+#include <carousel/componentsystem/IComponentLocationConstructorDelegate.h>
 
 class FakeComponentLocationConstructorDelegate : public IComponentLocationConstructorDelegate
 {

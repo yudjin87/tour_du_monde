@@ -1,7 +1,7 @@
 #ifndef TESTCOMPONENT1_H
 #define TESTCOMPONENT1_H
 
-#include <componentsystem/BaseComponent.h>
+#include <carousel/componentsystem/BaseComponent.h>
 
 class TestComponent1 : public BaseComponent
 {

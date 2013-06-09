@@ -27,7 +27,7 @@
 #ifndef ADDSHAPEOPERATION_H
 #define ADDSHAPEOPERATION_H
 
-#include <interactivity/Operation.h>
+#include <components/interactivity/Operation.h>
 
 class AddShapeOperation : public Operation
 {

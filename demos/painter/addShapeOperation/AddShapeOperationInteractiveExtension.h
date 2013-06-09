@@ -27,7 +27,7 @@
 #ifndef ADDSHAPEOPERATION_INTERACTIVEEXTENSION_H
 #define ADDSHAPEOPERATION_INTERACTIVEEXTENSION_H
 
-#include <interactivity/IInteractiveExtension.h>
+#include <components/interactivity/IInteractiveExtension.h>
 
 #include <QtCore/QObject>
 

@@ -27,7 +27,7 @@
 #ifndef MOCKAPPLICATION_H
 #define MOCKAPPLICATION_H
 
-#include <framework/AbstractApplication.h>
+#include <carousel/framework/AbstractApplication.h>
 
 class IServiceLocator;
 

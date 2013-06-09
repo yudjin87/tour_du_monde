@@ -28,11 +28,11 @@
 #include "CartoUIInteractiveExtension.h"
 #include "MapModel.h"
 
-#include <componentsystem/ComponentDefinition.h>
-#include <componentsystem/ComponentExport.h>
+#include <carousel/componentsystem/ComponentDefinition.h>
+#include <carousel/componentsystem/ComponentExport.h>
 #include <dom/IPainterDocument.h>
 #include <dom/IPainterDocumentController.h>
-#include <utils/IServiceLocator.h>
+#include <carousel/utils/IServiceLocator.h>
 
 #include <QtWidgets/QGraphicsScene>
 

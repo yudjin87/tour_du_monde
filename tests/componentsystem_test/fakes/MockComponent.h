@@ -1,7 +1,7 @@
 #ifndef MOCKCOMPONENT_H
 #define MOCKCOMPONENT_H
 
-#include <componentsystem/BaseComponent.h>
+#include <carousel/componentsystem/BaseComponent.h>
 
 class MockComponent : public BaseComponent
 {

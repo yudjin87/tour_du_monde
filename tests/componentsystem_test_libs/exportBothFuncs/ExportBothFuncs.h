@@ -1,7 +1,7 @@
 #ifndef EXPORTBOTHFUNCS_H
 #define EXPORTBOTHFUNCS_H
 
-#include <componentsystem/BaseComponent.h>
+#include <carousel/componentsystem/BaseComponent.h>
 
 class TestComponent : public BaseComponent
 {

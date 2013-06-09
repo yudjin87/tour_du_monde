@@ -1,7 +1,7 @@
 #ifndef MOCKTOOL_H
 #define MOCKTOOL_H
 
-#include <interactivity/ITool.h>
+#include <components/interactivity/ITool.h>
 
 #include <QtCore/QObject>
 

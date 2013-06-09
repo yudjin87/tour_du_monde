@@ -1,8 +1,8 @@
 #ifndef CAROUSELBOOTLOADERPROVIDERMOCK_H
 #define CAROUSELBOOTLOADERPROVIDERMOCK_H
 
-#include <booting/CarouselBootloader.h>
-#include <componentsystem/ComponentProvider.h>
+#include <carousel/booting/CarouselBootloader.h>
+#include <carousel/componentsystem/ComponentProvider.h>
 
 class ComponentProviderMock : public ComponentProvider
 {

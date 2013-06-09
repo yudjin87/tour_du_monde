@@ -32,8 +32,8 @@
 
 #include "Utils.h"
 
-#include <componentsystem/ComponentDefinition.h>
-#include <componentsystem/ComponentInstaller.h>
+#include <carousel/componentsystem/ComponentDefinition.h>
+#include <carousel/componentsystem/ComponentInstaller.h>
 
 #include <QtCore/QCoreApplication>
 #include <QtCore/QDir>

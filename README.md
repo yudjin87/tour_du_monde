@@ -3,6 +3,9 @@
 Carousel
 ========
 
+Note, that it is still in development
+----------
+
 Carousel is a managed component library for desktop applications that helps to extending core functionality of the application by external or internal components. An extension (component) can provide a toolbar with new tools, menus,  commands or dock widgets, listen for and respond to events, perform feature validation, and so on. 
 
 There are Carousel's basic concepts: **Components**, **Providers**, **Installers**, **Bootloaders** and **Service Locator**.
@@ -45,6 +48,54 @@ Installers
 
 Bootloaders
 -----------
+The bootloader instance is one of the first instances who starts Carousel mechanism.
+Mainly, is starts a **registration phase**.
+
+It creates and registers an IServiceLocator itself and common services, like LoggerFacade,
+IComponentManager and, optionally, QMainWindow for the GUI applications. QMainWindow is
+just a shell or frame for the application, it is absolutely empty, but then new components
+could populate it with menus, toolbars, dock widgets and the central widget.
+
+Usually an IBootloader is implemented (in BootloaderBase or in more specific CarouselBootloader
+class) as a sequence of pairs **create<smth>() - configure<smth>()** methods, and each of them
+could be overridden to replace default instantiation or default configuration.
+For example, to use your own logger system it is just needed to override BootloaderBase::createLoggerEngine()
+method.
+
+After bootloading process the configured IServiceLocator is available through
+serviceLocator() method. Later it will be injected to the all components and other
+elements during **configuration phase**, when they will start or initialize. It is needed to register/locate to
+common services and your components' services.
+
+To start new application you also should to override BootloaderBase::createComponentProvider() or
+BootloaderBase::configureComponentProvider() method to determine way in which your application will
+be populated by the components. For example, here is a component **provider** which will load components
+from the **"./components"** directory at the **start-time** and which also has four built-in components,
+configured statically at the **compile-time**:
+
+	IComponentProvider *MyBootloader::createComponentProvider()
+	{
+	    CompositeComponentProvider *provider = new CompositeComponentProvider();
+	    provider->addProvider(new DirectoryComponentProvider("./components"));
+	    provider->registerComponent(new InteractionServiceComponent());
+	    provider->registerComponent(new ComponentSystemUIComponent());
+	    provider->registerComponent(new UndoComponent());
+	    return provider;
+	}
+
+Then just pass bootloader to the application:
+
+	#include "MyBootloader.h"
+	#include <carousel/framework/AbstractApplication.h>
+	
+	int main(int argc, char *argv[])
+	{
+	    AbstractApplication application(argc, argv);
+	 
+	    MyBootloader bootloader;
+	    return application.runApplicationLoop(bootloader);
+	}
+
 
 Service Locator
 ---------------
@@ -60,5 +111,5 @@ Supported compilers (tested ones):
 <li>msvc11 x64</li>
 <li>mingw4.7 x32</li>
 <li>mingw4.7 x64</li>
-<li>gcc-4.4.5</li> - CHECK ON LINUX, IT WILL BE 4.7
+<li>gcc-4.7.2 (fresh meat from Debian 7)</li> 
 </ol>

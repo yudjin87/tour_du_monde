@@ -27,11 +27,11 @@
 #include "DisplayComponent.h"
 #include "SimpleDisplay.h"
 
-#include <componentsystem/ComponentDefinition.h>
-#include <componentsystem/ComponentExport.h>
-#include <interactivity/IInteractionService.h>
-#include <interactivity/InputInterceptor.h>
-#include <utils/IServiceLocator.h>
+#include <carousel/componentsystem/ComponentDefinition.h>
+#include <carousel/componentsystem/ComponentExport.h>
+#include <components/interactivity/IInteractionService.h>
+#include <components/interactivity/InputInterceptor.h>
+#include <carousel/utils/IServiceLocator.h>
 
 #include <QtWidgets/QGraphicsScene>
 #include <QtWidgets/QGraphicsView>

@@ -27,7 +27,7 @@
 #include "AddShapeOperation.h"
 #include "AddShapesCommand.h"
 
-#include <utils/IServiceLocator.h>
+#include <carousel/utils/IServiceLocator.h>
 
 #include <QtWidgets/QFileDialog>
 #include <QtWidgets/QMainWindow>

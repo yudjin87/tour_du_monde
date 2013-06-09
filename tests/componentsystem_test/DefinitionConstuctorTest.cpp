@@ -30,8 +30,8 @@
 
 #include "Utils.h"
 
-#include <componentsystem/DefinitionConstuctor.h>
-#include <componentsystem/ComponentDefinition.h>
+#include <carousel/componentsystem/DefinitionConstuctor.h>
+#include <carousel/componentsystem/ComponentDefinition.h>
 
 #include <QtCore/QDir>
 #include <QtTest/QTest>

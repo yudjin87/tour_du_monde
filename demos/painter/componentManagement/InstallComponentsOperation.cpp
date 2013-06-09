@@ -26,8 +26,8 @@
 
 #include "InstallComponentsOperation.h"
 
-#include <componentsystemui/InstallComponentsCommand.h>
-#include <utils/IServiceLocator.h>
+#include <components/componentsystemui/InstallComponentsCommand.h>
+#include <carousel/utils/IServiceLocator.h>
 
 #include <QtWidgets/QFileDialog>
 #include <QtWidgets/QMainWindow>

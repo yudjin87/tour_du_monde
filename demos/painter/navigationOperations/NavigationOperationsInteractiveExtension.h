@@ -27,7 +27,7 @@
 #ifndef NAVIGATIONOPERATIONS_INTERACTIVEEXTENSION_H
 #define NAVIGATIONOPERATIONS_INTERACTIVEEXTENSION_H
 
-#include <interactivity/IInteractiveExtension.h>
+#include <components/interactivity/IInteractiveExtension.h>
 
 #include <QtCore/QObject>
 

@@ -27,7 +27,7 @@
 #ifndef MOCKCAROUSELINTERACTIONSERVICE_H
 #define MOCKCAROUSELINTERACTIONSERVICE_H
 
-#include <interactivity/CarouselInteractionService.h>
+#include <components/interactivity/CarouselInteractionService.h>
 
 class MockCarouselInteractionService : public CarouselInteractionService
 {

@@ -1,6 +1,6 @@
 #include "MockCompositeComponentProvider.h"
 
-#include <componentsystem/IComponent.h>
+#include <carousel/componentsystem/IComponent.h>
 
 //------------------------------------------------------------------------------
 MockCompositeComponentProvider::MockCompositeComponentProvider()

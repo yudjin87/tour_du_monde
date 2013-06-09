@@ -2,8 +2,8 @@
 #include "Utils.h"
 #include "fakes/MockComponentLoader.h"
 
-#include <componentsystem/ComponentLoader.h>
-#include <componentsystem/IComponent.h>
+#include <carousel/componentsystem/ComponentLoader.h>
+#include <carousel/componentsystem/IComponent.h>
 
 #include <QtTest/QTest>
 #include <QtTest/QSignalSpy>

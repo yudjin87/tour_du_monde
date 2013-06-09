@@ -27,8 +27,8 @@
 #ifndef COMPONENTWITHEXTENSIONS_H
 #define COMPONENTWITHEXTENSIONS_H
 
-#include <componentsystem/BaseComponent.h>
-#include <componentsystem/IComponentExtension.h>
+#include <carousel/componentsystem/BaseComponent.h>
+#include <carousel/componentsystem/IComponentExtension.h>
 
 class IComponentExtension1;
 class IComponentExtension2;

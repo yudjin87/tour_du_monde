@@ -29,7 +29,7 @@
 
 #include "MockComponentDependencies.h"
 
-#include <componentsystem/ComponentInstaller.h>
+#include <carousel/componentsystem/ComponentInstaller.h>
 
 class FakeComponentInstaller : public ComponentInstaller
 {

@@ -27,7 +27,7 @@
 #ifndef CAROUSELCOMPONENTCONFIGURATIONDELEGATETEST_H
 #define CAROUSELCOMPONENTCONFIGURATIONDELEGATETEST_H
 
-#include <utils/ServiceLocator.h>
+#include <carousel/utils/ServiceLocator.h>
 
 #include <QtCore/QObject>
 

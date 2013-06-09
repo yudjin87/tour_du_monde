@@ -26,8 +26,8 @@
 
 #include "FakeEnableComponentCommand.h"
 
-#include <componentsystem/IComponent.h>
-#include <componentsystem/ComponentDependencies.h>
+#include <carousel/componentsystem/IComponent.h>
+#include <carousel/componentsystem/ComponentDependencies.h>
 
 //------------------------------------------------------------------------------
 FakeEnableComponentCommand::FakeEnableComponentCommand(ComponentDependencies *dependencies)

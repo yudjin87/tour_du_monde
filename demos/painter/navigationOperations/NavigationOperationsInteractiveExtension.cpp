@@ -30,10 +30,10 @@
 #include "ZoomInOperation.h"
 #include "ZoomOutOperation.h"
 
-#include <interactivity/ICatalogs.h>
-#include <interactivity/IOperationCatalog.h>
-#include <interactivity/IMenuCatalog.h>
-#include <interactivity/IToolBarCatalog.h>
+#include <components/interactivity/ICatalogs.h>
+#include <components/interactivity/IOperationCatalog.h>
+#include <components/interactivity/IMenuCatalog.h>
+#include <components/interactivity/IToolBarCatalog.h>
 
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QToolBar>

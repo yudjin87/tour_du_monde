@@ -26,9 +26,9 @@
 
 #include "ShowComponentsOperation.h"
 
-#include <componentsystemui/ComponentDefinitionsModel.h>
-#include <interactivity/IDialogService.h>
-#include <utils/IServiceLocator.h>
+#include <components/componentsystemui/ComponentDefinitionsModel.h>
+#include <components/interactivity/IDialogService.h>
+#include <carousel/utils/IServiceLocator.h>
 
 #include <QtWidgets/QMainWindow>
 

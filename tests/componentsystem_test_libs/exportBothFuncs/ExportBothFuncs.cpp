@@ -1,6 +1,6 @@
 #include "ExportBothFuncs.h"
 
-#include <componentsystem/ComponentExport.h>
+#include <carousel/componentsystem/ComponentExport.h>
 
 //------------------------------------------------------------------------------
 TestComponent::TestComponent()

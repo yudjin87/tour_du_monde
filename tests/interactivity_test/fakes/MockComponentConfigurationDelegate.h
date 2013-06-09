@@ -27,7 +27,7 @@
 #ifndef MOCKCOMPONENTCONFIGURATIONDELEGATE_H
 #define MOCKCOMPONENTCONFIGURATIONDELEGATE_H
 
-#include <interactivity/IComponentConfigurationDelegate.h>
+#include <components/interactivity/IComponentConfigurationDelegate.h>
 
 class MockComponentConfigurationDelegate : public IComponentConfigurationDelegate
 {

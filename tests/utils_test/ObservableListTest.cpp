@@ -27,7 +27,7 @@
 #include "ObservableListTest.h"
 
 #include "fakes/MockListObserver.h"
-#include <utils/ObservableList.h>
+#include <carousel/utils/ObservableList.h>
 
 #include <QtCore/QtAlgorithms>
 #include <QtTest/QtTest>

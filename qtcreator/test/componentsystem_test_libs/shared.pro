@@ -1,4 +1,4 @@
-include (../../carousel.pri)
+include (../../carousel_props.pri)
 
 QT       -= widgets
 TEMPLATE = lib

@@ -27,7 +27,7 @@
 #ifndef PAINTERAPPLICATION_H
 #define PAINTERAPPLICATION_H
 
-#include <framework/AbstractApplication.h>
+#include <carousel/framework/AbstractApplication.h>
 
 class IBootloader;
 

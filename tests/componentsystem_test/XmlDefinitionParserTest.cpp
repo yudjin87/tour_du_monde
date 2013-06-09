@@ -26,7 +26,7 @@
 
 #include "XmlDefinitionParserTest.h"
 
-#include <componentsystem/XmlDefinitionParser.h>
+#include <carousel/componentsystem/XmlDefinitionParser.h>
 
 #include <QtTest/QTest>
 

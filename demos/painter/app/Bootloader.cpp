@@ -28,13 +28,13 @@
 #include "MainWindow.h"
 
 #include <componentManagement/ComponentManagementComponent.h>
-#include <componentsystem/CompositeComponentProvider.h>
-#include <componentsystem/DirectoryComponentProvider.h>
-#include <componentsystem/IComponentManager.h>
-#include <componentsystem/IComponent.h>
-#include <componentsystemui/ComponentSystemUIComponent.h>
-#include <interactivity/InteractionServiceComponent.h>
-#include <undo/UndoComponent.h>
+#include <carousel/componentsystem/CompositeComponentProvider.h>
+#include <carousel/componentsystem/DirectoryComponentProvider.h>
+#include <carousel/componentsystem/IComponentManager.h>
+#include <carousel/componentsystem/IComponent.h>
+#include <components/componentsystemui/ComponentSystemUIComponent.h>
+#include <components/interactivity/InteractionServiceComponent.h>
+#include <components/undo/UndoComponent.h>
 
 #include <QtCore/QCoreApplication>
 
