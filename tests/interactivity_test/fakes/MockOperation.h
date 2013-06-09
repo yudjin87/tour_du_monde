@@ -27,7 +27,7 @@
 #ifndef MOCKOPERATION_H
 #define MOCKOPERATION_H
 
-#include <interactivity/Operation.h>
+#include <components/interactivity/Operation.h>
 
 class MockOperation : public Operation
 {

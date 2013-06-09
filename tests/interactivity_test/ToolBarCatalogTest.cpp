@@ -26,7 +26,7 @@
 
 #include "ToolBarCatalogTest.h"
 
-#include <interactivity/ToolBarCatalog.h>
+#include <components/interactivity/ToolBarCatalog.h>
 
 #include <QtWidgets/QAction>
 #include <QtWidgets/QMainWindow>

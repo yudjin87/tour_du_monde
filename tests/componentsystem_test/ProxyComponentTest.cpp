@@ -32,8 +32,8 @@
 
 #include "Utils.h"
 
-#include <componentsystem/ProxyComponent.h>
-#include <componentsystem/ComponentDefinition.h>
+#include <carousel/componentsystem/ProxyComponent.h>
+#include <carousel/componentsystem/ComponentDefinition.h>
 
 #include <QtCore/QDir>
 #include <QtCore/QSettings>

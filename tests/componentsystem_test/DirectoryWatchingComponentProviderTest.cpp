@@ -29,7 +29,7 @@
 #include "fakes/MockDirectoryWatchingComponentProvider.h"
 #include "Utils.h"
 
-#include <componentsystem/DirectoryWatchingComponentProvider.h>
+#include <carousel/componentsystem/DirectoryWatchingComponentProvider.h>
 
 #include <QtCore/QCoreApplication>
 #include <QtCore/QFileSystemWatcher>

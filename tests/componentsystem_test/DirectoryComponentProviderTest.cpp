@@ -3,8 +3,8 @@
 #include "fakes/MockDirectoryComponentProvider.h"
 #include "Utils.h"
 
-#include <componentsystem/DirectoryComponentProvider.h>
-#include <componentsystem/IComponent.h>
+#include <carousel/componentsystem/DirectoryComponentProvider.h>
+#include <carousel/componentsystem/IComponent.h>
 
 #include <QtCore/QFile>
 #include <QtTest/QTest>

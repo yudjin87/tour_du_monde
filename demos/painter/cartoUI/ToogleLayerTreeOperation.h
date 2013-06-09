@@ -27,7 +27,7 @@
 #ifndef TOOGLELAYERTREE_H
 #define TOOGLELAYERTREE_H
 
-#include <interactivity/Operation.h>
+#include <components/interactivity/Operation.h>
 
 class QAction;
 

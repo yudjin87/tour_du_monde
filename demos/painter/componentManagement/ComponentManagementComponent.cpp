@@ -27,8 +27,8 @@
 #include "ComponentManagementComponent.h"
 #include "ComponentManagementInteractiveExtension.h"
 
-#include <componentsystem/ComponentDefinition.h>
-#include <componentsystem/ComponentExport.h>
+#include <carousel/componentsystem/ComponentDefinition.h>
+#include <carousel/componentsystem/ComponentExport.h>
 
 //------------------------------------------------------------------------------
 static const QByteArray productName("ComponentManagement");

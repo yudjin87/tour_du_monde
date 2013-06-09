@@ -27,8 +27,8 @@
 #include "GeometryComponent.h"
 #include "GeometryFactory.h"
 
-#include <componentsystem/ComponentExport.h>
-#include <utils/IServiceLocator.h>
+#include <carousel/componentsystem/ComponentExport.h>
+#include <carousel/utils/IServiceLocator.h>
 
 //------------------------------------------------------------------------------
 static const QByteArray productName("Geometry");

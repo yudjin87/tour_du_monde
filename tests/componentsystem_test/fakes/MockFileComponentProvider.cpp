@@ -26,7 +26,7 @@
 
 #include "MockFileComponentProvider.h"
 
-#include <componentsystem/ComponentDefinition.h>
+#include <carousel/componentsystem/ComponentDefinition.h>
 
 #include <QtCore/QtAlgorithms>
 //------------------------------------------------------------------------------

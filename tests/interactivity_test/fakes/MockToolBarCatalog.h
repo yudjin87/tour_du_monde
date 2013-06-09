@@ -27,7 +27,7 @@
 #ifndef MOCKTOOLBARCATALOG_H
 #define MOCKTOOLBARCATALOG_H
 
-#include <interactivity/ToolBarCatalog.h>
+#include <components/interactivity/ToolBarCatalog.h>
 
 class MockToolBarCatalog : public ToolBarCatalog
 {

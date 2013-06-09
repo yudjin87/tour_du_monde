@@ -27,7 +27,7 @@
 #ifndef COMPONENTMANAGEMENTINTERACTIVEEXTENSION_H
 #define COMPONENTMANAGEMENTINTERACTIVEEXTENSION_H
 
-#include <interactivity/IInteractiveExtension.h>
+#include <components/interactivity/IInteractiveExtension.h>
 
 #include <QtCore/QObject>
 

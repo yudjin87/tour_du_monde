@@ -27,8 +27,8 @@
 #ifndef MOCKINTERACTIVECOMPONENT_H
 #define MOCKINTERACTIVECOMPONENT_H
 
-#include <componentsystem/BaseComponent.h>
-#include <interactivity/IInteractiveExtension.h>
+#include <carousel/componentsystem/BaseComponent.h>
+#include <components/interactivity/IInteractiveExtension.h>
 
 class ICatalogs;
 class IInteractiveExtension;

@@ -1,7 +1,7 @@
 #include "BaseBootloaderTest.h"
 #include "fakes/BootloaderMock.h"
 
-#include <booting/BootloaderBase.h>
+#include <carousel/booting/BootloaderBase.h>
 #include <QtTest/QtTest>
 
 //------------------------------------------------------------------------------

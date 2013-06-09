@@ -1,8 +1,8 @@
 #ifndef TESTCONFIGUREDCOMPONENT_H
 #define TESTCONFIGUREDCOMPONENT_H
 
-#include <componentsystem/ComponentDefinition.h>
-#include <componentsystem/BaseComponent.h>
+#include <carousel/componentsystem/ComponentDefinition.h>
+#include <carousel/componentsystem/BaseComponent.h>
 
 //------------------------------------------------------------------------------
 class TestDescriptionComponent : public BaseComponent

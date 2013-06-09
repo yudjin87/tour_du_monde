@@ -27,8 +27,8 @@
 #include "OperationCatalogTest.h"
 #include "fakes/MockOperation.h"
 
-#include <interactivity/OperationCatalog.h>
-#include <utils/ServiceLocator.h>
+#include <components/interactivity/OperationCatalog.h>
+#include <carousel/utils/ServiceLocator.h>
 
 #include <QtTest/QtTest>
 #include <QtTest/QSignalSpy>

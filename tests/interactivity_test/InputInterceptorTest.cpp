@@ -1,7 +1,7 @@
 #include "InputInterceptorTest.h"
 #include "fakes/MockTool.h"
 
-#include <interactivity/InputInterceptor.h>
+#include <components/interactivity/InputInterceptor.h>
 
 #include <QtWidgets/QWidget>
 #include <QtTest/QtTest>

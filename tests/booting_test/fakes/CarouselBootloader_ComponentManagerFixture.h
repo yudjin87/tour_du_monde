@@ -1,8 +1,8 @@
 #ifndef CAROUSELBOOTLOADER_COMPONENTPROVIDERFIXTURE_H
 #define CAROUSELBOOTLOADER_COMPONENTPROVIDERFIXTURE_H
 
-#include <booting/CarouselBootloader.h>
-#include <componentsystem/IComponentManager.h>
+#include <carousel/booting/CarouselBootloader.h>
+#include <carousel/componentsystem/IComponentManager.h>
 
 class CarouselBootloader_ComponentManagerFixture : public CarouselBootloader
 {

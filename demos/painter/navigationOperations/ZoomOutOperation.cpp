@@ -26,7 +26,7 @@
 
 #include "ZoomOutOperation.h"
 
-#include <utils/IServiceLocator.h>
+#include <carousel/utils/IServiceLocator.h>
 
 #include <QtWidgets/QGraphicsScene>
 #include <QtWidgets/QGraphicsView>

@@ -1,7 +1,7 @@
 #ifndef FAKECOMPONENTLOADER_H
 #define FAKECOMPONENTLOADER_H
 
-#include <componentsystem/ComponentLoader.h>
+#include <carousel/componentsystem/ComponentLoader.h>
 
 class MockComponentLoader : public ComponentLoader
 {

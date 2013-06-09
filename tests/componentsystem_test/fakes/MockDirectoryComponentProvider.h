@@ -1,8 +1,8 @@
 #ifndef MOCKDIRECTORYCOMPONENTPROVIDER_H
 #define MOCKDIRECTORYCOMPONENTPROVIDER_H
 
-#include <componentsystem/DirectoryComponentProvider.h>
-#include <componentsystem/FileComponentProvider.h>
+#include <carousel/componentsystem/DirectoryComponentProvider.h>
+#include <carousel/componentsystem/FileComponentProvider.h>
 
 class FakeFileComponentProvider;
 

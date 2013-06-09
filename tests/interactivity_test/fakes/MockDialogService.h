@@ -27,7 +27,7 @@
 #ifndef MOCKDIALOGSERVICE_H
 #define MOCKDIALOGSERVICE_H
 
-#include <interactivity/DialogService.h>
+#include <components/interactivity/DialogService.h>
 
 class MockDialogService : public DialogService
 {

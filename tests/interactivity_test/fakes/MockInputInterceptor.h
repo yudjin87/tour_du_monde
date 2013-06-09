@@ -27,7 +27,7 @@
 #ifndef MOCKINPUTINTERCEPTOR_H
 #define MOCKINPUTINTERCEPTOR_H
 
-#include <interactivity/InputInterceptor.h>
+#include <components/interactivity/InputInterceptor.h>
 
 class MockInputInterceptor : public InputInterceptor
 {

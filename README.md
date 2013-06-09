@@ -86,7 +86,7 @@ configured statically at the **compile-time**:
 Then just pass bootloader to the application:
 
 	#include "MyBootloader.h"
-	#include <framework/AbstractApplication.h>
+	#include <carousel/framework/AbstractApplication.h>
 	
 	int main(int argc, char *argv[])
 	{
@@ -111,5 +111,5 @@ Supported compilers (tested ones):
 <li>msvc11 x64</li>
 <li>mingw4.7 x32</li>
 <li>mingw4.7 x64</li>
-<li>gcc-4.4.5</li> - CHECK ON LINUX, IT WILL BE 4.7
+<li>gcc-4.7.2 (fresh meat from Debian 7)</li> 
 </ol>

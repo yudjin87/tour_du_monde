@@ -26,9 +26,9 @@
 
 #include "CartoComponent.h"
 
-#include <componentsystem/ComponentDefinition.h>
-#include <componentsystem/ComponentExport.h>
-#include <utils/IServiceLocator.h>
+#include <carousel/componentsystem/ComponentDefinition.h>
+#include <carousel/componentsystem/ComponentExport.h>
+#include <carousel/utils/IServiceLocator.h>
 
 //------------------------------------------------------------------------------
 static const QByteArray productName("Carto");

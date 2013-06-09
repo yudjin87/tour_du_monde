@@ -29,8 +29,8 @@
 #include "fakes/MockApplication.h"
 #include "fakes/MockInteractionService.h"
 
-#include <interactivity/ToolBase.h>
-#include <utils/ServiceLocator.h>
+#include <components/interactivity/ToolBase.h>
+#include <carousel/utils/ServiceLocator.h>
 
 #include <QtTest/QTest>
 

@@ -33,7 +33,7 @@
 #include <geometry/AbstractGeometry.h>
 #include <geometry/IGeometryFactory.h>
 
-#include <utils/IServiceLocator.h>
+#include <carousel/utils/IServiceLocator.h>
 
 #include <QtCore/QDir>
 #include <QtCore/QFile>

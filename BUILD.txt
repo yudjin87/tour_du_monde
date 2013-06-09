@@ -3,7 +3,7 @@
  to the specified generator and building type (debug/release, shared/static, etc).
  
  Here is at glance how file system structure is organized:
-##############################################################################
+#========================================================
    +/carousel                     <= CAROUSEL_WD
        +/demos
        +/docs
@@ -22,12 +22,15 @@
            +/carousel.pro
            +/carousel_with_tests.pro
        +/src                      <= CPP_SOURCE_TREE
-           +/booting              <= PROJECT_SOURCES
-           +/...
+           +/carousel             <= Carousel libraries
+               +/booting          <= PROJECT_SOURCES
+               +/...
+           +/components           <= Carousel components
+               +/interactivity    <= PROJECT_SOURCES
        +/tests                    <= CPP_TESTS_TREE
            +/booting_test         <= TEST_PROJECT_SOURCES
            +/...
-##############################################################################
+#========================================================
  
  To generate out-of-source IDE (MSVS, Xcode, etc.) project run from the 'build' folder
 

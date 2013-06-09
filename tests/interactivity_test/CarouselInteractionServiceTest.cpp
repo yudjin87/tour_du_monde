@@ -33,15 +33,15 @@
 #include "fakes/MockInteractiveExtension.h"
 #include "fakes/MockTool.h"
 
-#include <interactivity/CarouselInteractionService.h>
-#include <interactivity/OperationCatalog.h>
-#include <interactivity/DockWidgetCatalog.h>
-#include <interactivity/ICatalogs.h>
-#include <interactivity/IComponentConfigurationDelegate.h>
-#include <interactivity/InputInterceptor.h>
-#include <interactivity/MenuCatalog.h>
-#include <interactivity/ToolBase.h>
-#include <interactivity/ToolBarCatalog.h>
+#include <components/interactivity/CarouselInteractionService.h>
+#include <components/interactivity/OperationCatalog.h>
+#include <components/interactivity/DockWidgetCatalog.h>
+#include <components/interactivity/ICatalogs.h>
+#include <components/interactivity/IComponentConfigurationDelegate.h>
+#include <components/interactivity/InputInterceptor.h>
+#include <components/interactivity/MenuCatalog.h>
+#include <components/interactivity/ToolBase.h>
+#include <components/interactivity/ToolBarCatalog.h>
 
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>

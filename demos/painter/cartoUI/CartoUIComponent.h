@@ -29,7 +29,7 @@
 
 #include "cartoUI_api.h"
 
-#include <componentsystem/BaseComponent.h>
+#include <carousel/componentsystem/BaseComponent.h>
 
 class CARTO_UI_API CartoUIComponent : public BaseComponent
 {

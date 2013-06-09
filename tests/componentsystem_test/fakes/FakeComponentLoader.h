@@ -1,7 +1,7 @@
 #ifndef FAKECOMPONENTLOADER_H
 #define FAKECOMPONENTLOADER_H
 
-#include <componentsystem/IComponentLoader.h>
+#include <carousel/componentsystem/IComponentLoader.h>
 
 #include <QtCore/QObject>
 

@@ -1,8 +1,8 @@
 #ifndef MOCKSERVICELOCATOR_H
 #define MOCKSERVICELOCATOR_H
 
-#include <utils/ServiceLocator.h>
-#include <utils/TypeObjectsMap.h>
+#include <carousel/utils/ServiceLocator.h>
+#include <carousel/utils/TypeObjectsMap.h>
 
 class MockServiceLocator : public ServiceLocator
 {

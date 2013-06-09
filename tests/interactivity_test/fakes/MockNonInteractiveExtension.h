@@ -27,7 +27,7 @@
 #ifndef MOCKNONINTERACTIVECOMPONENT_H
 #define MOCKNONINTERACTIVECOMPONENT_H
 
-#include <componentsystem/BaseComponent.h>
+#include <carousel/componentsystem/BaseComponent.h>
 
 class MockNonInteractiveExtension : public BaseComponent
 {

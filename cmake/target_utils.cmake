@@ -10,8 +10,8 @@ project(${CRSL_PROJECT_NAME} CXX)
 
 ###############################################################################
 # Defines pathes to the directories with target's header and source files.
-set(CRSL_TARGET_SOURCES ${CPP_SOURCE_TREE}/${PROJECT_NAME_LOWER})
-set(CRSL_TARGET_HEADERS ${HPP_SOURCE_TREE}/${PROJECT_NAME_LOWER})
+set(CRSL_TARGET_SOURCES ${CPP_SOURCE_TREE}/${CRSL_TARGET_TYPE}/${PROJECT_NAME_LOWER})
+set(CRSL_TARGET_HEADERS ${HPP_SOURCE_TREE}/${CRSL_TARGET_TYPE}/${PROJECT_NAME_LOWER})
 
 ###############################################################################
 # Adds the target's headers location to the include path

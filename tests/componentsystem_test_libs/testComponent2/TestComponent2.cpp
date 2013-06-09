@@ -1,6 +1,6 @@
 #include "TestComponent2.h"
 
-#include <componentsystem/ComponentExport.h>
+#include <carousel/componentsystem/ComponentExport.h>
 
 //------------------------------------------------------------------------------
 TestComponent2::TestComponent2()

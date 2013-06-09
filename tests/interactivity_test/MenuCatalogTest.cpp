@@ -26,7 +26,7 @@
 
 #include "MenuCatalogTest.h"
 
-#include <interactivity/MenuCatalog.h>
+#include <components/interactivity/MenuCatalog.h>
 
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QWidget>

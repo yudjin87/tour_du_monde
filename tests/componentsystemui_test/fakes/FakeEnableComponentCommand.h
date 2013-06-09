@@ -27,7 +27,7 @@
 #ifndef FAKEENABLECOMPONENTCOMMAND_H
 #define FAKEENABLECOMPONENTCOMMAND_H
 
-#include <componentsystemui/EnableComponentCommand.h>
+#include <components/componentsystemui/EnableComponentCommand.h>
 
 class ComponentDependencies;
 

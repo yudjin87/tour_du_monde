@@ -2,7 +2,7 @@
 #include "fakes/MockServiceLocator.h"
 #include "fakes/Services.h"
 
-#include <utils/ServiceLocator.h>
+#include <carousel/utils/ServiceLocator.h>
 #include <QtTest/QtTest>
 
 //------------------------------------------------------------------------------

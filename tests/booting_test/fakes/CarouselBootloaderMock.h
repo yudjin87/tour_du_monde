@@ -1,7 +1,7 @@
 #ifndef CAROUSELBOOTLOADERMOCK_H
 #define CAROUSELBOOTLOADERMOCK_H
 
-#include <booting/CarouselBootloader.h>
+#include <carousel/booting/CarouselBootloader.h>
 
 #include <QtCore/QStringList>
 

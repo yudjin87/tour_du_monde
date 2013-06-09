@@ -27,7 +27,7 @@
 #ifndef RECTRUBBERBAND_H
 #define RECTRUBBERBAND_H
 
-#include <interactivity/IInputReceiver.h>
+#include <components/interactivity/IInputReceiver.h>
 
 #include <QtCore/QObject>
 #include <QtCore/QRect>

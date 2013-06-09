@@ -175,7 +175,8 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 ###############################################################################
 # Add sources
-add_subdirectory(src)
+add_subdirectory(src/carousel)
+add_subdirectory(src/components)
 
 if(CRSL_TEST)  
   message(STATUS "Create testing projects")

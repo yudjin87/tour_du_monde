@@ -1,7 +1,7 @@
 #ifndef BOOTLOADERMOCK_H
 #define BOOTLOADERMOCK_H
 
-#include <booting/BootloaderBase.h>
+#include <carousel/booting/BootloaderBase.h>
 
 class BootloaderMock : public BootloaderBase
 {

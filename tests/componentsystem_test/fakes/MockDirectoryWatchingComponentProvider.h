@@ -29,7 +29,7 @@
 
 #include "MockFileSystemWatcher.h"
 
-#include <componentsystem/DirectoryWatchingComponentProvider.h>
+#include <carousel/componentsystem/DirectoryWatchingComponentProvider.h>
 
 class MockDirectoryWatchingComponentProvider : public DirectoryWatchingComponentProvider
 {

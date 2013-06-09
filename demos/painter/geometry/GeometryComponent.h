@@ -29,7 +29,7 @@
 
 #include "geometry_api.h"
 
-#include <componentsystem/BaseComponent.h>
+#include <carousel/componentsystem/BaseComponent.h>
 
 class GEOMETRY_API GeometryComponent : public BaseComponent
 {

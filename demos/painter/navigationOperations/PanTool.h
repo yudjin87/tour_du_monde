@@ -1,7 +1,7 @@
 #ifndef PANOPERATION_H
 #define PANOPERATION_H
 
-#include <interactivity/ToolBase.h>
+#include <components/interactivity/ToolBase.h>
 
 class PanTool : public ToolBase
 {

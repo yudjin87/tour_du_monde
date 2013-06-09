@@ -26,7 +26,7 @@
 
 #include "DockWidgetCatalogTest.h"
 
-#include <interactivity/DockWidgetCatalog.h>
+#include <components/interactivity/DockWidgetCatalog.h>
 
 #include <QtWidgets/QDockWidget>
 #include <QtWidgets/QMainWindow>

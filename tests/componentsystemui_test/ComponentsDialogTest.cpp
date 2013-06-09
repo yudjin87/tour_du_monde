@@ -27,13 +27,13 @@
 #include "ComponentsDialogTest.h"
 #include "fakes/FakeEnableComponentCommand.h"
 
-#include <componentsystem/ComponentDefinition.h>
-#include <componentsystem/ComponentDependencies.h>
-#include <componentsystem/ProxyComponent.h>
-#include <componentsystemui/ComponentDefinitionsModel.h>
-#include <componentsystemui/ComponentsDialog.h>
+#include <carousel/componentsystem/ComponentDefinition.h>
+#include <carousel/componentsystem/ComponentDependencies.h>
+#include <carousel/componentsystem/ProxyComponent.h>
+#include <components/componentsystemui/ComponentDefinitionsModel.h>
+#include <components/componentsystemui/ComponentsDialog.h>
 
-#include <utils/ServiceLocator.h>
+#include <carousel/utils/ServiceLocator.h>
 
 #include <QtWidgets/QUndoStack>
 

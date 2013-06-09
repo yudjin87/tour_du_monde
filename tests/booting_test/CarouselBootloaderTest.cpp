@@ -3,12 +3,12 @@
 #include "fakes/CarouselBootloaderProviderMock.h"
 #include "fakes/CarouselBootloader_ComponentManagerFixture.h"
 
-#include <booting/CarouselBootloader.h>
-#include <componentsystem/ComponentManager.h>
-#include <componentsystem/ComponentProvider.h>
-#include <logging/LoggerFacade.h>
-#include <utils/IServiceLocator.h>
-#include <utils/ObservableList.h>
+#include <carousel/booting/CarouselBootloader.h>
+#include <carousel/componentsystem/ComponentManager.h>
+#include <carousel/componentsystem/ComponentProvider.h>
+#include <carousel/logging/LoggerFacade.h>
+#include <carousel/utils/IServiceLocator.h>
+#include <carousel/utils/ObservableList.h>
 
 #include <QtWidgets/QMainWindow>
 #include <QtTest/QtTest>

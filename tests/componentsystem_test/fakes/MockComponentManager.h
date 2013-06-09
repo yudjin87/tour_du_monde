@@ -1,7 +1,7 @@
 #ifndef MOCKCOMPONENTMANAGER_H
 #define MOCKCOMPONENTMANAGER_H
 
-#include <componentsystem/ComponentManager.h>
+#include <carousel/componentsystem/ComponentManager.h>
 
 class MockComponentManager : public ComponentManager
 {

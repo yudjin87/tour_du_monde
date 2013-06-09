@@ -1,7 +1,7 @@
 #ifndef FAKEDEFINITIONPARSER_H
 #define FAKEDEFINITIONPARSER_H
 
-#include <componentsystem/IDefinitionParser.h>
+#include <carousel/componentsystem/IDefinitionParser.h>
 #include <QtCore/QObject>
 
 class FakeDefinitionParser : public QObject, public IDefinitionParser

@@ -8,7 +8,7 @@
 
 #include "Utils.h"
 
-#include <componentsystem/ComponentManager.h>
+#include <carousel/componentsystem/ComponentManager.h>
 
 #include <QtTest/QtTest>
 

@@ -27,7 +27,7 @@
 #ifndef MOCKLISTOBSERVER_H
 #define MOCKLISTOBSERVER_H
 
-#include <utils/ObservableList.h>
+#include <carousel/utils/ObservableList.h>
 
 template <typename T>
 class MockListObserver : public IListObserver<T>

@@ -30,11 +30,11 @@
 
 #include <dom/IPainterDocument.h>
 #include <dom/IPainterDocumentController.h>
-#include <interactivity/ICatalogs.h>
-#include <interactivity/IDockWidgetCatalog.h>
-#include <interactivity/IMenuCatalog.h>
-#include <interactivity/IOperationCatalog.h>
-#include <utils/IServiceLocator.h>
+#include <components/interactivity/ICatalogs.h>
+#include <components/interactivity/IDockWidgetCatalog.h>
+#include <components/interactivity/IMenuCatalog.h>
+#include <components/interactivity/IOperationCatalog.h>
+#include <carousel/utils/IServiceLocator.h>
 
 #include <QtWidgets/QDockWidget>
 #include <QtWidgets/QMenu>

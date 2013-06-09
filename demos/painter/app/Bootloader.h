@@ -27,7 +27,7 @@
 #ifndef BOOTLOADER_H
 #define BOOTLOADER_H
 
-#include <booting/CarouselBootloader.h>
+#include <carousel/booting/CarouselBootloader.h>
 
 #include <QtCore/QVector>
 

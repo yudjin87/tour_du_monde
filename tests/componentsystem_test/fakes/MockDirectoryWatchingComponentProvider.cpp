@@ -26,7 +26,7 @@
 
 #include "MockDirectoryWatchingComponentProvider.h"
 
-#include <componentsystem/IComponent.h>
+#include <carousel/componentsystem/IComponent.h>
 
 #include <QtCore/QtAlgorithms>
 //------------------------------------------------------------------------------

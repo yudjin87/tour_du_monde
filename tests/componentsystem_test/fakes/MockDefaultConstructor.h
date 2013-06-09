@@ -27,7 +27,7 @@
 #ifndef MOCKDEFAULTCONSTRUCTOR_H
 #define MOCKDEFAULTCONSTRUCTOR_H
 
-#include <componentsystem/DefinitionConstuctor.h>
+#include <carousel/componentsystem/DefinitionConstuctor.h>
 
 #include <QtCore/QObject>
 
