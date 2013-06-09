@@ -10,6 +10,9 @@ if(WIN32)
 elseif(APPLE)
     set(__DEBUG_SUFFIX "_debug")
     set(__PLATFORM_PLUGIN "qcocoa")
+else() # linux
+    set(__DEBUG_SUFFIX "")
+    set(__PLATFORM_PLUGIN "qlinuxfb")
 endif(WIN32)
 
 if("${QT_ROOT_LOCATION_${__COMPILER}}" STREQUAL "")
