@@ -29,11 +29,11 @@
 #include "Throttle.h"
 
 #include <QtGui/QShowEvent>
-
-#include <QtWidgets/QScrollBar>
 #include <QtGui/QPaintDevice>
 #include <QtGui/QPainter>
 #include <QtGui/QPixmap>
+
+#include <QtWidgets/QScrollBar>
 
 //------------------------------------------------------------------------------
 SimpleDisplay::SimpleDisplay(QWidget *parent)    
@@ -167,7 +167,7 @@ void SimpleDisplay::setScale(double scale)
 //------------------------------------------------------------------------------
 void SimpleDisplay::mouseMoveEvent(QMouseEvent *event)
 {
-    QPointF p = event->posF();
+    QPointF p = event->pos();
     qreal x;
     qreal y;
     m_transform.map(p.x(), p.y(), &x, &y);

@@ -29,7 +29,7 @@
 
 #include "geodatabase/ISpatialFilter.h"
 
-class SpatialFilter : public ISpatialFilter
+class GEODATABASE_API SpatialFilter : public ISpatialFilter
 {
 public:
     SpatialFilter();
