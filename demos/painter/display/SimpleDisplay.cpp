@@ -135,11 +135,14 @@ void SimpleDisplay::setExtent(const QRectF &extent)
 {
     m_extent = extent;
 
-    int dy = (m_extent.height() * m_scale) - height();
-    int dx = (m_extent.width() * m_scale) - width();
+    int dx = (m_extent.width() * m_scale);
+    int dy = (m_extent.height() * m_scale);
 
     dx = std::max(dx, width());
     dy = std::max(dy, height());
+
+    dx -= width();
+    dy -= height();
 
     qDebug(QString("dx: %1; dy: %2").arg(dx).arg(dy).toLatin1());
 
