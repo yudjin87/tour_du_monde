@@ -31,8 +31,6 @@
 
 #include <carousel/componentsystem/BaseComponent.h>
 
-class QUndoStack;
-
 /*!
  * @brief
  *   This class represents a component, that provides undo facilities.
@@ -74,9 +72,6 @@ protected:
 
 private:
     Q_DISABLE_COPY(UndoComponent)
-
-private:
-    QUndoStack *m_undoStack;
 };
 
 #endif // UNDOCOMPONENT_H
