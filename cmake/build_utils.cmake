@@ -26,7 +26,7 @@ function(crsl_build __CONFIGURATIONS __GENERATOR_NAME __BUILD_TREE_PATH __NATIVE
 
     crsl_build_project(${__CONF} ${__BUILD_TREE_PATH} "${__NATIVE_PARAMS}" BUILD_RESULT)
     if(BUILD_RESULT GREATER 0)
-      message(FATAL_ERROR "Build for configuration '${__CONF}' failed.")   
+      message(FATAL_ERROR "Build for configuration '${__CONF}' failed. Error code: ${BUILD_RESULT}")   
       return()
     endif()
 
@@ -111,8 +111,13 @@ function(crsl_install __BUILD_TYPE __BUILD_TREE_PATH)
       WORKING_DIRECTORY ${__BUILD_TREE_PATH}
       RESULT_VARIABLE __RESULT)
 
+  if(__RESULT STREQUAL 2)
+    message(STATUS "No install target")
+    return()
+  endif()
+
   if(NOT __RESULT STREQUAL 0)
-    message(FATAL_ERROR "Error calling CTest: '${__RESULT}'")
+    message(FATAL_ERROR "Error calling Intall: '${__RESULT}'")
   endif()
 endfunction(crsl_install)
 
