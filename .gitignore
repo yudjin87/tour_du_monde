@@ -43,3 +43,5 @@ ipch/
 
 #Generated (by Qt MOC) files in MS VS
 GeneratedFiles/
+
+user_settings.cmake

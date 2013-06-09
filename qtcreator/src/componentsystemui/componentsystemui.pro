@@ -1,7 +1,7 @@
 include (../../carousel.pri)
 include (componentsystemui.pri)
 
-QT      += gui
+QT      += widgets
 QT      += core
 TEMPLATE = lib
 

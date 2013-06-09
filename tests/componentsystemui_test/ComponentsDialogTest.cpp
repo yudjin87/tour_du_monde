@@ -35,7 +35,7 @@
 
 #include <utils/ServiceLocator.h>
 
-#include <QtGui/QUndoStack>
+#include <QtWidgets/QUndoStack>
 
 //------------------------------------------------------------------------------
 namespace {

@@ -6,19 +6,23 @@
 ###############################################################################
 # Returns platform bit to __RESULT in string representation
 # to use it as appendix (e.g. win32)
-function(crsl_get_target_platform_bits __RESULT)
+function(crsl_get_target_platform_bits __RESULT __64TEST)
   if("${CMAKE_SIZEOF_VOID_P}" GREATER 4)
     set(${__RESULT} "64" PARENT_SCOPE)
+    set(${__64TEST} "TRUE" PARENT_SCOPE)
   else()
     if(WIN32)
       # Set to true when using the 64 bit cl compiler from Microsoft.
       if(${CMAKE_CL_64})
         set(${__RESULT} "64" PARENT_SCOPE)
+        set(${__64TEST} "TRUE" PARENT_SCOPE)
       else()
         set(${__RESULT} "32" PARENT_SCOPE)
+        set(${__64TEST} "FALSE" PARENT_SCOPE)
       endif(${CMAKE_CL_64})
     else()
       set(${__RESULT} "32" PARENT_SCOPE)
+      set(${__64TEST} "FALSE" PARENT_SCOPE)
     endif(WIN32)
   endif()
 endfunction(crsl_get_target_platform_bits)
@@ -82,7 +86,10 @@ macro(crsl_use_default_project_output_path __TARGET_NAME __ROOT __COMPILER __BIT
   set(__LIBRARIES_DIR ${__ROOT}/${__COMPILER}${__BITS}-${__BUILD}/${__PREFIX})
 
   #message(STATUS "${__BUILD} output: ${__BUILD}")
-  message(STATUS "${__TARGET_NAME} output: ${__OUTPUT_DIR}")
+  if(DEBUG_VERBOSITY)
+    message(STATUS "${__TARGET_NAME} output: ${__OUTPUT_DIR}")
+  endif()
+
   set_target_properties(${__TARGET_NAME} PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${__OUTPUT_DIR})
   set_target_properties(${__TARGET_NAME} PROPERTIES ARCHIVE_OUTPUT_DIRECTORY ${__LIBRARIES_DIR})
   set_target_properties(${__TARGET_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${__OUTPUT_DIR})
@@ -100,6 +107,32 @@ macro(crsl_use_default_project_output_path __TARGET_NAME __ROOT __COMPILER __BIT
     set_target_properties(${__TARGET_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY_${CONF} ${__MS_VC_OUTPUT_DIR})
   endforeach(CONF)	
 endmacro(crsl_use_default_project_output_path)
+
+########################################################################################
+# Creates install target for each known configuration (Debug/Release + Static/Shared),
+# which will be copy specified files on the specified directory.
+# Debug fiels will be copied For the debug configurations
+#
+# Parameters:
+#
+# __DEBUG_FILES   - files that will be copied for the debug configurations;
+# __RELEASE_FILES - files that will be copied for the release configurations;
+#
+function(crsl_set_files_to_copy_on_install __DEBUG_FILES __RELEASE_FILES __ROOT __COMPILER __BITS __PREFIX)
+    foreach(__CONF ${CRSL_CONFIGS})
+        if(${__CONF} MATCHES "debug")
+            install(
+                FILES ${__DEBUG_FILES}
+                DESTINATION "${__ROOT}/${__COMPILER}${__BITS}-${__CONF}/${__PREFIX}"
+                CONFIGURATIONS ${__CONF})
+        else()
+            install(
+                FILES ${__RELEASE_FILES}
+                DESTINATION "${__ROOT}/${__COMPILER}${__BITS}-${__CONF}/${__PREFIX}"
+                CONFIGURATIONS ${__CONF})
+        endif()
+    endforeach(__CONF)
+endfunction(crsl_set_files_to_copy_on_install)
 
 ###############################################################################
 # Copies a list of files __FILES into the specified __DIRECTORY right after

@@ -28,9 +28,9 @@
 
 #include <interactivity/DockWidgetCatalog.h>
 
-#include <QtGui/QDockWidget>
-#include <QtGui/QMainWindow>
-#include <QtGui/QWidget>
+#include <QtWidgets/QDockWidget>
+#include <QtWidgets/QMainWindow>
+#include <QtWidgets/QWidget>
 
 #include <QtTest/QtTest>
 #include <QtTest/QSignalSpy>

@@ -37,7 +37,7 @@ class IServiceLocator;
 
 /*!
  * @brief
- *   Default implementation of the IComponentConfigurationDelegate for
+ *   It is a default implementation of the IComponentConfigurationDelegate for
  *   configuring/deconfiguring the started components.
  * @details
  *   It also manages what exactly have been changed in GUI during
@@ -49,6 +49,11 @@ class INTERACTIVITY_API CarouselComponentConfigurationDelegate : public ICompone
 {
   Q_OBJECT
 public:
+    /*!
+     * @details
+     * @constructor{CarouselComponentConfigurationDelegate} using specified @a serviceLocator
+     *   to pass it to the confuring extensions.
+     */
     CarouselComponentConfigurationDelegate(IServiceLocator *serviceLocator);
     ~CarouselComponentConfigurationDelegate();
 
@@ -79,6 +84,9 @@ public slots:
      *   by this delegate.
      */
     const ConfigurationChanges *changesByComponent(IComponent *component) const;
+
+private:
+    Q_DISABLE_COPY(CarouselComponentConfigurationDelegate)
 
 private:
     QMap<IComponent *, ConfigurationChanges *> m_changes;

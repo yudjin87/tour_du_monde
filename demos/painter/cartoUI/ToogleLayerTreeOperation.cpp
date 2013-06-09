@@ -26,7 +26,7 @@
 
 #include "ToogleLayerTreeOperation.h"
 
-#include <QtGui/QUndoStack>
+#include <QtWidgets/QUndoStack>
 
 //------------------------------------------------------------------------------
 ToogleLayerTreeOperation::ToogleLayerTreeOperation(QAction *toogleAction)

@@ -46,7 +46,7 @@ class INTERACTIVITY_API ToolBase : public Operation, public ITool
 public:
     /*!
      * @details
-     *   Constructs a tool with action group, if any.
+     * @constructor{ToolBase} with action group, if any.
      *   If the action group not null, this tool
      *   will be automatically inserted into the group.
      */

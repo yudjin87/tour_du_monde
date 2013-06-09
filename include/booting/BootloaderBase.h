@@ -23,6 +23,7 @@
  * Boston, MA 02110-1301 USA
  *
  * END_COMMON_COPYRIGHT_HEADER */
+
 #ifndef BOOTLOADERBASE_H
 #define BOOTLOADERBASE_H
 
@@ -47,16 +48,12 @@ class QMainWindow;
  *   your own bootloading sequence, but it is recomended to derived from the CarouselBootloader
  *   class and override @a create<> and @a configure<> methods and keep bootloading sequence.
  *
- *   After bootloading process the configured IServiceLocator is available through
- *   serviceLocator() method. Later it will be injected to the all components and other
- *   elements during their start or initialization. It is needed to register/locate to
- *   common services and your components' services.
+ * @sa IBootloader
  */
 class BOOTING_API BootloaderBase : public IBootloader
 {
     Q_OBJECT
 public:
-    BootloaderBase();
     ~BootloaderBase();
 
     /*!
@@ -75,6 +72,17 @@ public:
 protected:
     /*!
      * @details
+     * @constructor{BootloaderBase}.
+     *
+     *   When derive from this class you should override at least safeRun() method,
+     *   in which loading sequence will be performed, and configureServiceLocator() method
+     *   to register common services in the locator.
+     *
+     */
+    BootloaderBase();
+
+    /*!
+     * @details
      *   Does nothing by default. When overridden in derived classes should add all
      *   components registered in provider to the component manager.
      */
@@ -90,8 +98,8 @@ protected:
 
     /*!
      * @details
-     *   When overridden in derived classes setups the needed services
-     *   such as IComponentManager, IComponentProvider and other.
+     *   When overridden in derived classes registers all common services
+     *   such as IComponentManager, IComponentProvider and other in the locator.
      */
     virtual void configureServiceLocator() = 0;
 

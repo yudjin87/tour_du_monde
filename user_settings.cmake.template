@@ -1,0 +1,24 @@
+###############################################################################
+# Show debug messages
+# set(DEBUG_VERBOSITY TRUE)
+
+###############################################################################
+#                                Qt settings
+###############################################################################
+
+#------------------------------------------------------------------------------
+# Paths to the Qt, where directories bin, lib, include, plugins and other are
+# set(QT_ROOT_LOCATION_MSVC10-X64 "D:/devevl/Qt/5.0.1/Output/MSVC10-x64")
+# set(QT_ROOT_LOCATION_MSVC10-X32 "D:/devevl/Qt/5.0.1/Output/MSVC10-x32")
+# set(QT_ROOT_LOCATION_MSVC11-X64 "D:/devevl/Qt/5.0.1/Output/MSVC-x64")
+# set(QT_ROOT_LOCATION_MSVC11-X32 "D:/devevl/Qt/5.0.1/Output/MSVC-x32")
+# set(QT_ROOT_LOCATION_MINGW-X64 "D:/devevl/Qt/5.0.1/Output/MINGW-x64")
+# set(QT_ROOT_LOCATION_MINGW-X32 "D:/devevl/Qt/5.0.1/Output/MINGW-x32")
+#
+# set(QT_ROOT_LOCATION_GNU-X64 "/~/devevl/Qt/5.0.1/Output/GNU-x64")
+# set(QT_ROOT_LOCATION_GNU-X32 "/~/devevl/Qt/5.0.1/Output/GNU-x32")
+# set(QT_ROOT_LOCATION_CLANG-X64 "/~/devevl/Qt/5.0.1/Output/CLANG-x64")
+
+#------------------------------------------------------------------------------
+# Copy Qt libraries during install (usefull for Windows, to run unit tests)
+# set(QT_COPY_LIBRARIES TRUE)

@@ -39,6 +39,10 @@
 class LOGGING_API NullLogger : public LoggerFacade
 {
 public:
+    /*!
+     * @details
+     * @constructor{LoggerFacade} using "NullLogger" logger name.
+     */
     NullLogger();
 
     /*!

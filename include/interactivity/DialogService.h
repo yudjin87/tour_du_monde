@@ -47,6 +47,11 @@ class INTERACTIVITY_API DialogService : public IDialogService
 {
     Q_OBJECT
 public:
+    /*!
+     * @details
+     * @constructor{DialogService} with specified @a mainWindow as a parent for all dialogs
+     *   and a @a locator for injecting to the model.
+     */
     DialogService(QWidget *mainWindow, IServiceLocator *locator);
     ~DialogService();
 
@@ -86,7 +91,7 @@ protected:
 private:
     /*!
      * @details
-     *    The map between dialog types and their constructors.
+     *   The map between dialog types and their constructors.
      */
     QMap<QString, IDialogConstructor *> m_viewsMap;
 

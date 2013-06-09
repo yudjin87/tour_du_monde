@@ -43,8 +43,8 @@
 #include <interactivity/ToolBase.h>
 #include <interactivity/ToolBarCatalog.h>
 
-#include <QtGui/QMainWindow>
-#include <QtGui/QMenuBar>
+#include <QtWidgets/QMainWindow>
+#include <QtWidgets/QMenuBar>
 #include <QtTest/QTest>
 
 #include <memory>

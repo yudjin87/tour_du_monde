@@ -26,14 +26,14 @@
 
 #include "ToolBarCatalog.h"
 
-#include <QtGui/QAction>
-#include <QtGui/QMainWindow>
-#include <QtGui/QToolBar>
+#include <QtWidgets/QAction>
+#include <QtWidgets/QMainWindow>
+#include <QtWidgets/QToolBar>
 #include <QtCore/QtAlgorithms>
 
 //------------------------------------------------------------------------------
-ToolBarCatalog::ToolBarCatalog(QMainWindow &shell)
-    : m_shell(shell)
+ToolBarCatalog::ToolBarCatalog(QMainWindow &mainWindow)
+    : m_mainWindow(mainWindow)
 {
 }
 
@@ -116,7 +116,7 @@ QToolBar *ToolBarCatalog::createToolbar(Qt::ToolBarArea area, const QString &tit
     newToolBar->setObjectName(title);
 
     m_toolbars.push_back(newToolBar);
-    m_shell.addToolBar(area, newToolBar);
+    m_mainWindow.addToolBar(area, newToolBar);
 
     return newToolBar;
 }

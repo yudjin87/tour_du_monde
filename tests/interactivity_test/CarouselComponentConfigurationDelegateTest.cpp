@@ -39,7 +39,7 @@
 #include <interactivity/IMenuCatalog.h>
 #include <interactivity/IToolBarCatalog.h>
 
-#include <QtGui/QMainWindow>
+#include <QtWidgets/QMainWindow>
 #include <QtTest/QtTest>
 
 //------------------------------------------------------------------------------

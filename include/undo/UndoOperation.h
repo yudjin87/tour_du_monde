@@ -31,13 +31,33 @@
 
 class QAction;
 
+/*!
+ * @brief
+ *   The UndoOperation class is a wrapper for the undo action of QUndoStack.
+ * @details
+ *   A wrapping is needed for access undo action as Operation sub-class to show it,
+ *   for example, in the customization dialog.
+ */
 class UndoOperation : public Operation
 {
     Q_OBJECT
 public:
+    /*!
+     * @details
+     * @constructor{UndoOperation}.
+     */
     UndoOperation();
 
+    /*!
+     * @details
+     *   Calls wrapped action for undo.
+     */
     void execute();
+
+    /*!
+     * @details
+     *   Retrieves a wrapped action from the QUndoStack.
+     */
     void initialize(IServiceLocator *serviceLocator);
 
 private slots:

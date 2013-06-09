@@ -49,7 +49,7 @@ class INTERACTIVITY_API Catalogs : public ICatalogs
 public:
     /*!
      * @details
-     *   Initializes a new instance of the Catalogs class with main window.
+     * @constructor{Catalogs} with main window.
      *   This main window will be used for ToolBarCatalog creation and
      *   for the MenuCatalog creation. Note, that MenuCatalog requires
      *   that QMenuBar has been added to the specified QMainWindow.

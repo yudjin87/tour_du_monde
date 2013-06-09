@@ -46,6 +46,11 @@ class INTERACTIVITY_API MenuCatalog : public IMenuCatalog
 {
     Q_OBJECT
 public:
+    /*!
+     * @details
+     * @constructor{MenuCatalog} with specified @a menuBar where
+     *   menus will be added.
+     */
     MenuCatalog(QMenuBar &menuBar);
     ~MenuCatalog();
 

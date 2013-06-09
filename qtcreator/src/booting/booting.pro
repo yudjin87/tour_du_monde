@@ -1,7 +1,7 @@
 include (../../carousel.pri)
 include (booting.pri)
 
-QT      += gui
+QT      += widgets
 
 TEMPLATE = lib
 

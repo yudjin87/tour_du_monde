@@ -51,7 +51,7 @@ class INTERACTIVITY_API IComponentConfigurationDelegate : public QObject
     Q_OBJECT
 public:
     IComponentConfigurationDelegate(){}
-    virtual ~IComponentConfigurationDelegate(){}
+    ~IComponentConfigurationDelegate(){}
 
 public slots:
     /*!
@@ -80,6 +80,9 @@ public slots:
      *   by this delegate.
      */
     virtual const ConfigurationChanges *changesByComponent(IComponent *component) const = 0;
+
+private:
+    Q_DISABLE_COPY(IComponentConfigurationDelegate)
 };
 
 #endif // ICOMPONENTCONFIGURATIONDELEGATE_H

@@ -18,7 +18,7 @@ set(__OTHER_FILES
 )
 
 # Qt generated files
-qt4_wrap_cpp(__HEADERS_MOC ${__HEADERS})
+qt5_wrap_cpp(__HEADERS_MOC ${__HEADERS})
 
 ######################################################################
 # Group sources into IDE's filters

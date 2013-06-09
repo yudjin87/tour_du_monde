@@ -1,6 +1,6 @@
 include(../shared.pri)
 
-QT       += core gui
+QT       += core widgets
 
 TARGET = Display
 

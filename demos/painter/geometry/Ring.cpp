@@ -27,7 +27,7 @@
 #include "Ring.h"
 #include "Segment.h"
 
-#include <QtGui/QGraphicsItemGroup>
+#include <QtWidgets/QGraphicsItemGroup>
 
 //------------------------------------------------------------------------------
 Ring::Ring()

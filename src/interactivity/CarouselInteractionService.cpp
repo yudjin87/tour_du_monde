@@ -37,7 +37,7 @@
 #include <utils/ObservableList.h>
 
 #include <QtCore/QSettings>
-#include <QtGui/QMainWindow>
+#include <QtWidgets/QMainWindow>
 
 //------------------------------------------------------------------------------
 namespace

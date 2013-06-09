@@ -60,6 +60,10 @@
 class LOGGING_API LoggerFacade
 {
 public:
+    /*!
+     * @details
+     * @constructor{LoggerFacade} using specified logger name.
+     */
     LoggerFacade(const QString &name);
     virtual ~LoggerFacade();
 
@@ -155,6 +159,10 @@ public:
     const QString &name() const;
 
 protected:
+    /*!
+     * @details
+     * @constructor{LoggerFacade} using specified logger engine and empty name.
+     */
     LoggerFacade(LoggerFacade *engine);
 
 private:

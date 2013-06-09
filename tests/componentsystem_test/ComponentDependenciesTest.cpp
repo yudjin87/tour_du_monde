@@ -178,8 +178,8 @@ void ComponentDependenciesTest::shouldCompleteListWithChild()
     QVERIFY(components.indexOf(componentB) < components.indexOf(componentC));
 
     // E and D components should not been passed
-    QCOMPARE(components.contains(componentD), QBool(false));
-    QCOMPARE(components.contains(componentE), QBool(false));
+    QCOMPARE(components.contains(componentD), false);
+    QCOMPARE(components.contains(componentE), false);
 
     QVERIFY(!result.hasCyclicDependencies());
 }
@@ -304,9 +304,9 @@ void ComponentDependenciesTest::shouldCompleteListWithTheirParents()
     QVERIFY(childrenAndParent.indexOf(componentD) < childrenAndParent.indexOf(componentC));
 
     // A and B components should not been passed
-    QCOMPARE(childrenAndParent.contains(componentA), QBool(false));
-    QCOMPARE(childrenAndParent.contains(componentB), QBool(false));
-    QCOMPARE(childrenAndParent.contains(independentComponent.get()), QBool(false));
+    QCOMPARE(childrenAndParent.contains(componentA), false);
+    QCOMPARE(childrenAndParent.contains(componentB), false);
+    QCOMPARE(childrenAndParent.contains(independentComponent.get()), false);
 
     QVERIFY(!result.hasCyclicDependencies());
 }
@@ -368,7 +368,7 @@ void ComponentDependenciesTest::shouldCompleteListWithParentsTransitively()
     QCOMPARE(comps.size(), 3); // C, N and A
 
     // Zero should not been passed
-    QCOMPARE(comps.contains(componentZero), QBool(false));
+    QCOMPARE(comps.contains(componentZero), false);
 
     QVERIFY(comps.indexOf(componentN) < comps.indexOf(componentA));
     QVERIFY(comps.indexOf(componentA) < comps.indexOf(componentC));
@@ -406,8 +406,8 @@ void ComponentDependenciesTest::shouldNotAddExtraParentsToCompletedList()
     QCOMPARE(comps.size(), 2); // Only N and A
 
     // Zero and C components should not been passed
-    QCOMPARE(comps.contains(componentZero), QBool(false));
-    QCOMPARE(comps.contains(componentC), QBool(false));
+    QCOMPARE(comps.contains(componentZero), false);
+    QCOMPARE(comps.contains(componentC), false);
 
     QVERIFY(comps.indexOf(componentN) < comps.indexOf(componentA));
 
@@ -440,8 +440,8 @@ void ComponentDependenciesTest::shouldCompleteListWithTheirParent()
     QVERIFY(comps.indexOf(componentD) < comps.indexOf(componentC));
 
     // A and B components should not been passed
-    QCOMPARE(comps.contains(componentA), QBool(false));
-    QCOMPARE(comps.contains(componentB), QBool(false));
+    QCOMPARE(comps.contains(componentA), false);
+    QCOMPARE(comps.contains(componentB), false);
 
     QVERIFY(!result.hasCyclicDependencies());
 }

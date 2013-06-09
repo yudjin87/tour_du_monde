@@ -37,7 +37,7 @@
 
 #include <QtCore/QDir>
 #include <QtCore/QSettings>
-#include <QtGui/QApplication>
+#include <QtWidgets/QApplication>
 #include <QtTest/QTest>
 #include <QtTest/QSignalSpy>
 

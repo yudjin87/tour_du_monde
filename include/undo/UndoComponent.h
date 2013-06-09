@@ -33,14 +33,24 @@
 
 /*!
  * @brief
+ *   This class represents a component, that provides undo facilities.
  * @details
+ *   The UndoComponent creates and registers QUndoStack as a service in the service locator.
+ *   It is also has an IInteractiveExtension extension, that adds undo buttons to the menu and toolbar.
+ *
  *   Registered services:
  * @li QUndoStack;
+ *
+ * @sa UndoInteractiveExtension
  */
 class UNDO_API UndoComponent : public BaseComponent
 {
     Q_OBJECT
 public:
+    /*!
+     * @details
+     * @constructor{UndoComponent} and also registers UndoInteractiveExtension.
+     */
     UndoComponent(QObject *parent = nullptr);
     ~UndoComponent();
 
@@ -59,6 +69,9 @@ protected:
      *   Otherwise, return @a true.
      */
     bool onStartup(IServiceLocator *serviceLocator);
+
+private:
+    Q_DISABLE_COPY(UndoComponent)
 };
 
 #endif // UNDOCOMPONENT_H

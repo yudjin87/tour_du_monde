@@ -26,7 +26,7 @@
 
 #include "Segment.h"
 
-#include <QtGui/QGraphicsPolygonItem>
+#include <QtWidgets/QGraphicsPolygonItem>
 
 //------------------------------------------------------------------------------
 Segment::Segment()

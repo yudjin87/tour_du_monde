@@ -33,10 +33,10 @@
 #include <utils/ObservableList.h>
 #include <utils/IServiceLocator.h>
 
-#include <QtGui/QFileDialog>
 #include <QtGui/QIcon>
-#include <QtGui/QMainWindow>
-#include <QtGui/QUndoStack>
+#include <QtWidgets/QFileDialog>
+#include <QtWidgets/QMainWindow>
+#include <QtWidgets/QUndoStack>
 
 //------------------------------------------------------------------------------
 ComponentDefinitionsModel::ComponentDefinitionsModel(const ObservableList<IComponent *> &components, QObject *parent)
@@ -190,7 +190,7 @@ void ComponentDefinitionsModel::onInstall()
 {
     QFileDialog fileDialog(m_locator->locate<QMainWindow>(), "Install component");
     fileDialog.setFileMode(QFileDialog::ExistingFiles);
-    fileDialog.setFilter("Components (*.definition)"); // TODO: get from the app settings
+    fileDialog.setNameFilter("Components (*.definition)"); // TODO: get from the app settings
     if (!fileDialog.exec())
         return;
 

@@ -28,7 +28,7 @@
 
 #include <utils/IServiceLocator.h>
 
-#include <QtGui/QUndoStack>
+#include <QtWidgets/QUndoStack>
 
 //------------------------------------------------------------------------------
 RedoOperation::RedoOperation()
@@ -37,6 +37,7 @@ RedoOperation::RedoOperation()
 {
     setIcon(QIcon(":/undo/images/redo.png"));
     setIconVisibleInMenu(true);
+    setShortcut(QKeySequence("Ctrl+Y"));
 }
 
 //------------------------------------------------------------------------------

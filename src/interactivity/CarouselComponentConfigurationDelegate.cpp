@@ -38,8 +38,8 @@
 #include <componentsystem/IComponent.h>
 #include <logging/LoggerFacade.h>
 
-#include <QtGui/QAction>
-#include <QtGui/QMenu>
+#include <QtWidgets/QAction>
+#include <QtWidgets/QMenu>
 
 #include <QtCore/QSettings>
 

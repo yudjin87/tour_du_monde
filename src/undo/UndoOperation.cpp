@@ -28,7 +28,7 @@
 
 #include <utils/IServiceLocator.h>
 
-#include <QtGui/QUndoStack>
+#include <QtWidgets/QUndoStack>
 
 //------------------------------------------------------------------------------
 UndoOperation::UndoOperation()
@@ -37,6 +37,7 @@ UndoOperation::UndoOperation()
 {
     setIcon(QIcon(":/undo/images/undo.png"));
     setIconVisibleInMenu(true);
+    setShortcut(QKeySequence("Ctrl+Z"));
 }
 
 //------------------------------------------------------------------------------

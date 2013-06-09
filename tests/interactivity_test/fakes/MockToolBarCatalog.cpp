@@ -35,7 +35,7 @@ MockToolBarCatalog::MockToolBarCatalog(QMainWindow &shell)
 //------------------------------------------------------------------------------
 QMainWindow &MockToolBarCatalog::getShell()
 {
-    return m_shell;
+    return m_mainWindow;
 }
 
 //------------------------------------------------------------------------------

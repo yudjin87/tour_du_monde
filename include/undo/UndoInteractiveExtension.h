@@ -31,14 +31,29 @@
 
 #include <QtCore/QObject>
 
+/*!
+ * @brief
+ *   This interactivity extension registers undo and redo operations in the UI.
+ * @details
+ *   It adds undo/redo buttons to the menu and toolbar under the "Edit" category.
+ */
 class UndoInteractiveExtension : public QObject, public IInteractiveExtension
 {
     Q_OBJECT
 public:
+    /*!
+     * @details
+     * @constructor{UndoComponent}.
+     */
     UndoInteractiveExtension(QObject *parent = nullptr);
 
+    /*!
+     * @details
+     *   Adds undo/redo buttons to the menu and toolbar under the "Edit" category.
+     *
+     * @sa UndoOperation, RedoOperation
+     */
     void configureGui(ICatalogs &inCatalogs, IServiceLocator *serviceLocator);
 };
-
 
 #endif // UNDOINTERACTIVEEXTENSION_H

@@ -51,6 +51,10 @@ class INTERACTIVITY_API InteractionServiceComponent : public BaseComponent
 {
     Q_OBJECT
 public:
+    /*!
+     * @details
+     * @constructor{InteractionServiceComponent}.
+     */
     InteractionServiceComponent(QObject *parent = nullptr);
     ~InteractionServiceComponent();
 

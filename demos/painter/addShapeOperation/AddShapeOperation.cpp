@@ -29,9 +29,9 @@
 
 #include <utils/IServiceLocator.h>
 
-#include <QtGui/QFileDialog>
-#include <QtGui/QMainWindow>
-#include <QtGui/QUndoStack>
+#include <QtWidgets/QFileDialog>
+#include <QtWidgets/QMainWindow>
+#include <QtWidgets/QUndoStack>
 
 //------------------------------------------------------------------------------
 AddShapeOperation::AddShapeOperation()
@@ -46,7 +46,7 @@ AddShapeOperation::AddShapeOperation()
 void AddShapeOperation::execute()
 {
     QFileDialog fileDialog(m_serviceLocator->locate<QMainWindow>(), "Open shape");
-    fileDialog.setFilter("Shape Files (*.shp)");
+    fileDialog.setNameFilter("Shape Files (*.shp)");
     fileDialog.setFileMode(QFileDialog::ExistingFiles);
     if (!fileDialog.exec())
         return;
