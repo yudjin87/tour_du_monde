@@ -47,12 +47,14 @@ void InstallComponentsOperation::execute()
 {
     QFileDialog fileDialog(m_serviceLocator->locate<QMainWindow>(), "Install component");
     fileDialog.setFileMode(QFileDialog::ExistingFiles);
-    fileDialog.selectNameFilter("Components (*.definition)"); // TODO: get from the app settings
+    fileDialog.setNameFilter("Components (*.definition)"); // TODO: get from the app settings
     if (!fileDialog.exec())
         return;
 
+    QFileInfo selectedFile(fileDialog.selectedFiles().first());
+
     InstallComponentsCommand* command = m_serviceLocator->buildInstance<InstallComponentsCommand>();
-    command->setSourceDirectoryPath(fileDialog.directory().absolutePath());
+    command->setSourceDirectoryPath(selectedFile.absolutePath());
 
     foreach(const QString &fileName, fileDialog.selectedFiles())
         command->addDefinitionPath(fileName);
