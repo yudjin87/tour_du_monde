@@ -194,8 +194,10 @@ void ComponentDefinitionsModel::onInstall()
     if (!fileDialog.exec())
         return;
 
+    QFileInfo selectedFile(fileDialog.selectedFiles().first());
+
     InstallComponentsCommand* command = m_locator->buildInstance<InstallComponentsCommand>();
-    command->setSourceDirectoryPath(fileDialog.directory().absolutePath());
+    command->setSourceDirectoryPath(selectedFile.absolutePath());
 
     foreach(const QString &fileName, fileDialog.selectedFiles())
         command->addDefinitionPath(fileName);
