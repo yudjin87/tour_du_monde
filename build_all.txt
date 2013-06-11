@@ -14,9 +14,11 @@
 # you should specify path to the MinGW Qt:
 #
 #     cmake -DMINGW=TRUE -P build_all.txt
-#     QTDIR=/d/Qt/4.8.4-mingw-x64
+#     QTDIR=/d/Qt/5.0.2-mingw-x64
 #
-# Note, this module does not generate IDE projects
+# Or, if you want to specify path to the Qt5, see user_settings.cmake.template file
+# for available variables.
+
 include(cmake/build_utils.cmake)
 
 ###############################################################################

@@ -1,21 +1,34 @@
-########################################################################################
-# Finds Qt5 include directories, plugins and libraries
+###############################################################################
+# This module finds Qt5 stuff depending on the platform, because Qt5 has different
+# structure for different platforms. E.g., it is possible to build both debug
+# and release build of Qt5 on MacOS and Windows, but not on Linux. On Linux you
+# should build debug and release in the separate directories, because Qt5 CMake files
+# for release and for debug will be different on Linux, e.g. on Windows there are two
+# configurations (Qt5CoreConfig.cmake):
+#     _populate_imported_target_properties(DEBUG "Qt5Cored.dll" "Qt5Cored.lib" )
+#     _populate_imported_target_properties(RELEASE "Qt5Core.dll" "Qt5Core.lib" )
+# but on Linux only one:
+#     _populate_imported_target_properties(DEBUG "Qt5Core.5.0.so")
+# or
+#     _populate_imported_target_properties(RELEASE "Qt5Core.5.0.so")
 
+########################################################################################
+# List of Qt5 modules carousel is dependent on
+set(__LIBRARIES_BASENAME
+    Core
+    Gui
+    Widgets
+    Test
+    Xml)
+
+########################################################################################
+# Format name for the external variable, which contains path to the Qt5 directory.
+# See user_settings.cmake.template to find all variables.
 string(TOUPPER ${CRSL_COMPILER}-x${CRSL_TARGET_PLATFORM_BITS} __COMPILER)
 set(__QT_ROOT_DIR ${QT_ROOT_LOCATION_${__COMPILER}})
 
-if(WIN32)
-    set(__DEBUG_SUFFIX "d")
-    set(__PLATFORM_PLUGIN "qwindows")
-elseif(APPLE)
-    set(__DEBUG_SUFFIX "_debug")
-    set(__PLATFORM_PLUGIN "qcocoa")
-else() # linux
-    set(__DEBUG_SUFFIX "")
-    set(__PLATFORM_PLUGIN "qlinuxfb")
-endif(WIN32)
-
 if("${QT_ROOT_LOCATION_${__COMPILER}}" STREQUAL "")
+    message(STATUS "The QT_ROOT_LOCATION_${__COMPILER} variable was not found, use environment variable QTDIR")
     set(__QT_ROOT_DIR $ENV{QTDIR})
 else()
     set(ENV{CMAKE_PREFIX_PATH} ${__QT_ROOT_DIR})
@@ -24,74 +37,33 @@ endif()
 
 message(STATUS "Qt directory: " ${__QT_ROOT_DIR})
 
-
 ########################################################################################
-# Find runtime libraries which will be copied during install.
-# I don't use qt5_use_modules() function because I have to
-# handle Qt runtime libraries manualy, copying them to the output directory.
-# It allows to run executables right from the directory at least for Windows.
-# For MacOS you still have to set up Working Directory.
-set(__LIBRARIES_BASENAME
-    Core
-    Gui
-    Widgets
-    Test
-    Xml)
+# Shared functions that are used for all platforms:
 
-foreach(__LIB_BASENAME ${__LIBRARIES_BASENAME})
-  find_package(Qt5${__LIB_BASENAME} REQUIRED)
-
-  # map debug-static and release-static configurations
-  set_target_properties(Qt5::${__LIB_BASENAME} PROPERTIES MAP_IMPORTED_CONFIG_RELEASE-STATIC "RELEASE")
-  set_target_properties(Qt5::${__LIB_BASENAME} PROPERTIES MAP_IMPORTED_CONFIG_DEBUG-STATIC "DEBUG")
-
-  # get run-time libraries path (they will be copied for Windows and for MacOS bundle)
-  get_target_property(Qt5_${__LIB_BASENAME}_RUNTIME_DEBUG Qt5::${__LIB_BASENAME} "IMPORTED_LOCATION_DEBUG")
-  get_target_property(Qt5_${__LIB_BASENAME}_RUNTIME_RELEASE Qt5::${__LIB_BASENAME} "IMPORTED_LOCATION_RELEASE")
-
-  # get full path
-  get_filename_component(Qt5_${__LIB_BASENAME}_RUNTIME_DEBUG ${Qt5_${__LIB_BASENAME}_RUNTIME_DEBUG} REALPATH)
-  get_filename_component(Qt5_${__LIB_BASENAME}_RUNTIME_RELEASE ${Qt5_${__LIB_BASENAME}_RUNTIME_RELEASE} REALPATH)
-
-  if(DEBUG_VERBOSITY)
-    message(STATUS "Qt${__LIB_BASENAME}: " ${Qt5_${__LIB_BASENAME}_RUNTIME_DEBUG})
-    message(STATUS "Qt${__LIB_BASENAME}: " ${Qt5_${__LIB_BASENAME}_RUNTIME_RELEASE})
-  endif()
-
-  list(APPEND __Qt5_all_RUNTIMES_DEBUG ${Qt5_${__LIB_BASENAME}_RUNTIME_DEBUG})
-  list(APPEND __Qt5_all_RUNTIMES_RELEASE ${Qt5_${__LIB_BASENAME}_RUNTIME_RELEASE})
-endforeach()
-
-########################################################################################
-# Set include path
-set(Qt5_RUNTIME_LIBRARY_DIRS "${__QT_ROOT_DIR}/lib")
-set(Qt5_INCLUDE_DIRS "${__QT_ROOT_DIR}/include")
-set(Qt5_PLUGINS_DIRS "${__QT_ROOT_DIR}/plugins")
-if(DEBUG_VERBOSITY)
-  message(STATUS "Qt includes: " ${Qt5_INCLUDE_DIRS})
-endif()
-
-#########################################################################################
-# Copy DLLs to be enable start executables right from directory (if QTDIR
-if(QT_COPY_LIBRARIES)
-    ########################################################################################
-    # Find plugins which will be copied during install
-    set(__Qt5_PLUGINS_DEBUG
-        ${Qt5_PLUGINS_DIRS}/platforms/${CMAKE_SHARED_LIBRARY_PREFIX}${__PLATFORM_PLUGIN}${__DEBUG_SUFFIX}${CMAKE_SHARED_LIBRARY_SUFFIX})
-
-    set(__Qt5_PLUGINS_RELEASE
-        ${Qt5_PLUGINS_DIRS}/platforms/${CMAKE_SHARED_LIBRARY_PREFIX}${__PLATFORM_PLUGIN}${CMAKE_SHARED_LIBRARY_SUFFIX})
-
-    ########################################################################################
-    # macdeployqt is used on Apple to copy all Qt libraries
-    if(NOT APPLE)
-        crsl_set_files_to_copy_on_install("${__Qt5_all_RUNTIMES_DEBUG}" "${__Qt5_all_RUNTIMES_RELEASE}" "${CAROUSEL_WD}/product" "${CRSL_COMPILER}" "-x${CRSL_TARGET_PLATFORM_BITS}" bin)
-        crsl_set_files_to_copy_on_install("${__Qt5_PLUGINS_DEBUG}" "${__Qt5_PLUGINS_RELEASE}" "${CAROUSEL_WD}/product" "${CRSL_COMPILER}" "-x${CRSL_TARGET_PLATFORM_BITS}" bin/platforms)
-
-        # Copy to unit tests
-        crsl_set_files_to_copy_on_install("${__Qt5_all_RUNTIMES_DEBUG}" "${__Qt5_all_RUNTIMES_RELEASE}" "${CAROUSEL_WD}/product" "${CRSL_COMPILER}" "-x${CRSL_TARGET_PLATFORM_BITS}" unittest)
-        crsl_set_files_to_copy_on_install("${__Qt5_PLUGINS_DEBUG}" "${__Qt5_PLUGINS_RELEASE}" "${CAROUSEL_WD}/product" "${CRSL_COMPILER}" "-x${CRSL_TARGET_PLATFORM_BITS}" unittest/platforms)
+function(crsl_qt5_setup_paths)
+    set(Qt5_RUNTIME_LIBRARY_DIRS "${__QT_ROOT_DIR}/lib" PARENT_SCOPE)
+    set(Qt5_INCLUDE_DIRS "${__QT_ROOT_DIR}/include" PARENT_SCOPE)
+    set(Qt5_PLUGINS_DIRS "${__QT_ROOT_DIR}/plugins" PARENT_SCOPE)
+    if(DEBUG_VERBOSITY)
+        message(STATUS "Qt runtime directory: ${__QT_ROOT_DIR}/lib")
+        message(STATUS "Qt includes: ${__QT_ROOT_DIR}/include")
+        message(STATUS "Qt plugin directory: ${__QT_ROOT_DIR}/plugins")
     endif()
+endfunction(crsl_qt5_setup_paths)
+
+########################################################################################
+# Determine build platform
+if(MSVC)
+  message(STATUS "Import Qt5 for the MSVC compiler...")
+  include(cmake/import_qt5_msvc.cmake)
+elseif(MINGW)
+  message(STATUS "Import Qt5 for the MinGW compiler...")
+  include(cmake/import_qt5_mingw.cmake)
+elseif(XCODE_VERSION)
+  message(STATUS "Import Qt5 for the Clang compiler...")
+  include(cmake/import_qt5_clang.cmake)
+elseif(${CMAKE_GENERATOR} MATCHES "Unix Makefiles")
+  message(STATUS "Import Qt5 for the GNU compiler...")
+  include(cmake/import_qt5_gnu.cmake)
 endif()
 
-message(STATUS "Qt5: Found.")
