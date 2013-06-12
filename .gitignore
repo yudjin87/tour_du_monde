@@ -45,3 +45,6 @@ ipch/
 GeneratedFiles/
 
 user_settings.cmake
+
+#KDE dolphin
+.directory
