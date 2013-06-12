@@ -85,9 +85,20 @@ QPainter *SimpleDisplay::startDrawing()
     //m_currentPainter->setWindow(0, 0, width() * m_scale, height() * m_scale);
     //m_currentPainter->setViewport(0, 0, width(), height());
 
-    QTransform viewport(m_scale, 0.0f, 0.0f,
-                        0.0f, m_scale, 0.0f,
-                        -m_extent.left() - horizontalScrollBar()->value(), -m_extent.top() - verticalScrollBar()->value(), 1.0f);
+//    QTransform viewport(
+//                m_scale, 0.0f, 0.0f,
+//                0.0f, m_scale, 0.0f,
+//                -m_extent.left() - horizontalScrollBar()->value(), -m_extent.top() - verticalScrollBar()->value(), 1.0f);
+
+    QTransform viewport;
+    qreal dx = (-m_extent.left() - horizontalScrollBar()->value());
+    qreal dy = (-m_extent.top() - verticalScrollBar()->value());
+
+    viewport.translate((width()) / 2, (height()) / 2);
+    viewport.scale(m_scale, m_scale);
+    viewport.translate((-width()) / 2, (-height()) / 2);
+
+    viewport.translate(dx, dy);
 
     m_currentPainter->setTransform(viewport, false);
     m_currentPainter->setRenderHint(QPainter::NonCosmeticDefaultPen);
@@ -96,6 +107,8 @@ QPainter *SimpleDisplay::startDrawing()
 
     QRectF r = visibleExtent().adjusted(10, 10, -30, -30);
     m_currentPainter->drawRect(r);
+    m_currentPainter->drawEllipse(QPointF(-dx + width()  / 2, -dy + height() / 2), 5, 5);
+    qDebug(QString("Cx: %1; Cy: %2").arg(-dx).arg(-dy).toLatin1());
 
     return m_currentPainter;
 }
@@ -112,11 +125,15 @@ void SimpleDisplay::finishDrawing(QPainter *painter)
 //------------------------------------------------------------------------------
 QRectF SimpleDisplay::visibleExtent() const
 {
-    QTransform viewport(1.0f, 0.0f, 0.0f,
-                        0.0f, 1.0f, 0.0f,
-                        -m_extent.left() - horizontalScrollBar()->value(), -m_extent.top() - verticalScrollBar()->value(), 1.0f);
-
+    QTransform viewport;
+    qreal dx = (-m_extent.left() - horizontalScrollBar()->value());
+    qreal dy = (-m_extent.top() - verticalScrollBar()->value());
+    viewport.translate((width()) / 2, (height()) / 2);
     viewport.scale(m_scale, m_scale);
+    viewport.translate((-width()) / 2, (-height()) / 2);
+
+    viewport.translate(dx, dy);
+
     QTransform transform = viewport.inverted();
 
     QRectF visibleExtent(0, 0, width(), height());
@@ -145,6 +162,7 @@ void SimpleDisplay::setExtent(const QRectF &extent)
     dy -= height();
 
     qDebug(QString("dx: %1; dy: %2").arg(dx).arg(dy).toLatin1());
+    qDebug(QString("left: %1; top: %2").arg(m_extent.left()).arg(m_extent.top()).toLatin1());
 
     verticalScrollBar()->setRange(0, dy);
     horizontalScrollBar()->setRange(0, dx);
