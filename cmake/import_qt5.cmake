@@ -8,34 +8,9 @@
 #     _populate_imported_target_properties(DEBUG "Qt5Cored.dll" "Qt5Cored.lib" )
 #     _populate_imported_target_properties(RELEASE "Qt5Core.dll" "Qt5Core.lib" )
 # but on Linux only one:
-#     _populate_imported_target_properties(DEBUG "Qt5Core.5.0.so")
+#     _populate_Core_target_properties(DEBUG "libQt5Core.so.5.0.2")
 # or
-#     _populate_imported_target_properties(RELEASE "Qt5Core.5.0.so")
-
-########################################################################################
-# List of Qt5 modules carousel is dependent on
-set(__LIBRARIES_BASENAME
-    Core
-    Gui
-    Widgets
-    Test
-    Xml)
-
-########################################################################################
-# Format name for the external variable, which contains path to the Qt5 directory.
-# See user_settings.cmake.template to find all variables.
-string(TOUPPER ${CRSL_COMPILER}-x${CRSL_TARGET_PLATFORM_BITS} __COMPILER)
-set(__QT_ROOT_DIR ${QT_ROOT_LOCATION_${__COMPILER}})
-
-if("${QT_ROOT_LOCATION_${__COMPILER}}" STREQUAL "")
-    message(STATUS "The QT_ROOT_LOCATION_${__COMPILER} variable was not found, use environment variable QTDIR")
-    set(__QT_ROOT_DIR $ENV{QTDIR})
-else()
-    set(ENV{CMAKE_PREFIX_PATH} ${__QT_ROOT_DIR})
-    set(ENV{QTDIR} ${__QT_ROOT_DIR})
-endif()
-
-message(STATUS "Qt directory: " ${__QT_ROOT_DIR})
+#     _populate_Core_target_properties(RELEASE "libQt5Core.so.5.0.2")
 
 ########################################################################################
 # Shared functions that are used for all platforms:
@@ -52,7 +27,16 @@ function(crsl_qt5_setup_paths)
 endfunction(crsl_qt5_setup_paths)
 
 ########################################################################################
-# Determine build platform
+# List of Qt5 modules carousel is dependent on
+set(__LIBRARIES_BASENAME
+    Core
+    Gui
+    Widgets
+    Test
+    Xml)
+
+########################################################################################
+# Include import-script depending on build platform
 if(MSVC)
   message(STATUS "Import Qt5 for the MSVC compiler...")
   include(cmake/import_qt5_msvc.cmake)
