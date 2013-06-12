@@ -48,10 +48,26 @@ AbstractApplication::~AbstractApplication()
 int AbstractApplication::runApplicationLoop(IBootloader &bootloader)
 {
     startLoadingSequence(bootloader);
-
     finishLoadingSequence();
-
     return QApplication::exec();
+}
+
+//------------------------------------------------------------------------------
+void AbstractApplication::shutdownComponentManager(IComponentManager *componentManager)
+{
+    componentManager->shutdown();
+}
+
+//------------------------------------------------------------------------------
+void AbstractApplication::startComponentManager(IComponentManager *componentManager)
+{
+    componentManager->startup();
+}
+
+//------------------------------------------------------------------------------
+void AbstractApplication::showMainWindow(QMainWindow *mainWindow)
+{
+    mainWindow->show();
 }
 
 //------------------------------------------------------------------------------
@@ -66,18 +82,15 @@ void AbstractApplication::startLoadingSequence(IBootloader &bootloader)
 //------------------------------------------------------------------------------
 void AbstractApplication::finishLoadingSequence()
 {
-    IComponentManager *componentManager = m_serviceLocator->locate<IComponentManager>();
-    componentManager->startup();
-
-    QMainWindow *mainWindow = m_serviceLocator->locate<QMainWindow>();
-    mainWindow->show();
+    startComponentManager(m_serviceLocator->locate<IComponentManager>());
+    showMainWindow(m_serviceLocator->locate<QMainWindow>());
 }
 
 //------------------------------------------------------------------------------
 void AbstractApplication::onAboutToQuit()
 {
-    IComponentManager *componentManager = m_serviceLocator->locate<IComponentManager>();
-    componentManager->shutdown();
+    shutdownComponentManager(m_serviceLocator->locate<IComponentManager>());
+    m_serviceLocator = nullptr;
 }
 
 //------------------------------------------------------------------------------
