@@ -112,4 +112,5 @@ Supported compilers (tested ones):
 <li>mingw4.7 x32</li>
 <li>mingw4.7 x64</li>
 <li>gcc-4.7.2 (fresh meat from Debian 7)</li> 
+<li>Clang-4.2 (MacOS 10.7)</li> 
 </ol>
