@@ -47,6 +47,8 @@ foreach(__LIB_BASENAME ${__LIBRARIES_BASENAME})
     message(STATUS "Qt${__LIB_BASENAME}: " ${Qt5_${__LIB_BASENAME}_RUNTIME_RELEASE})
   endif()
 
+  list(APPEND __Qt5_all_RUNTIMES_DEBUG ${Qt5_${__LIB_BASENAME}_RUNTIME_DEBUG})
+  list(APPEND __Qt5_all_RUNTIMES_RELEASE ${Qt5_${__LIB_BASENAME}_RUNTIME_RELEASE})
 endforeach()
 
 ########################################################################################
@@ -63,6 +65,8 @@ if(QT_COPY_LIBRARIES)
 
     set(__Qt5_PLUGINS_RELEASE
         ${Qt5_PLUGINS_DIRS}/platforms/${CMAKE_SHARED_LIBRARY_PREFIX}${__PLATFORM_PLUGIN}${CMAKE_SHARED_LIBRARY_SUFFIX})
+
+    message(STATUS "Creating install target for copying Qt5 libraries and plugins...")
 
     crsl_set_files_to_copy_on_install("${__Qt5_all_RUNTIMES_DEBUG}" "${__Qt5_all_RUNTIMES_RELEASE}" "${CAROUSEL_WD}/product" "${CRSL_COMPILER}" "-x${CRSL_TARGET_PLATFORM_BITS}" bin)
     crsl_set_files_to_copy_on_install("${__Qt5_PLUGINS_DEBUG}" "${__Qt5_PLUGINS_RELEASE}" "${CAROUSEL_WD}/product" "${CRSL_COMPILER}" "-x${CRSL_TARGET_PLATFORM_BITS}" bin/platforms)
