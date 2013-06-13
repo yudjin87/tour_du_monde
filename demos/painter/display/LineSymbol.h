@@ -49,14 +49,14 @@ public:
     QColor color() const;
     void setColor(const QColor &color);
 
-    double width() const;
-    void setWidth(double width);
+    qreal width() const;
+    void setWidth(qreal width);
 
 protected:
     explicit LineSymbol(QObject *parent = 0);
 
 private:
-    double m_width;
+    qreal m_width;
     QColor m_color;
 };
 

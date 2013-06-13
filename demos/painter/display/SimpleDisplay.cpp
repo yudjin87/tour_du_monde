@@ -179,6 +179,7 @@ void SimpleDisplay::setScale(double scale)
 {
     m_scale = scale;
     setExtent(extent());
+    qDebug(QString("scale: %1;").arg(scale).toLatin1());
     emit needChange();
 }
 

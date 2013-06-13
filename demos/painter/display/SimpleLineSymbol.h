@@ -29,14 +29,34 @@
 
 #include "display/LineSymbol.h"
 
+#include <QtGui/QPen>
+
 class DISPLAY_API SimpleLineSymbol : public LineSymbol
 {
     Q_OBJECT
+    /*!
+     * @details
+     *   Gets or sets the style of the line symbol.
+     */
+    Q_PROPERTY(Qt::PenStyle style READ style WRITE setStyle)
+
 public:
     explicit SimpleLineSymbol(QObject *parent = 0);
 
+    /*!
+     * @details
+     *   Prepares the display for drawing the symbol by setting pen.
+     */
+    void setupDisplay(IDisplay *display);
+
+    Qt::PenStyle style() const;
+    void setStyle(Qt::PenStyle style);
+
 protected:
     void drawPolyline(const Polyline &polyline, QPainter &painter);
+
+private:
+    QPen m_pen;
 };
 
 #endif // SIMPLELINESYMBOL_H
