@@ -1,4 +1,4 @@
- <component name="Geodatabase">
+ <component name="Geodatabase" shortName="Geodatabase">
      <productName>Geodatabase</productName>
      <provider>Carousel</provider>
      <location>./Geodatabase</location>

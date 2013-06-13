@@ -43,8 +43,8 @@ private slots:
     void shouldReturnFalseIfRootTagIsWrong();
     void shouldReturnFalseIfComponentNameAttrIsWrong();
     void shouldReturnFalseIfComponentNameAttrIsEmpty();
-    void shouldReturnFalseIfComponentIdAttrIsWrong();
-    void shouldReturnFalseIfComponentIdAttrIsEmpty();
+    void shouldNotReturnFalseIfShortNameAttrIsWrong();
+    void shouldNotReturnFalseIfShortNameAttrIsEmpty();
 
 private:
     static const QByteArray simpleXml;
@@ -53,8 +53,8 @@ private:
     static const QByteArray wrongRootTagXml;
     static const QByteArray wrongComponentNameAttrXml;
     static const QByteArray emptyComponentNameAttrXml;
-    static const QByteArray wrongComponentIdAttrXml;
-    static const QByteArray emptyComponentIdAttrXml;
+    static const QByteArray wrongComponentShortNameAttrXml;
+    static const QByteArray emptyComponentShortNameAttrXml;
 
 };
 

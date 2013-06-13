@@ -9,7 +9,7 @@
 FakeDefinitionParser::FakeDefinitionParser()
     : QObject()
     , m_componentName("TestComponent2")
-    , m_componentId("org.test.TestComponent2")
+    , m_shortName("")
     , m_componentLocation("")
     , m_description("")
     , m_productName("")
@@ -57,9 +57,9 @@ const QString &FakeDefinitionParser::componentName() const
     return m_componentName;
 }
 
-const QString &FakeDefinitionParser::componentId() const
+const QString &FakeDefinitionParser::componentShortName() const
 {
-    return m_componentId;
+    return m_shortName;
 }
 
 //------------------------------------------------------------------------------

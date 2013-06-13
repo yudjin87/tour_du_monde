@@ -70,6 +70,7 @@ static const QByteArray description(
 ComponentSystemUIComponent::ComponentSystemUIComponent(QObject *parent)
     : BaseComponent("ComponentSystemUI", parent)
 {
+    setShortName("Component System UI");
     setProductName("ComponentSystemUI");
     setDescription(description);
     setProvider("Carousel");

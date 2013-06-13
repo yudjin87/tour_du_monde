@@ -1,4 +1,4 @@
- <component name="ComponentManagement">
+ <component name="ComponentManagement" shortName="Component Management">
      <productName>ComponentManagement</productName>
      <provider>Carousel</provider>
      <location>./ComponentManagement</location>

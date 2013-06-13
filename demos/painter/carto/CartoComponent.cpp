@@ -40,6 +40,7 @@ CartoComponent::CartoComponent()
     addParent("Display");
     addParent("Geodatabase");
     addParent("Geometry");
+    setShortName("Carto");
     setProductName(productName);
     setProvider("Carousel");
 }

@@ -1,4 +1,4 @@
- <component name="CartoUI">
+ <component name="CartoUI" shortName="Carto UI">
      <productName>CartoUI</productName>
      <provider>Carousel</provider>
      <location>./CartoUI</location>

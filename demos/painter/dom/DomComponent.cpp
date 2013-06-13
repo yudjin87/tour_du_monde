@@ -41,6 +41,7 @@ DomComponent::DomComponent()
 {
     addParent("Display");
     addParent("Carto");
+    setShortName("Dom");
     setProductName(productName);
     setProvider("Carousel");
 }

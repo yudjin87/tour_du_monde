@@ -1,4 +1,4 @@
- <component name="Dom">
+ <component name="Dom" shortName="Dom">
      <productName>Dom</productName>
      <provider>Carousel</provider>
      <location>./Dom</location>

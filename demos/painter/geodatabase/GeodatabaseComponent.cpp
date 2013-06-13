@@ -49,6 +49,7 @@ GeodatabaseComponent::GeodatabaseComponent()
     : BaseComponent("Geodatabase")
 {
     addParent("Geometry");
+    setShortName("Geodatabase");
     setProductName(productName);
     setProvider("Carousel");
 }

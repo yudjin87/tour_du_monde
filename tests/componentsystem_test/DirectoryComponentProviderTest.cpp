@@ -92,7 +92,7 @@ void DirectoryComponentProviderTest::update_shouldPopulateOnlyWithNewComponents(
     // Discover first two components
     provider.initialize();
 
-    QString newComponentDef = "<component id=\"org.test.TestComponent2\" name=\"TestComponent2\"></component>";
+    QString newComponentDef = "<component name=\"TestComponent2\"></component>";
     QFile newComponentFile(definitionsLocation + "/NewComponent.definition");
     QVERIFY(newComponentFile.open(QIODevice::WriteOnly));
     newComponentFile.write(newComponentDef.toLatin1());
@@ -113,7 +113,7 @@ void DirectoryComponentProviderTest::update_shouldReturnOnlyNewComponents()
     // Discover first two components
     provider.initialize();
 
-    QString newComponentDef = "<component id=\"org.test.TestComponent2\" name=\"TestComponent2\"></component>";
+    QString newComponentDef = "<component name=\"TestComponent2\"></component>";
     QFile newComponentFile(definitionsLocation + "/NewComponent.definition");
     QVERIFY(newComponentFile.open(QIODevice::WriteOnly));
     newComponentFile.write(newComponentDef.toLatin1());

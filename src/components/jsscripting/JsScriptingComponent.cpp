@@ -46,6 +46,7 @@ static const QByteArray description(
 JsScriptingComponent::JsScriptingComponent(QObject *parent)
     : BaseComponent("JsScripting", parent)
 {
+    setShortName("JsScripting");
     setProductName("JsScripting");
     setDescription(description);
     setProvider("Carousel");

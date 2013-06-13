@@ -214,6 +214,12 @@ protected:
 
     /*!
      * @details
+     *   Sets the short component name.
+     */
+    void setShortName(const QString &name);
+
+    /*!
+     * @details
      *   Sets the product name.
      */
     void setProductName(const QString &productName);

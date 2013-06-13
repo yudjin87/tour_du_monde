@@ -1,4 +1,4 @@
- <component name="ComponentSystemUI">
+ <component name="ComponentSystemUI" shortName="Component System UI">
      <productName>ComponentSystemUI</productName>
      <provider>Carousel</provider>
      <description>

@@ -45,6 +45,7 @@ NavigationOperationsComponent::NavigationOperationsComponent(QObject *parent /*=
     addParent("Display");
     addParent("Carto");
     addParent("AddShapeOperation");
+    setShortName("Navigation Operations");
     setProductName(productName);
     setProvider("Carousel");
 }

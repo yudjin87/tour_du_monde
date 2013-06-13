@@ -1,4 +1,4 @@
- <component name="Undo">
+ <component name="Undo" shortName="Undo">
      <productName>Undo</productName>
      <provider>Carousel</provider>
      <parents>

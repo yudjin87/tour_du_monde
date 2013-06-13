@@ -39,7 +39,7 @@ static LoggerFacade Log = LoggerFacade::createLogger("XmlDefinitionParser");
 
 //------------------------------------------------------------------------------
 static const char *COMPONENT_NAME_ATTRIBUTE = "name";
-static const char *COMPONENT_ID_ATTRIBUTE = "id";
+static const char *COMPONENT_SHORT_NAME_ATTRIBUTE = "shortName";
 static const char *PARENT_COMPONENT_NAME_ATTRIBUTE = "name";
 
 static const char *COMPONENT_TAG = "component";
@@ -54,7 +54,7 @@ static const char *PARENTS_TAG = "parents";
 XmlDefinitionParser::XmlDefinitionParser(QObject *parent)
     : QObject(parent)
     , m_componentName("")
-    , m_componentId("")
+    , m_shortName("")
     , m_componentLocation("")
     , m_description("")
     , m_productName("")
@@ -116,9 +116,9 @@ bool XmlDefinitionParser::read(QIODevice *dev)
 }
 
 //------------------------------------------------------------------------------
-const QString &XmlDefinitionParser::componentId() const
+const QString &XmlDefinitionParser::componentShortName() const
 {
-    return m_componentId;
+    return m_shortName;
 }
 
 //------------------------------------------------------------------------------
@@ -167,19 +167,6 @@ bool XmlDefinitionParser::parseXml(QDomDocument &document)
         return false;
     }
 
-    if (!root.hasAttribute(COMPONENT_ID_ATTRIBUTE)){
-        m_error = QString("Component Id attribute is wrong. \"%1\" is expected").arg(COMPONENT_ID_ATTRIBUTE);
-        Log.e(QString("Error during definition parsing. %1").arg(m_error));
-        return false;
-    }
-
-    m_componentId = root.attribute(COMPONENT_ID_ATTRIBUTE).trimmed();
-    if (m_componentId.isEmpty()){
-        m_error = "Component Id is empty";
-        Log.e(QString("Error during definition parsing. %1").arg(m_error));
-        return false;
-    }
-
     if (!root.hasAttribute(COMPONENT_NAME_ATTRIBUTE)){
         m_error = QString("Component name attribute is wrong. \"%1\" is expected").arg(COMPONENT_NAME_ATTRIBUTE);
         Log.e(QString("Error during definition parsing. %1").arg(m_error));
@@ -192,6 +179,9 @@ bool XmlDefinitionParser::parseXml(QDomDocument &document)
         Log.e(QString("Error during definition parsing. %1").arg(m_error));
         return false;
     }
+
+    // Could be empty or absent
+    m_shortName = root.attribute(COMPONENT_SHORT_NAME_ATTRIBUTE).trimmed();
 
     QDomNode description = root.elementsByTagName(DESCRIPTION_TAG).at(0);
     m_description = description.toElement().text();

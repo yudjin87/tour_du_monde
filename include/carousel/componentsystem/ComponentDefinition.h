@@ -110,9 +110,9 @@ public:
 
     /*!
      * @details
-     *   Returns a component Id.
+     *   Returns a component short name.
      */
-    const QString &componentid() const;
+    const QString &shortComponentName() const;
 
     /*!
      * @details
@@ -175,17 +175,17 @@ public:
 
     /*!
      * @details
-     *   Sets the component name. This name will be shown to the user
-     *   in the components dialog.
+     *   Sets the component name. The name should be unique in the application bounadaries,
+     *   because components with the same name could not be added to the IComponentManager.
      */
     void setComponentName(const QString &name);
 
     /*!
      * @details
-     *   Sets the component Id. The Id should be unique in the application bounadaries,
-     *   because components with the same Id could not be added to the IComponentManager.
+     *   Sets the component short name. This name will be shown to the user
+     *   in the components dialog.
      */
-    void setComponentId(const QString &id);
+    void setShortComponentName(const QString &name);
 
     /*!
      * @details
@@ -220,7 +220,7 @@ public:
 private:
     IComponent *m_component;
     QString m_componentName;
-    QString m_componentId;
+    QString m_componentShortName;
     QString m_description;
     QString m_productName;
     QString m_provider;

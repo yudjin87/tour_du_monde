@@ -44,6 +44,7 @@ DisplayComponent::DisplayComponent(QObject *parent)
     : BaseComponent("Display", parent)
 {
     addParent("Interactivity");
+    setShortName("Display");
     setProductName(productName);
     setProvider("Carousel");
 }

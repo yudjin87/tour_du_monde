@@ -1,4 +1,4 @@
- <component name="JsScripting">
+ <component name="JsScripting" shortName="JsScripting">
      <productName>JsScripting</productName>
      <provider>Carousel</provider>
      <parents>

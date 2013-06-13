@@ -1,4 +1,4 @@
- <component name="NavigationOperations">
+ <component name="NavigationOperations" shortName="Navigation Operations">
      <productName>NavigationOperations</productName>
      <provider>Carousel</provider>
      <parents>

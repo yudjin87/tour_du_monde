@@ -1,4 +1,4 @@
- <component name="Interactivity">
+ <component name="Interactivity" shortName="Interactivity">
      <productName>Interactivity</productName>
      <provider>Carousel</provider>
      <description>The Interactivity component is a main component of GUI based

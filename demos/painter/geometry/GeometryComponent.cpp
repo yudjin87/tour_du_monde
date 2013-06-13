@@ -37,6 +37,7 @@ static const QByteArray productName("Geometry");
 GeometryComponent::GeometryComponent()
     : BaseComponent("Geometry")
 {
+    setShortName("Geometry");
     setProductName(productName);
     setProvider("Carousel");
 }

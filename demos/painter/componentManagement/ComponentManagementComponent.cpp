@@ -41,6 +41,7 @@ ComponentManagementComponent::ComponentManagementComponent(QObject *parent /*= n
     registerExtension<IInteractiveExtension>(interactiveExtension);
 
     addParent("ComponentSystemUI");
+    setShortName("Component Management");
     setProductName(productName);
     setProvider("Carousel");
 }

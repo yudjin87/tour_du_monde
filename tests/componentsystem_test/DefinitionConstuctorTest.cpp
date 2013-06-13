@@ -47,6 +47,7 @@ void DefinitionConstuctorTest::construct_ShouldConstructDefinitionFromParser()
 {
     FakeDefinitionParser parser;
     parser.m_componentName = "TestComponent2";
+    parser.m_shortName = "Component2";
     parser.m_description = "ABCD";
     parser.m_productName = "Carousel";
     parser.m_provider = "CarouselTeam";
@@ -65,6 +66,7 @@ void DefinitionConstuctorTest::construct_ShouldConstructDefinitionFromParser()
 
     QVERIFY(result);
     QCOMPARE(definition.componentName(), QString("TestComponent2"));
+    QCOMPARE(definition.shortComponentName(), QString("Component2"));
     QCOMPARE(definition.description(), QString("ABCD"));
     QCOMPARE(definition.productName(), QString("Carousel"));
     QCOMPARE(definition.provider(), QString("CarouselTeam"));
@@ -87,6 +89,20 @@ void DefinitionConstuctorTest::construct_ShouldUseDefaultProviderIfParserReturns
     constuctor.construct(&definition, &parser);
 
     QCOMPARE(definition.provider(), ComponentDefinition::defaultProvider());
+}
+
+//------------------------------------------------------------------------------
+void DefinitionConstuctorTest::construct_ShouldUseNameIfShortNameIsEmpty()
+{
+    FakeDefinitionParser parser;
+    parser.m_componentName = "Carousel";
+    parser.m_shortName = "";
+
+    ComponentDefinition definition;
+    DefinitionConstuctor constuctor;
+    constuctor.construct(&definition, &parser);
+
+    QCOMPARE(definition.shortComponentName(), QString("Carousel"));
 }
 
 //------------------------------------------------------------------------------

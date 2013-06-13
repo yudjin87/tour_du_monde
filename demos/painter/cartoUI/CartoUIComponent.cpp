@@ -37,11 +37,11 @@
 #include <QtWidgets/QGraphicsScene>
 
 //------------------------------------------------------------------------------
-static const QByteArray productName("ShapesView");
+static const QByteArray productName("CartoUI");
 
 //------------------------------------------------------------------------------
 CartoUIComponent::CartoUIComponent(QObject *parent /*= nullptr*/)
-    : BaseComponent("ShapesView", parent)
+    : BaseComponent("CartoUI", parent)
 {
     IInteractiveExtension *interactiveExtension = new CartoUIInteractiveExtension(this);
     registerExtension<IInteractiveExtension>(interactiveExtension);
@@ -50,6 +50,7 @@ CartoUIComponent::CartoUIComponent(QObject *parent /*= nullptr*/)
     addParent("Geodatabase");
     addParent("Display");
     addParent("Carto");
+    setShortName("Carto UI");
     setProductName(productName);
     setProvider("Carousel");
 }

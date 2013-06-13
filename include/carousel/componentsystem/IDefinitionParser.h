@@ -66,7 +66,7 @@ public:
      * @details
      *   Gets the component Id.
      */
-    virtual const QString &componentId() const = 0;
+    virtual const QString &componentShortName() const = 0;
 
     /*!
      * @details

@@ -57,6 +57,7 @@ AddShapeOperationComponent::AddShapeOperationComponent(QObject *parent /*= nullp
     addParent("Carto");
     addParent("CartoUI");
     addParent("Undo");
+    setShortName("Add Shape Operation");
     setProductName(productName);
     setProvider("Carousel");
 }

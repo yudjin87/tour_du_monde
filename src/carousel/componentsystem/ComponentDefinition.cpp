@@ -36,7 +36,7 @@ ComponentDefinition::ComponentDefinition()
     , m_componentName("Undefined_ProxyComponent")
     , m_description("")
     , m_productName("")
-    , m_componentId("")
+    , m_componentShortName("")
     , m_provider(ComponentDefinition::defaultProvider())
     , m_componentLocation("")
     , m_definitionLocation("")
@@ -51,7 +51,7 @@ ComponentDefinition::ComponentDefinition(const QString &componentName, bool isBu
     , m_componentName(componentName)
     , m_description("")
     , m_productName("")
-    , m_componentId("")
+    , m_componentShortName("")
     , m_provider(ComponentDefinition::defaultProvider())
     , m_componentLocation("")
     , m_definitionLocation("")
@@ -66,7 +66,7 @@ ComponentDefinition::ComponentDefinition(const ComponentDefinition &other)
     , m_componentName(other.m_componentName)
     , m_description(other.m_description)
     , m_productName(other.m_productName)
-    , m_componentId(other.m_componentId)
+    , m_componentShortName(other.m_componentShortName)
     , m_componentLocation(other.m_componentLocation)
     , m_definitionLocation(other.m_definitionLocation)
     , m_parents(other.m_parents)
@@ -82,7 +82,7 @@ ComponentDefinition &ComponentDefinition::operator =(const ComponentDefinition &
 
     m_component = other.m_component;
     m_componentName = other.m_componentName;
-    m_componentId = other.m_componentId;
+    m_componentShortName = other.m_componentShortName;
     m_description = other.m_description;
     m_productName = other.m_productName;
     m_componentLocation = other.m_componentLocation;
@@ -100,7 +100,7 @@ ComponentDefinition::~ComponentDefinition()
     m_parents.clear();
     m_description = "";
     m_productName = "";
-    m_componentId = "";
+    m_componentShortName = "";
     m_componentLocation = "";
     m_definitionLocation = "";
 }
@@ -130,9 +130,9 @@ const QString &ComponentDefinition::componentLocation() const
 }
 
 //------------------------------------------------------------------------------
-const QString &ComponentDefinition::componentid() const
+const QString &ComponentDefinition::shortComponentName() const
 {
-    return m_componentId;
+    return m_componentShortName;
 }
 
 //------------------------------------------------------------------------------
@@ -189,9 +189,10 @@ void ComponentDefinition::setComponentName(const QString &name)
     m_componentName = name;
 }
 
-void ComponentDefinition::setComponentId(const QString &id)
+//------------------------------------------------------------------------------
+void ComponentDefinition::setShortComponentName(const QString &name)
 {
-    m_componentId = id;
+    m_componentShortName = name;
 }
 
 //------------------------------------------------------------------------------

@@ -1,4 +1,4 @@
- <component name="Carto">
+ <component name="Carto" shortName="Carto">
      <productName>Carto</productName>
      <provider>Carousel</provider>
      <location>./Carto</location>

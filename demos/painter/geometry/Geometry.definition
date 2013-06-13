@@ -1,4 +1,4 @@
- <component name="Geometry">
+ <component name="Geometry" shortName="Geometry">
      <productName>Geometry</productName>
      <provider>Carousel</provider>
      <location>./Geometry</location>

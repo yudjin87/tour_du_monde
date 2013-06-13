@@ -1,4 +1,4 @@
- <component name="AddShapeOperation">
+ <component name="AddShapeOperation" shortName="Add Shape Operation">
      <productName>AddShapeOperation</productName>
      <provider>Carousel</provider>
      <parents>

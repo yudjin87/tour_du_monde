@@ -80,7 +80,7 @@ public:
      * @details
      *   Gets the component Id.
      */
-    const QString &componentId() const;
+    const QString &componentShortName() const;
 
     /*!
      * @details
@@ -165,7 +165,7 @@ protected:
 
 protected:
     QString m_componentName;
-    QString m_componentId;
+    QString m_shortName;
     QString m_componentLocation;
     QString m_description;
     QString m_productName;

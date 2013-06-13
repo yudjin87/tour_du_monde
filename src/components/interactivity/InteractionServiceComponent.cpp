@@ -70,6 +70,7 @@ InteractionServiceComponent::InteractionServiceComponent(QObject *parent)
     : BaseComponent("Interactivity", parent)
     , d(new InteractionServiceComponentPrivate())
 {
+    setShortName("Interactivity");
     setProductName("Interactivity");
     setDescription(description);
     setProvider("Carousel");
