@@ -39,6 +39,7 @@ static LoggerFacade Log = LoggerFacade::createLogger("XmlDefinitionParser");
 
 //------------------------------------------------------------------------------
 static const char *COMPONENT_NAME_ATTRIBUTE = "name";
+static const char *COMPONENT_ID_ATTRIBUTE = "id";
 static const char *PARENT_COMPONENT_NAME_ATTRIBUTE = "name";
 
 static const char *COMPONENT_TAG = "component";
@@ -53,6 +54,7 @@ static const char *PARENTS_TAG = "parents";
 XmlDefinitionParser::XmlDefinitionParser(QObject *parent)
     : QObject(parent)
     , m_componentName("")
+    , m_componentId("")
     , m_componentLocation("")
     , m_description("")
     , m_productName("")
@@ -114,6 +116,12 @@ bool XmlDefinitionParser::read(QIODevice *dev)
 }
 
 //------------------------------------------------------------------------------
+const QString &XmlDefinitionParser::componentId() const
+{
+    return m_componentId;
+}
+
+//------------------------------------------------------------------------------
 const QString &XmlDefinitionParser::componentName() const
 {
     return m_componentName;
@@ -155,6 +163,19 @@ bool XmlDefinitionParser::parseXml(QDomDocument &document)
     QDomElement root = document.documentElement();
     if (root.nodeName() != COMPONENT_TAG) {
         m_error = QString("Root tag is wrong. \"%1\" is expected").arg(COMPONENT_TAG);
+        Log.e(QString("Error during definition parsing. %1").arg(m_error));
+        return false;
+    }
+
+    if (!root.hasAttribute(COMPONENT_ID_ATTRIBUTE)){
+        m_error = QString("Component Id attribute is wrong. \"%1\" is expected").arg(COMPONENT_ID_ATTRIBUTE);
+        Log.e(QString("Error during definition parsing. %1").arg(m_error));
+        return false;
+    }
+
+    m_componentId = root.attribute(COMPONENT_ID_ATTRIBUTE).trimmed();
+    if (m_componentId.isEmpty()){
+        m_error = "Component Id is empty";
         Log.e(QString("Error during definition parsing. %1").arg(m_error));
         return false;
     }

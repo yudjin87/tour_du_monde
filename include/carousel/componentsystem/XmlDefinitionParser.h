@@ -78,6 +78,12 @@ public:
 
     /*!
      * @details
+     *   Gets the component Id.
+     */
+    const QString &componentId() const;
+
+    /*!
+     * @details
      *   Gets the parsed component name.
      */
     const QString &componentName() const;
@@ -159,6 +165,7 @@ protected:
 
 protected:
     QString m_componentName;
+    QString m_componentId;
     QString m_componentLocation;
     QString m_description;
     QString m_productName;

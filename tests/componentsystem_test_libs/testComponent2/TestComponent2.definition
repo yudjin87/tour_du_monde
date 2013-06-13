@@ -1,3 +1,3 @@
- <component name="TestComponent2">
+ <component name="TestComponent2" id="org.test.TestComponent2">
      <location>./TestComponent2</location>
  </component>

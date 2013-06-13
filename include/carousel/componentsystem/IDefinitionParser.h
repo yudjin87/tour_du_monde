@@ -64,6 +64,12 @@ public:
 
     /*!
      * @details
+     *   Gets the component Id.
+     */
+    virtual const QString &componentId() const = 0;
+
+    /*!
+     * @details
      *   Gets the parsed component name.
      */
     virtual const QString &componentName() const = 0;
