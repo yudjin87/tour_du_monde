@@ -47,13 +47,13 @@ void LineSymbol::setColor(const QColor &color)
 }
 
 //------------------------------------------------------------------------------
-double LineSymbol::width() const
+qreal LineSymbol::width() const
 {
     return m_width;
 }
 
 //------------------------------------------------------------------------------
-void LineSymbol::setWidth(double width)
+void LineSymbol::setWidth(qreal width)
 {
     m_width = width;
 }

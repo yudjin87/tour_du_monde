@@ -25,6 +25,8 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "SimpleLineSymbol.h"
+#include "IDisplay.h"
+
 #include <geometry/Polyline.h>
 #include <geometry/Segment.h>
 #include <geometry/Ring.h>
@@ -34,14 +36,36 @@
 //------------------------------------------------------------------------------
 SimpleLineSymbol::SimpleLineSymbol(QObject *parent)
     : LineSymbol(parent)
+    , m_pen()
 {
+}
+
+//------------------------------------------------------------------------------
+void SimpleLineSymbol::setupDisplay(IDisplay *display)
+{
+    LineSymbol::setupDisplay(display);
+
+    m_pen.setWidthF(width() / display->scale());
+    m_pen.setColor(color());
+
+    display->painter()->setPen(m_pen);
+}
+
+//------------------------------------------------------------------------------
+Qt::PenStyle SimpleLineSymbol::style() const
+{
+    return m_pen.style();
+}
+
+//------------------------------------------------------------------------------
+void SimpleLineSymbol::setStyle(Qt::PenStyle style)
+{
+    m_pen.setStyle(style);
 }
 
 //------------------------------------------------------------------------------
 void SimpleLineSymbol::drawPolyline(const Polyline &polyline, QPainter &painter)
 {
-    painter.setPen(QPen(color()));
-
     foreach(const Ring *ring, polyline.rings()) {
         foreach(const Segment *segment, ring->segments()) {
             painter.drawPolyline(segment->curve());

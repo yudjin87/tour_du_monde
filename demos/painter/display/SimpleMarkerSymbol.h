@@ -29,6 +29,8 @@
 
 #include "display/MarkerSymbol.h"
 
+#include <QtGui/QPen>
+
 class DISPLAY_API SimpleMarkerSymbol : public MarkerSymbol
 {
     Q_OBJECT
@@ -61,16 +63,25 @@ public:
     QColor outlineColor() const;
     void setOutlineColor(const QColor &outlineColor);
 
-    double outlineSize() const;
-    void setOutlineSize(double outlineSize);
+    qreal outlineSize() const;
+    void setOutlineSize(qreal outlineSize);
+
+    /*!
+     * @details
+     *   Prepares the display for drawing the symbol by setting pen and brush.
+     */
+    void setupDisplay(IDisplay *display);
 
 protected:
     void drawPoint(const Point &point, QPainter &painter);
 
 private:
     bool m_outline;
-    double m_outlineSize;
-    QColor m_outlineColor;
+    qreal m_outlineSize;
+    qreal m_width;
+    qreal m_height;
+    QPen m_outlinePen;
 };
+
 
 #endif // SIMPLEMARKERSYMBOL_H

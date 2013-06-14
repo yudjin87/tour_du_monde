@@ -29,6 +29,7 @@
 
 #include "display/SymbolBase.h"
 
+#include <QtGui/QBrush>
 #include <QtGui/QColor>
 
 class DISPLAY_API MarkerSymbol : public SymbolBase
@@ -63,16 +64,18 @@ public:
     double size() const;
     void setSize(double size);
 
-    QColor color() const;
+    const QColor &color() const;
     void setColor(const QColor &color);
 
 protected:
     explicit MarkerSymbol(QObject *parent = 0);
 
+protected:
+    QBrush m_brush;
+
 private:
     double m_angle;
     double m_size;
-    QColor m_color;
 };
 
 #endif // MARKERSYMBOL_H

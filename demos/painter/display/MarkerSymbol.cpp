@@ -31,9 +31,9 @@
 //------------------------------------------------------------------------------
 MarkerSymbol::MarkerSymbol(QObject *parent)
     : SymbolBase(parent)
+    , m_brush(QColor(rand() % 255, rand() % 255, rand() % 255))
     , m_angle(0)
     , m_size(10)
-    , m_color(QColor(rand() % 255, rand() % 255, rand() % 255))
 {
 }
 
@@ -62,15 +62,15 @@ void MarkerSymbol::setSize(double size)
 }
 
 //------------------------------------------------------------------------------
-QColor MarkerSymbol::color() const
+const QColor &MarkerSymbol::color() const
 {
-    return m_color;
+    return m_brush.color();
 }
 
 //------------------------------------------------------------------------------
 void MarkerSymbol::setColor(const QColor &color)
 {
-    m_color = color;
+    m_brush.setColor(color);
 }
 
 //------------------------------------------------------------------------------

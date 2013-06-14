@@ -25,17 +25,22 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "SimpleMarkerSymbol.h"
+#include "IDisplay.h"
+
 #include <geometry/Point.h>
 
 #include <QtGui/QPainter>
 
 #include <stdlib.h>
+
 //------------------------------------------------------------------------------
 SimpleMarkerSymbol::SimpleMarkerSymbol(QObject *parent)
     : MarkerSymbol(parent)
-    , m_outline(false)
+    , m_outline(true)
     , m_outlineSize(1)
-    , m_outlineColor(QColor(rand() % 255, rand() % 255, rand() % 255))
+    , m_width(0)
+    , m_height(0)
+    , m_outlinePen(QColor(rand() % 255, rand() % 255, rand() % 255), m_outlineSize)
 {
 }
 
@@ -54,33 +59,49 @@ void SimpleMarkerSymbol::setOutline(bool outline)
 //------------------------------------------------------------------------------
 QColor SimpleMarkerSymbol::outlineColor() const
 {
-    return m_outlineColor;
+    return m_outlinePen.color();
 }
 
 //------------------------------------------------------------------------------
 void SimpleMarkerSymbol::setOutlineColor(const QColor &outlineColor)
 {
-    m_outlineColor = outlineColor;
+    m_outlinePen.setColor(outlineColor);
 }
 
 //------------------------------------------------------------------------------
-double SimpleMarkerSymbol::outlineSize() const
+qreal SimpleMarkerSymbol::outlineSize() const
 {
     return m_outlineSize;
 }
 
 //------------------------------------------------------------------------------
-void SimpleMarkerSymbol::setOutlineSize(double outlineSize)
+void SimpleMarkerSymbol::setOutlineSize(qreal outlineSize)
 {
     m_outlineSize = outlineSize;
 }
 
 //------------------------------------------------------------------------------
+void SimpleMarkerSymbol::setupDisplay(IDisplay *display)
+{
+    MarkerSymbol::setupDisplay(display);
+
+    display->painter()->setBrush(m_brush);
+
+    m_width = size() / display->scale() / 2;
+    m_height = size() / display->scale() / 2;
+
+    if (isOutline()) {
+        m_outlinePen.setWidthF(m_outlineSize / display->scale());
+        display->painter()->setPen(m_outlinePen);
+    } else {
+        display->painter()->setPen(Qt::NoPen);
+    }
+}
+
+//------------------------------------------------------------------------------
 void SimpleMarkerSymbol::drawPoint(const Point &point, QPainter &painter)
 {
-    painter.setBrush(QBrush(color()));
-
-    painter.drawEllipse(point.point(), size() / 2, size() / 2);
+    painter.drawEllipse(point.point(), m_width, m_height);
 }
 
 //------------------------------------------------------------------------------

@@ -91,8 +91,8 @@ QPainter *SimpleDisplay::startDrawing()
 //                -m_extent.left() - horizontalScrollBar()->value(), -m_extent.top() - verticalScrollBar()->value(), 1.0f);
 
     QTransform viewport;
-    qreal dx = (-m_extent.left() - horizontalScrollBar()->value());
-    qreal dy = (-m_extent.top() - verticalScrollBar()->value());
+    qreal dx = (-m_extent.left()/ m_scale - horizontalScrollBar()->value());
+    qreal dy = (-m_extent.top() / m_scale - verticalScrollBar()->value());
 
     viewport.translate((width()) / 2, (height()) / 2);
     viewport.scale(m_scale, m_scale);
@@ -108,7 +108,6 @@ QPainter *SimpleDisplay::startDrawing()
     QRectF r = visibleExtent().adjusted(10, 10, -30, -30);
     m_currentPainter->drawRect(r);
     m_currentPainter->drawEllipse(QPointF(-dx + width()  / 2, -dy + height() / 2), 5, 5);
-    qDebug(QString("Cx: %1; Cy: %2").arg(-dx).arg(-dy).toLatin1());
 
     return m_currentPainter;
 }
@@ -126,8 +125,8 @@ void SimpleDisplay::finishDrawing(QPainter *painter)
 QRectF SimpleDisplay::visibleExtent() const
 {
     QTransform viewport;
-    qreal dx = (-m_extent.left() - horizontalScrollBar()->value());
-    qreal dy = (-m_extent.top() - verticalScrollBar()->value());
+    qreal dx = (-m_extent.left()/ m_scale - horizontalScrollBar()->value());
+    qreal dy = (-m_extent.top() / m_scale - verticalScrollBar()->value());
     viewport.translate((width()) / 2, (height()) / 2);
     viewport.scale(m_scale, m_scale);
     viewport.translate((-width()) / 2, (-height()) / 2);
@@ -152,14 +151,14 @@ void SimpleDisplay::setExtent(const QRectF &extent)
 {
     m_extent = extent;
 
-    int dx = (m_extent.width() * m_scale);
-    int dy = (m_extent.height() * m_scale);
+    qreal dx = (m_extent.width() * m_scale);
+    qreal dy = (m_extent.height() * m_scale);
 
-    dx = std::max(dx, width());
-    dy = std::max(dy, height());
+    dx = std::max(dx, (qreal)width());
+    dy = std::max(dy, (qreal)height());
 
-    dx -= width();
-    dy -= height();
+    //dx -= width();
+    //dy -= height();
 
     qDebug(QString("dx: %1; dy: %2").arg(dx).arg(dy).toLatin1());
     qDebug(QString("left: %1; top: %2").arg(m_extent.left()).arg(m_extent.top()).toLatin1());
@@ -179,6 +178,7 @@ void SimpleDisplay::setScale(double scale)
 {
     m_scale = scale;
     setExtent(extent());
+    qDebug(QString("scale: %1;").arg(scale).toLatin1());
     emit needChange();
 }
 

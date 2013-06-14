@@ -78,12 +78,13 @@ void SymbolBase::draw(const AbstractGeometry *geometry)
 void SymbolBase::setupDisplay(IDisplay *display)
 {
     m_display = display;
+    m_display->painter()->save();
 }
 
 //------------------------------------------------------------------------------
 void SymbolBase::resetDisplay()
 {
-    //m_display->finishDrawing(m_painter);
+    m_display->painter()->restore();
 
     m_painter = nullptr;
     m_display = nullptr;
