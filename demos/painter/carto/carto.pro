@@ -4,7 +4,7 @@ QT       += gui
 
 TEMPLATE = lib
 
-TARGET = Carto
+TARGET = org.carousel.demos.Carto
 
 DEFINES += CARTO_LIB_IMPORT
 
@@ -14,11 +14,11 @@ LIBS += -L$${CAROUSEL_BIN} -lUtils \
 
 DESTDIR = $${DESTDIR}/externalSource
 
-LIBS += -L$${DESTDIR} -lDisplay \
+LIBS += -L$${DESTDIR} -lorg.carousel.demos.Display \
 
 win32 {
-    LIBS += -L$${DESTDIR} -lGeodatabase \
-                          -lGeometry
+    LIBS += -L$${DESTDIR} -lorg.carousel.demos.Geodatabase \
+                          -lorg.carousel.demos.Geometry
 }
 
 HEADERS += \
@@ -34,7 +34,7 @@ SOURCES += \
     Map.cpp \
     CartoComponent.cpp
 
-OTHER_FILES += Carto.definition
+OTHER_FILES += org.carousel.demos.Carto.definition
 
 ###############################################################################
 # Copy definition to the output directory, right near the library

@@ -2,7 +2,7 @@ include(../shared.pri)
 
 QT       += core widgets
 
-TARGET = AddShapeOperation
+TARGET = org.carousel.demos.AddShapeOperation
 
 TEMPLATE = lib
 
@@ -12,13 +12,13 @@ DESTDIR = $${DESTDIR}/externalSource
 
 win32 {
     LIBS += -L$${CAROUSEL_BIN} -lComponentSystem \
-                               -lInteractivity \
+                               -lorg.carousel.Interactivity \
                                -lFramework
 
-    LIBS += -L$${DESTDIR} -lDisplay \
-                          -lCarto \
-                          -lDom \
-                          -lGeodatabase
+    LIBS += -L$${DESTDIR} -lorg.carousel.demos.Display \
+                          -lorg.carousel.demos.Carto \
+                          -lorg.carousel.demos.Dom \
+                          -lorg.carousel.demos.Geodatabase
 }
 
 HEADERS += \
@@ -38,7 +38,7 @@ RESOURCES += \
     core.qrc
 
 OTHER_FILES += \
-    AddShapeOperation.definition
+    org.carousel.demos.AddShapeOperation.definition
 
 ###############################################################################
 # Copy definition to the output directory, right near the library

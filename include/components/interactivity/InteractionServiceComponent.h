@@ -41,7 +41,7 @@
  *   add new operations or menus, or dockable widgets - they should be a
  *   @a child to InteractionServiceComponent component. This mean a
  *   dependency of component parent name:
- *   @a "Interactivity"
+ *   @a "org.carousel.Interactivity"
  *
  *   Registered services:
  * @li IDialogService;

@@ -10,6 +10,7 @@ project(${CRSL_PROJECT_NAME} CXX)
 
 ###############################################################################
 # Defines pathes to the directories with target's header and source files.
+string(REPLACE "org.carousel." "" PROJECT_NAME_LOWER ${PROJECT_NAME_LOWER})
 set(CRSL_TARGET_SOURCES ${CPP_SOURCE_TREE}/${CRSL_TARGET_TYPE}/${PROJECT_NAME_LOWER})
 set(CRSL_TARGET_HEADERS ${HPP_SOURCE_TREE}/${CRSL_TARGET_TYPE}/${PROJECT_NAME_LOWER})
 
@@ -22,6 +23,7 @@ include_directories(${CRSL_TARGET_HEADERS})
 ###############################################################################
 # Adds preprocessor definition for the symbols exporting.
 string(TOUPPER ${CRSL_PROJECT_NAME} PROJECT_NAME_UPPER)
+string(REPLACE "ORG.CAROUSEL." "ORG_CAROUSEL_" PROJECT_NAME_UPPER ${PROJECT_NAME_UPPER})
 add_definitions(-D${PROJECT_NAME_UPPER}_LIBRARY)
 
 macro(crsl_setup_output_path __PREFIX)

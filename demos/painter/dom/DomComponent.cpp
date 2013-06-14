@@ -36,11 +36,11 @@ static const QByteArray productName("Dom");
 
 //------------------------------------------------------------------------------
 DomComponent::DomComponent()
-    : BaseComponent("Dom")
+    : BaseComponent("org.carousel.demos.Dom")
     , mp_docController(nullptr)
 {
-    addParent("Display");
-    addParent("Carto");
+    addParent("org.carousel.demos.Display");
+    addParent("org.carousel.demos.Carto");
     setShortName("Dom");
     setProductName(productName);
     setProvider("Carousel");

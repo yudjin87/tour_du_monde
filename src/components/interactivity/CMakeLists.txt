@@ -1,6 +1,6 @@
 ###############################################################################
 # interactivity project
-set(CRSL_PROJECT_NAME "Interactivity")
+set(CRSL_PROJECT_NAME "org.carousel.Interactivity")
 set(CRSL_TARGET_TYPE "components")
 
 include(cmake/target_utils)
@@ -58,7 +58,7 @@ set(__HEADERS
 ######################################################################
 # Definitions
 set(__OTHER_FILES
-    ${CRSL_TARGET_SOURCES}/Interactivity.definition 
+    ${CRSL_TARGET_SOURCES}/org.carousel.Interactivity.definition 
 )
 
 ######################################################################

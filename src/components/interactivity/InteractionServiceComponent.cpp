@@ -63,11 +63,11 @@ static const QByteArray description(
         "application. If your components add new operations or menus, or\r\n"
         "dockable widgets - they should be a child to Interactivity\r\n"
         "component. This mean a dependency of component parent name:\r\n"
-        "\"Interactivity\".");
+        "\"org.carousel.Interactivity\".");
 
 //------------------------------------------------------------------------------
 InteractionServiceComponent::InteractionServiceComponent(QObject *parent)
-    : BaseComponent("Interactivity", parent)
+    : BaseComponent("org.carousel.Interactivity", parent)
     , d(new InteractionServiceComponentPrivate())
 {
     setShortName("Interactivity");

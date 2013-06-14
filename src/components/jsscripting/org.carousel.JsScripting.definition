@@ -1,0 +1,8 @@
+ <component name="org.carousel.JsScripting" shortName="JsScripting">
+     <productName>JsScripting</productName>
+     <provider>Carousel</provider>
+     <parents>
+         <parentComponent name="org.carousel.Interactivity"/>
+     </parents>
+     <location>./org.carousel.JsScripting</location>
+ </component>

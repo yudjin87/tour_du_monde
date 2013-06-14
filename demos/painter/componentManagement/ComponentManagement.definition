@@ -1,8 +1,0 @@
- <component name="ComponentManagement" shortName="Component Management">
-     <productName>ComponentManagement</productName>
-     <provider>Carousel</provider>
-     <location>./ComponentManagement</location>
-     <parents>
-         <parentComponent name="ComponentSystemUI"/>
-     </parents>
- </component>

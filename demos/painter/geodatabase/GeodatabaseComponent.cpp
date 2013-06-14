@@ -46,9 +46,9 @@ void *createShapeFileWorkspaceFactory(IServiceLocator *locator)
 
 //------------------------------------------------------------------------------
 GeodatabaseComponent::GeodatabaseComponent()
-    : BaseComponent("Geodatabase")
+    : BaseComponent("org.carousel.demos.Geodatabase")
 {
-    addParent("Geometry");
+    addParent("org.carousel.demos.Geometry");
     setShortName("Geodatabase");
     setProductName(productName);
     setProvider("Carousel");

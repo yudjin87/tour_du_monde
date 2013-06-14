@@ -35,7 +35,7 @@ static const QByteArray productName("Geometry");
 
 //------------------------------------------------------------------------------
 GeometryComponent::GeometryComponent()
-    : BaseComponent("Geometry")
+    : BaseComponent("org.carousel.demos.Geometry")
 {
     setShortName("Geometry");
     setProductName(productName);

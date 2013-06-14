@@ -1,0 +1,12 @@
+ <component name="org.carousel.demos.AddShapeOperation" shortName="Add Shape Operation">
+     <productName>AddShapeOperation</productName>
+     <provider>Carousel</provider>
+     <parents>
+         <parentComponent name="org.carousel.demos.Dom"/>
+         <parentComponent name="org.carousel.demos.Geodatabase"/>
+         <parentComponent name="org.carousel.demos.Display"/>
+         <parentComponent name="org.carousel.demos.Carto"/>
+         <parentComponent name="org.carousel.demos.CartoUI"/>
+         <parentComponent name="org.carousel.Undo"/>
+     </parents>
+ </component>

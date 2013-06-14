@@ -5,14 +5,14 @@ QT      += widgets
 QT      += core
 TEMPLATE = lib
 
-TARGET = ComponentSystemUI
+TARGET = org.carousel.ComponentSystemUI
 
-DEFINES += COMPONENTSYSTEMUI_LIBRARY
+DEFINES += ORG_CAROUSEL_COMPONENTSYSTEMUI_LIBRARY
 
 INCLUDEPATH += $$HPP_SOURCE_TREE/components/componentsystemui
 
 LIBS += -L$${DESTDIR} -lComponentSystem \
-                      -lInteractivity \
+                      -lorg.carousel.Interactivity \
                       -lFramework \
                       -lUtils \
                       -lLogging \

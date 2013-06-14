@@ -35,16 +35,16 @@ static const QByteArray productName("NavigationOperations");
 
 //------------------------------------------------------------------------------
 NavigationOperationsComponent::NavigationOperationsComponent(QObject *parent /*= nullptr*/)
-    : BaseComponent("NavigationOperations", parent)
+    : BaseComponent("org.carousel.demos.NavigationOperations", parent)
 {
     IInteractiveExtension *interactiveExtension = new NavigationOperationsInteractiveExtension(this);
     registerExtension<IInteractiveExtension>(interactiveExtension);
 
-    addParent("Dom");
-    addParent("Geodatabase");
-    addParent("Display");
-    addParent("Carto");
-    addParent("AddShapeOperation");
+    addParent("org.carousel.demos.Dom");
+    addParent("org.carousel.demos.Geodatabase");
+    addParent("org.carousel.demos.Display");
+    addParent("org.carousel.demos.Carto");
+    addParent("org.carousel.demos.AddShapeOperation");
     setShortName("Navigation Operations");
     setProductName(productName);
     setProvider("Carousel");

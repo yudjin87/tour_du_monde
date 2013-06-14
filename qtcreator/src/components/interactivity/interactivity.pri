@@ -46,5 +46,5 @@ HEADERS += \
     $$PROJECT_HEADERS/ToolBase.h \
 
 OTHER_FILES += \
-    $$PROJECT_SOURCES/Interactivity.definition \
+    $$PROJECT_SOURCES/org.carousel.Interactivity.definition \
 

@@ -41,15 +41,15 @@ static const QByteArray productName("CartoUI");
 
 //------------------------------------------------------------------------------
 CartoUIComponent::CartoUIComponent(QObject *parent /*= nullptr*/)
-    : BaseComponent("CartoUI", parent)
+    : BaseComponent("org.carousel.demos.CartoUI", parent)
 {
     IInteractiveExtension *interactiveExtension = new CartoUIInteractiveExtension(this);
     registerExtension<IInteractiveExtension>(interactiveExtension);
 
-    addParent("Dom");
-    addParent("Geodatabase");
-    addParent("Display");
-    addParent("Carto");
+    addParent("org.carousel.demos.Dom");
+    addParent("org.carousel.demos.Geodatabase");
+    addParent("org.carousel.demos.Display");
+    addParent("org.carousel.demos.Carto");
     setShortName("Carto UI");
     setProductName(productName);
     setProvider("Carousel");

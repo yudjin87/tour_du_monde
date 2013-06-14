@@ -32,11 +32,11 @@
 #if defined(STATIC_BUILD)
 #   define UNDO_API
 #else
-#   if defined(UNDO_LIBRARY)
+#   if defined(ORG_CAROUSEL_UNDO_LIBRARY)
 #       define UNDO_API Q_DECL_EXPORT
 #   else
 #       define UNDO_API Q_DECL_IMPORT
-#   endif //#if defined(UNDO_LIBRARY)
+#   endif //#if defined(ORG_CAROUSEL_UNDO_LIBRARY)
 #endif //#if defined(STATIC_BUILD)
 
 // Should be removed

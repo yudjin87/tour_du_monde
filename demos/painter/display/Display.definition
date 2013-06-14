@@ -1,8 +1,0 @@
- <component name="Display" shortName="Display">
-     <productName>Display</productName>
-     <provider>Carousel</provider>
-     <location>./Display</location>
-     <parents>
-         <parentComponent name="Interactivity"/>
-     </parents>
- </component>

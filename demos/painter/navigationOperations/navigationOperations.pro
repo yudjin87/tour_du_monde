@@ -2,7 +2,7 @@ include(../shared.pri)
 
 QT       += core widgets
 
-TARGET = NavigationOperations
+TARGET = org.carousel.demos.NavigationOperations
 
 TEMPLATE = lib
 
@@ -12,12 +12,12 @@ DESTDIR = $${DESTDIR}/externalSource
 
 win32 {
     LIBS += -L$${CAROUSEL_BIN} -lComponentSystem \
-                               -lInteractivity \
+                               -lorg.carousel.Interactivity \
                                -lFramework
 
-    LIBS += -L$${DESTDIR} -lDisplay \
-                          -lCarto \
-                          -lGeometry
+    LIBS += -L$${DESTDIR} -lorg.carousel.demos.Display \
+                          -lorg.carousel.demos.Carto \
+                          -lorg.carousel.demos.Geometry
 }
 
 HEADERS += \
@@ -43,7 +43,7 @@ RESOURCES += \
     navigation.qrc
 
 OTHER_FILES += \
-    NavigationOperations.definition
+    org.carousel.demos.NavigationOperations.definition
 
 ###############################################################################
 # Copy definition to the output directory, right near the library

@@ -1,0 +1,9 @@
+ <component name="org.carousel.demos.Dom" shortName="Dom">
+     <productName>Dom</productName>
+     <provider>Carousel</provider>
+     <location>./org.carousel.demos.Dom</location>
+     <parents>
+         <parentComponent name="org.carousel.demos.Display"/>
+         <parentComponent name="org.carousel.demos.Carto"/>
+     </parents>
+ </component>
