@@ -71,6 +71,7 @@ signals:
 
 private:
     Q_DISABLE_COPY(SimpleDisplay)
+    QTransform transform() const;
 
 private:
     QRectF m_extent;

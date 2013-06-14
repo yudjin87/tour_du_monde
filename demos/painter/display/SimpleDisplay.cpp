@@ -71,6 +71,21 @@ QPainter *SimpleDisplay::painter()
     return m_currentPainter;
 }
 
+QTransform SimpleDisplay::transform() const
+{
+    QTransform viewport;
+    qreal dx = (-m_extent.left()/ 1 - horizontalScrollBar()->value());
+    qreal dy = (-m_extent.top() / 1 - verticalScrollBar()->value());
+
+    viewport.translate((width()) / 2, (height()) / 2);
+    viewport.scale(m_scale, m_scale);
+    viewport.translate((-width()) / 2, (-height()) / 2);
+
+    viewport.translate(dx, dy);
+
+    return viewport;
+}
+
 //------------------------------------------------------------------------------
 QPainter *SimpleDisplay::startDrawing()
 {
@@ -90,15 +105,8 @@ QPainter *SimpleDisplay::startDrawing()
 //                0.0f, m_scale, 0.0f,
 //                -m_extent.left() - horizontalScrollBar()->value(), -m_extent.top() - verticalScrollBar()->value(), 1.0f);
 
-    QTransform viewport;
-    qreal dx = (-m_extent.left()/ m_scale - horizontalScrollBar()->value());
-    qreal dy = (-m_extent.top() / m_scale - verticalScrollBar()->value());
 
-    viewport.translate((width()) / 2, (height()) / 2);
-    viewport.scale(m_scale, m_scale);
-    viewport.translate((-width()) / 2, (-height()) / 2);
-
-    viewport.translate(dx, dy);
+    QTransform viewport = transform();
 
     m_currentPainter->setTransform(viewport, false);
     m_currentPainter->setRenderHint(QPainter::NonCosmeticDefaultPen);
@@ -107,7 +115,7 @@ QPainter *SimpleDisplay::startDrawing()
 
     QRectF r = visibleExtent().adjusted(10, 10, -30, -30);
     m_currentPainter->drawRect(r);
-    m_currentPainter->drawEllipse(QPointF(-dx + width()  / 2, -dy + height() / 2), 5, 5);
+    //m_currentPainter->drawEllipse(QPointF(-dx + width()  / 2, -dy + height() / 2), 5, 5);
 
     return m_currentPainter;
 }
@@ -124,14 +132,7 @@ void SimpleDisplay::finishDrawing(QPainter *painter)
 //------------------------------------------------------------------------------
 QRectF SimpleDisplay::visibleExtent() const
 {
-    QTransform viewport;
-    qreal dx = (-m_extent.left()/ m_scale - horizontalScrollBar()->value());
-    qreal dy = (-m_extent.top() / m_scale - verticalScrollBar()->value());
-    viewport.translate((width()) / 2, (height()) / 2);
-    viewport.scale(m_scale, m_scale);
-    viewport.translate((-width()) / 2, (-height()) / 2);
-
-    viewport.translate(dx, dy);
+    QTransform viewport = transform();
 
     QTransform transform = viewport.inverted();
 
@@ -151,11 +152,11 @@ void SimpleDisplay::setExtent(const QRectF &extent)
 {
     m_extent = extent;
 
-    qreal dx = (m_extent.width() * m_scale);
-    qreal dy = (m_extent.height() * m_scale);
+    int dx = (m_extent.width() * m_scale);
+    int dy = (m_extent.height() * m_scale);
 
-    dx = std::max(dx, (qreal)width());
-    dy = std::max(dy, (qreal)height());
+    dx = std::max(dx, width());
+    dy = std::max(dy, height());
 
     //dx -= width();
     //dy -= height();
