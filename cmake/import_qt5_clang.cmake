@@ -1,21 +1,17 @@
 ########################################################################################
-# Finds Qt5 include directories, plugins and libraries
+# Finds Qt5 include directories, plugins and libraries for the Clang compiler on MacOS
 
+set(__DEBUG_SUFFIX "_debug")
+set(__PLATFORM_PLUGIN "qcocoa")
+
+########################################################################################
+# Format name for the external variable, which contains path to the Qt5 directory.
+# See user_settings.cmake.template to find all variables.
 string(TOUPPER ${CRSL_COMPILER}-x${CRSL_TARGET_PLATFORM_BITS} __COMPILER)
 set(__QT_ROOT_DIR ${QT_ROOT_LOCATION_${__COMPILER}})
 
-if(WIN32)
-    set(__DEBUG_SUFFIX "d")
-    set(__PLATFORM_PLUGIN "qwindows")
-elseif(APPLE)
-    set(__DEBUG_SUFFIX "_debug")
-    set(__PLATFORM_PLUGIN "qcocoa")
-else() # linux
-    set(__DEBUG_SUFFIX "")
-    set(__PLATFORM_PLUGIN "qlinuxfb")
-endif(WIN32)
-
 if("${QT_ROOT_LOCATION_${__COMPILER}}" STREQUAL "")
+    message(STATUS "The QT_ROOT_LOCATION_${__COMPILER} variable was not found, use environment variable QTDIR")
     set(__QT_ROOT_DIR $ENV{QTDIR})
 else()
     set(ENV{CMAKE_PREFIX_PATH} ${__QT_ROOT_DIR})
@@ -24,19 +20,12 @@ endif()
 
 message(STATUS "Qt directory: " ${__QT_ROOT_DIR})
 
-
 ########################################################################################
 # Find runtime libraries which will be copied during install.
 # I don't use qt5_use_modules() function because I have to
 # handle Qt runtime libraries manualy, copying them to the output directory.
 # It allows to run executables right from the directory at least for Windows.
 # For MacOS you still have to set up Working Directory.
-set(__LIBRARIES_BASENAME
-    Core
-    Gui
-    Widgets
-    Test
-    Xml)
 
 foreach(__LIB_BASENAME ${__LIBRARIES_BASENAME})
   find_package(Qt5${__LIB_BASENAME} REQUIRED)
@@ -45,7 +34,7 @@ foreach(__LIB_BASENAME ${__LIBRARIES_BASENAME})
   set_target_properties(Qt5::${__LIB_BASENAME} PROPERTIES MAP_IMPORTED_CONFIG_RELEASE-STATIC "RELEASE")
   set_target_properties(Qt5::${__LIB_BASENAME} PROPERTIES MAP_IMPORTED_CONFIG_DEBUG-STATIC "DEBUG")
 
-  # get run-time libraries path (they will be copied for Windows and for MacOS bundle)
+  # get run-time library paths (they will be copied for Windows and for MacOS bundle)
   get_target_property(Qt5_${__LIB_BASENAME}_RUNTIME_DEBUG Qt5::${__LIB_BASENAME} "IMPORTED_LOCATION_DEBUG")
   get_target_property(Qt5_${__LIB_BASENAME}_RUNTIME_RELEASE Qt5::${__LIB_BASENAME} "IMPORTED_LOCATION_RELEASE")
 
@@ -63,35 +52,14 @@ foreach(__LIB_BASENAME ${__LIBRARIES_BASENAME})
 endforeach()
 
 ########################################################################################
-# Set include path
-set(Qt5_RUNTIME_LIBRARY_DIRS "${__QT_ROOT_DIR}/lib")
-set(Qt5_INCLUDE_DIRS "${__QT_ROOT_DIR}/include")
-set(Qt5_PLUGINS_DIRS "${__QT_ROOT_DIR}/plugins")
-if(DEBUG_VERBOSITY)
-  message(STATUS "Qt includes: " ${Qt5_INCLUDE_DIRS})
-endif()
+# Set paths to plugins, libs, headers
+crsl_qt5_setup_paths()
 
-#########################################################################################
-# Copy DLLs to be enable start executables right from directory (if QTDIR
+########################################################################################
+# macdeployqt is used on Apple to copy all Qt libraries
 if(QT_COPY_LIBRARIES)
-    ########################################################################################
-    # Find plugins which will be copied during install
-    set(__Qt5_PLUGINS_DEBUG
-        ${Qt5_PLUGINS_DIRS}/platforms/${CMAKE_SHARED_LIBRARY_PREFIX}${__PLATFORM_PLUGIN}${__DEBUG_SUFFIX}${CMAKE_SHARED_LIBRARY_SUFFIX})
-
-    set(__Qt5_PLUGINS_RELEASE
-        ${Qt5_PLUGINS_DIRS}/platforms/${CMAKE_SHARED_LIBRARY_PREFIX}${__PLATFORM_PLUGIN}${CMAKE_SHARED_LIBRARY_SUFFIX})
-
-    ########################################################################################
-    # macdeployqt is used on Apple to copy all Qt libraries
-    if(NOT APPLE)
-        crsl_set_files_to_copy_on_install("${__Qt5_all_RUNTIMES_DEBUG}" "${__Qt5_all_RUNTIMES_RELEASE}" "${CAROUSEL_WD}/product" "${CRSL_COMPILER}" "-x${CRSL_TARGET_PLATFORM_BITS}" bin)
-        crsl_set_files_to_copy_on_install("${__Qt5_PLUGINS_DEBUG}" "${__Qt5_PLUGINS_RELEASE}" "${CAROUSEL_WD}/product" "${CRSL_COMPILER}" "-x${CRSL_TARGET_PLATFORM_BITS}" bin/platforms)
-
-        # Copy to unit tests
-        crsl_set_files_to_copy_on_install("${__Qt5_all_RUNTIMES_DEBUG}" "${__Qt5_all_RUNTIMES_RELEASE}" "${CAROUSEL_WD}/product" "${CRSL_COMPILER}" "-x${CRSL_TARGET_PLATFORM_BITS}" unittest)
-        crsl_set_files_to_copy_on_install("${__Qt5_PLUGINS_DEBUG}" "${__Qt5_PLUGINS_RELEASE}" "${CAROUSEL_WD}/product" "${CRSL_COMPILER}" "-x${CRSL_TARGET_PLATFORM_BITS}" unittest/platforms)
-    endif()
+  message(STATUS "Use macdeployqt on Apple to copy all Qt libraries and plugins")
 endif()
 
 message(STATUS "Qt5: Found.")
+

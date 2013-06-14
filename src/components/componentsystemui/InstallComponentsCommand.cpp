@@ -127,7 +127,7 @@ void InstallComponentsCommand::redo()
     QStringList componentNames;
     foreach(const QString &fileName, m_definitionFiles) {
         QFileInfo definitionFile(fileName);
-        componentNames.push_back(definitionFile.baseName());
+        componentNames.push_back(definitionFile.completeBaseName());
     }
 
     // Add existed components

@@ -67,6 +67,10 @@ bool DefinitionConstuctor::construct(ComponentDefinition *definition, const IDef
         return false;
 
     definition->setComponentName(name);
+    definition->setShortComponentName(parser->componentShortName().trimmed().isEmpty()
+                            ? name
+                            : parser->componentShortName());
+
     definition->setDescription(parser->description());
     definition->setProductName(parser->productName());
     definition->setProvider(parser->provider().trimmed().isEmpty()

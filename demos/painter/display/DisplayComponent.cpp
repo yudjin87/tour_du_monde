@@ -42,10 +42,10 @@ static const QByteArray productName("Display");
 
 //------------------------------------------------------------------------------
 DisplayComponent::DisplayComponent(QObject *parent)
-    : BaseComponent("Display", parent)
+    : BaseComponent("org.carousel.demos.Display", parent)
 {
-    addParent("Interactivity");
-    addParent("Geometry");
+    addParent("org.carousel.Interactivity");
+    setShortName("Display");
     setProductName(productName);
     setProvider("Carousel");
 }

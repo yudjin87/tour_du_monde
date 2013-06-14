@@ -1,6 +1,6 @@
 ###############################################################################
 # utils project
-set(CRSL_PROJECT_NAME "Undo")
+set(CRSL_PROJECT_NAME "org.carousel.Undo")
 set(CRSL_TARGET_TYPE "components")
 
 include(cmake/target_utils)
@@ -33,7 +33,7 @@ set(__RESOURCES
 ######################################################################
 # Definitions
 set(__OTHER_FILES
-    ${CRSL_TARGET_SOURCES}/Undo.definition 
+    ${CRSL_TARGET_SOURCES}/org.carousel.Undo.definition 
 )
 
 ######################################################################
@@ -57,7 +57,7 @@ crsl_setup_output_path(bin)
 
 ######################################################################
 # Add targets to a list of libraries to linking
-target_link_libraries(${CRSL_PROJECT_NAME} Interactivity Framework ComponentSystem)
+target_link_libraries(${CRSL_PROJECT_NAME} org.carousel.Interactivity Framework ComponentSystem)
 
 ###############################################################################
 # Qt dependencies

@@ -1,8 +1,0 @@
- <component name="Undo">
-     <productName>Undo</productName>
-     <provider>Carousel</provider>
-     <parents>
-         <parentComponent name="Interactivity"/>
-     </parents>
-     <location>./Undo</location>
- </component>

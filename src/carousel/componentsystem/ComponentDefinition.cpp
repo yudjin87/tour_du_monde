@@ -36,6 +36,7 @@ ComponentDefinition::ComponentDefinition()
     , m_componentName("Undefined_ProxyComponent")
     , m_description("")
     , m_productName("")
+    , m_componentShortName("")
     , m_provider(ComponentDefinition::defaultProvider())
     , m_componentLocation("")
     , m_definitionLocation("")
@@ -50,6 +51,7 @@ ComponentDefinition::ComponentDefinition(const QString &componentName, bool isBu
     , m_componentName(componentName)
     , m_description("")
     , m_productName("")
+    , m_componentShortName("")
     , m_provider(ComponentDefinition::defaultProvider())
     , m_componentLocation("")
     , m_definitionLocation("")
@@ -64,22 +66,12 @@ ComponentDefinition::ComponentDefinition(const ComponentDefinition &other)
     , m_componentName(other.m_componentName)
     , m_description(other.m_description)
     , m_productName(other.m_productName)
+    , m_componentShortName(other.m_componentShortName)
     , m_componentLocation(other.m_componentLocation)
     , m_definitionLocation(other.m_definitionLocation)
     , m_parents(other.m_parents)
     , m_isBuiltIn(other.m_isBuiltIn)
 {
-}
-
-//------------------------------------------------------------------------------
-ComponentDefinition::~ComponentDefinition()
-{
-    m_component = nullptr;
-    m_parents.clear();
-    m_description = "";
-    m_productName = "";
-    m_componentLocation = "";
-    m_definitionLocation = "";
 }
 
 //------------------------------------------------------------------------------
@@ -90,6 +82,7 @@ ComponentDefinition &ComponentDefinition::operator =(const ComponentDefinition &
 
     m_component = other.m_component;
     m_componentName = other.m_componentName;
+    m_componentShortName = other.m_componentShortName;
     m_description = other.m_description;
     m_productName = other.m_productName;
     m_componentLocation = other.m_componentLocation;
@@ -98,6 +91,18 @@ ComponentDefinition &ComponentDefinition::operator =(const ComponentDefinition &
     m_isBuiltIn = other.m_isBuiltIn;
 
     return *this;
+}
+
+//------------------------------------------------------------------------------
+ComponentDefinition::~ComponentDefinition()
+{
+    m_component = nullptr;
+    m_parents.clear();
+    m_description = "";
+    m_productName = "";
+    m_componentShortName = "";
+    m_componentLocation = "";
+    m_definitionLocation = "";
 }
 
 //------------------------------------------------------------------------------
@@ -122,6 +127,12 @@ IComponent *ComponentDefinition::component() const
 const QString &ComponentDefinition::componentLocation() const
 {
     return m_componentLocation;
+}
+
+//------------------------------------------------------------------------------
+const QString &ComponentDefinition::shortComponentName() const
+{
+    return m_componentShortName;
 }
 
 //------------------------------------------------------------------------------
@@ -176,6 +187,12 @@ void ComponentDefinition::setComponent(IComponent *component)
 void ComponentDefinition::setComponentName(const QString &name)
 {
     m_componentName = name;
+}
+
+//------------------------------------------------------------------------------
+void ComponentDefinition::setShortComponentName(const QString &name)
+{
+    m_componentShortName = name;
 }
 
 //------------------------------------------------------------------------------

@@ -1,9 +1,0 @@
- <component name="Dom">
-     <productName>Dom</productName>
-     <provider>Carousel</provider>
-     <location>./Dom</location>
-     <parents>
-         <parentComponent name="Display"/>
-         <parentComponent name="Carto"/>
-     </parents>
- </component>

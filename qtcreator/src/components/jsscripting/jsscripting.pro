@@ -5,15 +5,15 @@ QT      += widgets
 QT      += core
 TEMPLATE = lib
 
-TARGET = JsScripting
+TARGET = org.carousel.JsScripting
 
-DEFINES += JSSCRIPTING_LIBRARY
+DEFINES += ORG_CAROUSEL_JSSCRIPTING_LIBRARY
 
 INCLUDEPATH += $$HPP_SOURCE_TREE/components/jsscripting
 
 LIBS += -L$${DESTDIR} -lComponentSystem \
                       -lFramework \
-                      -lInteractivity \
+                      -lorg.carousel.Interactivity \
                       -lLogging \
 
 ###############################################################################

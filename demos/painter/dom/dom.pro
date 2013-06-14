@@ -4,7 +4,7 @@ QT       -= gui
 
 TEMPLATE = lib
 
-TARGET = Dom
+TARGET = org.carousel.demos.Dom
 
 DEFINES += DOM_LIB_IMPORT
 
@@ -16,7 +16,7 @@ win32 {
 
     # TODO: fix linkage: DOM component should not be dependent from Display
     LIBS += -L$${DESTDIR} -lDisplay
-    LIBS += -L$${DESTDIR} -lCarto
+    LIBS += -L$${DESTDIR} -lorg.carousel.demos.Carto
 }
 
 # Sources:
@@ -34,7 +34,7 @@ SOURCES += \
     DomComponent.cpp \
     PainterDocument.cpp
 
-OTHER_FILES += Dom.definition
+OTHER_FILES += org.carousel.demos.Dom.definition
 
 ###############################################################################
 # Copy definition to the output directory, right near the library

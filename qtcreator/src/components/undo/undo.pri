@@ -18,5 +18,5 @@ RESOURCES += \
     $$PROJECT_SOURCES/undo.qrc \
 
 OTHER_FILES += \
-    $$PROJECT_SOURCES/Undo.definition \
+    $$PROJECT_SOURCES/org.carousel.Undo.definition \
 

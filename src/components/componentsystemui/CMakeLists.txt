@@ -1,6 +1,6 @@
 ###############################################################################
 # componentsystemui project
-set(CRSL_PROJECT_NAME "ComponentSystemUI")
+set(CRSL_PROJECT_NAME "org.carousel.ComponentSystemUI")
 set(CRSL_TARGET_TYPE "components")
 
 include(cmake/target_utils)
@@ -35,7 +35,7 @@ set(__FORMS
 ######################################################################
 # Definitions
 set(__OTHER_FILES
-    ${CRSL_TARGET_SOURCES}/ComponentSystemUI.definition 
+    ${CRSL_TARGET_SOURCES}/org.carousel.ComponentSystemUI.definition 
 )
 
 ######################################################################
@@ -64,7 +64,7 @@ crsl_setup_output_path(bin)
 
 ######################################################################
 # Add targets to a list of libraries to linking
-target_link_libraries(${CRSL_PROJECT_NAME} ComponentSystem Framework Interactivity)
+target_link_libraries(${CRSL_PROJECT_NAME} ComponentSystem Framework org.carousel.Interactivity)
 
 ###############################################################################
 # Qt dependencies

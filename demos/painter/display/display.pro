@@ -2,13 +2,13 @@ include(../shared.pri)
 
 QT       += core widgets
 
-TARGET = Display
+TARGET = org.carousel.demos.Display
 
 TEMPLATE = lib
 
 DEFINES += DISPLAY_LIB_IMPORT
 
-LIBS += -L$${CAROUSEL_BIN} -lInteractivity \
+LIBS += -L$${CAROUSEL_BIN} -lorg.carousel.Interactivity \
 
 #DESTDIR = $${DESTDIR}/externalSource
 DESTDIR = $${DESTDIR}/installedComponents/Display
@@ -17,7 +17,7 @@ win32 {
     LIBS += -L$${CAROUSEL_BIN} -lComponentSystem \
                                -lFramework \
 
-    LIBS += -L$${DESTDIR} -lGeometry \
+    LIBS += -L$${DESTDIR} -lorg.carousel.demos.Geometry \
 }
 
 HEADERS += \
@@ -47,7 +47,7 @@ SOURCES += \
 
 FORMS +=
 
-OTHER_FILES += Display.definition
+OTHER_FILES += org.carousel.demos.Display.definition
 
 ###############################################################################
 # Copy definition to the output directory, right near the library

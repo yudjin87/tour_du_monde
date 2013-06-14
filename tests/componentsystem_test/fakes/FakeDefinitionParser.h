@@ -12,6 +12,7 @@ public:
 
     const QString &error() const;
     const QString &componentName() const;
+    const QString &componentShortName() const;
     const QString &componentLocation() const;
     const QString &description() const;
     const QStringList &parents() const;
@@ -26,6 +27,7 @@ signals:
 
 public:
     QString m_componentName;
+    QString m_shortName;
     QString m_componentLocation;
     QString m_description;
     QString m_productName;

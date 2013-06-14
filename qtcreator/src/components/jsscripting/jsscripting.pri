@@ -9,5 +9,5 @@ SOURCES += \
     $$PROJECT_SOURCES/JsScriptingComponent.cpp \
 
 OTHER_FILES += \
-    $$PROJECT_SOURCES/JsScripting.definition \
+    $$PROJECT_SOURCES/org.carousel.JsScripting.definition \
 

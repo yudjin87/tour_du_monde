@@ -2,7 +2,7 @@ include(../shared.pri)
 
 QT       += core widgets
 
-TARGET = CartoUI
+TARGET = org.carousel.demos.CartoUI
 
 TEMPLATE = lib
 
@@ -12,13 +12,13 @@ DESTDIR = $${DESTDIR}/externalSource
 
 win32 {
     LIBS += -L$${CAROUSEL_BIN} -lComponentSystem \
-                               -lInteractivity \
+                               -lorg.carousel.Interactivity \
                                -lFramework
 
-    LIBS += -L$${DESTDIR} -lDisplay \
-                          -lDom \
-                          -lCarto \
-                          -lGeometry
+    LIBS += -L$${DESTDIR} -lorg.carousel.demos.Display \
+                          -lorg.carousel.demos.Dom \
+                          -lorg.carousel.demos.Carto \
+                          -lorg.carousel.demos.Geometry
 }
 
 HEADERS += \
@@ -41,7 +41,7 @@ SOURCES += \
     ToogleLayerTreeOperation.cpp
 
 OTHER_FILES += \
-    CartoUI.definition
+    org.carousel.demos.CartoUI.definition
 
 ###############################################################################
 # Copy definition to the output directory, right near the library

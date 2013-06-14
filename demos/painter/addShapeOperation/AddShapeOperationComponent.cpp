@@ -46,17 +46,18 @@ void *createAddShapesCommand(IServiceLocator *locator)
 
 //------------------------------------------------------------------------------
 AddShapeOperationComponent::AddShapeOperationComponent(QObject *parent /*= nullptr*/)
-    : BaseComponent("AddShapeOperation", parent)
+    : BaseComponent("org.carousel.demos.AddShapeOperation", parent)
 {
     IInteractiveExtension *interactiveExtension = new AddShapeOperationInteractiveExtension(this);
     registerExtension<IInteractiveExtension>(interactiveExtension);
 
-    addParent("Dom");
-    addParent("Geodatabase");
-    addParent("Display");
-    addParent("Carto");
-    addParent("CartoUI");
-    addParent("Undo");
+    addParent("org.carousel.demos.Dom");
+    addParent("org.carousel.demos.Geodatabase");
+    addParent("org.carousel.demos.Display");
+    addParent("org.carousel.demos.Carto");
+    addParent("org.carousel.demos.CartoUI");
+    addParent("org.carousel.Undo");
+    setShortName("Add Shape Operation");
     setProductName(productName);
     setProvider("Carousel");
 }

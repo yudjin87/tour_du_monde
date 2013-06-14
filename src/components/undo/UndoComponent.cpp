@@ -46,15 +46,16 @@ static const QByteArray description(
 
 //------------------------------------------------------------------------------
 UndoComponent::UndoComponent(QObject *parent)
-    : BaseComponent("Undo", parent)
+    : BaseComponent("org.carousel.Undo", parent)
 {
     IInteractiveExtension *interactiveExtension = new UndoInteractiveExtension(this);
     registerExtension<IInteractiveExtension>(interactiveExtension);
 
+    setShortName("Undo");
     setProductName("Undo");
     setDescription(description);
     setProvider("Carousel");
-    addParent("Interactivity");
+    addParent("org.carousel.Interactivity");
 }
 
 //------------------------------------------------------------------------------

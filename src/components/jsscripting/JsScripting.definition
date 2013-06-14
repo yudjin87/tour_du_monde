@@ -1,8 +1,0 @@
- <component name="JsScripting">
-     <productName>JsScripting</productName>
-     <provider>Carousel</provider>
-     <parents>
-         <parentComponent name="Interactivity"/>
-     </parents>
-     <location>./JsScripting</location>
- </component>

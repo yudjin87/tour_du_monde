@@ -32,11 +32,11 @@
 #if defined(STATIC_BUILD)
 #   define INTERACTIVITY_API
 #else
-#   if defined(INTERACTIVITY_LIBRARY)
+#   if defined(ORG_CAROUSEL_INTERACTIVITY_LIBRARY)
 #       define INTERACTIVITY_API Q_DECL_EXPORT
 #   else
 #       define INTERACTIVITY_API Q_DECL_IMPORT
-#   endif //#if defined(INTERACTIVITY_LIBRARY)
+#   endif //#if defined(ORG_CAROUSEL_INTERACTIVITY_LIBRARY)
 #endif //#if defined(STATIC_BUILD)
 
 // Should be removed

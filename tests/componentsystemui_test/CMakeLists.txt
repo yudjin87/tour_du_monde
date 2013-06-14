@@ -39,7 +39,7 @@ crsl_setup_output_path(manual-test)
 
 ######################################################################
 # Add targets to a list of libraries to linking
-target_link_libraries(${CRSL_PROJECT_NAME} ComponentSystemUI)
+target_link_libraries(${CRSL_PROJECT_NAME} org.carousel.ComponentSystemUI)
 
 ###############################################################################
 # Qt dependencies

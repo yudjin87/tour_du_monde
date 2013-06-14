@@ -1,6 +1,6 @@
 ###############################################################################
 # utils project
-set(CRSL_PROJECT_NAME "JsScripting")
+set(CRSL_PROJECT_NAME "org.carousel.JsScripting")
 set(CRSL_TARGET_TYPE "components")
 
 include(cmake/target_utils)
@@ -21,7 +21,7 @@ set(__HEADERS
 ######################################################################
 # Definitions
 set(__OTHER_FILES
-    ${CRSL_TARGET_SOURCES}/JsScripting.definition 
+    ${CRSL_TARGET_SOURCES}/org.carousel.JsScripting.definition 
 )
 
 ######################################################################
@@ -45,7 +45,7 @@ crsl_setup_output_path(bin)
 
 ######################################################################
 # Add targets to a list of libraries to linking
-target_link_libraries(${CRSL_PROJECT_NAME} Interactivity)
+target_link_libraries(${CRSL_PROJECT_NAME} org.carousel.Interactivity)
 
 ###############################################################################
 # Qt dependencies

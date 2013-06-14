@@ -54,44 +54,54 @@ class COMP_API ComponentDefinition
 public:
     /*!
      * @details
-     *   Initialises a new empty instance of the ComponentDefinition class.
+     * @constructor{ComponentDefinition}.
      */
     ComponentDefinition();
 
     /*!
      * @details
-     *   Initialises a new instance of the ComponentDefinition class using
-     *   specified component name and built-in flag which determines
-     *   whether component registered statically in code (build-in) or
+     * @constructor{ComponentDefinition} using specified component name and built-in flag
+     *   which determines whether component registered statically in code (build-in) or
      *   dynamically (on start-time or run-time).
      */
     ComponentDefinition(const QString &componentName, bool isBuiltIn);
 
+    /*!
+     * @details
+     * @constructor{ComponentDefinition} using copy-constructor.
+     */
     ComponentDefinition(const ComponentDefinition &other);
-
-    ~ComponentDefinition();
 
     /*!
      * @details
-     *   Initializes an existing or creates and initializes a new instance of the
-     *   DependenciesSolvingResult class using already existed instance.
+     * @constructor{ComponentDefinition} using already existed instance.
      */
     ComponentDefinition &operator=(const ComponentDefinition &other);
 
+    ~ComponentDefinition();
+
 public:
+    /*!
+     * @details
+     *   Returns default component provider, which is Unknown.
+     */
     static QString defaultProvider();
 
+    /*!
+     * @details
+     *   Adds a parent component name as a dependency for defined component.
+     */
     void addParent(const QString &parent);
 
     /*!
      * @details
-     *   Returns the defined component.
+     *   Returns a defined component.
      */
     IComponent *component() const;
 
     /*!
      * @details
-     *   Returns the component location (for loaded components). It might be absolute or
+     *   Returns a component location (for loaded components). It might be absolute or
      *   relative path.
      *
      *   Returns empty string for explicitly loaded components (static components).
@@ -100,13 +110,19 @@ public:
 
     /*!
      * @details
-     *   Returns the component name.
+     *   Returns a component short name.
+     */
+    const QString &shortComponentName() const;
+
+    /*!
+     * @details
+     *   Returns a component name.
      */
     const QString &componentName() const;
 
     /*!
      * @details
-     *   Returns the definition location (for loaded components). It might be absolute or
+     *   Returns a definition location (for loaded components). It might be absolute or
      *   relative path.
      *
      *   Returns empty string for explicitly loaded components (static components).
@@ -115,33 +131,33 @@ public:
 
     /*!
      * @details
-     *   Gets the detailed description text that is displayed for this component in the
+     *   Gets a detailed description text that is displayed for this component in the
      *   About this component box in the Components dialog.
      */
     const QString &description() const;
 
     /*!
      * @details
-     *   Gets the flag which determines whether component registered statically in code
+     *   Gets a flag which determines whether component registered statically in code
      *   (build-in) or dynamically (on start-time or run-time).
      */
     bool isBuiltIn() const;
 
     /*!
      * @details
-     *   Gets the list of parent (dependent) components names.
+     *   Gets a list of parent (dependent) components names.
      */
     const QStringList &parents() const;
 
     /*!
      * @details
-     *   Gets the the name that is displayed for this component in the Components dialog.
+     *   Gets a the name that is displayed for this component in the Components dialog.
      */
     const QString &productName() const;
 
     /*!
      * @details
-     *   Gets the the name of component's provider, the person or company,
+     *   Gets a the name of component's provider, the person or company,
      *   who creates this component.
      *
      *   @a Unknown is by default.
@@ -150,7 +166,7 @@ public:
 
     /*!
      * @details
-     *   Sets the component.
+     *   Sets a component.
      *
      * @note it does not have ownership for the component
      *   neither change description for the component.
@@ -159,9 +175,17 @@ public:
 
     /*!
      * @details
-     *   Sets the component description.
+     *   Sets the component name. The name should be unique in the application bounadaries,
+     *   because components with the same name could not be added to the IComponentManager.
      */
     void setComponentName(const QString &name);
+
+    /*!
+     * @details
+     *   Sets the component short name. This name will be shown to the user
+     *   in the components dialog.
+     */
+    void setShortComponentName(const QString &name);
 
     /*!
      * @details
@@ -196,6 +220,7 @@ public:
 private:
     IComponent *m_component;
     QString m_componentName;
+    QString m_componentShortName;
     QString m_description;
     QString m_productName;
     QString m_provider;

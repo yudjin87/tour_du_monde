@@ -35,12 +35,13 @@ static const QByteArray productName("ComponentManagement");
 
 //------------------------------------------------------------------------------
 ComponentManagementComponent::ComponentManagementComponent(QObject *parent /*= nullptr*/)
-    : BaseComponent("ComponentManagement", parent)
+    : BaseComponent("org.carousel.demos.ComponentManagement", parent)
 {
     IInteractiveExtension *interactiveExtension = new ComponentManagementInteractiveExtension(this);
     registerExtension<IInteractiveExtension>(interactiveExtension);
 
-    addParent("ComponentSystemUI");
+    addParent("org.carousel.ComponentSystemUI");
+    setShortName("Component Management");
     setProductName(productName);
     setProvider("Carousel");
 }

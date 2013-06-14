@@ -32,11 +32,11 @@
 #if defined(STATIC_BUILD)
 #   define JSSCRIPTING_API
 #else
-#   if defined(JSSCRIPTING_LIBRARY)
+#   if defined(ORG_CAROUSEL_JSSCRIPTING_LIBRARY)
 #       define JSSCRIPTING_API Q_DECL_EXPORT
 #   else
 #       define JSSCRIPTING_API Q_DECL_IMPORT
-#   endif //#if defined(JSSCRIPTING_LIBRARY)
+#   endif //#if defined(ORG_CAROUSEL_JSSCRIPTING_LIBRARY)
 #endif //#if defined(STATIC_BUILD)
 
 // Should be removed
