@@ -2,17 +2,17 @@ include(../shared.pri)
 
 QT       += core widgets
 
-TARGET = ComponentManagement
+TARGET = org.carousel.demos.ComponentManagement
 
 TEMPLATE = lib
 
 DEFINES += COMPONENTMANAGEMENT_LIB_IMPORT
 
-LIBS += -L$${CAROUSEL_BIN} -lInteractivity \
+LIBS += -L$${CAROUSEL_BIN} -lorg.carousel.Interactivity \
 
 win32 {
     LIBS += -L$${CAROUSEL_BIN} -lComponentSystem \
-                               -lComponentSystemUI \
+                               -lorg.carousel.ComponentSystemUI \
                                -lFramework \
 }
 
@@ -34,7 +34,7 @@ SOURCES += \
     ShowComponentsOperation.cpp
 
 OTHER_FILES += \
-    ComponentManagement.definition
+    org.carousel.demos.ComponentManagement.definition
 
 RESOURCES += \
     ComponentManagement.qrc

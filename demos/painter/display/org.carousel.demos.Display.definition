@@ -1,0 +1,8 @@
+ <component name="org.carousel.demos.Display" shortName="Display">
+     <productName>Display</productName>
+     <provider>Carousel</provider>
+     <location>./org.carousel.demos.Display</location>
+     <parents>
+         <parentComponent name="org.carousel.Interactivity"/>
+     </parents>
+ </component>

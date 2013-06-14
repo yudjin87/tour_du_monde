@@ -38,6 +38,7 @@ public:
 private Q_SLOTS:
     void construct_ShouldConstructDefinitionFromParser();
     void construct_ShouldUseDefaultProviderIfParserReturnsEmpty();
+    void construct_ShouldUseNameIfShortNameIsEmpty();
     void construct_ShouldUseDelegateIfAny();
     void construct_ShouldReturnFalseIfComponentNameIsEmpty();
 

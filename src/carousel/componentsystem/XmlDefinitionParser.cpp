@@ -39,6 +39,7 @@ static LoggerFacade Log = LoggerFacade::createLogger("XmlDefinitionParser");
 
 //------------------------------------------------------------------------------
 static const char *COMPONENT_NAME_ATTRIBUTE = "name";
+static const char *COMPONENT_SHORT_NAME_ATTRIBUTE = "shortName";
 static const char *PARENT_COMPONENT_NAME_ATTRIBUTE = "name";
 
 static const char *COMPONENT_TAG = "component";
@@ -53,6 +54,7 @@ static const char *PARENTS_TAG = "parents";
 XmlDefinitionParser::XmlDefinitionParser(QObject *parent)
     : QObject(parent)
     , m_componentName("")
+    , m_shortName("")
     , m_componentLocation("")
     , m_description("")
     , m_productName("")
@@ -114,6 +116,12 @@ bool XmlDefinitionParser::read(QIODevice *dev)
 }
 
 //------------------------------------------------------------------------------
+const QString &XmlDefinitionParser::componentShortName() const
+{
+    return m_shortName;
+}
+
+//------------------------------------------------------------------------------
 const QString &XmlDefinitionParser::componentName() const
 {
     return m_componentName;
@@ -171,6 +179,9 @@ bool XmlDefinitionParser::parseXml(QDomDocument &document)
         Log.e(QString("Error during definition parsing. %1").arg(m_error));
         return false;
     }
+
+    // Could be empty or absent
+    m_shortName = root.attribute(COMPONENT_SHORT_NAME_ATTRIBUTE).trimmed();
 
     QDomNode description = root.elementsByTagName(DESCRIPTION_TAG).at(0);
     m_description = description.toElement().text();

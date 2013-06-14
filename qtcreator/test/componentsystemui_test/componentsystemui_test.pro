@@ -9,6 +9,6 @@ DESTDIR = $${CAROUSEL_WD}/$${BIN_OUTPUT_PATH}/manual-test
 LIBS += -L$${DESTDIR}/../bin -lFramework \
                              -lLogging \
                              -lUtils \
-                             -lInteractivity \
+                             -lorg.carousel.Interactivity \
                              -lComponentSystem \
-                             -lComponentSystemUI \
+                             -lorg.carousel.ComponentSystemUI \

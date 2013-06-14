@@ -20,5 +20,5 @@ FORMS += \
     $$PROJECT_SOURCES/ComponentsDialog.ui \
 
 OTHER_FILES += \
-    $$PROJECT_SOURCES/ComponentSystemUI.definition \
+    $$PROJECT_SOURCES/org.carousel.ComponentSystemUI.definition \
 

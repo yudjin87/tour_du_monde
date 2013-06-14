@@ -5,10 +5,10 @@ QT       += widgets
 
 TARGET = jsscripting_test
 
-LIBS += -L$${DESTDIR}/../bin -lInteractivity \
+LIBS += -L$${DESTDIR}/../bin -lorg.carousel.Interactivity \
                              -lComponentSystem \
                              -lFramework \
                              -lUtils \
                              -lLogging \
-                             -lJsScripting \
+                             -lorg.carousel.JsScripting \
 

@@ -91,7 +91,7 @@ int ComponentDefinitionsModel::rowCount(const QModelIndex &parent) const
 //------------------------------------------------------------------------------
 int ComponentDefinitionsModel::columnCount(const QModelIndex &parent) const
 {
-    return (parent.column() > 0) ? 0 : 3;
+    return (parent.column() > 0) ? 0 : 4;
 }
 
 //------------------------------------------------------------------------------
@@ -102,8 +102,9 @@ QVariant ComponentDefinitionsModel::headerData(int section, Qt::Orientation orie
 
     switch (section) {
     case 0: return "Internal name";
-    case 1: return "Name";
-    case 2: return "Provider";
+    case 1: return "Product name";
+    case 2: return "Name";
+    case 3: return "Provider";
     default: return QVariant();
     }
 }
@@ -123,7 +124,8 @@ QVariant ComponentDefinitionsModel::data(const QModelIndex &index, int role) con
         switch (index.column()) {
         case 0: return def->componentName();
         case 1: return def->productName();
-        case 2: return def->provider();
+        case 2: return def->shortComponentName();
+        case 3: return def->provider();
         default:
             qWarning("data: invalid display value column %d", index.column());
             break;

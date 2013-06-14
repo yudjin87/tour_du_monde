@@ -5,15 +5,15 @@ QT      += widgets
 QT      += core
 TEMPLATE = lib
 
-TARGET = Undo
+TARGET = org.carousel.Undo
 
-DEFINES += UNDO_LIBRARY
+DEFINES += ORG_CAROUSEL_UNDO_LIBRARY
 
 INCLUDEPATH += $$HPP_SOURCE_TREE/components/undo
 
 LIBS += -L$${DESTDIR} -lComponentSystem \
                       -lFramework \
-                      -lInteractivity \
+                      -lorg.carousel.Interactivity \
                       -lLogging \
 
 ###############################################################################

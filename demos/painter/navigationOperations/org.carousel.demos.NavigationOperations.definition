@@ -1,0 +1,12 @@
+ <component name="org.carousel.demos.NavigationOperations" shortName="Navigation Operations">
+     <productName>NavigationOperations</productName>
+     <provider>Carousel</provider>
+     <parents>
+         <parentComponent name="org.carousel.demos.Dom"/>
+         <parentComponent name="org.carousel.demos.Geodatabase"/>
+         <parentComponent name="org.carousel.demos.Display"/>
+         <parentComponent name="org.carousel.demos.Carto"/>
+         <parentComponent name="org.carousel.Interactivity"/>
+         <parentComponent name="org.carousel.demos.AddShapeOperation"/>
+     </parents>
+ </component>

@@ -4,7 +4,7 @@ QT       += widgets
 
 TEMPLATE = lib
 
-TARGET = Geometry
+TARGET = org.carousel.demos.Geometry
 
 DEFINES += GEOMETRY_LIB_IMPORT
 
@@ -38,7 +38,7 @@ SOURCES += \
     Polycurve.cpp \
     GeometryComponent.cpp
 
-OTHER_FILES += Geometry.definition
+OTHER_FILES += org.carousel.demos.Geometry.definition
 
 ###############################################################################
 # Copy definition to the output directory, right near the library

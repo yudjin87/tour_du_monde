@@ -184,6 +184,12 @@ void BaseComponent::setDescription(const QString &description)
 }
 
 //------------------------------------------------------------------------------
+void BaseComponent::setShortName(const QString &name)
+{
+    m_definition->setShortComponentName(name);
+}
+
+//------------------------------------------------------------------------------
 void BaseComponent::setProductName(const QString &productName)
 {
     m_definition->setProductName(productName);

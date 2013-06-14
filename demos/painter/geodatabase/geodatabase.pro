@@ -4,7 +4,7 @@ QT       += gui
 
 TEMPLATE = lib
 
-TARGET = Geodatabase
+TARGET = org.carousel.demos.Geodatabase
 
 DEFINES += GEODATABASE_LIB_IMPORT
 
@@ -14,7 +14,7 @@ LIBS += -L$${CAROUSEL_BIN} -lUtils \
 
 DESTDIR = $${DESTDIR}/externalSource
 
-LIBS += -L$${DESTDIR} -lGeometry \
+LIBS += -L$${DESTDIR} -lorg.carousel.demos.Geometry \
 
 
 HEADERS += \
@@ -50,7 +50,7 @@ SOURCES += \
     SpatialFilter.cpp
 
 
-OTHER_FILES += Geodatabase.definition
+OTHER_FILES += org.carousel.demos.Geodatabase.definition
 
 ###############################################################################
 # Copy definition to the output directory, right near the library

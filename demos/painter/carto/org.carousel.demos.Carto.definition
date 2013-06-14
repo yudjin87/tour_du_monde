@@ -1,0 +1,10 @@
+ <component name="org.carousel.demos.Carto" shortName="Carto">
+     <productName>Carto</productName>
+     <provider>Carousel</provider>
+     <location>./org.carousel.demos.Carto</location>
+     <parents>
+         <parentComponent name="org.carousel.demos.Display"/>
+         <parentComponent name="org.carousel.demos.Geodatabase"/>
+         <parentComponent name="org.carousel.demos.Geometry"/>
+     </parents>
+ </component>

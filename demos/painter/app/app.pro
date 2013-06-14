@@ -8,16 +8,16 @@ TEMPLATE = app
 
 DESTDIR = $${BIN_OUTPUT_PATH}/bin
 
-LIBS += -L$${DESTDIR}/components -lComponentManagement
+LIBS += -L$${DESTDIR}/components -lorg.carousel.demos.ComponentManagement
 
 LIBS += -L$${CAROUSEL_BIN} -lComponentSystem \
                            -lBooting \
                            -lFramework \
                            -lUtils \
                            -lLogging \
-                           -lInteractivity \
-                           -lComponentSystemUI \
-                           -lUndo \
+                           -lorg.carousel.Interactivity \
+                           -lorg.carousel.ComponentSystemUI \
+                           -lorg.carousel.Undo \
 
 SOURCES += \
     main.cpp\

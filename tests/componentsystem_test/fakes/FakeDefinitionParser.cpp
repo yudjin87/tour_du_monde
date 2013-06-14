@@ -9,6 +9,7 @@
 FakeDefinitionParser::FakeDefinitionParser()
     : QObject()
     , m_componentName("TestComponent2")
+    , m_shortName("")
     , m_componentLocation("")
     , m_description("")
     , m_productName("")
@@ -54,6 +55,11 @@ bool FakeDefinitionParser::read(QIODevice *dev)
 const QString &FakeDefinitionParser::componentName() const
 {
     return m_componentName;
+}
+
+const QString &FakeDefinitionParser::componentShortName() const
+{
+    return m_shortName;
 }
 
 //------------------------------------------------------------------------------

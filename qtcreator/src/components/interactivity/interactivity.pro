@@ -5,9 +5,9 @@ QT       += widgets
 QT       += core
 TEMPLATE = lib
 
-TARGET = Interactivity
+TARGET = org.carousel.Interactivity
 
-DEFINES += INTERACTIVITY_LIBRARY
+DEFINES += ORG_CAROUSEL_INTERACTIVITY_LIBRARY
 
 INCLUDEPATH += $$HPP_SOURCE_TREE/components/interactivity
 
