@@ -40,7 +40,7 @@
 //------------------------------------------------------------------------------
 namespace {
 
-ComponentDefinition *createDefinition(QString name, bool builtIn, QString compLocation, QString defLocation, QString description, QString product)
+ComponentDefinition *createDefinition(QString name, bool builtIn, QString compLocation, QString defLocation, QString description, QString product, QString shortName)
 {
     ComponentDefinition *def = new ComponentDefinition(name, builtIn);
     //def->setAvailability(availability);
@@ -50,6 +50,7 @@ ComponentDefinition *createDefinition(QString name, bool builtIn, QString compLo
     }
     def->setDescription(description);
     def->setProductName(product);
+    def->setShortComponentName(shortName);
 
     return def;
 }
@@ -71,7 +72,7 @@ ComponentsDialogTest::ComponentsDialogTest(QObject *parent)
 
     dependencies = new ComponentDependencies(this);
     for (int i = 0; i < 11; ++i) {
-        IComponent *comp = new ProxyComponent(createDefinition(QString("Component%1").arg(i), (i % 3), "/to/nowhere/library", "/to/nowhere/definition", "Description", "ComponentA product"));
+        IComponent *comp = new ProxyComponent(createDefinition(QString("org.tests.Component%1").arg(i), (i % 3), "/to/nowhere/library", "/to/nowhere/definition", "Description", "ComponentA product", QString("Component %1").arg(i)));
         components.push_back(comp);
         dependencies->addComponent(comp);
     }
