@@ -55,13 +55,6 @@ ComponentDefinition *createDefinition(QString name, bool builtIn, QString compLo
     return def;
 }
 
-//------------------------------------------------------------------------------
-// TODO: will be removed when c++11 is supported (with lambdas)
-static void *createEnableComponentCommand(ComponentDependencies *dependencies)
-{
-    return new FakeEnableComponentCommand(dependencies);
-}
-
 }
 
 //------------------------------------------------------------------------------
@@ -79,7 +72,7 @@ ComponentsDialogTest::ComponentsDialogTest(QObject *parent)
 
     // -- used for the dialog --
     locator->registerInstance(new QUndoStack(this));
-    auto creator = std::bind(&createEnableComponentCommand, dependencies);
+    auto creator = [this](){return new FakeEnableComponentCommand(dependencies);};
     locator->registerType<EnableComponentCommand>(creator);
 
     //--------------------------

@@ -32,17 +32,8 @@
 #include <carousel/componentsystem/ComponentExport.h>
 #include <carousel/utils/IServiceLocator.h>
 
-#include <functional>
-
 //------------------------------------------------------------------------------
 static const QByteArray productName("AddShapeOperation");
-
-//------------------------------------------------------------------------------
-// TODO: will be removed when c++11 is supported (with lambdas)
-void *createAddShapesCommand(IServiceLocator *locator)
-{
-    return new AddShapesCommand(locator);
-}
 
 //------------------------------------------------------------------------------
 AddShapeOperationComponent::AddShapeOperationComponent(QObject *parent /*= nullptr*/)
@@ -70,7 +61,7 @@ AddShapeOperationComponent::~AddShapeOperationComponent()
 //------------------------------------------------------------------------------
 bool AddShapeOperationComponent::onStartup(IServiceLocator *serviceLocator)
 {
-    auto creator = std::bind(&createAddShapesCommand, serviceLocator);
+    auto creator = [serviceLocator](){return new AddShapesCommand(serviceLocator);};
     serviceLocator->registerType<AddShapesCommand>(creator);
 
     return true;

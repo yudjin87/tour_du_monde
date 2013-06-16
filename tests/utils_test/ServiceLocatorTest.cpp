@@ -19,7 +19,6 @@ void ServiceLocatorTest::canRegisterInstance()
     MockServiceLocator mockLocator;
 
     mockLocator.registerInstance<IService>(&service);
-
     QCOMPARE(mockLocator.items().size(), 1);
 }
 
@@ -172,17 +171,10 @@ void ServiceLocatorTest::shouldNotBindConcreteClassForExistingTypeWithExistingTa
 }
 
 //------------------------------------------------------------------------------
-//TODO: replace to lambda
-void *removeMeWhenLambdaSupportWillBeAdded()
-{
-    return new Service1();
-}
-
-//------------------------------------------------------------------------------
 void ServiceLocatorTest::canRegisterFactoryMethodForType()
 {
     MockServiceLocator mockLocator;
-    factoryMethod creator = &removeMeWhenLambdaSupportWillBeAdded;
+    auto creator = [](){return new Service1();};
     mockLocator.registerType<IService>(creator);
 
     QCOMPARE(mockLocator.creators().size(), 1);
@@ -192,7 +184,7 @@ void ServiceLocatorTest::canRegisterFactoryMethodForType()
 void ServiceLocatorTest::canBuildRegisteredWithFactoryMethodInterfaceByType()
 {
     MockServiceLocator mockLocator;
-    factoryMethod creator = &removeMeWhenLambdaSupportWillBeAdded;
+    auto creator = [](){return new Service1();};
     mockLocator.registerType<IService>(creator);
 
     QCOMPARE(Service1::instancesCount, 0);

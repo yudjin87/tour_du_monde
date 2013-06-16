@@ -29,6 +29,7 @@
 
 #include <carousel/utils/IServiceLocator.h>
 
+#include <QtCore/QCoreApplication>
 #include <QtWidgets/QFileDialog>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QUndoStack>
@@ -48,6 +49,7 @@ void AddShapeOperation::execute()
     QFileDialog fileDialog(m_serviceLocator->locate<QMainWindow>(), "Open shape");
     fileDialog.setNameFilter("Shape Files (*.shp)");
     fileDialog.setFileMode(QFileDialog::ExistingFiles);
+    fileDialog.setDirectory(QCoreApplication::applicationDirPath() + "/data");  // TODO: get last selected directory from settings
     if (!fileDialog.exec())
         return;
 

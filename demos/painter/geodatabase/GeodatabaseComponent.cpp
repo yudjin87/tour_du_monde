@@ -32,17 +32,8 @@
 #include <carousel/componentsystem/ComponentExport.h>
 #include <carousel/utils/IServiceLocator.h>
 
-#include <functional>
-
 //------------------------------------------------------------------------------
 static const QByteArray productName("Geodatabase");
-
-//------------------------------------------------------------------------------
-// TODO: will be removed when c++11 is supported (with lambdas)
-void *createShapeFileWorkspaceFactory(IServiceLocator *locator)
-{
-    return new ShapeFileWorkspaceFactory(locator);
-}
 
 //------------------------------------------------------------------------------
 GeodatabaseComponent::GeodatabaseComponent()
@@ -62,7 +53,7 @@ GeodatabaseComponent::~GeodatabaseComponent()
 //------------------------------------------------------------------------------
 bool GeodatabaseComponent::onStartup(IServiceLocator *serviceLocator)
 {
-    auto creator = std::bind(&createShapeFileWorkspaceFactory, serviceLocator);
+    auto creator = [serviceLocator](){return new ShapeFileWorkspaceFactory(serviceLocator);};
     serviceLocator->registerType<IShapeFileWorkspaceFactory>(creator);
     serviceLocator->bindType<IShapeFileReader, ShapeFileReader>();
 

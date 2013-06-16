@@ -34,8 +34,9 @@
 #include <carousel/utils/ObservableList.h>
 #include <carousel/utils/FileUtils.h>
 
-#include <QtCore/QFileInfo>
+#include <QtCore/QCoreApplication>
 #include <QtCore/QDir>
+#include <QtCore/QFileInfo>
 
 //------------------------------------------------------------------------------
 InstallComponentsCommand::InstallComponentsCommand(IComponentManager *manager, QUndoCommand *parent)
