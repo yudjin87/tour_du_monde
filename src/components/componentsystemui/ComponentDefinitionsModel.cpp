@@ -33,6 +33,7 @@
 #include <carousel/utils/ObservableList.h>
 #include <carousel/utils/IServiceLocator.h>
 
+#include <QtCore/QCoreApplication>
 #include <QtGui/QIcon>
 #include <QtWidgets/QFileDialog>
 #include <QtWidgets/QMainWindow>
@@ -194,6 +195,7 @@ void ComponentDefinitionsModel::onInstall()
     QFileDialog fileDialog(m_locator->locate<QMainWindow>(), "Install component");
     fileDialog.setFileMode(QFileDialog::ExistingFiles);
     fileDialog.setNameFilter("Components (*.definition)"); // TODO: get from the app settings
+    fileDialog.setDirectory(QCoreApplication::applicationDirPath());  // TODO: get last selected directory from settings
     if (!fileDialog.exec())
         return;
 

@@ -107,14 +107,14 @@ typedef std::function<void*(void)> factoryMethod;
  *   IServiceLocator *locator = new ServiceLocator();
  *   locator->bindType<IA, A>();
  *
- *   locator->registerType<IB>([locator]() -> IB*
+ *   locator->registerType<IB>([locator]()
  *     {
  *     IA* a = locator->buildInstance<IA>();
  *     IB* b = new B(a);
  *     return b;
  *     });
  *
- *   locator->registerType<IC>([locator]()-> IC*
+ *   locator->registerType<IC>([locator]()
  *     {
  *     IA* a = locator->buildInstance<IA>();
  *     IB* b = new B(a);
@@ -339,22 +339,20 @@ private:
 template<typename TInterface, typename TConcreteClass>
 void IServiceLocator::bindType()
 {
-    this->bindType<TInterface, TConcreteClass>("");
-}
+    static_assert(std::is_base_of<QObject, TInterface>::value, "TInterface should derive from the QObject!");
+    static_assert(std::is_base_of<TInterface, TConcreteClass>::value, "TConcreteClass should derive from the TInterface!");
 
-//------------------------------------------------------------------------------
-//TODO: replace to lambda
-template<typename TConcreteClass>
-void *removeWhenLambdaSupportWillBeAdded()
-{
-    return new TConcreteClass();
+    this->bindType<TInterface, TConcreteClass>("");
 }
 
 //------------------------------------------------------------------------------
 template<typename TInterface, typename TConcreteClass>
 void IServiceLocator::bindType(const QString &tag)
 {
-    factoryMethod creator = &removeWhenLambdaSupportWillBeAdded<TConcreteClass>;
+    static_assert(std::is_base_of<QObject, TInterface>::value, "TInterface should derive from the QObject!");
+    static_assert(std::is_base_of<TInterface, TConcreteClass>::value, "TConcreteClass should derive from the TInterface!");
+
+    auto creator = [](){return new TConcreteClass();};
     this->registerType<TInterface>(creator, tag);
 }
 
@@ -362,6 +360,8 @@ void IServiceLocator::bindType(const QString &tag)
 template<typename TInterface>
 TInterface *IServiceLocator::buildInstance() const
 {
+    static_assert(std::is_base_of<QObject, TInterface>::value, "TInterface should derive from the QObject!");
+
     return buildInstance<TInterface>("");
 }
 
@@ -369,10 +369,11 @@ TInterface *IServiceLocator::buildInstance() const
 template<typename TInterface>
 TInterface *IServiceLocator::buildInstance(const QString &tag) const
 {
+    static_assert(std::is_base_of<QObject, TInterface>::value, "TInterface should derive from the QObject!");
+
     const char *className = TInterface::staticMetaObject.className();
     void *data = this->buildInstanceImpl(className, tag);
 
-    // TODO: use static checks (c++11) during type registering and building.
     QObject *obj = reinterpret_cast<QObject *>(data);
     TInterface *instance = qobject_cast<TInterface *>(obj);
 
@@ -383,6 +384,8 @@ TInterface *IServiceLocator::buildInstance(const QString &tag) const
 template<typename TService>
 TService *IServiceLocator::locate()
 {
+    static_assert(std::is_base_of<QObject, TService>::value, "TService should derive from the QObject!");
+
     return this->locate<TService>("");
 }
 
@@ -390,6 +393,8 @@ TService *IServiceLocator::locate()
 template<typename TService>
 TService *IServiceLocator::locate(const QString &tag)
 {
+    static_assert(std::is_base_of<QObject, TService>::value, "TService should derive from the QObject!");
+
     const QString &className = TService::staticMetaObject.className();
     void *data = this->getService(className, tag);
 
@@ -403,6 +408,8 @@ TService *IServiceLocator::locate(const QString &tag)
 template<typename TService>
 void IServiceLocator::registerInstance(TService *instance)
 {
+    static_assert(std::is_base_of<QObject, TService>::value, "TService should derive from the QObject!");
+
     this->registerInstance<TService>(instance, "");
 }
 
@@ -410,6 +417,8 @@ void IServiceLocator::registerInstance(TService *instance)
 template<typename TService>
 void IServiceLocator::registerInstance(TService *instance, const QString &tag)
 {
+    static_assert(std::is_base_of<QObject, TService>::value, "TService should derive from the QObject!");
+
     const QString &className = TService::staticMetaObject.className();
     this->registerInstanceImpl(reinterpret_cast<void *>(instance), className, tag);
 }
@@ -418,6 +427,8 @@ void IServiceLocator::registerInstance(TService *instance, const QString &tag)
 template<typename TInterface>
 void IServiceLocator::registerType(factoryMethod method)
 {
+    static_assert(std::is_base_of<QObject, TInterface>::value, "TInterface should derive from the QObject!");
+
     this->registerType<TInterface>(method, "");
 }
 
@@ -425,6 +436,8 @@ void IServiceLocator::registerType(factoryMethod method)
 template<typename TInterface>
 void IServiceLocator::registerType(factoryMethod method, const QString &tag)
 {
+    static_assert(std::is_base_of<QObject, TInterface>::value, "TInterface should derive from the QObject!");
+
     const char *className = TInterface::staticMetaObject.className();
     this->registerTypeImpl(className, method, tag);
 }
@@ -433,6 +446,8 @@ void IServiceLocator::registerType(factoryMethod method, const QString &tag)
 template<typename TService>
 TService *IServiceLocator::unregisterInstance()
 {
+    static_assert(std::is_base_of<QObject, TService>::value, "TService should derive from the QObject!");
+
     return this->unregisterInstance<TService>("");
 }
 
@@ -440,10 +455,11 @@ TService *IServiceLocator::unregisterInstance()
 template<typename TService>
 TService *IServiceLocator::unregisterInstance(const QString &tag)
 {
+    static_assert(std::is_base_of<QObject, TService>::value, "TService should derive from the QObject!");
+
     const char *className = TService::staticMetaObject.className();
     void *data = this->unregisterInstanceImpl(className, tag);
 
-    // TODO: use static checks (c++11) during type registering and building.
     QObject *obj = reinterpret_cast<QObject *>(data);
     TService *service = qobject_cast<TService *>(obj);
 
