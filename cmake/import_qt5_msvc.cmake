@@ -68,12 +68,18 @@ if(QT_COPY_LIBRARIES)
 
     message(STATUS "Creating install target for copying Qt5 libraries and plugins...")
 
+    # Copy to the binaries
     crsl_set_files_to_copy_on_install("${__Qt5_all_RUNTIMES_DEBUG}" "${__Qt5_all_RUNTIMES_RELEASE}" "${CAROUSEL_WD}/product" "${CRSL_COMPILER}" "-x${CRSL_TARGET_PLATFORM_BITS}" bin)
     crsl_set_files_to_copy_on_install("${__Qt5_PLUGINS_DEBUG}" "${__Qt5_PLUGINS_RELEASE}" "${CAROUSEL_WD}/product" "${CRSL_COMPILER}" "-x${CRSL_TARGET_PLATFORM_BITS}" bin/platforms)
 
-    # Copy to unit tests
+    # Copy to the unit tests
     crsl_set_files_to_copy_on_install("${__Qt5_all_RUNTIMES_DEBUG}" "${__Qt5_all_RUNTIMES_RELEASE}" "${CAROUSEL_WD}/product" "${CRSL_COMPILER}" "-x${CRSL_TARGET_PLATFORM_BITS}" unittest)
     crsl_set_files_to_copy_on_install("${__Qt5_PLUGINS_DEBUG}" "${__Qt5_PLUGINS_RELEASE}" "${CAROUSEL_WD}/product" "${CRSL_COMPILER}" "-x${CRSL_TARGET_PLATFORM_BITS}" unittest/platforms)
+
+    # Copy to manual tests
+    crsl_set_files_to_copy_on_install("${__Qt5_all_RUNTIMES_DEBUG}" "${__Qt5_all_RUNTIMES_RELEASE}" "${CAROUSEL_WD}/product" "${CRSL_COMPILER}" "-x${CRSL_TARGET_PLATFORM_BITS}" manual-test)
+    crsl_set_files_to_copy_on_install("${__Qt5_PLUGINS_DEBUG}" "${__Qt5_PLUGINS_RELEASE}" "${CAROUSEL_WD}/product" "${CRSL_COMPILER}" "-x${CRSL_TARGET_PLATFORM_BITS}" manual-test/platforms)
+
 endif()
 
 message(STATUS "Qt5: Found.")
