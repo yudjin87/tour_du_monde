@@ -26,6 +26,7 @@ set(__SOURCES
     ${CRSL_TARGET_SOURCES}/FileComponentProvider.cpp 
     ${CRSL_TARGET_SOURCES}/IComponent.cpp 
     ${CRSL_TARGET_SOURCES}/ProxyComponent.cpp 
+    ${CRSL_TARGET_SOURCES}/Version.cpp 
     ${CRSL_TARGET_SOURCES}/WebInstaller.cpp 
     ${CRSL_TARGET_SOURCES}/XmlDefinitionParser.cpp 
 )
@@ -63,6 +64,7 @@ set(__HEADERS
     ${CRSL_TARGET_HEADERS}/IDefinitionParser.h 
     ${CRSL_TARGET_HEADERS}/IDirectoryComponentProvider.h 
     ${CRSL_TARGET_HEADERS}/ProxyComponent.h 
+    ${CRSL_TARGET_HEADERS}/Version.h 
     ${CRSL_TARGET_HEADERS}/WebInstaller.h 
     ${CRSL_TARGET_HEADERS}/XmlDefinitionParser.h 
 )
