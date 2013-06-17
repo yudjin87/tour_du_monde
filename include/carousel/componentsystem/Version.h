@@ -31,12 +31,9 @@
 
 #include <QtCore/QObject>
 
-////////////////////////////////////////////////////////////////////////////////
-//
-// Pattern for versioning from Microsoft: http://msdn.microsoft.com/en-us/library/51ket42z.aspx
 /*!
  * @brief
- *   This class represents a library version.
+ *   This class represents a Carousel component version.
  * @details
  *   The version format is a four-part string with the following format:
  *   <major version>.<minor version>.<build number>.<revision>
