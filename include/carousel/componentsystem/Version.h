@@ -45,12 +45,13 @@ class COMP_API Version : public QObject
     Q_OBJECT
 public:
     explicit Version(QObject *parent = nullptr);
-    Version(Version &&other);
     Version(int major_version, int minor_version, int build_version, int revision_version, QObject *parent = nullptr);
-    Version&& operator=(Version &&other);
     ~Version();
 
 public:
+    static bool parseString(const QString &version, int *major, int *minor, int *build = nullptr, int *revision = nullptr);
+    static Version *fromString(const QString &version, bool *ok = nullptr);
+
     void setVersion(int major_version, int minor_version, int build_version, int revision_version);
     void setMajor(int major_version);
     void setMinor(int minor_version);

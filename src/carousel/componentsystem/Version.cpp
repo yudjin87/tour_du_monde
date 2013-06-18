@@ -26,6 +26,8 @@
 
 #include "Version.h"
 
+#include <QtCore/QStringList>
+
 //------------------------------------------------------------------------------
 Version::Version(QObject *parent)
     : QObject(parent)
@@ -34,17 +36,6 @@ Version::Version(QObject *parent)
     , m_build_version(0)
     , m_revision_version(0)
 {
-}
-
-//------------------------------------------------------------------------------
-Version::Version(Version &&other)
-    : QObject(nullptr)
-    , m_major_version(0)
-    , m_minor_version(0)
-    , m_build_version(0)
-    , m_revision_version(0)
-{
-    *this = std::move(other);
 }
 
 //------------------------------------------------------------------------------
@@ -58,33 +49,90 @@ Version::Version(int major_version, int minor_version, int build_version, int re
 }
 
 //------------------------------------------------------------------------------
-Version &Version::operator =(Version &&other)
-{
-    if (this == &other)
-        return *this;
-
-    setParent(other.parent());
-    m_major_version = other.m_major_version;
-    m_minor_version = other.m_minor_version;
-    m_build_version = other.m_build_version;
-    m_revision_version = other.m_revision_version;
-
-    other.setParent(nullptr);
-    other.m_major_version = 0;
-    other.m_minor_version = 0;
-    other.m_build_version = 0;
-    other.m_revision_version = 0;
-
-    return *this;
-}
-
-//------------------------------------------------------------------------------
 Version::~Version()
 {
     m_major_version = 0;
     m_minor_version = 0;
     m_build_version = 0;
     m_revision_version = 0;
+}
+
+//------------------------------------------------------------------------------
+Version *Version::fromString(const QString &version, bool *ok)
+{
+    if (ok != nullptr)
+        *ok = false;
+
+    int major = 0;
+    int minor = 0;
+    int build = 0;
+    int revision = 0;
+
+    if(!Version::parseString(version, &major, &minor, &build, &revision))
+        return nullptr;
+
+    if (ok != nullptr)
+        *ok = true;
+
+    return new Version(major, minor, build, revision);
+}
+
+//------------------------------------------------------------------------------
+bool Version::parseString(const QString &version, int *major, int *minor, int *build, int *revision)
+{
+    *major = 0;
+    *minor = 0;
+    if (build != nullptr)
+        *build = 0;
+
+    if (revision != nullptr)
+        *revision = 0;
+
+    QStringList numbers = version.split('.');
+    QStringList::ConstIterator it = numbers.begin();
+
+    bool result = true;
+    int temp_major = (*it).toInt(&result);
+    if (!result)
+        return false;
+
+    ++it;
+    int temp_minor = (*it).toInt(&result);
+    if (!result)
+        return false;
+
+    ++it;
+    if (it == numbers.end()) { // We can skip last two numbers
+        *major = temp_major;
+        *minor = temp_minor;
+        return true;
+    }
+
+    int temp_build = (*it).toInt(&result);
+    if (!result)
+        return false;
+
+    ++it;
+    if (it == numbers.end()) { // We can skip last number
+        *major = temp_major;
+        *minor = temp_minor;
+        *build = temp_build;
+        return true;
+    }
+
+    int temp_revision = (*it).toInt(&result);
+    if (!result)
+        return false;
+
+    *major = temp_major;
+    *minor = temp_minor;
+    if (build != nullptr)
+        *build = temp_build;
+
+    if (revision != nullptr)
+        *revision = temp_revision;
+
+    return true;
 }
 
 //------------------------------------------------------------------------------
