@@ -12,6 +12,7 @@
 #include "FileComponentProviderTest.h"
 #include "DefinitionConstuctorTest.h"
 #include "ComponentInstallerTest.h"
+#include "VersionTest.h"
 
 #include <carousel/logging/NullLogger.h>
 
@@ -68,6 +69,9 @@ int main(int argc, char *argv[])
 
     ComponentInstallerTest componentInstallerTest;
     QTest::qExec(&componentInstallerTest, argc, argv);
+
+    VersionTest versionTest;
+    QTest::qExec(&versionTest, argc, argv);
 
     // clean stuff
     QSettings settings;

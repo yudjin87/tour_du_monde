@@ -18,6 +18,7 @@ public:
     const QStringList &parents() const;
     const QString &productName() const;
     const QString &provider() const;
+    const QString &version() const;
     bool read(const QString &text);
     bool read(const QByteArray &data);
     bool read(QIODevice* dev);
@@ -33,6 +34,7 @@ public:
     QString m_productName;
     QString m_provider;
     QString m_error;
+    QString m_version;
     QStringList m_parents;
 };
 

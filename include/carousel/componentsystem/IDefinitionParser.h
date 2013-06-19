@@ -110,6 +110,12 @@ public:
 
     /*!
      * @details
+     *   Gets the string representation of version of a component.
+     */
+    virtual const QString &version() const = 0;
+
+    /*!
+     * @details
      *   This function parses the string @a text and sets component meta information.
      *
      *   If a parse error occurs (incorrect format, required information is missed, etc),
