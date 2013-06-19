@@ -29,9 +29,18 @@
 #include "ComponentDefinition.h"
 #include "IComponentLocationConstructorDelegate.h"
 #include "IDefinitionParser.h"
+#include "Version.h"
+
+#include <carousel/logging/LoggerFacade.h>
 
 #include <QtCore/QDir>
 #include <QtCore/QFileInfo>
+
+//------------------------------------------------------------------------------
+namespace
+{
+static LoggerFacade Log = LoggerFacade::createLogger("DefinitionConstuctor");
+}
 
 //------------------------------------------------------------------------------
 #ifdef Q_OS_WIN32
@@ -63,26 +72,31 @@ DefinitionConstuctor::~DefinitionConstuctor()
 bool DefinitionConstuctor::construct(ComponentDefinition *definition, const IDefinitionParser *parser)
 {
     QString name = parser->componentName();
-    if (name.trimmed().isEmpty())
+    if (name.trimmed().isEmpty()) {
+        Log.e("Could not construct component defitnition, because parsed component name is empty or white string.");
         return false;
+    }
+
+    // Return 1.0.0.0 version by default
+    bool ok = true;
+    Version *version = parser->version().trimmed().isEmpty() ? new Version(1, 0, 0) : Version::fromString(parser->version(), &ok);
+    if (!ok) {
+        Log.e("Could not construct component defitnition, because parsed component version is not valid.");
+        delete version;
+        return false;
+    }
 
     definition->setComponentName(name);
-    definition->setShortComponentName(parser->componentShortName().trimmed().isEmpty()
-                            ? name
-                            : parser->componentShortName());
-
+    definition->setVersion(version);
+    definition->setShortComponentName(parser->componentShortName().trimmed().isEmpty() ? name : parser->componentShortName());
     definition->setDescription(parser->description());
     definition->setProductName(parser->productName());
-    definition->setProvider(parser->provider().trimmed().isEmpty()
-                            ? ComponentDefinition::defaultProvider()
-                            : parser->provider());
-
-    const QString &componentLocation = parser->componentLocation().trimmed().isEmpty()
-            ? name
-            : parser->componentLocation();
+    definition->setProvider(parser->provider().trimmed().isEmpty() ? ComponentDefinition::defaultProvider() : parser->provider());
 
     // Get the correct library file name, e.g. libComponent.so or
     // Component.dll
+    const QString &componentLocation = parser->componentLocation().trimmed().isEmpty() ? name : parser->componentLocation();
+
     QFileInfo fileInfo(componentLocation);
     QString fileDir = fileInfo.filePath().replace(fileInfo.fileName(), "");
     QString filePath = libraryPattern.arg(fileDir).arg(fileInfo.fileName());

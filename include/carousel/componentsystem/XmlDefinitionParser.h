@@ -40,15 +40,17 @@ class QDomDocument;
  * @details
  *   The XML should be like such one:
  * @code
- *   <component name="MyComponent">
- *       <productName>My super product</productName>
- *       <description>Ultra feature</description>
- *       <location>./MyComponent</location>
- *       <parents>
- *           <parentComponent name="ComponentA"/>
- *           <parentComponent name="ComponentC"/>
- *           <parentComponent name="ComponentB"/>
- *       </parents>
+ *   <component name="MyComponent" shortName="Visible name of component">
+ *     <version>1.2.3.4</version>
+ *     <productName>My super product</productName>
+ *     <provider>CarouselTeam</provider>
+ *     <description>Ultra feature</description>
+ *     <location>./MyComponent</location>
+ *     <parents>
+ *         <parentComponent name="ComponentA"/>
+ *         <parentComponent name="ComponentC"/>
+ *         <parentComponent name="ComponentB"/>
+ *     </parents>
  *   </component>
  * @endcode
  *   Where @a name attribute is a componentName(), @a productName tag is a
@@ -61,6 +63,9 @@ class QDomDocument;
  *   <component name="MyComponent>
  *   </component>
  * @endcode
+ *
+ *   If version was not set, a default one (1.0.0) will be set during a ComponentDefinition
+ *   creation.
  */
 class COMP_API XmlDefinitionParser : public QObject, public IDefinitionParser
 {
@@ -117,10 +122,16 @@ public:
 
     /*!
      * @details
-     *   Gets the the name of component's provider, the person or company,
-     *   who creates this component.
+     *   Gets the name of component's provider - the person or company,
+     *   who created this component.
      */
     const QString &provider() const;
+
+    /*!
+     * @details
+     *   Gets the string representation of version of a component.
+     */
+    const QString &version() const;
 
     /*!
      * @details
@@ -171,6 +182,7 @@ protected:
     QString m_productName;
     QString m_provider;
     QString m_error;
+    QString m_version;
     QStringList m_parents;
 };
 

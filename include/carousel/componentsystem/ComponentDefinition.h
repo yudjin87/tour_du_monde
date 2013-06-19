@@ -34,6 +34,7 @@
 #include <QtCore/QStringList>
 
 class IComponent;
+class Version;
 
 /*!
  * @brief
@@ -166,6 +167,12 @@ public:
 
     /*!
      * @details
+     *   Gets the version of a component.
+     */
+    const Version *version() const;
+
+    /*!
+     * @details
      *   Sets a component.
      *
      * @note it does not have ownership for the component
@@ -217,6 +224,18 @@ public:
      */
     void setDefinitionLocation(const QString &definitionLocation);
 
+    /*!
+     * @details
+     *   Sets the version of a component.
+     */
+    void setVersion(int major_version, int minor_version, int build_version = 0, int revision_version = 0);
+
+    /*!
+     * @details
+     *   Sets the version of a component. It takes ownership for the @a version pointer.
+     */
+    void setVersion(Version *version);
+
 private:
     IComponent *m_component;
     QString m_componentName;
@@ -226,6 +245,7 @@ private:
     QString m_provider;
     QString m_componentLocation;
     QString m_definitionLocation;
+    Version *m_version;
     QStringList m_parents;
     bool m_isBuiltIn;
 };

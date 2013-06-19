@@ -32,6 +32,7 @@
 
 #include <carousel/componentsystem/DefinitionConstuctor.h>
 #include <carousel/componentsystem/ComponentDefinition.h>
+#include <carousel/componentsystem/Version.h>
 
 #include <QtCore/QDir>
 #include <QtTest/QTest>
@@ -48,6 +49,7 @@ void DefinitionConstuctorTest::construct_ShouldConstructDefinitionFromParser()
     FakeDefinitionParser parser;
     parser.m_componentName = "TestComponent2";
     parser.m_shortName = "Component2";
+    parser.m_version = "1.2.3.4";
     parser.m_description = "ABCD";
     parser.m_productName = "Carousel";
     parser.m_provider = "CarouselTeam";
@@ -67,6 +69,7 @@ void DefinitionConstuctorTest::construct_ShouldConstructDefinitionFromParser()
     QVERIFY(result);
     QCOMPARE(definition.componentName(), QString("TestComponent2"));
     QCOMPARE(definition.shortComponentName(), QString("Component2"));
+    QCOMPARE(definition.version()->toString(), QString("1.2.3.4"));
     QCOMPARE(definition.description(), QString("ABCD"));
     QCOMPARE(definition.productName(), QString("Carousel"));
     QCOMPARE(definition.provider(), QString("CarouselTeam"));
@@ -89,6 +92,20 @@ void DefinitionConstuctorTest::construct_ShouldUseDefaultProviderIfParserReturns
     constuctor.construct(&definition, &parser);
 
     QCOMPARE(definition.provider(), ComponentDefinition::defaultProvider());
+}
+
+//------------------------------------------------------------------------------
+void DefinitionConstuctorTest::construct_ShouldUseDefaultVersionIfParserReturnsEmpty()
+{
+    FakeDefinitionParser parser;
+    parser.m_productName = "Carousel";
+    parser.m_version = "";
+
+    ComponentDefinition definition;
+    DefinitionConstuctor constuctor;
+    QVERIFY(constuctor.construct(&definition, &parser));
+
+    QVERIFY(definition.version()->toString().contains("1.0.0"));
 }
 
 //------------------------------------------------------------------------------
@@ -131,6 +148,20 @@ void DefinitionConstuctorTest::construct_ShouldReturnFalseIfComponentNameIsEmpty
     bool result = constuctor.construct(&definition, &parser);
 
     QVERIFY(!result);
+}
+
+//------------------------------------------------------------------------------
+void DefinitionConstuctorTest::construct_ShouldReturnFalseIfComponentVersionCouldNotParsed()
+{
+    FakeDefinitionParser parser;
+    parser.m_productName = "Carousel";
+    parser.m_version = "asdf";
+
+    ComponentDefinition definition;
+    DefinitionConstuctor constuctor;
+    QVERIFY(!constuctor.construct(&definition, &parser));
+
+    QVERIFY(definition.version()->isEmpty());
 }
 
 //------------------------------------------------------------------------------

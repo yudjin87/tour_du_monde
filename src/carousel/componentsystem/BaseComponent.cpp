@@ -202,6 +202,12 @@ void BaseComponent::setProvider(const QString &provider)
 }
 
 //------------------------------------------------------------------------------
+void BaseComponent::setVersion(int major_version, int minor_version, int build_version, int revision_version)
+{
+    m_definition->setVersion(major_version, minor_version, build_version, revision_version);
+}
+
+//------------------------------------------------------------------------------
 void BaseComponent::onAvailabilityChanged(Availability newMode)
 {
     emit availabilityChanged(newMode);

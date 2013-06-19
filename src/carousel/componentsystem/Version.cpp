@@ -39,6 +39,26 @@ Version::Version(QObject *parent)
 }
 
 //------------------------------------------------------------------------------
+Version::Version(int major_version, int minor_version, QObject *parent)
+    : QObject(parent)
+    , m_major_version(major_version)
+    , m_minor_version(minor_version)
+    , m_build_version(0)
+    , m_revision_version(0)
+{
+}
+
+//------------------------------------------------------------------------------
+Version::Version(int major_version, int minor_version, int build_version, QObject *parent)
+    : QObject(parent)
+    , m_major_version(major_version)
+    , m_minor_version(minor_version)
+    , m_build_version(build_version)
+    , m_revision_version(0)
+{
+}
+
+//------------------------------------------------------------------------------
 Version::Version(int major_version, int minor_version, int build_version, int revision_version, QObject *parent)
     : QObject(parent)
     , m_major_version(major_version)

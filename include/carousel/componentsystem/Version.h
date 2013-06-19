@@ -45,6 +45,8 @@ class COMP_API Version : public QObject
     Q_OBJECT
 public:
     explicit Version(QObject *parent = nullptr);
+    Version(int major_version, int minor_version, QObject *parent = nullptr);
+    Version(int major_version, int minor_version, int build_version, QObject *parent = nullptr);
     Version(int major_version, int minor_version, int build_version, int revision_version, QObject *parent = nullptr);
     ~Version();
 
