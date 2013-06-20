@@ -68,7 +68,7 @@ void FeatureLayer::draw(IDisplay *display)
     filter.setGeometry(&extent);
 
     FeatureList features = mp_featureClass->search(filter);
-    qDebug(QString("draw %1 features").arg(features.size()).toLatin1());
+    //qDebug(QString("draw %1 features").arg(features.size()).toLatin1());
     mp_featureRenderer->draw(features, display);
 }
 

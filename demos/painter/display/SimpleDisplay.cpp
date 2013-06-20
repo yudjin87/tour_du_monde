@@ -46,7 +46,7 @@ SimpleDisplay::SimpleDisplay(QWidget *parent)
 {
     setParent(parent);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
-    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     Throttle* throttle = new Throttle(this);
 //    connect(this, SIGNAL(needChange()), throttle, SLOT(start()));
@@ -97,25 +97,20 @@ QPainter *SimpleDisplay::startDrawing()
     m_pixmap->fill(Qt::lightGray);
 
     m_currentPainter = new QPainter(m_pixmap);
-    //m_currentPainter->setWindow(0, 0, width() * m_scale, height() * m_scale);
-    //m_currentPainter->setViewport(0, 0, width(), height());
-
-//    QTransform viewport(
-//                m_scale, 0.0f, 0.0f,
-//                0.0f, m_scale, 0.0f,
-//                -m_extent.left() - horizontalScrollBar()->value(), -m_extent.top() - verticalScrollBar()->value(), 1.0f);
-
 
     QTransform viewport = transform();
 
     m_currentPainter->setTransform(viewport, false);
-    m_currentPainter->setRenderHint(QPainter::NonCosmeticDefaultPen);
+    //m_currentPainter->setRenderHint(QPainter::NonCosmeticDefaultPen);
 
     m_transform = m_currentPainter->transform().inverted();
 
     QRectF r = visibleExtent().adjusted(10, 10, -30, -30);
     m_currentPainter->drawRect(r);
-    //m_currentPainter->drawEllipse(QPointF(-dx + width()  / 2, -dy + height() / 2), 5, 5);
+
+    qreal dx = (-m_extent.left()/ 1 - horizontalScrollBar()->value());
+    qreal dy = (-m_extent.top() / 1 - verticalScrollBar()->value());
+    m_currentPainter->drawEllipse(QPointF(-dx + width()  / 2, -dy + height() / 2), 5, 5);
 
     return m_currentPainter;
 }
@@ -158,14 +153,21 @@ void SimpleDisplay::setExtent(const QRectF &extent)
     dx = std::max(dx, width());
     dy = std::max(dy, height());
 
-    //dx -= width();
-    //dy -= height();
+    dx -= width();
+    dy -= height();
 
-    qDebug(QString("dx: %1; dy: %2").arg(dx).arg(dy).toLatin1());
-    qDebug(QString("left: %1; top: %2").arg(m_extent.left()).arg(m_extent.top()).toLatin1());
+//    dx *= m_scale;
+//    dy *= m_scale;
 
-    verticalScrollBar()->setRange(0, dy);
+    int dy_min = visibleExtent().top() - m_extent.top();
+    int dy_max = m_extent.bottom() - visibleExtent().bottom();
+
+    qDebug(QString("dy: %1; top: %2; h: %3/%4(%5)").arg(dy).arg(m_extent.top()).arg(height()).arg(m_extent.height())
+           .arg(m_extent.height() * m_scale).toLatin1());
+    //qDebug(QString("left: %1; top: %2").arg(m_extent.left()).arg(m_extent.top()).toLatin1());
+
     horizontalScrollBar()->setRange(0, dx);
+    verticalScrollBar()->setRange(dy_min, dy_max);
 }
 
 //------------------------------------------------------------------------------
@@ -190,8 +192,8 @@ void SimpleDisplay::mouseMoveEvent(QMouseEvent *event)
     qreal x;
     qreal y;
     m_transform.map(p.x(), p.y(), &x, &y);
-    qDebug(QString("x: %1").arg(x).toLatin1());
-    qDebug(QString("y: %1").arg(y).toLatin1());
+    //qDebug(QString("x: %1 (%2)").arg(x).toLatin1());
+    qDebug(QString("y: %1 (%2)").arg(y).arg(p.y()).toLatin1());
 }
 
 //------------------------------------------------------------------------------
@@ -203,8 +205,8 @@ void SimpleDisplay::paintEvent(QPaintEvent *event)
 
     QPainter painter(viewport());
 
-    qDebug(QString("paint").toLatin1());
-//    qDebug(QString("m_y_offset: %1").arg(m_y_offset).toLatin1());
+   // qDebug(QString("paint").toLatin1());
+    //qDebug(QString("m_y_offset: %1").arg(m_offset.y()).toLatin1());
 
     painter.drawPixmap(m_offset.x(), m_offset.y(), m_pixmap->width(), m_pixmap->height(), *m_pixmap);
 }
@@ -219,7 +221,9 @@ void SimpleDisplay::showEvent(QShowEvent *event)
 //------------------------------------------------------------------------------
 void SimpleDisplay::scrollContentsBy(int dx, int dy)
 {
-    m_offset += QPointF(dx, dy) / m_scale;
+    m_offset += QPointF(dx, dy);
+
+   // qDebug(QString("dx: %1; dy: %2").arg(dx).arg(dy).toLatin1());
 
     viewport()->update();
     emit needChange();

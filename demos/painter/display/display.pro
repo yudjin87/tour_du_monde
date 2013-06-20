@@ -11,7 +11,7 @@ DEFINES += DISPLAY_LIB_IMPORT
 LIBS += -L$${CAROUSEL_BIN} -lorg.carousel.Interactivity \
 
 #DESTDIR = $${DESTDIR}/externalSource
-DESTDIR = $${DESTDIR}/installedComponents/Display
+DESTDIR = $${DESTDIR}/installedComponents/org.carousel.demos.Display
 
 win32 {
     LIBS += -L$${CAROUSEL_BIN} -lComponentSystem \
