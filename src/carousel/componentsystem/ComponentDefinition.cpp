@@ -26,6 +26,7 @@
 
 #include "ComponentDefinition.h"
 #include "IComponent.h"
+#include "Version.h"
 
 //------------------------------------------------------------------------------
 static const char *DEFAULT_PROVIDER = "Unknown";
@@ -40,6 +41,7 @@ ComponentDefinition::ComponentDefinition()
     , m_provider(ComponentDefinition::defaultProvider())
     , m_componentLocation("")
     , m_definitionLocation("")
+    , m_version(new Version())
     , m_parents()
     , m_isBuiltIn(false)
 {
@@ -55,6 +57,7 @@ ComponentDefinition::ComponentDefinition(const QString &componentName, bool isBu
     , m_provider(ComponentDefinition::defaultProvider())
     , m_componentLocation("")
     , m_definitionLocation("")
+    , m_version(new Version())
     , m_parents()
     , m_isBuiltIn(isBuiltIn)
 {
@@ -69,6 +72,7 @@ ComponentDefinition::ComponentDefinition(const ComponentDefinition &other)
     , m_componentShortName(other.m_componentShortName)
     , m_componentLocation(other.m_componentLocation)
     , m_definitionLocation(other.m_definitionLocation)
+    , m_version(new Version())
     , m_parents(other.m_parents)
     , m_isBuiltIn(other.m_isBuiltIn)
 {
@@ -96,7 +100,11 @@ ComponentDefinition &ComponentDefinition::operator =(const ComponentDefinition &
 //------------------------------------------------------------------------------
 ComponentDefinition::~ComponentDefinition()
 {
+    delete m_version;
+    m_version = nullptr;
+
     m_component = nullptr;
+
     m_parents.clear();
     m_description = "";
     m_productName = "";
@@ -178,6 +186,12 @@ const QString &ComponentDefinition::provider() const
 }
 
 //------------------------------------------------------------------------------
+const Version *ComponentDefinition::version() const
+{
+    return m_version;
+}
+
+//------------------------------------------------------------------------------
 void ComponentDefinition::setComponent(IComponent *component)
 {
     m_component = component;
@@ -223,6 +237,22 @@ void ComponentDefinition::setComponentLocation(const QString &componentLocation)
 void ComponentDefinition::setDefinitionLocation(const QString &definitionLocation)
 {
     m_definitionLocation = definitionLocation;
+}
+
+//------------------------------------------------------------------------------
+void ComponentDefinition::setVersion(int major_version, int minor_version, int build_version, int revision_version)
+{
+    m_version->setVersion(major_version, minor_version, build_version, revision_version);
+}
+
+//------------------------------------------------------------------------------
+void ComponentDefinition::setVersion(Version *version)
+{
+    if (version == nullptr)
+        return;
+
+    delete m_version;
+    m_version = version;
 }
 
 //------------------------------------------------------------------------------

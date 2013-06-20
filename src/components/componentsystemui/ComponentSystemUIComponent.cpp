@@ -46,23 +46,6 @@ static LoggerFacade Log = LoggerFacade::createLogger("ComponentSystemUIComponent
 }
 
 //------------------------------------------------------------------------------
-// TODO: will be removed when c++11 is supported (with lambdas)
-static void *createComponentDefinitionsModel(IComponentManager *manager)
-{
-    return new ComponentDefinitionsModel(manager->dependencies().components());
-}
-
-static void *createEnableComponentCommand(IComponentManager *manager)
-{
-    return new EnableComponentCommand(manager);
-}
-
-static void *createInstallComponentsCommand(IComponentManager *manager)
-{
-    return new InstallComponentsCommand(manager);
-}
-
-//------------------------------------------------------------------------------
 static const QByteArray description(
         "");
 
@@ -98,17 +81,17 @@ bool ComponentSystemUIComponent::onStartup(IServiceLocator *serviceLocator)
     IComponentManager *manager = serviceLocator->locate<IComponentManager>();
 
     // Commands
-    auto enableCreator = std::bind(&createEnableComponentCommand, manager);
+    auto enableCreator = [manager](){return new EnableComponentCommand(manager);};
     serviceLocator->registerType<EnableComponentCommand>(enableCreator);
 
-    auto installCreator = std::bind(&createInstallComponentsCommand, manager);
+    auto installCreator = [manager](){return new InstallComponentsCommand(manager);};
     serviceLocator->registerType<InstallComponentsCommand>(installCreator);
 
     // Services
     IDialogService *dialogService = serviceLocator->locate<IDialogService>();
     dialogService->registerDialog<ComponentsDialog, ComponentDefinitionsModel>();
 
-    auto componentDefinitionsModelCreator = std::bind(&createComponentDefinitionsModel, manager);
+    auto componentDefinitionsModelCreator = [manager](){return new ComponentDefinitionsModel(manager->dependencies().components());};
     serviceLocator->registerType<ComponentDefinitionsModel>(componentDefinitionsModelCreator);
 
     return true;

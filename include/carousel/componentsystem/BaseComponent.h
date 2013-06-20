@@ -232,6 +232,12 @@ protected:
 
     /*!
      * @details
+     *   Sets the version of a component.
+     */
+    void setVersion(int major_version, int minor_version, int build_version = 0, int revision_version = 0);
+
+    /*!
+     * @details
      *   This method emits availabilityChanged() signal when extension's
      *   availability changed.
      * @sa setAvailability, availabilityChanged

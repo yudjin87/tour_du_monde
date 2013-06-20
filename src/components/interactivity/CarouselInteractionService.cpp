@@ -200,8 +200,7 @@ void CarouselInteractionService::onComponentStartedUp(IComponent *component)
 
     m_componentConfigurationDelegate->configure(component, *m_catalogs);
 
-    // TODO:
-    // Load only if configure returns true
+    // TODO: Load only if configure returns true
     loadUiState();
 }
 

@@ -15,6 +15,7 @@ FakeDefinitionParser::FakeDefinitionParser()
     , m_productName("")
     , m_provider("")
     , m_error("")
+    , m_version("")
     , m_parents()
 {
     QDir absolutePath = QCoreApplication::applicationDirPath();
@@ -57,6 +58,7 @@ const QString &FakeDefinitionParser::componentName() const
     return m_componentName;
 }
 
+//------------------------------------------------------------------------------
 const QString &FakeDefinitionParser::componentShortName() const
 {
     return m_shortName;
@@ -90,6 +92,12 @@ const QString &FakeDefinitionParser::productName() const
 const QString &FakeDefinitionParser::provider() const
 {
     return m_provider;
+}
+
+//------------------------------------------------------------------------------
+const QString &FakeDefinitionParser::version() const
+{
+    return m_version;
 }
 
 //------------------------------------------------------------------------------

@@ -46,6 +46,7 @@ void XmlDefinitionParserTest::shouldReadValues()
     QCOMPARE(parser.provider(), QString("CarouselTeam"));
     QCOMPARE(parser.componentName(), QString("TestingComponentDescription"));
     QCOMPARE(parser.componentShortName(), QString("org.test.TestingComponentDescription"));
+    QCOMPARE(parser.version(), QString("1.2.3.4"));
     QCOMPARE(parser.description(), QString("Component Description"));
     QCOMPARE(parser.productName(), QString("Testing Component Description"));
     QCOMPARE(parser.componentLocation(), QString("/a/b/c/TestingComponentDescription"));
@@ -63,7 +64,6 @@ void XmlDefinitionParserTest::shouldReadMinimalRequiredValues()
 
     QVERIFY(result);
     QCOMPARE(parser.componentName(), QString("TestingComponentDescription"));
-    QCOMPARE(parser.componentShortName(), QString("org.test.TestingComponentDescription"));
     QCOMPARE(parser.description(), QString(""));
     QCOMPARE(parser.productName(), QString(""));
     QCOMPARE(parser.componentLocation(), QString(""));
@@ -132,6 +132,7 @@ void XmlDefinitionParserTest::shouldNotReturnFalseIfShortNameAttrIsEmpty()
 //------------------------------------------------------------------------------
 const QByteArray XmlDefinitionParserTest::simpleXml(
         "<component name=\"TestingComponentDescription\" shortName=\"org.test.TestingComponentDescription\">"
+        "    <version>1.2.3.4</version> "
         "    <productName>Testing Component Description</productName>"
         "    <provider>CarouselTeam</provider> "
         "    <description>Component Description</description>"
@@ -145,7 +146,7 @@ const QByteArray XmlDefinitionParserTest::simpleXml(
 
 //------------------------------------------------------------------------------
 const QByteArray XmlDefinitionParserTest::minimalisticXml(
-        "<component name=\"TestingComponentDescription\" shortName=\"org.test.TestingComponentDescription\">"
+        "<component name=\"TestingComponentDescription\" >"
         "</component>");
 
 //------------------------------------------------------------------------------

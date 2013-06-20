@@ -34,6 +34,7 @@ SOURCES += \
     $$TEST_PROJECT_SOURCES/main_componentsystem_test.cpp \
     $$TEST_PROJECT_SOURCES/ProxyComponentTest.cpp \
     $$TEST_PROJECT_SOURCES/Utils.cpp \
+    $$TEST_PROJECT_SOURCES/VersionTest.cpp \
     $$TEST_PROJECT_SOURCES/XmlDefinitionParserTest.cpp \
 
 HEADERS += \
@@ -69,5 +70,6 @@ HEADERS += \
     $$TEST_PROJECT_SOURCES/FileComponentProviderTest.h \
     $$TEST_PROJECT_SOURCES/ProxyComponentTest.h \
     $$TEST_PROJECT_SOURCES/Utils.h \
+    $$TEST_PROJECT_SOURCES/VersionTest.h \
     $$TEST_PROJECT_SOURCES/XmlDefinitionParserTest.h \
 

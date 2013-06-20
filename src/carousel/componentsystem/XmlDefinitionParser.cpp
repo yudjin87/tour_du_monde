@@ -35,13 +35,13 @@
 namespace
 {
 static LoggerFacade Log = LoggerFacade::createLogger("XmlDefinitionParser");
-}
 
 //------------------------------------------------------------------------------
 static const char *COMPONENT_NAME_ATTRIBUTE = "name";
 static const char *COMPONENT_SHORT_NAME_ATTRIBUTE = "shortName";
 static const char *PARENT_COMPONENT_NAME_ATTRIBUTE = "name";
 
+static const char *VERSION_TAG = "version";
 static const char *COMPONENT_TAG = "component";
 static const char *COMPONENT_LOCATION_TAG = "location";
 static const char *DESCRIPTION_TAG = "description";
@@ -49,6 +49,7 @@ static const char *PRODUCT_NAME_TAG = "productName";
 static const char *PROVIDER_NAME_TAG = "provider";
 static const char *PARENT_COMPONENT_TAG = "parentComponent";
 static const char *PARENTS_TAG = "parents";
+}
 
 //------------------------------------------------------------------------------
 XmlDefinitionParser::XmlDefinitionParser(QObject *parent)
@@ -60,6 +61,7 @@ XmlDefinitionParser::XmlDefinitionParser(QObject *parent)
     , m_productName("")
     , m_provider("")
     , m_error("")
+    , m_version("")
     , m_parents()
 {
 }
@@ -158,6 +160,12 @@ const QString &XmlDefinitionParser::provider() const
 }
 
 //------------------------------------------------------------------------------
+const QString &XmlDefinitionParser::version() const
+{
+    return m_version;
+}
+
+//------------------------------------------------------------------------------
 bool XmlDefinitionParser::parseXml(QDomDocument &document)
 {
     QDomElement root = document.documentElement();
@@ -182,6 +190,9 @@ bool XmlDefinitionParser::parseXml(QDomDocument &document)
 
     // Could be empty or absent
     m_shortName = root.attribute(COMPONENT_SHORT_NAME_ATTRIBUTE).trimmed();
+
+    QDomNode version = root.elementsByTagName(VERSION_TAG).at(0);
+    m_version = version.toElement().text();
 
     QDomNode description = root.elementsByTagName(DESCRIPTION_TAG).at(0);
     m_description = description.toElement().text();

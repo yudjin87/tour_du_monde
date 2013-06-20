@@ -66,8 +66,7 @@ void CarouselBootloader::configureComponentManager()
 //------------------------------------------------------------------------------
 void CarouselBootloader::configureServiceLocator()
 {
-    // TODO:
-    // give a chanse to avoid default registration
+    // TODO: give a chanse to avoid default registration
     m_serviceLocator->registerInstance<IComponentProvider>(m_componentProvider);
     m_serviceLocator->registerInstance<IComponentManager>(m_componentManager);
     m_serviceLocator->registerInstance<QMainWindow>(m_mainWindow);

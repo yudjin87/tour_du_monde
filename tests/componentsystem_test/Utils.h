@@ -30,10 +30,9 @@ QString pathToComponentsDir();
 bool removeDir(const QString & dirName);
 //------------------------------------------------------------------------------
 
-// TODO: will replace with std::uniq_ptr when c++11 is supported
-typedef std::auto_ptr<IComponent> IComponentPtr;
-typedef std::auto_ptr<MockComponent> MockComponentPtr;
-typedef std::auto_ptr<MockChildComponent> ChildComponentPtr;
+typedef std::unique_ptr<IComponent> IComponentPtr;
+typedef std::unique_ptr<MockComponent> MockComponentPtr;
+typedef std::unique_ptr<MockChildComponent> ChildComponentPtr;
 
 MockComponent *createComponent(const QString &name);
 MockChildComponent *createParentComponent(const QString &name, const QString &dependsOn);

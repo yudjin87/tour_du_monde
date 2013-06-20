@@ -29,6 +29,7 @@
 #include <components/componentsystemui/InstallComponentsCommand.h>
 #include <carousel/utils/IServiceLocator.h>
 
+#include <QtCore/QCoreApplication>
 #include <QtWidgets/QFileDialog>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QUndoStack>
@@ -48,6 +49,7 @@ void InstallComponentsOperation::execute()
     QFileDialog fileDialog(m_serviceLocator->locate<QMainWindow>(), "Install component");
     fileDialog.setFileMode(QFileDialog::ExistingFiles);
     fileDialog.setNameFilter("Components (*.definition)"); // TODO: get from the app settings
+    fileDialog.setDirectory(QCoreApplication::applicationDirPath() + "/externalSource");  // TODO: get last selected directory from settings
     if (!fileDialog.exec())
         return;
 

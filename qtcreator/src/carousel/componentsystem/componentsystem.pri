@@ -20,6 +20,7 @@ SOURCES += \
     $$PROJECT_SOURCES/FileComponentProvider.cpp \
     $$PROJECT_SOURCES/IComponent.cpp \
     $$PROJECT_SOURCES/ProxyComponent.cpp \
+    $$PROJECT_SOURCES/Version.cpp \
     $$PROJECT_SOURCES/WebInstaller.cpp \
     $$PROJECT_SOURCES/XmlDefinitionParser.cpp \
 
@@ -54,6 +55,7 @@ HEADERS += \
     $$PROJECT_HEADERS/IDefinitionParser.h \
     $$PROJECT_HEADERS/IDirectoryComponentProvider.h \
     $$PROJECT_HEADERS/ProxyComponent.h \
+    $$PROJECT_HEADERS/Version.h \
     $$PROJECT_HEADERS/WebInstaller.h \
     $$PROJECT_HEADERS/XmlDefinitionParser.h \
 

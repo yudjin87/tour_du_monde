@@ -33,6 +33,7 @@
 #include <carousel/utils/ObservableList.h>
 #include <carousel/utils/IServiceLocator.h>
 
+#include <QtCore/QCoreApplication>
 #include <QtGui/QIcon>
 #include <QtWidgets/QFileDialog>
 #include <QtWidgets/QMainWindow>
@@ -101,10 +102,11 @@ QVariant ComponentDefinitionsModel::headerData(int section, Qt::Orientation orie
         return QAbstractItemModel::headerData(section, orientation, role);
 
     switch (section) {
-    case 0: return "Internal name";
+    case 0: return "Name";
     case 1: return "Product name";
-    case 2: return "Name";
-    case 3: return "Provider";
+    case 2: return "Provider";
+    case 3: return "Internal name";
+
     default: return QVariant();
     }
 }
@@ -122,10 +124,10 @@ QVariant ComponentDefinitionsModel::data(const QModelIndex &index, int role) con
     case Qt::EditRole:
     case Qt::DisplayRole:
         switch (index.column()) {
-        case 0: return def->componentName();
+        case 0: return def->shortComponentName();
         case 1: return def->productName();
-        case 2: return def->shortComponentName();
-        case 3: return def->provider();
+        case 2: return def->provider();
+        case 3: return def->componentName();
         default:
             qWarning("data: invalid display value column %d", index.column());
             break;
@@ -193,6 +195,7 @@ void ComponentDefinitionsModel::onInstall()
     QFileDialog fileDialog(m_locator->locate<QMainWindow>(), "Install component");
     fileDialog.setFileMode(QFileDialog::ExistingFiles);
     fileDialog.setNameFilter("Components (*.definition)"); // TODO: get from the app settings
+    fileDialog.setDirectory(QCoreApplication::applicationDirPath());  // TODO: get last selected directory from settings
     if (!fileDialog.exec())
         return;
 
