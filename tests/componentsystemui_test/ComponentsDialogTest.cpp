@@ -47,6 +47,7 @@ ComponentDefinition *createDefinition(QString name, bool builtIn, QString compLo
     if (!builtIn) {
         def->setComponentLocation(compLocation);
         def->setDefinitionLocation(defLocation);
+        def->setVersion(1, 2, 3, 4);
     }
     def->setDescription(description);
     def->setProductName(product);
