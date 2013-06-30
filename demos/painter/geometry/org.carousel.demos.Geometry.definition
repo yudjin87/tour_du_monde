@@ -1,4 +1,5 @@
  <component name="org.carousel.demos.Geometry" shortName="Geometry">
+     <version>1.0</version>
      <productName>Geometry</productName>
      <provider>Carousel</provider>
      <location>./org.carousel.demos.Geometry</location>

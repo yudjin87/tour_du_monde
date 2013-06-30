@@ -57,6 +57,7 @@ ComponentSystemUIComponent::ComponentSystemUIComponent(QObject *parent)
     setProductName("ComponentSystemUI");
     setDescription(description);
     setProvider("Carousel");
+    setVersion(1, 0);
     addParent("org.carousel.Interactivity");
 }
 

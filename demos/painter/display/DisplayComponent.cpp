@@ -47,6 +47,7 @@ DisplayComponent::DisplayComponent(QObject *parent)
     setShortName("Display");
     setProductName(productName);
     setProvider("Carousel");
+    setVersion(1, 0);
 }
 
 //------------------------------------------------------------------------------

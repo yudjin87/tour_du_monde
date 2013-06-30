@@ -53,6 +53,7 @@ CartoUIComponent::CartoUIComponent(QObject *parent /*= nullptr*/)
     setShortName("Carto UI");
     setProductName(productName);
     setProvider("Carousel");
+    setVersion(1, 0);
 }
 
 //------------------------------------------------------------------------------

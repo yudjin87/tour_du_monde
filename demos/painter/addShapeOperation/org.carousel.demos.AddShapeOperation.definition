@@ -1,4 +1,5 @@
  <component name="org.carousel.demos.AddShapeOperation" shortName="Add Shape Operation">
+     <version>1.0</version>
      <productName>AddShapeOperation</productName>
      <provider>Carousel</provider>
      <parents>

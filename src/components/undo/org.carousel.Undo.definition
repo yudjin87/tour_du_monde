@@ -1,4 +1,5 @@
  <component name="org.carousel.Undo" shortName="Undo">
+     <version>1.0</version>
      <productName>Undo</productName>
      <provider>Carousel</provider>
      <parents>

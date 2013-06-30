@@ -40,6 +40,7 @@ GeometryComponent::GeometryComponent()
     setShortName("Geometry");
     setProductName(productName);
     setProvider("Carousel");
+    setVersion(1, 0);
 }
 
 //------------------------------------------------------------------------------

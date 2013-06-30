@@ -1,4 +1,5 @@
  <component name="org.carousel.demos.NavigationOperations" shortName="Navigation Operations">
+     <version>1.0</version>
      <productName>NavigationOperations</productName>
      <provider>Carousel</provider>
      <parents>
