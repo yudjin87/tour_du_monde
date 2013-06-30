@@ -44,6 +44,7 @@ ComponentManagementComponent::ComponentManagementComponent(QObject *parent /*= n
     setShortName("Component Management");
     setProductName(productName);
     setProvider("Carousel");
+    setVersion(1, 0);
 }
 
 //------------------------------------------------------------------------------

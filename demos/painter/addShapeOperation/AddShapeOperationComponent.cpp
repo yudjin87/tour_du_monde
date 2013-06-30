@@ -51,6 +51,7 @@ AddShapeOperationComponent::AddShapeOperationComponent(QObject *parent /*= nullp
     setShortName("Add Shape Operation");
     setProductName(productName);
     setProvider("Carousel");
+    setVersion(1, 0);
 }
 
 //------------------------------------------------------------------------------

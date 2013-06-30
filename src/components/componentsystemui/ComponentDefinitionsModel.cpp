@@ -30,6 +30,7 @@
 
 #include <carousel/componentsystem/ComponentDefinition.h>
 #include <carousel/componentsystem/IComponent.h>
+#include <carousel/componentsystem/Version.h>
 #include <carousel/utils/ObservableList.h>
 #include <carousel/utils/IServiceLocator.h>
 
@@ -92,7 +93,7 @@ int ComponentDefinitionsModel::rowCount(const QModelIndex &parent) const
 //------------------------------------------------------------------------------
 int ComponentDefinitionsModel::columnCount(const QModelIndex &parent) const
 {
-    return (parent.column() > 0) ? 0 : 4;
+    return (parent.column() > 0) ? 0 : 5;
 }
 
 //------------------------------------------------------------------------------
@@ -105,7 +106,8 @@ QVariant ComponentDefinitionsModel::headerData(int section, Qt::Orientation orie
     case 0: return "Name";
     case 1: return "Product name";
     case 2: return "Provider";
-    case 3: return "Internal name";
+    case 3: return "Version";
+    case 4: return "Internal name";
 
     default: return QVariant();
     }
@@ -127,7 +129,8 @@ QVariant ComponentDefinitionsModel::data(const QModelIndex &index, int role) con
         case 0: return def->shortComponentName();
         case 1: return def->productName();
         case 2: return def->provider();
-        case 3: return def->componentName();
+        case 3: return def->version()->toString();
+        case 4: return def->componentName();
         default:
             qWarning("data: invalid display value column %d", index.column());
             break;

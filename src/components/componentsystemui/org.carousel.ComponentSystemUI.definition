@@ -1,4 +1,5 @@
  <component name="org.carousel.ComponentSystemUI" shortName="Component System UI">
+     <version>1.0</version>
      <productName>ComponentSystemUI</productName>
      <provider>Carousel</provider>
      <description>

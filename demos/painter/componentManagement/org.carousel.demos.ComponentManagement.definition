@@ -1,4 +1,5 @@
  <component name="org.carousel.demos.ComponentManagement" shortName="Component Management">
+     <version>1.0</version>
      <productName>ComponentManagement</productName>
      <provider>Carousel</provider>
      <location>./org.carousel.demos.ComponentManagement</location>

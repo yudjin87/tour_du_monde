@@ -50,6 +50,7 @@ JsScriptingComponent::JsScriptingComponent(QObject *parent)
     setProductName("JsScripting");
     setDescription(description);
     setProvider("Carousel");
+    setVersion(1, 0);
     addParent("org.carousel.Interactivity");
 }
 

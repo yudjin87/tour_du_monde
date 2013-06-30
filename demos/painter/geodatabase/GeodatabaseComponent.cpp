@@ -43,6 +43,7 @@ GeodatabaseComponent::GeodatabaseComponent()
     setShortName("Geodatabase");
     setProductName(productName);
     setProvider("Carousel");
+    setVersion(1, 0);
 }
 
 //------------------------------------------------------------------------------

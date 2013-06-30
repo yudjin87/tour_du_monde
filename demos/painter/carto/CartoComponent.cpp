@@ -43,6 +43,7 @@ CartoComponent::CartoComponent()
     setShortName("Carto");
     setProductName(productName);
     setProvider("Carousel");
+    setVersion(1, 0);
 }
 
 //------------------------------------------------------------------------------

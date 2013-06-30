@@ -74,6 +74,7 @@ InteractionServiceComponent::InteractionServiceComponent(QObject *parent)
     setProductName("Interactivity");
     setDescription(description);
     setProvider("Carousel");
+    setVersion(1, 0);
 }
 
 //------------------------------------------------------------------------------

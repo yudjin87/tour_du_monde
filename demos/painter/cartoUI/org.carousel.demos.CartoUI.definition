@@ -1,4 +1,5 @@
  <component name="org.carousel.demos.CartoUI" shortName="Carto UI">
+     <version>1.0</version>
      <productName>CartoUI</productName>
      <provider>Carousel</provider>
      <location>./org.carousel.demos.CartoUI</location>

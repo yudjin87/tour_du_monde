@@ -55,6 +55,7 @@ UndoComponent::UndoComponent(QObject *parent)
     setProductName("Undo");
     setDescription(description);
     setProvider("Carousel");
+    setVersion(1, 0);
     addParent("org.carousel.Interactivity");
 }
 

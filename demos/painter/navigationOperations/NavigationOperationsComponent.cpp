@@ -48,6 +48,7 @@ NavigationOperationsComponent::NavigationOperationsComponent(QObject *parent /*=
     setShortName("Navigation Operations");
     setProductName(productName);
     setProvider("Carousel");
+    setVersion(1, 0);
 }
 
 //------------------------------------------------------------------------------

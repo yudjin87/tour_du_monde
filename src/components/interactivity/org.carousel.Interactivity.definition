@@ -1,4 +1,5 @@
  <component name="org.carousel.Interactivity" shortName="Interactivity">
+     <version>1.0</version>
      <productName>Interactivity</productName>
      <provider>Carousel</provider>
      <description>The org.carousel.Interactivity component is a main component of GUI based
