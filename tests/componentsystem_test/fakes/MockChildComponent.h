@@ -11,8 +11,8 @@ class MockChildComponent : public BaseComponent
 public:
     MockChildComponent(const QString &name = "MockChildComponent");
 
-    const QStringList &parents() const;
-    QStringList &parents();
+    const ParentDefinitions &parents() const;
+    ParentDefinitions &parents();
 
 protected:
     bool onStartup(IServiceLocator *serviceLocator);

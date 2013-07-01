@@ -28,6 +28,7 @@
 #include "DependencySolver.h"
 #include "IComponent.h"
 #include "ComponentDefinition.h"
+#include "ParentDefinition.h"
 
 #include <carousel/logging/LoggerFacade.h>
 
@@ -91,7 +92,7 @@ DependenciesSolvingResult ComponentDependencies::completeListWithChildren(const 
             continue;
         }
 
-        DependenciesSolvingResult result = getParentComponents(componentInfo);
+        DependenciesSolvingResult result = getParentDefinitions(componentInfo);
         foreach (IComponent *dependency, result.ordered()) {
             if (dependency == nullptr)
                 continue;
@@ -192,7 +193,7 @@ DependenciesSolvingResult ComponentDependencies::orderedComponents() const
 }
 
 //------------------------------------------------------------------------------
-DependenciesSolvingResult ComponentDependencies::getParentComponents(const IComponent *forChild) const
+DependenciesSolvingResult ComponentDependencies::getParentDefinitions(const IComponent *forChild) const
 {
     if (forChild == nullptr)
         return DependenciesSolvingResult();
@@ -202,7 +203,7 @@ DependenciesSolvingResult ComponentDependencies::getParentComponents(const IComp
         return DependenciesSolvingResult();
 
     QList<IComponent *> components_to_return;
-    QStringList parents = definition->parents();
+    const ParentDefinitions &parents = definition->parents();
 
     foreach(IComponent *com, m_components) {
         if (parents.contains(com->name()))
@@ -225,7 +226,7 @@ DependenciesSolvingResult ComponentDependencies::getChildComponents(const ICompo
 
     foreach(IComponent *com, m_components) {
         const ComponentDefinition *definition = com->definition();
-        QStringList parents = definition->parents();
+        const ParentDefinitions &parents = definition->parents();
         if (parents.contains(forParent->name()))
             components_to_return.push_back(com);
 
@@ -246,9 +247,9 @@ DependenciesSolvingResult ComponentDependencies::solveDependencies(const QList<I
         solver.addComponent(com->name());
 
         const ComponentDefinition *definition = com->definition();
-        QStringList parents = definition->parents();
-        foreach (const QString &dependency, parents)
-            solver.addDependency(com->name(), dependency);
+        const ParentDefinitions &parents = definition->parents();
+        for(const ParentDefinition *dependency : parents)
+            solver.addDependency(com->name(), dependency->name());
     }
 
     bool hasCyclic = !solver.solve(ordered, orphans, missing);

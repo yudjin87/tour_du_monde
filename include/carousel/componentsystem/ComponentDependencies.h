@@ -170,12 +170,12 @@ public:
      *   A <- B <- C <- E
      *             D <──┘
      * @endcode
-     *   then, getParentComponents(E) will return {A, B, C, D} components.
+     *   then, getParentDefinitions(E) will return {A, B, C, D} components.
      * @param forChild
      *   The component to get the dependencies (or parents) for.
      *   If @a forChild is null - result with empty collections will be returned.
      */
-    DependenciesSolvingResult getParentComponents(const IComponent *forChild) const;
+    DependenciesSolvingResult getParentDefinitions(const IComponent *forChild) const;
 
     /*!
      * @details

@@ -26,6 +26,7 @@
 
 #include "BaseComponent.h"
 #include "ComponentDefinition.h"
+#include "ParentDefinition.h"
 
 #include <carousel/logging/LoggerFacade.h>
 #include <carousel/utils/TypeObjectsMap.h>
@@ -145,9 +146,10 @@ bool BaseComponent::onStartup(IServiceLocator *)
 }
 
 //------------------------------------------------------------------------------
-void BaseComponent::addParent(const QString &parent)
+void BaseComponent::addParent(const QString &parentName, int major_version, int minor_version, int build_version, int revision_version)
 {
-    m_definition->addParent(parent);
+    // TODO: replace major_version to the majorVersion, etc
+    m_definition->addParent(new ParentDefinition(parentName, major_version, minor_version, build_version, revision_version));
 }
 
 //------------------------------------------------------------------------------

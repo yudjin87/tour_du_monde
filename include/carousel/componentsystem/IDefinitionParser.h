@@ -29,11 +29,12 @@
 
 #include <carousel/componentsystem/componentsystem_global.h>
 
+#include <QtCore/QString>
 #include <QtCore/QStringList>
+#include <QtCore/QMap>
 
 class QByteArray;
 class QIODevice;
-class QString;
 
 /*!
  * @brief
@@ -52,6 +53,8 @@ class QString;
 class COMP_API IDefinitionParser
 {
 public:
+    typedef QMap<QString, QString> ParentsList;
+
     IDefinitionParser(){}
     virtual ~IDefinitionParser(){}
 
@@ -89,10 +92,10 @@ public:
 
     /*!
      * @details
-     *   Gets the parsed component parents names.
+     *   Gets the parsed component parents names and versions.
      *   @a Optional, can be empty list.
      */
-    virtual const QStringList &parents() const = 0;
+    virtual const ParentsList &parents() const = 0;
 
     /*!
      * @details

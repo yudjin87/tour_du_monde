@@ -53,8 +53,8 @@ void DefinitionConstuctorTest::construct_ShouldConstructDefinitionFromParser()
     parser.m_description = "ABCD";
     parser.m_productName = "Carousel";
     parser.m_provider = "CarouselTeam";
-    parser.m_parents.append("ComponentA");
-    parser.m_parents.append("Component2");
+    parser.m_parents.insert("ComponentA", "2.3.4.5");
+    parser.m_parents.insert("ComponentB", "3.4.5.6");
     QDir absolutePath = QCoreApplication::applicationDirPath();
 
     // Decorated relative name, something like following
@@ -76,8 +76,8 @@ void DefinitionConstuctorTest::construct_ShouldConstructDefinitionFromParser()
     QCOMPARE(definition.componentLocation(), fileName);
     QCOMPARE(definition.definitionLocation(), definitionFileName);
     QCOMPARE(definition.parents().size(), 2);
-    QVERIFY(definition.parents().contains("ComponentA"));
-    QVERIFY(definition.parents().contains("Component2"));
+    QCOMPARE(definition.parents()["ComponentA"]->toString(), QString("2.3.4.5"));
+    QCOMPARE(definition.parents()["ComponentB"]->toString(), QString("3.4.5.6"));
 }
 
 //------------------------------------------------------------------------------

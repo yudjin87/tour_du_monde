@@ -28,10 +28,10 @@
 #define COMPONENTDEFINITION_H
 
 #include <carousel/componentsystem/componentsystem_global.h>
+#include <carousel/componentsystem/ParentDefinitions.h>
 
 #include <QtCore/QObject>
 #include <QtCore/QString>
-#include <QtCore/QStringList>
 
 class IComponent;
 class Version;
@@ -67,18 +67,6 @@ public:
      */
     ComponentDefinition(const QString &componentName, bool isBuiltIn);
 
-    /*!
-     * @details
-     * @constructor{ComponentDefinition} using copy-constructor.
-     */
-    ComponentDefinition(const ComponentDefinition &other);
-
-    /*!
-     * @details
-     * @constructor{ComponentDefinition} using already existed instance.
-     */
-    ComponentDefinition &operator=(const ComponentDefinition &other);
-
     ~ComponentDefinition();
 
 public:
@@ -90,9 +78,9 @@ public:
 
     /*!
      * @details
-     *   Adds a parent component name as a dependency for defined component.
+     *   Adds a parent component definition as a dependency for defined component.
      */
-    void addParent(const QString &parent);
+    void addParent(ParentDefinition *parent);
 
     /*!
      * @details
@@ -148,7 +136,7 @@ public:
      * @details
      *   Gets a list of parent (dependent) components names.
      */
-    const QStringList &parents() const;
+    const ParentDefinitions &parents() const;
 
     /*!
      * @details
@@ -237,6 +225,9 @@ public:
     void setVersion(Version *version);
 
 private:
+    Q_DISABLE_COPY(ComponentDefinition)
+
+private:
     IComponent *m_component;
     QString m_componentName;
     QString m_componentShortName;
@@ -246,7 +237,7 @@ private:
     QString m_componentLocation;
     QString m_definitionLocation;
     Version *m_version;
-    QStringList m_parents;
+    ParentDefinitions m_parents;
     bool m_isBuiltIn;
 };
 

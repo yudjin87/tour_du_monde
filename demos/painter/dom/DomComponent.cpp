@@ -39,8 +39,8 @@ DomComponent::DomComponent()
     : BaseComponent("org.carousel.demos.Dom")
     , mp_docController(nullptr)
 {
-    addParent("org.carousel.demos.Display");
-    addParent("org.carousel.demos.Carto");
+    addParent("org.carousel.demos.Display", 1, 0);
+    addParent("org.carousel.demos.Carto", 1, 0);
     setShortName("Dom");
     setProductName(productName);
     setProvider("Carousel");

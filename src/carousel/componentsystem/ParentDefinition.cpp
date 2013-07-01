@@ -24,57 +24,64 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "AddShapeOperationComponent.h"
-#include "AddShapeOperationInteractiveExtension.h"
-#include "AddShapesCommand.h"
-
-#include <carousel/componentsystem/ComponentDefinition.h>
-#include <carousel/componentsystem/ComponentExport.h>
-#include <carousel/utils/IServiceLocator.h>
+#include "ParentDefinition.h"
+#include "Version.h"
 
 //------------------------------------------------------------------------------
-static const QByteArray productName("AddShapeOperation");
-
-//------------------------------------------------------------------------------
-AddShapeOperationComponent::AddShapeOperationComponent(QObject *parent /*= nullptr*/)
-    : BaseComponent("org.carousel.demos.AddShapeOperation", parent)
-{
-    IInteractiveExtension *interactiveExtension = new AddShapeOperationInteractiveExtension(this);
-    registerExtension<IInteractiveExtension>(interactiveExtension);
-
-    addParent("org.carousel.demos.Dom", 1, 0);
-    addParent("org.carousel.demos.Geodatabase", 1, 0);
-    addParent("org.carousel.demos.Display", 1, 0);
-    addParent("org.carousel.demos.Carto", 1, 0);
-    addParent("org.carousel.demos.CartoUI", 1, 0);
-    addParent("org.carousel.Undo", 1, 0);
-    setShortName("Add Shape Operation");
-    setProductName(productName);
-    setProvider("Carousel");
-    setVersion(1, 0);
-}
-
-//------------------------------------------------------------------------------
-AddShapeOperationComponent::~AddShapeOperationComponent()
+ParentDefinition::ParentDefinition(const QString &name, QObject *parent)
+    : QObject(parent)
+    , m_name(name)
+    , m_version(new Version(1, 0))
 {
 }
 
 //------------------------------------------------------------------------------
-bool AddShapeOperationComponent::onStartup(IServiceLocator *serviceLocator)
+ParentDefinition::ParentDefinition(const QString &name, Version *version, QObject *parent)
+    : QObject(parent)
+    , m_name(name)
+    , m_version(version)
 {
-    auto creator = [serviceLocator](){return new AddShapesCommand(serviceLocator);};
-    serviceLocator->registerType<AddShapesCommand>(creator);
-
-    return true;
 }
 
 //------------------------------------------------------------------------------
-void AddShapeOperationComponent::onShutdown(IServiceLocator *serviceLocator)
+ParentDefinition::ParentDefinition(const QString &name, int major_version, int minor_version, QObject *parent)
+    : QObject(parent)
+    , m_name(name)
+    , m_version(new Version(major_version, minor_version))
 {
-    Q_UNUSED(serviceLocator)
 }
 
 //------------------------------------------------------------------------------
-EXPORT_COMPONENT(AddShapeOperationComponent)
+ParentDefinition::ParentDefinition(const QString &name, int major_version, int minor_version, int build_version, QObject *parent)
+    : QObject(parent)
+    , m_name(name)
+    , m_version(new Version(major_version, minor_version, build_version))
+{
+}
 
 //------------------------------------------------------------------------------
+ParentDefinition::ParentDefinition(const QString &name, int major_version, int minor_version, int build_version, int revision_version, QObject *parent)
+    : QObject(parent)
+    , m_name(name)
+    , m_version(new Version(major_version, minor_version, build_version, revision_version))
+{
+}
+
+//------------------------------------------------------------------------------
+ParentDefinition::~ParentDefinition()
+{
+    delete m_version;
+    m_version = nullptr;
+}
+
+//------------------------------------------------------------------------------
+const QString &ParentDefinition::name() const
+{
+    return m_name;
+}
+
+//------------------------------------------------------------------------------
+const Version *ParentDefinition::version() const
+{
+    return m_version;
+}

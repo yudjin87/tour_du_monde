@@ -4,7 +4,7 @@
      <provider>Carousel</provider>
      <location>./org.carousel.demos.Dom</location>
      <parents>
-         <parentComponent name="org.carousel.demos.Display"/>
-         <parentComponent name="org.carousel.demos.Carto"/>
+         <parentComponent name="org.carousel.demos.Display" version="1.0"/>
+         <parentComponent name="org.carousel.demos.Carto" version="1.0"/>
      </parents>
  </component>

@@ -35,8 +35,8 @@ typedef std::unique_ptr<MockComponent> MockComponentPtr;
 typedef std::unique_ptr<MockChildComponent> ChildComponentPtr;
 
 MockComponent *createComponent(const QString &name);
-MockChildComponent *createParentComponent(const QString &name, const QString &dependsOn);
-MockChildComponent *createParentComponent(const QString &name, const QString &dependsOn, const QString &dependsOn2);
+MockChildComponent *createParentDefinition(const QString &name, const QString &dependsOn);
+MockChildComponent *createParentDefinition(const QString &name, const QString &dependsOn, const QString &dependsOn2);
 
 
 //------------------------------------------------------------------------------

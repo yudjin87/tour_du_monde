@@ -19,6 +19,8 @@ SOURCES += \
     $$PROJECT_SOURCES/DirectoryWatchingComponentProvider.cpp \
     $$PROJECT_SOURCES/FileComponentProvider.cpp \
     $$PROJECT_SOURCES/IComponent.cpp \
+    $$PROJECT_SOURCES/ParentDefinition.cpp \
+    $$PROJECT_SOURCES/ParentDefinitions.cpp \
     $$PROJECT_SOURCES/ProxyComponent.cpp \
     $$PROJECT_SOURCES/Version.cpp \
     $$PROJECT_SOURCES/WebInstaller.cpp \
@@ -54,6 +56,8 @@ HEADERS += \
     $$PROJECT_HEADERS/IComponentProvider.h \
     $$PROJECT_HEADERS/IDefinitionParser.h \
     $$PROJECT_HEADERS/IDirectoryComponentProvider.h \
+    $$PROJECT_HEADERS/ParentDefinition.h \
+    $$PROJECT_HEADERS/ParentDefinitions.h \
     $$PROJECT_HEADERS/ProxyComponent.h \
     $$PROJECT_HEADERS/Version.h \
     $$PROJECT_HEADERS/WebInstaller.h \

@@ -100,9 +100,9 @@ void ComponentDependenciesTest::shouldFindComponentByName()
 void ComponentDependenciesTest::shouldReturnResultWithCiclycFlag()
 {
     // A <- B <- C <- A
-    IComponent *componentA = createParentComponent("A", "C");
-    IComponent *componentB = createParentComponent("B", "A");
-    IComponent *componentC = createParentComponent("C", "B");
+    IComponent *componentA = createParentDefinition("A", "C");
+    IComponent *componentB = createParentDefinition("B", "A");
+    IComponent *componentC = createParentDefinition("C", "B");
 
     ComponentDependencies dependencies;
     dependencies.addComponent(componentA);
@@ -118,13 +118,13 @@ void ComponentDependenciesTest::shouldGetParentsForComponent()
 {
     // A <- B
     IComponent *componentA = createComponent("A");
-    IComponent *componentB = createParentComponent("B", "A"); //dependent from A;
+    IComponent *componentB = createParentDefinition("B", "A"); //dependent from A;
 
     ComponentDependencies dependencies;
     dependencies.addComponent(componentA);
     dependencies.addComponent(componentB);
 
-    DependenciesSolvingResult result = dependencies.getParentComponents(componentB);
+    DependenciesSolvingResult result = dependencies.getParentDefinitions(componentB);
     QList<IComponent *> components = result.ordered();
 
     QCOMPARE(components.size(), 1);
@@ -137,7 +137,7 @@ void ComponentDependenciesTest::shouldGetDependingsForComponent()
 {
     // A <- B
     IComponent *componentA = createComponent("A");
-    IComponent *componentB = createParentComponent("B", "A"); //dependent from A;
+    IComponent *componentB = createParentDefinition("B", "A"); //dependent from A;
 
     ComponentDependencies dependencies;
     dependencies.addComponent(componentA);
@@ -156,10 +156,10 @@ void ComponentDependenciesTest::shouldCompleteListWithChild()
 {
     // A <- B <- C <- D,    C <- E
     MockComponent *componentA = createComponent("A");
-    MockChildComponent *componentB = createParentComponent("B", "A"); //dependent from A;
-    MockChildComponent *componentC = createParentComponent("C", "B"); //dependent from B;
-    MockChildComponent *componentD = createParentComponent("D", "C"); //dependent from C;
-    MockChildComponent *componentE = createParentComponent("E", "C"); //dependent from C;
+    MockChildComponent *componentB = createParentDefinition("B", "A"); //dependent from A;
+    MockChildComponent *componentC = createParentDefinition("C", "B"); //dependent from B;
+    MockChildComponent *componentD = createParentDefinition("D", "C"); //dependent from C;
+    MockChildComponent *componentE = createParentDefinition("E", "C"); //dependent from C;
 
     ComponentDependencies dependencies;
     // Add the components in random order
@@ -206,8 +206,8 @@ void ComponentDependenciesTest::shouldCompleteListWithTheirChildren()
 {
     // A <- B <- C
     IComponent *componentA = createComponent("A");
-    IComponent *componentB = createParentComponent("B", "A"); //dependent from A;
-    IComponent *componentC = createParentComponent("C", "B"); //dependent from B;
+    IComponent *componentB = createParentDefinition("B", "A"); //dependent from A;
+    IComponent *componentC = createParentDefinition("C", "B"); //dependent from B;
     IComponentPtr independentComponent(createComponent("independentComponent"));
 
     ComponentDependencies dependencies;
@@ -240,11 +240,11 @@ void ComponentDependenciesTest::shouldCompleteOrderedComponents()
     //      ^    ^
     //      └─── D
     MockComponent *componentA = createComponent("A");
-    MockChildComponent *componentB = createParentComponent("B", "A"); //dependent from A;
-    MockChildComponent *componentC = createParentComponent("C", "B"); //dependent from B;
+    MockChildComponent *componentB = createParentDefinition("B", "A"); //dependent from A;
+    MockChildComponent *componentC = createParentDefinition("C", "B"); //dependent from B;
 
-    MockChildComponent *componentD = createParentComponent("D", "B", "C"); //dependent from B & C;
-    MockChildComponent *componentE = createParentComponent("E", "A", "C"); //dependent from A & C;
+    MockChildComponent *componentD = createParentDefinition("D", "B", "C"); //dependent from B & C;
+    MockChildComponent *componentE = createParentDefinition("E", "A", "C"); //dependent from A & C;
 
 
     ComponentDependencies dependencies;
@@ -274,10 +274,10 @@ void ComponentDependenciesTest::shouldCompleteListWithTheirParents()
 {
     // A <- B <- C <- D,    C <- E
     MockComponent *componentA = createComponent("A");
-    MockChildComponent *componentB = createParentComponent("B", "A"); //dependent from A;
-    MockChildComponent *componentC = createParentComponent("C", "B"); //dependent from B;
-    MockChildComponent *componentD = createParentComponent("D", "C"); //dependent from C;
-    MockChildComponent *componentE = createParentComponent("E", "C"); //dependent from C;
+    MockChildComponent *componentB = createParentDefinition("B", "A"); //dependent from A;
+    MockChildComponent *componentC = createParentDefinition("C", "B"); //dependent from B;
+    MockChildComponent *componentD = createParentDefinition("D", "C"); //dependent from C;
+    MockChildComponent *componentE = createParentDefinition("E", "C"); //dependent from C;
     IComponentPtr independentComponent(createComponent("independentComponent"));
 
     ComponentDependencies dependencies;
@@ -316,10 +316,10 @@ void ComponentDependenciesTest::shouldCompleteListWithFullParents()
 {
     // A <- B <- C <- D,    C <- E
     MockComponent *componentA = createComponent("A");
-    MockChildComponent *componentB = createParentComponent("B", "A"); //dependent from A;
-    MockChildComponent *componentC = createParentComponent("C", "B"); //dependent from B;
-    MockChildComponent *componentD = createParentComponent("D", "C"); //dependent from C;
-    MockChildComponent *componentE = createParentComponent("E", "C"); //dependent from C;
+    MockChildComponent *componentB = createParentDefinition("B", "A"); //dependent from A;
+    MockChildComponent *componentC = createParentDefinition("C", "B"); //dependent from B;
+    MockChildComponent *componentD = createParentDefinition("D", "C"); //dependent from C;
+    MockChildComponent *componentE = createParentDefinition("E", "C"); //dependent from C;
 
     ComponentDependencies dependencies;
     dependencies.addComponent(componentB);
@@ -348,9 +348,9 @@ void ComponentDependenciesTest::shouldCompleteListWithParentsTransitively()
 
 
     MockComponent *componentZero = createComponent("Zero");
-    MockChildComponent *componentC = createParentComponent("C", "Zero"); //dependent from Zero;
-    MockChildComponent *componentA = createParentComponent("A", "C");    //dependent from C;
-    MockChildComponent *componentN = createParentComponent("N", "A");    //dependent from A;
+    MockChildComponent *componentC = createParentDefinition("C", "Zero"); //dependent from Zero;
+    MockChildComponent *componentA = createParentDefinition("A", "C");    //dependent from C;
+    MockChildComponent *componentN = createParentDefinition("N", "A");    //dependent from A;
 
 
     ComponentDependencies dependencies;
@@ -386,9 +386,9 @@ void ComponentDependenciesTest::shouldNotAddExtraParentsToCompletedList()
     //         └────┴────┘
 
     MockComponent *componentZero = createComponent("Zero");
-    MockChildComponent *componentC = createParentComponent("C", "Zero");   //dependent from Zero;
-    MockChildComponent *componentA = createParentComponent("A", "C");      //dependent from C;
-    MockChildComponent *componentN = createParentComponent("N", "C", "A"); //dependent from C and A;
+    MockChildComponent *componentC = createParentDefinition("C", "Zero");   //dependent from Zero;
+    MockChildComponent *componentA = createParentDefinition("A", "C");      //dependent from C;
+    MockChildComponent *componentN = createParentDefinition("N", "C", "A"); //dependent from C and A;
 
 
     ComponentDependencies dependencies;
@@ -419,10 +419,10 @@ void ComponentDependenciesTest::shouldCompleteListWithTheirParent()
 {
     // A <- B <- C <- D,    C <- E
     MockComponent *componentA = createComponent("A");
-    MockChildComponent *componentB = createParentComponent("B", "A"); //dependent from A;
-    MockChildComponent *componentC = createParentComponent("C", "B"); //dependent from B;
-    MockChildComponent *componentD = createParentComponent("D", "C"); //dependent from C;
-    MockChildComponent *componentE = createParentComponent("E", "C"); //dependent from C;
+    MockChildComponent *componentB = createParentDefinition("B", "A"); //dependent from A;
+    MockChildComponent *componentC = createParentDefinition("C", "B"); //dependent from B;
+    MockChildComponent *componentD = createParentDefinition("D", "C"); //dependent from C;
+    MockChildComponent *componentE = createParentDefinition("E", "C"); //dependent from C;
 
     ComponentDependencies dependencies;
     // Add the components in random order

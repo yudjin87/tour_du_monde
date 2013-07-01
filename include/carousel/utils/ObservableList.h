@@ -252,11 +252,6 @@ public:
     class const_iterator : public QList<TItem>::const_iterator
     {
     public:
-        const_iterator(const QList<TItem> &container)
-            : QList<TItem>::const_iterator(container)
-        {
-        }
-
         const_iterator(const typename QList<TItem>::const_iterator &other)
             : QList<TItem>::const_iterator(other)
         {

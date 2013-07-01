@@ -9,13 +9,13 @@ MockChildComponent::MockChildComponent(const QString &name)
 }
 
 //------------------------------------------------------------------------------
-QStringList &MockChildComponent::parents()
+ParentDefinitions &MockChildComponent::parents()
 {
-    return const_cast<QStringList &>(definition()->parents());
+    return const_cast<ParentDefinitions &>(definition()->parents());
 }
 
 //------------------------------------------------------------------------------
-const QStringList &MockChildComponent::parents() const
+const ParentDefinitions &MockChildComponent::parents() const
 {
     return definition()->parents();
 }

@@ -111,7 +111,7 @@ public:
      *   Gets the parsed component parents names.
      *   @a Optional, can be empty list.
      */
-    const QStringList &parents() const;
+    const ParentsList &parents() const;
 
     /*!
      * @details
@@ -183,7 +183,7 @@ protected:
     QString m_provider;
     QString m_error;
     QString m_version;
-    QStringList m_parents;
+    ParentsList m_parents;
 };
 
 #endif // XMLDEFINITIONPARSER_H

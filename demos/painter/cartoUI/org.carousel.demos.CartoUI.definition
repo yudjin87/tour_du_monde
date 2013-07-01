@@ -4,9 +4,9 @@
      <provider>Carousel</provider>
      <location>./org.carousel.demos.CartoUI</location>
      <parents>
-         <parentComponent name="org.carousel.demos.Dom"/>
-         <parentComponent name="org.carousel.demos.Geodatabase"/>
-         <parentComponent name="org.carousel.demos.Display"/>
-         <parentComponent name="org.carousel.demos.Carto"/>
+         <parentComponent name="org.carousel.demos.Dom" version="1.0"/>
+         <parentComponent name="org.carousel.demos.Geodatabase" version="1.0"/>
+         <parentComponent name="org.carousel.demos.Display" version="1.0"/>
+         <parentComponent name="org.carousel.demos.Carto" version="1.0"/>
      </parents>
  </component>

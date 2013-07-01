@@ -34,6 +34,7 @@
 
 #include <carousel/componentsystem/ComponentDefinition.h>
 #include <carousel/componentsystem/ComponentInstaller.h>
+#include <carousel/componentsystem/ParentDefinition.h>
 
 #include <QtCore/QCoreApplication>
 #include <QtCore/QDir>
@@ -129,7 +130,7 @@ void ComponentInstallerTest::tryToInstall_shouldReturnResolveResultWithAllDiscov
 {
     FakeComponentInstaller installer(DEFAULT_DIRECTORY);
     MockChildComponent *child = new MockChildComponent(QString("TestComponent1"));
-    child->parents().push_back("TestComponent2");
+    child->parents().append(new ParentDefinition("TestComponent2"));
 
     installer.discovered.push_back(child);
     installer.discovered.push_back(new MockComponent(QString("TestComponent2")));
@@ -170,7 +171,7 @@ void ComponentInstallerTest::install_shouldNotCallLoadComponentsIfTryWasNotCalle
 void ComponentInstallerTest::install_shouldNotCallLoadComponentsIfOrphanComponentsWere()
 {
     FakeComponentInstaller installer(DEFAULT_DIRECTORY);
-    MockChildComponent *child = new MockChildComponent(QString("TestComponent1")); child->parents().push_back("C");
+    MockChildComponent *child = new MockChildComponent(QString("TestComponent1")); child->parents().append(new ParentDefinition("C"));
     installer.discovered.push_back(child);
     installer.tryToInstall(QStringList() << "TestComponent1");
 

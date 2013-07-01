@@ -4,6 +4,6 @@
      <provider>Carousel</provider>
      <location>./org.carousel.demos.Display</location>
      <parents>
-         <parentComponent name="org.carousel.Interactivity"/>
+         <parentComponent name="org.carousel.Interactivity" version="1.0"/>
      </parents>
  </component>

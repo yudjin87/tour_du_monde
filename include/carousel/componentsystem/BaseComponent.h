@@ -192,7 +192,11 @@ protected:
      */
     virtual bool onStartup(IServiceLocator *serviceLocator);
 
-    void addParent(const QString &parent);
+    /*!
+     * @details
+     *   Adds a parent component name and version as a dependency for defined component.
+     */
+    void addParent(const QString &parentName, int major_version, int minor_version, int build_version = 0, int revision_version = 0);
 
     /*!
      * @details

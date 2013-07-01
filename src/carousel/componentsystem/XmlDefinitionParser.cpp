@@ -40,6 +40,7 @@ static LoggerFacade Log = LoggerFacade::createLogger("XmlDefinitionParser");
 static const char *COMPONENT_NAME_ATTRIBUTE = "name";
 static const char *COMPONENT_SHORT_NAME_ATTRIBUTE = "shortName";
 static const char *PARENT_COMPONENT_NAME_ATTRIBUTE = "name";
+static const char *PARENT_COMPONENT_VERSION_ATTRIBUTE = "version";
 
 static const char *VERSION_TAG = "version";
 static const char *COMPONENT_TAG = "component";
@@ -142,7 +143,7 @@ const QString &XmlDefinitionParser::description() const
 }
 
 //------------------------------------------------------------------------------
-const QStringList &XmlDefinitionParser::parents() const
+const IDefinitionParser::ParentsList &XmlDefinitionParser::parents() const
 {
     return m_parents;
 }
@@ -208,8 +209,11 @@ bool XmlDefinitionParser::parseXml(QDomDocument &document)
 
     QDomNode parents = root.elementsByTagName(PARENTS_TAG).at(0);
     QDomNodeList parentsNode = parents.toElement().elementsByTagName(PARENT_COMPONENT_TAG);
-    for (int i = 0; i < parentsNode.size(); ++i)
-        m_parents.append(parentsNode.at(i).toElement().attribute(PARENT_COMPONENT_NAME_ATTRIBUTE));
+    for (int i = 0; i < parentsNode.size(); ++i) {
+        QString parentComponentName = parentsNode.at(i).toElement().attribute(PARENT_COMPONENT_NAME_ATTRIBUTE);
+        QString parentComponentVersion = parentsNode.at(i).toElement().attribute(PARENT_COMPONENT_VERSION_ATTRIBUTE);
+        m_parents.insert(parentComponentName, parentComponentVersion);
+    }
 
     return true;
 }

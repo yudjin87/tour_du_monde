@@ -1,5 +1,7 @@
 #include "Utils.h"
 
+#include <carousel/componentsystem/ParentDefinition.h>
+
 #include <QtCore/QCoreApplication>
 #include <QtCore/QDir>
 #include <QtTest/QtTest>
@@ -81,20 +83,20 @@ QString pathToComponentsDir()
 }
 
 //------------------------------------------------------------------------------
-MockChildComponent* createParentComponent(const QString &name, const QString &dependsOn)
+MockChildComponent* createParentDefinition(const QString &name, const QString &dependsOn)
 {
     MockChildComponent *component = new MockChildComponent(name);
-    component->parents().push_back(dependsOn);
+    component->parents().append(new ParentDefinition(dependsOn));
 
     return component;
 }
 
 //------------------------------------------------------------------------------
-MockChildComponent *createParentComponent(const QString &name, const QString &dependsOn, const QString &dependsOn2)
+MockChildComponent *createParentDefinition(const QString &name, const QString &dependsOn, const QString &dependsOn2)
 {
     MockChildComponent *component = new MockChildComponent(name);
-    component->parents().push_back(dependsOn);
-    component->parents().push_back(dependsOn2);
+    component->parents().append(new ParentDefinition(dependsOn));
+    component->parents().append(new ParentDefinition(dependsOn2));
 
     return component;
 }

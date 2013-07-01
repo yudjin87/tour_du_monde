@@ -40,11 +40,11 @@ NavigationOperationsComponent::NavigationOperationsComponent(QObject *parent /*=
     IInteractiveExtension *interactiveExtension = new NavigationOperationsInteractiveExtension(this);
     registerExtension<IInteractiveExtension>(interactiveExtension);
 
-    addParent("org.carousel.demos.Dom");
-    addParent("org.carousel.demos.Geodatabase");
-    addParent("org.carousel.demos.Display");
-    addParent("org.carousel.demos.Carto");
-    addParent("org.carousel.demos.AddShapeOperation");
+    addParent("org.carousel.demos.Dom", 1, 0);
+    addParent("org.carousel.demos.Geodatabase", 1, 0);
+    addParent("org.carousel.demos.Display", 1, 0);
+    addParent("org.carousel.demos.Carto", 1, 0);
+    addParent("org.carousel.demos.AddShapeOperation", 1, 0);
     setShortName("Navigation Operations");
     setProductName(productName);
     setProvider("Carousel");

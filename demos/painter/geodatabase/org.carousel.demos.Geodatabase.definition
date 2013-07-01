@@ -4,6 +4,6 @@
      <provider>Carousel</provider>
      <location>./org.carousel.demos.Geodatabase</location>
      <parents>
-         <parentComponent name="org.carousel.demos.Geometry"/>
+         <parentComponent name="org.carousel.demos.Geometry" version="1.0"/>
      </parents>
  </component>

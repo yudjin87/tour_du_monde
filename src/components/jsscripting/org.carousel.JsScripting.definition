@@ -3,7 +3,7 @@
      <productName>JsScripting</productName>
      <provider>Carousel</provider>
      <parents>
-         <parentComponent name="org.carousel.Interactivity"/>
+         <parentComponent name="org.carousel.Interactivity" version="1.0"/>
      </parents>
      <location>./org.carousel.JsScripting</location>
  </component>
