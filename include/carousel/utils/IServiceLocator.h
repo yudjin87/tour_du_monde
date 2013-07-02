@@ -133,7 +133,6 @@ typedef std::function<void*(void)> factoryMethod;
  *   Since @a qobject_cast() is used all services should be derived from the QObject
  *   and have Q_OBJECT macro.
  *
- * @todo tell about achieving the IServiceLocator instance => from the AbstractApplication
  * @note Does not take ownership of the services or of the created by factories types.
  */
 class UTILS_API IServiceLocator

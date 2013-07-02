@@ -30,6 +30,7 @@
 #include <carousel/componentsystem/componentsystem_global.h>
 
 #include <QtCore/QList>
+#include <QtCore/QObject>
 #include <QtCore/QString>
 
 class ParentDefinition;
@@ -37,17 +38,30 @@ class Version;
 
 /*!
  * @brief
+ *   This class defines a collection of the parent component properties,
+ *   required for the child startup.
+ * @details
+ *   Besides standart collection manipulating methods it also provides convinient methods
+ *   for specific tasks, like existing by name.
+ *
+ * @sa ComponentDefinition::parents()
  */
-class COMP_API ParentDefinitions
+class COMP_API ParentDefinitions : public QObject
 {
+    Q_OBJECT
 public:
     /*!
      * @details
      * @constructor{ParentDefinitions}.
      */
-    explicit ParentDefinitions();
+    explicit ParentDefinitions(QObject *parent = nullptr);
     ~ParentDefinitions();
 
+    /*!
+     * @details
+     *    Returns @a true, if parent definition with such name exists.
+     *    Otherwise, returns @a false.
+     */
     bool contains(const QString &parentName) const;
 
     /*!
@@ -58,9 +72,25 @@ public:
      */
     void append(ParentDefinition *parent);
 
+    /*!
+     * @details
+     *    Returns amount of parent definitions in the collection.
+     */
     int size() const;
 
+    /*!
+     * @details
+     *    Returns a version of parent definition by its name, if any.
+     *    Otherwise, a @a nullptr will be returned.
+     */
     const Version *operator[](const QString &parentName) const;
+
+    /*!
+     * @details
+     *    Returns a parent definition by its @a index.
+     *
+     * @note The bounds are not checked.
+     */
     const ParentDefinition *operator[](int index) const;
 
     class const_iterator : public QList<ParentDefinition *>::const_iterator

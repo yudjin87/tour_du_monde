@@ -144,19 +144,13 @@ public:
 
     /*!
      * @details
-     *   This is an overloaded function.
-     *
-     *   This function parses xml @a data as byte array and sets component meta information,
-     *   returning @a true if the content was successfully parsed; otherwise returns @a false.
+     * @overload.
      */
     bool read(const QByteArray &data);
 
     /*!
      * @details
-     *   This is an overloaded function.
-     *
-     *   This function parses xml data from the IO device @a dev and sets component meta information,
-     *   returning @a true if the content was successfully parsed; otherwise returns @a false.
+     * @overload
      */
     bool read(QIODevice* dev);
 

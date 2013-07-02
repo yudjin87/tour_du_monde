@@ -39,7 +39,4 @@
 #   endif //#if defined(BOOTING_LIBRARY)
 #endif //#if defined(STATIC_BUILD)
 
-// Should be removed
-#define nullptr 0
-
 #endif // BOOTING_GLOBAL_H

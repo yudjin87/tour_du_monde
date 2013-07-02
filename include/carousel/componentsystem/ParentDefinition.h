@@ -36,7 +36,7 @@ class Version;
 
 /*!
  * @brief
- *   This class defines a parent component proeprties, required for the child startup.
+ *   This class defines a parent component properties, required for the child startup.
  * @details
  *   They are component name and component version. The name is used for
  *   determine build order (parents should be started before their children),

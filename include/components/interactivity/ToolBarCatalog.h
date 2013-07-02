@@ -57,14 +57,6 @@ public:
 
     /*!
      * @details
-     *   This is an overloaded function.
-     *
-     *   Equivalent of calling add(Qt::TopToolBarArea, title)
-     */
-    QToolBar *add(const QString &title);
-
-    /*!
-     * @details
      *   Adds the toolbar with @a title into the specified area in this main window.
      *   The toolbar is placed at the end of the current toolbar block (i.e. line).
      *   If the main window already manages toolbar then it will only move the toolbar to area.
@@ -84,14 +76,10 @@ public:
 
     /*!
      * @details
-     *   Searches for the toolbar specified by @a title, removes if any
-     *   from containter and calls delete.
-     *
-     *   Usualy you should not use this method directly - it is used
-     *   only by IComponentConfigurationDelegate to deconfigure component
-     *   and revert changes is did.
+     * @overload
+     *   Equivalent of calling add(Qt::TopToolBarArea, title)
      */
-    void deleteToolbar(const QString &title);
+    QToolBar *add(const QString &title);
 
     /*!
      * @details
@@ -105,6 +93,12 @@ public:
 
     /*!
      * @details
+     * @overload
+     */
+    void deleteToolbar(const QString &title);
+
+    /*!
+     * @details
      *   Searches for the toolbar specified by @a title
      *   in the added toolbars.
      * @return
@@ -114,10 +108,7 @@ public:
 
     /*!
      * @details
-     *   Searches for the toolbar specified by @a title
-     *   in the added toolbars.
-     * @return
-     *   Found toolbar. Null, if there are no toolbars with such title.
+     * @overload
      */
     const QToolBar *find(const QString &title) const;
 

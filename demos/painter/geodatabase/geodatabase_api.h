@@ -39,7 +39,4 @@
 #  endif //#if defined(GEODATABASE_LIB_IMPORT)
 #endif //#if defined(STATIC_BUILD)
 
-// Should be removed
-#define nullptr 0
-
 #endif // GEODATABASE_API_H

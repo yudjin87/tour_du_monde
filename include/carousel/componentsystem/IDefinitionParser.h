@@ -128,19 +128,13 @@ public:
 
     /*!
      * @details
-     *   This is an overloaded function.
-     *
-     *   This function parses byte array @a data and sets component meta information,
-     *   returning @a true if the content was successfully parsed; otherwise returns @a false.
+     * @overload
      */
     virtual bool read(const QByteArray &data) = 0;
 
     /*!
      * @details
-     *   This is an overloaded function.
-     *
-     *   This function parses data from the IO device @a dev and sets component meta information,
-     *   returning @a true if the content was successfully parsed; otherwise returns @a false.
+     * @overload
      */
     virtual bool read(QIODevice* dev) = 0;
 };

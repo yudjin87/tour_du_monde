@@ -39,7 +39,4 @@
 #   endif //#if defined(ORG_CAROUSEL_COMPONENTSYSTEMUI_LIBRARY)
 #endif //#if defined(STATIC_BUILD)
 
-// Should be removed
-#define nullptr 0
-
 #endif // COMPONENTSYSTEM_UI_GLOBAL_H

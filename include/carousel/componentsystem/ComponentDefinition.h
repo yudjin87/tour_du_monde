@@ -45,10 +45,6 @@ class Version;
  *
  *   This class also specified that the current component has dependencies
  *   on another ones - on its 'parents'.
- *
- *   You should return names of the parent components in the parents() method
- *   if your component uses some services from another one - it is guaranteed
- *   that your component will be started up after all dependent components will.
  */
 class COMP_API ComponentDefinition
 {
@@ -140,12 +136,14 @@ public:
     bool isCompatible(const IComponent *parent) const;
 
     /*!
-     * @overload bool ComponentDefinition::isCompatible(const IComponent &parent) const
+     * @details
+     * @overload
      */
     bool isCompatible(const QString &name, const Version *version) const;
 
     /*!
-     * @overload bool isCompatible(const IComponent &parent) const
+     * @details
+     * @overload
      */
     bool isCompatible(const ParentDefinitions &parents) const;
 

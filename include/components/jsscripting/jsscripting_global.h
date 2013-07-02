@@ -39,7 +39,4 @@
 #   endif //#if defined(ORG_CAROUSEL_JSSCRIPTING_LIBRARY)
 #endif //#if defined(STATIC_BUILD)
 
-// Should be removed
-#define nullptr 0
-
 #endif // JSSCRIPTING_GLOBAL_H

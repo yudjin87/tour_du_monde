@@ -35,7 +35,4 @@
 #  define CARTO_API Q_DECL_IMPORT
 #endif
 
-// Should be removed
-#define nullptr 0
-
 #endif // CARTO_API_H

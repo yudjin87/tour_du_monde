@@ -30,8 +30,9 @@
 #include <QtCore/QtAlgorithms>
 
 //------------------------------------------------------------------------------
-ParentDefinitions::ParentDefinitions()
-    //: QList<ParentDefinition *>()
+ParentDefinitions::ParentDefinitions(QObject *parent)
+    : QObject(parent)
+    , m_parents(QList<ParentDefinition *>())
 {
 }
 

@@ -35,7 +35,4 @@
 #  define DISPLAY_API Q_DECL_IMPORT
 #endif
 
-// Should be removed
-#define nullptr 0
-
 #endif // DISPLAY_API_H
