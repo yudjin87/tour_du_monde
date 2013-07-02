@@ -157,6 +157,15 @@ public:
 
     /*!
      * @details
+     *   Returns @a true if component version is compatible with @a all @a parent component
+     *   versions, e.g. if they are equal. Otherwise, returns @a false.
+     *
+     * @sa ComponentDefinition::isCompatible()
+     */
+    virtual bool isCompatible(const IComponent *withOther) const = 0;
+
+    /*!
+     * @details
      *   Sets the value specified whether this component is enabled or disabled.
      *   The checked state of the component is saved in the user settings.
      * @sa availability

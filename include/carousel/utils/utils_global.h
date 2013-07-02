@@ -39,7 +39,4 @@
 #   endif //#if defined(UTILS_LIBRARY)
 #endif //#if defined(STATIC_BUILD)
 
-// Should be removed
-#define nullptr 0
-
 #endif // UTILS_GLOBAL_H

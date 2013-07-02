@@ -35,7 +35,4 @@
 #  define COMPONENTMANAGEMENT_API Q_DECL_IMPORT
 #endif
 
-// Should be removed
-#define nullptr 0
-
 #endif // COMPONENTMANAGEMENT_API_H

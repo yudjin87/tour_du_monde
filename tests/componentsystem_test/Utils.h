@@ -34,10 +34,10 @@ typedef std::unique_ptr<IComponent> IComponentPtr;
 typedef std::unique_ptr<MockComponent> MockComponentPtr;
 typedef std::unique_ptr<MockChildComponent> ChildComponentPtr;
 
-MockComponent *createComponent(const QString &name);
-MockChildComponent *createParentComponent(const QString &name, const QString &dependsOn);
-MockChildComponent *createParentComponent(const QString &name, const QString &dependsOn, const QString &dependsOn2);
-
+MockComponent *createComponent(const QString &name, int major_version = 1, int minor_version = 0, int build_version = 0, int revision_version = 0);
+MockChildComponent *createParentDefinition(const QString &name, const QString &dependsOn, int major_version = 1, int minor_version = 0, int build_version = 0, int revision_version = 0);
+MockChildComponent *createParentDefinition(const QString &name, const QString &dependsOn, const QString &dependsOn2);
+MockChildComponent *createParentDefinition(const QString &name, const QString &dependsOn, int major_version, const QString &dependsOn2, int major_version2);
 
 //------------------------------------------------------------------------------
 class IDirectoryComponentProvider;

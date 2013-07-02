@@ -89,7 +89,7 @@ void ComponentManagerTest::check_shouldFillMissingComponents()
 {
     // A <- B,  C
     MockComponent *componentC = createComponent("C");
-    MockChildComponent *componentB = createParentComponent("B", "A"); //dependent from A;
+    MockChildComponent *componentB = createParentDefinition("B", "A"); //dependent from A;
 
     ComponentManager manager(&m_locator);
     manager.addComponent(componentB);
@@ -106,7 +106,7 @@ void ComponentManagerTest::check_shouldFillOrphanComponents()
 {
     // A <- B,  C
     MockComponent *componentC = createComponent("C");
-    MockChildComponent *componentB = createParentComponent("B", "A"); //dependent from A;
+    MockChildComponent *componentB = createParentDefinition("B", "A"); //dependent from A;
 
     ComponentManager manager(&m_locator);
     manager.addComponent(componentB);
@@ -362,7 +362,7 @@ void ComponentManagerTest::shutdownAllComponents_shouldDisableComponent()
 void ComponentManagerTest::shutdownComponents_shouldReturnJustShutDownComponents()
 {
     MockComponent *componentA = createComponent("A");
-    MockChildComponent *componentB = createParentComponent("B", "A");
+    MockChildComponent *componentB = createParentDefinition("B", "A");
 
     ComponentManager manager(&m_locator);
     manager.addComponent(componentA);
@@ -479,10 +479,10 @@ void ComponentManagerTest::startupAllComponents_shouldPassComponentsInRightOrder
 {
     // A <- B <- C <- D,    C <- E
     MockComponent *componentA = createComponent("A");
-    MockChildComponent *componentB = createParentComponent("B", "A"); //dependent from A;
-    MockChildComponent *componentC = createParentComponent("C", "B"); //dependent from B;
-    MockChildComponent *componentD = createParentComponent("D", "C"); //dependent from C;
-    MockChildComponent *componentE = createParentComponent("E", "C"); //dependent from C;
+    MockChildComponent *componentB = createParentDefinition("B", "A"); //dependent from A;
+    MockChildComponent *componentC = createParentDefinition("C", "B"); //dependent from B;
+    MockChildComponent *componentD = createParentDefinition("D", "C"); //dependent from C;
+    MockChildComponent *componentE = createParentDefinition("E", "C"); //dependent from C;
 
     MockComponentManager manager(&m_locator);
 
@@ -513,10 +513,10 @@ void ComponentManagerTest::startupAllComponents_shouldPassComponentsInRightOrder
     //      ^    ^
     //      └─── D
     MockComponent *componentA = createComponent("A");
-    MockChildComponent *componentB = createParentComponent("B", "A"); //dependent from A;
-    MockChildComponent *componentC = createParentComponent("C", "B"); //dependent from B;
-    MockChildComponent *componentD = createParentComponent("D", "B", "C"); //dependent from B & C;
-    MockChildComponent *componentE = createParentComponent("E", "A", "C"); //dependent from A & C;
+    MockChildComponent *componentB = createParentDefinition("B", "A"); //dependent from A;
+    MockChildComponent *componentC = createParentDefinition("C", "B"); //dependent from B;
+    MockChildComponent *componentD = createParentDefinition("D", "B", "C"); //dependent from B & C;
+    MockChildComponent *componentE = createParentDefinition("E", "A", "C"); //dependent from A & C;
 
     MockComponentManager manager(&m_locator);
 
@@ -543,10 +543,10 @@ void ComponentManagerTest::shutdownAllComponents_shouldPassComponentsInRightOrde
 {
     // A <- B <- C <- D,    C <- E
     MockComponent *componentA = createComponent("A");
-    MockChildComponent *componentB = createParentComponent("B", "A"); //dependent from A;
-    MockChildComponent *componentC = createParentComponent("C", "B"); //dependent from B;
-    MockChildComponent *componentD = createParentComponent("D", "C"); //dependent from C;
-    MockChildComponent *componentE = createParentComponent("E", "C"); //dependent from C;
+    MockChildComponent *componentB = createParentDefinition("B", "A"); //dependent from A;
+    MockChildComponent *componentC = createParentDefinition("C", "B"); //dependent from B;
+    MockChildComponent *componentD = createParentDefinition("D", "C"); //dependent from C;
+    MockChildComponent *componentE = createParentDefinition("E", "C"); //dependent from C;
 
     MockComponentManager manager(&m_locator);
     manager.addComponent(componentB);
@@ -572,10 +572,10 @@ void ComponentManagerTest::startupComponent_shouldPassRightComponentsInRightOrde
 {
     // A <- B <- C <- D,    C <- E
     MockComponent *componentA = createComponent("A");
-    MockChildComponent *componentB = createParentComponent("B", "A"); //dependent from A;
-    MockChildComponent *componentC = createParentComponent("C", "B"); //dependent from B;
-    MockChildComponent *componentD = createParentComponent("D", "C"); //dependent from C;
-    MockChildComponent *componentE = createParentComponent("E", "C"); //dependent from C;
+    MockChildComponent *componentB = createParentDefinition("B", "A"); //dependent from A;
+    MockChildComponent *componentC = createParentDefinition("C", "B"); //dependent from B;
+    MockChildComponent *componentD = createParentDefinition("D", "C"); //dependent from C;
+    MockChildComponent *componentE = createParentDefinition("E", "C"); //dependent from C;
 
     MockComponentManager manager(&m_locator);
     // Add the components in random order
@@ -603,10 +603,10 @@ void ComponentManagerTest::shutdownComponent_shouldPassComponentsInReverseOrder(
 {
     // A <- B <- C <- D,    C <- E
     MockComponent *componentA = createComponent("A");
-    MockChildComponent *componentB = createParentComponent("B", "A"); //dependent from A;
-    MockChildComponent *componentC = createParentComponent("C", "B"); //dependent from B;
-    MockChildComponent *componentD = createParentComponent("D", "C"); //dependent from C;
-    MockChildComponent *componentE = createParentComponent("E", "C"); //dependent from C;
+    MockChildComponent *componentB = createParentDefinition("B", "A"); //dependent from A;
+    MockChildComponent *componentC = createParentDefinition("C", "B"); //dependent from B;
+    MockChildComponent *componentD = createParentDefinition("D", "C"); //dependent from C;
+    MockChildComponent *componentE = createParentDefinition("E", "C"); //dependent from C;
 
     MockComponentManager manager(&m_locator);
     // Add the components in random order
@@ -637,8 +637,8 @@ void ComponentManagerTest::startupAllComponents_shouldNotStartChildComponentsIfP
     // A <- B <- C
     TestDescriptionComponent *componentA = new TestDescriptionComponent("A");
     componentA->startUpResult = false;
-    MockChildComponent *componentB = createParentComponent("B", "A"); //dependent from A;
-    MockChildComponent *componentC = createParentComponent("C", "B"); //dependent from B;
+    MockChildComponent *componentB = createParentDefinition("B", "A"); //dependent from A;
+    MockChildComponent *componentC = createParentDefinition("C", "B"); //dependent from B;
 
     ComponentManager manager(&m_locator);
     manager.addComponent(componentB);
@@ -658,7 +658,7 @@ void ComponentManagerTest::startupAllComponents_shouldStartOrphanComponentIfPare
     // A <- B,  C
     MockComponent *componentA = createComponent("A");
     MockComponent *componentC = createComponent("C");
-    MockChildComponent *componentB = createParentComponent("B", "A"); //dependent from A;
+    MockChildComponent *componentB = createParentDefinition("B", "A"); //dependent from A;
 
     ComponentManager manager(&m_locator);
     manager.addComponent(componentB);
@@ -682,7 +682,7 @@ void ComponentManagerTest::startupComponents_shouldStartOrphanComponentsWhenPare
     // A <- B,  C
     MockComponent *componentA = createComponent("A");
     MockComponent *componentC = createComponent("C");
-    MockChildComponent *componentB = createParentComponent("B", "A"); //dependent from A;
+    MockChildComponent *componentB = createParentDefinition("B", "A"); //dependent from A;
 
     ComponentManager manager(&m_locator);
     manager.addComponent(componentB);
@@ -708,7 +708,7 @@ void ComponentManagerTest::startupComponents_shouldNotStartOrphanComponentsWhenO
     // A <- B,  C, D
     MockComponent *componentD = createComponent("D");
     MockComponent *componentC = createComponent("C");
-    MockChildComponent *componentB = createParentComponent("B", "A"); //dependent from A;
+    MockChildComponent *componentB = createParentDefinition("B", "A"); //dependent from A;
 
     ComponentManager manager(&m_locator);
     manager.addComponent(componentB);
@@ -733,7 +733,7 @@ void ComponentManagerTest::startupComponents_shouldNotStartOrphanComponentsWhenO
 void ComponentManagerTest::startupComponents_shouldReturnJustStartedComponents()
 {
     MockComponent *componentA = createComponent("A");
-    MockChildComponent *componentB = createParentComponent("B", "A");
+    MockChildComponent *componentB = createParentDefinition("B", "A");
 
     ComponentManager manager(&m_locator);
     manager.addComponent(componentA);

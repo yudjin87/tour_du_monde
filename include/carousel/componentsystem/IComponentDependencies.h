@@ -86,6 +86,7 @@ public:
      *   and you call completeListWithChild() for the @a C component,
      *   the @a A, @a B and @a C components will be returned in that order.
      *
+     * @note Incompatible components will not be added to the DependenciesSolvingResult::ordered() list.
      * @param forChild
      *   The component to get the dependencies (or parents) for.
      */
@@ -99,6 +100,7 @@ public:
      *
      *   The components are ordered in such way, that parents are firsts and children are last.
      *
+     * @note Incompatible components will not be added to the DependenciesSolvingResult::ordered() list.
      * @param forChildren
      *   The components to get the dependencies (or parents) for.
      */
@@ -163,19 +165,18 @@ public:
 
     /*!
      * @details
-     *   Returns a dependencies solving result for cpecified child, that contains a list of
-     *   distinct components and a list of components, those dependencies were not found.
-     *   E.g. if we have components
+     *   Returns a list of all parents (direct and indirect) for the specified child
+     *   component.
      * @code
      *   A <- B <- C <- E
      *             D <──┘
      * @endcode
-     *   then, getParentComponents(E) will return {A, B, C, D} components.
+     *   then, getParentDefinitions(E) will return {A, B, C, D} components.
      * @param forChild
      *   The component to get the dependencies (or parents) for.
      *   If @a forChild is null - result with empty collections will be returned.
      */
-    virtual DependenciesSolvingResult getParentComponents(const IComponent *forChild) const = 0;
+    virtual QList<IComponent *> getParentDefinitions(const IComponent *forChild) const = 0;
 
     /*!
      * @details

@@ -4,6 +4,6 @@
      <provider>Carousel</provider>
      <location>./org.carousel.demos.ComponentManagement</location>
      <parents>
-         <parentComponent name="org.carousel.ComponentSystemUI"/>
+         <parentComponent name="org.carousel.ComponentSystemUI" version="1.0"/>
      </parents>
  </component>

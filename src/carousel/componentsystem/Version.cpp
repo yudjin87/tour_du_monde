@@ -201,6 +201,12 @@ bool Version::operator!=(const Version &other) const
 }
 
 //------------------------------------------------------------------------------
+bool Version::isEqual(const Version *other) const
+{
+    return *this == *other;
+}
+
+//------------------------------------------------------------------------------
 void Version::setVersion(int major_version, int minor_version, int build_version, int revision_version)
 {
     m_major_version = major_version;

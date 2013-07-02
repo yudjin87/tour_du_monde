@@ -35,7 +35,4 @@
 #  define DOM_API Q_DECL_IMPORT
 #endif
 
-// Should be removed
-#define nullptr 0
-
 #endif // DOM_API_H

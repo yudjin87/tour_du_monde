@@ -35,7 +35,4 @@
 #  define NAVIGATIONOPERATIONS_API Q_DECL_IMPORT
 #endif
 
-// Should be removed
-#define nullptr 0
-
 #endif // NAVIGATIONOPERATIONS_API_H

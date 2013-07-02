@@ -39,7 +39,4 @@
 #   endif //#if defined(LOGGING_LIBRARY)
 #endif //#if defined(STATIC_BUILD)
 
-// Should be removed
-#define nullptr 0
-
 #endif // LOGGING_GLOBAL_H

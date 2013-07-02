@@ -15,7 +15,7 @@ public:
     const QString &componentShortName() const;
     const QString &componentLocation() const;
     const QString &description() const;
-    const QStringList &parents() const;
+    const ParentsList &parents() const;
     const QString &productName() const;
     const QString &provider() const;
     const QString &version() const;
@@ -35,7 +35,7 @@ public:
     QString m_provider;
     QString m_error;
     QString m_version;
-    QStringList m_parents;
+    ParentsList m_parents;
 };
 
 #endif // FAKEDEFINITIONPARSER_H

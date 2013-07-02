@@ -37,9 +37,9 @@ static const QByteArray productName("Carto");
 CartoComponent::CartoComponent()
     : BaseComponent("org.carousel.demos.Carto")
 {
-    addParent("org.carousel.demos.Display");
-    addParent("org.carousel.demos.Geodatabase");
-    addParent("org.carousel.demos.Geometry");
+    addParent("org.carousel.demos.Display", 1, 0);
+    addParent("org.carousel.demos.Geodatabase", 1, 0);
+    addParent("org.carousel.demos.Geometry", 1, 0);
     setShortName("Carto");
     setProductName(productName);
     setProvider("Carousel");

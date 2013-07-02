@@ -39,7 +39,4 @@
 #  endif //#if defined(GEOMETRY_LIB_IMPORT)
 #endif
 
-// Should be removed
-#define nullptr 0
-
 #endif // GEOMETRY_API_H

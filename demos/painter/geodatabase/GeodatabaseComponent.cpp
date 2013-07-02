@@ -39,7 +39,7 @@ static const QByteArray productName("Geodatabase");
 GeodatabaseComponent::GeodatabaseComponent()
     : BaseComponent("org.carousel.demos.Geodatabase")
 {
-    addParent("org.carousel.demos.Geometry");
+    addParent("org.carousel.demos.Geometry", 1, 0);
     setShortName("Geodatabase");
     setProductName(productName);
     setProvider("Carousel");

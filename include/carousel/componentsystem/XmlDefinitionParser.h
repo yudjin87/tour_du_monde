@@ -111,7 +111,7 @@ public:
      *   Gets the parsed component parents names.
      *   @a Optional, can be empty list.
      */
-    const QStringList &parents() const;
+    const ParentsList &parents() const;
 
     /*!
      * @details
@@ -144,19 +144,13 @@ public:
 
     /*!
      * @details
-     *   This is an overloaded function.
-     *
-     *   This function parses xml @a data as byte array and sets component meta information,
-     *   returning @a true if the content was successfully parsed; otherwise returns @a false.
+     * @overload.
      */
     bool read(const QByteArray &data);
 
     /*!
      * @details
-     *   This is an overloaded function.
-     *
-     *   This function parses xml data from the IO device @a dev and sets component meta information,
-     *   returning @a true if the content was successfully parsed; otherwise returns @a false.
+     * @overload
      */
     bool read(QIODevice* dev);
 
@@ -183,7 +177,7 @@ protected:
     QString m_provider;
     QString m_error;
     QString m_version;
-    QStringList m_parents;
+    ParentsList m_parents;
 };
 
 #endif // XMLDEFINITIONPARSER_H

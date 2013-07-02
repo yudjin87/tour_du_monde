@@ -55,7 +55,7 @@ public:
      *   Initializes a new instance of the DependenciesSolvingResult class with ordered
      *   components if any. Otherwise - empty instance.
      */
-    DependenciesSolvingResult(const QList<IComponent *> &ordered = QList<IComponent *>());
+    explicit DependenciesSolvingResult(const QList<IComponent *> &ordered = QList<IComponent *>());
 
     /*!
      * @details

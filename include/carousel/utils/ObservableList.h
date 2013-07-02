@@ -71,11 +71,9 @@ public:
 
     /*!
      * @details
-     *   This is an overloaded function.
+     * @overload
      *
      *   Appends the items of the value list to this list.
-     *
-     *   Notify observers with ChangedAction::Add action and added items.
      */
     void append(const QList<TItem> &items);
 
@@ -132,7 +130,7 @@ public:
 
     /*!
      * @details
-     *   This is an overloaded function.
+     * @overload
      *
      *   Same as at().
      */
@@ -231,7 +229,7 @@ public:
 
     /*!
      * @details
-     *   This is an overloaded function.
+     * @overload
      */
     const TItem& first() const;
 
@@ -245,18 +243,13 @@ public:
 
     /*!
      * @details
-     *   This is an overloaded function.
+     * @overload
      */
     const TItem& last() const;
 
     class const_iterator : public QList<TItem>::const_iterator
     {
     public:
-        const_iterator(const QList<TItem> &container)
-            : QList<TItem>::const_iterator(container)
-        {
-        }
-
         const_iterator(const typename QList<TItem>::const_iterator &other)
             : QList<TItem>::const_iterator(other)
         {
@@ -348,10 +341,9 @@ public:
 
     /*!
      * @details
-     *   This is an overloaded function.
-     *   Uses the @a lessThan function instead of operator<() to compare the items.
+     * @overload
      *
-     *   Notify observers with ChangedAction::Reset action and all items.
+     *   Uses the @a lessThan function instead of operator<() to compare the items.
      */
     template< template <typename> class LessThan>
     void sort(LessThan<TItem> &lessThan);

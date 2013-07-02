@@ -6,6 +6,6 @@
      </description>
      <location>./org.carousel.ComponentSystemUI</location>
      <parents>
-         <parentComponent name="org.carousel.Interactivity"/>
+         <parentComponent name="org.carousel.Interactivity" version="1.0"/>
      </parents>
  </component>

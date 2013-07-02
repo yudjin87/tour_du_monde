@@ -51,9 +51,9 @@ void XmlDefinitionParserTest::shouldReadValues()
     QCOMPARE(parser.productName(), QString("Testing Component Description"));
     QCOMPARE(parser.componentLocation(), QString("/a/b/c/TestingComponentDescription"));
     QCOMPARE(parser.parents().size(), 3);
-    QVERIFY(parser.parents().contains("ComponentA"));
-    QVERIFY(parser.parents().contains("ComponentB"));
-    QVERIFY(parser.parents().contains("ComponentC"));
+    QCOMPARE(parser.parents()["ComponentA"], QString("1.2.3.4"));
+    QCOMPARE(parser.parents()["ComponentB"], QString("2.3.4.5"));
+    QCOMPARE(parser.parents()["ComponentC"], QString("3.4.5.6"));
 }
 
 //------------------------------------------------------------------------------
@@ -138,9 +138,9 @@ const QByteArray XmlDefinitionParserTest::simpleXml(
         "    <description>Component Description</description>"
         "    <location>/a/b/c/TestingComponentDescription</location>"
         "    <parents>"
-        "        <parentComponent name=\"ComponentA\"/>"
-        "        <parentComponent name=\"ComponentC\"/>"
-        "        <parentComponent name=\"ComponentB\"/>"
+        "        <parentComponent name=\"ComponentA\" version=\"1.2.3.4\"/>"
+        "        <parentComponent name=\"ComponentC\" version=\"3.4.5.6\"/>"
+        "        <parentComponent name=\"ComponentB\" version=\"2.3.4.5\"/>"
         "    </parents>"
         "</component>");
 

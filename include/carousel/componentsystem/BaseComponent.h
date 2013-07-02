@@ -81,6 +81,15 @@ public:
 
     /*!
      * @details
+     *   Returns @a true if component version is compatible with @a all @a parent component
+     *   versions, e.g. if they are equal. Otherwise, returns @a false.
+     *
+     * @sa ComponentDefinition::isCompatible()
+     */
+    bool isCompatible(const IComponent *withOther) const;
+
+    /*!
+     * @details
      *   The name of the component. This name should be unique and used for the resolving component
      *   dependencies.
      *
@@ -192,7 +201,11 @@ protected:
      */
     virtual bool onStartup(IServiceLocator *serviceLocator);
 
-    void addParent(const QString &parent);
+    /*!
+     * @details
+     *   Adds a parent component name and version as a dependency for defined component.
+     */
+    void addParent(const QString &parentName, int major_version, int minor_version, int build_version = 0, int revision_version = 0);
 
     /*!
      * @details

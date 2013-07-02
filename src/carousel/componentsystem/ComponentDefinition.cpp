@@ -27,6 +27,8 @@
 #include "ComponentDefinition.h"
 #include "IComponent.h"
 #include "Version.h"
+#include "ParentDefinition.h"
+#include "ParentDefinitions.h"
 
 //------------------------------------------------------------------------------
 static const char *DEFAULT_PROVIDER = "Unknown";
@@ -64,40 +66,6 @@ ComponentDefinition::ComponentDefinition(const QString &componentName, bool isBu
 }
 
 //------------------------------------------------------------------------------
-ComponentDefinition::ComponentDefinition(const ComponentDefinition &other)
-    : m_component(other.m_component)
-    , m_componentName(other.m_componentName)
-    , m_description(other.m_description)
-    , m_productName(other.m_productName)
-    , m_componentShortName(other.m_componentShortName)
-    , m_componentLocation(other.m_componentLocation)
-    , m_definitionLocation(other.m_definitionLocation)
-    , m_version(new Version())
-    , m_parents(other.m_parents)
-    , m_isBuiltIn(other.m_isBuiltIn)
-{
-}
-
-//------------------------------------------------------------------------------
-ComponentDefinition &ComponentDefinition::operator =(const ComponentDefinition &other)
-{
-    if (this == &other)
-        return *this;
-
-    m_component = other.m_component;
-    m_componentName = other.m_componentName;
-    m_componentShortName = other.m_componentShortName;
-    m_description = other.m_description;
-    m_productName = other.m_productName;
-    m_componentLocation = other.m_componentLocation;
-    m_definitionLocation = other.m_definitionLocation;
-    m_parents = other.m_parents;
-    m_isBuiltIn = other.m_isBuiltIn;
-
-    return *this;
-}
-
-//------------------------------------------------------------------------------
 ComponentDefinition::~ComponentDefinition()
 {
     delete m_version;
@@ -105,7 +73,6 @@ ComponentDefinition::~ComponentDefinition()
 
     m_component = nullptr;
 
-    m_parents.clear();
     m_description = "";
     m_productName = "";
     m_componentShortName = "";
@@ -120,7 +87,7 @@ QString ComponentDefinition::defaultProvider()
 }
 
 //------------------------------------------------------------------------------
-void ComponentDefinition::addParent(const QString &parent)
+void ComponentDefinition::addParent(ParentDefinition *parent)
 {
     m_parents.append(parent);
 }
@@ -168,7 +135,35 @@ bool ComponentDefinition::isBuiltIn() const
 }
 
 //------------------------------------------------------------------------------
-const QStringList &ComponentDefinition::parents() const
+bool ComponentDefinition::isCompatible(const IComponent *parent) const
+{
+    return isCompatible(parent->name(), parent->definition()->version());
+}
+
+//------------------------------------------------------------------------------
+bool ComponentDefinition::isCompatible(const QString &name, const Version *version) const
+{
+    // Always compatible with unknown parents
+    if (!m_parents.contains(name))
+        return true;
+
+    const Version *myParentVersion = m_parents[name];
+    return myParentVersion->isEqual(version);
+}
+
+//------------------------------------------------------------------------------
+bool ComponentDefinition::isCompatible(const ParentDefinitions &parents) const
+{
+    for (const ParentDefinition *parent : parents) {
+        if (!isCompatible(parent->name(), parent->version()))
+            return false;
+    }
+
+    return true;
+}
+
+//------------------------------------------------------------------------------
+const ParentDefinitions &ComponentDefinition::parents() const
 {
     return m_parents;
 }

@@ -28,6 +28,8 @@
 #include "fakes/MockComponent.h"
 
 #include <carousel/componentsystem/ComponentDefinition.h>
+#include <carousel/componentsystem/ParentDefinition.h>
+#include <carousel/componentsystem/ParentDefinitions.h>
 
 #include <QtTest/QTest>
 
@@ -35,6 +37,51 @@
 ComponentDefinitionTest::ComponentDefinitionTest(QObject *parent)
     : QObject(parent)
 {
+}
+
+//------------------------------------------------------------------------------
+void ComponentDefinitionTest::isCompatible_shouldReturnTrue()
+{
+    ParentDefinitions definitions;
+    definitions.append(new ParentDefinition("CompA", 1, 2, 3, 4));
+    definitions.append(new ParentDefinition("CompB", 2, 3, 4, 5));
+    definitions.append(new ParentDefinition("CompC", 3, 4, 5, 6));
+
+    ComponentDefinition definition;
+    definition.addParent(new ParentDefinition("CompA", 1, 2, 3, 4));
+    definition.addParent(new ParentDefinition("CompB", 2, 3, 4, 5));
+    definition.addParent(new ParentDefinition("CompC", 3, 4, 5, 6));
+
+    QVERIFY(definition.isCompatible(definitions));
+}
+
+//------------------------------------------------------------------------------
+void ComponentDefinitionTest::isCompatible_shouldReturnTrueForUnknownParent()
+{
+    ParentDefinitions definitions;
+    definitions.append(new ParentDefinition("CompA", 1, 2, 3, 4));
+    definitions.append(new ParentDefinition("CompB", 2, 3, 4, 5));
+
+    ComponentDefinition definition;
+    definition.addParent(new ParentDefinition("CompA", 1, 2, 3, 4));
+
+    QVERIFY(definition.isCompatible(definitions));
+}
+
+//------------------------------------------------------------------------------
+void ComponentDefinitionTest::isCompatible_shouldReturnFalseIfAtLeastOneDoesNotMatch()
+{
+    ParentDefinitions definitions;
+    definitions.append(new ParentDefinition("CompA", 1, 0, 0, 0));
+    definitions.append(new ParentDefinition("CompB", 1, 0, 0, 0));
+    definitions.append(new ParentDefinition("CompC", 9, 9, 9, 9));
+
+    ComponentDefinition definition;
+    definition.addParent(new ParentDefinition("CompA", 1, 0, 0, 0));
+    definition.addParent(new ParentDefinition("CompB", 1, 0, 0, 0));
+    definition.addParent(new ParentDefinition("CompC", 1, 0, 0, 0));
+
+    QVERIFY(!definition.isCompatible(definitions));
 }
 
 //------------------------------------------------------------------------------

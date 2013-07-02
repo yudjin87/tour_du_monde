@@ -1,5 +1,7 @@
 #include "Utils.h"
 
+#include <carousel/componentsystem/ParentDefinition.h>
+
 #include <QtCore/QCoreApplication>
 #include <QtCore/QDir>
 #include <QtTest/QtTest>
@@ -81,28 +83,38 @@ QString pathToComponentsDir()
 }
 
 //------------------------------------------------------------------------------
-MockChildComponent* createParentComponent(const QString &name, const QString &dependsOn)
+MockChildComponent* createParentDefinition(const QString &name, const QString &dependsOn, int major_version, int minor_version, int build_version, int revision_version)
 {
-    MockChildComponent *component = new MockChildComponent(name);
-    component->parents().push_back(dependsOn);
+    MockChildComponent *component = new MockChildComponent(name, 1, 0);
+    component->parents().append(new ParentDefinition(dependsOn, major_version, minor_version, build_version, revision_version));
 
     return component;
 }
 
 //------------------------------------------------------------------------------
-MockChildComponent *createParentComponent(const QString &name, const QString &dependsOn, const QString &dependsOn2)
+MockChildComponent *createParentDefinition(const QString &name, const QString &dependsOn, const QString &dependsOn2)
 {
-    MockChildComponent *component = new MockChildComponent(name);
-    component->parents().push_back(dependsOn);
-    component->parents().push_back(dependsOn2);
+    MockChildComponent *component = new MockChildComponent(name, 1, 0);
+    component->parents().append(new ParentDefinition(dependsOn, 1, 0));
+    component->parents().append(new ParentDefinition(dependsOn2, 1, 0));
 
     return component;
 }
 
 //------------------------------------------------------------------------------
-MockComponent* createComponent(const QString &name)
+MockChildComponent *createParentDefinition(const QString &name, const QString &dependsOn, int major_version, const QString &dependsOn2, int major_version2)
 {
-    MockComponent *component = new MockComponent(name);
+    MockChildComponent *component = new MockChildComponent(name, 1, 0);
+    component->parents().append(new ParentDefinition(dependsOn, major_version, 0));
+    component->parents().append(new ParentDefinition(dependsOn2, major_version2, 0));
+
+    return component;
+}
+
+//------------------------------------------------------------------------------
+MockComponent* createComponent(const QString &name, int major_version, int minor_version, int build_version, int revision_version)
+{
+    MockComponent *component = new MockComponent(name, major_version, minor_version, build_version, revision_version);
     return component;
 }
 

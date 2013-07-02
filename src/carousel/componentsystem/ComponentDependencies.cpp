@@ -28,6 +28,7 @@
 #include "DependencySolver.h"
 #include "IComponent.h"
 #include "ComponentDefinition.h"
+#include "ParentDefinition.h"
 
 #include <carousel/logging/LoggerFacade.h>
 
@@ -84,24 +85,33 @@ DependenciesSolvingResult ComponentDependencies::completeListWithChildren(const 
     QList<IComponent *> completeList;
     QList<IComponent *> unresolvedList(forChildren);
 
-    while (unresolvedList.size() > 0) {
+    while (!unresolvedList.isEmpty()) {
         IComponent *componentInfo = unresolvedList[0];
         if (componentInfo == nullptr) {
             unresolvedList.removeFirst();
             continue;
         }
 
-        DependenciesSolvingResult result = getParentComponents(componentInfo);
-        foreach (IComponent *dependency, result.ordered()) {
+        QList<IComponent *> result = getParentDefinitions(componentInfo);
+        bool isCompatible = true;
+        for (IComponent *dependency : result) {
             if (dependency == nullptr)
                 continue;
 
             if (!completeList.contains(dependency) && !unresolvedList.contains(dependency))
                 unresolvedList.push_back(dependency);
+
+            if (!componentInfo->isCompatible(dependency)) {
+                Log.w("Skip incompatible component.");
+                isCompatible = false;
+            }
+
         }
 
         unresolvedList.removeFirst();
-        completeList.push_back(componentInfo);
+
+        if (isCompatible)
+            completeList.push_back(componentInfo);
     }
 
     DependenciesSolvingResult result = solveDependencies(completeList);
@@ -130,7 +140,7 @@ DependenciesSolvingResult ComponentDependencies::completeListWithParents(const Q
 
     // TODO: refactoring is needed.
     // Find all children for parents and reverse parent-children dependencies for correct ordering:
-    while (unresolvedList.size() > 0) {
+    while (!unresolvedList.isEmpty()) {
         IComponent *parent = unresolvedList[0];
         solver.addComponent(parent->name());
 
@@ -139,6 +149,7 @@ DependenciesSolvingResult ComponentDependencies::completeListWithParents(const Q
             if (!completeList.contains(child) && !unresolvedList.contains(child))
                 unresolvedList.push_back(child);
 
+            // We look all children for parents, so switch their dependencies:
             solver.addComponent(child->name());
             solver.addDependency(parent->name(), child->name());
         }
@@ -159,7 +170,7 @@ DependenciesSolvingResult ComponentDependencies::completeListWithParents(const Q
 
     if (!missing.isEmpty()) {
         Log.d(QString("A component declared a dependency on another component which is not declared to be loaded. Missing component(s): %1")
-               .arg(missing.join(", ")).toLatin1());
+              .arg(missing.join(", ")).toLatin1());
     }
 
     return DependenciesSolvingResult(ordered, orphans, missing, m_components.toList(), hasCyclic);
@@ -192,24 +203,11 @@ DependenciesSolvingResult ComponentDependencies::orderedComponents() const
 }
 
 //------------------------------------------------------------------------------
-DependenciesSolvingResult ComponentDependencies::getParentComponents(const IComponent *forChild) const
+QList<IComponent *> ComponentDependencies::getParentDefinitions(const IComponent *forChild) const
 {
-    if (forChild == nullptr)
-        return DependenciesSolvingResult();
-
-    const ComponentDefinition *definition = forChild->definition();
-    if (definition == nullptr)
-        return DependenciesSolvingResult();
-
-    QList<IComponent *> components_to_return;
-    QStringList parents = definition->parents();
-
-    foreach(IComponent *com, m_components) {
-        if (parents.contains(com->name()))
-            components_to_return.push_back(com);
-    }
-
-    return DependenciesSolvingResult(components_to_return);
+    QList<IComponent *> result;
+    getParentDefinitions(forChild, result);
+    return result;
 }
 
 //------------------------------------------------------------------------------
@@ -225,7 +223,7 @@ DependenciesSolvingResult ComponentDependencies::getChildComponents(const ICompo
 
     foreach(IComponent *com, m_components) {
         const ComponentDefinition *definition = com->definition();
-        QStringList parents = definition->parents();
+        const ParentDefinitions &parents = definition->parents();
         if (parents.contains(forParent->name()))
             components_to_return.push_back(com);
 
@@ -246,9 +244,15 @@ DependenciesSolvingResult ComponentDependencies::solveDependencies(const QList<I
         solver.addComponent(com->name());
 
         const ComponentDefinition *definition = com->definition();
-        QStringList parents = definition->parents();
-        foreach (const QString &dependency, parents)
-            solver.addDependency(com->name(), dependency);
+        const ParentDefinitions &parents = definition->parents();
+        for(const ParentDefinition *dependency : parents) {
+            if (!definition->isCompatible(parents)) {
+                Log.w("Skip incompatible component.");
+                //solver.removeComponent(com->name());
+                //break;
+            }
+            solver.addDependency(com->name(), dependency->name());
+        }
     }
 
     bool hasCyclic = !solver.solve(ordered, orphans, missing);
@@ -259,10 +263,36 @@ DependenciesSolvingResult ComponentDependencies::solveDependencies(const QList<I
 
     if (!missing.isEmpty()) {
         Log.w(QString("A component declared a dependency on another component which is not declared to be loaded. Missing component(s): %1")
-               .arg(missing.join(", ")).toLatin1());
+              .arg(missing.join(", ")).toLatin1());
     }
 
     return DependenciesSolvingResult(ordered, orphans, missing, components, hasCyclic);
+}
+
+//------------------------------------------------------------------------------
+void ComponentDependencies::getParentDefinitions(const IComponent *forChild, QList<IComponent *> &found) const
+{
+    if (forChild == nullptr)
+        return;
+
+    const ComponentDefinition *definition = forChild->definition();
+    if (definition == nullptr)
+        return;
+
+    const ParentDefinitions &parents = definition->parents();
+
+    for (const ParentDefinition *def : parents) {
+        IComponent *parent = componentByName(def->name());
+        if (parent == nullptr)
+            continue;
+
+        // Skip cyclic dependencies
+        if (found.contains(parent))
+            continue;
+
+        found.push_back(parent);
+        getParentDefinitions(parent, found);
+    }
 }
 
 //------------------------------------------------------------------------------

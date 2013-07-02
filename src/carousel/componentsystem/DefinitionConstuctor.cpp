@@ -30,6 +30,8 @@
 #include "IComponentLocationConstructorDelegate.h"
 #include "IDefinitionParser.h"
 #include "Version.h"
+#include "ParentDefinition.h"
+#include "ParentDefinitions.h"
 
 #include <carousel/logging/LoggerFacade.h>
 
@@ -110,8 +112,10 @@ bool DefinitionConstuctor::construct(ComponentDefinition *definition, const IDef
     definition->setComponentLocation(filePath);
     definition->setDefinitionLocation(defFilePath);
 
-    foreach(const QString &parentName, parser->parents())
-        definition->addParent(parentName);
+    for (const QString &name : parser->parents().keys()) {
+        const QString &version = parser->parents()[name];
+        definition->addParent(new ParentDefinition(name, Version::fromString(version)));
+    }
 
     return true;
 }

@@ -77,7 +77,7 @@ const QString &FakeDefinitionParser::description() const
 }
 
 //------------------------------------------------------------------------------
-const QStringList &FakeDefinitionParser::parents() const
+const IDefinitionParser::ParentsList &FakeDefinitionParser::parents() const
 {
     return m_parents;
 }

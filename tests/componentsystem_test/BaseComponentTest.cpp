@@ -19,6 +19,10 @@ public:
     {
     }
 
+    void setVersion(int major_version, int minor_version, int build_version, int revision_version)
+    {
+        BaseComponent::setVersion(major_version, minor_version, build_version, revision_version);
+    }
 };
 
 //------------------------------------------------------------------------------
@@ -158,6 +162,16 @@ void BaseComponentTest::shouldReturnNullWhenUnregisteredExtensionIsQueried()
     BaseComponentTest *unregisteredExtension = componentWithExtensions.extension<BaseComponentTest>();
 
     QVERIFY(unregisteredExtension == nullptr);
+}
+
+//------------------------------------------------------------------------------
+void BaseComponentTest::isCompatible_shouldReturnTrue()
+{
+    SimpleComponent one; one.setVersion(1, 0, 0, 0);
+    SimpleComponent other; other.setVersion(1, 0, 0, 0);
+
+    QVERIFY(one.isCompatible(&other));
+    QVERIFY(other.isCompatible(&one));
 }
 
 //------------------------------------------------------------------------------
