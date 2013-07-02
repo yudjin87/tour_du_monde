@@ -23,6 +23,8 @@ private Q_SLOTS:
 
     void shouldReturnRegisteredInDerivedClassesExtensions();
     void shouldReturnNullWhenUnregisteredExtensionIsQueried();
+
+    void isCompatible_shouldReturnTrue();
 };
 
 #endif // BASECOMPONENTTEST_H

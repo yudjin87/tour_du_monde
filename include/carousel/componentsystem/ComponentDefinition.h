@@ -134,6 +134,23 @@ public:
 
     /*!
      * @details
+     *   Returns @a true if component version is compatible with @a all @a parent component
+     *   versions, e.g. if they are equal. Otherwise, returns @a false.
+     */
+    bool isCompatible(const IComponent *parent) const;
+
+    /*!
+     * @overload bool ComponentDefinition::isCompatible(const IComponent &parent) const
+     */
+    bool isCompatible(const QString &name, const Version *version) const;
+
+    /*!
+     * @overload bool isCompatible(const IComponent &parent) const
+     */
+    bool isCompatible(const ParentDefinitions &parents) const;
+
+    /*!
+     * @details
      *   Gets a list of parent (dependent) components names.
      */
     const ParentDefinitions &parents() const;

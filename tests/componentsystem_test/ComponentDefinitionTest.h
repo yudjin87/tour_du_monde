@@ -34,6 +34,11 @@ class ComponentDefinitionTest : public QObject
     Q_OBJECT
 public:
     explicit ComponentDefinitionTest(QObject *parent = 0);
+
+private slots:
+    void isCompatible_shouldReturnTrue();
+    void isCompatible_shouldReturnTrueForUnknownParent();
+    void isCompatible_shouldReturnFalseIfAtLeastOneDoesNotMatch();
 };
 
 #endif // COMPONENTDEFINITIONTEST_H

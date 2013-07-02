@@ -71,6 +71,7 @@ public:
     bool operator>=(const Version &other) const;
     bool operator==(const Version &other) const;
     bool operator!=(const Version &other) const;
+    bool isEqual(const Version *other) const;
 
 public slots:
     /*!

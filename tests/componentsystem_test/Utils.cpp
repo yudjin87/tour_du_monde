@@ -83,10 +83,10 @@ QString pathToComponentsDir()
 }
 
 //------------------------------------------------------------------------------
-MockChildComponent* createParentDefinition(const QString &name, const QString &dependsOn)
+MockChildComponent* createParentDefinition(const QString &name, const QString &dependsOn, int major_version, int minor_version, int build_version, int revision_version)
 {
-    MockChildComponent *component = new MockChildComponent(name);
-    component->parents().append(new ParentDefinition(dependsOn));
+    MockChildComponent *component = new MockChildComponent(name, 1, 0);
+    component->parents().append(new ParentDefinition(dependsOn, major_version, minor_version, build_version, revision_version));
 
     return component;
 }
@@ -94,17 +94,27 @@ MockChildComponent* createParentDefinition(const QString &name, const QString &d
 //------------------------------------------------------------------------------
 MockChildComponent *createParentDefinition(const QString &name, const QString &dependsOn, const QString &dependsOn2)
 {
-    MockChildComponent *component = new MockChildComponent(name);
-    component->parents().append(new ParentDefinition(dependsOn));
-    component->parents().append(new ParentDefinition(dependsOn2));
+    MockChildComponent *component = new MockChildComponent(name, 1, 0);
+    component->parents().append(new ParentDefinition(dependsOn, 1, 0));
+    component->parents().append(new ParentDefinition(dependsOn2, 1, 0));
 
     return component;
 }
 
 //------------------------------------------------------------------------------
-MockComponent* createComponent(const QString &name)
+MockChildComponent *createParentDefinition(const QString &name, const QString &dependsOn, int major_version, const QString &dependsOn2, int major_version2)
 {
-    MockComponent *component = new MockComponent(name);
+    MockChildComponent *component = new MockChildComponent(name, 1, 0);
+    component->parents().append(new ParentDefinition(dependsOn, major_version, 0));
+    component->parents().append(new ParentDefinition(dependsOn2, major_version2, 0));
+
+    return component;
+}
+
+//------------------------------------------------------------------------------
+MockComponent* createComponent(const QString &name, int major_version, int minor_version, int build_version, int revision_version)
+{
+    MockComponent *component = new MockComponent(name, major_version, minor_version, build_version, revision_version);
     return component;
 }
 

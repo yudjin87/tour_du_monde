@@ -28,6 +28,7 @@
 #include "IComponent.h"
 #include "Version.h"
 #include "ParentDefinition.h"
+#include "ParentDefinitions.h"
 
 //------------------------------------------------------------------------------
 static const char *DEFAULT_PROVIDER = "Unknown";
@@ -131,6 +132,34 @@ const QString &ComponentDefinition::description() const
 bool ComponentDefinition::isBuiltIn() const
 {
     return m_isBuiltIn;
+}
+
+//------------------------------------------------------------------------------
+bool ComponentDefinition::isCompatible(const IComponent *parent) const
+{
+    return isCompatible(parent->name(), parent->definition()->version());
+}
+
+//------------------------------------------------------------------------------
+bool ComponentDefinition::isCompatible(const QString &name, const Version *version) const
+{
+    // Always compatible with unknown parents
+    if (!m_parents.contains(name))
+        return true;
+
+    const Version *myParentVersion = m_parents[name];
+    return myParentVersion->isEqual(version);
+}
+
+//------------------------------------------------------------------------------
+bool ComponentDefinition::isCompatible(const ParentDefinitions &parents) const
+{
+    for (const ParentDefinition *parent : parents) {
+        if (!isCompatible(parent->name(), parent->version()))
+            return false;
+    }
+
+    return true;
 }
 
 //------------------------------------------------------------------------------

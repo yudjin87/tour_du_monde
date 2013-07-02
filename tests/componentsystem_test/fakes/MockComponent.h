@@ -8,7 +8,7 @@ class MockComponent : public BaseComponent
    Q_OBJECT
 public:
     explicit MockComponent(const QString &name = "MockComponent", bool isBuiltIn = false);
-
+    MockComponent(const QString &name, int major_version, int minor_version, int build_version = 0, int revision_version = 0);
     ~MockComponent();
 
     IServiceLocator *data() const;

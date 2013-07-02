@@ -54,6 +54,9 @@ private slots:
     void shouldCompleteListWithParentsTransitively();
     void shouldNotAddExtraParentsToCompletedList();
     void shouldCompleteListWithTheirParent();
+
+    void completeListWithTheirChildren_shouldAddMissedComponentsForIncompatibleOnes();
+    void completeListWithTheirChildren_shouldAddMissedComponentsForTransitiveIncompatibleOnes();
 };
 
 #endif // COMPONENTDEPENDENCIESTEST_H

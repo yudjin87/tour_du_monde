@@ -81,6 +81,15 @@ public:
 
     /*!
      * @details
+     *   Returns @a true if component version is compatible with @a all @a parent component
+     *   versions, e.g. if they are equal. Otherwise, returns @a false.
+     *
+     * @sa ComponentDefinition::isCompatible()
+     */
+    bool isCompatible(const IComponent *withOther) const;
+
+    /*!
+     * @details
      *   The name of the component. This name should be unique and used for the resolving component
      *   dependencies.
      *

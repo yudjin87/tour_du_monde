@@ -58,6 +58,8 @@ public:
      *   does not considered as correct name, and will not be added.
      * @param name
      *   the name that uniquely identifies the component.
+     *
+     * @sa removeComponent()
      */
     void addComponent(const QString &name);
 
@@ -79,6 +81,16 @@ public:
      *   Gets the number of components added to the solver.
      */
     int componentsCount() const;
+
+    /*!
+     * @details
+     *   Removes a component from the dependency matrix.
+     * @param name
+     *   the name that uniquely identifies the component.
+     *
+     * @sa addComponent()
+     */
+    void removeComponent(const QString &component);
 
     /*!
      * @details

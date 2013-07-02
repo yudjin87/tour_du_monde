@@ -91,6 +91,16 @@ int DependencySolver::componentsCount() const
 }
 
 //------------------------------------------------------------------------------
+void DependencySolver::removeComponent(const QString &component)
+{
+    if (m_dependencyMatrix->contains(component))
+        m_dependencyMatrix->remove(component);
+
+    if (m_knownComponents.contains(component, Qt::CaseInsensitive))
+        m_knownComponents.removeOne(component);
+}
+
+//------------------------------------------------------------------------------
 int Compare(const QString &a, const QString &b)
 {
     return QString::compare(a, b);

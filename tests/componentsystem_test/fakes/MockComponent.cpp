@@ -13,6 +13,17 @@ MockComponent::MockComponent(const QString &name, bool isBuiltIn)
 }
 
 //------------------------------------------------------------------------------
+MockComponent::MockComponent(const QString &name, int major_version, int minor_version, int build_version, int revision_version)
+    : BaseComponent(new ComponentDefinition(name, false))
+    , m_serviceLocator(nullptr)
+    , m_returnValue(true)
+    , m_registrator(nullptr)
+{
+    setAvailability(IComponent::Enabled);
+    setVersion(major_version, minor_version, build_version, revision_version);
+}
+
+//------------------------------------------------------------------------------
 MockComponent::~MockComponent()
 {
 }

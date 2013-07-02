@@ -72,6 +72,13 @@ void *BaseComponent::getExtension(const QString &byTypeId) const
 }
 
 //------------------------------------------------------------------------------
+bool BaseComponent::isCompatible(const IComponent *withOther) const
+{
+    // TODO: log incompatibles
+    return m_definition->isCompatible(withOther) && withOther->definition()->isCompatible(this);
+}
+
+//------------------------------------------------------------------------------
 BaseComponent::~BaseComponent()
 {
     saveAvailability();
