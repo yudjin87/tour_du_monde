@@ -54,6 +54,12 @@ DialogService::~DialogService()
 }
 
 //------------------------------------------------------------------------------
+bool DialogService::isConstructorRegistered(const QString &forDlgModelType) const
+{
+    return m_viewsMap.contains(forDlgModelType);
+}
+
+//------------------------------------------------------------------------------
 void DialogService::registerConstructor(const QString &dlgModelType, IDialogConstructor *constructor)
 {
     m_viewsMap.insert(dlgModelType, constructor);
@@ -62,7 +68,7 @@ void DialogService::registerConstructor(const QString &dlgModelType, IDialogCons
 //------------------------------------------------------------------------------
 bool DialogService::showDialogForModel(const QString &forDlgModelType, void *dlgModel) const
 {
-    if (!m_viewsMap.contains(forDlgModelType)) {
+    if (!isConstructorRegistered(forDlgModelType)) {
         Log.w(QString("The dialog with such model \"%1\" is not registered.").arg(forDlgModelType));
         return false;
     }
@@ -82,6 +88,19 @@ QDialog *DialogService::createDialog(IDialogConstructor *constructor, void *dlgM
     constructor->injectServiceLocator(m_locator);
     QDialog *dlg = reinterpret_cast<QDialog *>(constructor->create(dlgModel, m_mainWindow));
     return dlg;
+}
+
+//------------------------------------------------------------------------------
+bool DialogService::unregisterConstructor(const QString &forDlgModelType)
+{
+    if (!isConstructorRegistered(forDlgModelType))
+        return false;
+
+    IDialogConstructor *constructor = m_viewsMap.value(forDlgModelType);
+    m_viewsMap.remove(forDlgModelType);
+    delete constructor;
+
+    return true;
 }
 
 //------------------------------------------------------------------------------

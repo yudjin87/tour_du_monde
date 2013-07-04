@@ -36,12 +36,13 @@ public:
     explicit DialogServiceTest(QObject *parent = 0);
     
 private Q_SLOTS:
-    void shouldRegisterViewWithViewModel();
-    void shouldCreateDialog();
-    void shouldReturnRightResult();
-    void shouldDeleteDialogAfterShowing();
-    void shouldReturnFalseIfDialogWasNotRegistered();
-    void shouldInjectLocatorToTheModel();
+    void registerDialog_shouldRegisterViewWithViewModel();
+    void unregisterDialogForModel_shouldUnregisterViewForModelType();
+    void showDialog_shouldCreateDialog();
+    void showDialog_shouldReturnRightResult();
+    void showDialog_shouldDeleteDialogAfterShowing();
+    void showDialog_shouldReturnFalseIfDialogWasNotRegistered();
+    void showDialog_shouldInjectLocatorToTheModel();
 };
 
 #endif // DIALOGSERVICETEST_H

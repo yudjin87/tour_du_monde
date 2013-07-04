@@ -58,6 +58,14 @@ public:
 protected:
     /*!
      * @details
+     *   Returns @a true if dialog for the specified model type has
+     *   been already registered.
+     *   Otherwise, returns @a false.
+     */
+    bool isConstructorRegistered(const QString &forDlgModelType) const;
+
+    /*!
+     * @details
      *   Registers the specified dialog constructor with the
      *   model type name for the creating dialog by demand (by the passed
      *   model type name).
@@ -77,6 +85,16 @@ protected:
      * @sa showDialog()
      */
     bool showDialogForModel(const QString& forDlgModelType, void *dlgModel) const;
+
+    /*!
+     * @details
+     *   Removes dialog constructor for the specified model type.
+     *
+     *   Returns @a true if dialog constructor for the specified model type has been registered.
+     *   Otherwise, returns @a false.
+     * @sa registerDialog()
+     */
+    bool unregisterConstructor(const QString &forDlgModelType);
 
     /*!
      * @details

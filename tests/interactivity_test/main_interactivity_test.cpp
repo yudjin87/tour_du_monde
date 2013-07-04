@@ -21,32 +21,32 @@ int main(int argc, char *argv[])
     NullLogger log;
     LoggerFacade::installLoggerEngine(&log);
 
-    InputInterceptorTest inputInterceptorTest;
-    QTest::qExec(&inputInterceptorTest, argc, argv);
+//    InputInterceptorTest inputInterceptorTest;
+//    QTest::qExec(&inputInterceptorTest, argc, argv);
 
-    OperationTest operationTest;
-    QTest::qExec(&operationTest, argc, argv);
+//    OperationTest operationTest;
+//    QTest::qExec(&operationTest, argc, argv);
 
-    MenuCatalogTest menuCatalogTest;
-    QTest::qExec(&menuCatalogTest, argc, argv);
+//    MenuCatalogTest menuCatalogTest;
+//    QTest::qExec(&menuCatalogTest, argc, argv);
 
-    ToolBarCatalogTest toolBarCatalogTest;
-    QTest::qExec(&toolBarCatalogTest, argc, argv);
+//    ToolBarCatalogTest toolBarCatalogTest;
+//    QTest::qExec(&toolBarCatalogTest, argc, argv);
 
-    OperationCatalogTest operationCatalogTest;
-    QTest::qExec(&operationCatalogTest, argc, argv);
+//    OperationCatalogTest operationCatalogTest;
+//    QTest::qExec(&operationCatalogTest, argc, argv);
 
-    DockWidgetCatalogTest dockWidgetCatalogTest;
-    QTest::qExec(&dockWidgetCatalogTest, argc, argv);
+//    DockWidgetCatalogTest dockWidgetCatalogTest;
+//    QTest::qExec(&dockWidgetCatalogTest, argc, argv);
 
-    CarouselComponentConfigurationDelegateTest carouselComponentConfigurationDelegateTest;
-    QTest::qExec(&carouselComponentConfigurationDelegateTest, argc, argv);
+//    CarouselComponentConfigurationDelegateTest carouselComponentConfigurationDelegateTest;
+//    QTest::qExec(&carouselComponentConfigurationDelegateTest, argc, argv);
 
-    CarouselInteractionServiceTest carouselInteractionServiceTest;
-    QTest::qExec(&carouselInteractionServiceTest, argc, argv);
+//    CarouselInteractionServiceTest carouselInteractionServiceTest;
+//    QTest::qExec(&carouselInteractionServiceTest, argc, argv);
 
-    ToolBaseTest toolBaseTest;
-    QTest::qExec(&toolBaseTest, argc, argv);
+//    ToolBaseTest toolBaseTest;
+//    QTest::qExec(&toolBaseTest, argc, argv);
 
     DialogServiceTest dialogServiceTest;
     QTest::qExec(&dialogServiceTest, argc, argv);
