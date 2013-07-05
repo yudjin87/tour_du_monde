@@ -29,6 +29,8 @@
 
 #include "IDialogService.h"
 
+#include <carousel/utils/ListDictionary.h>
+
 #include <QtCore/QMap>
 
 class QDialog;
@@ -104,14 +106,14 @@ protected:
      *   This method is invoked from the showDialogForModel().
      * @sa showDialogForModel()
      */
-    virtual QDialog *createDialog(IDialogConstructor *constructor, void *dlgModel) const;
+    QDialog *createDialogForModel(const QString &forDlgModelType, void *dlgModel) const;
 
 private:
     /*!
      * @details
      *   The map between dialog types and their constructors.
      */
-    QMap<QString, IDialogConstructor *> m_viewsMap;
+    ListDictionary<QString, IDialogConstructor *> m_dialogMap;
 
     /*!
      * @details

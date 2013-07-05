@@ -37,9 +37,9 @@ MockDialogService::MockDialogService(QWidget *mainWindow, IServiceLocator *locat
 }
 
 //------------------------------------------------------------------------------
-QDialog *MockDialogService::createDialog(IDialogConstructor *constructor, void *dlgModel) const
+QDialog *MockDialogService::createDialogForModel(const QString &forDlgModelType, void *dlgModel) const
 {
-    m_created_dlg = DialogService::createDialog(constructor, dlgModel);
+    m_created_dlg = DialogService::createDialogForModel(forDlgModelType, dlgModel);
 
     if (m_created_dlg->result() == QDialog::Accepted)
         QTimer::singleShot(200, m_created_dlg, SLOT(accept()));

@@ -36,8 +36,14 @@ public:
     explicit DialogServiceTest(QObject *parent = 0);
     
 private Q_SLOTS:
-    void registerDialog_shouldRegisterViewWithViewModel();
-    void unregisterDialogForModel_shouldUnregisterViewForModelType();
+    void registerDialog_shouldRegisterDialogWithViewModel();
+    void registerDialog_shouldOverlapExistedDialogWithSameViewModel();
+    void createDialog_shouldReturnDialogForModel();
+    void createDialog_shouldReturnNullIfModelWasNotRegistered();
+
+    void unregisterDialogForModel_shouldUnregisterDialogForModelType();
+    void unregisterDialogForModel_shouldSetOldDialog();
+
     void showDialog_shouldCreateDialog();
     void showDialog_shouldReturnRightResult();
     void showDialog_shouldDeleteDialogAfterShowing();

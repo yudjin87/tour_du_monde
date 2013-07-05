@@ -34,7 +34,7 @@ class MockDialogService : public DialogService
 public:
     MockDialogService(QWidget *mainWindow, IServiceLocator *locator);
 
-    QDialog *createDialog(IDialogConstructor *constructor, void *dlgModel) const;
+    QDialog *createDialogForModel(const QString &forDlgModelType, void *dlgModel) const;
 
     mutable QDialog *m_created_dlg;
 };
