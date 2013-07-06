@@ -24,31 +24,23 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef DIALOGSERVICETEST_H
-#define DIALOGSERVICETEST_H
+#ifndef NEWCOMPONENTSDIALOGCOMPONENT_H
+#define NEWCOMPONENTSDIALOGCOMPONENT_H
 
-#include <QtCore/QObject>
+#include "newComponentsDialog_api.h"
 
-class DialogServiceTest : public QObject
+#include <carousel/componentsystem/BaseComponent.h>
+
+class NEWCOMPONENTSDIALOG_API NewComponentsDialogComponent : public BaseComponent
 {
     Q_OBJECT
 public:
-    explicit DialogServiceTest(QObject *parent = 0);
-    
-private Q_SLOTS:
-    void registerDialog_shouldRegisterDialogWithViewModel();
-    void registerDialog_shouldOverlapExistedDialogWithSameViewModel();
-    void createDialog_shouldReturnDialogForModel();
-    void createDialog_shouldReturnNullIfModelWasNotRegistered();
+    NewComponentsDialogComponent(QObject *parent = nullptr);
+    ~NewComponentsDialogComponent();
 
-    void unregisterDialogForModel_shouldUnregisterDialogForModelType();
-    void unregisterDialogForModel_shouldSetOldDialog();
-
-    void showDialog_shouldCreateDialog();
-    void showDialog_shouldReturnRightResult();
-    void showDialog_shouldDeleteDialogAfterShowing();
-    void showDialog_shouldReturnFalseIfDialogWasNotRegistered();
-    void showDialog_shouldInjectLocatorToTheModel();
+protected:
+    bool onStartup(IServiceLocator *serviceLocator);
+    void onShutdown(IServiceLocator *serviceLocator);
 };
 
-#endif // DIALOGSERVICETEST_H
+#endif // NEWCOMPONENTSDIALOGCOMPONENT_H

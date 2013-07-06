@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- 
+
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -24,31 +24,19 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef DIALOGSERVICETEST_H
-#define DIALOGSERVICETEST_H
+#ifndef NEWDIALOG_H
+#define NEWDIALOG_H
 
-#include <QtCore/QObject>
+#include <components/componentsystemui/ComponentsDialog.h>
 
-class DialogServiceTest : public QObject
+class NewDialog : public ComponentsDialog
 {
     Q_OBJECT
 public:
-    explicit DialogServiceTest(QObject *parent = 0);
+    explicit NewDialog(ComponentDefinitionsModel *model, QWidget *parent = nullptr);
     
-private Q_SLOTS:
-    void registerDialog_shouldRegisterDialogWithViewModel();
-    void registerDialog_shouldOverlapExistedDialogWithSameViewModel();
-    void createDialog_shouldReturnDialogForModel();
-    void createDialog_shouldReturnNullIfModelWasNotRegistered();
-
-    void unregisterDialogForModel_shouldUnregisterDialogForModelType();
-    void unregisterDialogForModel_shouldSetOldDialog();
-
-    void showDialog_shouldCreateDialog();
-    void showDialog_shouldReturnRightResult();
-    void showDialog_shouldDeleteDialogAfterShowing();
-    void showDialog_shouldReturnFalseIfDialogWasNotRegistered();
-    void showDialog_shouldInjectLocatorToTheModel();
+private slots:
+    void onOpenComponentsDirectory(bool) const;
 };
 
-#endif // DIALOGSERVICETEST_H
+#endif // NEWDIALOG_H

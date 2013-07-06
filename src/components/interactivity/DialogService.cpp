@@ -47,41 +47,75 @@ DialogService::DialogService(QWidget *mainWindow, IServiceLocator *locator)
 //------------------------------------------------------------------------------
 DialogService::~DialogService()
 {
-    for(auto it = m_viewsMap.begin(); it != m_viewsMap.end(); ++it)
+    for(auto it = m_dialogMap.begin(); it != m_dialogMap.end(); ++it)
         delete it.value();
 
-    m_viewsMap.clear();
+    m_dialogMap.clear();
+}
+
+//------------------------------------------------------------------------------
+bool DialogService::isConstructorRegistered(const QString &forDlgModelType) const
+{
+    return m_dialogMap.contains(forDlgModelType);
 }
 
 //------------------------------------------------------------------------------
 void DialogService::registerConstructor(const QString &dlgModelType, IDialogConstructor *constructor)
 {
-    m_viewsMap.insert(dlgModelType, constructor);
+    m_dialogMap.add(dlgModelType, constructor);
 }
 
 //------------------------------------------------------------------------------
 bool DialogService::showDialogForModel(const QString &forDlgModelType, void *dlgModel) const
 {
-    if (!m_viewsMap.contains(forDlgModelType)) {
+    if (!isConstructorRegistered(forDlgModelType)) {
         Log.w(QString("The dialog with such model \"%1\" is not registered.").arg(forDlgModelType));
         return false;
     }
 
-    IDialogConstructor *constructor = m_viewsMap.value(forDlgModelType);
-    QDialog *dlg = createDialog(constructor, dlgModel);
-    dlg->setAttribute(Qt::WA_DeleteOnClose);
-
+    QDialog *dlg = createDialogForModel(forDlgModelType, dlgModel);
     QDialog::DialogCode code = static_cast<QDialog::DialogCode>(dlg->exec());
 
     return (code == QDialog::Accepted);
 }
 
 //------------------------------------------------------------------------------
-QDialog *DialogService::createDialog(IDialogConstructor *constructor, void *dlgModel) const
+QDialog *DialogService::createDialogForModel(const QString &forDlgModelType, void *dlgModel) const
 {
+    if (!isConstructorRegistered(forDlgModelType)) {
+        Log.w(QString("The dialog with such model \"%1\" is not registered.").arg(forDlgModelType));
+        return nullptr;
+    }
+
+    IDialogConstructor *constructor = m_dialogMap.value(forDlgModelType)->last();
+
     constructor->injectServiceLocator(m_locator);
     QDialog *dlg = reinterpret_cast<QDialog *>(constructor->create(dlgModel, m_mainWindow));
+    dlg->setAttribute(Qt::WA_DeleteOnClose);
+
     return dlg;
+}
+
+//------------------------------------------------------------------------------
+bool DialogService::unregisterConstructor(const QString &forDlgModelType)
+{
+    if (!isConstructorRegistered(forDlgModelType))
+        return false;
+
+    QList<IDialogConstructor *> *constructors = m_dialogMap.value(forDlgModelType);
+
+    // Pop and delete last constructor
+    IDialogConstructor *constructor = constructors->last();
+    delete constructor;
+    constructors->removeLast();
+
+    // Remove constructors list from the map, if last was popped
+    if (constructors->empty()) {
+        m_dialogMap.remove(forDlgModelType);
+        delete constructors;
+    }
+
+    return true;
 }
 
 //------------------------------------------------------------------------------

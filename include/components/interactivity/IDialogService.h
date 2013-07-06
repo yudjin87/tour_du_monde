@@ -31,6 +31,7 @@
 
 #include <QtCore/QObject>
 #include <QtCore/QString>
+#include <QtWidgets/QDialog>
 
 #include <typeinfo>
 
@@ -56,8 +57,36 @@ public:
 
     /*!
      * @details
+     *   Creates and returns a new instance of the dialog, if any was registered for
+     *   the @a TDialogModel. Otherwise, returns @a nullptr.
+     *
+     *   Note, that created dialog will be set with Qt::WA_DeleteOnClose flag;
+     *
+     * @param TDialogModel the type of dialog model.
+     *
+     * @sa registerDialog(), showDialog()
+     */
+    template<typename TDialogModel>
+    QDialog *createDialog(TDialogModel *dlgModel) const;
+
+    /*!
+     * @details
+     *   Returns @a true if dialog for the specified model type has been already
+     *   registered.
+     *   Otherwise, returns @a false.
+     * @sa registerDialog(), unregisterDialogForModel()
+     */
+    template<typename TDialogModel>
+    bool isRegistered() const;
+
+    /*!
+     * @details
      *   Registers the @a TDialog type, that expects a @a TDialogModel pointer
      *   in the constructor. This dialog will be shown from the showDialog() method.
+     *
+     *   A new @a TDialog type is pushed to the top of dialog stack for the specified
+     *   @a TDialogModel type, so to use older dialogs for this model, you should
+     *   pop newer dialog type by calling unregisterDialogForModel().
      *
      *   The model should be derived from the QObject (dirctly or indirectly)
      *   and it should implement method
@@ -68,6 +97,8 @@ public:
      * @param TDialog the type of dialog.
      * @param TDialogModel the type of dialog model.
      * @note the @a TDialog should take ownership of the @a TDialogModel.
+     *
+     * @sa unregisterDialogForModel()
      */
     template<typename TDialog, typename TDialogModel>
     void registerDialog();
@@ -78,12 +109,50 @@ public:
      *   the @a TDialogModel), opens a modal dialog and returns @a true
      *   if user accept it, otherwise @a false. Also returns @a false,
      *   if dialog was not registered for the @a TDialogModel.
+     *
+     *   This method was added for convinient, and it uses createDialog() inside.
+     *
      * @param TDialogModel the type of dialog model.
+     *
+     * @sa registerDialog(), createDialog()
      */
     template<typename TDialogModel>
     bool showDialog(TDialogModel *dlgModel) const;
 
+    /*!
+     * @details
+     *   Unregisters (pops) last registered dialog (that had to display model) for the
+     *   specified model type @a TDialogModel.
+     *
+     *   Component, that is going to shut down, should unregister all dialogs
+     *   to restore old ones (if any were).
+     *
+     *   Returns @a true if dialog for the specified model type has been registered.
+     *   Otherwise, returns @a false.
+     * @sa registerDialog()
+     */
+    template<typename TDialogModel>
+    bool unregisterDialogForModel();
+
 protected:
+    /*!
+     * @details
+     *   When overridden creates a new instance of the registered dialog with
+     *   specified model, using @a constructor.
+     *
+     *   This method is invoked from the showDialogForModel().
+     * @sa showDialogForModel()
+     */
+    virtual QDialog *createDialogForModel(const QString &forDlgModelType, void *dlgModel) const = 0;
+
+    /*!
+     * @details
+     *   When overridden returns @a true if dialog for the specified model type has
+     *   been already registered.
+     *   Otherwise, returns @a false.
+     */
+    virtual bool isConstructorRegistered(const QString &forDlgModelType) const = 0;
+
     /*!
      * @details
      *   When overridden registers the specified dialog constructor with the
@@ -106,6 +175,16 @@ protected:
      * @sa showDialog()
      */
     virtual bool showDialogForModel(const QString &forDlgModelType, void *dlgModel) const = 0;
+
+    /*!
+     * @details
+     *   When overridden removes dialog constructor for the specified model type.
+     *
+     *   Returns @a true if dialog constructor for the specified model type has been registered.
+     *   Otherwise, returns @a false.
+     * @sa registerDialog()
+     */
+    virtual bool unregisterConstructor(const QString &forDlgModelType) = 0;
 
 private:
     Q_DISABLE_COPY(IDialogService)
@@ -144,6 +223,12 @@ struct IDialogConstructor
 template<typename TDialog, typename TDialogModel>
 struct DialogConstructor : public IDialogConstructor
 {
+    DialogConstructor()
+    {
+        static_assert(std::is_base_of<QObject, TDialogModel>::value, "TDialogModel should derive from the QObject!");
+        static_assert(std::is_base_of<QDialog, TDialog>::value, "TDialog should derive from the QDialog!");
+    }
+
     /*!
      * @details
      *   Returns new instance of the dialog,
@@ -152,7 +237,6 @@ struct DialogConstructor : public IDialogConstructor
      */
     void *create(void *dlgModel, QWidget *mainWindow)
     {
-        // TODO: use static checks (c++11) during type registering and building.
         QObject *obj = reinterpret_cast<QObject *>(dlgModel);
         TDialogModel *model = dynamic_cast<TDialogModel *>(obj);
         model->injectServiceLocator(m_locator);
@@ -174,9 +258,32 @@ private:
 };
 
 //------------------------------------------------------------------------------
+template<typename TDialogModel>
+QDialog *IDialogService::createDialog(TDialogModel *dlgModel) const
+{
+    static_assert(std::is_base_of<QObject, TDialogModel>::value, "TDialogModel should derive from the QObject!");
+
+    const QString &dlgModelType = typeid(TDialogModel).name();
+    return createDialogForModel(dlgModelType, dlgModel);
+}
+
+//------------------------------------------------------------------------------
+template<typename TDialogModel>
+bool IDialogService::isRegistered() const
+{
+    static_assert(std::is_base_of<QObject, TDialogModel>::value, "TDialogModel should derive from the QObject!");
+
+    const QString &dlgModelType = typeid(TDialogModel).name();
+    return isConstructorRegistered(dlgModelType);
+}
+
+//------------------------------------------------------------------------------
 template<typename TDialog, typename TDialogModel>
 void IDialogService::registerDialog()
 {
+    static_assert(std::is_base_of<QObject, TDialogModel>::value, "TDialogModel should derive from the QObject!");
+    static_assert(std::is_base_of<QDialog, TDialog>::value, "TDialog should derive from the QDialog!");
+
     const QString &dlgModelType = typeid(TDialogModel).name();
     registerConstructor(dlgModelType, new DialogConstructor<TDialog, TDialogModel>());
 }
@@ -185,8 +292,20 @@ void IDialogService::registerDialog()
 template<typename TDialogModel>
 bool IDialogService::showDialog(TDialogModel *dlgModel) const
 {
+    static_assert(std::is_base_of<QObject, TDialogModel>::value, "TDialogModel should derive from the QObject!");
+
     const QString &dlgModelType = typeid(TDialogModel).name();
     return showDialogForModel(dlgModelType, dlgModel);
+}
+
+//------------------------------------------------------------------------------
+template<typename TDialogModel>
+bool IDialogService::unregisterDialogForModel()
+{
+    static_assert(std::is_base_of<QObject, TDialogModel>::value, "TDialogModel should derive from the QObject!");
+
+    const QString &dlgModelType = typeid(TDialogModel).name();
+    return unregisterConstructor(dlgModelType);
 }
 
 //------------------------------------------------------------------------------

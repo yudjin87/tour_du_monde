@@ -20,6 +20,7 @@ SOURCES += \
     $$TEST_PROJECT_SOURCES/fakes/MockOperation.cpp \
     $$TEST_PROJECT_SOURCES/fakes/MockTool.cpp \
     $$TEST_PROJECT_SOURCES/fakes/MockToolBarCatalog.cpp \
+    $$TEST_PROJECT_SOURCES/fakes/NewMockDialog.cpp \
     $$TEST_PROJECT_SOURCES/InputInterceptorTest.cpp \
     $$TEST_PROJECT_SOURCES/main_interactivity_test.cpp \
     $$TEST_PROJECT_SOURCES/MenuCatalogTest.cpp \
@@ -48,6 +49,7 @@ HEADERS += \
     $$TEST_PROJECT_SOURCES/fakes/MockOperation.h \
     $$TEST_PROJECT_SOURCES/fakes/MockTool.h \
     $$TEST_PROJECT_SOURCES/fakes/MockToolBarCatalog.h \
+    $$TEST_PROJECT_SOURCES/fakes/NewMockDialog.h \
     $$TEST_PROJECT_SOURCES/InputInterceptorTest.h \
     $$TEST_PROJECT_SOURCES/MenuCatalogTest.h \
     $$TEST_PROJECT_SOURCES/OperationCatalogTest.h \
