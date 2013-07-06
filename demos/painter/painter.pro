@@ -15,5 +15,6 @@ SUBDIRS += \
     #geometry_test
     addShapeOperation \
     navigationOperations \
+    newComponentsDialog \
 
 
