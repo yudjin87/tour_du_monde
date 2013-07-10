@@ -61,11 +61,11 @@ class QWidget;
  *    the IInputReceiver::contextMenuFired() function. If you don't do this, the
  *    standard context menu will be displayed.
  */
-class INTERACTIVITY_API IInputInterceptor
+class INTERACTIVITY_API IInputDispatcher
 {
 public:
-    IInputInterceptor(){}
-    virtual ~IInputInterceptor(){}
+    IInputDispatcher(){}
+    virtual ~IInputDispatcher(){}
 
     /*!
      * @details
@@ -89,7 +89,7 @@ public:
      * @details
      *   Gets the value determinig whether events passed to receiver or not.
      *
-     * @note IInputInterceptor might be active, but is not working. It is mean,
+     * @note IInputDispatcher might be active, but is not working. It is mean,
      *   than receiver or sender is null. As soon as they be set, it will start
      *   working.
      */
@@ -130,7 +130,7 @@ public:
     virtual IInputReceiver *receiver() const = 0;
 
 private:
-    Q_DISABLE_COPY(IInputInterceptor)
+    Q_DISABLE_COPY(IInputDispatcher)
 };
 
 #endif // IINPUTINTERCEPTOR_H

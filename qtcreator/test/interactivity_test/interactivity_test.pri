@@ -13,7 +13,7 @@ SOURCES += \
     $$TEST_PROJECT_SOURCES/fakes/MockDialog.cpp \
     $$TEST_PROJECT_SOURCES/fakes/MockDialogModel.cpp \
     $$TEST_PROJECT_SOURCES/fakes/MockDialogService.cpp \
-    $$TEST_PROJECT_SOURCES/fakes/MockInputInterceptor.cpp \
+    $$TEST_PROJECT_SOURCES/fakes/MockInputDispatcher.cpp \
     $$TEST_PROJECT_SOURCES/fakes/MockInteractionService.cpp \
     $$TEST_PROJECT_SOURCES/fakes/MockInteractiveExtension.cpp \
     $$TEST_PROJECT_SOURCES/fakes/MockNonInteractiveExtension.cpp \
@@ -21,7 +21,7 @@ SOURCES += \
     $$TEST_PROJECT_SOURCES/fakes/MockTool.cpp \
     $$TEST_PROJECT_SOURCES/fakes/MockToolBarCatalog.cpp \
     $$TEST_PROJECT_SOURCES/fakes/NewMockDialog.cpp \
-    $$TEST_PROJECT_SOURCES/InputInterceptorTest.cpp \
+    $$TEST_PROJECT_SOURCES/InputDispatcherTest.cpp \
     $$TEST_PROJECT_SOURCES/main_interactivity_test.cpp \
     $$TEST_PROJECT_SOURCES/MenuCatalogTest.cpp \
     $$TEST_PROJECT_SOURCES/OperationCatalogTest.cpp \
@@ -42,7 +42,7 @@ HEADERS += \
     $$TEST_PROJECT_SOURCES/fakes/MockDialog.h \
     $$TEST_PROJECT_SOURCES/fakes/MockDialogModel.h \
     $$TEST_PROJECT_SOURCES/fakes/MockDialogService.h \
-    $$TEST_PROJECT_SOURCES/fakes/MockInputInterceptor.h \
+    $$TEST_PROJECT_SOURCES/fakes/MockInputDispatcher.h \
     $$TEST_PROJECT_SOURCES/fakes/MockInteractionService.h \
     $$TEST_PROJECT_SOURCES/fakes/MockInteractiveExtension.h \
     $$TEST_PROJECT_SOURCES/fakes/MockNonInteractiveExtension.h \
@@ -50,7 +50,7 @@ HEADERS += \
     $$TEST_PROJECT_SOURCES/fakes/MockTool.h \
     $$TEST_PROJECT_SOURCES/fakes/MockToolBarCatalog.h \
     $$TEST_PROJECT_SOURCES/fakes/NewMockDialog.h \
-    $$TEST_PROJECT_SOURCES/InputInterceptorTest.h \
+    $$TEST_PROJECT_SOURCES/InputDispatcherTest.h \
     $$TEST_PROJECT_SOURCES/MenuCatalogTest.h \
     $$TEST_PROJECT_SOURCES/OperationCatalogTest.h \
     $$TEST_PROJECT_SOURCES/OperationTest.h \

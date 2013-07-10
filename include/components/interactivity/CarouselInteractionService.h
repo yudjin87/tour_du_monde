@@ -58,8 +58,8 @@ public:
      * @details
      *   The currently selected tool in application. When not null,
      *   user's mouse and keyboard events from the central widget are
-     *   sent to this tool by IInputInterceptor.
-     * @sa setInputInterceptor, inputInterceptor
+     *   sent to this tool by IInputDispatcher.
+     * @sa setInputDispatcher, inputInterceptor
      */
     ITool *activeTool();
 
@@ -86,9 +86,9 @@ public:
     /*!
      * @details
      *   Gets the current user input interceptor. Null by default.
-     * @sa setInputInterceptor, activeTool
+     * @sa setInputDispatcher, activeTool
      */
-    IInputInterceptor *inputInterceptor();
+    IInputDispatcher *inputInterceptor();
 
     /*!
      * @details
@@ -155,14 +155,14 @@ public:
      *   If you want user input would be sent to the active tool, use following snippet:
      * @code
      *   IInteractionService* interactionService = application->serviceLocator().locate<IInteractionService>();
-     *   interactionService->setInputInterceptor(new InputInterceptor());
+     *   interactionService->setInputDispatcher(new InputDispatcher());
      *   interactionService->inputInterceptor()->setSender(interactionService->mainWindow.centralWidget());
      * @endcode
      *   @a Null by default. Note, that CarouselInteractionService takes ownership of the
      *   interceptor.
-     * @sa setInputInterceptor, activeTool
+     * @sa setInputDispatcher, activeTool
      */
-    void setInputInterceptor(IInputInterceptor *inputInterceptor);
+    void setInputDispatcher(IInputDispatcher *inputInterceptor);
 
 protected slots:
     /*!
@@ -204,7 +204,7 @@ private:
     void makeConnections();
 
 private:
-    IInputInterceptor *m_inputInterceptor;
+    IInputDispatcher *m_inputInterceptor;
     IComponentConfigurationDelegate *m_componentConfigurationDelegate;
     IComponentManager *m_componentManager;
     ITool *m_activeTool;

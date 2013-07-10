@@ -1,7 +1,7 @@
-#include "InputInterceptorTest.h"
+#include "InputDispatcherTest.h"
 #include "fakes/MockTool.h"
 
-#include <components/interactivity/InputInterceptor.h>
+#include <components/interactivity/InputDispatcher.h>
 
 #include <QtWidgets/QWidget>
 #include <QtTest/QtTest>
@@ -10,43 +10,43 @@
 #include <functional>
 
 //------------------------------------------------------------------------------
-InputInterceptorTest::InputInterceptorTest(QObject *parent)
+InputDispatcherTest::InputDispatcherTest(QObject *parent)
     : QObject(parent)
 {
 }
 
 //------------------------------------------------------------------------------
-void InputInterceptorTest::shouldStoreSetWidget()
+void InputDispatcherTest::shouldStoreSetWidget()
 {
     QWidget widget;
-    InputInterceptor interceptor;
+    InputDispatcher interceptor;
     interceptor.setSender(&widget);
 
     QCOMPARE(interceptor.sender(), &widget);
 }
 
 //------------------------------------------------------------------------------
-void InputInterceptorTest::shouldNotThrowIfWidgetNullWhileDeactivate()
+void InputDispatcherTest::shouldNotThrowIfWidgetNullWhileDeactivate()
 {
-    InputInterceptor interceptor;
+    InputDispatcher interceptor;
     interceptor.deactivate();
 
     QVERIFY(true);
 }
 
 //------------------------------------------------------------------------------
-void InputInterceptorTest::shouldNotThrowIfWidgetNullWhileActivate()
+void InputDispatcherTest::shouldNotThrowIfWidgetNullWhileActivate()
 {
-    InputInterceptor interceptor;
+    InputDispatcher interceptor;
     interceptor.activate();
 
     QVERIFY(true);
 }
 
 //------------------------------------------------------------------------------
-void InputInterceptorTest::shouldStoreReceivedTool()
+void InputDispatcherTest::shouldStoreReceivedTool()
 {
-    InputInterceptor interceptor;
+    InputDispatcher interceptor;
     MockTool tool;
     interceptor.setReceiver(&tool);
 
@@ -54,33 +54,33 @@ void InputInterceptorTest::shouldStoreReceivedTool()
 }
 
 //------------------------------------------------------------------------------
-void InputInterceptorTest::shouldReturnNullWidgetByDefault()
+void InputDispatcherTest::shouldReturnNullWidgetByDefault()
 {
-    InputInterceptor interceptor;
+    InputDispatcher interceptor;
 
     QVERIFY(interceptor.sender() == nullptr);
 }
 
 //------------------------------------------------------------------------------
-void InputInterceptorTest::shouldReturnNullReceivedToolByDefault()
+void InputDispatcherTest::shouldReturnNullReceivedToolByDefault()
 {
-    InputInterceptor interceptor;
+    InputDispatcher interceptor;
 
     QVERIFY(interceptor.receiver() == nullptr);
 }
 
 //------------------------------------------------------------------------------
-void InputInterceptorTest::shouldBeDeactivedByDefault()
+void InputDispatcherTest::shouldBeDeactivedByDefault()
 {
-    InputInterceptor interceptor;
+    InputDispatcher interceptor;
 
     QCOMPARE(interceptor.isActive(), false);
 }
 
 //------------------------------------------------------------------------------
-void InputInterceptorTest::shouldBeActiveAfterActivating()
+void InputDispatcherTest::shouldBeActiveAfterActivating()
 {
-    InputInterceptor interceptor;
+    InputDispatcher interceptor;
     QCOMPARE(interceptor.isActive(), false);
 
     interceptor.activate();
@@ -89,10 +89,10 @@ void InputInterceptorTest::shouldBeActiveAfterActivating()
 }
 
 //------------------------------------------------------------------------------
-void InputInterceptorTest::shouldBeWorkingAfterActivatingWithSenderAndReceiver()
+void InputDispatcherTest::shouldBeWorkingAfterActivatingWithSenderAndReceiver()
 {
     QWidget widget;
-    InputInterceptor interceptor;
+    InputDispatcher interceptor;
     interceptor.setSender(&widget);
     MockTool tool;
     interceptor.setReceiver(&tool);
@@ -105,11 +105,11 @@ void InputInterceptorTest::shouldBeWorkingAfterActivatingWithSenderAndReceiver()
 }
 
 //------------------------------------------------------------------------------
-void InputInterceptorTest::shouldBeWorkingAfterSettingSenderIfWasActivatedWithNullOne()
+void InputDispatcherTest::shouldBeWorkingAfterSettingSenderIfWasActivatedWithNullOne()
 {
     QWidget widget; MockTool tool;
 
-    InputInterceptor interceptor;
+    InputDispatcher interceptor;
     interceptor.setReceiver(&tool);
     interceptor.activate();
 
@@ -121,11 +121,11 @@ void InputInterceptorTest::shouldBeWorkingAfterSettingSenderIfWasActivatedWithNu
 }
 
 //------------------------------------------------------------------------------
-void InputInterceptorTest::shouldBeWorkingAfterSettingReceiverIfWasActivatedWithNullOne()
+void InputDispatcherTest::shouldBeWorkingAfterSettingReceiverIfWasActivatedWithNullOne()
 {
     QWidget widget; MockTool tool;
 
-    InputInterceptor interceptor;
+    InputDispatcher interceptor;
     interceptor.setSender(&widget);
     interceptor.activate();
 
@@ -137,10 +137,10 @@ void InputInterceptorTest::shouldBeWorkingAfterSettingReceiverIfWasActivatedWith
 }
 
 //------------------------------------------------------------------------------
-void InputInterceptorTest::shouldNotBeWorkingAfterActivatingWithoutSettingTheSenderAndReceiver()
+void InputDispatcherTest::shouldNotBeWorkingAfterActivatingWithoutSettingTheSenderAndReceiver()
 {
     QWidget widget;
-    InputInterceptor interceptor;
+    InputDispatcher interceptor;
 
     QCOMPARE(interceptor.isActive(), false);
 
@@ -161,9 +161,9 @@ void InputInterceptorTest::shouldNotBeWorkingAfterActivatingWithoutSettingTheSen
 }
 
 //------------------------------------------------------------------------------
-void InputInterceptorTest::shouldNotBeActiveAfterActivatingAndDeactivating()
+void InputDispatcherTest::shouldNotBeActiveAfterActivatingAndDeactivating()
 {
-    InputInterceptor interceptor;
+    InputDispatcher interceptor;
 
     interceptor.activate();
 
@@ -175,10 +175,10 @@ void InputInterceptorTest::shouldNotBeActiveAfterActivatingAndDeactivating()
 }
 
 //------------------------------------------------------------------------------
-void InputInterceptorTest::shouldNotBeWorkingIfNotActive()
+void InputDispatcherTest::shouldNotBeWorkingIfNotActive()
 {
     QWidget widget; MockTool tool;
-    InputInterceptor interceptor;
+    InputDispatcher interceptor;
     interceptor.setReceiver(&tool);
     interceptor.setSender(&widget);
     interceptor.activate();
@@ -191,10 +191,10 @@ void InputInterceptorTest::shouldNotBeWorkingIfNotActive()
 }
 
 //------------------------------------------------------------------------------
-void InputInterceptorTest::shouldNotBeInvokeKeyboardHandlerAfterSettingNullSender()
+void InputDispatcherTest::shouldNotBeInvokeKeyboardHandlerAfterSettingNullSender()
 {
     QWidget widget;
-    InputInterceptor interceptor;
+    InputDispatcher interceptor;
     interceptor.setSender(&widget);
     MockTool tool;
     interceptor.setReceiver(&tool);
@@ -210,10 +210,10 @@ void InputInterceptorTest::shouldNotBeInvokeKeyboardHandlerAfterSettingNullSende
 }
 
 //------------------------------------------------------------------------------
-void InputInterceptorTest::shouldNotBeInvokeKeyboardHandlerAfterSettingNullReceiver()
+void InputDispatcherTest::shouldNotBeInvokeKeyboardHandlerAfterSettingNullReceiver()
 {
     QWidget widget;
-    InputInterceptor interceptor;
+    InputDispatcher interceptor;
     interceptor.setSender(&widget);
     MockTool tool;
     interceptor.setReceiver(&tool);
@@ -229,11 +229,11 @@ void InputInterceptorTest::shouldNotBeInvokeKeyboardHandlerAfterSettingNullRecei
 }
 
 //------------------------------------------------------------------------------
-void InputInterceptorTest::shouldNotBeWorkingAfterSenderDeletion()
+void InputDispatcherTest::shouldNotBeWorkingAfterSenderDeletion()
 {
     MockTool tool;
 
-    InputInterceptor interceptor;
+    InputDispatcher interceptor;
     interceptor.activate();
     interceptor.setReceiver(&tool);
 
@@ -248,9 +248,9 @@ void InputInterceptorTest::shouldNotBeWorkingAfterSenderDeletion()
 }
 
 //------------------------------------------------------------------------------
-void InputInterceptorTest::shouldNotBeWorkingAfterReceiverDeletion()
+void InputDispatcherTest::shouldNotBeWorkingAfterReceiverDeletion()
 {
-    InputInterceptor interceptor;
+    InputDispatcher interceptor;
     interceptor.activate();
     QWidget widget;
     interceptor.setSender(&widget);
@@ -266,10 +266,10 @@ void InputInterceptorTest::shouldNotBeWorkingAfterReceiverDeletion()
 }
 
 //------------------------------------------------------------------------------
-void InputInterceptorTest::shouldCallReceiverIfWorking()
+void InputDispatcherTest::shouldCallReceiverIfWorking()
 {
     QWidget widget;
-    InputInterceptor interceptor;
+    InputDispatcher interceptor;
     interceptor.setSender(&widget);
     MockTool tool;
     interceptor.setReceiver(&tool);
@@ -283,10 +283,10 @@ void InputInterceptorTest::shouldCallReceiverIfWorking()
 }
 
 //------------------------------------------------------------------------------
-void InputInterceptorTest::shouldNotInvokeKeyboardHandlerIfNotWorking()
+void InputDispatcherTest::shouldNotInvokeKeyboardHandlerIfNotWorking()
 {
     QWidget widget;
-    InputInterceptor interceptor;
+    InputDispatcher interceptor;
     interceptor.setSender(&widget);
     MockTool tool;
     interceptor.setReceiver(&tool);
@@ -302,10 +302,10 @@ void InputInterceptorTest::shouldNotInvokeKeyboardHandlerIfNotWorking()
 }
 
 //------------------------------------------------------------------------------
-void InputInterceptorTest::shouldInvokeKeyboardHandlerAfterReactivating()
+void InputDispatcherTest::shouldInvokeKeyboardHandlerAfterReactivating()
 {
     QWidget widget;
-    InputInterceptor interceptor;
+    InputDispatcher interceptor;
     interceptor.setSender(&widget);
     interceptor.activate();
 

@@ -2,7 +2,7 @@
 #include "OperationTest.h"
 #include "OperationCatalogTest.h"
 #include "DockWidgetCatalogTest.h"
-#include "InputInterceptorTest.h"
+#include "InputDispatcherTest.h"
 #include "MenuCatalogTest.h"
 #include "ToolBarCatalogTest.h"
 #include "CarouselInteractionServiceTest.h"
@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
     NullLogger log;
     LoggerFacade::installLoggerEngine(&log);
 
-//    InputInterceptorTest inputInterceptorTest;
+//    InputDispatcherTest inputInterceptorTest;
 //    QTest::qExec(&inputInterceptorTest, argc, argv);
 
 //    OperationTest operationTest;

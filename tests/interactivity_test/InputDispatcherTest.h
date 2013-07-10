@@ -3,11 +3,11 @@
 
 #include <QtCore/QObject>
 
-class InputInterceptorTest : public QObject
+class InputDispatcherTest : public QObject
 {
     Q_OBJECT
 public:
-    explicit InputInterceptorTest(QObject *parent = 0);
+    explicit InputDispatcherTest(QObject *parent = 0);
     
 private Q_SLOTS:
     void shouldStoreSetWidget();

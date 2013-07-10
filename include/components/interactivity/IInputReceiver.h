@@ -41,7 +41,7 @@ class QMouseEvent;
  *   as mouse move, mouse button press/release, keyboard key press/release,
  *   double-click, and right click (context menu).
  * @details
- *   Use IInputInterceptor to obtain user input events.
+ *   Use IInputDispatcher to obtain user input events.
  */
 class INTERACTIVITY_API IInputReceiver
 {

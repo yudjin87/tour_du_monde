@@ -24,7 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "InputInterceptor.h"
+#include "InputDispatcher.h"
 #include "ITool.h"
 
 #include <QtGui/QContextMenuEvent>
@@ -32,50 +32,50 @@
 #include <QtWidgets/QWidget>
 
 //------------------------------------------------------------------------------
-InputInterceptor::InputInterceptor(QObject *parent)
+InputDispatcher::InputDispatcher(QObject *parent)
     : QObject(parent)
     , m_interceptedWidget(nullptr)
     , m_receiver(nullptr)
     , m_isActive(false)
     , m_isWorking(false)
 {
-    setObjectName("InputInterceptor");
+    setObjectName("InputDispatcher");
 }
 
 //------------------------------------------------------------------------------
-InputInterceptor::~InputInterceptor()
+InputDispatcher::~InputDispatcher()
 {
     deactivate();
 }
 
 //------------------------------------------------------------------------------
-void InputInterceptor::activate()
+void InputDispatcher::activate()
 {
     m_isActive = true;
     m_isWorking = invalidate(m_interceptedWidget);
 }
 
 //------------------------------------------------------------------------------
-void InputInterceptor::deactivate()
+void InputDispatcher::deactivate()
 {
     m_isActive = false;
     m_isWorking = invalidate(m_interceptedWidget);
 }
 
 //------------------------------------------------------------------------------
-bool InputInterceptor::isActive() const
+bool InputDispatcher::isActive() const
 {
     return m_isActive;
 }
 
 //------------------------------------------------------------------------------
-bool InputInterceptor::isWorking() const
+bool InputDispatcher::isWorking() const
 {
     return m_isWorking;
 }
 
 //------------------------------------------------------------------------------
-void InputInterceptor::setSender(QWidget *interceptedWidget)
+void InputDispatcher::setSender(QWidget *interceptedWidget)
 {
     QWidget *old = m_interceptedWidget;
     m_interceptedWidget = interceptedWidget;
@@ -86,7 +86,7 @@ void InputInterceptor::setSender(QWidget *interceptedWidget)
 }
 
 //------------------------------------------------------------------------------
-void InputInterceptor::setReceiver(IInputReceiver *receiver)
+void InputDispatcher::setReceiver(IInputReceiver *receiver)
 {
     m_receiver = receiver;
     if (m_receiver != nullptr)
@@ -96,19 +96,19 @@ void InputInterceptor::setReceiver(IInputReceiver *receiver)
 }
 
 //------------------------------------------------------------------------------
-QWidget *InputInterceptor::sender() const
+QWidget *InputDispatcher::sender() const
 {
     return m_interceptedWidget;
 }
 
 //------------------------------------------------------------------------------
-IInputReceiver *InputInterceptor::receiver() const
+IInputReceiver *InputDispatcher::receiver() const
 {
     return m_receiver;
 }
 
 //------------------------------------------------------------------------------
-bool InputInterceptor::eventFilter(QObject *sender, QEvent *event)
+bool InputDispatcher::eventFilter(QObject *sender, QEvent *event)
 {
     Q_UNUSED(sender)
     switch (event->type())
@@ -149,7 +149,7 @@ bool InputInterceptor::eventFilter(QObject *sender, QEvent *event)
 }
 
 //------------------------------------------------------------------------------
-bool InputInterceptor::canStartWorking()
+bool InputDispatcher::canStartWorking()
 {
     if (!isActive())
         return false;
@@ -164,7 +164,7 @@ bool InputInterceptor::canStartWorking()
 }
 
 //------------------------------------------------------------------------------
-bool InputInterceptor::invalidate(QWidget *interceptedWidget)
+bool InputDispatcher::invalidate(QWidget *interceptedWidget)
 {
     bool result = canStartWorking();
 
@@ -179,14 +179,14 @@ bool InputInterceptor::invalidate(QWidget *interceptedWidget)
 }
 
 //------------------------------------------------------------------------------
-void InputInterceptor::onSenderDeleted()
+void InputDispatcher::onSenderDeleted()
 {
     m_interceptedWidget = nullptr;
     m_isWorking = invalidate(m_interceptedWidget);
 }
 
 //------------------------------------------------------------------------------
-void InputInterceptor::onReceiverDeleted()
+void InputDispatcher::onReceiverDeleted()
 {
     m_receiver = nullptr;
     m_isWorking = invalidate(m_interceptedWidget);

@@ -28,7 +28,7 @@
 
 #include "Catalogs.h"
 #include "CarouselComponentConfigurationDelegate.h"
-#include "IInputInterceptor.h"
+#include "IInputDispatcher.h"
 #include "ITool.h"
 
 #include <carousel/componentsystem/IComponent.h>
@@ -100,7 +100,7 @@ IComponentConfigurationDelegate *CarouselInteractionService::configurationDelega
 }
 
 //------------------------------------------------------------------------------
-IInputInterceptor *CarouselInteractionService::inputInterceptor()
+IInputDispatcher *CarouselInteractionService::inputInterceptor()
 {
     return m_inputInterceptor;
 }
@@ -162,7 +162,7 @@ void CarouselInteractionService::setConfigurationDelegate(IComponentConfiguratio
 }
 
 //------------------------------------------------------------------------------
-void CarouselInteractionService::setInputInterceptor(IInputInterceptor *inputInterceptor)
+void CarouselInteractionService::setInputDispatcher(IInputDispatcher *inputInterceptor)
 {
     if (m_inputInterceptor != nullptr)
         delete m_inputInterceptor;

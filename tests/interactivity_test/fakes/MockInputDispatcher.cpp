@@ -24,21 +24,25 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef MOCKINPUTINTERCEPTOR_H
-#define MOCKINPUTINTERCEPTOR_H
+#include "MockInputDispatcher.h"
 
-#include <components/interactivity/InputInterceptor.h>
-
-class MockInputInterceptor : public InputInterceptor
+//------------------------------------------------------------------------------
+MockInputDispatcher::MockInputDispatcher()
+    : m_wasDestructorCalled(nullptr)
 {
-public:
-    MockInputInterceptor();
-    ~MockInputInterceptor();
+}
 
-    void setDeleteFlag(bool &wasDestructorCalled);
+//------------------------------------------------------------------------------
+MockInputDispatcher::~MockInputDispatcher()
+{
+    if (m_wasDestructorCalled != nullptr)
+        *m_wasDestructorCalled = true;
+}
 
-private:
-    bool *m_wasDestructorCalled;
-};
+//------------------------------------------------------------------------------
+void MockInputDispatcher::setDeleteFlag(bool &wasDestructorCalled)
+{
+    m_wasDestructorCalled = &wasDestructorCalled;
+}
 
-#endif // MOCKINPUTINTERCEPTOR_H
+//------------------------------------------------------------------------------
