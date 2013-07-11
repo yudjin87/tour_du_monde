@@ -24,8 +24,8 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef INPUTINTERCEPTOR_H
-#define INPUTINTERCEPTOR_H
+#ifndef INPUTDISPATCHER_H
+#define INPUTDISPATCHER_H
 
 #include "interactivity_global.h"
 
@@ -54,7 +54,7 @@
  *    @li Double click event;
  *
  *    All these events (except context menu event) will pass to the widget if
- *    interceptor @a isActive(), and right after they will be handled by receiver.
+ *    dispatcher @a isActive(), and right after they will be handled by receiver.
  *    Also, if your receiver displays a custom context menu, it should let the
  *    application know that it handled the context menu event by returning @a true from
  *    the IInputReceiver::contextMenuFired() function. If you don't do this, the
@@ -147,4 +147,4 @@ private:
     bool m_isWorking;
 };
 
-#endif // INPUTINTERCEPTOR_H
+#endif // INPUTDISPATCHER_H

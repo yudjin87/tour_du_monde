@@ -46,10 +46,10 @@ private Q_SLOTS:
     void shouldReturnMainWindow();
 
     void shouldSetupInputDispatcher();
-    void shouldSetupCurrentToolToInterceptor();
+    void shouldSetupCurrentToolToDispatcher();
     void shouldNullToolAfterItsDeletion();
-    void shouldNotThrowIfPreviousInterceptorIsNull();
-    void shouldNotThrowIfNewInterceptorIsNull();
+    void shouldNotThrowIfPreviousDispatcherIsNull();
+    void shouldNotThrowIfNewDispatcherIsNull();
     void shouldDeletePreviousInputDispatcher();
 
     void shouldReturnDefaultConfigurationDelegate();
@@ -68,11 +68,11 @@ private Q_SLOTS:
     void shouldSetupActiveTool();
     void shouldDeactivatePreviousActiveTool();
     void shouldSetupNullToolWhenActiveIsDeactivated();
-    void shouldSetupNullToInterceptorWhenActiveToolIsDeactivated();
-    void shouldSetupNewlyCurrentToolToInterceptor();
+    void shouldSetupNullToDispatcherWhenActiveToolIsDeactivated();
+    void shouldSetupNewlyCurrentToolToDispatcher();
     void shouldNotThrowIfPreviousActiveToolIsNull();
-    void shouldNotThrowIfInterceptorIsNull();
-    void shouldNotThrowIfInterceptorIsNullWhenActiveToolIsDeactivated();
+    void shouldNotThrowIfDispatcherIsNull();
+    void shouldNotThrowIfDispatcherIsNullWhenActiveToolIsDeactivated();
 
 private:
     ServiceLocator m_serviceLocator;

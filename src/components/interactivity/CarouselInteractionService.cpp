@@ -47,7 +47,7 @@ static LoggerFacade Log = LoggerFacade::createLogger("CarouselInteractionService
 
 //------------------------------------------------------------------------------
 CarouselInteractionService::CarouselInteractionService(IServiceLocator *serviceLocator, QMainWindow *mainWindow, IComponentManager *manager, QObject *parent)
-    : m_inputInterceptor(nullptr)
+    : m_dispatcher(nullptr)
     , m_componentConfigurationDelegate(new CarouselComponentConfigurationDelegate(serviceLocator))
     , m_componentManager(manager)
     , m_activeTool(nullptr)
@@ -66,8 +66,8 @@ CarouselInteractionService::~CarouselInteractionService()
 {
     delete m_catalogs;
     m_catalogs = nullptr;
-    delete m_inputInterceptor;
-    m_inputInterceptor = nullptr;
+    delete m_dispatcher;
+    m_dispatcher = nullptr;
     delete m_componentConfigurationDelegate;
     m_componentConfigurationDelegate = nullptr;
 
@@ -100,9 +100,9 @@ IComponentConfigurationDelegate *CarouselInteractionService::configurationDelega
 }
 
 //------------------------------------------------------------------------------
-IInputDispatcher *CarouselInteractionService::inputInterceptor()
+IInputDispatcher *CarouselInteractionService::dispatcher()
 {
-    return m_inputInterceptor;
+    return m_dispatcher;
 }
 
 //------------------------------------------------------------------------------
@@ -144,9 +144,9 @@ void CarouselInteractionService::setActiveTool(ITool *activeTool)
         m_activeTool->stopExecuting();
     }
 
-    if (m_inputInterceptor != nullptr) {
-        Log.d("Set new tool as receiver to the interceptor.");
-        m_inputInterceptor->setReceiver(activeTool);
+    if (m_dispatcher != nullptr) {
+        Log.d("Set new tool as receiver to the dispatcher.");
+        m_dispatcher->setReceiver(activeTool);
     }
 
     m_activeTool = activeTool;
@@ -162,15 +162,15 @@ void CarouselInteractionService::setConfigurationDelegate(IComponentConfiguratio
 }
 
 //------------------------------------------------------------------------------
-void CarouselInteractionService::setInputDispatcher(IInputDispatcher *inputInterceptor)
+void CarouselInteractionService::setDispatcher(IInputDispatcher *dispatcher)
 {
-    if (m_inputInterceptor != nullptr)
-        delete m_inputInterceptor;
+    if (m_dispatcher != nullptr)
+        delete m_dispatcher;
 
-    if (inputInterceptor != nullptr)
-        inputInterceptor->setReceiver(m_activeTool);
+    if (dispatcher != nullptr)
+        dispatcher->setReceiver(m_activeTool);
 
-    m_inputInterceptor = inputInterceptor;
+    m_dispatcher = dispatcher;
 
 }
 
@@ -224,8 +224,8 @@ void CarouselInteractionService::onComponentManagerAboutToShutDown()
 void CarouselInteractionService::onToolExecutingStopped()
 {
     m_activeTool = nullptr;
-    if (m_inputInterceptor != nullptr)
-        m_inputInterceptor->setReceiver(nullptr);
+    if (m_dispatcher != nullptr)
+        m_dispatcher->setReceiver(nullptr);
 }
 
 //------------------------------------------------------------------------------

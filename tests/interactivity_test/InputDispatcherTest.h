@@ -1,5 +1,5 @@
-#ifndef INPUTINTERCEPTORTEST_H
-#define INPUTINTERCEPTORTEST_H
+#ifndef INPUTDISPATCHERTEST_H
+#define INPUTDISPATCHERTEST_H
 
 #include <QtCore/QObject>
 
@@ -35,4 +35,4 @@ private Q_SLOTS:
     void shouldInvokeKeyboardHandlerAfterReactivating();
 };
 
-#endif // INPUTINTERCEPTORTEST_H
+#endif // INPUTDISPATCHERTEST_H

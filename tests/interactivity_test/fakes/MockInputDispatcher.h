@@ -24,8 +24,8 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef MOCKINPUTINTERCEPTOR_H
-#define MOCKINPUTINTERCEPTOR_H
+#ifndef MOCKINPUTDISPATCHER_H
+#define MOCKINPUTDISPATCHER_H
 
 #include <components/interactivity/InputDispatcher.h>
 
@@ -41,4 +41,4 @@ private:
     bool *m_wasDestructorCalled;
 };
 
-#endif // MOCKINPUTINTERCEPTOR_H
+#endif // MOCKINPUTDISPATCHER_H

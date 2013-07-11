@@ -65,7 +65,7 @@ void DisplayComponent::onShutdown(IServiceLocator *serviceLocator)
     delete view;
 
     IInteractionService* interactionService = serviceLocator->locate<IInteractionService>();
-    interactionService->setInputDispatcher(nullptr);
+    interactionService->setDispatcher(nullptr);
 }
 
 //------------------------------------------------------------------------------
@@ -81,9 +81,9 @@ bool DisplayComponent::onStartup(IServiceLocator *serviceLocator)
     serviceLocator->registerInstance<QGraphicsScene>(scene);
 
     IInteractionService* interactionService = serviceLocator->locate<IInteractionService>();
-    interactionService->setInputDispatcher(new InputDispatcher());
-    interactionService->inputInterceptor()->setSender(view->viewport());
-    interactionService->inputInterceptor()->activate();
+    interactionService->setDispatcher(new InputDispatcher());
+    interactionService->dispatcher()->setSender(view->viewport());
+    interactionService->dispatcher()->activate();
 
     return true;
 }
