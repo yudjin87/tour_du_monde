@@ -9,6 +9,9 @@ include(cmake/target_utils)
 # Sources
 set(__SOURCES
     ${CRSL_TARGET_SOURCES}/JsScriptingComponent.cpp 
+    ${CRSL_TARGET_SOURCES}/JsScriptingInteractiveExtension.cpp 
+    ${CRSL_TARGET_SOURCES}/ScriptConsole.cpp 
+    ${CRSL_TARGET_SOURCES}/ToogleScriptConsoleOperation.cpp 
 )
 	
 ######################################################################
@@ -16,6 +19,21 @@ set(__SOURCES
 set(__HEADERS
     ${CRSL_TARGET_HEADERS}/jsscripting_global.h 
     ${CRSL_TARGET_HEADERS}/JsScriptingComponent.h 
+    ${CRSL_TARGET_HEADERS}/JsScriptingInteractiveExtension.h 
+    ${CRSL_TARGET_HEADERS}/ScriptConsole.h 
+    ${CRSL_TARGET_HEADERS}/ToogleScriptConsoleOperation.h 
+)
+
+######################################################################
+# Forms
+set(__FORMS
+    ${CRSL_TARGET_SOURCES}/ScriptConsole.ui 
+)
+
+######################################################################
+# Resources
+set(__RESOURCES
+    ${CRSL_TARGET_SOURCES}/jsscripting.qrc 
 )
 
 ######################################################################
@@ -27,17 +45,24 @@ set(__OTHER_FILES
 ######################################################################
 # Qt generated files
 qt5_wrap_cpp(__HEADERS_MOC ${__HEADERS})
+qt5_wrap_ui(__UI_HEADERS ${__FORMS})
 qt5_add_resources(__GENERATED_RESOURCES ${__RESOURCES})
+
+# As moc files are generated in the binary dir, tell CMake
+# to always look for includes there:
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 ######################################################################
 # Group sources into IDE's filters
 source_group("src" FILES ${__SOURCES} ${__HEADERS})
 source_group("moc" FILES ${__HEADERS_MOC})
+source_group("forms" FILES ${__UI_HEADERS} ${__FORMS})
 source_group("res" FILES ${__GENERATED_RESOURCES} ${__RESOURCES})
 
 ######################################################################
 # Create target 'CRSL_PROJECT_NAME' from specified source files
-add_library(${CRSL_PROJECT_NAME} ${CRSL_LIB_TYPE} ${__SOURCES} ${__HEADERS} ${__HEADERS_MOC} ${__OTHER_FILES} ${__RESOURCES} ${__GENERATED_RESOURCES} )
+add_library(${CRSL_PROJECT_NAME} ${CRSL_LIB_TYPE} ${__SOURCES} ${__HEADERS} ${__HEADERS_MOC} ${__OTHER_FILES} ${__FORMS} ${__UI_HEADERS} ${__RESOURCES} ${__GENERATED_RESOURCES} )
 
 ######################################################################
 # Setup output path

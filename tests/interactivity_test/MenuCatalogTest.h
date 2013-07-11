@@ -36,31 +36,31 @@ public:
     explicit MenuCatalogTest(QObject *parent = 0);
     
 private Q_SLOTS:
-    void shouldReturnExistedMenus();
-    void shouldReturnBothRemovedAndExistedMenus();
+    void addMenu_shouldEmit();
+    void addMenu_shouldReturnExistedOne();
+    void addMenu_shouldInstallFiltersToNewMenu();
+    void addPopup_shouldEmit();
+    void addPopup_shouldSetupProperties();
+    void addPopup_shouldAddItToList();
 
-    void shouldEmitWhenMenuAddedToMenuBar();
-    void shouldEmitWhenMenuAddedToExistingMenu();
     void shouldEmitWhenMenuAddedToExistingMenuInMenuBar();
-    void shouldEmitWhenPopupAdded();
-
-    void shouldEmitWhenMenuRemovedFromMenuBar();
     void shouldEmitWhenSubMenuRemovedFromExistingMenu();
 
-    void shouldRemoveMenuFromMenuBar();
+    void menus_shouldReturnFromMenuBar();
+    void menus_shouldReturnBothRemovedAndExistedMenus();
 
-    void shouldFindMenuFromMenuBar();
-    void shouldFindMenuFromSubmenu();
-    void shouldFindMenuEverywhere();
-    
-    void shouldCreatePopupMenu();
-    void shouldAddPopupMenuToList();
-    void shouldFindPopup();
-    void shouldFindPopupFromSubmenu();
+    void removeMenu_shouldRemoveFromMenuBar();
+    void removeMenu_shouldEmitWhenRemovingFromMenuBar();
 
-    void shouldDeleteMenu();
-    void shouldDeleteRemovedMenu();
-    void shouldDeleteMenuByName();
+    void findMenu_shouldFindMenuFromMenuBar();
+    void findMenu_shouldFindMenuFromSubmenu();
+    void findMenuEverywhere_shouldFindEverywhere();
+    void findPopup_shouldFindPopup();
+    void findPopup_shouldFindFromSubmenu();
+
+    void deleteMenu_shouldDeleteMenu();
+    void deleteMenu_shouldDeleteRemovedMenu();
+    void deleteMenu_shouldDeleteMenuByName();
 };
 
 #endif // MENUCATALOGTEST_H

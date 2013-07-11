@@ -24,61 +24,45 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "JsScriptingComponent.h"
-#include "JsScriptingInteractiveExtension.h"
+#include "ToogleScriptConsoleOperation.h"
 
-#include <carousel/componentsystem/ComponentExport.h>
-#include <carousel/logging/LoggerFacade.h>
-#include <carousel/utils/IServiceLocator.h>
-
-#include <QtWidgets/QMainWindow>
+#include <QtWidgets/QUndoStack>
 
 //------------------------------------------------------------------------------
-namespace
+ToogleScriptConsoleOperation::ToogleScriptConsoleOperation(QAction *toogleAction)
+    : Operation("Script console")
+    , m_action(toogleAction)
 {
-static LoggerFacade Log = LoggerFacade::createLogger("JsScriptingComponent");
+    setCheckable(true);
+    setIcon(QIcon(":/jsscripting/images/scriptWindow.png"));
+    setIconVisibleInMenu(true);
 }
 
 //------------------------------------------------------------------------------
-static const QByteArray description(
-        "");
-
-//------------------------------------------------------------------------------
-JsScriptingComponent::JsScriptingComponent(QObject *parent)
-    : BaseComponent("org.carousel.JsScripting", parent)
+void ToogleScriptConsoleOperation::execute()
 {
-    IInteractiveExtension *interactiveExtension = new JsScriptingInteractiveExtension(this);
-    registerExtension<IInteractiveExtension>(interactiveExtension);
-
-    setShortName("JsScripting");
-    setProductName("JsScripting");
-    setDescription(description);
-    setProvider("Carousel");
-    setVersion(1, 0);
-    addParent("org.carousel.Interactivity", 1, 0);
+    m_action->trigger();
 }
 
 //------------------------------------------------------------------------------
-JsScriptingComponent::~JsScriptingComponent()
+void ToogleScriptConsoleOperation::stopExecuting()
 {
-    if (started())
-        Log.w("Logic error: onShutdown() was not called.");
+    m_action->trigger();
 }
 
 //------------------------------------------------------------------------------
-void JsScriptingComponent::onShutdown(IServiceLocator *serviceLocator)
+void ToogleScriptConsoleOperation::initialize(IServiceLocator *serviceLocator)
 {
     Q_UNUSED(serviceLocator)
+    connect(m_action, SIGNAL(toggled()), SLOT(onActionChanged()));
 }
 
 //------------------------------------------------------------------------------
-bool JsScriptingComponent::onStartup(IServiceLocator *serviceLocator)
+void ToogleScriptConsoleOperation::onActionChanged()
 {
-    Q_UNUSED(serviceLocator)
-    return true;
+    if (m_action->isChecked() != isChecked())
+        setChecked(m_action->isChecked());
 }
 
 //------------------------------------------------------------------------------
-EXPORT_COMPONENT(JsScriptingComponent)
 
-//------------------------------------------------------------------------------

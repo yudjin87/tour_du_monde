@@ -40,42 +40,7 @@ MenuCatalogTest::MenuCatalogTest(QObject *parent)
 }
 
 //------------------------------------------------------------------------------
-void MenuCatalogTest::shouldReturnExistedMenus()
-{
-    QMenuBar menuBar;
-    QMenu *menu1 = menuBar.addMenu("Menu1");
-    QMenu *menu2 = menuBar.addMenu("Menu2");
-
-    MenuCatalog catalog(menuBar);
-
-    QList<QMenu *> menus = catalog.menus();
-
-    QCOMPARE(2, menus.count());
-
-    QVERIFY(menus.contains(menu1));
-    QVERIFY(menus.contains(menu2));
-}
-
-//------------------------------------------------------------------------------
-void MenuCatalogTest::shouldReturnBothRemovedAndExistedMenus()
-{
-    QMenuBar menuBar;
-    QMenu *menu1 = menuBar.addMenu("Menu1");
-    QMenu *menu2 = menuBar.addMenu("Menu2");
-
-    MenuCatalog catalog(menuBar);
-    catalog.removeMenu("Menu1");
-
-    QList<QMenu *> menus = catalog.menus();
-
-    QCOMPARE(2, menus.count());
-
-    QVERIFY(menus.contains(menu1));
-    QVERIFY(menus.contains(menu2));
-}
-
-//------------------------------------------------------------------------------
-void MenuCatalogTest::shouldEmitWhenMenuAddedToMenuBar()
+void MenuCatalogTest::addMenu_shouldEmit()
 {
     QMenuBar menuBar;
     MenuCatalog catalog(menuBar);
@@ -89,7 +54,18 @@ void MenuCatalogTest::shouldEmitWhenMenuAddedToMenuBar()
 }
 
 //------------------------------------------------------------------------------
-void MenuCatalogTest::shouldEmitWhenMenuAddedToExistingMenu()
+void MenuCatalogTest::addMenu_shouldReturnExistedOne()
+{
+    QMenuBar menuBar;
+    MenuCatalog catalog(menuBar);
+
+    QMenu *menu1 = catalog.addMenu("Menu1");
+    QMenu *menu2 = catalog.addMenu("Menu1");
+    QCOMPARE(menu1, menu2);
+}
+
+//------------------------------------------------------------------------------
+void MenuCatalogTest::addMenu_shouldInstallFiltersToNewMenu()
 {
     QMenuBar menuBar;
     MenuCatalog catalog(menuBar);
@@ -102,21 +78,7 @@ void MenuCatalogTest::shouldEmitWhenMenuAddedToExistingMenu()
 }
 
 //------------------------------------------------------------------------------
-void MenuCatalogTest::shouldEmitWhenMenuAddedToExistingMenuInMenuBar()
-{
-    QMenuBar menuBar;
-    QMenu *menu1 = menuBar.addMenu("Menu1");
-    menuBar.addMenu("Menu2");
-
-    MenuCatalog catalog(menuBar);
-    QSignalSpy spy(&catalog, SIGNAL(subMenuAdded(QMenu *)));
-
-    menu1->addMenu("SubMenu1");
-    QCOMPARE(spy.count(), 1);
-}
-
-//------------------------------------------------------------------------------
-void MenuCatalogTest::shouldEmitWhenPopupAdded()
+void MenuCatalogTest::addPopup_shouldEmit()
 {
     QMenuBar menuBar;
     MenuCatalog catalog(menuBar);
@@ -130,16 +92,76 @@ void MenuCatalogTest::shouldEmitWhenPopupAdded()
 }
 
 //------------------------------------------------------------------------------
-void MenuCatalogTest::shouldEmitWhenMenuRemovedFromMenuBar()
+void MenuCatalogTest::addPopup_shouldSetupProperties()
 {
     QMenuBar menuBar;
-    menuBar.addMenu("Menu1");
+    MenuCatalog catalog(menuBar);
+
+    QMenu* popup = catalog.addPopup("Menu1");
+
+    QVERIFY(popup != nullptr);
+    QVERIFY(popup->menuAction()->text() == "Menu1");
+    QVERIFY(popup->title() == "Menu1");
+}
+
+//------------------------------------------------------------------------------
+void MenuCatalogTest::addPopup_shouldAddItToList()
+{
+    QMenuBar menuBar;
+    MenuCatalog catalog(menuBar);
+
+    QMenu* popup = catalog.addPopup("Menu1");
+
+    QVERIFY(catalog.popups().size() == 1);
+    QVERIFY(catalog.popups()[0] == popup);
+}
+
+//------------------------------------------------------------------------------
+void MenuCatalogTest::menus_shouldReturnFromMenuBar()
+{
+    QMenuBar menuBar;
+    QMenu *menu1 = menuBar.addMenu("Menu1");
+    QMenu *menu2 = menuBar.addMenu("Menu2");
+
+    MenuCatalog catalog(menuBar);
+
+    QList<QMenu *> menus = catalog.menus();
+
+    QCOMPARE(2, menus.count());
+
+    QVERIFY(menus.contains(menu1));
+    QVERIFY(menus.contains(menu2));
+}
+
+//------------------------------------------------------------------------------
+void MenuCatalogTest::menus_shouldReturnBothRemovedAndExistedMenus()
+{
+    QMenuBar menuBar;
+    QMenu *menu1 = menuBar.addMenu("Menu1");
+    QMenu *menu2 = menuBar.addMenu("Menu2");
+
+    MenuCatalog catalog(menuBar);
+    catalog.removeMenu("Menu1");
+
+    QList<QMenu *> menus = catalog.menus();
+
+    QCOMPARE(2, menus.count());
+
+    QVERIFY(menus.contains(menu1));
+    QVERIFY(menus.contains(menu2));
+}
+
+//------------------------------------------------------------------------------
+void MenuCatalogTest::shouldEmitWhenMenuAddedToExistingMenuInMenuBar()
+{
+    QMenuBar menuBar;
+    QMenu *menu1 = menuBar.addMenu("Menu1");
     menuBar.addMenu("Menu2");
 
     MenuCatalog catalog(menuBar);
-    QSignalSpy spy(&catalog, SIGNAL(menuRemoved(QMenu *)));
+    QSignalSpy spy(&catalog, SIGNAL(subMenuAdded(QMenu *)));
 
-    catalog.removeMenu("Menu1");
+    menu1->addMenu("SubMenu1");
     QCOMPARE(spy.count(), 1);
 }
 
@@ -159,7 +181,34 @@ void MenuCatalogTest::shouldEmitWhenSubMenuRemovedFromExistingMenu()
 }
 
 //------------------------------------------------------------------------------
-void MenuCatalogTest::shouldFindMenuFromMenuBar()
+void MenuCatalogTest::removeMenu_shouldEmitWhenRemovingFromMenuBar()
+{
+    QMenuBar menuBar;
+    menuBar.addMenu("Menu1");
+    menuBar.addMenu("Menu2");
+
+    MenuCatalog catalog(menuBar);
+    QSignalSpy spy(&catalog, SIGNAL(menuRemoved(QMenu *)));
+
+    catalog.removeMenu("Menu1");
+    QCOMPARE(spy.count(), 1);
+}
+
+//------------------------------------------------------------------------------
+void MenuCatalogTest::removeMenu_shouldRemoveFromMenuBar()
+{
+    QMenuBar menuBar;
+    menuBar.addMenu("Menu1");
+    menuBar.addMenu("Menu2");
+
+    MenuCatalog catalog(menuBar);
+    catalog.removeMenu("Menu1");
+
+    QCOMPARE(1, menuBar.actions().count());
+}
+
+//------------------------------------------------------------------------------
+void MenuCatalogTest::findMenu_shouldFindMenuFromMenuBar()
 {
     QMenuBar menuBar;
     menuBar.addMenu("Menu1");
@@ -174,7 +223,7 @@ void MenuCatalogTest::shouldFindMenuFromMenuBar()
 }
 
 //------------------------------------------------------------------------------
-void MenuCatalogTest::shouldFindMenuFromSubmenu()
+void MenuCatalogTest::findMenu_shouldFindMenuFromSubmenu()
 {
     QMenuBar menuBar;
     menuBar.addMenu("Menu1");
@@ -193,20 +242,7 @@ void MenuCatalogTest::shouldFindMenuFromSubmenu()
 }
 
 //------------------------------------------------------------------------------
-void MenuCatalogTest::shouldRemoveMenuFromMenuBar()
-{
-    QMenuBar menuBar;
-    menuBar.addMenu("Menu1");
-    menuBar.addMenu("Menu2");
-
-    MenuCatalog catalog(menuBar);
-    catalog.removeMenu("Menu1");
-
-    QCOMPARE(1, menuBar.actions().count());
-}
-
-//------------------------------------------------------------------------------
-void MenuCatalogTest::shouldFindMenuEverywhere()
+void MenuCatalogTest::findMenuEverywhere_shouldFindEverywhere()
 {
     QMenuBar menuBar;
     QMenu *menu1 = menuBar.addMenu("Menu1");
@@ -223,32 +259,7 @@ void MenuCatalogTest::shouldFindMenuEverywhere()
 }
 
 //------------------------------------------------------------------------------
-void MenuCatalogTest::shouldCreatePopupMenu()
-{
-    QMenuBar menuBar;
-    MenuCatalog catalog(menuBar);
-
-    QMenu* popup = catalog.addPopup("Menu1");
-
-    QVERIFY(popup != nullptr);
-    QVERIFY(popup->menuAction()->text() == "Menu1");
-    QVERIFY(popup->title() == "Menu1");
-}
-
-//------------------------------------------------------------------------------
-void MenuCatalogTest::shouldAddPopupMenuToList()
-{
-    QMenuBar menuBar;
-    MenuCatalog catalog(menuBar);
-
-    QMenu* popup = catalog.addPopup("Menu1");
-
-    QVERIFY(catalog.popups().size() == 1);
-    QVERIFY(catalog.popups()[0] == popup);
-}
-
-//------------------------------------------------------------------------------
-void MenuCatalogTest::shouldFindPopup()
+void MenuCatalogTest::findPopup_shouldFindPopup()
 {
     QMenuBar menuBar;
     MenuCatalog catalog(menuBar);
@@ -261,7 +272,7 @@ void MenuCatalogTest::shouldFindPopup()
 }
 
 //------------------------------------------------------------------------------
-void MenuCatalogTest::shouldFindPopupFromSubmenu()
+void MenuCatalogTest::findPopup_shouldFindFromSubmenu()
 {
     QMenuBar menuBar;
     MenuCatalog catalog(menuBar);
@@ -276,7 +287,7 @@ void MenuCatalogTest::shouldFindPopupFromSubmenu()
 }
 
 //------------------------------------------------------------------------------
-void MenuCatalogTest::shouldDeleteMenu()
+void MenuCatalogTest::deleteMenu_shouldDeleteMenu()
 {
     QMenuBar menuBar;
     QMenu *menu1 = menuBar.addMenu("Menu1");
@@ -289,7 +300,7 @@ void MenuCatalogTest::shouldDeleteMenu()
 }
 
 //------------------------------------------------------------------------------
-void MenuCatalogTest::shouldDeleteRemovedMenu()
+void MenuCatalogTest::deleteMenu_shouldDeleteRemovedMenu()
 {
     QMenuBar menuBar;
     QMenu *menu1 = menuBar.addMenu("Menu1");
@@ -303,7 +314,7 @@ void MenuCatalogTest::shouldDeleteRemovedMenu()
 }
 
 //------------------------------------------------------------------------------
-void MenuCatalogTest::shouldDeleteMenuByName()
+void MenuCatalogTest::deleteMenu_shouldDeleteMenuByName()
 {
     QMenuBar menuBar;
     menuBar.addMenu("Menu1");
