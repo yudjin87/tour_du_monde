@@ -15,7 +15,7 @@ win32 {
                                -lFramework
 
     # TODO: fix linkage: DOM component should not be dependent from Display
-    LIBS += -L$${DESTDIR} -lDisplay
+    LIBS += -L$${DESTDIR} -lorg.carousel.demos.Display
     LIBS += -L$${DESTDIR} -lorg.carousel.demos.Carto
 }
 

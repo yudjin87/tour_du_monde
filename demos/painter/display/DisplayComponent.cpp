@@ -66,7 +66,7 @@ void DisplayComponent::onShutdown(IServiceLocator *serviceLocator)
 //    delete view;
 
     IInteractionService* interactionService = serviceLocator->locate<IInteractionService>();
-    interactionService->setInputDispatcher(nullptr);
+    interactionService->setDispatcher(nullptr);
 }
 
 //------------------------------------------------------------------------------
@@ -84,10 +84,10 @@ bool DisplayComponent::onStartup(IServiceLocator *serviceLocator)
     serviceLocator->registerInstance<IDisplay>(display);
 
     IInteractionService* interactionService = serviceLocator->locate<IInteractionService>();
-    interactionService->setInputInterceptor(new InputDispatcher());
-    //interactionService->inputInterceptor()->setSender(view->viewport());
-    interactionService->inputInterceptor()->setSender(display);
-    interactionService->inputInterceptor()->activate();
+    interactionService->setDispatcher(new InputDispatcher());
+    //interactionService->dispatcher()->setSender(view->viewport());
+    interactionService->dispatcher()->setSender(display);
+    interactionService->dispatcher()->activate();
 
     return true;
 }

@@ -44,10 +44,10 @@ RectRubberBand::RectRubberBand(QObject *parent)
 QRect RectRubberBand::newRect(QGraphicsView *fromSender)
 {
     view = fromSender;
-    InputDispatcher *interceptor = new InputDispatcher(this);
-    interceptor->setReceiver(this);
-    interceptor->setSender(fromSender->viewport());
-    interceptor->activate();
+    InputDispatcher *dispatcher = new InputDispatcher(this);
+    dispatcher->setReceiver(this);
+    dispatcher->setSender(fromSender->viewport());
+    dispatcher->activate();
     return QRect();
 }
 

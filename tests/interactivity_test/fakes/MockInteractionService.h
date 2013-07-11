@@ -37,12 +37,12 @@ public:
     ITool *activeTool();
     ICatalogs &catalogs();
     const ICatalogs &catalogs() const;
-    IInputDispatcher *inputInterceptor();
+    IInputDispatcher *dispatcher();
     QMainWindow &mainWindow();
     void resetUi();
     void setActiveTool(ITool *activeTool);
     void setConfigurationDelegate(IComponentConfigurationDelegate *configurationDelegate);
-    void setInputDispatcher(IInputDispatcher *inputInterceptor);
+    void setDispatcher(IInputDispatcher *dispatcher);
     void saveUiState(int version = 0);
     void loadUiState(int version = 0);
 

@@ -24,8 +24,8 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef IINPUTINTERCEPTOR_H
-#define IINPUTINTERCEPTOR_H
+#ifndef IINPUTDISPATCHER_H
+#define IINPUTDISPATCHER_H
 
 #include "interactivity_global.h"
 
@@ -55,7 +55,7 @@ class QWidget;
  *    @li Double click event;
  *
  *    All these events (except context menu event) will pass to the widget if
- *    interceptor @a isActive(), and right after they will be handled by receiver.
+ *    dispatcher @a isActive(), and right after they will be handled by receiver.
  *    Also, if your receiver displays a custom context menu, it should let the
  *    application know that it handled the context menu event by returning @a true from
  *    the IInputReceiver::contextMenuFired() function. If you don't do this, the
@@ -133,4 +133,4 @@ private:
     Q_DISABLE_COPY(IInputDispatcher)
 };
 
-#endif // IINPUTINTERCEPTOR_H
+#endif // IINPUTDISPATCHER_H

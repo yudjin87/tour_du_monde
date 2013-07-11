@@ -19,17 +19,17 @@ InputDispatcherTest::InputDispatcherTest(QObject *parent)
 void InputDispatcherTest::shouldStoreSetWidget()
 {
     QWidget widget;
-    InputDispatcher interceptor;
-    interceptor.setSender(&widget);
+    InputDispatcher dispatcher;
+    dispatcher.setSender(&widget);
 
-    QCOMPARE(interceptor.sender(), &widget);
+    QCOMPARE(dispatcher.sender(), &widget);
 }
 
 //------------------------------------------------------------------------------
 void InputDispatcherTest::shouldNotThrowIfWidgetNullWhileDeactivate()
 {
-    InputDispatcher interceptor;
-    interceptor.deactivate();
+    InputDispatcher dispatcher;
+    dispatcher.deactivate();
 
     QVERIFY(true);
 }
@@ -37,8 +37,8 @@ void InputDispatcherTest::shouldNotThrowIfWidgetNullWhileDeactivate()
 //------------------------------------------------------------------------------
 void InputDispatcherTest::shouldNotThrowIfWidgetNullWhileActivate()
 {
-    InputDispatcher interceptor;
-    interceptor.activate();
+    InputDispatcher dispatcher;
+    dispatcher.activate();
 
     QVERIFY(true);
 }
@@ -46,62 +46,62 @@ void InputDispatcherTest::shouldNotThrowIfWidgetNullWhileActivate()
 //------------------------------------------------------------------------------
 void InputDispatcherTest::shouldStoreReceivedTool()
 {
-    InputDispatcher interceptor;
+    InputDispatcher dispatcher;
     MockTool tool;
-    interceptor.setReceiver(&tool);
+    dispatcher.setReceiver(&tool);
 
-    QCOMPARE(interceptor.receiver(), &tool);
+    QCOMPARE(dispatcher.receiver(), &tool);
 }
 
 //------------------------------------------------------------------------------
 void InputDispatcherTest::shouldReturnNullWidgetByDefault()
 {
-    InputDispatcher interceptor;
+    InputDispatcher dispatcher;
 
-    QVERIFY(interceptor.sender() == nullptr);
+    QVERIFY(dispatcher.sender() == nullptr);
 }
 
 //------------------------------------------------------------------------------
 void InputDispatcherTest::shouldReturnNullReceivedToolByDefault()
 {
-    InputDispatcher interceptor;
+    InputDispatcher dispatcher;
 
-    QVERIFY(interceptor.receiver() == nullptr);
+    QVERIFY(dispatcher.receiver() == nullptr);
 }
 
 //------------------------------------------------------------------------------
 void InputDispatcherTest::shouldBeDeactivedByDefault()
 {
-    InputDispatcher interceptor;
+    InputDispatcher dispatcher;
 
-    QCOMPARE(interceptor.isActive(), false);
+    QCOMPARE(dispatcher.isActive(), false);
 }
 
 //------------------------------------------------------------------------------
 void InputDispatcherTest::shouldBeActiveAfterActivating()
 {
-    InputDispatcher interceptor;
-    QCOMPARE(interceptor.isActive(), false);
+    InputDispatcher dispatcher;
+    QCOMPARE(dispatcher.isActive(), false);
 
-    interceptor.activate();
+    dispatcher.activate();
 
-    QCOMPARE(interceptor.isActive(), true);
+    QCOMPARE(dispatcher.isActive(), true);
 }
 
 //------------------------------------------------------------------------------
 void InputDispatcherTest::shouldBeWorkingAfterActivatingWithSenderAndReceiver()
 {
     QWidget widget;
-    InputDispatcher interceptor;
-    interceptor.setSender(&widget);
+    InputDispatcher dispatcher;
+    dispatcher.setSender(&widget);
     MockTool tool;
-    interceptor.setReceiver(&tool);
+    dispatcher.setReceiver(&tool);
 
-    QCOMPARE(interceptor.isWorking(), false);
+    QCOMPARE(dispatcher.isWorking(), false);
 
-    interceptor.activate();
+    dispatcher.activate();
 
-    QCOMPARE(interceptor.isWorking(), true);
+    QCOMPARE(dispatcher.isWorking(), true);
 }
 
 //------------------------------------------------------------------------------
@@ -109,15 +109,15 @@ void InputDispatcherTest::shouldBeWorkingAfterSettingSenderIfWasActivatedWithNul
 {
     QWidget widget; MockTool tool;
 
-    InputDispatcher interceptor;
-    interceptor.setReceiver(&tool);
-    interceptor.activate();
+    InputDispatcher dispatcher;
+    dispatcher.setReceiver(&tool);
+    dispatcher.activate();
 
-    QCOMPARE(interceptor.isWorking(), false);
+    QCOMPARE(dispatcher.isWorking(), false);
 
-    interceptor.setSender(&widget);
+    dispatcher.setSender(&widget);
 
-    QCOMPARE(interceptor.isWorking(), true);
+    QCOMPARE(dispatcher.isWorking(), true);
 }
 
 //------------------------------------------------------------------------------
@@ -125,87 +125,87 @@ void InputDispatcherTest::shouldBeWorkingAfterSettingReceiverIfWasActivatedWithN
 {
     QWidget widget; MockTool tool;
 
-    InputDispatcher interceptor;
-    interceptor.setSender(&widget);
-    interceptor.activate();
+    InputDispatcher dispatcher;
+    dispatcher.setSender(&widget);
+    dispatcher.activate();
 
-    QCOMPARE(interceptor.isWorking(), false);
+    QCOMPARE(dispatcher.isWorking(), false);
 
-    interceptor.setReceiver(&tool);
+    dispatcher.setReceiver(&tool);
 
-    QCOMPARE(interceptor.isWorking(), true);
+    QCOMPARE(dispatcher.isWorking(), true);
 }
 
 //------------------------------------------------------------------------------
 void InputDispatcherTest::shouldNotBeWorkingAfterActivatingWithoutSettingTheSenderAndReceiver()
 {
     QWidget widget;
-    InputDispatcher interceptor;
+    InputDispatcher dispatcher;
 
-    QCOMPARE(interceptor.isActive(), false);
+    QCOMPARE(dispatcher.isActive(), false);
 
-    interceptor.activate();
+    dispatcher.activate();
 
-    QCOMPARE(interceptor.isWorking(), false);
+    QCOMPARE(dispatcher.isWorking(), false);
 
-    interceptor.setSender(&widget);
+    dispatcher.setSender(&widget);
 
-    QCOMPARE(interceptor.isWorking(), false);
+    QCOMPARE(dispatcher.isWorking(), false);
 
-    interceptor.setSender(nullptr);
+    dispatcher.setSender(nullptr);
 
     MockTool tool;
-    interceptor.setReceiver(&tool);
+    dispatcher.setReceiver(&tool);
 
-    QCOMPARE(interceptor.isWorking(), false);
+    QCOMPARE(dispatcher.isWorking(), false);
 }
 
 //------------------------------------------------------------------------------
 void InputDispatcherTest::shouldNotBeActiveAfterActivatingAndDeactivating()
 {
-    InputDispatcher interceptor;
+    InputDispatcher dispatcher;
 
-    interceptor.activate();
+    dispatcher.activate();
 
-    QCOMPARE(interceptor.isActive(), true);
+    QCOMPARE(dispatcher.isActive(), true);
 
-    interceptor.deactivate();
+    dispatcher.deactivate();
 
-    QCOMPARE(interceptor.isActive(), false);
+    QCOMPARE(dispatcher.isActive(), false);
 }
 
 //------------------------------------------------------------------------------
 void InputDispatcherTest::shouldNotBeWorkingIfNotActive()
 {
     QWidget widget; MockTool tool;
-    InputDispatcher interceptor;
-    interceptor.setReceiver(&tool);
-    interceptor.setSender(&widget);
-    interceptor.activate();
+    InputDispatcher dispatcher;
+    dispatcher.setReceiver(&tool);
+    dispatcher.setSender(&widget);
+    dispatcher.activate();
 
-    QCOMPARE(interceptor.isWorking(), true);
+    QCOMPARE(dispatcher.isWorking(), true);
 
-    interceptor.deactivate();
+    dispatcher.deactivate();
 
-    QCOMPARE(interceptor.isWorking(), false);
+    QCOMPARE(dispatcher.isWorking(), false);
 }
 
 //------------------------------------------------------------------------------
 void InputDispatcherTest::shouldNotBeInvokeKeyboardHandlerAfterSettingNullSender()
 {
     QWidget widget;
-    InputDispatcher interceptor;
-    interceptor.setSender(&widget);
+    InputDispatcher dispatcher;
+    dispatcher.setSender(&widget);
     MockTool tool;
-    interceptor.setReceiver(&tool);
-    interceptor.activate();
+    dispatcher.setReceiver(&tool);
+    dispatcher.activate();
 
-    QCOMPARE(interceptor.isWorking(), true);
+    QCOMPARE(dispatcher.isWorking(), true);
 
-    interceptor.setSender(nullptr);
+    dispatcher.setSender(nullptr);
     QTest::keyRelease(&widget, 'E');
 
-    QCOMPARE(interceptor.isWorking(), false);
+    QCOMPARE(dispatcher.isWorking(), false);
     QVERIFY(!tool.keyUpCalled);
 }
 
@@ -213,18 +213,18 @@ void InputDispatcherTest::shouldNotBeInvokeKeyboardHandlerAfterSettingNullSender
 void InputDispatcherTest::shouldNotBeInvokeKeyboardHandlerAfterSettingNullReceiver()
 {
     QWidget widget;
-    InputDispatcher interceptor;
-    interceptor.setSender(&widget);
+    InputDispatcher dispatcher;
+    dispatcher.setSender(&widget);
     MockTool tool;
-    interceptor.setReceiver(&tool);
-    interceptor.activate();
+    dispatcher.setReceiver(&tool);
+    dispatcher.activate();
 
-    QCOMPARE(interceptor.isWorking(), true);
+    QCOMPARE(dispatcher.isWorking(), true);
 
-    interceptor.setReceiver(nullptr);
+    dispatcher.setReceiver(nullptr);
     QTest::keyRelease(&widget, 'E');
 
-    QCOMPARE(interceptor.isWorking(), false);
+    QCOMPARE(dispatcher.isWorking(), false);
     QVERIFY(!tool.keyUpCalled);
 }
 
@@ -233,49 +233,49 @@ void InputDispatcherTest::shouldNotBeWorkingAfterSenderDeletion()
 {
     MockTool tool;
 
-    InputDispatcher interceptor;
-    interceptor.activate();
-    interceptor.setReceiver(&tool);
+    InputDispatcher dispatcher;
+    dispatcher.activate();
+    dispatcher.setReceiver(&tool);
 
     {
         QWidget widget;
-        interceptor.setSender(&widget);
-        QCOMPARE(interceptor.isWorking(), true);
+        dispatcher.setSender(&widget);
+        QCOMPARE(dispatcher.isWorking(), true);
     }
 
-    QCOMPARE(interceptor.isWorking(), false);
-    QVERIFY(interceptor.sender() == nullptr);
+    QCOMPARE(dispatcher.isWorking(), false);
+    QVERIFY(dispatcher.sender() == nullptr);
 }
 
 //------------------------------------------------------------------------------
 void InputDispatcherTest::shouldNotBeWorkingAfterReceiverDeletion()
 {
-    InputDispatcher interceptor;
-    interceptor.activate();
+    InputDispatcher dispatcher;
+    dispatcher.activate();
     QWidget widget;
-    interceptor.setSender(&widget);
+    dispatcher.setSender(&widget);
 
     {
         MockTool tool;
-        interceptor.setReceiver(&tool);
-        QCOMPARE(interceptor.isWorking(), true);
+        dispatcher.setReceiver(&tool);
+        QCOMPARE(dispatcher.isWorking(), true);
     }
 
-    QCOMPARE(interceptor.isWorking(), false);
-    QVERIFY(interceptor.receiver() == nullptr);
+    QCOMPARE(dispatcher.isWorking(), false);
+    QVERIFY(dispatcher.receiver() == nullptr);
 }
 
 //------------------------------------------------------------------------------
 void InputDispatcherTest::shouldCallReceiverIfWorking()
 {
     QWidget widget;
-    InputDispatcher interceptor;
-    interceptor.setSender(&widget);
+    InputDispatcher dispatcher;
+    dispatcher.setSender(&widget);
     MockTool tool;
-    interceptor.setReceiver(&tool);
-    interceptor.activate();
+    dispatcher.setReceiver(&tool);
+    dispatcher.activate();
 
-    QCOMPARE(interceptor.isWorking(), true);
+    QCOMPARE(dispatcher.isWorking(), true);
 
     QTest::keyRelease(&widget, 'E');
 
@@ -286,15 +286,15 @@ void InputDispatcherTest::shouldCallReceiverIfWorking()
 void InputDispatcherTest::shouldNotInvokeKeyboardHandlerIfNotWorking()
 {
     QWidget widget;
-    InputDispatcher interceptor;
-    interceptor.setSender(&widget);
+    InputDispatcher dispatcher;
+    dispatcher.setSender(&widget);
     MockTool tool;
-    interceptor.setReceiver(&tool);
+    dispatcher.setReceiver(&tool);
 
-    interceptor.activate();
-    interceptor.deactivate();
+    dispatcher.activate();
+    dispatcher.deactivate();
 
-    QCOMPARE(interceptor.isWorking(), false);
+    QCOMPARE(dispatcher.isWorking(), false);
 
     QTest::keyRelease(&widget, 'E');
 
@@ -305,15 +305,15 @@ void InputDispatcherTest::shouldNotInvokeKeyboardHandlerIfNotWorking()
 void InputDispatcherTest::shouldInvokeKeyboardHandlerAfterReactivating()
 {
     QWidget widget;
-    InputDispatcher interceptor;
-    interceptor.setSender(&widget);
-    interceptor.activate();
+    InputDispatcher dispatcher;
+    dispatcher.setSender(&widget);
+    dispatcher.activate();
 
     MockTool tool;
-    interceptor.setReceiver(&tool);
+    dispatcher.setReceiver(&tool);
 
-    interceptor.deactivate();
-    interceptor.activate();
+    dispatcher.deactivate();
+    dispatcher.activate();
 
     QTest::keyRelease(&widget, 'E');
 

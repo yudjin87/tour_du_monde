@@ -59,7 +59,7 @@ public:
      *   The currently selected tool in application. When not null,
      *   user's mouse and keyboard events from the central widget are
      *   sent to this tool by IInputDispatcher.
-     * @sa setInputDispatcher, inputInterceptor
+     * @sa setDispatcher, dispatcher
      */
     ITool *activeTool();
 
@@ -85,10 +85,10 @@ public:
 
     /*!
      * @details
-     *   Gets the current user input interceptor. Null by default.
-     * @sa setInputDispatcher, activeTool
+     *   Gets the current user input dispatcher. Null by default.
+     * @sa setDispatcher, activeTool
      */
-    IInputDispatcher *inputInterceptor();
+    IInputDispatcher *dispatcher();
 
     /*!
      * @details
@@ -151,18 +151,18 @@ public:
 
     /*!
      * @details
-     *   Deletes the previous (if any) and sets the new input interceptor in one of your GUI components.
+     *   Deletes the previous (if any) and sets the new input dispatcher in one of your GUI components.
      *   If you want user input would be sent to the active tool, use following snippet:
      * @code
      *   IInteractionService* interactionService = application->serviceLocator().locate<IInteractionService>();
-     *   interactionService->setInputDispatcher(new InputDispatcher());
-     *   interactionService->inputInterceptor()->setSender(interactionService->mainWindow.centralWidget());
+     *   interactionService->setDispatcher(new InputDispatcher());
+     *   interactionService->dispatcher()->setSender(interactionService->mainWindow.centralWidget());
      * @endcode
      *   @a Null by default. Note, that CarouselInteractionService takes ownership of the
-     *   interceptor.
-     * @sa setInputDispatcher, activeTool
+     *   dispatcher.
+     * @sa setDispatcher, activeTool
      */
-    void setInputDispatcher(IInputDispatcher *inputInterceptor);
+    void setDispatcher(IInputDispatcher *dispatcher);
 
 protected slots:
     /*!
@@ -188,14 +188,14 @@ protected slots:
 
     /*!
      * @details
-     *   Sets active tool and receiver to nullptr to the current interceptor (if any).
+     *   Sets active tool and receiver to nullptr to the current dispatcher (if any).
      *   This slot is invoked when @a active @a tool is stopped.
      */
     void onToolExecutingStopped();
 
     /*!
      * @details
-     *   Sets active tool and receiver to nullptr to the current interceptor (if any).
+     *   Sets active tool and receiver to nullptr to the current dispatcher (if any).
      *   This slot is invoked when @a active @a tool instance is deleted.
      */
     void onToolDeleted();
@@ -204,7 +204,7 @@ private:
     void makeConnections();
 
 private:
-    IInputDispatcher *m_inputInterceptor;
+    IInputDispatcher *m_dispatcher;
     IComponentConfigurationDelegate *m_componentConfigurationDelegate;
     IComponentManager *m_componentManager;
     ITool *m_activeTool;

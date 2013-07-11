@@ -75,7 +75,7 @@ public:
      *   The currently selected tool in application. When not null,
      *   user's mouse and keyboard events from the central widget are
      *   sent to this tool by IInputDispatcher.
-     * @sa setInputDispatcher, inputInterceptor
+     * @sa setDispatcher, dispatcher
      */
     virtual ITool *activeTool() = 0;
 
@@ -93,10 +93,10 @@ public:
 
     /*!
      * @details
-     *   Gets the current user input interceptor. Null by default.
-     * @sa setInputDispatcher, activeTool
+     *   Gets the current user input dispatcher. Null by default.
+     * @sa setDispatcher, activeTool
      */
-    virtual IInputDispatcher *inputInterceptor() = 0;
+    virtual IInputDispatcher *dispatcher() = 0;
 
     /*!
      * @details
@@ -159,18 +159,18 @@ public:
 
     /*!
      * @details
-     *   Deletes the previous (if any) and sets the new input interceptor in one of your GUI components.
+     *   Deletes the previous (if any) and sets the new input dispatcher in one of your GUI components.
      *   If you want user input would be sent to the active tool, use following snippet:
      * @code
      *   IInteractionService* interactionService = application->serviceLocator().locate<IInteractionService>();
-     *   interactionService->setInputDispatcher(new InputDispatcher());
-     *   interactionService->inputInterceptor()->setSender(interactionService->mainWindow.centralWidget());
+     *   interactionService->setDispatcher(new InputDispatcher());
+     *   interactionService->dispatcher()->setSender(interactionService->mainWindow.centralWidget());
      * @endcode
      *   @a Null by default. Note, that IInteractionService takes ownership of the
-     *   interceptor.
-     * @sa setInputDispatcher, activeTool
+     *   dispatcher.
+     * @sa setDispatcher, activeTool
      */
-    virtual void setInputDispatcher(IInputDispatcher *inputInterceptor) = 0;
+    virtual void setDispatcher(IInputDispatcher *dispatcher) = 0;
 
 private:
     Q_DISABLE_COPY(IInteractionService)
