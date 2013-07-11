@@ -25,6 +25,7 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "JsScriptingComponent.h"
+#include "JsScriptingInteractiveExtension.h"
 
 #include <carousel/componentsystem/ComponentExport.h>
 #include <carousel/logging/LoggerFacade.h>
@@ -46,6 +47,9 @@ static const QByteArray description(
 JsScriptingComponent::JsScriptingComponent(QObject *parent)
     : BaseComponent("org.carousel.JsScripting", parent)
 {
+    IInteractiveExtension *interactiveExtension = new JsScriptingInteractiveExtension(this);
+    registerExtension<IInteractiveExtension>(interactiveExtension);
+
     setShortName("JsScripting");
     setProductName("JsScripting");
     setDescription(description);
