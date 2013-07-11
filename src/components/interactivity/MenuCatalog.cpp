@@ -52,7 +52,11 @@ MenuCatalog::~MenuCatalog()
 //------------------------------------------------------------------------------
 QMenu *MenuCatalog::addMenu(const QString &title)
 {
-    QMenu *menu = m_menuBar.addMenu(title);
+    QMenu *menu = findMenuEverywhere(title);
+    if (menu != nullptr)
+        return menu;
+
+    menu = m_menuBar.addMenu(title);
     installEventFilterForSubMenus(menu);
     onMenuAdded(menu);
     return menu;
@@ -61,7 +65,11 @@ QMenu *MenuCatalog::addMenu(const QString &title)
 //------------------------------------------------------------------------------
 QMenu *MenuCatalog::addMenu(const QIcon &icon, const QString &title)
 {
-    QMenu *menu = m_menuBar.addMenu(icon, title);
+    QMenu *menu = findMenuEverywhere(title);
+    if (menu != nullptr)
+        return menu;
+
+    menu = m_menuBar.addMenu(icon, title);
     installEventFilterForSubMenus(menu);
     onMenuAdded(menu);
     return menu;
