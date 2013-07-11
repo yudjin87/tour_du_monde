@@ -42,15 +42,15 @@ public:
 private Q_SLOTS:
     void shouldCreateEmptyCatalogs();
     void shouldReturnEmptyToolByDefault();
-    void shouldReturnEmptyInputInterceptor();
+    void shouldReturnEmptyInputDispatcher();
     void shouldReturnMainWindow();
 
-    void shouldSetupInputInterceptor();
+    void shouldSetupInputDispatcher();
     void shouldSetupCurrentToolToInterceptor();
     void shouldNullToolAfterItsDeletion();
     void shouldNotThrowIfPreviousInterceptorIsNull();
     void shouldNotThrowIfNewInterceptorIsNull();
-    void shouldDeletePreviousInputInterceptor();
+    void shouldDeletePreviousInputDispatcher();
 
     void shouldReturnDefaultConfigurationDelegate();
     void shouldSetupConfigurationDelegate();

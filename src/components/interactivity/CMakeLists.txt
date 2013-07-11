@@ -14,7 +14,7 @@ set(__SOURCES
     ${CRSL_TARGET_SOURCES}/ConfigurationChanges.cpp 
     ${CRSL_TARGET_SOURCES}/DialogService.cpp 
     ${CRSL_TARGET_SOURCES}/DockWidgetCatalog.cpp 
-    ${CRSL_TARGET_SOURCES}/InputInterceptor.cpp 
+    ${CRSL_TARGET_SOURCES}/InputDispatcher.cpp 
     ${CRSL_TARGET_SOURCES}/InteractionServiceComponent.cpp 
     ${CRSL_TARGET_SOURCES}/MenuCatalog.cpp 
     ${CRSL_TARGET_SOURCES}/Operation.cpp 
@@ -36,12 +36,12 @@ set(__HEADERS
     ${CRSL_TARGET_HEADERS}/IComponentConfigurationDelegate.h 
     ${CRSL_TARGET_HEADERS}/IDialogService.h 
     ${CRSL_TARGET_HEADERS}/IDockWidgetCatalog.h 
-    ${CRSL_TARGET_HEADERS}/IInputInterceptor.h 
+    ${CRSL_TARGET_HEADERS}/IInputDispatcher.h 
     ${CRSL_TARGET_HEADERS}/IInputReceiver.h 
     ${CRSL_TARGET_HEADERS}/IInteractionService.h 
     ${CRSL_TARGET_HEADERS}/IInteractiveExtension.h 
     ${CRSL_TARGET_HEADERS}/IMenuCatalog.h 
-    ${CRSL_TARGET_HEADERS}/InputInterceptor.h 
+    ${CRSL_TARGET_HEADERS}/InputDispatcher.h 
     ${CRSL_TARGET_HEADERS}/InteractionServiceComponent.h 
     ${CRSL_TARGET_HEADERS}/interactivity_global.h 
     ${CRSL_TARGET_HEADERS}/IOperation.h 

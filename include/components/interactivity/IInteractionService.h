@@ -33,7 +33,7 @@
 
 class ICatalogs;
 class IComponentConfigurationDelegate;
-class IInputInterceptor;
+class IInputDispatcher;
 class ITool;
 class QMainWindow;
 
@@ -74,8 +74,8 @@ public:
      * @details
      *   The currently selected tool in application. When not null,
      *   user's mouse and keyboard events from the central widget are
-     *   sent to this tool by IInputInterceptor.
-     * @sa setInputInterceptor, inputInterceptor
+     *   sent to this tool by IInputDispatcher.
+     * @sa setInputDispatcher, inputInterceptor
      */
     virtual ITool *activeTool() = 0;
 
@@ -94,9 +94,9 @@ public:
     /*!
      * @details
      *   Gets the current user input interceptor. Null by default.
-     * @sa setInputInterceptor, activeTool
+     * @sa setInputDispatcher, activeTool
      */
-    virtual IInputInterceptor *inputInterceptor() = 0;
+    virtual IInputDispatcher *inputInterceptor() = 0;
 
     /*!
      * @details
@@ -163,14 +163,14 @@ public:
      *   If you want user input would be sent to the active tool, use following snippet:
      * @code
      *   IInteractionService* interactionService = application->serviceLocator().locate<IInteractionService>();
-     *   interactionService->setInputInterceptor(new InputInterceptor());
+     *   interactionService->setInputDispatcher(new InputDispatcher());
      *   interactionService->inputInterceptor()->setSender(interactionService->mainWindow.centralWidget());
      * @endcode
      *   @a Null by default. Note, that IInteractionService takes ownership of the
      *   interceptor.
-     * @sa setInputInterceptor, activeTool
+     * @sa setInputDispatcher, activeTool
      */
-    virtual void setInputInterceptor(IInputInterceptor *inputInterceptor) = 0;
+    virtual void setInputDispatcher(IInputDispatcher *inputInterceptor) = 0;
 
 private:
     Q_DISABLE_COPY(IInteractionService)

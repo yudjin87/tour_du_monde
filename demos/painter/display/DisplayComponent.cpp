@@ -30,7 +30,7 @@
 #include <carousel/componentsystem/ComponentDefinition.h>
 #include <carousel/componentsystem/ComponentExport.h>
 #include <components/interactivity/IInteractionService.h>
-#include <components/interactivity/InputInterceptor.h>
+#include <components/interactivity/InputDispatcher.h>
 #include <carousel/utils/IServiceLocator.h>
 
 #include <QtWidgets/QGraphicsScene>
@@ -66,7 +66,7 @@ void DisplayComponent::onShutdown(IServiceLocator *serviceLocator)
 //    delete view;
 
     IInteractionService* interactionService = serviceLocator->locate<IInteractionService>();
-    interactionService->setInputInterceptor(nullptr);
+    interactionService->setInputDispatcher(nullptr);
 }
 
 //------------------------------------------------------------------------------
@@ -84,7 +84,7 @@ bool DisplayComponent::onStartup(IServiceLocator *serviceLocator)
     serviceLocator->registerInstance<IDisplay>(display);
 
     IInteractionService* interactionService = serviceLocator->locate<IInteractionService>();
-    interactionService->setInputInterceptor(new InputInterceptor());
+    interactionService->setInputInterceptor(new InputDispatcher());
     //interactionService->inputInterceptor()->setSender(view->viewport());
     interactionService->inputInterceptor()->setSender(display);
     interactionService->inputInterceptor()->activate();

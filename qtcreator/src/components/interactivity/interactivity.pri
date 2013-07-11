@@ -8,7 +8,7 @@ SOURCES += \
     $$PROJECT_SOURCES/ConfigurationChanges.cpp \
     $$PROJECT_SOURCES/DialogService.cpp \
     $$PROJECT_SOURCES/DockWidgetCatalog.cpp \
-    $$PROJECT_SOURCES/InputInterceptor.cpp \
+    $$PROJECT_SOURCES/InputDispatcher.cpp \
     $$PROJECT_SOURCES/InteractionServiceComponent.cpp \
     $$PROJECT_SOURCES/MenuCatalog.cpp \
     $$PROJECT_SOURCES/Operation.cpp \
@@ -27,12 +27,12 @@ HEADERS += \
     $$PROJECT_HEADERS/IComponentConfigurationDelegate.h \
     $$PROJECT_HEADERS/IDialogService.h \
     $$PROJECT_HEADERS/IDockWidgetCatalog.h \
-    $$PROJECT_HEADERS/IInputInterceptor.h \
+    $$PROJECT_HEADERS/IInputDispatcher.h \
     $$PROJECT_HEADERS/IInputReceiver.h \
     $$PROJECT_HEADERS/IInteractionService.h \
     $$PROJECT_HEADERS/IInteractiveExtension.h \
     $$PROJECT_HEADERS/IMenuCatalog.h \
-    $$PROJECT_HEADERS/InputInterceptor.h \
+    $$PROJECT_HEADERS/InputDispatcher.h \
     $$PROJECT_HEADERS/InteractionServiceComponent.h \
     $$PROJECT_HEADERS/interactivity_global.h \
     $$PROJECT_HEADERS/IOperation.h \

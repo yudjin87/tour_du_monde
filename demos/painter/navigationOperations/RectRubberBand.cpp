@@ -26,7 +26,7 @@
 
 #include "RectRubberBand.h"
 
-#include <components/interactivity/InputInterceptor.h>
+#include <components/interactivity/InputDispatcher.h>
 
 #include <QtDebug>
 
@@ -44,7 +44,7 @@ RectRubberBand::RectRubberBand(QObject *parent)
 QRect RectRubberBand::newRect(QGraphicsView *fromSender)
 {
     view = fromSender;
-    InputInterceptor *interceptor = new InputInterceptor(this);
+    InputDispatcher *interceptor = new InputDispatcher(this);
     interceptor->setReceiver(this);
     interceptor->setSender(fromSender->viewport());
     interceptor->activate();

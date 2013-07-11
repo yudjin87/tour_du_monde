@@ -51,7 +51,7 @@ const ICatalogs &MockInteractionService::catalogs() const
 }
 
 //------------------------------------------------------------------------------
-IInputInterceptor *MockInteractionService::inputInterceptor()
+IInputDispatcher *MockInteractionService::inputInterceptor()
 {
     throw "Not Implemented.";
 }
@@ -75,7 +75,7 @@ void MockInteractionService::setConfigurationDelegate(IComponentConfigurationDel
 }
 
 //------------------------------------------------------------------------------
-void MockInteractionService::setInputInterceptor(IInputInterceptor * /*inputInterceptor*/)
+void MockInteractionService::setInputDispatcher(IInputDispatcher * /*inputInterceptor*/)
 {
     throw "Not Implemented.";
 }

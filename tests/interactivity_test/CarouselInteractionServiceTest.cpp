@@ -29,7 +29,7 @@
 #include "fakes/MockComponentConfigurationDelegate.h"
 #include "fakes/MockCarouselInteractionService.h"
 #include "fakes/MockComponentManager.h"
-#include "fakes/MockInputInterceptor.h"
+#include "fakes/MockInputDispatcher.h"
 #include "fakes/MockInteractiveExtension.h"
 #include "fakes/MockTool.h"
 
@@ -38,7 +38,7 @@
 #include <components/interactivity/DockWidgetCatalog.h>
 #include <components/interactivity/ICatalogs.h>
 #include <components/interactivity/IComponentConfigurationDelegate.h>
-#include <components/interactivity/InputInterceptor.h>
+#include <components/interactivity/InputDispatcher.h>
 #include <components/interactivity/MenuCatalog.h>
 #include <components/interactivity/ToolBase.h>
 #include <components/interactivity/ToolBarCatalog.h>
@@ -81,7 +81,7 @@ void CarouselInteractionServiceTest::shouldReturnEmptyToolByDefault()
 }
 
 //------------------------------------------------------------------------------
-void CarouselInteractionServiceTest::shouldReturnEmptyInputInterceptor()
+void CarouselInteractionServiceTest::shouldReturnEmptyInputDispatcher()
 {
     QMainWindow mainWnd; MockComponentManager manager(&m_serviceLocator);
 
@@ -101,7 +101,7 @@ void CarouselInteractionServiceTest::shouldReturnMainWindow()
 }
 
 //------------------------------------------------------------------------------
-void CarouselInteractionServiceTest::shouldSetupInputInterceptor()
+void CarouselInteractionServiceTest::shouldSetupInputDispatcher()
 {
     QMainWindow mainWnd; MockComponentManager manager(&m_serviceLocator);
 
@@ -109,8 +109,8 @@ void CarouselInteractionServiceTest::shouldSetupInputInterceptor()
 
     QVERIFY(service.inputInterceptor() == nullptr);
 
-    InputInterceptor *interceptor = new InputInterceptor();
-    service.setInputInterceptor(interceptor);
+    InputDispatcher *interceptor = new InputDispatcher();
+    service.setInputDispatcher(interceptor);
 
     QVERIFY(service.inputInterceptor() == interceptor);
 }
@@ -123,10 +123,10 @@ void CarouselInteractionServiceTest::shouldSetupCurrentToolToInterceptor()
     CarouselInteractionService service(&m_serviceLocator, &mainWnd, &manager);
     MockTool tool;
     service.setActiveTool(&tool);
-    MockInputInterceptor *interceptor = new MockInputInterceptor();
+    MockInputDispatcher *interceptor = new MockInputDispatcher();
     interceptor->setSender(&mainWnd);
 
-    service.setInputInterceptor(interceptor);
+    service.setInputDispatcher(interceptor);
 
     QVERIFY(interceptor->receiver() == &tool);
 }
@@ -155,8 +155,8 @@ void CarouselInteractionServiceTest::shouldNotThrowIfPreviousInterceptorIsNull()
 
     QVERIFY(service.inputInterceptor() == nullptr);
 
-    InputInterceptor *interceptor = new InputInterceptor();
-    service.setInputInterceptor(interceptor);
+    InputDispatcher *interceptor = new InputDispatcher();
+    service.setInputDispatcher(interceptor);
 
     QVERIFY(true);
 }
@@ -168,14 +168,14 @@ void CarouselInteractionServiceTest::shouldNotThrowIfNewInterceptorIsNull()
 
     CarouselInteractionService service(&m_serviceLocator, &mainWnd, &manager);
 
-    service.setInputInterceptor(new InputInterceptor());
-    service.setInputInterceptor(nullptr);
+    service.setInputDispatcher(new InputDispatcher());
+    service.setInputDispatcher(nullptr);
 
     QVERIFY(true);
 }
 
 //------------------------------------------------------------------------------
-void CarouselInteractionServiceTest::shouldDeletePreviousInputInterceptor()
+void CarouselInteractionServiceTest::shouldDeletePreviousInputDispatcher()
 {
     QMainWindow mainWnd; MockComponentManager manager(&m_serviceLocator);
 
@@ -183,14 +183,14 @@ void CarouselInteractionServiceTest::shouldDeletePreviousInputInterceptor()
 
     QVERIFY(service.inputInterceptor() == nullptr);
 
-    MockInputInterceptor *interceptor = new MockInputInterceptor();
+    MockInputDispatcher *interceptor = new MockInputDispatcher();
     bool wasDeleted = false;
     interceptor->setDeleteFlag(wasDeleted);
-    service.setInputInterceptor(interceptor);
+    service.setInputDispatcher(interceptor);
 
     QVERIFY(service.inputInterceptor() == interceptor);
 
-    service.setInputInterceptor(new InputInterceptor());
+    service.setInputDispatcher(new InputDispatcher());
 
     QVERIFY(wasDeleted);
 }
@@ -420,9 +420,9 @@ void CarouselInteractionServiceTest::shouldSetupNullToInterceptorWhenActiveToolI
     QMainWindow mainWnd; MockComponentManager manager(&m_serviceLocator);
 
     CarouselInteractionService service(&m_serviceLocator, &mainWnd, &manager);
-    MockInputInterceptor *interceptor = new MockInputInterceptor();
+    MockInputDispatcher *interceptor = new MockInputDispatcher();
     interceptor->setSender(&mainWnd);
-    service.setInputInterceptor(interceptor);
+    service.setInputDispatcher(interceptor);
 
     ToolBase tool;
     service.setActiveTool(&tool);
@@ -453,9 +453,9 @@ void CarouselInteractionServiceTest::shouldSetupNewlyCurrentToolToInterceptor()
     QMainWindow mainWnd; MockComponentManager manager(&m_serviceLocator);
 
     CarouselInteractionService service(&m_serviceLocator, &mainWnd, &manager);
-    MockInputInterceptor *interceptor = new MockInputInterceptor();
+    MockInputDispatcher *interceptor = new MockInputDispatcher();
     interceptor->setSender(&mainWnd);
-    service.setInputInterceptor(interceptor);
+    service.setInputDispatcher(interceptor);
 
     MockTool tool;
     service.setActiveTool(&tool);
@@ -469,9 +469,9 @@ void CarouselInteractionServiceTest::shouldNotThrowIfInterceptorIsNull()
     QMainWindow mainWnd; MockComponentManager manager(&m_serviceLocator);
 
     CarouselInteractionService service(&m_serviceLocator, &mainWnd, &manager);
-    MockInputInterceptor *interceptor = new MockInputInterceptor();
+    MockInputDispatcher *interceptor = new MockInputDispatcher();
     interceptor->setSender(&mainWnd);
-    service.setInputInterceptor(interceptor);
+    service.setInputDispatcher(interceptor);
 
     MockTool tool;
     service.setActiveTool(&tool);
