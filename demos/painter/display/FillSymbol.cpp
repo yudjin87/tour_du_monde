@@ -24,88 +24,61 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "SymbolBase.h"
-#include "IDisplay.h"
-
-#include <geometry/Point.h>
-#include <geometry/Polygon.h>
-#include <geometry/Polyline.h>
-
-#include <QtGui/QPainter>
+#include "FillSymbol.h"
+#include "SimpleLineSymbol.h"
 
 //------------------------------------------------------------------------------
-SymbolBase::SymbolBase(QObject *parent)
-    : QObject(parent)
-    , m_display(nullptr)
-    , m_painter(nullptr)
+FillSymbol::FillSymbol(QObject *parent)
+    : SymbolBase(parent)
+    , m_outline(new SimpleLineSymbol())
+    , m_color(QColor(rand() % 255, rand() % 255, rand() % 255))
 {
+
 }
 
 //------------------------------------------------------------------------------
-SymbolBase::~SymbolBase()
+FillSymbol::~FillSymbol()
 {
+    delete m_outline;
+    m_outline = nullptr;
 }
 
 //------------------------------------------------------------------------------
-void SymbolBase::draw(const AbstractGeometry *geometry)
+void FillSymbol::setupDisplay(IDisplay *display)
 {
-    if (m_painter == nullptr)
-        m_painter = m_display->painter();
-
-    switch (geometry->type())
-    {
-    case GeometryPoint: {
-        const Point *point = static_cast<const Point *>(geometry);
-        drawPoint(*point, *m_painter);
-        break;
-    }
-    case GeometryPolygon: {
-        const Polygon *polygon = static_cast<const Polygon *>(geometry);
-        drawPolygon(*polygon, *m_painter);
-        break;
-    }
-    case GeometryPolyline: {
-        const Polyline *polyline = static_cast<const Polyline *>(geometry);
-        drawPolyline(*polyline, *m_painter);
-        break;
-    }
-    default:
-        break;
-    }
+    SymbolBase::setupDisplay(display);
+    m_outline->setupDisplay(display);
 }
 
 //------------------------------------------------------------------------------
-void SymbolBase::setupDisplay(IDisplay *display)
+QColor FillSymbol::color() const
 {
-    m_display = display;
+    return m_color;
 }
 
 //------------------------------------------------------------------------------
-void SymbolBase::resetDisplay()
+void FillSymbol::setColor(const QColor &color)
 {
-    m_painter = nullptr;
-    m_display = nullptr;
+    m_color = color;
 }
 
 //------------------------------------------------------------------------------
-void SymbolBase::drawPoint(const Point &point, QPainter &painter)
+LineSymbol *FillSymbol::outline()
 {
-    Q_UNUSED(point)
-    Q_UNUSED(painter)
+    return m_outline;
 }
 
 //------------------------------------------------------------------------------
-void SymbolBase::drawPolygon(const Polygon &polygon, QPainter &painter)
+const LineSymbol *FillSymbol::outline() const
 {
-    Q_UNUSED(polygon)
-    Q_UNUSED(painter)
+    return m_outline;
 }
 
 //------------------------------------------------------------------------------
-void SymbolBase::drawPolyline(const Polyline &polyline, QPainter &painter)
+void FillSymbol::setOutline(LineSymbol *outline)
 {
-    Q_UNUSED(polyline)
-    Q_UNUSED(painter)
+    delete m_outline;
+    m_outline = outline;
 }
 
 //------------------------------------------------------------------------------

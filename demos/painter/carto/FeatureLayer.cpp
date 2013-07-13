@@ -28,6 +28,7 @@
 
 #include <display/FeatureRenderer.h>
 #include <display/IDisplay.h>
+#include <display/SimpleFillSymbol.h>
 #include <display/SimpleMarkerSymbol.h>
 #include <display/SimpleLineSymbol.h>
 
@@ -108,10 +109,9 @@ void FeatureLayer::setFeatureClass(IFeatureClass *featureClass)
         m_symbol = new SimpleLineSymbol();
         break;
 
-//    case GeometryPolygon:
-//        foreach(Feature *feature, mp_featureClass->getFeatures())
-//            mp_featureRenderer->drawPolygon(feature->geometry());
-//        break;
+    case GeometryPolygon:
+        m_symbol = new SimpleFillSymbol();
+        break;
 
     default:
         break;

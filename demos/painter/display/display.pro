@@ -10,8 +10,8 @@ DEFINES += DISPLAY_LIB_IMPORT
 
 LIBS += -L$${CAROUSEL_BIN} -lorg.carousel.Interactivity \
 
-DESTDIR = $${DESTDIR}/externalSource
-#DESTDIR = $${DESTDIR}/installedComponents/org.carousel.demos.Display
+#DESTDIR = $${DESTDIR}/externalSource
+DESTDIR = $${DESTDIR}/installedComponents/org.carousel.demos.Display
 
 win32 {
     LIBS += -L$${CAROUSEL_BIN} -lComponentSystem \
@@ -32,7 +32,9 @@ HEADERS += \
     MarkerSymbol.h \
     SimpleMarkerSymbol.h \
     LineSymbol.h \
-    SimpleLineSymbol.h
+    SimpleLineSymbol.h \
+    FillSymbol.h \
+    SimpleFillSymbol.h
 
 SOURCES += \
     DisplayComponent.cpp \
@@ -43,7 +45,9 @@ SOURCES += \
     MarkerSymbol.cpp \
     SimpleMarkerSymbol.cpp \
     LineSymbol.cpp \
-    SimpleLineSymbol.cpp
+    SimpleLineSymbol.cpp \
+    FillSymbol.cpp \
+    SimpleFillSymbol.cpp
 
 FORMS +=
 
