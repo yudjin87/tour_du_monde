@@ -71,7 +71,9 @@ signals:
 
 private:
     Q_DISABLE_COPY(SimpleDisplay)
-    QTransform transform() const;
+    QTransform transform();
+    int getDy();
+    int getDx();
 
 private:
     QRectF m_extent;
@@ -80,5 +82,8 @@ private:
     QPixmap *m_pixmap;
     QPainter *m_currentPainter;
     mutable QTransform m_transform;
+
+    int m_dx;
+    int m_dy;
 };
 #endif // DISPLAY_H
