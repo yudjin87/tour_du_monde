@@ -259,17 +259,16 @@ QRectF SimpleDisplay::expand(const QRectF &extent, double scale)
     qreal top = std::max(m_extent.top(), new_top);
     qreal new_bottom = new_top + extent.height() * scale;
 
-    // TODO: adjust rect, if it is faced with full bounds
     QRectF rect(left, top, extent.width() * scale, extent.height() * scale);
 
+    // Adjust visible rect, if it faces with full bounds
     if (new_bottom > m_extent.bottom()) {
         if (new_top <  m_extent.top()) {
             // Move to the extent center, if visible heigh is greater then map extent
             qreal centerY = ((m_extent.bottom() - m_extent.top()) / 2) - rect.height() / 2;
-            //qDebug("centerY %f = (%f - %f)/2 - %f/2", centerY, m_extent.bottom(), m_extent.top(), rect.height());
             rect.moveTop(m_extent.top() + centerY);
         } else {
-            rect.moveBottom(m_extent.bottom());
+            rect.moveTop(m_extent.top());
         }
     }
 
@@ -277,10 +276,9 @@ QRectF SimpleDisplay::expand(const QRectF &extent, double scale)
         if (new_left <  m_extent.left()) {
             // Move to the extent center, if visible width is greater then map extent
             qreal centerX = ((m_extent.right() - m_extent.left()) / 2) - rect.width() / 2;
-            qDebug("centerX %f = (%f - %f)/2 - %f/2", centerX, m_extent.right(), m_extent.left(), rect.width());
             rect.moveLeft(m_extent.left() + centerX);
         } else {
-            rect.moveRight(m_extent.right());
+            rect.moveLeft(m_extent.left());
         }
     }
 
