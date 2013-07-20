@@ -34,7 +34,8 @@ HEADERS += \
     LineSymbol.h \
     SimpleLineSymbol.h \
     FillSymbol.h \
-    SimpleFillSymbol.h
+    SimpleFillSymbol.h \
+    DisplayTransformation.h
 
 SOURCES += \
     DisplayComponent.cpp \
@@ -47,7 +48,8 @@ SOURCES += \
     LineSymbol.cpp \
     SimpleLineSymbol.cpp \
     FillSymbol.cpp \
-    SimpleFillSymbol.cpp
+    SimpleFillSymbol.cpp \
+    DisplayTransformation.cpp
 
 FORMS +=
 

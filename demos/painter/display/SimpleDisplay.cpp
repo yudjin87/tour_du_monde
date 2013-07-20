@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- 
+
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -35,15 +35,12 @@
 
 #include <QtWidgets/QScrollBar>
 
+static int c = 0;
 //------------------------------------------------------------------------------
-SimpleDisplay::SimpleDisplay(QWidget *parent)    
+SimpleDisplay::SimpleDisplay(QWidget *parent)
     : m_offset(0, 0)
-    //, m_scale(0.0025)
-    , m_scale(5000)
     , m_pixmap(nullptr)
     , m_currentPainter(nullptr)
-    , m_dx(0)
-    , m_dy(0)
 {
     setParent(parent);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
@@ -72,18 +69,19 @@ QPainter *SimpleDisplay::painter()
     return m_currentPainter;
 }
 
+//------------------------------------------------------------------------------
 QTransform SimpleDisplay::transform()
 {
-    qreal dx = m_extent.left() - m_dx / m_scale;
-    qreal dy = m_extent.top() - m_dy / m_scale;
+    if (m_visibleExtent.height() <= 0)
+        return QTransform();
 
+    double _scale = scale();
+
+    qreal dx = m_visibleExtent.left();
+    qreal dy = m_visibleExtent.top();
 
     QTransform viewport;
-//    viewport.translate(width() / 2, height() / 2);
-  //  viewport.translate(-width()/ 2 / m_scale, -height()/ 2 / m_scale);
-
-    viewport.scale(m_scale, m_scale);
-
+    viewport.scale(_scale, _scale);
     viewport.translate(-dx, -dy);
 
     return viewport;
@@ -107,13 +105,19 @@ QPainter *SimpleDisplay::startDrawing()
 
     m_transform = viewport.inverted();
 
-    QRectF r = visibleExtent().adjusted(10, 10, -30, -10);
-    //m_currentPainter->drawRect(r);
-    //m_currentPainter->drawRect(extent());
 
-    qreal dx = (-m_extent.left()/ 1 - m_dx) / m_scale;
-    qreal dy = (-m_extent.top()/ 1 - m_dy / m_scale);
-    //m_currentPainter->drawEllipse(QPointF(-dx + width() / 2/ m_scale, -dy + height() / 2/ m_scale), 5, 5);
+#ifndef NDEBUG
+    QRectF r = visibleExtent().adjusted(10, 10, -50, -50);
+    m_currentPainter->drawRect(r);
+    QPen pen(Qt::DashLine);
+    pen.setWidth(5);
+    pen.setColor(Qt::red);
+    //m_currentPainter->setPen(pen);
+    r = m_extent.adjusted(10, 10, -50, -50);
+    //m_currentPainter->drawRect(r);
+
+#endif
+
 
     return m_currentPainter;
 }
@@ -130,9 +134,7 @@ void SimpleDisplay::finishDrawing(QPainter *painter)
 //------------------------------------------------------------------------------
 QRectF SimpleDisplay::visibleExtent() const
 {
-    QRectF visibleExtent(0, 0, width(), height());
-    visibleExtent = m_transform.mapRect(visibleExtent);
-    return visibleExtent;
+    return m_visibleExtent;
 }
 
 //------------------------------------------------------------------------------
@@ -141,54 +143,146 @@ QRectF SimpleDisplay::extent() const
     return m_extent;
 }
 
-int SimpleDisplay::getDy()
+//------------------------------------------------------------------------------
+void SimpleDisplay::setExtent(const QRectF &extent)
 {
-    int dy = (m_extent.height() * m_scale);
+    m_extent = extent;
+    static bool is_first = true;
+
+    if (!is_first)
+        return;
+
+    //is_first = false;
+    setVisibleExtent(expand(extent, 1));
+    adjustScrollBars();
+
+    //qDebug("w: %d, mew: %f, vew: %f", height(), m_extent.height(), m_visibleExtent.height());
+
+}
+
+//------------------------------------------------------------------------------
+int SimpleDisplay::getDy(double scale)
+{
+    // Visible extent could be moved out the extent. We should expand extend
+    // instead of those max/min calculations
+    int min_y = std::min(m_extent.top(), m_visibleExtent.top());
+    int max_y = std::max(m_extent.bottom(), m_visibleExtent.bottom());
+    int dy = (max_y - min_y) * scale;
     dy = std::max(dy, height());
     dy -= height();
     return dy;
 }
 
-int SimpleDisplay::getDx()
+//------------------------------------------------------------------------------
+int SimpleDisplay::getDx(double scale)
 {
-    int dx = (m_extent.width() * m_scale);
+    int dx = (m_extent.width() * scale);
     dx = std::max(dx, width());
     dx -= width();
     return dx;
 }
 
 //------------------------------------------------------------------------------
-void SimpleDisplay::setExtent(const QRectF &extent)
+void SimpleDisplay::setVisibleExtent(const QRectF &extent)
 {
-    m_extent = extent;
+    m_visibleExtent = extent;//.adjusted(-20, -20, 20, 20);
 
-    int dy = getDy();
-    int dx = getDx();
+    // TODO: adjust height also
+    //if (m_visibleExtent.width() < m_visibleExtent.height())
+    m_visibleExtent.setWidth(width() / scale());
+    //else
+    //    m_visibleExtent.setHeight(height() / scale());
+}
 
+static bool skip = false;
 
-    qDebug(QString("dy(%1)= %2-%3. Off: %4").arg(dy).arg(m_extent.height() * m_scale).arg(height()).arg(m_dy).toLatin1());
+//------------------------------------------------------------------------------
+void SimpleDisplay::scrollContentsBy(int dx, int dy)
+{
+    double _scale = scale();
 
-    verticalScrollBar()->setRange(-0/ 1, dy);
-    horizontalScrollBar()->setRange(-0 / 1, dx);
+    m_offset += QPointF(dx, dy);
+
+    if (!skip) {
+        qDebug("scrollContentsBy [%d]", dy);
+        m_visibleExtent.moveTopLeft(QPointF(m_visibleExtent.left() - dx / _scale, m_visibleExtent.top() - dy / _scale));
+    } else {
+        skip = false;
+    }
+
+    viewport()->update();
+    emit needChange();
+}
+
+//------------------------------------------------------------------------------
+void SimpleDisplay::adjustScrollBars()
+{
+    double _scale = scale();
+    int dx = getDx(_scale);
+    int dy = getDy(_scale);
+
+    qreal verticalRelative = (m_visibleExtent.top() - m_extent.top()) * _scale;
+    //qreal horizontalRelative = (m_visibleExtent.left() - m_extent.left()) * _scale;
+
+    qDebug("[%d] dy: (%f -%f)*%f = %f (of %d)", ++c, m_visibleExtent.top(), m_extent.top(), _scale, verticalRelative, dy);
+
+    skip = true;
+    //horizontalScrollBar()->setRange(0, dx);
+    verticalScrollBar()->setRange(0, dy);
+
+    //horizontalScrollBar()->setValue(horizontalRelative);
+    verticalScrollBar()->setValue(verticalRelative);
+    qDebug("value: %d", verticalScrollBar()->value());
+    //skip = false;
 }
 
 //------------------------------------------------------------------------------
 double SimpleDisplay::scale() const
 {
-    return m_scale;
+    double relY = height() / m_visibleExtent.height();
+    double relX = width() / m_visibleExtent.width();
+
+    return std::min(relY, relX);
 }
 
 //------------------------------------------------------------------------------
-void SimpleDisplay::setScale(double scale)
+QRectF SimpleDisplay::expand(const QRectF &extent, double scale)
 {
-    m_scale = scale;
-    //int dy = m_dy;
-    setExtent(extent());
-    qDebug(QString("scale: %1;").arg(scale).toLatin1());
-    //m_dy = m_dy / m_scale;
-    //qDebug(QString("m_dy: %1").arg(m_dy).toLatin1());
+    qreal left = extent.center().x() - extent.width() / 2 * scale;
+    qreal new_top = extent.center().y() - extent.height() / 2 * scale;
+    qreal top = std::max(m_extent.top(), new_top);
+
+    qreal new_bottom = new_top + extent.height() * scale;
+
+    // TODO: adjust rect, if it is faced with full bounds
+    QRectF rect(extent.left(), top, extent.width() * scale, extent.height() * scale);
+
+    if (new_bottom > m_extent.bottom()) {
+        if (new_top <  m_extent.top()) {
+            // Move to the extent center, if visible heigh is greater then map extent
+            qreal centerY = ((m_extent.bottom() - m_extent.top()) / 2) - rect.height() / 2;
+            qDebug("centerY %f = (%f - %f)/2 - %f/2", centerY, m_extent.bottom(), m_extent.top(), rect.height());
+            rect.moveTop(m_extent.top() + centerY);
+        } else {
+            rect.moveBottom(m_extent.bottom());
+        }
+    }
+
+
+    //QRectF rect2(extent.left(), extent.top(), extent.width() * scale, extent.height() * scale);
+
+    return rect;
+}
+
+//------------------------------------------------------------------------------
+void SimpleDisplay::setScale(double _scale)
+{
+    double scale2 =  scale() / _scale;
+
+    setVisibleExtent(expand(m_visibleExtent, scale2));
+    adjustScrollBars();
+
     emit needChange();
-    qDebug("---------------------------");
 }
 
 //------------------------------------------------------------------------------
@@ -198,8 +292,7 @@ void SimpleDisplay::mouseMoveEvent(QMouseEvent *event)
     qreal x;
     qreal y;
     m_transform.map(p.x(), p.y(), &x, &y);
-    //qDebug(QString("x: %1 (%2)").arg(x).toLatin1());
-    qDebug(QString("y: %1 (%2)").arg(y).arg(p.y()).toLatin1());
+    qDebug("x:%f; y:%f", x, y);
 
     qDebug(QString("offset: %1").arg(verticalScrollBar()->value()).toLatin1());
 }
@@ -212,10 +305,6 @@ void SimpleDisplay::paintEvent(QPaintEvent *event)
         return;
 
     QPainter painter(viewport());
-
-    // qDebug(QString("paint").toLatin1());
-    //qDebug(QString("m_y_offset: %1").arg(m_offset.y()).toLatin1());
-
     painter.drawPixmap(m_offset.x(), m_offset.y(), m_pixmap->width(), m_pixmap->height(), *m_pixmap);
 }
 
@@ -224,19 +313,6 @@ void SimpleDisplay::showEvent(QShowEvent *event)
 {
     Q_UNUSED(event)
     emitChanged();
-}
-
-//------------------------------------------------------------------------------
-void SimpleDisplay::scrollContentsBy(int dx, int dy)
-{
-    m_offset += QPointF(dx, dy);
-    m_dy += dy;
-    m_dx += dx;
-
-    qDebug(QString("dx: %1; dy: %2").arg(dx).arg(dy).toLatin1());
-
-    viewport()->update();
-    emit needChange();
 }
 
 //------------------------------------------------------------------------------

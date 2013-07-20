@@ -52,6 +52,8 @@ public:
 
     void setExtent(const QRectF& extent);
 
+    void setVisibleExtent(const QRectF& extent);
+
     double scale() const;
     void setScale(double scale);
 
@@ -72,18 +74,17 @@ signals:
 private:
     Q_DISABLE_COPY(SimpleDisplay)
     QTransform transform();
-    int getDy();
-    int getDx();
+    int getDy(double scale);
+    int getDx(double scale);
+    QRectF expand(const QRectF &extent, double scale);
+    void adjustScrollBars();
 
 private:
     QRectF m_extent;
+    QRectF m_visibleExtent;
     QPointF m_offset;
-    double m_scale;
     QPixmap *m_pixmap;
     QPainter *m_currentPainter;
     mutable QTransform m_transform;
-
-    int m_dx;
-    int m_dy;
 };
 #endif // DISPLAY_H
