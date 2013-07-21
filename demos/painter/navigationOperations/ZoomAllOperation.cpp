@@ -28,8 +28,8 @@
 
 #include <carousel/utils/IServiceLocator.h>
 
-#include <QtWidgets/QGraphicsScene>
-#include <QtWidgets/QGraphicsView>
+#include <display/IDisplay.h>
+#include <display/DisplayTransformation.h>
 
 //------------------------------------------------------------------------------
 ZoomAllOperation::ZoomAllOperation()
@@ -43,9 +43,8 @@ ZoomAllOperation::ZoomAllOperation()
 //------------------------------------------------------------------------------
 void ZoomAllOperation::execute()
 {
-    QGraphicsScene *scene = m_serviceLocator->locate<QGraphicsScene>();
-    QGraphicsView *view = scene->views().first();
-    view->fitInView(view->sceneRect());
+    IDisplay *display = m_serviceLocator->locate<IDisplay>();
+    display->transformation()->setVisibleBounds(display->transformation()->bounds());
 }
 
 //------------------------------------------------------------------------------
