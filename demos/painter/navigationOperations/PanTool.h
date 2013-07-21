@@ -10,10 +10,13 @@ public:
 
     void execute();
     void initialize(IServiceLocator *serviceLocator);
-    void onMouseMove(QMouseEvent *ip_event);
+    void onMouseDown(QMouseEvent *event);
+    void onMouseMove(QMouseEvent *event);
+    void onMouseUp(QMouseEvent *event);
     void stopExecuting();
 
 private:
     IServiceLocator *m_serviceLocator;
+    bool m_tracked;
 };
 #endif // PANOPERATION_H

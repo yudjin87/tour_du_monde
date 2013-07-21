@@ -50,6 +50,10 @@ public:
     virtual DisplayTransformation *transformation() = 0;
     virtual const DisplayTransformation *transformation() const = 0;
 
+    virtual void panMoveTo(const QPoint &screenPoint) = 0;
+    virtual void panStart(const QPoint &screenPoint) = 0;
+    virtual QRectF panStop() = 0;
+
 signals:
     void visibleBoundsUpdated(DisplayTransformation *transform);
 

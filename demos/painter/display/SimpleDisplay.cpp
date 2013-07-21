@@ -44,10 +44,12 @@ SimpleDisplay::SimpleDisplay(QWidget *parent)
     : m_moveVisibleBound(true)
     , m_conn()
     , m_offset(0, 0)
+    , m_startPan(0, 0)
     , m_pixmap(nullptr)
     , m_currentPainter(nullptr)
     , m_transform(new DisplayTransformation())
 {
+    setMouseTracking(true);
     setParent(parent);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
@@ -138,6 +140,32 @@ const DisplayTransformation *SimpleDisplay::transformation() const
 }
 
 //------------------------------------------------------------------------------
+void SimpleDisplay::panMoveTo(const QPoint &screenPoint)
+{
+    m_offset = (screenPoint - m_startPan);
+    qDebug("panMoveTo: x: %f, y:%f", m_offset.x(), m_offset.y());
+    viewport()->update();
+}
+
+//------------------------------------------------------------------------------
+void SimpleDisplay::panStart(const QPoint &screenPoint)
+{
+    m_startPan = screenPoint;
+    qDebug("panStart: x: %f, y:%f", screenPoint.x(), screenPoint.y());
+}
+
+//------------------------------------------------------------------------------
+QRectF SimpleDisplay::panStop()
+{
+    moveVisibleBounds(m_offset.x(), m_offset.y());
+    adjustScrollBars();
+    viewport()->update();
+    m_offset = QPointF(0, 0);
+    emit needChange();
+    return QRectF();
+}
+
+//------------------------------------------------------------------------------
 void SimpleDisplay::scrollContentsBy(int dx, int dy)
 {
     m_offset += QPointF(dx, dy);
@@ -153,7 +181,7 @@ void SimpleDisplay::mouseMoveEvent(QMouseEvent *event)
     QPoint point = event->pos();
 
     QPointF mapPoint = m_transform->toMapPoint(point.x(), point.y());
-    qDebug("x:%f; y:%f", mapPoint.x(), mapPoint.y());
+    //qDebug("x:%f; y:%f", mapPoint.x(), mapPoint.y());
 }
 
 //------------------------------------------------------------------------------

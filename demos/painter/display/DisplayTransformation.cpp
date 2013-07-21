@@ -154,6 +154,12 @@ QPointF DisplayTransformation::toMapPoint(int x, int y) const
 }
 
 //------------------------------------------------------------------------------
+QPointF DisplayTransformation::toMapPoint(const QPoint &position) const
+{
+    return toMapPoint(position.x(), position.y());
+}
+
+//------------------------------------------------------------------------------
 QRectF DisplayTransformation::expandRect(const QRectF &extent, double scale)
 {
     qreal new_left = extent.center().x() - extent.width() / 2 * scale;

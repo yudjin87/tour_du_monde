@@ -136,6 +136,12 @@ public slots:
 
     /*!
      * @details
+     *   Converts an @a position in device coordinates to real world coordinates.
+     */
+    QPointF toMapPoint(const QPoint &position) const;
+
+    /*!
+     * @details
      *   Converts a device rectangle @a deviceRect in device coordinates to real
      *   world coordinates.
      */

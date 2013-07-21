@@ -85,8 +85,7 @@ bool DisplayComponent::onStartup(IServiceLocator *serviceLocator)
 
     IInteractionService* interactionService = serviceLocator->locate<IInteractionService>();
     interactionService->setDispatcher(new InputDispatcher());
-    //interactionService->dispatcher()->setSender(view->viewport());
-    interactionService->dispatcher()->setSender(display);
+    interactionService->dispatcher()->setSender(display->viewport());
     interactionService->dispatcher()->activate();
 
     return true;

@@ -12,8 +12,8 @@ DESTDIR = $${DESTDIR}/externalSource
 
 win32 {
     LIBS += -L$${CAROUSEL_BIN} -lComponentSystem \
+                               -lFramework \
                                -lorg.carousel.Interactivity \
-                               -lFramework
 
     LIBS += -L$${DESTDIR} -lorg.carousel.demos.Display \
                           -lorg.carousel.demos.Carto \

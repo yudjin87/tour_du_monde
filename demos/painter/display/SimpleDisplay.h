@@ -46,6 +46,10 @@ public:
     DisplayTransformation *transformation();
     const DisplayTransformation *transformation() const;
 
+    void panMoveTo(const QPoint &screenPoint);
+    void panStart(const QPoint &screenPoint);
+    QRectF panStop();
+
 protected:
     void mouseMoveEvent(QMouseEvent *event);
     void resizeEvent(QResizeEvent *event);
@@ -72,6 +76,7 @@ private:
     bool m_moveVisibleBound;
     QMetaObject::Connection m_conn;
     QPointF m_offset;
+    QPoint m_startPan;
     QPixmap *m_pixmap;
     QPainter *m_currentPainter;
     DisplayTransformation *m_transform;
