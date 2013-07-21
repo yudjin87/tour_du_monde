@@ -27,10 +27,18 @@
 #include "LayersTreeModel.h"
 
 #include <carto/Map.h>
-#include <carto/AbstractLayer.h>
+#include <carto/FeatureLayer.h>
 #include <display/FeatureRenderer.h>
+#include <display/ISymbol.h>
+#include <geometry/Point.h>
+#include <geometry/Polygon.h>
+#include <geometry/Polyline.h>
 
-#include <QtGui/QPixmap>
+#include <QtGui/QPainter>
+
+//------------------------------------------------------------------------------
+QMap<GeometryType, AbstractGeometry *> fillThumbnails();
+static const QMap<GeometryType, AbstractGeometry *> thumbnails = fillThumbnails();
 
 //------------------------------------------------------------------------------
 LayersTreeModel::LayersTreeModel(Map *map, QObject *parent)
@@ -50,19 +58,17 @@ int LayersTreeModel::rowCount(const QModelIndex &parent) const
 //------------------------------------------------------------------------------
 QVariant LayersTreeModel::data(const QModelIndex &index, int role) const
 {
-    const AbstractLayer *layer = m_map->layers().at(index.row());
+    const FeatureLayer *layer = static_cast<FeatureLayer *>(m_map->layers().at(index.row()));
 
     switch (role) {
     case Qt::DisplayRole:
         return layer->name();
 
     case Qt::DecorationRole:
-        //FeatureRenderer *renderer = layer->renderer();
-        QPixmap pixmap(10, 10);
-        //pixmap.fill(renderer->brush().color());
-        pixmap.fill(Qt::red);
-        return pixmap;
+        FeatureRenderer *renderer = layer->renderer();
+        return drawThumbnail(renderer->symbol(), layer->shapeType());
     }
+
     return QVariant();
 }
 
@@ -72,6 +78,34 @@ void LayersTreeModel::onLayerAdded(AbstractLayer *layer)
     Q_UNUSED(layer);
     beginInsertRows(QModelIndex(), 0, m_map->layers().size());
     endInsertRows();
+}
+
+//------------------------------------------------------------------------------
+QPixmap LayersTreeModel::drawThumbnail(ISymbol *forSymbol, GeometryType type)
+{
+    QPixmap pixmap(16, 16);
+    pixmap.fill(Qt::white);
+    QPainter painter(&pixmap);
+
+    forSymbol->setupPainter(&painter);
+
+    AbstractGeometry *geometry = thumbnails[type];
+
+    forSymbol->draw(geometry);
+    forSymbol->resetPainter();
+
+    return pixmap;
+}
+
+//------------------------------------------------------------------------------
+QMap<GeometryType, AbstractGeometry *> fillThumbnails()
+{
+    QMap<GeometryType, AbstractGeometry *> map;
+    map.insert(GeometryPoint, new Point(8, 8));
+    map.insert(GeometryPolyline, new Polyline({QPointF(2, 8), QPointF(14, 8)}));
+    map.insert(GeometryPolygon, new Polygon({QPointF(2, 2), QPointF(14, 2), QPointF(14, 14), QPointF(2, 14)}));
+
+    return map;
 }
 
 //------------------------------------------------------------------------------

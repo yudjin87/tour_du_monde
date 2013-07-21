@@ -27,9 +27,13 @@
 #ifndef LAYERSTREEMODEL_H
 #define LAYERSTREEMODEL_H
 
+#include <geometry/GeometryType.h>
+
 #include <QtCore/QAbstractListModel>
+#include <QtGui/QPixmap>
 
 class AbstractLayer;
+class ISymbol;
 class Map;
 
 class LayersTreeModel : public QAbstractListModel
@@ -44,6 +48,9 @@ public:
 
 private slots:
     void onLayerAdded(AbstractLayer *layer);
+
+private:
+    static QPixmap drawThumbnail(ISymbol *forSymbol, GeometryType type);
 
 private:
     Map *m_map;
