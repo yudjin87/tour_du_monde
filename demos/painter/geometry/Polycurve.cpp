@@ -29,7 +29,8 @@
 
 //------------------------------------------------------------------------------
 Polycurve::Polycurve()
-    :m_rings()
+    : AbstractGeometry()
+    , m_rings()
 {
 }
 
@@ -38,6 +39,14 @@ Polycurve::Polycurve(const QRectF &extent)
     : AbstractGeometry(extent)
     , m_rings()
 {
+}
+
+//------------------------------------------------------------------------------
+Polycurve::Polycurve(std::initializer_list<QPointF> points)
+    : AbstractGeometry()
+    , m_rings()
+{
+    m_rings.append(new Ring(points));
 }
 
 //------------------------------------------------------------------------------

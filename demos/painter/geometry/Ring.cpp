@@ -43,6 +43,14 @@ Ring::Ring(const QRectF &extent)
 }
 
 //------------------------------------------------------------------------------
+Ring::Ring(std::initializer_list<QPointF> points)
+    : AbstractGeometry()
+    , m_segments()
+{
+    m_segments.append(new Segment(points));
+}
+
+//------------------------------------------------------------------------------
 Ring::~Ring()
 {
     clearData();

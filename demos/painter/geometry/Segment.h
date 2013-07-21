@@ -31,11 +31,14 @@
 
 #include <QtGui/QPolygonF>
 
+#include <initializer_list>
+
 class GEOMETRY_API Segment : public AbstractGeometry
 {
 public:
     Segment();
     Segment(const QRectF &extent);
+    Segment(std::initializer_list<QPointF> points);
 
     QPolygonF &curve();
     const QPolygonF &curve() const;

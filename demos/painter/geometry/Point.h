@@ -35,6 +35,7 @@ class GEOMETRY_API Point : public AbstractGeometry
 {
 public:
     Point();
+    Point(qreal x, qreal y);
 
     QPointF &point();
     const QPointF &point() const;

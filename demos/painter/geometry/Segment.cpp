@@ -30,7 +30,8 @@
 
 //------------------------------------------------------------------------------
 Segment::Segment()
-    : m_value()
+    : AbstractGeometry()
+    , m_value()
 {
 }
 
@@ -39,6 +40,14 @@ Segment::Segment(const QRectF &extent)
     : AbstractGeometry(extent)
     , m_value()
 {
+}
+
+//------------------------------------------------------------------------------
+Segment::Segment(std::initializer_list<QPointF> points)
+    : AbstractGeometry()
+    , m_value(points)
+{
+
 }
 
 //------------------------------------------------------------------------------

@@ -39,6 +39,13 @@ Polygon::Polygon(const QRectF &extent)
 }
 
 //------------------------------------------------------------------------------
+Polygon::Polygon(std::initializer_list<QPointF> points)
+    : Polycurve(points)
+{
+
+}
+
+//------------------------------------------------------------------------------
 Polygon::~Polygon()
 {
 }

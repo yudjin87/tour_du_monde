@@ -31,6 +31,8 @@
 
 #include <QtCore/QList>
 
+#include <initializer_list>
+
 class Segment;
 
 typedef QList<Segment *> SegmentList;
@@ -40,6 +42,7 @@ class GEOMETRY_API Ring : public AbstractGeometry
 public:
     Ring();    
     Ring(const QRectF &extent);
+    Ring(std::initializer_list<QPointF> points);
     ~Ring();
 
     SegmentList &segments();

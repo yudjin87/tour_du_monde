@@ -34,6 +34,7 @@ class GEOMETRY_API Polygon : public Polycurve
 public:
     Polygon();
     Polygon(const QRectF &extent);
+    Polygon(std::initializer_list<QPointF> points);
 
     ~Polygon();
 

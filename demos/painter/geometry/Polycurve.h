@@ -31,6 +31,8 @@
 
 #include <QtCore/QList>
 
+#include <initializer_list>
+
 class Ring;
 typedef QList<Ring *> RingList;
 
@@ -39,6 +41,7 @@ class GEOMETRY_API Polycurve : public AbstractGeometry
 public:
     Polycurve();
     Polycurve(const QRectF &extent);
+    Polycurve(std::initializer_list<QPointF> points);
 
     ~Polycurve();
 
