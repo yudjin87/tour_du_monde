@@ -35,7 +35,9 @@
 
 #include <QtWidgets/QScrollBar>
 
-static int c = 0;
+//------------------------------------------------------------------------------
+static int flipY = -1;
+
 //------------------------------------------------------------------------------
 SimpleDisplay::SimpleDisplay(QWidget *parent)
     : m_offset(0, 0)
@@ -78,10 +80,10 @@ QTransform SimpleDisplay::transform()
     double _scale = scale();
 
     qreal dx = m_visibleExtent.left();
-    qreal dy = m_visibleExtent.top();
+    qreal dy = m_visibleExtent.bottom(); // top for flipping
 
     QTransform viewport;
-    viewport.scale(_scale, _scale);
+    viewport.scale(_scale, _scale * flipY);
     viewport.translate(-dx, -dy);
 
     return viewport;
@@ -107,7 +109,7 @@ QPainter *SimpleDisplay::startDrawing()
 
 
 #ifndef NDEBUG
-    QRectF r = visibleExtent().adjusted(10, 10, -50, -50);
+    QRectF r = visibleExtent().adjusted(10, -50, -50, 10);
 
     QPen pen;
     pen.setWidth(1);
@@ -120,7 +122,7 @@ QPainter *SimpleDisplay::startDrawing()
     pen.setWidth(3);
     pen.setColor(Qt::red);
     m_currentPainter->setPen(pen);
-    r = m_extent.adjusted(10, 10, -50, -50);
+    r = m_extent.adjusted(10, -50, -50, 10);
     m_currentPainter->drawRect(r);
 #endif
 
@@ -214,7 +216,7 @@ void SimpleDisplay::scrollContentsBy(int dx, int dy)
     m_offset += QPointF(dx, dy);
 
     if (!skip) {
-        m_visibleExtent.moveTopLeft(QPointF(m_visibleExtent.left() - dx / _scale, m_visibleExtent.top() - dy / _scale));
+        m_visibleExtent.moveTopLeft(QPointF(m_visibleExtent.left() - dx / _scale, m_visibleExtent.top() - dy / _scale * flipY));
     } else {
         skip = false;
     }
@@ -230,10 +232,8 @@ void SimpleDisplay::adjustScrollBars()
     int dx = getDx(_scale);
     int dy = getDy(_scale);
 
-    qreal verticalRelative = (m_visibleExtent.top() - m_extent.top()) * _scale;
+    qreal verticalRelative = (m_visibleExtent.bottom() * flipY - m_extent.bottom() * flipY) * _scale; // top for flipping
     qreal horizontalRelative = (m_visibleExtent.left() - m_extent.left()) * _scale;
-
-//    qDebug("[%d] dy: (%f -%f)*%f = %f (of %d)", ++c, m_visibleExtent.top(), m_extent.top(), _scale, verticalRelative, dy);
 
     skip = true;
     horizontalScrollBar()->setRange(0, dx);
@@ -266,9 +266,9 @@ QRectF SimpleDisplay::expand(const QRectF &extent, double scale)
         if (new_top <  m_extent.top()) {
             // Move to the extent center, if visible heigh is greater then map extent
             qreal centerY = ((m_extent.bottom() - m_extent.top()) / 2) - rect.height() / 2;
-            rect.moveTop(m_extent.top() + centerY);
+            rect.moveBottom(m_extent.bottom() + centerY * flipY);   // moveTop, top for flipping
         } else {
-            rect.moveTop(m_extent.top());
+            rect.moveBottom(m_extent.bottom());                       // moveTop, top for flipping
         }
     }
 
