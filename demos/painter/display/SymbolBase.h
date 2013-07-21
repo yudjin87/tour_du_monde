@@ -34,7 +34,6 @@
 class Point;
 class Polygon;
 class Polyline;
-class QPainter;
 
 class DISPLAY_API SymbolBase : public QObject, public ISymbol
 {
@@ -51,15 +50,15 @@ public slots:
 
     /*!
      * @details
-     *   Prepares the display for drawing the symbol.
+     *   Prepares the painter for drawing the symbol.
      */
-    void setupDisplay(IDisplay *display);
+    void setupPainter(QPainter *painter);
 
     /*!
      * @details
-     *   Restores display to original state.
+     *   Restores painter to original state.
      */
-    void resetDisplay();
+    void resetPainter();
 
 protected:
     explicit SymbolBase(QObject *parent = 0);
@@ -69,7 +68,6 @@ protected:
     virtual void drawPolyline(const Polyline &polyline, QPainter &painter);
 
 private:
-    IDisplay *m_display;
     QPainter *m_painter;
 };
 

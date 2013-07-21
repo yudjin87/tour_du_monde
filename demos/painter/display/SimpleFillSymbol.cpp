@@ -26,8 +26,6 @@
 
 #include "SimpleFillSymbol.h"
 
-#include "IDisplay.h"
-
 #include <geometry/Polygon.h>
 #include <geometry/Segment.h>
 #include <geometry/Ring.h>
@@ -42,12 +40,12 @@ SimpleFillSymbol::SimpleFillSymbol(QObject *parent)
 }
 
 //------------------------------------------------------------------------------
-void SimpleFillSymbol::setupDisplay(IDisplay *display)
+void SimpleFillSymbol::setupPainter(QPainter *painter)
 {
-    FillSymbol::setupDisplay(display);
+    FillSymbol::setupPainter(painter);
 
     m_brush.setColor(color());
-    display->painter()->setBrush(m_brush);
+    painter->setBrush(m_brush);
 }
 
 //------------------------------------------------------------------------------

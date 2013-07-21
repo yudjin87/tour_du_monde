@@ -29,9 +29,8 @@
 
 #include "display_api.h"
 
-#include <QtCore/QList>
+#include <QtCore/QVector>
 #include <QtCore/QObject>
-
 
 class IDisplay;
 class IFeature;
@@ -59,10 +58,10 @@ public:
 
     /*!
      * @details
-     *   Draws features from the specified cursor on the given display.
+     *   Draws features from the specified cursor on the given device.
      *
      *   This method is typically called by the framework to renderer features
-     *   to a display. This could be in response to a refresh on the map.
+     *   to a device. This could be in response to a refresh on the map.
      *   This method typically iterates through all the features and renders each
      *   feature with an appropriate symbol.
      */

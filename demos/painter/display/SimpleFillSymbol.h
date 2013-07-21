@@ -47,7 +47,7 @@ public:
      * @details
      *   Prepares the display for drawing the symbol by setting brush.
      */
-    void setupDisplay(IDisplay *display);
+    void setupPainter(QPainter *painter);
 
     Qt::BrushStyle style() const;
     void setStyle(Qt::BrushStyle style);

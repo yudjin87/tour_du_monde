@@ -44,10 +44,10 @@ FillSymbol::~FillSymbol()
 }
 
 //------------------------------------------------------------------------------
-void FillSymbol::setupDisplay(IDisplay *display)
+void FillSymbol::setupPainter(QPainter *painter)
 {
-    SymbolBase::setupDisplay(display);
-    m_outline->setupDisplay(display);
+    SymbolBase::setupPainter(painter);
+    m_outline->setupPainter(painter);
 }
 
 //------------------------------------------------------------------------------

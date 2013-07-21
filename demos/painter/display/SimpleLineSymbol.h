@@ -47,7 +47,7 @@ public:
      * @details
      *   Prepares the display for drawing the symbol by setting pen.
      */
-    void setupDisplay(IDisplay *display);
+    void setupPainter(QPainter *painter);
 
     Qt::PenStyle style() const;
     void setStyle(Qt::PenStyle style);

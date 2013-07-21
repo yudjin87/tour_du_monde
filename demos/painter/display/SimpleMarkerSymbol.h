@@ -70,7 +70,7 @@ public:
      * @details
      *   Prepares the display for drawing the symbol by setting pen and brush.
      */
-    void setupDisplay(IDisplay *display);
+    void setupPainter(QPainter *painter);
 
 protected:
     void drawPoint(const Point &point, QPainter &painter);

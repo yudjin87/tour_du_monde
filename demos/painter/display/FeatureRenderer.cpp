@@ -45,12 +45,12 @@ FeatureRenderer::~FeatureRenderer()
 //------------------------------------------------------------------------------
 void FeatureRenderer::draw(const QVector<IFeature *> &features, IDisplay *display)
 {
-    m_symbol->setupDisplay(display);
+    m_symbol->setupPainter(display->painter());
     foreach (const IFeature *feature, features) {
         m_symbol->draw(feature->geometry());
     }
 
-    m_symbol->resetDisplay();
+    m_symbol->resetPainter();
 }
 
 //------------------------------------------------------------------------------

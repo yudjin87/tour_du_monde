@@ -25,7 +25,6 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "SimpleLineSymbol.h"
-#include "IDisplay.h"
 
 #include <geometry/Polyline.h>
 #include <geometry/Segment.h>
@@ -42,13 +41,13 @@ SimpleLineSymbol::SimpleLineSymbol(QObject *parent)
 }
 
 //------------------------------------------------------------------------------
-void SimpleLineSymbol::setupDisplay(IDisplay *display)
+void SimpleLineSymbol::setupPainter(QPainter *painter)
 {
-    LineSymbol::setupDisplay(display);
+    LineSymbol::setupPainter(painter);
 
     m_pen.setColor(color());
 
-    display->painter()->setPen(m_pen);
+    painter->setPen(m_pen);
 }
 
 //------------------------------------------------------------------------------

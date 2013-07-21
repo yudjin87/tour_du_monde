@@ -29,6 +29,8 @@
 
 #include "AbstractLayer.h"
 
+#include <geometry/GeometryType.h>
+
 #include <QtCore/QList>
 
 class FeatureRenderer;
@@ -40,6 +42,8 @@ class CARTO_API FeatureLayer : public AbstractLayer
 public:
     FeatureLayer();
     ~FeatureLayer();
+
+    GeometryType shapeType() const;
 
     FeatureRenderer *renderer() const {return mp_featureRenderer;}
 

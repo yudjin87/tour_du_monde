@@ -25,7 +25,6 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "SymbolBase.h"
-#include "IDisplay.h"
 
 #include <geometry/Point.h>
 #include <geometry/Polygon.h>
@@ -36,7 +35,6 @@
 //------------------------------------------------------------------------------
 SymbolBase::SymbolBase(QObject *parent)
     : QObject(parent)
-    , m_display(nullptr)
     , m_painter(nullptr)
 {
 }
@@ -49,9 +47,6 @@ SymbolBase::~SymbolBase()
 //------------------------------------------------------------------------------
 void SymbolBase::draw(const AbstractGeometry *geometry)
 {
-    if (m_painter == nullptr)
-        m_painter = m_display->painter();
-
     switch (geometry->type())
     {
     case GeometryPoint: {
@@ -75,16 +70,15 @@ void SymbolBase::draw(const AbstractGeometry *geometry)
 }
 
 //------------------------------------------------------------------------------
-void SymbolBase::setupDisplay(IDisplay *display)
+void SymbolBase::setupPainter(QPainter *painter)
 {
-    m_display = display;
+    m_painter = painter;
 }
 
 //------------------------------------------------------------------------------
-void SymbolBase::resetDisplay()
+void SymbolBase::resetPainter()
 {
     m_painter = nullptr;
-    m_display = nullptr;
 }
 
 //------------------------------------------------------------------------------

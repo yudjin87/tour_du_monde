@@ -59,7 +59,7 @@ public:
     const LineSymbol *outline() const;
     void setOutline(LineSymbol *outline);
 
-    void setupDisplay(IDisplay *display);
+    void setupPainter(QPainter *painter);
 
 protected:
     explicit FillSymbol(QObject *parent = 0);

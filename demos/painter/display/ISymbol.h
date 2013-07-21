@@ -30,7 +30,7 @@
 #include "display/display_api.h"
 
 class AbstractGeometry;
-class IDisplay;
+class QPainter;
 
 class DISPLAY_API ISymbol
 {
@@ -46,15 +46,15 @@ public:
 
     /*!
      * @details
-     *   Prepares the display for drawing the symbol.
+     *   Prepares the painter for drawing the symbol.
      */
-    virtual void setupDisplay(IDisplay *display) = 0;
+    virtual void setupPainter(QPainter *painter) = 0;
 
     /*!
      * @details
-     *   Restores display to original state.
+     *   Restores painter to original state.
      */
-    virtual void resetDisplay() = 0;
+    virtual void resetPainter() = 0;
 
 private:
     Q_DISABLE_COPY(ISymbol)

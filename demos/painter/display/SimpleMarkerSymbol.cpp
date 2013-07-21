@@ -25,8 +25,6 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "SimpleMarkerSymbol.h"
-#include "IDisplay.h"
-#include "DisplayTransformation.h"
 
 #include <geometry/Point.h>
 
@@ -82,22 +80,22 @@ void SimpleMarkerSymbol::setOutlineSize(qreal outlineSize)
 }
 
 //------------------------------------------------------------------------------
-void SimpleMarkerSymbol::setupDisplay(IDisplay *display)
+void SimpleMarkerSymbol::setupPainter(QPainter *painter)
 {
-    MarkerSymbol::setupDisplay(display);
+    MarkerSymbol::setupPainter(painter);
 
-    display->painter()->setBrush(m_brush);
+    painter->setBrush(m_brush);
 
-    double scale = display->transformation()->scale();
+    double scale = painter->transform().m11();
 
     m_width = size() / scale / 2;
     m_height = size() / scale / 2;
 
     if (isOutline()) {
         m_outlinePen.setWidthF(m_outlineSize / scale);
-        display->painter()->setPen(m_outlinePen);
+        painter->setPen(m_outlinePen);
     } else {
-        display->painter()->setPen(Qt::NoPen);
+        painter->setPen(Qt::NoPen);
     }
 }
 
