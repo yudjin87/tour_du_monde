@@ -172,7 +172,7 @@ QRectF DisplayTransformation::expandRect(const QRectF &extent, double scale)
         if (new_top <  m_bounds.top()) {
             // Move to the extent center, if visible heigh is greater then map extent
             qreal centerY = ((m_bounds.bottom() - m_bounds.top()) / 2) - rect.height() / 2;
-            rect.moveBottom(m_bounds.bottom() + centerY * flipY);   // moveTop, top for flipping
+            rect.moveBottom(m_bounds.bottom() + centerY * flipY);     // moveTop, top for flipping
         } else {
             rect.moveBottom(m_bounds.bottom());                       // moveTop, top for flipping
         }

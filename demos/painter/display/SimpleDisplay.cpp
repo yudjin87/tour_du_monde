@@ -41,7 +41,7 @@ static const int flipY = -1;
 
 //------------------------------------------------------------------------------
 SimpleDisplay::SimpleDisplay(QWidget *parent)
-    : m_skipTransform(false)
+    : m_moveVisibleBound(true)
     , m_conn()
     , m_offset(0, 0)
     , m_pixmap(nullptr)
@@ -95,7 +95,8 @@ QPainter *SimpleDisplay::startDrawing()
     m_currentPainter->setTransform(viewport, false);
 
 #ifndef NDEBUG
-    QRectF r = m_transform->visibleBounds().adjusted(10, -50, -50, 10);
+    double scale = m_transform->scale();
+    QRectF r = m_transform->visibleBounds().adjusted(3 / scale, 20 / scale, -20 / scale, -3 / scale);
 
     QPen pen;
     pen.setWidth(1);
@@ -108,7 +109,7 @@ QPainter *SimpleDisplay::startDrawing()
     pen.setWidth(3);
     pen.setColor(Qt::red);
     m_currentPainter->setPen(pen);
-    r = m_transform->bounds().adjusted(10, -50, -50, 10);
+    r = m_transform->bounds().adjusted(3 / scale, 20 / scale, -20 / scale, -3 / scale);
     m_currentPainter->drawRect(r);
 #endif
 
@@ -137,70 +138,13 @@ const DisplayTransformation *SimpleDisplay::transformation() const
 }
 
 //------------------------------------------------------------------------------
-int SimpleDisplay::getDy(double scale)
-{
-    // Visible extent could be moved out the extent. We should expand extend
-    // instead of those max/min calculations
-    // int min_y = std::min(m_extent.top(), m_visibleExtent.top());
-    // int max_y = std::max(m_extent.bottom(), m_visibleExtent.bottom());
-    int dy = m_transform->bounds().height() * scale;
-    dy = std::max(dy, height());
-    dy -= height();
-    return dy;
-}
-
-//------------------------------------------------------------------------------
-int SimpleDisplay::getDx(double scale)
-{
-    int dx = (m_transform->bounds().width() * scale);
-    dx = std::max(dx, width());
-    dx -= width();
-    return dx;
-}
-
-//------------------------------------------------------------------------------
 void SimpleDisplay::scrollContentsBy(int dx, int dy)
 {
-    double scale = m_transform->scale();
-
     m_offset += QPointF(dx, dy);
-
-    if (!m_skipTransform) {
-        QRectF visibleBounds = m_transform->visibleBounds();
-        visibleBounds.moveTopLeft(QPointF(visibleBounds.left() - dx / scale, visibleBounds.top() - dy / scale * flipY));
-        QObject::disconnect(m_conn);
-        m_transform->setVisibleBounds(visibleBounds);
-        m_conn = connect(m_transform, &DisplayTransformation::visibleBoundsChanged, this, &SimpleDisplay::onVisibleBoundChanged);
-    } else {
-        m_skipTransform = false;
-    }
+    moveVisibleBounds(dx, dy);
 
     viewport()->update();
     emit needChange();
-}
-
-//------------------------------------------------------------------------------
-void SimpleDisplay::adjustScrollBars()
-{
-    double scale = m_transform->scale();
-    int dx = getDx(scale);
-    int dy = getDy(scale);
-
-    QRectF visibleBounds = m_transform->visibleBounds();
-    QRectF bounds = m_transform->bounds();
-
-    qreal verticalRelative = (visibleBounds.bottom() * flipY - bounds.bottom() * flipY) * scale; // top for flipping
-    qreal horizontalRelative = (visibleBounds.left() - bounds.left()) * scale;
-
-    m_skipTransform = true;
-    horizontalScrollBar()->setRange(0, dx);
-    verticalScrollBar()->setRange(0, dy);
-
-    m_skipTransform = true;
-    horizontalScrollBar()->setValue(horizontalRelative);
-
-    m_skipTransform = true;
-    verticalScrollBar()->setValue(verticalRelative);
 }
 
 //------------------------------------------------------------------------------
@@ -231,6 +175,14 @@ void SimpleDisplay::showEvent(QShowEvent *event)
 }
 
 //------------------------------------------------------------------------------
+void SimpleDisplay::resizeEvent(QResizeEvent *event)
+{
+    Q_UNUSED(event)
+    m_transform->setDeviceFrame(QRectF(0, 0, width(), height()));
+    m_transform->setVisibleBounds(m_transform->visibleBounds());
+}
+
+//------------------------------------------------------------------------------
 void SimpleDisplay::emitChanged()
 {
     m_offset = QPointF(0, 0);
@@ -247,11 +199,66 @@ void SimpleDisplay::onVisibleBoundChanged(const QRectF &visibleBounds)
 }
 
 //------------------------------------------------------------------------------
-void SimpleDisplay::resizeEvent(QResizeEvent *event)
+void SimpleDisplay::adjustScrollBars()
 {
-    Q_UNUSED(event)
-    m_transform->setDeviceFrame(QRectF(0, 0, width(), height()));
-    m_transform->setVisibleBounds(m_transform->visibleBounds());
+    double scale = m_transform->scale();
+    int dx = getDx(scale);
+    int dy = getDy(scale);
+
+    QRectF visibleBounds = m_transform->visibleBounds();
+    QRectF bounds = m_transform->bounds();
+
+    qreal verticalRelative = (visibleBounds.bottom() * flipY - bounds.bottom() * flipY) * scale; // top for flipping
+    qreal horizontalRelative = (visibleBounds.left() - bounds.left()) * scale;
+
+    // Do not move visible bounds during scroll changing
+    m_moveVisibleBound = false;
+
+    horizontalScrollBar()->setRange(0, dx);
+    verticalScrollBar()->setRange(0, dy);
+
+    horizontalScrollBar()->setValue(horizontalRelative);
+    verticalScrollBar()->setValue(verticalRelative);
+
+    m_moveVisibleBound = true;
+}
+
+//------------------------------------------------------------------------------
+void SimpleDisplay::moveVisibleBounds(int dx, int dy)
+{
+    if (!m_moveVisibleBound)
+        return;
+
+    QObject::disconnect(m_conn);
+
+    double scale = m_transform->scale();
+    QRectF visibleBounds = m_transform->visibleBounds();
+    visibleBounds.moveTopLeft(QPointF(visibleBounds.left() - dx / scale, visibleBounds.top() - dy / scale * flipY));
+    m_transform->setVisibleBounds(visibleBounds);
+
+    m_conn = connect(m_transform, &DisplayTransformation::visibleBoundsChanged, this, &SimpleDisplay::onVisibleBoundChanged);
+}
+
+//------------------------------------------------------------------------------
+int SimpleDisplay::getDy(double scale)
+{
+    // Visible extent could be moved out the extent. We should expand extend
+    // instead of those max/min calculations
+    // int min_y = std::min(m_extent.top(), m_visibleExtent.top());
+    // int max_y = std::max(m_extent.bottom(), m_visibleExtent.bottom());
+    int dy = m_transform->bounds().height() * scale;
+    dy = std::max(dy, height());
+    dy -= height();
+    return dy;
+}
+
+//------------------------------------------------------------------------------
+int SimpleDisplay::getDx(double scale)
+{
+    int dx = (m_transform->bounds().width() * scale);
+    dx = std::max(dx, width());
+    dx -= width();
+    return dx;
 }
 
 //------------------------------------------------------------------------------

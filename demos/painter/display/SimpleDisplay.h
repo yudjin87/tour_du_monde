@@ -54,21 +54,22 @@ protected:
 
     void scrollContentsBy(int dx, int dy);
 
+signals:
+    void needChange();
+
 private slots:
     void emitChanged();
     void onVisibleBoundChanged(const QRectF &visibleBounds);
 
-signals:
-    void needChange();
-
 private:
     Q_DISABLE_COPY(SimpleDisplay)
+    void moveVisibleBounds(int dx, int dy);
     int getDy(double scale);
     int getDx(double scale);
     void adjustScrollBars();
 
 private:
-    bool m_skipTransform;
+    bool m_moveVisibleBound;
     QMetaObject::Connection m_conn;
     QPointF m_offset;
     QPixmap *m_pixmap;
