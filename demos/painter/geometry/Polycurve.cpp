@@ -68,18 +68,6 @@ const RingList &Polycurve::rings() const
 }
 
 //------------------------------------------------------------------------------
-QGraphicsItem *Polycurve::toGraphics() const
-{
-//    QGraphicsItemGroup* group = new QGraphicsItemGroup();
-//    foreach(Ring *ring, m_rings)
-//        ring->toGraphics()->setGroup(group);
-
-//    return group;
-
-    throw "Not implemented!";
-}
-
-//------------------------------------------------------------------------------
 void Polycurve::clearData()
 {
     foreach(Ring *ring, m_rings)

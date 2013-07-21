@@ -47,7 +47,7 @@ const int ShapeFileReader::fileVersion = 1000;
 
 //------------------------------------------------------------------------------
 ShapeFileReader::ShapeFileReader(QIODevice *inputDevice)
-    : mp_inputDevice(inputDevice)
+    : m_inputDevice(inputDevice)
 {
     setObjectName("ShapeFileReader");
 }
@@ -55,25 +55,25 @@ ShapeFileReader::ShapeFileReader(QIODevice *inputDevice)
 //------------------------------------------------------------------------------
 ShapeFileReader::~ShapeFileReader()
 {
-    mp_inputDevice = nullptr;
+    m_inputDevice = nullptr;
 }
 
 //------------------------------------------------------------------------------
 QIODevice *ShapeFileReader::inputDevice() const
 {
-    return mp_inputDevice;
+    return m_inputDevice;
 }
 
 //------------------------------------------------------------------------------
 void ShapeFileReader::setInputDevice(QIODevice *inputDevice)
 {
-    mp_inputDevice = inputDevice;
+    m_inputDevice = inputDevice;
 }
 
 //------------------------------------------------------------------------------
 bool ShapeFileReader::readHeader(ShapeFileHeader &outHeader)
 {
-    if (mp_inputDevice == nullptr)
+    if (m_inputDevice == nullptr)
         return false;
 
     ShapeFileHeader tempHeader;
@@ -86,7 +86,7 @@ bool ShapeFileReader::readHeader(ShapeFileHeader &outHeader)
 
     readFileLength(tempHeader.fileLength);
 
-    mp_inputDevice->read(reinterpret_cast<char *>(&tempHeader.version), sizeof(tempHeader.version));
+    m_inputDevice->read(reinterpret_cast<char *>(&tempHeader.version), sizeof(tempHeader.version));
     if (tempHeader.version != ShapeFileReader::fileVersion)
         return false;
 
@@ -95,10 +95,10 @@ bool ShapeFileReader::readHeader(ShapeFileHeader &outHeader)
     readBoundingBox(tempHeader.bBox);
 
     // read one more 4 doubles
-    mp_inputDevice->read(reinterpret_cast<char *>(&tempHeader.zmin), sizeof(tempHeader.zmin));
-    mp_inputDevice->read(reinterpret_cast<char *>(&tempHeader.zmax), sizeof(tempHeader.zmax));
-    mp_inputDevice->read(reinterpret_cast<char *>(&tempHeader.mmin), sizeof(tempHeader.mmin));
-    mp_inputDevice->read(reinterpret_cast<char *>(&tempHeader.mmax), sizeof(tempHeader.mmax));
+    m_inputDevice->read(reinterpret_cast<char *>(&tempHeader.zmin), sizeof(tempHeader.zmin));
+    m_inputDevice->read(reinterpret_cast<char *>(&tempHeader.zmax), sizeof(tempHeader.zmax));
+    m_inputDevice->read(reinterpret_cast<char *>(&tempHeader.mmin), sizeof(tempHeader.mmin));
+    m_inputDevice->read(reinterpret_cast<char *>(&tempHeader.mmax), sizeof(tempHeader.mmax));
 
     outHeader = tempHeader;
     return true;
@@ -108,36 +108,36 @@ bool ShapeFileReader::readHeader(ShapeFileHeader &outHeader)
 void ShapeFileReader::readShapeRecord(Record &record)
 {
     // read record number (big indian)
-    mp_inputDevice->read(reinterpret_cast<char *>(&record.recordNumber), sizeof(record.recordNumber));
+    m_inputDevice->read(reinterpret_cast<char *>(&record.recordNumber), sizeof(record.recordNumber));
     swapEndian(record.recordNumber);
 
     // read record lenght (big indian). Length is presented in 16-bit words
-    mp_inputDevice->read(reinterpret_cast<char *>(&record.contentLength), sizeof(record.contentLength));
+    m_inputDevice->read(reinterpret_cast<char *>(&record.contentLength), sizeof(record.contentLength));
     swapEndian(record.contentLength);
     record.contentLength *= 2;
     record.shapeBlob = new char[record.contentLength];
 
-    mp_inputDevice->read(record.shapeBlob, record.contentLength);
+    m_inputDevice->read(record.shapeBlob, record.contentLength);
 }
 
 //------------------------------------------------------------------------------
 void ShapeFileReader::readFileCode(int &fileCode)
 {
-    mp_inputDevice->read(reinterpret_cast<char *>(&fileCode), sizeof(fileCode));
+    m_inputDevice->read(reinterpret_cast<char *>(&fileCode), sizeof(fileCode));
     swapEndian(fileCode);
 }
 
 //------------------------------------------------------------------------------
 void ShapeFileReader::readUnusedInts(int &start, int size)
 {
-    mp_inputDevice->read(reinterpret_cast<char *>(&start), sizeof(start) * size);
+    m_inputDevice->read(reinterpret_cast<char *>(&start), sizeof(start) * size);
 }
 
 //------------------------------------------------------------------------------
 void ShapeFileReader::readFileLength(int &fileLength)
 {
     // read file lenght (big indian). Length is presented in 16-bit words
-    mp_inputDevice->read(reinterpret_cast<char *>(&fileLength), sizeof(fileLength));
+    m_inputDevice->read(reinterpret_cast<char *>(&fileLength), sizeof(fileLength));
     swapEndian(fileLength);
     fileLength *= 2;
 }
@@ -149,10 +149,10 @@ void ShapeFileReader::readBoundingBox(QRectF &bBox)
     double ymin;
     double xmax;
     double ymax;
-    mp_inputDevice->read(reinterpret_cast<char *>(&xmin), sizeof(double));
-    mp_inputDevice->read(reinterpret_cast<char *>(&ymin), sizeof(double));
-    mp_inputDevice->read(reinterpret_cast<char *>(&xmax), sizeof(double));
-    mp_inputDevice->read(reinterpret_cast<char *>(&ymax), sizeof(double));
+    m_inputDevice->read(reinterpret_cast<char *>(&xmin), sizeof(double));
+    m_inputDevice->read(reinterpret_cast<char *>(&ymin), sizeof(double));
+    m_inputDevice->read(reinterpret_cast<char *>(&xmax), sizeof(double));
+    m_inputDevice->read(reinterpret_cast<char *>(&ymax), sizeof(double));
 
     bBox.setCoords(xmin, ymin, xmax, ymax);
 }
@@ -160,7 +160,7 @@ void ShapeFileReader::readBoundingBox(QRectF &bBox)
 //------------------------------------------------------------------------------
 void ShapeFileReader::readShapeType(int &shapeType)
 {
-    mp_inputDevice->read(reinterpret_cast<char *>(&shapeType), sizeof(int));
+    m_inputDevice->read(reinterpret_cast<char *>(&shapeType), sizeof(int));
 }
 
 //------------------------------------------------------------------------------

@@ -45,7 +45,6 @@ public:
     void setCurve(const QPolygonF &curve);
 
     GeometryType type() const;
-    QGraphicsItem *toGraphics() const;
 
 private:
     QPolygonF m_value;

@@ -32,15 +32,15 @@
 Feature::Feature(GeometryType type)
     : m_type(type)
     , m_id(-1)
-    , mp_geometry(0)
+    , m_geometry(0)
 {
 }
 
 //------------------------------------------------------------------------------
 Feature::~Feature()
 {
-    delete mp_geometry;
-    mp_geometry = 0;
+    delete m_geometry;
+    m_geometry = 0;
 }
 
 //------------------------------------------------------------------------------
@@ -58,26 +58,26 @@ void Feature::setId(int id)
 //------------------------------------------------------------------------------
 const QRectF &Feature::extent() const
 {
-    return mp_geometry->extent();
+    return m_geometry->extent();
 }
 
 //------------------------------------------------------------------------------
 AbstractGeometry *Feature::geometry()
 {
-    return mp_geometry;
+    return m_geometry;
 }
 
 //------------------------------------------------------------------------------
 const AbstractGeometry *Feature::geometry() const
 {
-    return mp_geometry;
+    return m_geometry;
 }
 
 //------------------------------------------------------------------------------
 void Feature::setGeometry(AbstractGeometry *geometry)
 {
-    delete mp_geometry;
-    mp_geometry = geometry;
+    delete m_geometry;
+    m_geometry = geometry;
 }
 
 //------------------------------------------------------------------------------

@@ -31,30 +31,30 @@
 Throttle::Throttle(int minimumDelay, QObject *parent)
     : QObject(parent)
     , m_minimumDelay(minimumDelay)
-    , mp_timer(new QTimer(this))
+    , m_timer(new QTimer(this))
 {
-    connect(mp_timer, SIGNAL(timeout()), SLOT(timeout()));
+    connect(m_timer, SIGNAL(timeout()), SLOT(timeout()));
 }
 
 //------------------------------------------------------------------------------
 Throttle::Throttle(QObject* parent)
     : QObject(parent)
     , m_minimumDelay(150)
-    , mp_timer(new QTimer(this))
+    , m_timer(new QTimer(this))
 {
-    connect(mp_timer, SIGNAL(timeout()), SLOT(timeout()));
+    connect(m_timer, SIGNAL(timeout()), SLOT(timeout()));
 }
 
 //------------------------------------------------------------------------------
 void Throttle::start()
 {
-    mp_timer->start(m_minimumDelay);
+    m_timer->start(m_minimumDelay);
 }
 
 //------------------------------------------------------------------------------
 void Throttle::timeout()
 {
-    mp_timer->stop();
+    m_timer->stop();
     emit elapsed();
 }
 

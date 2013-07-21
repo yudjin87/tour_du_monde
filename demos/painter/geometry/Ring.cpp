@@ -27,11 +27,10 @@
 #include "Ring.h"
 #include "Segment.h"
 
-#include <QtWidgets/QGraphicsItemGroup>
-
 //------------------------------------------------------------------------------
 Ring::Ring()
-    :m_segments()
+    : AbstractGeometry()
+    , m_segments()
 {
 }
 
@@ -72,18 +71,6 @@ const SegmentList &Ring::segments() const
 GeometryType Ring::type() const
 {
     return GeometryRing;
-}
-
-//------------------------------------------------------------------------------
-QGraphicsItem *Ring::toGraphics() const
-{
-//    QGraphicsItemGroup* group = new QGraphicsItemGroup();
-//    foreach(Segment *segment, m_segments)
-//        segment->toGraphics()->setGroup(group);
-
-//    return group;
-
-    throw "Not implemented!";
 }
 
 //------------------------------------------------------------------------------

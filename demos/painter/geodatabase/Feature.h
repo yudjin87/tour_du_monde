@@ -50,7 +50,7 @@ public:
 private:
     GeometryType m_type;
     int m_id;
-    AbstractGeometry* mp_geometry;
+    AbstractGeometry* m_geometry;
 };
 
 #endif // FEATURE_H

@@ -50,7 +50,7 @@ ShapeFileFeatureDataset::ShapeFileFeatureDataset(IWorkspace &workspace, const QS
     : m_workspace(workspace)
     , m_name(name)
     , m_locator(locator)
-    , mp_file(nullptr)
+    , m_file(nullptr)
     , m_isOpen(false)
 {
 }
@@ -58,8 +58,8 @@ ShapeFileFeatureDataset::ShapeFileFeatureDataset(IWorkspace &workspace, const QS
 //------------------------------------------------------------------------------
 ShapeFileFeatureDataset::~ShapeFileFeatureDataset()
 {
-    delete mp_file;
-    mp_file = nullptr;
+    delete m_file;
+    m_file = nullptr;
 }
 
 //------------------------------------------------------------------------------
@@ -82,7 +82,7 @@ QRectF ShapeFileFeatureDataset::extent()
         return rect;
 
     ReaderPtr reader(m_locator->buildInstance<IShapeFileReader>());
-    reader->setInputDevice(mp_file);
+    reader->setInputDevice(m_file);
 
     ShapeFileHeader header;
     reader->readHeader(header);
@@ -113,7 +113,7 @@ IFeatureClass *ShapeFileFeatureDataset::classByName(const QString &className)
         return nullptr;
 
     ReaderPtr reader(m_locator->buildInstance<IShapeFileReader>());
-    reader->setInputDevice(mp_file);
+    reader->setInputDevice(m_file);
 
     ShapeFileHeader header;
     reader->readHeader(header);
@@ -122,7 +122,7 @@ IFeatureClass *ShapeFileFeatureDataset::classByName(const QString &className)
     GeometryType type = geometryFactory->geometryTypeFromShapeType(header.shapeType);
     IFeatureClass *featureClass = createFeatureClass(type, header.bBox);
 
-    while (!mp_file->atEnd()) {
+    while (!m_file->atEnd()) {
         Record record;
         memset(reinterpret_cast<char *>(&record), 0, sizeof(Record));
         reader->readShapeRecord(record);
@@ -156,7 +156,7 @@ GeometryType ShapeFileFeatureDataset::geometryType()
         return type;
 
     ReaderPtr reader(m_locator->buildInstance<IShapeFileReader>());
-    reader->setInputDevice(mp_file);
+    reader->setInputDevice(m_file);
 
     ShapeFileHeader header;
     reader->readHeader(header);
@@ -193,8 +193,8 @@ bool ShapeFileFeatureDataset::prepareToReading(const QString &name)
     if (!fileInfo.isReadable())
         return false;
 
-    mp_file = new QFile(fileInfo.absoluteFilePath());
-    mp_file->open(QIODevice::ReadOnly);
+    m_file = new QFile(fileInfo.absoluteFilePath());
+    m_file->open(QIODevice::ReadOnly);
 
     m_isOpen = true;
 
@@ -209,8 +209,8 @@ void ShapeFileFeatureDataset::finishReading()
 
     m_isOpen = false;
 
-    delete mp_file;
-    mp_file = nullptr;
+    delete m_file;
+    m_file = nullptr;
 }
 
 //------------------------------------------------------------------------------

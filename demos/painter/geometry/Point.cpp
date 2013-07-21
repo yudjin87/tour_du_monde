@@ -26,17 +26,17 @@
 
 #include "Point.h"
 
-#include <QtWidgets/QGraphicsEllipseItem>
-
 //------------------------------------------------------------------------------
 Point::Point()
-    : m_value()
+    : AbstractGeometry()
+    , m_value()
 {
 }
 
 //------------------------------------------------------------------------------
 Point::Point(qreal x, qreal y)
-    : m_value(x, y)
+    : AbstractGeometry()
+    , m_value(x, y)
 {
 }
 
@@ -63,12 +63,6 @@ void Point::setPoint(const QPointF &value)
 GeometryType Point::type() const
 {
     return GeometryPoint;
-}
-
-//------------------------------------------------------------------------------
-QGraphicsItem *Point::toGraphics() const
-{
-    return new QGraphicsEllipseItem(m_value.x(), m_value.y(), 3, 3);
 }
 
 //------------------------------------------------------------------------------

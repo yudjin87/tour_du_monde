@@ -26,8 +26,6 @@
 
 #include "Segment.h"
 
-#include <QtWidgets/QGraphicsPolygonItem>
-
 //------------------------------------------------------------------------------
 Segment::Segment()
     : AbstractGeometry()
@@ -47,7 +45,6 @@ Segment::Segment(std::initializer_list<QPointF> points)
     : AbstractGeometry()
     , m_value(points)
 {
-
 }
 
 //------------------------------------------------------------------------------
@@ -72,12 +69,6 @@ void Segment::setCurve(const QPolygonF &value)
 GeometryType Segment::type() const
 {
     return GeometryPath;
-}
-
-//------------------------------------------------------------------------------
-QGraphicsItem *Segment::toGraphics() const
-{
-    return new QGraphicsPolygonItem(m_value);
 }
 
 //------------------------------------------------------------------------------

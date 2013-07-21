@@ -63,7 +63,7 @@ private:
     IWorkspace &m_workspace;
     QString m_name;
     IServiceLocator *m_locator;
-    QFile *mp_file;
+    QFile *m_file;
     bool m_isOpen;
 };
 

@@ -54,7 +54,7 @@ private:
 private:
     static const int fileCode;
     static const int fileVersion;
-    QIODevice *mp_inputDevice;
+    QIODevice *m_inputDevice;
 };
 
 #endif // SHAPEFILEREADER_H

@@ -39,7 +39,7 @@ static const QByteArray productName("Dom");
 //------------------------------------------------------------------------------
 DomComponent::DomComponent()
     : BaseComponent("org.carousel.demos.Dom")
-    , mp_docController(nullptr)
+    , m_docController(nullptr)
 {
     addParent("org.carousel.demos.Display", 1, 0);
     addParent("org.carousel.demos.Carto", 1, 0);
@@ -58,19 +58,19 @@ DomComponent::~DomComponent()
 //------------------------------------------------------------------------------
 void DomComponent::onShutdown(IServiceLocator *serviceLocator)
 {
-    if (mp_docController == nullptr)
+    if (m_docController == nullptr)
         qWarning("Logic error: onStartup() should be called before onShutdown().");
 
     delete serviceLocator->unregisterInstance<IPainterDocumentController>();
-    mp_docController = nullptr;
+    m_docController = nullptr;
 }
 
 //------------------------------------------------------------------------------
 bool DomComponent::onStartup(IServiceLocator *serviceLocator)
 {
     IDisplay *display = serviceLocator->locate<IDisplay>();
-    mp_docController = new PainterDocumentController(display);
-    serviceLocator->registerInstance<IPainterDocumentController>(mp_docController);
+    m_docController = new PainterDocumentController(display);
+    serviceLocator->registerInstance<IPainterDocumentController>(m_docController);
 
     return true;
 }

@@ -45,7 +45,7 @@ public:
 
     GeometryType shapeType() const;
 
-    FeatureRenderer *renderer() const {return mp_featureRenderer;}
+    FeatureRenderer *renderer() const {return m_featureRenderer;}
 
     void draw(IDisplay *display);
 
@@ -61,8 +61,8 @@ protected:
     void hide();
 
 private:
-    IFeatureClass *mp_featureClass;
-    FeatureRenderer *mp_featureRenderer;
+    IFeatureClass *m_featureClass;
+    FeatureRenderer *m_featureRenderer;
     ISymbol *m_symbol;
 };
 

@@ -33,8 +33,6 @@
 
 #include <QtCore/QRectF>
 
-class QGraphicsItem;
-
 class GEOMETRY_API AbstractGeometry
 {
 public:
@@ -46,7 +44,6 @@ public:
     void setId(int id);
 
     virtual GeometryType type() const = 0;
-    virtual QGraphicsItem *toGraphics() const = 0;
 
     const QRectF &extent() const;
 

@@ -40,8 +40,8 @@
 
 //------------------------------------------------------------------------------
 FeatureLayer::FeatureLayer()
-    : mp_featureClass(nullptr)
-    , mp_featureRenderer(new FeatureRenderer())
+    : m_featureClass(nullptr)
+    , m_featureRenderer(new FeatureRenderer())
     , m_symbol(nullptr)
 {
 }
@@ -49,58 +49,64 @@ FeatureLayer::FeatureLayer()
 //------------------------------------------------------------------------------
 FeatureLayer::~FeatureLayer()
 {
-    delete mp_featureClass;
-    mp_featureClass = nullptr;
+    delete m_featureClass;
+    m_featureClass = nullptr;
 
-    delete mp_featureRenderer;
-    mp_featureRenderer = nullptr;
+    delete m_featureRenderer;
+    m_featureRenderer = nullptr;
 
     delete m_symbol;
     m_symbol = nullptr;
 }
 
 //------------------------------------------------------------------------------
+GeometryType FeatureLayer::shapeType() const
+{
+    return m_featureClass->shapeType();
+}
+
+//------------------------------------------------------------------------------
 void FeatureLayer::draw(IDisplay *display)
 {
-    if (mp_featureClass == nullptr)
+    if (m_featureClass == nullptr)
         return;
 
     SpatialFilter filter;
     Polygon extent(display->transformation()->visibleBounds());
     filter.setGeometry(&extent);
 
-    FeatureList features = mp_featureClass->search(filter);
+    FeatureList features = m_featureClass->search(filter);
     //qDebug(QString("draw %1 features").arg(features.size()).toLatin1());
-    mp_featureRenderer->draw(features, display);
+    m_featureRenderer->draw(features, display);
 }
 
 //------------------------------------------------------------------------------
 QRectF FeatureLayer::extent() const
 {
-    return mp_featureClass->extent();
+    return m_featureClass->extent();
 }
 
 //------------------------------------------------------------------------------
 IFeatureClass *FeatureLayer::featureClass()
 {
-    return mp_featureClass;
+    return m_featureClass;
 }
 
 //------------------------------------------------------------------------------
 const IFeatureClass *FeatureLayer::featureClass() const
 {
-    return mp_featureClass;
+    return m_featureClass;
 }
 
 //------------------------------------------------------------------------------
 void FeatureLayer::setFeatureClass(IFeatureClass *featureClass)
 {
-    delete mp_featureClass;
-    mp_featureClass = featureClass;
+    delete m_featureClass;
+    m_featureClass = featureClass;
 
     delete m_symbol;
 
-    switch (mp_featureClass->shapeType())
+    switch (m_featureClass->shapeType())
     {
     case GeometryPoint:
         m_symbol = new SimpleMarkerSymbol();
@@ -118,7 +124,7 @@ void FeatureLayer::setFeatureClass(IFeatureClass *featureClass)
         break;
     }
 
-    mp_featureRenderer->setSymbol(m_symbol);
+    m_featureRenderer->setSymbol(m_symbol);
 }
 
 //------------------------------------------------------------------------------

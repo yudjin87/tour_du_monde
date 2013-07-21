@@ -49,7 +49,6 @@ public:
     const SegmentList &segments() const;
 
     GeometryType type() const;
-    QGraphicsItem *toGraphics() const;
 
 private:
     void clearData();

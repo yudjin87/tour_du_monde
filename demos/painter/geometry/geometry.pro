@@ -1,6 +1,6 @@
 include(../shared.pri)
 
-QT       += widgets
+QT       += core
 
 TEMPLATE = lib
 

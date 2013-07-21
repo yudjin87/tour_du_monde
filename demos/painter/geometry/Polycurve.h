@@ -49,7 +49,6 @@ public:
     const RingList &rings() const;
 
     GeometryType type() const = 0;
-    QGraphicsItem *toGraphics() const;
 
 private:
     void clearData();

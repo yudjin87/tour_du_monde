@@ -42,7 +42,6 @@ public:
     void setPoint(const QPointF &point);
 
     GeometryType type() const;
-    QGraphicsItem *toGraphics() const;
 
 private:
     QPointF m_value;

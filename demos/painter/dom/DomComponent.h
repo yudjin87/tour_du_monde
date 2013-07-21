@@ -44,7 +44,7 @@ protected:
     bool onStartup(IServiceLocator *serviceLocator);
 
 private:
-    PainterDocumentController *mp_docController;
+    PainterDocumentController *m_docController;
 };
 
 #endif // DOMCOMPONENT_H

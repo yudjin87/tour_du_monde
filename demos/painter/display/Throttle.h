@@ -49,7 +49,7 @@ private slots:
 
 private:
     int m_minimumDelay;
-    QTimer* mp_timer;
+    QTimer* m_timer;
 };
 
 #endif // THROTTLE_H
