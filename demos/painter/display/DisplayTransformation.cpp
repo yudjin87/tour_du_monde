@@ -31,9 +31,11 @@
 #include <limits>
 
 //------------------------------------------------------------------------------
+static const int flipY = -1;
+
+//------------------------------------------------------------------------------
 DisplayTransformation::DisplayTransformation(QObject *parent)
     : QObject(parent)
-    , m_transform(new QTransform())
     , m_bounds(QRectF())
     , m_deviceFrame(QRectF())
     , m_visibleBounds(QRectF())
@@ -44,8 +46,6 @@ DisplayTransformation::DisplayTransformation(QObject *parent)
 //------------------------------------------------------------------------------
 DisplayTransformation::~DisplayTransformation()
 {
-    delete m_transform;
-    m_transform = nullptr;
 }
 
 //------------------------------------------------------------------------------
@@ -86,17 +86,18 @@ void DisplayTransformation::setDeviceFrame(const QRectF &deviceFrame)
 //------------------------------------------------------------------------------
 double DisplayTransformation::scale() const
 {
-    return m_scale;
+    double relY = m_deviceFrame.height() / m_visibleBounds.height();
+    double relX = m_deviceFrame.width() / m_visibleBounds.width();
+
+    return std::min(relY, relX);
 }
 
 //------------------------------------------------------------------------------
-void DisplayTransformation::setScale(double scale)
+void DisplayTransformation::setScale(double absoluteScale)
 {
-    if (std::abs(m_scale - scale) <= std::numeric_limits<double>::epsilon())
-        return;
+    double scale2 =  scale() / absoluteScale;
 
-    m_scale = scale;
-    emit scaleChanged(m_scale);
+    setVisibleBounds(expandRect(m_visibleBounds, scale2));
 }
 
 //------------------------------------------------------------------------------
@@ -111,14 +112,83 @@ void DisplayTransformation::setVisibleBounds(const QRectF &visibleBounds)
     if (m_visibleBounds == visibleBounds)
         return;
 
+    // Use fitted bounds (e.g. adjusted(-20, -20, 20, 20))
     m_visibleBounds = visibleBounds;
+
+    double relY = m_deviceFrame.height() / visibleBounds.height();
+    double relX = m_deviceFrame.width() / visibleBounds.width();
+
+    if (relX > relY)
+        m_visibleBounds.setWidth(m_deviceFrame.width() / scale());
+    else
+        m_visibleBounds.setHeight(m_deviceFrame.height() / scale());
+
     emit visibleBoundsChanged(m_visibleBounds);
 }
 
 //------------------------------------------------------------------------------
 QTransform DisplayTransformation::transform() const
 {
-    return QTransform();
+    if (m_visibleBounds.height() <= 0 || m_visibleBounds.width() <= 0)
+        return QTransform();
+
+    double _scale = scale();
+
+    qreal dx = m_visibleBounds.left();
+    qreal dy = m_visibleBounds.bottom(); // top for flipping
+
+    QTransform viewport;
+    viewport.scale(_scale, _scale * flipY);
+    viewport.translate(-dx, -dy);
+
+    return viewport;
+}
+
+//------------------------------------------------------------------------------
+QPointF DisplayTransformation::toMapPoint(int x, int y) const
+{
+    qreal outX;
+    qreal outY;
+    transform().inverted().map(qreal(x), qreal(y), &outX, &outY);
+    return QPointF(outX, outY);
+}
+
+//------------------------------------------------------------------------------
+QRectF DisplayTransformation::expandRect(const QRectF &extent, double scale)
+{
+    qreal new_left = extent.center().x() - extent.width() / 2 * scale;
+    qreal left = std::max(m_bounds.left(), new_left);
+    qreal new_right = new_left + extent.width() * scale;
+
+
+    qreal new_top = extent.center().y() - extent.height() / 2 * scale;
+    qreal top = std::max(m_bounds.top(), new_top);
+    qreal new_bottom = new_top + extent.height() * scale;
+
+    QRectF rect(left, top, extent.width() * scale, extent.height() * scale);
+
+    // Adjust visible rect, if it faces with full bounds
+    if (new_bottom > m_bounds.bottom()) {
+        if (new_top <  m_bounds.top()) {
+            // Move to the extent center, if visible heigh is greater then map extent
+            qreal centerY = ((m_bounds.bottom() - m_bounds.top()) / 2) - rect.height() / 2;
+            rect.moveBottom(m_bounds.bottom() + centerY * flipY);   // moveTop, top for flipping
+        } else {
+            rect.moveBottom(m_bounds.bottom());                       // moveTop, top for flipping
+        }
+    }
+
+    if (new_right > m_bounds.right()) {
+        if (new_left <  m_bounds.left()) {
+            // Move to the extent center, if visible width is greater then map extent
+            qreal centerX = ((m_bounds.right() - m_bounds.left()) / 2) - rect.width() / 2;
+            rect.moveLeft(m_bounds.left() + centerX);
+        } else {
+            rect.moveLeft(m_bounds.left());
+        }
+    }
+
+    return rect;
 }
 
 //------------------------------------------------------------------------------

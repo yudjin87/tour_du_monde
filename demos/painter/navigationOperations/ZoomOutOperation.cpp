@@ -29,6 +29,7 @@
 #include <carousel/utils/IServiceLocator.h>
 
 #include <display/IDisplay.h>
+#include <display/DisplayTransformation.h>
 
 //------------------------------------------------------------------------------
 ZoomOutOperation::ZoomOutOperation()
@@ -43,7 +44,7 @@ ZoomOutOperation::ZoomOutOperation()
 void ZoomOutOperation::execute()
 {
     IDisplay *display = m_serviceLocator->locate<IDisplay>();
-    display->setScale(display->scale() / 1.1);
+    display->transformation()->setScale(display->transformation()->scale() / 1.1);
 }
 
 //------------------------------------------------------------------------------

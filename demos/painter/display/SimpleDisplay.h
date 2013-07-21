@@ -29,9 +29,6 @@
 
 #include "IDisplay.h"
 
-#include <QtCore/QObject>
-#include <QtWidgets/QWidget>
-
 class QPixmap;
 
 class SimpleDisplay :  public IDisplay
@@ -46,16 +43,8 @@ public:
     QPainter *startDrawing();
     void finishDrawing(QPainter *painter);
 
-    QRectF visibleExtent() const;
-
-    QRectF extent() const;
-
-    void setExtent(const QRectF& extent);
-
-    void setVisibleExtent(const QRectF& extent);
-
-    double scale() const;
-    void setScale(double scale);
+    DisplayTransformation *transformation();
+    const DisplayTransformation *transformation() const;
 
 protected:
     void mouseMoveEvent(QMouseEvent *event);
@@ -67,24 +56,23 @@ protected:
 
 private slots:
     void emitChanged();
+    void onVisibleBoundChanged(const QRectF &visibleBounds);
 
 signals:
     void needChange();
 
 private:
     Q_DISABLE_COPY(SimpleDisplay)
-    QTransform transform();
     int getDy(double scale);
     int getDx(double scale);
-    QRectF expand(const QRectF &extent, double scale);
     void adjustScrollBars();
 
 private:
-    QRectF m_extent;
-    QRectF m_visibleExtent;
+    bool m_skipTransform;
+    QMetaObject::Connection m_conn;
     QPointF m_offset;
     QPixmap *m_pixmap;
     QPainter *m_currentPainter;
-    mutable QTransform m_transform;
+    DisplayTransformation *m_transform;
 };
 #endif // DISPLAY_H

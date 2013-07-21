@@ -28,6 +28,7 @@
 #include "AbstractLayer.h"
 
 #include <display/IDisplay.h>
+#include <display/DisplayTransformation.h>
 
 //------------------------------------------------------------------------------
 Map::Map()
@@ -50,10 +51,8 @@ Map::~Map()
 void Map::addLayer(AbstractLayer *layer)
 {
     m_layers.push_back(layer);
+    m_display->transformation()->setBounds(layer->extent());
     emit layerAdded(layer);
-    //mp_layer->draw(mp_scene);
-
-    m_display->setExtent(layer->extent());
 }
 
 //------------------------------------------------------------------------------
@@ -77,7 +76,14 @@ void Map::setDisplay(IDisplay *display)
 {
     m_display = display;
 
-    connect(m_display, SIGNAL(changed()), SLOT(refresh()));
+    connect(m_display, &IDisplay::visibleBoundsUpdated, this, &Map::onVisibleBoundsChanged);
+}
+
+//------------------------------------------------------------------------------
+void Map::onVisibleBoundsChanged(DisplayTransformation *transform)
+{
+    Q_UNUSED(transform)
+    refresh();
 }
 
 //------------------------------------------------------------------------------

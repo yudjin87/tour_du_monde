@@ -31,9 +31,9 @@
 
 #include <QtWidgets/QAbstractScrollArea>
 
+class DisplayTransformation;
+
 class QPainter;
-class QPaintDevice;
-class QRect;
 
 class DISPLAY_API IDisplay : public QAbstractScrollArea
 {
@@ -47,16 +47,11 @@ public:
     virtual QPainter *startDrawing() = 0;
     virtual void finishDrawing(QPainter *painter) = 0;
 
-    virtual QRectF visibleExtent() const = 0;
-    virtual QRectF extent() const = 0;
-
-    virtual void setExtent(const QRectF& extent) = 0;
-
-    virtual double scale() const = 0;
-    virtual void setScale(double scale) = 0;
+    virtual DisplayTransformation *transformation() = 0;
+    virtual const DisplayTransformation *transformation() const = 0;
 
 signals:
-    void changed();
+    void visibleBoundsUpdated(DisplayTransformation *transform);
 
 private:
     Q_DISABLE_COPY(IDisplay)

@@ -38,6 +38,7 @@ SimpleLineSymbol::SimpleLineSymbol(QObject *parent)
     : LineSymbol(parent)
     , m_pen()
 {
+    m_pen.setCosmetic(true);
 }
 
 //------------------------------------------------------------------------------
@@ -45,7 +46,6 @@ void SimpleLineSymbol::setupDisplay(IDisplay *display)
 {
     LineSymbol::setupDisplay(display);
 
-    m_pen.setWidthF(width() / display->scale());
     m_pen.setColor(color());
 
     display->painter()->setPen(m_pen);

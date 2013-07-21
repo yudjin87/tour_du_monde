@@ -71,8 +71,10 @@ class DISPLAY_API DisplayTransformation : public QObject
      *
      *   The Map object has a short-cut (Map::mapScale()) directly to this property on
      *   its DisplayTransformation object.
+     *
+     *   Setting this property visibleBounds are changed, so visibleBoundsChanged signal emits.
      */
-    Q_PROPERTY(double scale READ scale WRITE setScale NOTIFY scaleChanged)
+    Q_PROPERTY(double scale READ scale WRITE setScale)
 
     /*!
      * @details
@@ -102,7 +104,7 @@ public:
     void setDeviceFrame(const QRectF &deviceFrame);
 
     double scale() const;
-    void setScale(double scale);
+    void setScale(double absoluteScale);
 
     QRectF visibleBounds() const;
     void setVisibleBounds(const QRectF &visibleBounds);
@@ -130,7 +132,7 @@ public slots:
      * @details
      *   Converts an @a x;y location in device coordinates to real world coordinates.
      */
-    //QPointF toMapPoint(int x, int y) const;
+    QPointF toMapPoint(int x, int y) const;
 
     /*!
      * @details
@@ -142,8 +144,10 @@ public slots:
 signals:
     void boundsChanged(const QRectF &bounds);
     void deviceFrameChanged(const QRectF &deviceFrame);
-    void scaleChanged(double scale);
     void visibleBoundsChanged(const QRectF &visibleBounds);
+
+private:
+    QRectF expandRect(const QRectF &extent, double scale);
 
 private:
     QRectF m_bounds;

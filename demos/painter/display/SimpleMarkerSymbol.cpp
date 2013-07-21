@@ -26,6 +26,7 @@
 
 #include "SimpleMarkerSymbol.h"
 #include "IDisplay.h"
+#include "DisplayTransformation.h"
 
 #include <geometry/Point.h>
 
@@ -87,11 +88,13 @@ void SimpleMarkerSymbol::setupDisplay(IDisplay *display)
 
     display->painter()->setBrush(m_brush);
 
-    m_width = size() / display->scale() / 2;
-    m_height = size() / display->scale() / 2;
+    double scale = display->transformation()->scale();
+
+    m_width = size() / scale / 2;
+    m_height = size() / scale / 2;
 
     if (isOutline()) {
-        m_outlinePen.setWidthF(m_outlineSize / display->scale());
+        m_outlinePen.setWidthF(m_outlineSize / scale);
         display->painter()->setPen(m_outlinePen);
     } else {
         display->painter()->setPen(Qt::NoPen);

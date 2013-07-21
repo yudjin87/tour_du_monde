@@ -33,6 +33,7 @@
 #include <QtCore/QObject>
 
 class AbstractLayer;
+class DisplayTransformation;
 class IDisplay;
 
 class CARTO_API Map : public QObject
@@ -53,6 +54,9 @@ public slots:
 
 signals:
     void layerAdded(AbstractLayer *layer);
+
+private slots:
+    void onVisibleBoundsChanged(DisplayTransformation *transform);
 
 private:
     IDisplay *m_display;

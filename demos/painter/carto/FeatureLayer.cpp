@@ -28,6 +28,7 @@
 
 #include <display/FeatureRenderer.h>
 #include <display/IDisplay.h>
+#include <display/DisplayTransformation.h>
 #include <display/SimpleFillSymbol.h>
 #include <display/SimpleMarkerSymbol.h>
 #include <display/SimpleLineSymbol.h>
@@ -65,7 +66,7 @@ void FeatureLayer::draw(IDisplay *display)
         return;
 
     SpatialFilter filter;
-    Polygon extent(display->visibleExtent());
+    Polygon extent(display->transformation()->visibleBounds());
     filter.setGeometry(&extent);
 
     FeatureList features = mp_featureClass->search(filter);
