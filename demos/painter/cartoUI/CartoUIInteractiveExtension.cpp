@@ -52,14 +52,14 @@ void CartoUIInteractiveExtension::configureGui(ICatalogs &inCatalogs, IServiceLo
     IPainterDocumentController* docController = serviceLocator->locate<IPainterDocumentController>();
     IPainterDocument *doc = docController->document();
 
-//    IDockWidgetCatalog &catalog = inCatalogs.dockWidgetCatalog();
-//    QListView *view = new QListView();
-//    view->setModel(new LayersTreeModel(&doc->map(), view));
-//    QDockWidget *layersDock = catalog.addDockWidget(view, "Layers tree");
+    IDockWidgetCatalog &catalog = inCatalogs.dockWidgetCatalog();
+    QListView *view = new QListView();
+    view->setModel(new LayersTreeModel(doc->map(), view));
+    QDockWidget *layersDock = catalog.addDockWidget(view, "Layers tree");
 
-//    Operation *toogleTree = inCatalogs.operationCatalog().add(new ToogleLayerTreeOperation(layersDock->toggleViewAction()));
-//    QMenu *viewMenu = inCatalogs.menuCatalog().addMenu("View");
-//    viewMenu->addAction(toogleTree);
+    Operation *toogleTree = inCatalogs.operationCatalog().add(new ToogleLayerTreeOperation(layersDock->toggleViewAction()));
+    QMenu *viewMenu = inCatalogs.menuCatalog().addMenu("View");
+    viewMenu->addAction(toogleTree);
 }
 
 //------------------------------------------------------------------------------

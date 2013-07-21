@@ -25,18 +25,12 @@ HEADERS += \
     cartoUI_api.h \
     CartoUIComponent.h \
     CartoUIInteractiveExtension.h \
-    FeatureLayerModel.h \
-    MapModel.h \
-    GraphicsPoinItem.h \
     LayersTreeModel.h \
     ToogleLayerTreeOperation.h \
 
 SOURCES += \
     CartoUIComponent.cpp \
     CartoUIInteractiveExtension.cpp \
-    FeatureLayerModel.cpp \
-    MapModel.cpp \
-    GraphicsPoinItem.cpp \
     LayersTreeModel.cpp \
     ToogleLayerTreeOperation.cpp
 
