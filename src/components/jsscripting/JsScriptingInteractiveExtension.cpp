@@ -25,13 +25,13 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "JsScriptingInteractiveExtension.h"
-#include "ToogleScriptConsoleOperation.h"
 #include "ScriptConsole.h"
 
 #include <components/interactivity/ICatalogs.h>
 #include <components/interactivity/IDockWidgetCatalog.h>
 #include <components/interactivity/IMenuCatalog.h>
 #include <components/interactivity/IOperationCatalog.h>
+#include <components/interactivity/ToggleActionWrapper.h>
 #include <carousel/utils/IServiceLocator.h>
 
 #include <QtWidgets/QDockWidget>
@@ -52,7 +52,8 @@ void JsScriptingInteractiveExtension::configureGui(ICatalogs &inCatalogs, IServi
     IDockWidgetCatalog &catalog = inCatalogs.dockWidgetCatalog();
     QDockWidget *scriptDock = catalog.addDockWidget(new ScriptConsole(), "Scripting (not working yet)", Qt::BottomDockWidgetArea);
 
-    Operation *scriptConsole = inCatalogs.operationCatalog().add(new ToogleScriptConsoleOperation(scriptDock->toggleViewAction()));
+    Operation *scriptConsole = new ToggleActionWrapper(scriptDock->toggleViewAction(), QIcon(":/jsscripting/images/scriptWindow.png"));
+    inCatalogs.operationCatalog().add(scriptConsole);
     QMenu *viewMenu = inCatalogs.menuCatalog().addMenu("View");
     viewMenu->addAction(scriptConsole);
 }

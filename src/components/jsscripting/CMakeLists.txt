@@ -11,7 +11,6 @@ set(__SOURCES
     ${CRSL_TARGET_SOURCES}/JsScriptingComponent.cpp 
     ${CRSL_TARGET_SOURCES}/JsScriptingInteractiveExtension.cpp 
     ${CRSL_TARGET_SOURCES}/ScriptConsole.cpp 
-    ${CRSL_TARGET_SOURCES}/ToogleScriptConsoleOperation.cpp 
 )
 	
 ######################################################################
@@ -21,7 +20,6 @@ set(__HEADERS
     ${CRSL_TARGET_HEADERS}/JsScriptingComponent.h 
     ${CRSL_TARGET_HEADERS}/JsScriptingInteractiveExtension.h 
     ${CRSL_TARGET_HEADERS}/ScriptConsole.h 
-    ${CRSL_TARGET_HEADERS}/ToogleScriptConsoleOperation.h 
 )
 
 ######################################################################

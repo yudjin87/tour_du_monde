@@ -6,13 +6,11 @@ HEADERS += \
     $$PROJECT_HEADERS/JsScriptingComponent.h \
     $$PROJECT_HEADERS/JsScriptingInteractiveExtension.h \
     $$PROJECT_HEADERS/ScriptConsole.h \
-    $$PROJECT_HEADERS/ToogleScriptConsoleOperation.h \
 
 SOURCES += \
     $$PROJECT_SOURCES/JsScriptingComponent.cpp \
     $$PROJECT_SOURCES/JsScriptingInteractiveExtension.cpp \
     $$PROJECT_SOURCES/ScriptConsole.cpp \
-    $$PROJECT_SOURCES/ToogleScriptConsoleOperation.cpp \
 
 OTHER_FILES += \
     $$PROJECT_SOURCES/org.carousel.JsScripting.definition \

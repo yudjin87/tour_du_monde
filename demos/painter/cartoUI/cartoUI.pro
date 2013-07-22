@@ -26,13 +26,11 @@ HEADERS += \
     CartoUIComponent.h \
     CartoUIInteractiveExtension.h \
     LayersTreeModel.h \
-    ToogleLayerTreeOperation.h \
 
 SOURCES += \
     CartoUIComponent.cpp \
     CartoUIInteractiveExtension.cpp \
-    LayersTreeModel.cpp \
-    ToogleLayerTreeOperation.cpp
+    LayersTreeModel.cpp
 
 OTHER_FILES += \
     org.carousel.demos.CartoUI.definition

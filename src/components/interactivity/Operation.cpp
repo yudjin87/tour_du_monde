@@ -26,6 +26,15 @@
 
 #include "Operation.h"
 
+#include <carousel/componentsystem/IComponent.h>
+#include <carousel/logging/LoggerFacade.h>
+
+//------------------------------------------------------------------------------
+namespace
+{
+static LoggerFacade Log = LoggerFacade::createLogger("Operation");
+}
+
 //------------------------------------------------------------------------------
 Operation::Operation(QActionGroup *actionGroup /*= nullptr*/)
     : QAction(actionGroup)
@@ -115,11 +124,18 @@ void Operation::onToggled(bool checked)
 //------------------------------------------------------------------------------
 void Operation::connectToSignals()
 {
-    connect(this, SIGNAL(triggered(bool)),
-            this, SLOT(onTriggered(bool)));
+    m_triggeredConnection = connect(this, SIGNAL(triggered(bool)), this, SLOT(onTriggered(bool)));
+    m_toggledConnection = connect(this, SIGNAL(toggled(bool)), this, SLOT(onToggled(bool)));
+}
 
-    connect(this, SIGNAL(toggled(bool)),
-            this, SLOT(onToggled(bool)));
+//------------------------------------------------------------------------------
+void Operation::disconectFromSignals()
+{
+    if (!QObject::disconnect(m_triggeredConnection))
+        Log.w("Triggered disconnection failed");
+
+    if (!QObject::disconnect(m_toggledConnection))
+        Log.w("Toggled disconnection failed");
 }
 
 //------------------------------------------------------------------------------

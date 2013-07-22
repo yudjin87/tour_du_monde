@@ -165,8 +165,25 @@ protected:
      */
     void setName(const QString &name);
 
-private:
+    /*!
+     * @details
+     *   To provide convinient execute() and stopExecuting() methods Operation class subscribes
+     *   to the base QAction class' signals QAction::toggled() and QAction::triggered(). It is already
+     *   done in the constructor, but it may required to connect explicitly, e.g. after disconnecting.
+     * @sa disconectFromSignals
+     */
     void connectToSignals();
+
+    /*!
+     * @details
+     *   To provide convinient execute() and stopExecuting() methods Operation class subscribes
+     *   to the base QAction class' signals QAction::toggled() and QAction::triggered(). But
+     *   for some cases may required to change, for example, checked() property silencely, without
+     *   invoking execute() or stopExecuting(). To do it you should call disconectFromSignals() first
+     *   and then connectToSignals againg.
+     * @sa connectToSignals
+     */
+    void disconectFromSignals();
 
 private slots:
     void onTriggered(bool checked);
@@ -175,6 +192,8 @@ private slots:
 private:
     QString m_category;
     QString m_name;
+    QMetaObject::Connection m_triggeredConnection;
+    QMetaObject::Connection m_toggledConnection;
 };
 
 #endif // OPERATION_H

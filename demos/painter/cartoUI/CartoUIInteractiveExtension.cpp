@@ -26,7 +26,6 @@
 
 #include "CartoUIInteractiveExtension.h"
 #include "LayersTreeModel.h"
-#include "ToogleLayerTreeOperation.h"
 
 #include <dom/IPainterDocument.h>
 #include <dom/IPainterDocumentController.h>
@@ -34,6 +33,7 @@
 #include <components/interactivity/IDockWidgetCatalog.h>
 #include <components/interactivity/IMenuCatalog.h>
 #include <components/interactivity/IOperationCatalog.h>
+#include <components/interactivity/ToggleActionWrapper.h>
 #include <carousel/utils/IServiceLocator.h>
 
 #include <QtWidgets/QDockWidget>
@@ -57,7 +57,9 @@ void CartoUIInteractiveExtension::configureGui(ICatalogs &inCatalogs, IServiceLo
     view->setModel(new LayersTreeModel(doc->map(), view));
     QDockWidget *layersDock = catalog.addDockWidget(view, "Layers tree");
 
-    Operation *toogleTree = inCatalogs.operationCatalog().add(new ToogleLayerTreeOperation(layersDock->toggleViewAction()));
+    Operation *toogleTree = new ToggleActionWrapper(layersDock->toggleViewAction(), QIcon(":/cartoUI/images/layerTree.png"));
+    inCatalogs.operationCatalog().add(toogleTree);
+
     QMenu *viewMenu = inCatalogs.menuCatalog().addMenu("View");
     viewMenu->addAction(toogleTree);
 }

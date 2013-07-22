@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
-
+ 
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -24,45 +24,66 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "ToogleLayerTreeOperation.h"
-
-#include <QtWidgets/QUndoStack>
+#include "ToggleActionWrapper.h"
 
 //------------------------------------------------------------------------------
-ToogleLayerTreeOperation::ToogleLayerTreeOperation(QAction *toogleAction)
-    : Operation("Toogle layer tree")
+ToggleActionWrapper::ToggleActionWrapper(QAction *toogleAction)
+    : Operation(toogleAction->text())
     , m_action(toogleAction)
 {
     setCheckable(true);
-    setIcon(QIcon(":/cartoUI/images/layerTree.png"));
     setIconVisibleInMenu(true);
+    connect(m_action, &QAction::toggled, this, &ToggleActionWrapper::onActionChanged);
 }
 
 //------------------------------------------------------------------------------
-void ToogleLayerTreeOperation::execute()
+ToggleActionWrapper::ToggleActionWrapper(QAction *toogleAction, const QString &text)
+    : Operation(text)
+    , m_action(toogleAction)
+{
+    setCheckable(true);
+    setIconVisibleInMenu(true);
+    connect(m_action, &QAction::toggled, this, &ToggleActionWrapper::onActionChanged);
+}
+
+//------------------------------------------------------------------------------
+ToggleActionWrapper::ToggleActionWrapper(QAction *toogleAction, const QIcon &icon)
+    : Operation(icon, toogleAction->text())
+    , m_action(toogleAction)
+{
+    setCheckable(true);
+    setIconVisibleInMenu(true);
+    connect(m_action, &QAction::toggled, this, &ToggleActionWrapper::onActionChanged);
+}
+
+//------------------------------------------------------------------------------
+ToggleActionWrapper::ToggleActionWrapper(QAction *toogleAction, const QIcon &icon, const QString &text)
+    : Operation(icon, text)
+    , m_action(toogleAction)
+{
+    setCheckable(true);
+    setIconVisibleInMenu(true);
+    connect(m_action, &QAction::toggled, this, &ToggleActionWrapper::onActionChanged);
+}
+
+//------------------------------------------------------------------------------
+void ToggleActionWrapper::execute()
 {
     m_action->trigger();
 }
 
 //------------------------------------------------------------------------------
-void ToogleLayerTreeOperation::stopExecuting()
+void ToggleActionWrapper::stopExecuting()
 {
     m_action->trigger();
 }
 
 //------------------------------------------------------------------------------
-void ToogleLayerTreeOperation::initialize(IServiceLocator *serviceLocator)
+void ToggleActionWrapper::onActionChanged(bool checked)
 {
-    Q_UNUSED(serviceLocator)
-    connect(m_action, SIGNAL(toggled()), SLOT(onActionChanged()));
+    disconectFromSignals();
+    setChecked(checked);
+    connectToSignals();
 }
 
 //------------------------------------------------------------------------------
-void ToogleLayerTreeOperation::onActionChanged()
-{
-    if (m_action->isChecked() != isChecked())
-        setChecked(m_action->isChecked());
-}
-
-//------------------------------------------------------------------------------
-
