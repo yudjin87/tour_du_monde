@@ -171,7 +171,7 @@ public:
      * @note Does not take ownership of the created pointer.
      */
     template<typename TInterface>
-    TInterface *buildInstance() const;
+    TInterface *buildInstance();
 
     /*!
      * @details
@@ -180,7 +180,25 @@ public:
      * @note Does not take ownership of the created pointer.
      */
     template<typename TInterface>
-    TInterface *buildInstance(const QString &tag) const;
+    TInterface *buildInstance(const QString &tag);
+
+    /*!
+     * @details
+     *   Finds the service registered with @a className and empty tag and returns
+     *   a QObject pointer to it.
+     *   This may be usefull for scpipting, where no templates.
+     * @return the corresponding service if such found. Null pointer otherwise.
+     */
+    virtual QObject *locateToObject(const QString &className) = 0;
+
+    /*!
+     * @details
+     *   Finds the service registered with @a className and empty tag and returns
+     *   a QObject pointer to it.
+     *   This may be usefull for scpipting, where no templates.
+     * @return the corresponding service if such found. Null pointer otherwis
+     */
+    virtual QObject *locateToObject(const QString &className, const QString &tag) = 0;
 
     /*!
      * @details
@@ -289,7 +307,7 @@ protected:
      * @return The raw pointer corresponded with specified interface id and tag if such found.
      *   Null pointer otherwise.
      */
-    virtual void *buildInstanceImpl(const QString &forClassName, const QString &tag) const = 0;
+    virtual void *buildInstanceImpl(const QString &className, const QString &tag) = 0;
 
     /*!
      * @details
@@ -298,37 +316,37 @@ protected:
      * @return The raw pointer corresponded with specified type id and tag if such found.
      *   Null pointer otherwise.
      */
-    virtual void *getService(const QString &forClassName, const QString &tag) const = 0;
+    virtual void *getService(const QString &className, const QString &tag) = 0;
 
     /*!
      * @details
      *   When overridden in derived classes registers a raw pointer with specified
      *   tag in inner objects dictionary.
-     * @param forClassName
+     * @param className
      *   The name of type which @a instance should be associated with.
      */
-    virtual void registerInstanceImpl(void *instance, const QString &forClassName, const QString &tag) = 0;
+    virtual void registerInstanceImpl(void *instance, const QString &className, const QString &tag) = 0;
 
     /*!
      * @details
      *   When overridden in derived classes unregisters (removes) a service instance with specified
      *   type id and tag from the inner objects dictionary (if any).
-     * @param forClassName
+     * @param className
      *   The name of type which removed instance should be associated with.
      * @return The raw pointer corresponded with specified type id and tag if such found.
      *   Null pointer otherwise.
      */
-    virtual void *unregisterInstanceImpl(const QString &forClassName, const QString &tag) = 0;
+    virtual void *unregisterInstanceImpl(const QString &className, const QString &tag) = 0;
 
     /*!
      * @details
      *   When overridden in derived classes binds an interface type id with
      *   specified factory method (that should create instance of interface) and
      *   with specified tag in inner objects dictionary.
-     * @param forClassName
+     * @param className
      *   The name of type which @a factory method should be associated with.
      */
-    virtual void registerTypeImpl(const QString &forClassName, factoryMethod method, const QString &tag) = 0;
+    virtual void registerTypeImpl(const QString &className, factoryMethod method, const QString &tag) = 0;
 
 private:
     Q_DISABLE_COPY(IServiceLocator)
@@ -357,7 +375,7 @@ void IServiceLocator::bindType(const QString &tag)
 
 //------------------------------------------------------------------------------
 template<typename TInterface>
-TInterface *IServiceLocator::buildInstance() const
+TInterface *IServiceLocator::buildInstance()
 {
     static_assert(std::is_base_of<QObject, TInterface>::value, "TInterface should derive from the QObject!");
 
@@ -366,7 +384,7 @@ TInterface *IServiceLocator::buildInstance() const
 
 //------------------------------------------------------------------------------
 template<typename TInterface>
-TInterface *IServiceLocator::buildInstance(const QString &tag) const
+TInterface *IServiceLocator::buildInstance(const QString &tag)
 {
     static_assert(std::is_base_of<QObject, TInterface>::value, "TInterface should derive from the QObject!");
 

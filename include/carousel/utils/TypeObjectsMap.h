@@ -58,7 +58,7 @@ public:
      *   in inner objects dictionary.
      * @return The value corresponded with specified type id if such found. Null pointer otherwise.
      */
-    TValue getInstance(const QString &forClassName) const;
+    TValue getInstance(const QString &className) const;
 
     /*!
      * @details
@@ -66,7 +66,7 @@ public:
      *   in inner objects dictionary.
      * @return The value corresponded with specified type id and tag if such found. Null pointer otherwise.
      */
-    TValue getInstance(const QString &forClassName, const QString &tag) const;
+    TValue getInstance(const QString &className, const QString &tag) const;
 
     /*!
      * @details
@@ -141,16 +141,16 @@ TypeObjectsMap<TValue>::~TypeObjectsMap()
 
 //------------------------------------------------------------------------------
 template<typename TValue>
-TValue TypeObjectsMap<TValue>::getInstance(const QString &forClassName) const
+TValue TypeObjectsMap<TValue>::getInstance(const QString &className) const
 {
-    return getInstance(forClassName, "");
+    return getInstance(className, "");
 }
 
 //------------------------------------------------------------------------------
 template<typename TValue>
-TValue TypeObjectsMap<TValue>::getInstance(const QString &forClassName, const QString &tag) const
+TValue TypeObjectsMap<TValue>::getInstance(const QString &className, const QString &tag) const
 {
-    InstanceObject<TValue> *foundObject = findInstance(forClassName, tag);
+    InstanceObject<TValue> *foundObject = findInstance(className, tag);
     if (foundObject == nullptr)
         return TValue();
 

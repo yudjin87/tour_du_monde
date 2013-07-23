@@ -21,6 +21,7 @@ private Q_SLOTS:
 
     void canLocateToRegisterInstanceByType();
     void canLocateToRegisterInstanceByTypeAndTag();
+    void canLocateToRegisteredObjectByClassName();
 
     // Types
     void canRegisterFactoryMethodForType();

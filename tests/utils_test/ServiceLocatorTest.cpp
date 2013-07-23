@@ -131,6 +131,18 @@ void ServiceLocatorTest::canLocateToRegisterInstanceByTypeAndTag()
 }
 
 //------------------------------------------------------------------------------
+void ServiceLocatorTest::canLocateToRegisteredObjectByClassName()
+{
+    Service1 service(45);
+
+    ServiceLocator locator;
+    locator.registerInstance<IService>(&service);
+    QObject *located_service = locator.locateToObject("IService");
+
+    QVERIFY(located_service == &service);
+}
+
+//------------------------------------------------------------------------------
 void ServiceLocatorTest::canBindConcreteClassForType()
 {
     MockServiceLocator mockLocator;

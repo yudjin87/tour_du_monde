@@ -47,6 +47,24 @@ public:
     ServiceLocator();
     ~ServiceLocator();
 
+    /*!
+     * @details
+     *   Finds the service registered with @a className and empty tag and returns
+     *   a QObject pointer to it.
+     *   This may be usefull for scpipting, where no templates.
+     * @return the corresponding service if such found. Null pointer otherwis
+     */
+    QObject *locateToObject(const QString &className);
+
+    /*!
+     * @details
+     *   Finds the service registered with @a className and empty tag and returns
+     *   a QObject pointer to it.
+     *   This may be usefull for scpipting, where no templates.
+     * @return the corresponding service if such found. Null pointer otherwis
+     */
+    QObject *locateToObject(const QString &className, const QString &tag);
+
 protected:
     /*!
      * @details
@@ -56,7 +74,7 @@ protected:
      * @return The raw pointer corresponded with specified interface id and tag if such found.
      *   Null pointer otherwise.
      */
-    void *buildInstanceImpl(const QString &forClassName, const QString &tag) const;
+    void *buildInstanceImpl(const QString &className, const QString &tag);
 
     /*!
      * @details
@@ -65,35 +83,35 @@ protected:
      * @return The raw pointer corresponded with specified type id and tag if such found.
      *   Null pointer otherwise.
      */
-    void *getService(const QString &forClassName, const QString &tag) const;
+    void *getService(const QString &className, const QString &tag);
 
     /*!
      * @details
      *   Registers a raw pointer with specified tag in inner objects dictionary.
-     * @param forClassName
+     * @param className
      *   The name of type which @a instance should be associated with.
      */
-    void registerInstanceImpl(void *instance, const QString &forClassName, const QString &tag);
+    void registerInstanceImpl(void *instance, const QString &className, const QString &tag);
 
     /*!
      * @details
      *   Binds an interface type id with specified factory method (that should create
      *   instance of interface) and with specified tag in inner objects dictionary.
-     * @param forClassName
+     * @param className
      *   The name of type which @a factory method should be associated with.
      */
-    void registerTypeImpl(const QString &forClassName, factoryMethod method, const QString &tag);
+    void registerTypeImpl(const QString &className, factoryMethod method, const QString &tag);
 
     /*!
      * @details
      *   When overridden in derived classes unregisters (removes) a service instance with specified
      *   type id and tag from the inner objects dictionary (if any).
-     * @param forClassName
+     * @param className
      *   The name of type which removed instance should be associated with.
      * @return The raw pointer corresponded with specified type id and tag if such found.
      *   Null pointer otherwise.
      */
-    void *unregisterInstanceImpl(const QString &forClassName, const QString &tag);
+    void *unregisterInstanceImpl(const QString &className, const QString &tag);
 
 protected:
     TypeObjectsMap<void *> *m_objects;

@@ -46,36 +46,50 @@ ServiceLocator::~ServiceLocator()
 }
 
 //------------------------------------------------------------------------------
-void ServiceLocator::registerTypeImpl(const QString &forClassName, factoryMethod method, const QString &tag)
-  {
-    m_creators->registerInstance(method, forClassName, tag);
+QObject *ServiceLocator::locateToObject(const QString &className)
+{
+    return locateToObject(className, "");
 }
 
 //------------------------------------------------------------------------------
-void *ServiceLocator::unregisterInstanceImpl(const QString &forClassName, const QString &tag)
+QObject *ServiceLocator::locateToObject(const QString &className, const QString &tag)
 {
-    void *foundInstance = m_objects->unregisterInstance(forClassName, tag);
+    void *foundInstance = getService(className, tag);
+    QObject *service = reinterpret_cast<QObject *>(foundInstance);
+    return service;
+}
+
+//------------------------------------------------------------------------------
+void ServiceLocator::registerTypeImpl(const QString &className, factoryMethod method, const QString &tag)
+  {
+    m_creators->registerInstance(method, className, tag);
+}
+
+//------------------------------------------------------------------------------
+void *ServiceLocator::unregisterInstanceImpl(const QString &className, const QString &tag)
+{
+    void *foundInstance = m_objects->unregisterInstance(className, tag);
     return foundInstance;
 }
 
 //------------------------------------------------------------------------------
-void *ServiceLocator::buildInstanceImpl(const QString &forClassName, const QString &tag) const
+void *ServiceLocator::buildInstanceImpl(const QString &className, const QString &tag)
   {
-  const factoryMethod &creator = m_creators->getInstance(forClassName, tag);
+  const factoryMethod &creator = m_creators->getInstance(className, tag);
   void *data = creator();
   return data;
   }
 
 //------------------------------------------------------------------------------
-void *ServiceLocator::getService(const QString &forClassName, const QString &tag) const
+void *ServiceLocator::getService(const QString &className, const QString &tag)
 {
-    return m_objects->getInstance(forClassName, tag);
+    return m_objects->getInstance(className, tag);
 }
 
 //------------------------------------------------------------------------------
-void ServiceLocator::registerInstanceImpl(void *instance, const QString &forClassName, const QString &tag)
+void ServiceLocator::registerInstanceImpl(void *instance, const QString &className, const QString &tag)
 {
-    m_objects->registerInstance(instance, forClassName, tag);
+    m_objects->registerInstance(instance, className, tag);
 }
 
 //------------------------------------------------------------------------------
