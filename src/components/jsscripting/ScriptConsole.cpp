@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- 
+
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -24,46 +24,44 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "ScriptService.h"
-#include "ServiceLocatorWrapper.h"
-
-#include <QtScript/QScriptEngine>
+#include "ScriptConsole.h"
 
 //------------------------------------------------------------------------------
-ScriptService::ScriptService(IServiceLocator *locator, QObject *parent)
-    : m_wrapper(nullptr)
-    , m_engine(nullptr)
+ScriptConsole::ScriptConsole(QScriptEngine *engine, QObject *parent)
+    : QObject(parent)
+    , m_engine(engine)
+    , m_history(QStack<QString>())
 {
-    setParent(parent);
-    m_wrapper = new ServiceLocatorWrapper(locator, this);
-    m_engine = new QScriptEngine(this);
+
 }
 
 //------------------------------------------------------------------------------
-QScriptEngine *ScriptService::engine()
+QScriptEngine *ScriptConsole::engine()
 {
-    return m_engine;
+    return engine;
 }
 
 //------------------------------------------------------------------------------
-ServiceLocatorWrapper *ScriptService::locatorWrapper()
+bool ScriptConsole::evaluateLine(const QString &script, QString *error)
 {
-    return m_wrapper;
+    return false;
+}
+
+bool ScriptConsole::evaluateLine(const QScriptProgram &script, QString *error)
+{
+    return false;
 }
 
 //------------------------------------------------------------------------------
-const ServiceLocatorWrapper *ScriptService::locatorWrapper() const
+QString ScriptConsole::historyPrev()
 {
-    return m_wrapper;
+    return "";
 }
 
 //------------------------------------------------------------------------------
-void ScriptService::setLocatorWrapper(ServiceLocatorWrapper *locatorWrapper)
+QString ScriptConsole::historyNext()
 {
-    delete m_wrapper;
-    m_wrapper = locatorWrapper;
-    if (m_wrapper != nullptr)
-        m_wrapper->setParent(this);
+    return "";
 }
 
 //------------------------------------------------------------------------------

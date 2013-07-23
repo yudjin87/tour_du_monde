@@ -10,6 +10,7 @@ include(cmake/target_utils)
 set(__SOURCES
     ${CRSL_TARGET_SOURCES}/JsScriptingComponent.cpp 
     ${CRSL_TARGET_SOURCES}/JsScriptingInteractiveExtension.cpp 
+    ${CRSL_TARGET_SOURCES}/ScriptConsole.cpp 
     ${CRSL_TARGET_SOURCES}/ScriptConsoleView.cpp 
     ${CRSL_TARGET_SOURCES}/ScriptService.cpp 
     ${CRSL_TARGET_SOURCES}/ServiceLocatorWrapper.cpp 
@@ -18,10 +19,12 @@ set(__SOURCES
 ######################################################################
 # Headers
 set(__HEADERS
+    ${CRSL_TARGET_HEADERS}/IScriptConsole.h 
     ${CRSL_TARGET_HEADERS}/IScriptService.h 
     ${CRSL_TARGET_HEADERS}/jsscripting_global.h 
     ${CRSL_TARGET_HEADERS}/JsScriptingComponent.h 
     ${CRSL_TARGET_HEADERS}/JsScriptingInteractiveExtension.h 
+    ${CRSL_TARGET_HEADERS}/ScriptConsole.h 
     ${CRSL_TARGET_HEADERS}/ScriptConsoleView.h 
     ${CRSL_TARGET_HEADERS}/ScriptService.h 
     ${CRSL_TARGET_HEADERS}/ServiceLocatorWrapper.h 

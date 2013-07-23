@@ -44,13 +44,13 @@ class JSSCRIPTING_API ServiceLocatorWrapper : public QObject
 {
     Q_OBJECT
 public:
-    explicit ServiceLocatorWrapper(IServiceLocator &locator, QObject *parent = nullptr);
+    explicit ServiceLocatorWrapper(IServiceLocator *locator, QObject *parent = nullptr);
 
 public slots:
     virtual QObject *findService(const QString &name);
 
 private:
-    IServiceLocator &m_locator;
+    IServiceLocator *m_locator;
 };
 
 #endif // SERVICELOCATORWRAPPER_H

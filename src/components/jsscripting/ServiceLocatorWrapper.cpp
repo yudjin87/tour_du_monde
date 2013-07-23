@@ -29,7 +29,7 @@
 #include <carousel/utils/IServiceLocator.h>
 
 //------------------------------------------------------------------------------
-ServiceLocatorWrapper::ServiceLocatorWrapper(IServiceLocator &locator, QObject *parent)
+ServiceLocatorWrapper::ServiceLocatorWrapper(IServiceLocator *locator, QObject *parent)
     : QObject(parent)
     , m_locator(locator)
 {
