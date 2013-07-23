@@ -11,15 +11,20 @@ set(__SOURCES
     ${CRSL_TARGET_SOURCES}/JsScriptingComponent.cpp 
     ${CRSL_TARGET_SOURCES}/JsScriptingInteractiveExtension.cpp 
     ${CRSL_TARGET_SOURCES}/ScriptConsole.cpp 
+    ${CRSL_TARGET_SOURCES}/ScriptService.cpp 
+    ${CRSL_TARGET_SOURCES}/ServiceLocatorWrapper.cpp 
 )
 	
 ######################################################################
 # Headers
 set(__HEADERS
+    ${CRSL_TARGET_HEADERS}/IScriptService.h 
     ${CRSL_TARGET_HEADERS}/jsscripting_global.h 
     ${CRSL_TARGET_HEADERS}/JsScriptingComponent.h 
     ${CRSL_TARGET_HEADERS}/JsScriptingInteractiveExtension.h 
     ${CRSL_TARGET_HEADERS}/ScriptConsole.h 
+    ${CRSL_TARGET_HEADERS}/ScriptService.h 
+    ${CRSL_TARGET_HEADERS}/ServiceLocatorWrapper.h 
 )
 
 ######################################################################
@@ -72,7 +77,7 @@ target_link_libraries(${CRSL_PROJECT_NAME} org.carousel.Interactivity)
 
 ###############################################################################
 # Qt dependencies
-qt5_use_modules(${CRSL_PROJECT_NAME} Core Widgets)
+qt5_use_modules(${CRSL_PROJECT_NAME} Core Widgets Script)
 
 ###############################################################################
 # Copy definition to the output directory, right near the library

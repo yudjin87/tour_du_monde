@@ -31,8 +31,9 @@ endfunction(crsl_qt5_setup_paths)
 set(__LIBRARIES_BASENAME
     Core
     Gui
-    Widgets
+    Script
     Test
+    Widgets
     Xml)
 
 ########################################################################################

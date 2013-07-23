@@ -19,8 +19,8 @@ set(__SOURCES
     ${CRSL_TARGET_SOURCES}/MenuCatalog.cpp 
     ${CRSL_TARGET_SOURCES}/Operation.cpp 
     ${CRSL_TARGET_SOURCES}/OperationCatalog.cpp 
-    ${CRSL_TARGET_SOURCES}/ToggleActionWrapper.cpp
-    ${CRSL_TARGET_SOURCES}/ToolBarCatalog.cpp
+    ${CRSL_TARGET_SOURCES}/ToggleActionWrapper.cpp 
+    ${CRSL_TARGET_SOURCES}/ToolBarCatalog.cpp 
     ${CRSL_TARGET_SOURCES}/ToolBase.cpp 
 )
 
@@ -52,8 +52,8 @@ set(__HEADERS
     ${CRSL_TARGET_HEADERS}/MenuCatalog.h 
     ${CRSL_TARGET_HEADERS}/Operation.h 
     ${CRSL_TARGET_HEADERS}/OperationCatalog.h 
-    ${CRSL_TARGET_HEADERS}/ToggleActionWrapper.h
-    ${CRSL_TARGET_HEADERS}/ToolBarCatalog.h
+    ${CRSL_TARGET_HEADERS}/ToggleActionWrapper.h 
+    ${CRSL_TARGET_HEADERS}/ToolBarCatalog.h 
     ${CRSL_TARGET_HEADERS}/ToolBase.h 
 )
 

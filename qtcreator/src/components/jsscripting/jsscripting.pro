@@ -3,6 +3,8 @@ include (jsscripting.pri)
 
 QT      += widgets
 QT      += core
+QT      += script
+
 TEMPLATE = lib
 
 TARGET = org.carousel.JsScripting
