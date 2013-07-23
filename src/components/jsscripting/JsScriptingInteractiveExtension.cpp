@@ -25,7 +25,7 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "JsScriptingInteractiveExtension.h"
-#include "ScriptConsole.h"
+#include "ScriptConsoleView.h"
 
 #include <components/interactivity/ICatalogs.h>
 #include <components/interactivity/IDockWidgetCatalog.h>
@@ -50,7 +50,7 @@ void JsScriptingInteractiveExtension::configureGui(ICatalogs &inCatalogs, IServi
     Q_UNUSED(serviceLocator)
 
     IDockWidgetCatalog &catalog = inCatalogs.dockWidgetCatalog();
-    QDockWidget *scriptDock = catalog.addDockWidget(new ScriptConsole(), "Scripting (not working yet)", Qt::BottomDockWidgetArea);
+    QDockWidget *scriptDock = catalog.addDockWidget(new ScriptConsoleView(), "Scripting (not working yet)", Qt::BottomDockWidgetArea);
 
     Operation *scriptConsole = new ToggleActionWrapper(scriptDock->toggleViewAction(), QIcon(":/jsscripting/images/scriptWindow.png"));
     inCatalogs.operationCatalog().add(scriptConsole);

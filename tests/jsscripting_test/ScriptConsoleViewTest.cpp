@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
-
+ 
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -24,17 +24,18 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "ScriptConsole.h"
-#include "ui_ScriptConsole.h"
+#include "ScriptConsoleViewTest.h"
 
-ScriptConsole::ScriptConsole(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::ScriptConsole)
+//------------------------------------------------------------------------------
+ScriptConsoleViewTest::ScriptConsoleViewTest(QObject *parent)
+    : QObject(parent)
 {
-    ui->setupUi(this);
 }
 
-ScriptConsole::~ScriptConsole()
+//------------------------------------------------------------------------------
+void ScriptConsoleViewTest::test()
 {
-    delete ui;
+
 }
+
+//------------------------------------------------------------------------------

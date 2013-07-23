@@ -24,34 +24,18 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SCRIPTSERVICE_H
-#define SCRIPTSERVICE_H
+#ifndef SCRIPTCONSOLEVIEWTEST_H
+#define SCRIPTCONSOLEVIEWTEST_H
 
-#include <components/jsscripting/IScriptService.h>
+#include <QtCore/QObject>
 
-class IServiceLocator;
-
-/*!
- * @brief
- */
-class JSSCRIPTING_API ScriptService : public IScriptService
+class ScriptConsoleViewTest : public QObject
 {
     Q_OBJECT
 public:
-    explicit ScriptService(IServiceLocator &locator, QObject *parent = nullptr);
+    explicit ScriptConsoleViewTest(QObject *parent = nullptr);
 
-    QScriptEngine *engine();
-
-    ServiceLocatorWrapper *locatorWrapper();
-    const ServiceLocatorWrapper *locatorWrapper() const;
-    void setLocatorWrapper(ServiceLocatorWrapper *locatorWrapper);
-
-private:
-    Q_DISABLE_COPY(ScriptService)
-
-private:
-    ServiceLocatorWrapper *m_wrapper;
-    QScriptEngine *m_engine;
+    void test();
 };
 
-#endif // SCRIPTSERVICE_H
+#endif // SCRIPTCONSOLEVIEWTEST_H

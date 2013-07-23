@@ -24,7 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SCRIPTCONSOLE_H
+#ifndef SCRIPTCONSOLEVIEW_H
 #define SCRIPTCONSOLE_H
 
 #include <components/jsscripting/jsscripting_global.h>
@@ -33,19 +33,18 @@
 
 namespace Ui
 {
-class ScriptConsole;
+class ScriptConsoleView;
 }
 
-class JSSCRIPTING_API ScriptConsole : public QWidget
+class JSSCRIPTING_API ScriptConsoleView : public QWidget
 {
-    Q_OBJECT
-    
+    Q_OBJECT    
 public:
-    explicit ScriptConsole(QWidget *parent = nullptr);
-    ~ScriptConsole();
+    explicit ScriptConsoleView(QWidget *parent = nullptr);
+    ~ScriptConsoleView();
     
 private:
-    Ui::ScriptConsole *ui;
+    Ui::ScriptConsoleView *ui;
 };
 
-#endif // SCRIPTCONSOLE_H
+#endif // SCRIPTCONSOLEVIEW_H

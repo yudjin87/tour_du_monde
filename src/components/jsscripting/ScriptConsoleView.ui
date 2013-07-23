@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ScriptConsole</class>
- <widget class="QWidget" name="ScriptConsole">
+ <class>ScriptConsoleView</class>
+ <widget class="QWidget" name="ScriptConsoleView">
   <property name="geometry">
    <rect>
     <x>0</x>

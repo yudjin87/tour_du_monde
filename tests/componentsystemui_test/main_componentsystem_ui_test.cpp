@@ -24,10 +24,10 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
+#include "ComponentsDialogTest.h"
+
 #include <QtCore/QStringList>
 #include <QtWidgets/QApplication>
-
-#include "ComponentsDialogTest.h"
 
 //------------------------------------------------------------------------------
 void runGuiManualTests(QStringList arguments);
