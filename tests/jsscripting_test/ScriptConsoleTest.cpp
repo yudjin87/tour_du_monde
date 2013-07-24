@@ -70,9 +70,45 @@ void ScriptConsoleTest::evaluateLine_shouldPopulateHistory()
 
     console.evaluateLine("oldest");
     console.evaluateLine("older");
-    console.evaluateLine("last (newest)");
+    console.evaluateLine("newest");
 
     QCOMPARE(console.history().size(), 3);
+}
+
+//------------------------------------------------------------------------------
+void ScriptConsoleTest::evaluateLine_shouldNotPopulateHistoryWithEmptyLine()
+{
+    QScriptEngine engine; ScriptConsole console(&engine);
+    QVERIFY(console.history().isEmpty());
+
+    console.evaluateLine("oldest");
+    console.evaluateLine("    ");
+    console.evaluateLine("");
+    console.evaluateLine("newest");
+
+    QCOMPARE(console.history().size(), 2);
+}
+
+//------------------------------------------------------------------------------
+void ScriptConsoleTest::evaluateLine_shouldResetHistoryHead()
+{
+    QScriptEngine engine; ScriptConsole console(&engine);
+    console.evaluateLine("0");
+    console.evaluateLine("1");
+    console.evaluateLine("2");
+
+    console.historyPrev();
+    console.historyPrev();
+    console.historyPrev();
+
+    console.evaluateLine("3");
+
+    // due to this bug we should use reference
+    // https://bugreports.qt-project.org/browse/QTBUG-32616
+    const QStringList &history = console.history();
+
+    QCOMPARE(console.historyNext(), QString(""));
+    QCOMPARE(console.historyPrev(), history[3]);
 }
 
 //------------------------------------------------------------------------------
@@ -81,7 +117,7 @@ void ScriptConsoleTest::historyPrev_shouldReturnCorrectCommand()
     QScriptEngine engine; ScriptConsole console(&engine);
     console.evaluateLine("oldest");
     console.evaluateLine("older");
-    console.evaluateLine("last (newest)");
+    console.evaluateLine("newest");
 
     QStringList history = console.history();
 
@@ -98,18 +134,44 @@ void ScriptConsoleTest::historyNext_shouldReturnCorrectCommand()
     QScriptEngine engine; ScriptConsole console(&engine);
     console.evaluateLine("oldest");
     console.evaluateLine("older");
-    console.evaluateLine("last (newest)");
+    console.evaluateLine("newest");
 
     console.historyPrev();
     console.historyPrev();
     console.historyPrev();
 
     QStringList history = console.history();
-    QCOMPARE(console.historyNext(), history[0]); // "oldest"          |
     QCOMPARE(console.historyNext(), history[1]); // "older"           |
     QCOMPARE(console.historyNext(), history[2]); // "last (newest)"   |
-    QCOMPARE(console.historyNext(), history[2]); // "last"   anyway   |
-    QCOMPARE(console.historyNext(), history[2]); // "last"   anyway   v
+    QCOMPARE(console.historyNext(), QString("")); // "last"   anyway   |
+    QCOMPARE(console.historyNext(), QString("")); // "last"   anyway   v
+}
+
+//------------------------------------------------------------------------------
+void ScriptConsoleTest::historyPrevNext_shouldReturnCorrectCommands()
+{
+    QScriptEngine engine; ScriptConsole console(&engine);
+    console.evaluateLine("oldest");
+    console.evaluateLine("middle");
+    console.evaluateLine("newest");
+
+    // due to this bug we should use reference
+    // https://bugreports.qt-project.org/browse/QTBUG-32616
+    const QStringList &history = console.history();
+
+    console.historyPrev();                       // "newest"    ^
+    console.historyPrev();                       // "middle"    ^
+    QCOMPARE(console.historyPrev(), history[0]); // "oldest"    ^
+    QCOMPARE(console.historyNext(), history[1]); // "middle"    v
+    QCOMPARE(console.historyNext(), history[2]); // "newest"    v
+    QCOMPARE(console.historyPrev(), history[1]); // "middle"    ^
+    QCOMPARE(console.historyNext(), history[2]); // "newest"    v
+    QCOMPARE(console.historyNext(), QString("")); // "newest"    v
+
+    console.historyNext();
+    console.historyNext();
+    console.historyNext();
+    console.historyNext();
 }
 
 //------------------------------------------------------------------------------

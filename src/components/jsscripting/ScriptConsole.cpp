@@ -92,19 +92,31 @@ void ScriptConsole::setHistoryCapacity(int capacity)
 //------------------------------------------------------------------------------
 QString ScriptConsole::historyPrev()
 {
+    if (m_history.isEmpty())
+        return "";
+
     if (m_historyCommand == m_history.begin())
         return m_history.first();
 
-    return *m_historyCommand--;
+    return *--m_historyCommand;
 }
 
 //------------------------------------------------------------------------------
 QString ScriptConsole::historyNext()
 {
-    if (m_historyCommand == --m_history.end())
-        return m_history.last();
+    if (m_history.isEmpty())
+        return "";
 
-    return *m_historyCommand++;
+    if (m_historyCommand == m_history.end()) {
+        return "";
+    }
+
+    if (++m_historyCommand == m_history.end()) {
+        --m_historyCommand;
+        return "";
+    }
+
+    return *m_historyCommand;
 }
 
 //------------------------------------------------------------------------------
@@ -116,11 +128,16 @@ const QStringList &ScriptConsole::history() const
 //------------------------------------------------------------------------------
 void ScriptConsole::addCommandToHistory(const QString &command)
 {
+    if (command.trimmed().isEmpty()) {
+        m_historyCommand = m_history.end(); // reset anyway
+        return;
+    }
+
     if (m_history.size() >= m_historyCapacity)
         m_history.removeFirst();
 
     m_history.push_back(command);
-    m_historyCommand = --m_history.end();
+    m_historyCommand = m_history.end();
 }
 
 //------------------------------------------------------------------------------

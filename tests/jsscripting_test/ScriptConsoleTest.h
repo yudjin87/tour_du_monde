@@ -39,9 +39,12 @@ private Q_SLOTS:
     void evaluateLine_shouldReturnTrueForCorrectScript();
     void evaluateLine_shouldReturnFalseForIncorrectScript();
     void evaluateLine_shouldPopulateHistory();
+    void evaluateLine_shouldNotPopulateHistoryWithEmptyLine();
+    void evaluateLine_shouldResetHistoryHead();
 
     void historyPrev_shouldReturnCorrectCommand();
     void historyNext_shouldReturnCorrectCommand();
+    void historyPrevNext_shouldReturnCorrectCommands();
 
 private:
     static const QByteArray simpleScript;
