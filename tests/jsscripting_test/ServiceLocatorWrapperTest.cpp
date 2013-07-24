@@ -41,7 +41,7 @@ ServiceLocatorWrapperTest::ServiceLocatorWrapperTest(QObject *parent)
 void ServiceLocatorWrapperTest::findService_shouldReturnService()
 {
     ServiceLocator locator; locator.registerInstance<ServiceLocatorWrapperTest>(this);
-    ServiceLocatorWrapper wrapper(locator);
+    ServiceLocatorWrapper wrapper(&locator);
 
     QObject *service = wrapper.findService("ServiceLocatorWrapperTest");
 

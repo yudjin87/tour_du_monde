@@ -24,22 +24,29 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SCRIPTENGINETEST_H
-#define SCRIPTENGINETEST_H
+#ifndef SCRIPTCONSOLETEST_H
+#define SCRIPTCONSOLETEST_H
 
 #include <QtCore/QObject>
 
-class ScriptEngineTest: public QObject
+class ScriptConsoleTest: public QObject
 {
     Q_OBJECT
 public:
-    ScriptEngineTest(QObject *parent = nullptr);
+    ScriptConsoleTest(QObject *parent = nullptr);
 
 private Q_SLOTS:
-    void tryServiceLocatorWrapper();
+    void evaluateLine_shouldReturnTrueForCorrectScript();
+    void evaluateLine_shouldReturnFalseForIncorrectScript();
+    void evaluateLine_shouldPopulateHistory();
+
+    void historyPrev_shouldReturnCorrectCommand();
+    void historyNext_shouldReturnCorrectCommand();
 
 private:
     static const QByteArray simpleScript;
+    static const QByteArray wrongScript;
 };
 
-#endif // SCRIPTENGINETEST_H
+
+#endif // SCRIPTCONSOLETEST_H

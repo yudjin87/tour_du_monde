@@ -29,6 +29,8 @@
 
 #include <components/jsscripting/jsscripting_global.h>
 
+#include <QtCore/QStringList>
+
 class QScriptProgram;
 class QScriptEngine;
 
@@ -43,13 +45,19 @@ public:
 
     virtual QScriptEngine *engine() = 0;
 
+    // virtual QStringList tryToComplete(const QString &command) = 0;
+
+    virtual int historyCapacity() const = 0;
+    virtual void setHistoryCapacity(int capacity) = 0;
+
     /*!
      * @brief
      */
-    virtual bool evaluateLine(const QString &script, QString *error) = 0;
+    virtual bool evaluateLine(const QString &script, QString *error = nullptr) = 0;
 
     virtual QString historyPrev() = 0;
     virtual QString historyNext() = 0;
+    virtual const QStringList &history() const = 0;
 
 private:
     Q_DISABLE_COPY(IScriptConsole)

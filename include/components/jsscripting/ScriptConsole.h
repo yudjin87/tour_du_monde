@@ -30,7 +30,6 @@
 #include <components/jsscripting/IScriptConsole.h>
 
 #include <QtCore/QObject>
-#include <QtCore/QStack>
 
 class QScriptProgram;
 class QScriptEngine;
@@ -49,17 +48,24 @@ public:
     /*!
      * @brief
      */
-    bool evaluateLine(const QString &script, QString *error);
+    bool evaluateLine(const QString &command, QString *error = nullptr);
+
+    int historyCapacity() const;
+    void setHistoryCapacity(int capacity);
 
     QString historyPrev();
     QString historyNext();
+    const QStringList &history() const;
 
 private:
     Q_DISABLE_COPY(ScriptConsole)
+    void addCommandToHistory(const QString &command);
 
 private:
     QScriptEngine *m_engine;
-    QStack<QString> m_history;
+    QStringList m_history;
+    QStringList::const_iterator m_historyCommand;
+    int m_historyCapacity;
 };
 
 #endif // SCRIPTCONSOLE_H

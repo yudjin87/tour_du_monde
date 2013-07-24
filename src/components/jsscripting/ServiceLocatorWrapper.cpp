@@ -38,7 +38,7 @@ ServiceLocatorWrapper::ServiceLocatorWrapper(IServiceLocator *locator, QObject *
 //------------------------------------------------------------------------------
 QObject *ServiceLocatorWrapper::findService(const QString &name)
 {
-    return m_locator.locateToObject(name);
+    return m_locator->locateToObject(name);
 }
 
 //------------------------------------------------------------------------------

@@ -33,11 +33,6 @@
 #include <QtTest/QtTest>
 
 //------------------------------------------------------------------------------
-const QByteArray simpleScript(
-        "var obj = serviceLocator.findService(\"ScriptEngineTest\");"
-        "var name = obj.objectName");
-
-//------------------------------------------------------------------------------
 ScriptEngineTest::ScriptEngineTest(QObject *parent)
     : QObject(parent)
 {
@@ -48,7 +43,7 @@ ScriptEngineTest::ScriptEngineTest(QObject *parent)
 void ScriptEngineTest::tryServiceLocatorWrapper()
 {
     ServiceLocator locator; locator.registerInstance<ScriptEngineTest>(this);
-    ServiceLocatorWrapper wrapper(locator);
+    ServiceLocatorWrapper wrapper(&locator);
 
     QScriptEngine engine;
     QScriptValue value = engine.newQObject(&wrapper);
@@ -62,5 +57,10 @@ void ScriptEngineTest::tryServiceLocatorWrapper()
     QString nameFromScript = engine.globalObject().property("name").toString();
     QCOMPARE(nameFromScript, this->objectName());
 }
+
+//------------------------------------------------------------------------------
+const QByteArray ScriptEngineTest::simpleScript(
+        "var obj = serviceLocator.findService(\"ScriptEngineTest\");"
+        "var name = obj.objectName");
 
 //------------------------------------------------------------------------------
