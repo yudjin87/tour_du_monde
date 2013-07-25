@@ -103,9 +103,7 @@ void ScriptConsoleTest::evaluateLine_shouldResetHistoryHead()
 
     console.evaluateLine("3");
 
-    // due to this bug we should use reference
-    // https://bugreports.qt-project.org/browse/QTBUG-32616
-    const QStringList &history = console.history();
+    QStringList history = console.history();
 
     QCOMPARE(console.historyNext(), QString(""));
     QCOMPARE(console.historyPrev(), history[3]);
@@ -155,9 +153,7 @@ void ScriptConsoleTest::historyPrevNext_shouldReturnCorrectCommands()
     console.evaluateLine("middle");
     console.evaluateLine("newest");
 
-    // due to this bug we should use reference
-    // https://bugreports.qt-project.org/browse/QTBUG-32616
-    const QStringList &history = console.history();
+    QStringList history = console.history();
 
     console.historyPrev();                       // "newest"    ^
     console.historyPrev();                       // "middle"    ^

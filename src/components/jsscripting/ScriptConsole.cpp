@@ -95,7 +95,7 @@ QString ScriptConsole::historyPrev()
     if (m_history.isEmpty())
         return "";
 
-    if (m_historyCommand == m_history.begin())
+    if (m_historyCommand == m_history.constBegin())
         return m_history.first();
 
     return *--m_historyCommand;
@@ -107,11 +107,11 @@ QString ScriptConsole::historyNext()
     if (m_history.isEmpty())
         return "";
 
-    if (m_historyCommand == m_history.end()) {
+    if (m_historyCommand == m_history.constEnd()) {
         return "";
     }
 
-    if (++m_historyCommand == m_history.end()) {
+    if (++m_historyCommand == m_history.constEnd()) {
         --m_historyCommand;
         return "";
     }
@@ -129,7 +129,7 @@ const QStringList &ScriptConsole::history() const
 void ScriptConsole::addCommandToHistory(const QString &command)
 {
     if (command.trimmed().isEmpty()) {
-        m_historyCommand = m_history.end(); // reset anyway
+        m_historyCommand = m_history.constEnd(); // reset anyway
         return;
     }
 
@@ -137,7 +137,7 @@ void ScriptConsole::addCommandToHistory(const QString &command)
         m_history.removeFirst();
 
     m_history.push_back(command);
-    m_historyCommand = m_history.end();
+    m_historyCommand = m_history.constEnd();
 }
 
 //------------------------------------------------------------------------------
