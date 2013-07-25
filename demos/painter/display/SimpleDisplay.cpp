@@ -151,7 +151,7 @@ void SimpleDisplay::panMoveTo(const QPoint &screenPoint)
 void SimpleDisplay::panStart(const QPoint &screenPoint)
 {
     m_startPan = screenPoint;
-    qDebug("panStart: x: %f, y:%f", screenPoint.x(), screenPoint.y());
+    qDebug("panStart: x: %d, y:%d", screenPoint.x(), screenPoint.y());
 }
 
 //------------------------------------------------------------------------------
@@ -180,8 +180,8 @@ void SimpleDisplay::mouseMoveEvent(QMouseEvent *event)
 {
     QPoint point = event->pos();
 
-    QPointF mapPoint = m_transform->toMapPoint(point.x(), point.y());
-    //qDebug("x:%f; y:%f", mapPoint.x(), mapPoint.y());
+    // QPointF mapPoint = m_transform->toMapPoint(point.x(), point.y());
+    // qDebug("x:%f; y:%f", mapPoint.x(), mapPoint.y());
 }
 
 //------------------------------------------------------------------------------

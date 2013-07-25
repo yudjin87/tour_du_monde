@@ -66,7 +66,6 @@ void SimpleFillSymbol::drawPolygon(const Polygon &polygon, QPainter &painter)
     foreach(const Ring *ring, polygon.rings()) {
         foreach(const Segment *segment, ring->segments()) {
             const QPolygonF &poly = segment->curve();
-            bool closed = poly.isClosed();
             painter.drawPolygon(poly);
         }
     }
