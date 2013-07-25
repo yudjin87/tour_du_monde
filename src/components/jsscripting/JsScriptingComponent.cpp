@@ -26,11 +26,14 @@
 
 #include "JsScriptingComponent.h"
 #include "JsScriptingInteractiveExtension.h"
+#include "ScriptConsole.h"
+#include "ServiceLocatorWrapper.h"
 
 #include <carousel/componentsystem/ComponentExport.h>
 #include <carousel/logging/LoggerFacade.h>
 #include <carousel/utils/IServiceLocator.h>
 
+#include <QtScript/QScriptEngine>
 #include <QtWidgets/QMainWindow>
 
 //------------------------------------------------------------------------------
@@ -46,6 +49,8 @@ static const QByteArray description(
 //------------------------------------------------------------------------------
 JsScriptingComponent::JsScriptingComponent(QObject *parent)
     : BaseComponent("org.carousel.JsScripting", parent)
+    , m_engine(nullptr)
+    , m_wrapper(nullptr)
 {
     IInteractiveExtension *interactiveExtension = new JsScriptingInteractiveExtension(this);
     registerExtension<IInteractiveExtension>(interactiveExtension);
@@ -68,13 +73,28 @@ JsScriptingComponent::~JsScriptingComponent()
 //------------------------------------------------------------------------------
 void JsScriptingComponent::onShutdown(IServiceLocator *serviceLocator)
 {
-    Q_UNUSED(serviceLocator)
+    IScriptConsole *console = serviceLocator->unregisterInstance<IScriptConsole>();
+    delete console;
+
+    delete m_wrapper;
+    m_wrapper = nullptr;
+
+    delete m_engine;
+    m_engine = nullptr;
 }
 
 //------------------------------------------------------------------------------
 bool JsScriptingComponent::onStartup(IServiceLocator *serviceLocator)
 {
-    Q_UNUSED(serviceLocator)
+    m_engine = new QScriptEngine();
+
+    IScriptConsole *console = new ScriptConsole(m_engine);
+    serviceLocator->registerInstance<IScriptConsole>(console);
+
+    ServiceLocatorWrapper *wrapper = new ServiceLocatorWrapper(serviceLocator);
+    QScriptValue value = m_engine->newQObject(wrapper);
+    m_engine->globalObject().setProperty("serviceLocator", value);
+
     return true;
 }
 

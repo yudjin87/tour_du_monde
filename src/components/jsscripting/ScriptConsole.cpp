@@ -39,13 +39,12 @@ static LoggerFacade Log = LoggerFacade::createLogger("ScriptConsole");
 
 //------------------------------------------------------------------------------
 ScriptConsole::ScriptConsole(QScriptEngine *engine, QObject *parent)
-    : QObject(parent)
-    , m_engine(engine)
+    : m_engine(engine)
     , m_history(QStringList())
     , m_historyCommand(m_history.begin())
     , m_historyCapacity(100) // TODO: read from application references
 {
-
+    setParent(parent);
 }
 
 //------------------------------------------------------------------------------

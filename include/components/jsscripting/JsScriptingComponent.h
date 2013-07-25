@@ -31,6 +31,9 @@
 
 #include <carousel/componentsystem/BaseComponent.h>
 
+class ServiceLocatorWrapper;
+class QScriptEngine;
+
 /*!
  * @brief
  *   This class represents a component, that adds JavaScript facilities using QtScript module.
@@ -56,6 +59,10 @@ protected:
     void onShutdown(IServiceLocator *serviceLocator);
 
     bool onStartup(IServiceLocator *serviceLocator);
+
+private:
+    QScriptEngine *m_engine;
+    ServiceLocatorWrapper *m_wrapper;
 };
 
 #endif // JSSCRIPTINGCOMPONENT_H

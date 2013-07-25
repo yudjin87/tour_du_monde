@@ -26,16 +26,33 @@
 
 #include "ScriptConsoleViewTest.h"
 
+#include <components/jsscripting/ScriptConsole.h>
+#include <components/jsscripting/ScriptConsoleView.h>
+#include <components/jsscripting/CodeHighlighter.h>
+#include <components/jsscripting/ColorTheme.h>
+
 //------------------------------------------------------------------------------
 ScriptConsoleViewTest::ScriptConsoleViewTest(QObject *parent)
     : QObject(parent)
+    , m_engine()
+    , m_theme(ColorTheme::createDefault(this))
+    , m_hilighter(new CodeHighlighter(m_theme, this))
+    , m_console(new ScriptConsole(&m_engine, this))
+    , m_view(new ScriptConsoleView(m_console, m_hilighter))
 {
+}
+
+//------------------------------------------------------------------------------
+ScriptConsoleViewTest::~ScriptConsoleViewTest()
+{
+    delete m_view;
+    m_view = nullptr;
 }
 
 //------------------------------------------------------------------------------
 void ScriptConsoleViewTest::test()
 {
-
+    m_view->show();    
 }
 
 //------------------------------------------------------------------------------

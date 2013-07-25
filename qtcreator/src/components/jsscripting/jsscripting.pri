@@ -11,6 +11,9 @@ HEADERS += \
     $$PROJECT_HEADERS/ScriptConsoleView.h \
     $$PROJECT_HEADERS/ScriptService.h \
     $$PROJECT_HEADERS/ServiceLocatorWrapper.h \
+    ../../../../include/components/jsscripting/LexemeAppearance.h \
+    ../../../../include/components/jsscripting/ColorTheme.h \
+    ../../../../include/components/jsscripting/CodeHighlighter.h
 
 SOURCES += \
     $$PROJECT_SOURCES/JsScriptingComponent.cpp \
@@ -19,6 +22,9 @@ SOURCES += \
     $$PROJECT_SOURCES/ScriptConsoleView.cpp \
     $$PROJECT_SOURCES/ScriptService.cpp \
     $$PROJECT_SOURCES/ServiceLocatorWrapper.cpp \
+    ../../../../src/components/jsscripting/LexemeAppearance.cpp \
+    ../../../../src/components/jsscripting/ColorTheme.cpp \
+    ../../../../src/components/jsscripting/CodeHighlighter.cpp
 
 OTHER_FILES += \
     $$PROJECT_SOURCES/org.carousel.JsScripting.definition \

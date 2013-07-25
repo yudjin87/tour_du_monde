@@ -29,18 +29,20 @@
 
 #include <components/jsscripting/IScriptConsole.h>
 
-#include <QtCore/QObject>
-
 class QScriptProgram;
 class QScriptEngine;
 
 /*!
  * @brief
  */
-class JSSCRIPTING_API ScriptConsole : public QObject, public IScriptConsole
+class JSSCRIPTING_API ScriptConsole : public IScriptConsole
 {
     Q_OBJECT
 public:
+    /*!
+     * @details
+     *   Does not takes ownership.
+     */
     explicit ScriptConsole(QScriptEngine *engine, QObject *parent = nullptr);
 
     QScriptEngine *engine();

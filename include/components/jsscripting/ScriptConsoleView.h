@@ -36,15 +36,35 @@ namespace Ui
 class ScriptConsoleView;
 }
 
+class IScriptConsole;
+class QSyntaxHighlighter;
+
 class JSSCRIPTING_API ScriptConsoleView : public QWidget
 {
     Q_OBJECT    
 public:
-    explicit ScriptConsoleView(QWidget *parent = nullptr);
+    /*!
+     * @details
+     *   Takes ownership for hilighter.
+     */
+    ScriptConsoleView(IScriptConsole *console, QSyntaxHighlighter *hilighter, QWidget *parent = nullptr);
     ~ScriptConsoleView();
     
+protected:
+    bool eventFilter(QObject *sender, QEvent *event);
+
+private slots:
+    void onEnter();
+
 private:
-    Ui::ScriptConsoleView *ui;
+    void connectSignalsToSlots();
+    void onPrevCommand();
+    void onNextCommand();
+
+private:
+    Ui::ScriptConsoleView *m_ui;
+    IScriptConsole *m_console;
+    QSyntaxHighlighter *m_hilighter;
 };
 
 #endif // SCRIPTCONSOLEVIEW_H

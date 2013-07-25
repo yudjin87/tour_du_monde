@@ -25,20 +25,78 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "ScriptConsoleView.h"
+#include "IScriptConsole.h"
 #include "ui_ScriptConsoleView.h"
 
+#include <QtGui/QKeyEvent>
+#include <QtGui/QSyntaxHighlighter>
+
 //------------------------------------------------------------------------------
-ScriptConsoleView::ScriptConsoleView(QWidget *parent)
+ScriptConsoleView::ScriptConsoleView(IScriptConsole *console, QSyntaxHighlighter *hilighter, QWidget *parent)
     : QWidget(parent)
-    , ui(new Ui::ScriptConsoleView)
+    , m_ui(new Ui::ScriptConsoleView)
+    , m_console(console)
+    , m_hilighter(hilighter)
 {
-    ui->setupUi(this);
+    m_ui->setupUi(this);
+    m_hilighter->setParent(m_ui->commandsList->document());
+    m_hilighter->setDocument(m_ui->commandsList->document());
+    connectSignalsToSlots();
 }
 
 //------------------------------------------------------------------------------
 ScriptConsoleView::~ScriptConsoleView()
 {
-    delete ui;
+    delete m_ui;
+    m_ui = nullptr;
+}
+
+//------------------------------------------------------------------------------
+void ScriptConsoleView::onEnter()
+{
+    QString command = m_ui->commandEdit->text();
+    m_ui->commandEdit->clear();
+    m_console->evaluateLine(command);
+    m_ui->commandsList->append(command);
+}
+
+//------------------------------------------------------------------------------
+bool ScriptConsoleView::eventFilter(QObject *sender, QEvent *event)
+{
+    Q_UNUSED(sender)
+
+    if (event->type() == QEvent::KeyPress) {
+        QKeyEvent *key = static_cast<QKeyEvent *>(event);
+        switch (key->key())
+        {
+        case Qt::Key_Up: onPrevCommand(); break;
+        case Qt::Key_Down: onNextCommand(); break;
+        }
+    }
+
+    // standard event processing
+    return QObject::eventFilter(sender, event);
+}
+
+//------------------------------------------------------------------------------
+void ScriptConsoleView::onPrevCommand()
+{
+    QString prev = m_console->historyPrev();
+    m_ui->commandEdit->setText(prev);
+}
+
+//------------------------------------------------------------------------------
+void ScriptConsoleView::onNextCommand()
+{
+    QString next = m_console->historyNext();
+    m_ui->commandEdit->setText(next);
+}
+
+//------------------------------------------------------------------------------
+void ScriptConsoleView::connectSignalsToSlots()
+{
+    m_ui->commandEdit->installEventFilter(this);
+    connect(m_ui->commandEdit, &QLineEdit::returnPressed, this, &ScriptConsoleView::onEnter);
 }
 
 //------------------------------------------------------------------------------

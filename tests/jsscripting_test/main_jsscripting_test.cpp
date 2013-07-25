@@ -5,6 +5,7 @@
 #include "ScriptConsoleViewTest.h"
 
 #include <carousel/logging/NullLogger.h>
+#include <carousel/logging/TextLogger.h>
 
 #include <QtCore/QStringList>
 #include <QtTest/QTest>
@@ -19,13 +20,15 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
-    NullLogger log;
-    LoggerFacade::installLoggerEngine(&log);
-
     if (app.arguments().contains("-g")) {
+        QTextStream text(stdout);
+        TextLogger log(text);
+        LoggerFacade::installLoggerEngine(&log);
         runGuiManualTests(app.arguments());
         return app.exec();
     } else {
+        NullLogger log;
+        LoggerFacade::installLoggerEngine(&log);
         runUnitTests(argc, argv);
         return 0;
     }

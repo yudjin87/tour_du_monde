@@ -29,6 +29,7 @@
 
 #include <components/jsscripting/jsscripting_global.h>
 
+#include <QtCore/QObject>
 #include <QtCore/QStringList>
 
 class QScriptProgram;
@@ -37,11 +38,11 @@ class QScriptEngine;
 /*!
  * @brief
  */
-class JSSCRIPTING_API IScriptConsole
+class JSSCRIPTING_API IScriptConsole : public QObject
 {
+    Q_OBJECT
 public:
     IScriptConsole(){}
-    virtual ~IScriptConsole(){}
 
     virtual QScriptEngine *engine() = 0;
 

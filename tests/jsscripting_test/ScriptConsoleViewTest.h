@@ -28,14 +28,28 @@
 #define SCRIPTCONSOLEVIEWTEST_H
 
 #include <QtCore/QObject>
+#include <QtScript/QScriptEngine>
+
+class CodeHighlighter;
+class ColorTheme;
+class ScriptConsole;
+class ScriptConsoleView;
 
 class ScriptConsoleViewTest : public QObject
 {
     Q_OBJECT
 public:
     explicit ScriptConsoleViewTest(QObject *parent = nullptr);
+    ~ScriptConsoleViewTest();
 
     void test();
+
+private:
+    QScriptEngine m_engine;
+    ColorTheme *m_theme;
+    CodeHighlighter *m_hilighter;
+    ScriptConsole *m_console;
+    ScriptConsoleView *m_view;
 };
 
 #endif // SCRIPTCONSOLEVIEWTEST_H
