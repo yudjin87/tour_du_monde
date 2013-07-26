@@ -111,13 +111,13 @@ protected slots:
      *   Runs loading sequence using @a bootloader and connects to the
      *   QCoreApplication::aboutToQuit().
      */
-    virtual void startLoadingSequence(IBootloader &bootloader);
+    virtual IServiceLocator *startLoadingSequence(IBootloader &bootloader);
 
     /*!
      * @details
      *   Finishes the loading sequence starting component manager and showing a main window.
      */
-    virtual void finishLoadingSequence();
+    virtual void finishLoadingSequence(IServiceLocator *serviceLocator);
 
     /*!
      * @details

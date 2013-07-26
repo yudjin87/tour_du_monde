@@ -42,6 +42,7 @@ static LoggerFacade Log = LoggerFacade::createLogger("CarouselBootloader");
 
 //------------------------------------------------------------------------------
 CarouselBootloader::CarouselBootloader()
+    : BootloaderBase()
 {
 }
 
