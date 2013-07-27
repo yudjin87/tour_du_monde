@@ -26,15 +26,11 @@
 
 #include "JsScriptingComponent.h"
 #include "JsScriptingInteractiveExtension.h"
-#include "ScriptConsole.h"
-#include "ServiceLocatorWrapper.h"
+#include "ScriptService.h"
 
 #include <carousel/componentsystem/ComponentExport.h>
 #include <carousel/logging/LoggerFacade.h>
 #include <carousel/utils/IServiceLocator.h>
-
-#include <QtScript/QScriptEngine>
-#include <QtWidgets/QMainWindow>
 
 //------------------------------------------------------------------------------
 namespace
@@ -49,8 +45,6 @@ static const QByteArray description(
 //------------------------------------------------------------------------------
 JsScriptingComponent::JsScriptingComponent(QObject *parent)
     : BaseComponent("org.carousel.JsScripting", parent)
-    , m_engine(nullptr)
-    , m_wrapper(nullptr)
 {
     IInteractiveExtension *interactiveExtension = new JsScriptingInteractiveExtension(this);
     registerExtension<IInteractiveExtension>(interactiveExtension);
@@ -66,34 +60,20 @@ JsScriptingComponent::JsScriptingComponent(QObject *parent)
 //------------------------------------------------------------------------------
 JsScriptingComponent::~JsScriptingComponent()
 {
-    if (started())
-        Log.w("Logic error: onShutdown() was not called.");
 }
 
 //------------------------------------------------------------------------------
 void JsScriptingComponent::onShutdown(IServiceLocator *serviceLocator)
 {
-    IScriptConsole *console = serviceLocator->unregisterInstance<IScriptConsole>();
-    delete console;
-
-    delete m_wrapper;
-    m_wrapper = nullptr;
-
-    delete m_engine;
-    m_engine = nullptr;
+    IScriptService *service = serviceLocator->unregisterInstance<IScriptService>();
+    delete service;
 }
 
 //------------------------------------------------------------------------------
 bool JsScriptingComponent::onStartup(IServiceLocator *serviceLocator)
 {
-    m_engine = new QScriptEngine();
-
-    IScriptConsole *console = new ScriptConsole(m_engine);
-    serviceLocator->registerInstance<IScriptConsole>(console);
-
-    ServiceLocatorWrapper *wrapper = new ServiceLocatorWrapper(serviceLocator);
-    QScriptValue value = m_engine->newQObject(wrapper);
-    m_engine->globalObject().setProperty("serviceLocator", value);
+    IScriptService *service = new ScriptService(serviceLocator);
+    serviceLocator->registerInstance<IScriptService>(service);
 
     return true;
 }

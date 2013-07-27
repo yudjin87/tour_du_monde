@@ -32,7 +32,6 @@
 #include <carousel/componentsystem/BaseComponent.h>
 
 class ServiceLocatorWrapper;
-class QScriptEngine;
 
 /*!
  * @brief
@@ -59,10 +58,6 @@ protected:
     void onShutdown(IServiceLocator *serviceLocator);
 
     bool onStartup(IServiceLocator *serviceLocator);
-
-private:
-    QScriptEngine *m_engine;
-    ServiceLocatorWrapper *m_wrapper;
 };
 
 #endif // JSSCRIPTINGCOMPONENT_H

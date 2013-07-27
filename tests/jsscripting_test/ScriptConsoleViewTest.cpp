@@ -34,10 +34,9 @@
 //------------------------------------------------------------------------------
 ScriptConsoleViewTest::ScriptConsoleViewTest(QObject *parent)
     : QObject(parent)
-    , m_engine()
     , m_theme(ColorTheme::createDefault(this))
     , m_hilighter(new CodeHighlighter(m_theme, this))
-    , m_console(new ScriptConsole(&m_engine, this))
+    , m_console(new ScriptConsole(this))
     , m_view(new ScriptConsoleView(m_console, m_hilighter))
 {
 }

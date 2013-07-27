@@ -30,6 +30,7 @@
 #include <components/jsscripting/IScriptService.h>
 
 class IServiceLocator;
+class QScriptEngine;
 
 /*!
  * @brief
@@ -40,7 +41,7 @@ class JSSCRIPTING_API ScriptService : public IScriptService
 public:
     explicit ScriptService(IServiceLocator *locator, QObject *parent = nullptr);
 
-    QScriptEngine *engine();
+    IScriptConsole *console();
 
     ServiceLocatorWrapper *locatorWrapper();
     const ServiceLocatorWrapper *locatorWrapper() const;
@@ -49,9 +50,11 @@ public:
 private:
     Q_DISABLE_COPY(ScriptService)
 
+    void setUpEngine(QScriptEngine* engine);
+
 private:
     ServiceLocatorWrapper *m_wrapper;
-    QScriptEngine *m_engine;
+    IScriptConsole *m_console;
 };
 
 #endif // SCRIPTSERVICE_H

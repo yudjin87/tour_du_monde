@@ -25,6 +25,7 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "ScriptService.h"
+#include "ScriptConsole.h"
 #include "ServiceLocatorWrapper.h"
 
 #include <QtScript/QScriptEngine>
@@ -32,17 +33,19 @@
 //------------------------------------------------------------------------------
 ScriptService::ScriptService(IServiceLocator *locator, QObject *parent)
     : m_wrapper(nullptr)
-    , m_engine(nullptr)
+    , m_console(nullptr)
 {
-    setParent(parent);
     m_wrapper = new ServiceLocatorWrapper(locator, this);
-    m_engine = new QScriptEngine(this);
+    m_console = new ScriptConsole(this);
+
+    setUpEngine(m_console->engine());
+    setParent(parent);
 }
 
 //------------------------------------------------------------------------------
-QScriptEngine *ScriptService::engine()
+IScriptConsole *ScriptService::console()
 {
-    return m_engine;
+    return m_console;
 }
 
 //------------------------------------------------------------------------------
@@ -62,8 +65,18 @@ void ScriptService::setLocatorWrapper(ServiceLocatorWrapper *locatorWrapper)
 {
     delete m_wrapper;
     m_wrapper = locatorWrapper;
-    if (m_wrapper != nullptr)
-        m_wrapper->setParent(this);
+    if (m_wrapper == nullptr)
+        return;
+
+    m_wrapper->setParent(this);
+    setUpEngine(m_console->engine());
+}
+
+//------------------------------------------------------------------------------
+void ScriptService::setUpEngine(QScriptEngine *engine)
+{
+    QScriptValue value = engine->newQObject(m_wrapper);
+    engine->globalObject().setProperty("serviceLocator", value);
 }
 
 //------------------------------------------------------------------------------

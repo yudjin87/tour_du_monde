@@ -32,7 +32,7 @@
 #include <QtCore/QObject>
 
 class ServiceLocatorWrapper;
-class QScriptEngine;
+class IScriptConsole;
 
 /*!
  * @brief
@@ -43,7 +43,7 @@ class JSSCRIPTING_API IScriptService : public QObject
 public:
     IScriptService(){}
 
-    virtual QScriptEngine *engine() = 0;
+    virtual IScriptConsole *console() = 0;
 
     virtual ServiceLocatorWrapper *locatorWrapper() = 0;
     virtual const ServiceLocatorWrapper *locatorWrapper() const = 0;

@@ -28,7 +28,6 @@
 #define SCRIPTCONSOLEVIEWTEST_H
 
 #include <QtCore/QObject>
-#include <QtScript/QScriptEngine>
 
 class CodeHighlighter;
 class ColorTheme;
@@ -45,7 +44,6 @@ public:
     void test();
 
 private:
-    QScriptEngine m_engine;
     ColorTheme *m_theme;
     CodeHighlighter *m_hilighter;
     ScriptConsole *m_console;

@@ -28,6 +28,7 @@
 #include "CodeHighlighter.h"
 #include "ColorTheme.h"
 #include "IScriptConsole.h"
+#include "IScriptService.h"
 #include "ScriptConsoleView.h"
 
 #include <components/interactivity/ICatalogs.h>
@@ -49,16 +50,13 @@ JsScriptingInteractiveExtension::JsScriptingInteractiveExtension(QObject *parent
 //------------------------------------------------------------------------------
 void JsScriptingInteractiveExtension::configureGui(ICatalogs &inCatalogs, IServiceLocator *serviceLocator)
 {
-    Q_UNUSED(inCatalogs)
-    Q_UNUSED(serviceLocator)
-
-    IScriptConsole *console = serviceLocator->locate<IScriptConsole>();
+    IScriptConsole *console = serviceLocator->locate<IScriptService>()->console();
     ColorTheme *theme = ColorTheme::createDefault(this);
     CodeHighlighter *hilighter = new CodeHighlighter(theme, this);
 
     IDockWidgetCatalog &catalog = inCatalogs.dockWidgetCatalog();
     QDockWidget *scriptDock = catalog.addDockWidget(
-                new ScriptConsoleView(console, hilighter), "Scripting (not working yet)", Qt::BottomDockWidgetArea);
+            new ScriptConsoleView(console, hilighter), "Scripting (not working yet)", Qt::BottomDockWidgetArea);
 
     Operation *scriptConsole = new ToggleActionWrapper(scriptDock->toggleViewAction(), QIcon(":/jsscripting/images/scriptWindow.png"));
     inCatalogs.operationCatalog().add(scriptConsole);
