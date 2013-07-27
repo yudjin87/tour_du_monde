@@ -27,8 +27,9 @@
 #include "CartoUIInteractiveExtension.h"
 #include "LayersTreeModel.h"
 
-#include <dom/IPainterDocument.h>
-#include <dom/IPainterDocumentController.h>
+#include <carto/IPainterDocument.h>
+#include <carto/IPainterDocumentController.h>
+
 #include <components/interactivity/ICatalogs.h>
 #include <components/interactivity/IDockWidgetCatalog.h>
 #include <components/interactivity/IMenuCatalog.h>

@@ -31,10 +31,11 @@
 #include <display/DisplayTransformation.h>
 
 //------------------------------------------------------------------------------
-Map::Map()
-    : QObject()
-    , m_display(nullptr)
+Map::Map(IPainterDocument *parentDocument, IDisplay *display)
+    : m_parentDocument(parentDocument)
+    , m_display(display)
 {
+    connect(m_display, &IDisplay::visibleBoundsUpdated, this, &Map::onVisibleBoundsChanged);
 }
 
 //------------------------------------------------------------------------------
@@ -61,6 +62,16 @@ QList<AbstractLayer *> Map::layers() const
     return m_layers;
 }
 
+IPainterDocument *Map::document()
+{
+    return m_parentDocument;
+}
+
+const IPainterDocument *Map::document() const
+{
+    return m_parentDocument;
+}
+
 //------------------------------------------------------------------------------
 void Map::refresh()
 {
@@ -69,14 +80,6 @@ void Map::refresh()
         layer->draw(m_display);
 
     m_display->finishDrawing(painter);
-}
-
-//------------------------------------------------------------------------------
-void Map::setDisplay(IDisplay *display)
-{
-    m_display = display;
-
-    connect(m_display, &IDisplay::visibleBoundsUpdated, this, &Map::onVisibleBoundsChanged);
 }
 
 //------------------------------------------------------------------------------

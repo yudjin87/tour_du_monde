@@ -41,10 +41,10 @@ class DISPLAY_API DisplayTransformation : public QObject
      * @details
      *   Gets or sets the full extent in world coordinates.
      *
-     *   This property controls the full extent of the display. Map::fullExtent() really
+     *   This property controls the full extent of the display. IMap::fullExtent() really
      *   stores its full extent here.
-     *   In data view, Map calculates the full extent of all the layers and automatically
-     *   recalculates it whenever layers are added or removed from the Map.
+     *   In data view, IMap calculates the full extent of all the layers and automatically
+     *   recalculates it whenever layers are added or removed from the IMap.
      *   Setting the bounds also sets the visibleBounds() to the same envelope if it is
      *   empty.
      */
@@ -58,7 +58,7 @@ class DISPLAY_API DisplayTransformation : public QObject
      *   Output can also be directed to some rectangle on the device by specifying the rectangle
      *   as the device frame.
      *
-     *   Right now setter for this property is for internal usage only, e.g. when Map window is resized.
+     *   Right now setter for this property is for internal usage only, e.g. when IMap window is resized.
      */
     Q_PROPERTY(QRectF deviceFrame READ deviceFrame NOTIFY deviceFrameChanged)
 
@@ -69,7 +69,7 @@ class DISPLAY_API DisplayTransformation : public QObject
      *   or a ratio.  A map scale of 1/100,000 or 1:100,000 means that one unit of measure on the map
      *   equals 100,000 of the same units on the earth.
      *
-     *   The Map object has a short-cut (Map::mapScale()) directly to this property on
+     *   The IMap object has a short-cut (IMap::mapScale()) directly to this property on
      *   its DisplayTransformation object.
      *
      *   Setting this property visibleBounds are changed, so visibleBoundsChanged signal emits.
@@ -84,8 +84,8 @@ class DISPLAY_API DisplayTransformation : public QObject
      *   extents, you will get zoom in / zoom out effects. The visibleBounds must fit within the current
      *   bounds().
      *
-     *   Map::extent() really stores its value in this property. In data view, the Map::extent() (visibleBounds)
-     *   is set the first time a layer is added to the Map.
+     *   IMap::extent() really stores its value in this property. In data view, the IMap::extent() (visibleBounds)
+     *   is set the first time a layer is added to the IMap.
      *
      *   Zooming @a in or @a out changes the visibleBounds.
      *

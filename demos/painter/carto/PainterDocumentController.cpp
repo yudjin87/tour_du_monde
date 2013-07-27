@@ -24,15 +24,29 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef DOM_API_H
-#define DOM_API_H
+#include "PainterDocumentController.h"
+#include "PainterDocument.h"
+#include "Map.h"
 
-#include <QtCore/qglobal.h>
+//------------------------------------------------------------------------------
+PainterDocumentController::PainterDocumentController(IDisplay *display)
+    : m_document(nullptr)
+{
+    m_document = new PainterDocument();
+    m_document->addMap(new Map(m_document, display));
+}
 
-#if defined(DOM_LIB_IMPORT)
-#  define DOM_API Q_DECL_EXPORT
-#else
-#  define DOM_API Q_DECL_IMPORT
-#endif
+//------------------------------------------------------------------------------
+PainterDocumentController::~PainterDocumentController()
+{
+    delete m_document;
+    m_document = nullptr;
+}
 
-#endif // DOM_API_H
+//------------------------------------------------------------------------------
+IPainterDocument *PainterDocumentController::document()
+{
+    return m_document;
+}
+
+//------------------------------------------------------------------------------

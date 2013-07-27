@@ -27,10 +27,11 @@
 #include "CartoUIComponent.h"
 #include "CartoUIInteractiveExtension.h"
 
+#include <carto/IPainterDocument.h>
+#include <carto/IPainterDocumentController.h>
+
 #include <carousel/componentsystem/ComponentDefinition.h>
 #include <carousel/componentsystem/ComponentExport.h>
-#include <dom/IPainterDocument.h>
-#include <dom/IPainterDocumentController.h>
 #include <carousel/utils/IServiceLocator.h>
 
 #include <QtWidgets/QGraphicsScene>
@@ -45,7 +46,6 @@ CartoUIComponent::CartoUIComponent(QObject *parent /*= nullptr*/)
     IInteractiveExtension *interactiveExtension = new CartoUIInteractiveExtension(this);
     registerExtension<IInteractiveExtension>(interactiveExtension);
 
-    addParent("org.carousel.demos.Dom", 1, 0);
     addParent("org.carousel.demos.Geodatabase", 1, 0);
     addParent("org.carousel.demos.Display", 1, 0);
     addParent("org.carousel.demos.Carto", 1, 0);

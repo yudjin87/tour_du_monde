@@ -24,23 +24,13 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef PAINTERDOCUMENT_H
-#define PAINTERDOCUMENT_H
+#ifndef CARTOMETATYPES_H
+#define CARTOMETATYPES_H
 
-#include "IPainterDocument.h"
+#include <QtCore/QMetaType>
 
-class PainterDocument : public IPainterDocument
-{
-public:
-    PainterDocument();
-    ~PainterDocument();
+Q_DECLARE_METATYPE(IPainterDocument *)
+Q_DECLARE_METATYPE(IPainterDocumentController *)
+Q_DECLARE_METATYPE(IMap *)
 
-    Map *map();
-
-    void addMap(Map *map);
-
-private:
-    Map *m_map;
-};
-
-#endif // PAINTERDOCUMENT_H
+#endif // CARTOMETATYPES_H

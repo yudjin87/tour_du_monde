@@ -24,33 +24,26 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "PainterDocument.h"
+#ifndef IPAINTERDOCUMENTCONTROLLER_H
+#define IPAINTERDOCUMENTCONTROLLER_H
 
-#include <carto/Map.h>
+#include "carto/carto_api.h"
 
-//------------------------------------------------------------------------------
-PainterDocument::PainterDocument()
-    : m_map(nullptr)
+#include <QtCore/QObject>
+
+class IPainterDocument;
+
+class CARTO_API IPainterDocumentController : public QObject
 {
-}
+    Q_OBJECT
+    Q_PROPERTY(IPainterDocument *document READ document)
+public:
+    IPainterDocumentController(){}
 
-//------------------------------------------------------------------------------
-PainterDocument::~PainterDocument()
-{
-    delete m_map;
-    m_map = nullptr;
-}
+    virtual IPainterDocument *document() = 0;
 
-//------------------------------------------------------------------------------
-Map *PainterDocument::map()
-{
-    return m_map;
-}
+private:
+    Q_DISABLE_COPY(IPainterDocumentController)
+};
 
-//------------------------------------------------------------------------------
-void PainterDocument::addMap(Map *map)
-{
-    m_map = map;
-}
-
-//------------------------------------------------------------------------------
+#endif // IPAINTERDOCUMENTCONTROLLER_H

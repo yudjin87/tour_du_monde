@@ -26,7 +26,7 @@
 
 #include "LayersTreeModel.h"
 
-#include <carto/Map.h>
+#include <carto/IMap.h>
 #include <carto/FeatureLayer.h>
 #include <display/FeatureRenderer.h>
 #include <display/ISymbol.h>
@@ -41,7 +41,7 @@ QMap<GeometryType, AbstractGeometry *> fillThumbnails();
 static const QMap<GeometryType, AbstractGeometry *> thumbnails = fillThumbnails();
 
 //------------------------------------------------------------------------------
-LayersTreeModel::LayersTreeModel(Map *map, QObject *parent)
+LayersTreeModel::LayersTreeModel(IMap *map, QObject *parent)
     : QAbstractListModel(parent)
     , m_map(map)
 {

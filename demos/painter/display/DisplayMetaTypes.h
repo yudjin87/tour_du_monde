@@ -24,31 +24,12 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "PainterDocumentController.h"
-#include "PainterDocument.h"
+#ifndef DISPLAYMETATYPES_H
+#define DISPLAYMETATYPES_H
 
-#include <carto/Map.h>
+#include <QtCore/QMetaType>
 
-//------------------------------------------------------------------------------
-PainterDocumentController::PainterDocumentController(IDisplay *display)
-    : m_document(nullptr)
-{
-    m_document = new PainterDocument();
-    m_document->addMap(new Map());
-    m_document->map()->setDisplay(display);
-}
+Q_DECLARE_METATYPE(FeatureRenderer *)
+Q_DECLARE_METATYPE(ISymbol *)
 
-//------------------------------------------------------------------------------
-PainterDocumentController::~PainterDocumentController()
-{
-    delete m_document;
-    m_document = nullptr;
-}
-
-//------------------------------------------------------------------------------
-IPainterDocument *PainterDocumentController::document()
-{
-    return m_document;
-}
-
-//------------------------------------------------------------------------------
+#endif // DISPLAYMETATYPES_H

@@ -24,27 +24,40 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef DOMCOMPONENT_H
-#define DOMCOMPONENT_H
+#ifndef IMAP_H
+#define IMAP_H
 
-#include "dom_api.h"
+#include <carto/carto_api.h>
 
-#include <carousel/componentsystem/BaseComponent.h>
+#include <QtCore/QList>
+#include <QtCore/QObject>
 
-class PainterDocumentController;
+class AbstractLayer;
+class IPainterDocument;
 
-class DOM_API DomComponent : public BaseComponent
+class CARTO_API IMap : public QObject
 {
+    Q_OBJECT
+    Q_PROPERTY(IPainterDocument *document READ document)
+    Q_PROPERTY(QList<AbstractLayer *> layers READ layers)
 public:
-    DomComponent();
-    ~DomComponent();
+    IMap(){}
 
-protected:
-    void onShutdown(IServiceLocator *serviceLocator);
-    bool onStartup(IServiceLocator *serviceLocator);
+    virtual void addLayer(AbstractLayer *layer) = 0;
+
+    virtual QList<AbstractLayer *> layers() const = 0;
+
+    virtual IPainterDocument *document() = 0;
+    virtual const IPainterDocument *document() const = 0;
+
+public slots:
+    virtual void refresh() = 0;
+
+signals:
+    void layerAdded(AbstractLayer *layer);
 
 private:
-    PainterDocumentController *m_docController;
+    Q_DISABLE_COPY(IMap)
 };
 
-#endif // DOMCOMPONENT_H
+#endif // IMAP_H

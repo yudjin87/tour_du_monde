@@ -39,6 +39,7 @@ public:
 
 protected:
     bool onStartup(IServiceLocator *serviceLocator);
+    void onShutdown(IServiceLocator *serviceLocator);
 };
 
 #endif // CARTOCOMPONENT_H

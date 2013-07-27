@@ -24,28 +24,12 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef IPAINTERDOCUMENT_H
-#define IPAINTERDOCUMENT_H
+#include "FeatureRenderer.h"
+#include "ISymbol.h"
 
-#include "dom_api.h"
+#include "DisplayMetaTypes.h"
 
-#include <QtCore/QObject>
+//------------------------------------------------------------------------------
+static const int IFeatureRendererId = qRegisterMetaType<FeatureRenderer *>("FeatureRenderer *");
+static const int ISymbolId = qRegisterMetaType<ISymbol *>("ISymbol *");
 
-class Map;
-
-class DOM_API IPainterDocument : public QObject
-{
-    Q_OBJECT
-public:
-    IPainterDocument(){}
-    virtual ~IPainterDocument(){}
-
-    virtual Map *map() = 0;
-
-    virtual void addMap(Map *map) = 0;
-
-private:
-    Q_DISABLE_COPY(IPainterDocument)
-};
-
-#endif // IPAINTERDOCUMENT_H

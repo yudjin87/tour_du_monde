@@ -26,10 +26,11 @@
 
 #include "AddShapesCommand.h"
 
-#include <carto/Map.h>
+#include <carto/IMap.h>
 #include <carto/FeatureLayer.h>
-#include <dom/IPainterDocument.h>
-#include <dom/IPainterDocumentController.h>
+#include <carto/IPainterDocument.h>
+#include <carto/IPainterDocumentController.h>
+
 #include <geodatabase/IFeatureWorkspace.h>
 #include <geodatabase/IShapeFileWorkspaceFactory.h>
 #include <geodatabase/IFeatureClass.h>

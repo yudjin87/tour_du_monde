@@ -24,48 +24,31 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef LAYER_H
-#define LAYER_H
+#ifndef IPAINTERDOCUMENT_H
+#define IPAINTERDOCUMENT_H
 
-#include <carto/carto_api.h>
+#include "carto/carto_api.h"
 
 #include <QtCore/QObject>
-#include <QtCore/QString>
-#include <QtCore/QRectF>
 
-class IDisplay;
+class IMap;
 
-class CARTO_API AbstractLayer : public QObject
+class CARTO_API IPainterDocument : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(QString name READ name)
+    Q_PROPERTY(IMap *map READ map)
 public:
-    AbstractLayer(QObject *parent = nullptr);
+    IPainterDocument(){}
 
-    virtual void draw(IDisplay *display) = 0;
+    virtual IMap *map() = 0;
 
-    virtual QRectF extent() const = 0;
+    virtual void addMap(IMap *map) = 0;
 
-    const QString &name() const;
-    void setName(const QString &name);
-
-    bool isVisible() const;
-    void setVisible(bool visible = true);
-
-    double minimumScale() const;
-    double maximumScale() const;
-
-    void setMinimumScale(double minimumScale);
-    void setMaximumScale(double maximumScale);
-
-protected:
-    virtual void hide() = 0;
-    virtual void show() = 0;
+    virtual const QString &name() const = 0;
 
 private:
-    QString m_name;
-    bool m_isVisible;
-    double m_minimumScale;
-    double m_maximumScale;
+    Q_DISABLE_COPY(IPainterDocument)
 };
 
-#endif // LAYER_H
+#endif // IPAINTERDOCUMENT_H

@@ -16,7 +16,6 @@ win32 {
                                -lFramework
 
     LIBS += -L$${DESTDIR} -lorg.carousel.demos.Display \
-                          -lorg.carousel.demos.Dom \
                           -lorg.carousel.demos.Carto \
                           -lorg.carousel.demos.Geometry
 }

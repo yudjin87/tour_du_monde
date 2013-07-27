@@ -39,13 +39,14 @@ class ISymbol;
 
 class CARTO_API FeatureLayer : public AbstractLayer
 {
+    Q_OBJECT
 public:
-    FeatureLayer();
+    FeatureLayer(QObject *parent = nullptr);
     ~FeatureLayer();
 
     GeometryType shapeType() const;
 
-    FeatureRenderer *renderer() const {return m_featureRenderer;}
+    FeatureRenderer *renderer() const;
 
     void draw(IDisplay *display);
 

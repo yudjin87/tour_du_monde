@@ -27,38 +27,33 @@
 #ifndef MAP_H
 #define MAP_H
 
-#include "carto_api.h"
+#include <carto/IMap.h>
 
-#include <QtCore/QList>
-#include <QtCore/QObject>
-
-class AbstractLayer;
 class DisplayTransformation;
 class IDisplay;
 
-class CARTO_API Map : public QObject
+class CARTO_API Map : public IMap
 {
     Q_OBJECT
 public:
-    Map();
+    Map(IPainterDocument *parentDocument, IDisplay *display);
     ~Map();
 
     void addLayer(AbstractLayer *layer);
 
     QList<AbstractLayer *> layers() const;
 
+    IPainterDocument *document();
+    const IPainterDocument *document() const;
+
 public slots:
     void refresh();
-
-    void setDisplay(IDisplay *display);
-
-signals:
-    void layerAdded(AbstractLayer *layer);
 
 private slots:
     void onVisibleBoundsChanged(DisplayTransformation *transform);
 
 private:
+    IPainterDocument *m_parentDocument;
     IDisplay *m_display;
     QList<AbstractLayer *> m_layers;    
 };

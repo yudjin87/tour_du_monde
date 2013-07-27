@@ -26,12 +26,21 @@
 
 #include "PainterApplication.h"
 
+#include <carousel/utils/IServiceLocator.h>
+
 //------------------------------------------------------------------------------
 PainterApplication::PainterApplication(int &argc, char **argv)
     : AbstractApplication(argc, argv)
 {
     setApplicationName("painter");
     setOrganizationName("carousel-demo");
+}
+
+//------------------------------------------------------------------------------
+void PainterApplication::finishLoadingSequence(IServiceLocator *serviceLocator)
+{
+    AbstractApplication::finishLoadingSequence(serviceLocator);
+    serviceLocator->registerInstance(this);
 }
 
 //------------------------------------------------------------------------------

@@ -24,41 +24,26 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef ISHAPE_H
-#define ISHAPE_H
+#ifndef PAINTERDOCUMENT_H
+#define PAINTERDOCUMENT_H
 
-#include "dom_api.h"
+#include "IPainterDocument.h"
 
-#include <QtCore/QPoint>
-#include <QtCore/QSize>
-#include <QtCore/QRect>
-
-class DOM_API IShape
+class PainterDocument : public IPainterDocument
 {
 public:
-    IShape(){}
-    virtual ~IShape(){}
+    PainterDocument();
+    ~PainterDocument();
 
-    virtual QRect rect() const = 0;
-    virtual const QPoint &origin() const = 0;
-    virtual void setOrigin(const QPoint &i_origin) = 0;
+    IMap *map();
 
-    virtual const QSize &size() const = 0;
-    virtual void setSize(const QSize &i_size) = 0;
+    void addMap(IMap *map);
 
-    virtual int r() const = 0;
-    virtual int g() const = 0;
-    virtual int b() const = 0;
-    virtual int a() const = 0;
+    const QString &name() const;
 
-    virtual void setR(int r) = 0;
-    virtual void setG(int g) = 0;
-    virtual void setB(int b) = 0;
-    virtual void setA(int a) = 0;
-
-    virtual void originChanged(const QPoint &i_newOrigin) = 0;
-    virtual void sizeChanged(const QSize &i_newSize) = 0;
-    virtual void colorChanged(int r, int g, int b, int a) = 0;
+private:
+    QString m_name;
+    IMap *m_map;
 };
 
-#endif // ISHAPE_H
+#endif // PAINTERDOCUMENT_H

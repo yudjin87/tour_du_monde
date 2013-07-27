@@ -24,27 +24,39 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef IPAINTERDOCUMENTCONTROLLER_H
-#define IPAINTERDOCUMENTCONTROLLER_H
+#include "PainterDocument.h"
+#include "IMap.h"
 
-#include "dom_api.h"
-
-#include <QtCore/QObject>
-
-class IPainterDocument;
-
-class DOM_API IPainterDocumentController : public QObject
+//------------------------------------------------------------------------------
+PainterDocument::PainterDocument()
+    : m_name("Demo PainterDocument")
+    , m_map(nullptr)
 {
-    Q_OBJECT
-public:
-    IPainterDocumentController(){}
-    virtual ~IPainterDocumentController(){}
+}
 
-    virtual IPainterDocument *document() = 0;
+//------------------------------------------------------------------------------
+PainterDocument::~PainterDocument()
+{
+    delete m_map;
+    m_map = nullptr;
+}
 
-private:
-    Q_DISABLE_COPY(IPainterDocumentController)
-};
+//------------------------------------------------------------------------------
+IMap *PainterDocument::map()
+{
+    return m_map;
+}
 
+//------------------------------------------------------------------------------
+void PainterDocument::addMap(IMap *map)
+{
+    m_map = map;
+}
 
-#endif // IPAINTERDOCUMENTCONTROLLER_H
+//------------------------------------------------------------------------------
+const QString &PainterDocument::name() const
+{
+    return m_name;
+}
+
+//------------------------------------------------------------------------------

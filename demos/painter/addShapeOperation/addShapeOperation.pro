@@ -17,7 +17,6 @@ win32 {
 
     LIBS += -L$${DESTDIR} -lorg.carousel.demos.Display \
                           -lorg.carousel.demos.Carto \
-                          -lorg.carousel.demos.Dom \
                           -lorg.carousel.demos.Geodatabase
 }
 

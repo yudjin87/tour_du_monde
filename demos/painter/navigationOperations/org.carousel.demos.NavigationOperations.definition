@@ -3,7 +3,6 @@
      <productName>NavigationOperations</productName>
      <provider>Carousel</provider>
      <parents>
-         <parentComponent name="org.carousel.demos.Dom" version="1.0"/>
          <parentComponent name="org.carousel.demos.Geodatabase" version="1.0"/>
          <parentComponent name="org.carousel.demos.Display" version="1.0"/>
          <parentComponent name="org.carousel.demos.Carto" version="1.0"/>

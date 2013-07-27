@@ -8,7 +8,6 @@ SUBDIRS += \
     display \
     geodatabase \
     carto \
-    dom \
     #tableView \
     cartoUI \
     #geodatabase_test \

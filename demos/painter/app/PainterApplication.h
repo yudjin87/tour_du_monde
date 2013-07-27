@@ -29,13 +29,14 @@
 
 #include <carousel/framework/AbstractApplication.h>
 
-class IBootloader;
-
 class PainterApplication : public AbstractApplication
 {
     Q_OBJECT
 public:
     PainterApplication(int &argc, char **argv);
+
+protected:
+    void finishLoadingSequence(IServiceLocator *serviceLocator);
 };
 
 #endif // PAINTERAPPLICATION_H

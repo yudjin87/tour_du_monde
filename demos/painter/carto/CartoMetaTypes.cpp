@@ -24,48 +24,15 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef LAYER_H
-#define LAYER_H
+#include "IPainterDocumentController.h"
+#include "IPainterDocument.h"
+#include "IMap.h"
 
-#include <carto/carto_api.h>
+#include "CartoMetaTypes.h"
 
-#include <QtCore/QObject>
-#include <QtCore/QString>
-#include <QtCore/QRectF>
+//------------------------------------------------------------------------------
+static const int IPainterDocumentId = qRegisterMetaType<IPainterDocument *>("IPainterDocument *");
+static const int IMapId = qRegisterMetaType<IMap *>("IMap *");
 
-class IDisplay;
 
-class CARTO_API AbstractLayer : public QObject
-{
-    Q_OBJECT
-public:
-    AbstractLayer(QObject *parent = nullptr);
-
-    virtual void draw(IDisplay *display) = 0;
-
-    virtual QRectF extent() const = 0;
-
-    const QString &name() const;
-    void setName(const QString &name);
-
-    bool isVisible() const;
-    void setVisible(bool visible = true);
-
-    double minimumScale() const;
-    double maximumScale() const;
-
-    void setMinimumScale(double minimumScale);
-    void setMaximumScale(double maximumScale);
-
-protected:
-    virtual void hide() = 0;
-    virtual void show() = 0;
-
-private:
-    QString m_name;
-    bool m_isVisible;
-    double m_minimumScale;
-    double m_maximumScale;
-};
-
-#endif // LAYER_H
+//------------------------------------------------------------------------------

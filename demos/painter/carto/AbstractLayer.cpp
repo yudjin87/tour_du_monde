@@ -29,16 +29,12 @@
 #include <limits.h>
 
 //------------------------------------------------------------------------------
-AbstractLayer::AbstractLayer()
-    : m_name("")
+AbstractLayer::AbstractLayer(QObject *parent)
+    : QObject(parent)
+    , m_name("")
     , m_isVisible(true)
     , m_minimumScale(INT_MIN)
     , m_maximumScale(INT_MAX)
-{
-}
-
-//------------------------------------------------------------------------------
-AbstractLayer::~AbstractLayer()
 {
 }
 
@@ -73,21 +69,25 @@ void AbstractLayer::setVisible(bool visible)
         hide();
 }
 
+//------------------------------------------------------------------------------
 double AbstractLayer::minimumScale() const
 {
     return m_minimumScale;
 }
 
+//------------------------------------------------------------------------------
 double AbstractLayer::maximumScale() const
 {
     return m_maximumScale;
 }
 
+//------------------------------------------------------------------------------
 void AbstractLayer::setMinimumScale(double minimumScale)
 {
     m_minimumScale = minimumScale;
 }
 
+//------------------------------------------------------------------------------
 void AbstractLayer::setMaximumScale(double maximumScale)
 {
     m_maximumScale = maximumScale;

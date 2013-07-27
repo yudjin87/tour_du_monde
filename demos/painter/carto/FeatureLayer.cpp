@@ -39,8 +39,9 @@
 #include <geometry/Polygon.h>
 
 //------------------------------------------------------------------------------
-FeatureLayer::FeatureLayer()
-    : m_featureClass(nullptr)
+FeatureLayer::FeatureLayer(QObject *parent)
+    : AbstractLayer(parent)
+    , m_featureClass(nullptr)
     , m_featureRenderer(new FeatureRenderer())
     , m_symbol(nullptr)
 {
@@ -63,6 +64,12 @@ FeatureLayer::~FeatureLayer()
 GeometryType FeatureLayer::shapeType() const
 {
     return m_featureClass->shapeType();
+}
+
+//------------------------------------------------------------------------------
+FeatureRenderer *FeatureLayer::renderer() const
+{
+    return m_featureRenderer;
 }
 
 //------------------------------------------------------------------------------

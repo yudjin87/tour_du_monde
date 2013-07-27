@@ -42,7 +42,6 @@ AddShapeOperationComponent::AddShapeOperationComponent(QObject *parent /*= nullp
     IInteractiveExtension *interactiveExtension = new AddShapeOperationInteractiveExtension(this);
     registerExtension<IInteractiveExtension>(interactiveExtension);
 
-    addParent("org.carousel.demos.Dom", 1, 0);
     addParent("org.carousel.demos.Geodatabase", 1, 0);
     addParent("org.carousel.demos.Display", 1, 0);
     addParent("org.carousel.demos.Carto", 1, 0);

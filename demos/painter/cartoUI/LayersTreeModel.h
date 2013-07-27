@@ -34,13 +34,13 @@
 
 class AbstractLayer;
 class ISymbol;
-class Map;
+class IMap;
 
 class LayersTreeModel : public QAbstractListModel
 {
     Q_OBJECT
 public:
-    explicit LayersTreeModel(Map *map, QObject *parent = 0);
+    explicit LayersTreeModel(IMap *map, QObject *parent = 0);
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
 
@@ -53,7 +53,7 @@ private:
     static QPixmap drawThumbnail(ISymbol *forSymbol, GeometryType type);
 
 private:
-    Map *m_map;
+    IMap *m_map;
 };
 
 #endif // LAYERSTREEMODEL_H

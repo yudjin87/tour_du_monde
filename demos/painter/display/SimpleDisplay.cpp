@@ -178,7 +178,7 @@ void SimpleDisplay::scrollContentsBy(int dx, int dy)
 //------------------------------------------------------------------------------
 void SimpleDisplay::mouseMoveEvent(QMouseEvent *event)
 {
-    QPoint point = event->pos();
+    //QPoint point = event->pos();
 
     // QPointF mapPoint = m_transform->toMapPoint(point.x(), point.y());
     // qDebug("x:%f; y:%f", mapPoint.x(), mapPoint.y());

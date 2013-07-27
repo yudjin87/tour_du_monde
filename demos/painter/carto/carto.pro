@@ -1,6 +1,7 @@
 include(../shared.pri)
 
 QT       += gui
+QT       += script
 
 TEMPLATE = lib
 
@@ -23,16 +24,25 @@ win32 {
 
 HEADERS += \
     carto_api.h \
+    PainterDocument.h \
+    PainterDocumentController.h \
+    IPainterDocumentController.h \
+    IPainterDocument.h \
     AbstractLayer.h \
     FeatureLayer.h \
     Map.h \
-    CartoComponent.h
+    CartoComponent.h \
+    CartoMetaTypes.h \
+    IMap.h
 
 SOURCES += \
     AbstractLayer.cpp \
     FeatureLayer.cpp \
     Map.cpp \
-    CartoComponent.cpp
+    CartoComponent.cpp \
+    PainterDocumentController.cpp \
+    PainterDocument.cpp \
+    CartoMetaTypes.cpp
 
 OTHER_FILES += org.carousel.demos.Carto.definition
 
