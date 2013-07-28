@@ -24,42 +24,21 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SCRIPTSERVICE_H
-#define SCRIPTSERVICE_H
+#ifndef SCRIPTSERVICETEST_H
+#define SCRIPTSERVICETEST_H
 
-#include <components/jsscripting/IScriptService.h>
+#include <QtCore/QObject>
 
-#include <QtCore/QSet>
-
-class IServiceLocator;
-
-/*!
- * @brief
- */
-class JSSCRIPTING_API ScriptService : public IScriptService
+class ScriptServiceTest: public QObject
 {
     Q_OBJECT
 public:
-    explicit ScriptService(IServiceLocator *locator, QObject *parent = nullptr);
+    ScriptServiceTest(QObject *parent = nullptr);
 
-    IScriptConsole *console();
+private Q_SLOTS:
+    void setLocatorWrapper_shouldSetupNull();
+    void setLocatorWrapper_shouldResetAllEngines();
 
-    QScriptEngine *createEngine();
-    void deleteEngine(QScriptEngine *engine);
-
-    ServiceLocatorWrapper *locatorWrapper();
-    const ServiceLocatorWrapper *locatorWrapper() const;
-    void setLocatorWrapper(ServiceLocatorWrapper *locatorWrapper);
-
-private:
-    Q_DISABLE_COPY(ScriptService)
-
-    void setUpEngine(QScriptEngine* engine);
-
-private:
-    ServiceLocatorWrapper *m_wrapper;
-    IScriptConsole *m_console;
-    QSet<QScriptEngine *> m_engines;
 };
 
-#endif // SCRIPTSERVICE_H
+#endif // SCRIPTSERVICETEST_H

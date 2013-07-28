@@ -28,17 +28,26 @@
 #include "ScriptConsole.h"
 #include "ServiceLocatorWrapper.h"
 
+#include <carousel/logging/LoggerFacade.h>
+#include <carousel/utils/IServiceLocator.h>
+
 #include <QtScript/QScriptEngine>
+
+//------------------------------------------------------------------------------
+namespace
+{
+static LoggerFacade Log = LoggerFacade::createLogger("ScriptService");
+}
 
 //------------------------------------------------------------------------------
 ScriptService::ScriptService(IServiceLocator *locator, QObject *parent)
     : m_wrapper(nullptr)
     , m_console(nullptr)
+    , m_engines(QSet<QScriptEngine *>())
 {
     m_wrapper = new ServiceLocatorWrapper(locator, this);
-    m_console = new ScriptConsole(this);
+    m_console = new ScriptConsole(createEngine(), this);
 
-    setUpEngine(m_console->engine());
     setParent(parent);
 }
 
@@ -46,6 +55,24 @@ ScriptService::ScriptService(IServiceLocator *locator, QObject *parent)
 IScriptConsole *ScriptService::console()
 {
     return m_console;
+}
+
+//------------------------------------------------------------------------------
+QScriptEngine *ScriptService::createEngine()
+{
+    Log.d("Creating new script engine.");
+    QScriptEngine *engine = new QScriptEngine();
+    m_engines.insert(engine);
+    setUpEngine(engine);
+
+    return engine;
+}
+
+//------------------------------------------------------------------------------
+void ScriptService::deleteEngine(QScriptEngine *engine)
+{
+    if (!m_engines.remove(engine))
+        Log.w("Cannot delete unexisting engine!");
 }
 
 //------------------------------------------------------------------------------
@@ -65,11 +92,12 @@ void ScriptService::setLocatorWrapper(ServiceLocatorWrapper *locatorWrapper)
 {
     delete m_wrapper;
     m_wrapper = locatorWrapper;
-    if (m_wrapper == nullptr)
-        return;
 
-    m_wrapper->setParent(this);
-    setUpEngine(m_console->engine());
+    if (m_wrapper != nullptr)
+        m_wrapper->setParent(this);
+
+    for (QScriptEngine *engine : m_engines)
+        setUpEngine(engine);
 }
 
 //------------------------------------------------------------------------------

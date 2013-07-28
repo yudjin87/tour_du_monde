@@ -39,7 +39,17 @@ class JSSCRIPTING_API ScriptConsole : public IScriptConsole
 {
     Q_OBJECT
 public:
+    /*!
+     * @details
+     *  Takes ownership for engine
+     */
     explicit ScriptConsole(QObject *parent = nullptr);
+
+    /*!
+     * @details
+     *   Does not takes ownership
+     */
+    explicit ScriptConsole(QScriptEngine *engine, QObject *parent = nullptr);
 
     QScriptEngine *engine();
 

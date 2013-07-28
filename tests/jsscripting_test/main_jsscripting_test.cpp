@@ -1,6 +1,7 @@
 #include "ServiceLocatorWrapperTest.h"
 #include "ScriptEngineTest.h"
 #include "ScriptConsoleTest.h"
+#include "ScriptServiceTest.h"
 
 #include "ScriptConsoleViewTest.h"
 
@@ -45,6 +46,9 @@ void runUnitTests(int argc, char *argv[])
 
     ScriptConsoleTest scriptConsoleTest;
     QTest::qExec(&scriptConsoleTest, argc, argv);
+
+    ScriptServiceTest scriptServiceTest;
+    QTest::qExec(&scriptServiceTest, argc, argv);
 }
 
 //------------------------------------------------------------------------------

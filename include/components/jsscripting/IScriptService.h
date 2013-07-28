@@ -31,8 +31,9 @@
 
 #include <QtCore/QObject>
 
-class ServiceLocatorWrapper;
 class IScriptConsole;
+class QScriptEngine;
+class ServiceLocatorWrapper;
 
 /*!
  * @brief
@@ -42,6 +43,9 @@ class JSSCRIPTING_API IScriptService : public QObject
     Q_OBJECT
 public:
     IScriptService(){}
+
+    virtual QScriptEngine *createEngine() = 0;
+    virtual  void deleteEngine(QScriptEngine *engine) = 0;
 
     virtual IScriptConsole *console() = 0;
 
