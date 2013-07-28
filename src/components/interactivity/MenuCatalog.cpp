@@ -254,7 +254,6 @@ QMenu *MenuCatalog::findMenu(const QString &title, QMenu *inMenu) const
 //------------------------------------------------------------------------------
 bool MenuCatalog::eventFilter(QObject *obj, QEvent *event)
 {
-    bool result = QObject::eventFilter(obj, event);
     QMenu *menu = static_cast<QMenu *>(obj);
 
     switch (event->type())
@@ -272,7 +271,7 @@ bool MenuCatalog::eventFilter(QObject *obj, QEvent *event)
         break;
     }
 
-    return result;
+    return QObject::eventFilter(obj, event);
 }
 
 //------------------------------------------------------------------------------

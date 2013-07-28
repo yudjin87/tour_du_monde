@@ -14,6 +14,7 @@ SOURCES += \
     $$PROJECT_SOURCES/Operation.cpp \
     $$PROJECT_SOURCES/OperationCatalog.cpp \
     $$PROJECT_SOURCES/ToggleActionWrapper.cpp \
+    $$PROJECT_SOURCES/ToogleDialogOperation.cpp \
     $$PROJECT_SOURCES/ToolBarCatalog.cpp \
     $$PROJECT_SOURCES/ToolBase.cpp \
 
@@ -44,6 +45,7 @@ HEADERS += \
     $$PROJECT_HEADERS/Operation.h \
     $$PROJECT_HEADERS/OperationCatalog.h \
     $$PROJECT_HEADERS/ToggleActionWrapper.h \
+    $$PROJECT_HEADERS/ToogleDialogOperation.h \
     $$PROJECT_HEADERS/ToolBarCatalog.h \
     $$PROJECT_HEADERS/ToolBase.h \
 

@@ -27,7 +27,7 @@ SOURCES += \
     $$TEST_PROJECT_SOURCES/OperationCatalogTest.cpp \
     $$TEST_PROJECT_SOURCES/OperationTest.cpp \
     $$TEST_PROJECT_SOURCES/ToolBarCatalogTest.cpp \
-    $$TEST_PROJECT_SOURCES/ToolBaseTest.cpp \
+    $$TEST_PROJECT_SOURCES/ToolBaseTest.cpp \    
 
 HEADERS += \
     $$TEST_PROJECT_SOURCES/CarouselComponentConfigurationDelegateTest.h \
