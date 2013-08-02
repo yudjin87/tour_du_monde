@@ -26,11 +26,16 @@
 
 #include "JsScriptingComponent.h"
 #include "JsScriptingInteractiveExtension.h"
-#include "ScriptService.h"
+#include "ScriptingService.h"
+#include "ScriptManagerDialog.h"
+#include "ScriptManagerModel.h"
 
 #include <carousel/componentsystem/ComponentExport.h>
 #include <carousel/logging/LoggerFacade.h>
 #include <carousel/utils/IServiceLocator.h>
+
+#include <components/interactivity/IDialogService.h>
+#include <components/interactivity/IInteractionService.h>
 
 //------------------------------------------------------------------------------
 namespace
@@ -65,15 +70,22 @@ JsScriptingComponent::~JsScriptingComponent()
 //------------------------------------------------------------------------------
 void JsScriptingComponent::onShutdown(IServiceLocator *serviceLocator)
 {
-    IScriptService *service = serviceLocator->unregisterInstance<IScriptService>();
+    IScriptingService *service = serviceLocator->unregisterInstance<IScriptingService>();
     delete service;
 }
 
 //------------------------------------------------------------------------------
 bool JsScriptingComponent::onStartup(IServiceLocator *serviceLocator)
 {
-    IScriptService *service = new ScriptService(serviceLocator);
-    serviceLocator->registerInstance<IScriptService>(service);
+    IScriptingService *service = new ScriptingService(serviceLocator);
+    serviceLocator->registerInstance<IScriptingService>(service);
+
+    // Services
+    IDialogService *dialogService = serviceLocator->locate<IDialogService>();
+    dialogService->registerDialog<ScriptManagerDialog, ScriptManagerModel>();
+
+    auto scriptManagerModelCreator = [service](){return new ScriptManagerModel(service->manager());};
+    serviceLocator->registerType<ScriptManagerModel>(scriptManagerModelCreator);
 
     return true;
 }

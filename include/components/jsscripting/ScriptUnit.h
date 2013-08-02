@@ -24,52 +24,50 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SCRIPTCONSOLE_H
-#define SCRIPTCONSOLE_H
+#ifndef SCRIPTUNIT_H
+#define SCRIPTUNIT_H
 
-#include <components/jsscripting/IScriptConsole.h>
+#include <components/jsscripting/jsscripting_global.h>
 
-class QScriptEngine;
+#include <QtCore/QObject>
 
-/*!
- * @brief
- */
-class JSSCRIPTING_API ScriptConsole : public IScriptConsole
+class QTextDocument;
+
+// TODO: extract interface
+class JSSCRIPTING_API ScriptUnit : public QObject
 {
     Q_OBJECT
 public:
-
-    explicit ScriptConsole(QObject *parent = nullptr);
-
     /*!
-     * @details
-     *  Takes ownership for engine
+     *
      */
-    explicit ScriptConsole(QScriptEngine *engine, QObject *parent = nullptr);
+    ScriptUnit(QObject *parent = nullptr);
+    ScriptUnit(const QString &filePath, QObject *parent = nullptr);
+    ~ScriptUnit();
 
-    QScriptEngine *engine();
+    bool load();
+    bool load(const QString &filePath);
+    void clear();
+    bool save();
+    bool saveAs(const QString &filePath);
+    bool isLoaded() const;
 
-    /*!
-     * @brief
-     */
-    bool execCommand(const QString &command, QString *error = nullptr);
+    QString absoluteFilePath() const;
 
-    int historyCapacity() const;
-    void setHistoryCapacity(int capacity);
+    QString fileName() const;
 
-    QString prevCommand();
-    QString nextCommand();
-    const QStringList &commandHistory() const;
+    QString scriptText() const;
+    QTextDocument *script();
+    const QTextDocument *script() const;
 
 private:
-    Q_DISABLE_COPY(ScriptConsole)
-    void addCommandToHistory(const QString &command);
+    static QString absolutePath(const QString &filePath);
+    bool saveToFile(const QString &filePath);
 
 private:
-    QScriptEngine *m_engine;
-    QStringList m_history;
-    QStringList::const_iterator m_historyCommand;
-    int m_historyCapacity;
+    bool m_isLoaded;
+    QString m_fileName;
+    QTextDocument *m_script;
 };
 
-#endif // SCRIPTCONSOLE_H
+#endif // SCRIPTUNIT_H

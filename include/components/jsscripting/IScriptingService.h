@@ -24,52 +24,36 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SCRIPTCONSOLE_H
-#define SCRIPTCONSOLE_H
+#ifndef ISCRIPTINGSERVICE_H
+#define ISCRIPTINGSERVICE_H
 
-#include <components/jsscripting/IScriptConsole.h>
+#include <components/jsscripting/jsscripting_global.h>
 
-class QScriptEngine;
+#include <QtCore/QObject>
+
+class IScriptConsole;
+class ServiceLocatorWrapper;
+class ScriptManager;
 
 /*!
  * @brief
  */
-class JSSCRIPTING_API ScriptConsole : public IScriptConsole
+class JSSCRIPTING_API IScriptingService : public QObject
 {
     Q_OBJECT
 public:
+    IScriptingService(){}
 
-    explicit ScriptConsole(QObject *parent = nullptr);
+    virtual IScriptConsole *console() = 0;
 
-    /*!
-     * @details
-     *  Takes ownership for engine
-     */
-    explicit ScriptConsole(QScriptEngine *engine, QObject *parent = nullptr);
+    virtual ScriptManager *manager() = 0;
 
-    QScriptEngine *engine();
-
-    /*!
-     * @brief
-     */
-    bool execCommand(const QString &command, QString *error = nullptr);
-
-    int historyCapacity() const;
-    void setHistoryCapacity(int capacity);
-
-    QString prevCommand();
-    QString nextCommand();
-    const QStringList &commandHistory() const;
+    virtual ServiceLocatorWrapper *locatorWrapper() = 0;
+    virtual const ServiceLocatorWrapper *locatorWrapper() const = 0;
+    virtual void setLocatorWrapper(ServiceLocatorWrapper *locatorWrapper) = 0;
 
 private:
-    Q_DISABLE_COPY(ScriptConsole)
-    void addCommandToHistory(const QString &command);
-
-private:
-    QScriptEngine *m_engine;
-    QStringList m_history;
-    QStringList::const_iterator m_historyCommand;
-    int m_historyCapacity;
+    Q_DISABLE_COPY(IScriptingService)
 };
 
-#endif // SCRIPTCONSOLE_H
+#endif // ISCRIPTINGSERVICE_H

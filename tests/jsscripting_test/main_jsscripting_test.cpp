@@ -1,7 +1,7 @@
 #include "ServiceLocatorWrapperTest.h"
 #include "ScriptEngineTest.h"
 #include "ScriptConsoleTest.h"
-#include "ScriptServiceTest.h"
+#include "ScriptingServiceTest.h"
 
 #include "ScriptConsoleViewTest.h"
 
@@ -47,17 +47,17 @@ void runUnitTests(int argc, char *argv[])
     ScriptConsoleTest scriptConsoleTest;
     QTest::qExec(&scriptConsoleTest, argc, argv);
 
-    ScriptServiceTest scriptServiceTest;
+    ScriptingServiceTest scriptServiceTest;
     QTest::qExec(&scriptServiceTest, argc, argv);
 }
 
 //------------------------------------------------------------------------------
 void runGuiManualTests(QStringList arguments)
 {
-    Q_UNUSED(arguments)
-
-    ScriptConsoleViewTest *scriptConsoleViewTest = new ScriptConsoleViewTest(QApplication::instance());
-    scriptConsoleViewTest->test();
+    if (arguments.contains("ScriptConsoleViewTest")) {
+        ScriptConsoleViewTest *scriptConsoleViewTest = new ScriptConsoleViewTest(QApplication::instance());
+        scriptConsoleViewTest->test();
+    }
 }
 
 //------------------------------------------------------------------------------

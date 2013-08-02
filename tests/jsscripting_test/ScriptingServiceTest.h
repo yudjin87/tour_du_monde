@@ -29,15 +29,15 @@
 
 #include <QtCore/QObject>
 
-class ScriptServiceTest: public QObject
+class ScriptingServiceTest: public QObject
 {
     Q_OBJECT
 public:
-    ScriptServiceTest(QObject *parent = nullptr);
+    ScriptingServiceTest(QObject *parent = nullptr);
 
 private Q_SLOTS:
     void setLocatorWrapper_shouldSetupNull();
-    void setLocatorWrapper_shouldResetAllEngines();
+    void setLocatorWrapper_shouldResetConsoleEngine();
 
 };
 

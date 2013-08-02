@@ -24,37 +24,21 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef ISCRIPTSERVICE_H
-#define ISCRIPTSERVICE_H
+#ifndef SHOWSCRIPTMANAGEROPERATION_H
+#define SHOWSCRIPTMANAGEROPERATION_H
 
-#include <components/jsscripting/jsscripting_global.h>
+#include <components/interactivity/Operation.h>
 
-#include <QtCore/QObject>
-
-class IScriptConsole;
-class QScriptEngine;
-class ServiceLocatorWrapper;
-
-/*!
- * @brief
- */
-class JSSCRIPTING_API IScriptService : public QObject
+class ShowScriptManagerOperation : public Operation
 {
-    Q_OBJECT
 public:
-    IScriptService(){}
+    ShowScriptManagerOperation();
 
-    virtual QScriptEngine *createEngine() = 0;
-    virtual  void deleteEngine(QScriptEngine *engine) = 0;
-
-    virtual IScriptConsole *console() = 0;
-
-    virtual ServiceLocatorWrapper *locatorWrapper() = 0;
-    virtual const ServiceLocatorWrapper *locatorWrapper() const = 0;
-    virtual void setLocatorWrapper(ServiceLocatorWrapper *locatorWrapper) = 0;
+    void execute();
+    void initialize(IServiceLocator *serviceLocator);
 
 private:
-    Q_DISABLE_COPY(IScriptService)
+    IServiceLocator *m_serviceLocator;
 };
 
-#endif // ISCRIPTSERVICE_H
+#endif // SHOWSCRIPTMANAGEROPERATION_H

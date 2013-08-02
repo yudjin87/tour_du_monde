@@ -24,52 +24,46 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SCRIPTCONSOLE_H
-#define SCRIPTCONSOLE_H
+#ifndef SCRIPTMANAGERMODEL_H
+#define SCRIPTMANAGERMODEL_H
 
-#include <components/jsscripting/IScriptConsole.h>
+#include <components/jsscripting/jsscripting_global.h>
+#include <components/jsscripting/ScriptManager.h>
 
-class QScriptEngine;
+#include <QtCore/QObject>
 
-/*!
- * @brief
- */
-class JSSCRIPTING_API ScriptConsole : public IScriptConsole
+class IServiceLocator;
+class ScriptUnit;
+class ScriptManager;
+
+class JSSCRIPTING_API ScriptManagerModel : public QObject
 {
     Q_OBJECT
 public:
-
-    explicit ScriptConsole(QObject *parent = nullptr);
-
     /*!
      * @details
-     *  Takes ownership for engine
+     *   Does not takes ownership
      */
-    explicit ScriptConsole(QScriptEngine *engine, QObject *parent = nullptr);
+    explicit ScriptManagerModel(ScriptManager *data, QObject *parent = nullptr);
+    ~ScriptManagerModel();
 
-    QScriptEngine *engine();
+    void injectServiceLocator(IServiceLocator *locator);
 
-    /*!
-     * @brief
-     */
-    bool execCommand(const QString &command, QString *error = nullptr);
+    ScriptManager::Scripts scripts() const;
 
-    int historyCapacity() const;
-    void setHistoryCapacity(int capacity);
+public slots:
+    void onLoad();
+    void onSave(ScriptUnit *script);
+    void onSaveAll();
+    void onRun(ScriptUnit *script);
 
-    QString prevCommand();
-    QString nextCommand();
-    const QStringList &commandHistory() const;
+signals:
+    void scriptAdded(ScriptUnit *script);
+    void scriptRemoved(ScriptUnit *script);
 
 private:
-    Q_DISABLE_COPY(ScriptConsole)
-    void addCommandToHistory(const QString &command);
-
-private:
-    QScriptEngine *m_engine;
-    QStringList m_history;
-    QStringList::const_iterator m_historyCommand;
-    int m_historyCapacity;
+    ScriptManager *m_data;
+    IServiceLocator *m_locator;
 };
 
-#endif // SCRIPTCONSOLE_H
+#endif // SCRIPTMANAGERMODEL_H

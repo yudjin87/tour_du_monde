@@ -27,7 +27,6 @@
 #include "ScriptConsole.h"
 
 #include <carousel/logging/LoggerFacade.h>
-#include <carousel/utils/TypeObjectsMap.h>
 
 #include <QtScript/QScriptEngine>
 
@@ -45,8 +44,8 @@ ScriptConsole::ScriptConsole(QScriptEngine *engine, QObject *parent)
     , m_historyCapacity(100) // TODO: read from application references
 {
     setParent(parent);
+    engine->setParent(this);
 }
-
 
 //------------------------------------------------------------------------------
 ScriptConsole::ScriptConsole(QObject *parent)
@@ -66,7 +65,7 @@ QScriptEngine *ScriptConsole::engine()
 }
 
 //------------------------------------------------------------------------------
-bool ScriptConsole::evaluateLine(const QString &command, QString *error)
+bool ScriptConsole::execCommand(const QString &command, QString *error)
 {
     addCommandToHistory(command);
 
@@ -101,7 +100,7 @@ void ScriptConsole::setHistoryCapacity(int capacity)
 }
 
 //------------------------------------------------------------------------------
-QString ScriptConsole::historyPrev()
+QString ScriptConsole::prevCommand()
 {
     if (m_history.isEmpty())
         return "";
@@ -113,7 +112,7 @@ QString ScriptConsole::historyPrev()
 }
 
 //------------------------------------------------------------------------------
-QString ScriptConsole::historyNext()
+QString ScriptConsole::nextCommand()
 {
     if (m_history.isEmpty())
         return "";
@@ -131,7 +130,7 @@ QString ScriptConsole::historyNext()
 }
 
 //------------------------------------------------------------------------------
-const QStringList &ScriptConsole::history() const
+const QStringList &ScriptConsole::commandHistory() const
 {
     return m_history;
 }

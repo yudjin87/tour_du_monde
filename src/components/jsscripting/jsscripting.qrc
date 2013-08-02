@@ -1,5 +1,10 @@
 <RCC>
     <qresource prefix="/jsscripting">
         <file>images/scriptWindow.png</file>
+        <file>images/scriptAdd.png</file>
+        <file>images/scriptLoad.png</file>
+        <file>images/scriptRun.png</file>
+        <file>images/scriptSave.png</file>
+        <file>images/scriptIDE.png</file>
     </qresource>
 </RCC>

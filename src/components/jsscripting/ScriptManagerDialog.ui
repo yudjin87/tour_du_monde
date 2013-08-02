@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ScriptManagerDialog</class>
+ <widget class="QWidget" name="ScriptManagerDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>673</width>
+    <height>589</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Script IDE</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QToolBar" name="toolBar">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>24</height>
+      </size>
+     </property>
+     <addaction name="actionLoadScript"/>
+     <addaction name="actionSave"/>
+     <addaction name="separator"/>
+     <addaction name="actionRun"/>
+    </widget>
+   </item>
+   <item>
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="currentIndex">
+      <number>-1</number>
+     </property>
+    </widget>
+   </item>
+  </layout>
+  <action name="actionLoadScript">
+   <property name="icon">
+    <iconset resource="jsscripting.qrc">
+     <normaloff>:/jsscripting/images/scriptLoad.png</normaloff>:/jsscripting/images/scriptLoad.png</iconset>
+   </property>
+   <property name="text">
+    <string>loadScript</string>
+   </property>
+   <property name="toolTip">
+    <string>Load script</string>
+   </property>
+  </action>
+  <action name="actionRun">
+   <property name="icon">
+    <iconset resource="jsscripting.qrc">
+     <normaloff>:/jsscripting/images/scriptRun.png</normaloff>:/jsscripting/images/scriptRun.png</iconset>
+   </property>
+   <property name="text">
+    <string>Run</string>
+   </property>
+   <property name="toolTip">
+    <string>Run current</string>
+   </property>
+  </action>
+  <action name="actionSave">
+   <property name="icon">
+    <iconset resource="jsscripting.qrc">
+     <normaloff>:/jsscripting/images/scriptSave.png</normaloff>:/jsscripting/images/scriptSave.png</iconset>
+   </property>
+   <property name="text">
+    <string>Save</string>
+   </property>
+   <property name="toolTip">
+    <string>Save current script</string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="jsscripting.qrc"/>
+ </resources>
+ <connections/>
+</ui>

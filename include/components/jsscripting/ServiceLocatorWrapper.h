@@ -37,7 +37,7 @@ class IServiceLocator;
  * @brief
  *   A scriptable wrapper for the IServiceLocator interface.
  * @details
- *   This class provides scriptable slots like findService() for getting
+ *   This class provides scriptable slots like locate() for getting
  *   application services
  */
 class JSSCRIPTING_API ServiceLocatorWrapper : public QObject
@@ -47,7 +47,7 @@ public:
     explicit ServiceLocatorWrapper(IServiceLocator *locator, QObject *parent = nullptr);
 
 public slots:
-    virtual QObject *findService(const QString &name);
+    virtual QObject *locate(const QString &name);
 
 private:
     IServiceLocator *m_locator;

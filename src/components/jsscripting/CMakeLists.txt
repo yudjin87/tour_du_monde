@@ -15,8 +15,14 @@ set(__SOURCES
     ${CRSL_TARGET_SOURCES}/LexemeAppearance.cpp 
     ${CRSL_TARGET_SOURCES}/ScriptConsole.cpp 
     ${CRSL_TARGET_SOURCES}/ScriptConsoleView.cpp 
-    ${CRSL_TARGET_SOURCES}/ScriptService.cpp 
+    ${CRSL_TARGET_SOURCES}/ScriptingService.cpp 
+    ${CRSL_TARGET_SOURCES}/ScriptManager.cpp 
+    ${CRSL_TARGET_SOURCES}/ScriptManagerDialog.cpp 
+    ${CRSL_TARGET_SOURCES}/ScriptManagerModel.cpp 
+    ${CRSL_TARGET_SOURCES}/ScriptUnit.cpp 
+    ${CRSL_TARGET_SOURCES}/ScriptUnitView.cpp 
     ${CRSL_TARGET_SOURCES}/ServiceLocatorWrapper.cpp 
+    ${CRSL_TARGET_SOURCES}/ShowScriptManagerOperation.cpp 
 )
 	
 ######################################################################
@@ -25,21 +31,30 @@ set(__HEADERS
     ${CRSL_TARGET_HEADERS}/CodeHighlighter.h 
     ${CRSL_TARGET_HEADERS}/ColorTheme.h 
     ${CRSL_TARGET_HEADERS}/IScriptConsole.h 
-    ${CRSL_TARGET_HEADERS}/IScriptService.h 
+    ${CRSL_TARGET_HEADERS}/IScriptEngineFactory.h 
+    ${CRSL_TARGET_HEADERS}/IScriptingService.h 
     ${CRSL_TARGET_HEADERS}/jsscripting_global.h 
     ${CRSL_TARGET_HEADERS}/JsScriptingComponent.h 
     ${CRSL_TARGET_HEADERS}/JsScriptingInteractiveExtension.h 
     ${CRSL_TARGET_HEADERS}/LexemeAppearance.h 
     ${CRSL_TARGET_HEADERS}/ScriptConsole.h 
     ${CRSL_TARGET_HEADERS}/ScriptConsoleView.h 
-    ${CRSL_TARGET_HEADERS}/ScriptService.h 
+    ${CRSL_TARGET_HEADERS}/ScriptingService.h 
+    ${CRSL_TARGET_HEADERS}/ScriptManager.h 
+    ${CRSL_TARGET_HEADERS}/ScriptManagerDialog.h 
+    ${CRSL_TARGET_HEADERS}/ScriptManagerModel.h 
+    ${CRSL_TARGET_HEADERS}/ScriptUnit.h 
+    ${CRSL_TARGET_HEADERS}/ScriptUnitView.h 
     ${CRSL_TARGET_HEADERS}/ServiceLocatorWrapper.h 
+    ${CRSL_TARGET_HEADERS}/ShowScriptManagerOperation.h 
 )
 
 ######################################################################
 # Forms
 set(__FORMS
     ${CRSL_TARGET_SOURCES}/ScriptConsoleView.ui 
+    ${CRSL_TARGET_SOURCES}/ScriptManagerDialog.ui 
+    ${CRSL_TARGET_SOURCES}/ScriptUnitView.ui 
 )
 
 ######################################################################

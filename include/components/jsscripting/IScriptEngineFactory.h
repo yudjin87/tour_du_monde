@@ -24,42 +24,31 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SCRIPTSERVICE_H
-#define SCRIPTSERVICE_H
+#ifndef ISCRIPTENGINEFACTORY_H
+#define ISCRIPTENGINEFACTORY_H
 
-#include <components/jsscripting/IScriptService.h>
+#include <components/jsscripting/jsscripting_global.h>
 
-#include <QtCore/QSet>
-
-class IServiceLocator;
+class QObject;
+class QScriptEngine;
 
 /*!
  * @brief
  */
-class JSSCRIPTING_API ScriptService : public IScriptService
+class JSSCRIPTING_API IScriptEngineFactory
 {
-    Q_OBJECT
 public:
-    explicit ScriptService(IServiceLocator *locator, QObject *parent = nullptr);
+    IScriptEngineFactory(){}
+    virtual ~IScriptEngineFactory(){}
 
-    IScriptConsole *console();
-
-    QScriptEngine *createEngine();
-    void deleteEngine(QScriptEngine *engine);
-
-    ServiceLocatorWrapper *locatorWrapper();
-    const ServiceLocatorWrapper *locatorWrapper() const;
-    void setLocatorWrapper(ServiceLocatorWrapper *locatorWrapper);
+    /*!
+     * @details
+     *   Does not takes ownership for created engine;
+     */
+    virtual QScriptEngine *createEngine(QObject *parent = nullptr) = 0;
 
 private:
-    Q_DISABLE_COPY(ScriptService)
-
-    void setUpEngine(QScriptEngine* engine);
-
-private:
-    ServiceLocatorWrapper *m_wrapper;
-    IScriptConsole *m_console;
-    QSet<QScriptEngine *> m_engines;
+    Q_DISABLE_COPY(IScriptEngineFactory)
 };
 
-#endif // SCRIPTSERVICE_H
+#endif // ISCRIPTENGINEFACTORY_H

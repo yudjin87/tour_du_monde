@@ -54,11 +54,11 @@ public:
     /*!
      * @brief
      */
-    virtual bool evaluateLine(const QString &script, QString *error = nullptr) = 0;
+    virtual bool execCommand(const QString &script, QString *error = nullptr) = 0;
 
-    virtual QString historyPrev() = 0;
-    virtual QString historyNext() = 0;
-    virtual const QStringList &history() const = 0;
+    virtual QString prevCommand() = 0;
+    virtual QString nextCommand() = 0;
+    virtual const QStringList &commandHistory() const = 0;
 
 private:
     Q_DISABLE_COPY(IScriptConsole)

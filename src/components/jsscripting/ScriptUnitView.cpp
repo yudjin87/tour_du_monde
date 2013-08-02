@@ -24,21 +24,35 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "ServiceLocatorWrapper.h"
+#include "ScriptUnitView.h"
+#include "ui_ScriptUnitView.h"
+#include "ScriptUnit.h"
 
-#include <carousel/utils/IServiceLocator.h>
+#include <QtGui/QSyntaxHighlighter>
 
 //------------------------------------------------------------------------------
-ServiceLocatorWrapper::ServiceLocatorWrapper(IServiceLocator *locator, QObject *parent)
-    : QObject(parent)
-    , m_locator(locator)
+ScriptUnitView::ScriptUnitView(ScriptUnit *data, QSyntaxHighlighter *highlighter, QWidget *parent)
+    : QWidget(parent)
+    , m_ui(new Ui::ScriptUnitView())
+    , m_data(data)
 {
+    m_ui->setupUi(this);
+    m_ui->scriptEditor->setDocument(m_data->script());
+    highlighter->setParent(this);
+    highlighter->setDocument(m_data->script());
 }
 
 //------------------------------------------------------------------------------
-QObject *ServiceLocatorWrapper::locate(const QString &name)
+ScriptUnitView::~ScriptUnitView()
 {
-    return m_locator->locateToObject(name);
+    delete m_ui;
+    m_ui = nullptr;
+}
+
+//------------------------------------------------------------------------------
+ScriptUnit *ScriptUnitView::data()
+{
+    return m_data;
 }
 
 //------------------------------------------------------------------------------

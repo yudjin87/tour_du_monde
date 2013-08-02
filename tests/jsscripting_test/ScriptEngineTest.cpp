@@ -60,7 +60,7 @@ void ScriptEngineTest::tryServiceLocatorWrapper()
 
 //------------------------------------------------------------------------------
 const QByteArray ScriptEngineTest::simpleScript(
-        "var obj = serviceLocator.findService(\"ScriptEngineTest\");"
+        "var obj = serviceLocator.locate(\"ScriptEngineTest\");"
         "var name = obj.objectName");
 
 //------------------------------------------------------------------------------

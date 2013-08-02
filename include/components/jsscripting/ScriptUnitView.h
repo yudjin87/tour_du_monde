@@ -24,52 +24,37 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SCRIPTCONSOLE_H
-#define SCRIPTCONSOLE_H
+#ifndef SCRIPTUNITVIEW_H
+#define SCRIPTUNITVIEW_H
 
-#include <components/jsscripting/IScriptConsole.h>
+#include <components/jsscripting/jsscripting_global.h>
 
-class QScriptEngine;
+#include <QtWidgets/QWidget>
 
-/*!
- * @brief
- */
-class JSSCRIPTING_API ScriptConsole : public IScriptConsole
+namespace Ui
+{
+class ScriptUnitView;
+}
+
+class ScriptUnit;
+class QSyntaxHighlighter;
+
+class JSSCRIPTING_API ScriptUnitView : public QWidget
 {
     Q_OBJECT
 public:
-
-    explicit ScriptConsole(QObject *parent = nullptr);
-
     /*!
      * @details
-     *  Takes ownership for engine
+     *  Takes ownership
      */
-    explicit ScriptConsole(QScriptEngine *engine, QObject *parent = nullptr);
+    ScriptUnitView(ScriptUnit *data, QSyntaxHighlighter *highlighter, QWidget *parent = nullptr);
+    ~ScriptUnitView();
 
-    QScriptEngine *engine();
-
-    /*!
-     * @brief
-     */
-    bool execCommand(const QString &command, QString *error = nullptr);
-
-    int historyCapacity() const;
-    void setHistoryCapacity(int capacity);
-
-    QString prevCommand();
-    QString nextCommand();
-    const QStringList &commandHistory() const;
+    ScriptUnit *data();
 
 private:
-    Q_DISABLE_COPY(ScriptConsole)
-    void addCommandToHistory(const QString &command);
-
-private:
-    QScriptEngine *m_engine;
-    QStringList m_history;
-    QStringList::const_iterator m_historyCommand;
-    int m_historyCapacity;
+    Ui::ScriptUnitView *m_ui;
+    ScriptUnit *m_data;
 };
 
-#endif // SCRIPTCONSOLE_H
+#endif // SCRIPTUNITVIEW_H

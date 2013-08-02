@@ -24,27 +24,31 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "ScriptService.h"
+#include "ScriptingService.h"
 #include "ScriptConsole.h"
+#include "ScriptManager.h"
 #include "ServiceLocatorWrapper.h"
 
 #include <carousel/logging/LoggerFacade.h>
 #include <carousel/utils/IServiceLocator.h>
+#include <components/interactivity/ICatalogs.h>
 
+#include <QtWidgets/QMainWindow>
 #include <QtScript/QScriptEngine>
 
 //------------------------------------------------------------------------------
 namespace
 {
-static LoggerFacade Log = LoggerFacade::createLogger("ScriptService");
+static LoggerFacade Log = LoggerFacade::createLogger("ScriptingService");
 }
 
 //------------------------------------------------------------------------------
-ScriptService::ScriptService(IServiceLocator *locator, QObject *parent)
+ScriptingService::ScriptingService(IServiceLocator *locator, QObject *parent)
     : m_wrapper(nullptr)
     , m_console(nullptr)
-    , m_engines(QSet<QScriptEngine *>())
+    , m_scriptManager(nullptr)
 {
+    m_scriptManager = new ScriptManager(this, this);
     m_wrapper = new ServiceLocatorWrapper(locator, this);
     m_console = new ScriptConsole(createEngine(), this);
 
@@ -52,43 +56,46 @@ ScriptService::ScriptService(IServiceLocator *locator, QObject *parent)
 }
 
 //------------------------------------------------------------------------------
-IScriptConsole *ScriptService::console()
+ScriptingService::~ScriptingService()
+{
+}
+
+//------------------------------------------------------------------------------
+IScriptConsole *ScriptingService::console()
 {
     return m_console;
 }
 
 //------------------------------------------------------------------------------
-QScriptEngine *ScriptService::createEngine()
+ScriptManager *ScriptingService::manager()
+{
+    return m_scriptManager;
+}
+
+//------------------------------------------------------------------------------
+QScriptEngine *ScriptingService::createEngine(QObject *parent)
 {
     Log.d("Creating new script engine.");
-    QScriptEngine *engine = new QScriptEngine();
-    m_engines.insert(engine);
+    QScriptEngine *engine = new QScriptEngine(parent);
     setUpEngine(engine);
 
     return engine;
 }
 
 //------------------------------------------------------------------------------
-void ScriptService::deleteEngine(QScriptEngine *engine)
-{
-    if (!m_engines.remove(engine))
-        Log.w("Cannot delete unexisting engine!");
-}
-
-//------------------------------------------------------------------------------
-ServiceLocatorWrapper *ScriptService::locatorWrapper()
+ServiceLocatorWrapper *ScriptingService::locatorWrapper()
 {
     return m_wrapper;
 }
 
 //------------------------------------------------------------------------------
-const ServiceLocatorWrapper *ScriptService::locatorWrapper() const
+const ServiceLocatorWrapper *ScriptingService::locatorWrapper() const
 {
     return m_wrapper;
 }
 
 //------------------------------------------------------------------------------
-void ScriptService::setLocatorWrapper(ServiceLocatorWrapper *locatorWrapper)
+void ScriptingService::setLocatorWrapper(ServiceLocatorWrapper *locatorWrapper)
 {
     delete m_wrapper;
     m_wrapper = locatorWrapper;
@@ -96,12 +103,11 @@ void ScriptService::setLocatorWrapper(ServiceLocatorWrapper *locatorWrapper)
     if (m_wrapper != nullptr)
         m_wrapper->setParent(this);
 
-    for (QScriptEngine *engine : m_engines)
-        setUpEngine(engine);
+    setUpEngine(m_console->engine());
 }
 
 //------------------------------------------------------------------------------
-void ScriptService::setUpEngine(QScriptEngine *engine)
+void ScriptingService::setUpEngine(QScriptEngine *engine)
 {
     QScriptValue value = engine->newQObject(m_wrapper);
     engine->globalObject().setProperty("serviceLocator", value);

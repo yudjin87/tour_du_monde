@@ -24,52 +24,55 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SCRIPTCONSOLE_H
-#define SCRIPTCONSOLE_H
+#ifndef SCRIPTSERVICE_H
+#define SCRIPTSERVICE_H
 
-#include <components/jsscripting/IScriptConsole.h>
+#include <components/jsscripting/IScriptEngineFactory.h>
+#include <components/jsscripting/IScriptingService.h>
 
-class QScriptEngine;
+#include <QtCore/QSet>
+
+class IServiceLocator;
 
 /*!
  * @brief
+ * todo: rename to ScriptingService
  */
-class JSSCRIPTING_API ScriptConsole : public IScriptConsole
+class JSSCRIPTING_API ScriptingService : public IScriptingService, public IScriptEngineFactory
 {
     Q_OBJECT
 public:
+    /*!
+     * @details
+     *   Does not takes ownership for locator;
+     */
+    explicit ScriptingService(IServiceLocator *locator, QObject *parent = nullptr);
 
-    explicit ScriptConsole(QObject *parent = nullptr);
+    ~ScriptingService();
+
+    IScriptConsole *console();
+
+    ScriptManager *manager();
 
     /*!
      * @details
-     *  Takes ownership for engine
+     *   Does not takes ownership for created engine;
      */
-    explicit ScriptConsole(QScriptEngine *engine, QObject *parent = nullptr);
+    QScriptEngine *createEngine(QObject *parent = nullptr);
 
-    QScriptEngine *engine();
-
-    /*!
-     * @brief
-     */
-    bool execCommand(const QString &command, QString *error = nullptr);
-
-    int historyCapacity() const;
-    void setHistoryCapacity(int capacity);
-
-    QString prevCommand();
-    QString nextCommand();
-    const QStringList &commandHistory() const;
+    ServiceLocatorWrapper *locatorWrapper();
+    const ServiceLocatorWrapper *locatorWrapper() const;
+    void setLocatorWrapper(ServiceLocatorWrapper *locatorWrapper);
 
 private:
-    Q_DISABLE_COPY(ScriptConsole)
-    void addCommandToHistory(const QString &command);
+    Q_DISABLE_COPY(ScriptingService)
+
+    void setUpEngine(QScriptEngine* engine);
 
 private:
-    QScriptEngine *m_engine;
-    QStringList m_history;
-    QStringList::const_iterator m_historyCommand;
-    int m_historyCapacity;
+    ServiceLocatorWrapper *m_wrapper;
+    IScriptConsole *m_console;
+    ScriptManager *m_scriptManager;
 };
 
-#endif // SCRIPTCONSOLE_H
+#endif // SCRIPTSERVICE_H

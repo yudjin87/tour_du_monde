@@ -24,21 +24,37 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "ServiceLocatorWrapper.h"
+#include "ShowScriptManagerOperation.h"
+#include "ScriptManagerModel.h"
 
+#include <components/interactivity/IDialogService.h>
 #include <carousel/utils/IServiceLocator.h>
 
+#include <QtWidgets/QMainWindow>
+
 //------------------------------------------------------------------------------
-ServiceLocatorWrapper::ServiceLocatorWrapper(IServiceLocator *locator, QObject *parent)
-    : QObject(parent)
-    , m_locator(locator)
+ShowScriptManagerOperation::ShowScriptManagerOperation()
+    : Operation("Scripts")
+    , m_serviceLocator(nullptr)
 {
+    setIcon(QIcon(":/jsscripting/images/scriptIDE.png"));
+    setIconVisibleInMenu(true);
 }
 
 //------------------------------------------------------------------------------
-QObject *ServiceLocatorWrapper::locate(const QString &name)
+void ShowScriptManagerOperation::execute()
 {
-    return m_locator->locateToObject(name);
+    IDialogService *dialogService = m_serviceLocator->locate<IDialogService>();
+
+    ScriptManagerModel *model = m_serviceLocator->buildInstance<ScriptManagerModel>();
+    dialogService->showDialog(model);
+    delete model;
+}
+
+//------------------------------------------------------------------------------
+void ShowScriptManagerOperation::initialize(IServiceLocator *serviceLocator)
+{
+    m_serviceLocator = serviceLocator;
 }
 
 //------------------------------------------------------------------------------

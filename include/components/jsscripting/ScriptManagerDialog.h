@@ -24,52 +24,40 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SCRIPTCONSOLE_H
-#define SCRIPTCONSOLE_H
+#ifndef SCRIPTMANAGERVIEW_H
+#define SCRIPTMANAGERVIEW_H
 
-#include <components/jsscripting/IScriptConsole.h>
+#include <components/jsscripting/jsscripting_global.h>
 
-class QScriptEngine;
+#include <QtWidgets/QDialog>
 
-/*!
- * @brief
- */
-class JSSCRIPTING_API ScriptConsole : public IScriptConsole
+namespace Ui
+{
+class ScriptManagerDialog;
+}
+
+class ScriptManagerModel;
+class ScriptUnitView;
+class ScriptUnit;
+
+class JSSCRIPTING_API ScriptManagerDialog : public QDialog
 {
     Q_OBJECT
 public:
-
-    explicit ScriptConsole(QObject *parent = nullptr);
-
     /*!
      * @details
-     *  Takes ownership for engine
      */
-    explicit ScriptConsole(QScriptEngine *engine, QObject *parent = nullptr);
+    explicit ScriptManagerDialog(ScriptManagerModel *model, QWidget *parent = nullptr);
+    ~ScriptManagerDialog();
 
-    QScriptEngine *engine();
-
-    /*!
-     * @brief
-     */
-    bool execCommand(const QString &command, QString *error = nullptr);
-
-    int historyCapacity() const;
-    void setHistoryCapacity(int capacity);
-
-    QString prevCommand();
-    QString nextCommand();
-    const QStringList &commandHistory() const;
+private slots:
+    void onScriptAdded(ScriptUnit *script);
+    void onRun();
+    void onSave();
 
 private:
-    Q_DISABLE_COPY(ScriptConsole)
-    void addCommandToHistory(const QString &command);
-
-private:
-    QScriptEngine *m_engine;
-    QStringList m_history;
-    QStringList::const_iterator m_historyCommand;
-    int m_historyCapacity;
+    Ui::ScriptManagerDialog *m_ui;
+    ScriptManagerModel *m_model;
 };
 
-#endif // SCRIPTCONSOLE_H
+#endif // SCRIPTMANAGERVIEW_H

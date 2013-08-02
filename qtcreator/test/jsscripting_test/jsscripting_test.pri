@@ -5,13 +5,13 @@ SOURCES += \
     $$TEST_PROJECT_SOURCES/ScriptConsoleTest.cpp \
     $$TEST_PROJECT_SOURCES/ScriptConsoleViewTest.cpp \
     $$TEST_PROJECT_SOURCES/ScriptEngineTest.cpp \
-    $$TEST_PROJECT_SOURCES/ScriptServiceTest.cpp \
+    $$TEST_PROJECT_SOURCES/ScriptingServiceTest.cpp \
     $$TEST_PROJECT_SOURCES/ServiceLocatorWrapperTest.cpp \
 
 HEADERS += \
     $$TEST_PROJECT_SOURCES/ScriptConsoleTest.h \
     $$TEST_PROJECT_SOURCES/ScriptConsoleViewTest.h \
     $$TEST_PROJECT_SOURCES/ScriptEngineTest.h \
-    $$TEST_PROJECT_SOURCES/ScriptServiceTest.h \
+    $$TEST_PROJECT_SOURCES/ScriptingServiceTest.h \
     $$TEST_PROJECT_SOURCES/ServiceLocatorWrapperTest.h \
 

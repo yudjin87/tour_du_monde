@@ -24,41 +24,44 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "ScriptServiceTest.h"
+#include "ScriptingServiceTest.h"
 
 #include <components/jsscripting/ServiceLocatorWrapper.h>
-#include <components/jsscripting/ScriptService.h>
+#include <components/jsscripting/ScriptingService.h>
+#include <components/jsscripting/IScriptConsole.h>
+#include <components/interactivity/Catalogs.h>
 #include <carousel/utils/ServiceLocator.h>
 
 #include <QtScript/QScriptEngine>
 #include <QtTest/QtTest>
 
 //------------------------------------------------------------------------------
-ScriptServiceTest::ScriptServiceTest(QObject *parent)
+ScriptingServiceTest::ScriptingServiceTest(QObject *parent)
     : QObject(parent)
 {
-    setObjectName("ScriptServiceTest");
+    setObjectName("ScriptingServiceTest");
 }
 
 //------------------------------------------------------------------------------
-void ScriptServiceTest::setLocatorWrapper_shouldSetupNull()
+void ScriptingServiceTest::setLocatorWrapper_shouldSetupNull()
 {
-    ServiceLocator locator; ScriptService service(&locator);
-    QScriptEngine *engine = service.createEngine();
+    ServiceLocator locator; ScriptingService service(&locator);
+    QScriptEngine *engine = service.createEngine(this);
 
     QScriptValue defaultLocator = engine->globalObject().property("serviceLocator");
     QVERIFY(!defaultLocator.isNull());
 
     service.setLocatorWrapper(nullptr);
+    engine = service.createEngine(this);
     QScriptValue nullLocator = engine->globalObject().property("serviceLocator");
     QVERIFY(nullLocator.isNull());
 }
 
 //------------------------------------------------------------------------------
-void ScriptServiceTest::setLocatorWrapper_shouldResetAllEngines()
+void ScriptingServiceTest::setLocatorWrapper_shouldResetConsoleEngine()
 {
-    ServiceLocator locator; ScriptService service(&locator);
-    QScriptEngine *engine = service.createEngine();
+    ServiceLocator locator; ScriptingService service(&locator);
+    QScriptEngine *engine = service.console()->engine();
 
     QScriptValue defaultLocator = engine->globalObject().property("serviceLocator");
     QVERIFY(!defaultLocator.isNull());

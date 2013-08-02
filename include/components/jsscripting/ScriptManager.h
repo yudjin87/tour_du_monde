@@ -24,52 +24,55 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SCRIPTCONSOLE_H
-#define SCRIPTCONSOLE_H
+#ifndef SCRIPTMANAGER_H
+#define SCRIPTMANAGER_H
 
-#include <components/jsscripting/IScriptConsole.h>
+#include <components/jsscripting/jsscripting_global.h>
 
-class QScriptEngine;
+#include <QtCore/QObject>
+#include <QtCore/QMap>
 
-/*!
- * @brief
- */
-class JSSCRIPTING_API ScriptConsole : public IScriptConsole
+class IScriptEngineFactory;
+class ScriptUnit;
+
+class JSSCRIPTING_API ScriptManager : public QObject
 {
     Q_OBJECT
 public:
+    typedef QMap<QString, ScriptUnit *> Scripts;
 
-    explicit ScriptConsole(QObject *parent = nullptr);
+public:
+    /*!
+     * @details
+     *   Does not takes ownership for factory;
+     */
+    ScriptManager(IScriptEngineFactory *factory, QObject *parent = nullptr);
+    ~ScriptManager();
 
     /*!
      * @details
-     *  Takes ownership for engine
+     *   Takes ownership.
      */
-    explicit ScriptConsole(QScriptEngine *engine, QObject *parent = nullptr);
+    ScriptUnit *addScript(const QString &fileName);
 
-    QScriptEngine *engine();
+    // save before run
+    bool runScript(ScriptUnit *script, QString *error = nullptr);
 
     /*!
-     * @brief
+     * @details
+     *   Takes ownership.
      */
-    bool execCommand(const QString &command, QString *error = nullptr);
+    void addScripts(const QString &directory);
 
-    int historyCapacity() const;
-    void setHistoryCapacity(int capacity);
+    Scripts scripts() const;
 
-    QString prevCommand();
-    QString nextCommand();
-    const QStringList &commandHistory() const;
-
-private:
-    Q_DISABLE_COPY(ScriptConsole)
-    void addCommandToHistory(const QString &command);
+signals:
+    void scriptAdded(ScriptUnit *script);
+    void scriptRemoved(ScriptUnit *script);
 
 private:
-    QScriptEngine *m_engine;
-    QStringList m_history;
-    QStringList::const_iterator m_historyCommand;
-    int m_historyCapacity;
+    IScriptEngineFactory *m_factory;
+    Scripts m_scripts;
 };
 
-#endif // SCRIPTCONSOLE_H
+#endif // SCRIPTMANAGER_H
