@@ -29,6 +29,7 @@
 
 #include <components/jsscripting/jsscripting_global.h>
 
+#include <QtCore/QMap>
 #include <QtWidgets/QDialog>
 
 namespace Ui
@@ -54,10 +55,17 @@ private slots:
     void onScriptAdded(ScriptUnit *script);
     void onRun();
     void onSave();
+    void onCurrentScriptModificationChanged(bool changed);
+
+private:
+    ScriptUnitView *getCurrentView();
+    void clearModifiedMark(int index);
+    void setModifiedMark(int index);
 
 private:
     Ui::ScriptManagerDialog *m_ui;
     ScriptManagerModel *m_model;
+    QMap<int, ScriptUnitView *> m_tabs;
 };
 
 #endif // SCRIPTMANAGERVIEW_H

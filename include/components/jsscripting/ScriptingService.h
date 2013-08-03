@@ -33,6 +33,7 @@
 #include <QtCore/QSet>
 
 class IServiceLocator;
+class ScriptConsole;
 
 /*!
  * @brief
@@ -58,7 +59,7 @@ public:
      * @details
      *   Does not takes ownership for created engine;
      */
-    QScriptEngine *createEngine(QObject *parent = nullptr);
+    QScriptEngine *createEngine(QString *output = nullptr, QObject *parent = nullptr);
 
     ServiceLocatorWrapper *locatorWrapper();
     const ServiceLocatorWrapper *locatorWrapper() const;
@@ -67,11 +68,11 @@ public:
 private:
     Q_DISABLE_COPY(ScriptingService)
 
-    void setUpEngine(QScriptEngine* engine);
+    void setUpEngine(QScriptEngine* engine, QString *output);
 
 private:
     ServiceLocatorWrapper *m_wrapper;
-    IScriptConsole *m_console;
+    ScriptConsole *m_console;
     ScriptManager *m_scriptManager;
 };
 

@@ -56,7 +56,7 @@ public:
     ScriptUnit *addScript(const QString &fileName);
 
     // save before run
-    bool runScript(ScriptUnit *script, QString *error = nullptr);
+    void runScript(ScriptUnit *script, QString *output = nullptr, bool *error = nullptr);
 
     /*!
      * @details

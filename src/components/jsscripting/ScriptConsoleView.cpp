@@ -56,8 +56,15 @@ void ScriptConsoleView::onEnter()
 {
     QString command = m_ui->commandEdit->text();
     m_ui->commandEdit->clear();
-    m_console->execCommand(command);
-    m_ui->commandsList->append(command);
+    QString output;
+    bool error = false;
+    m_console->execCommand(command, &output, &error);
+
+    printOutput(QString(">>> %1\n").arg(command));
+    if (error)
+        printError(output);
+    else
+        printOutput(output);
 }
 
 //------------------------------------------------------------------------------
@@ -77,6 +84,21 @@ bool ScriptConsoleView::eventFilter(QObject *sender, QEvent *event)
 
     // standard event processing
     return QObject::eventFilter(sender, event);
+}
+
+//------------------------------------------------------------------------------
+void ScriptConsoleView::printError(const QString &error)
+{
+    m_ui->commandsList->setTextColor(Qt::red);
+    m_ui->commandsList->insertPlainText(error);
+    m_ui->commandsList->setTextColor(Qt::black);
+}
+
+//------------------------------------------------------------------------------
+void ScriptConsoleView::printOutput(const QString &output)
+{
+    if (!output.isEmpty())
+        m_ui->commandsList->insertPlainText(output);
 }
 
 //------------------------------------------------------------------------------

@@ -45,7 +45,7 @@ public:
      * @details
      *   Does not takes ownership for created engine;
      */
-    virtual QScriptEngine *createEngine(QObject *parent = nullptr) = 0;
+    virtual QScriptEngine *createEngine(QString *output = nullptr, QObject *parent = nullptr) = 0;
 
 private:
     Q_DISABLE_COPY(IScriptEngineFactory)

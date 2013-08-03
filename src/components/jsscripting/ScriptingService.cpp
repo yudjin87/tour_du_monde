@@ -50,7 +50,8 @@ ScriptingService::ScriptingService(IServiceLocator *locator, QObject *parent)
 {
     m_scriptManager = new ScriptManager(this, this);
     m_wrapper = new ServiceLocatorWrapper(locator, this);
-    m_console = new ScriptConsole(createEngine(), this);
+    m_console = new ScriptConsole(this);
+    setUpEngine(m_console->engine(), m_console->output());
 
     setParent(parent);
 }
@@ -73,11 +74,11 @@ ScriptManager *ScriptingService::manager()
 }
 
 //------------------------------------------------------------------------------
-QScriptEngine *ScriptingService::createEngine(QObject *parent)
+QScriptEngine *ScriptingService::createEngine(QString *output, QObject *parent)
 {
     Log.d("Creating new script engine.");
     QScriptEngine *engine = new QScriptEngine(parent);
-    setUpEngine(engine);
+    setUpEngine(engine, output);
 
     return engine;
 }
@@ -103,14 +104,44 @@ void ScriptingService::setLocatorWrapper(ServiceLocatorWrapper *locatorWrapper)
     if (m_wrapper != nullptr)
         m_wrapper->setParent(this);
 
-    setUpEngine(m_console->engine());
+    setUpEngine(m_console->engine(), nullptr); // TODO: temp
+}
+
+// TODO: temp
+#include <QtCore/QTextStream>
+//------------------------------------------------------------------------------
+QScriptValue myPrintFunction(QScriptContext *context, QScriptEngine *engine, void *out)
+{
+    QString *outP = static_cast<QString *>(out);
+    QString result;
+    QTextStream stream(&result);
+    int i = 0;
+    for (; i < context->argumentCount(); ++i) {
+        if (i > 0)
+            stream << " ";
+        stream << context->argument(i).toString();
+    }
+
+    if (i > 0)
+        stream << '\n';
+
+    if (outP != nullptr)
+        outP->append(*stream.string());
+
+    return engine->undefinedValue();
 }
 
 //------------------------------------------------------------------------------
-void ScriptingService::setUpEngine(QScriptEngine *engine)
+void ScriptingService::setUpEngine(QScriptEngine *engine, QString *output)
 {
+    if (output != nullptr)
+        output->clear();
+
     QScriptValue value = engine->newQObject(m_wrapper);
     engine->globalObject().setProperty("serviceLocator", value);
+
+    QScriptValue fun = engine->newFunction(myPrintFunction, (void *)output);
+    engine->globalObject().setProperty("print", fun);
 }
 
 //------------------------------------------------------------------------------

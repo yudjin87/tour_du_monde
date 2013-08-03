@@ -52,6 +52,10 @@ public:
 
     ScriptUnit *data();
 
+    void clear();
+    void printError(const QString &error);
+    void printOutput(const QString &output);
+
 private:
     Ui::ScriptUnitView *m_ui;
     ScriptUnit *m_data;

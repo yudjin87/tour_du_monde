@@ -79,6 +79,7 @@ bool ScriptUnit::load()
     m_script->setPlainText(scriptFile.readAll());
 
     m_isLoaded = true;
+    m_script->setModified(false);
     return m_isLoaded;
 }
 

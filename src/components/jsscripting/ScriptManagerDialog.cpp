@@ -34,6 +34,8 @@
 
 #include <carousel/logging/LoggerFacade.h>
 
+#include <QtGui/QTextDocument>
+
 //------------------------------------------------------------------------------
 namespace
 {
@@ -60,6 +62,10 @@ ScriptManagerDialog::ScriptManagerDialog(ScriptManagerModel *model, QWidget *par
 //------------------------------------------------------------------------------
 ScriptManagerDialog::~ScriptManagerDialog()
 {
+    // Skip document signals
+    for (ScriptUnitView *scriptView : m_tabs)
+        scriptView->data()->script()->disconnect(this);
+
     delete m_ui;
     m_ui = nullptr;
 }
@@ -68,21 +74,85 @@ ScriptManagerDialog::~ScriptManagerDialog()
 void ScriptManagerDialog::onScriptAdded(ScriptUnit *script)
 {
     ScriptUnitView *scriptView = new ScriptUnitView(script, new CodeHighlighter(ColorTheme::getDefault(), this));
-    m_ui->tabWidget->addTab(scriptView, script->fileName());
+    int index = m_ui->tabWidget->addTab(scriptView, script->fileName());
+    m_tabs.insert(index, scriptView);
+
+    bool modified = scriptView->data()->script()->isModified();
+    if (modified)
+        setModifiedMark(index);
+
+    connect(scriptView->data()->script(), &QTextDocument::modificationChanged,
+            this, &ScriptManagerDialog::onCurrentScriptModificationChanged);
 }
 
 //------------------------------------------------------------------------------
 void ScriptManagerDialog::onRun()
 {
-    ScriptUnitView *scriptView = static_cast<ScriptUnitView *>(m_ui->tabWidget->currentWidget());
-    m_model->onRun(scriptView->data());
+    ScriptUnitView *scriptView = getCurrentView();
+    scriptView->clear();
+
+    QString output;
+    bool error = false;
+    m_model->onRun(scriptView->data(), &output, &error);
+    if (error)
+        scriptView->printError(output);
+    else
+        scriptView->printOutput(output);
 }
 
 //------------------------------------------------------------------------------
 void ScriptManagerDialog::onSave()
 {
-    ScriptUnitView *scriptView = static_cast<ScriptUnitView *>(m_ui->tabWidget->currentWidget());
+    ScriptUnitView *scriptView = getCurrentView();
     m_model->onSave(scriptView->data());
+    clearModifiedMark(m_ui->tabWidget->currentIndex());
+}
+
+//------------------------------------------------------------------------------
+void ScriptManagerDialog::onCurrentScriptModificationChanged(bool changed)
+{
+    if (changed)
+        setModifiedMark(m_ui->tabWidget->currentIndex());
+    else
+        clearModifiedMark(m_ui->tabWidget->currentIndex());
+}
+
+//------------------------------------------------------------------------------
+ScriptUnitView *ScriptManagerDialog::getCurrentView()
+{
+    int index = m_ui->tabWidget->currentIndex();
+    if (!m_tabs.contains(index))
+        return nullptr;
+
+    return m_tabs[m_ui->tabWidget->currentIndex()];
+}
+
+//------------------------------------------------------------------------------
+void ScriptManagerDialog::clearModifiedMark(int index)
+{
+    if (!m_tabs.contains(index))
+        return;
+
+    QString tabTitle = m_ui->tabWidget->tabText(index);
+    if (!tabTitle.endsWith("*"))
+        return;
+
+    tabTitle.remove(tabTitle.length() - 1, 1);
+    m_ui->tabWidget->setTabText(index, tabTitle);
+}
+
+//------------------------------------------------------------------------------
+void ScriptManagerDialog::setModifiedMark(int index)
+{
+    if (!m_tabs.contains(index))
+        return;
+
+    QString tabTitle = m_ui->tabWidget->tabText(index);
+    if (tabTitle.endsWith("*"))
+        return;
+
+    tabTitle.append("*");
+    m_ui->tabWidget->setTabText(index, tabTitle);
 }
 
 //------------------------------------------------------------------------------

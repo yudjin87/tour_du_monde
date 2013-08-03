@@ -38,6 +38,7 @@ ScriptUnitView::ScriptUnitView(ScriptUnit *data, QSyntaxHighlighter *highlighter
 {
     m_ui->setupUi(this);
     m_ui->scriptEditor->setDocument(m_data->script());
+
     highlighter->setParent(this);
     highlighter->setDocument(m_data->script());
 }
@@ -53,6 +54,26 @@ ScriptUnitView::~ScriptUnitView()
 ScriptUnit *ScriptUnitView::data()
 {
     return m_data;
+}
+
+//------------------------------------------------------------------------------
+void ScriptUnitView::clear()
+{
+    m_ui->outputEditor->clear();
+}
+
+//------------------------------------------------------------------------------
+void ScriptUnitView::printError(const QString &error)
+{
+    m_ui->outputEditor->setTextColor(Qt::red);
+    m_ui->outputEditor->append(error);
+    m_ui->outputEditor->setTextColor(Qt::black);
+}
+
+//------------------------------------------------------------------------------
+void ScriptUnitView::printOutput(const QString &output)
+{
+    m_ui->outputEditor->append(output);
 }
 
 //------------------------------------------------------------------------------

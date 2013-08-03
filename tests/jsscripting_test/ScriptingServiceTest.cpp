@@ -46,13 +46,13 @@ ScriptingServiceTest::ScriptingServiceTest(QObject *parent)
 void ScriptingServiceTest::setLocatorWrapper_shouldSetupNull()
 {
     ServiceLocator locator; ScriptingService service(&locator);
-    QScriptEngine *engine = service.createEngine(this);
+    QScriptEngine *engine = service.createEngine(nullptr, this);
 
     QScriptValue defaultLocator = engine->globalObject().property("serviceLocator");
     QVERIFY(!defaultLocator.isNull());
 
     service.setLocatorWrapper(nullptr);
-    engine = service.createEngine(this);
+    engine = service.createEngine(nullptr, this);
     QScriptValue nullLocator = engine->globalObject().property("serviceLocator");
     QVERIFY(nullLocator.isNull());
 }

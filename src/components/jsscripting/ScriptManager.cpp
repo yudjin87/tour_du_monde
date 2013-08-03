@@ -76,41 +76,42 @@ ScriptUnit *ScriptManager::addScript(const QString &fileName)
 }
 
 //------------------------------------------------------------------------------
-bool ScriptManager::runScript(ScriptUnit *script, QString *error)
+void ScriptManager::runScript(ScriptUnit *script, QString *output, bool *error)
 {
     if (script == nullptr)
-        return false;
+        return;
 
     if (!m_scripts.values().contains(script)) {
         Log.w(QString("Cannot run unknown script \"%1\"").arg(script->absoluteFilePath()));
-        return false;
+        return;
     }
 
     QString scriptCode = script->scriptText();
     if (scriptCode.isEmpty()) {
         Log.w("Empty script - nothing to evaluate");
-        return false;
+        return;
     }
 
     if (!script->fileName().isEmpty())
         script->save();
 
-    QScriptEnginePtr engine(m_factory->createEngine());
+    QScriptEnginePtr engine(m_factory->createEngine(output));
     QScriptValue result = engine->evaluate(scriptCode);
     if (!result.isError()) {
         if (error != nullptr)
-            error->clear();
-        return true;
+            *error = false;
+
+        return;
     }
 
-    QString scriptError = QString("Script error:\n\"%1\"").arg(result.toString());
+    QString scriptError = QString("Script error:\"%1\"").arg(result.toString());
     Log.w(scriptError);
 
-    if (error == nullptr)
-        return false;
+    if (output != nullptr)
+        *output = result.toString();
 
-    *error = scriptError;
-    return false;
+    if (error != nullptr)
+        *error = true;
 }
 
 //------------------------------------------------------------------------------

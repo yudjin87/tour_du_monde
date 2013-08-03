@@ -98,16 +98,20 @@ void ScriptManagerModel::onLoad()
 //------------------------------------------------------------------------------
 void ScriptManagerModel::onSave(ScriptUnit *script)
 {
-    QFileDialog fileDialog(m_locator->locate<QMainWindow>(), "Save script");
-    fileDialog.setNameFilter("JavaScript Files (*.js)");
-    fileDialog.setFileMode(QFileDialog::ExistingFile);
-    fileDialog.setDirectory(QCoreApplication::applicationDirPath() + "/scripts");  // TODO: get last selected directory from settings
-    if (!fileDialog.exec())
-        return;
+    // for saveAs:
+//    if (script->fileName().isEmpty()) {
+//        QFileDialog fileDialog(m_locator->locate<QMainWindow>(), "Save script");
+//        fileDialog.setNameFilter("JavaScript Files (*.js)");
+//        fileDialog.setFileMode(QFileDialog::ExistingFile);
+//        fileDialog.setDirectory(QCoreApplication::applicationDirPath() + "/scripts");  // TODO: get last selected directory from settings
+//        if (!fileDialog.exec())
+//            return;
+
+//    }
 
     // TODO: This should be moved to the separate command
     //      v   v   v   v   v
-    QString selectedFile = fileDialog.selectedFiles().first();
+    QString selectedFile = script->absoluteFilePath();
     QFile scriptFile(selectedFile);
     if (!scriptFile.open(QIODevice::WriteOnly)) {
         QString error = QString("Selected file %1 could not be opened!").arg(selectedFile);
@@ -116,8 +120,8 @@ void ScriptManagerModel::onSave(ScriptUnit *script)
         return;
     }
 
-    QTextStream out(&scriptFile);
-    out << script->scriptText();
+
+    script->save();
 }
 
 //------------------------------------------------------------------------------
@@ -127,13 +131,12 @@ void ScriptManagerModel::onSaveAll()
 }
 
 //------------------------------------------------------------------------------
-void ScriptManagerModel::onRun(ScriptUnit *script)
+void ScriptManagerModel::onRun(ScriptUnit *script, QString *output, bool *error)
 {
     if (script == nullptr)
         return;
 
-    // TODO: handle errors
-    m_data->runScript(script);
+    m_data->runScript(script, output, error);
 }
 
 //------------------------------------------------------------------------------
