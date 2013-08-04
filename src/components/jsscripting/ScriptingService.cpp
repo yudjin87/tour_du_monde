@@ -68,7 +68,7 @@ IScriptConsole *ScriptingService::console()
 }
 
 //------------------------------------------------------------------------------
-ScriptManager *ScriptingService::manager()
+IScriptManager *ScriptingService::manager()
 {
     return m_scriptManager;
 }

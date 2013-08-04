@@ -53,7 +53,7 @@ public:
 
     IScriptConsole *console();
 
-    ScriptManager *manager();
+    IScriptManager *manager();
 
     /*!
      * @details
@@ -73,7 +73,7 @@ private:
 private:
     ServiceLocatorWrapper *m_wrapper;
     ScriptConsole *m_console;
-    ScriptManager *m_scriptManager;
+    IScriptManager *m_scriptManager;
 };
 
 #endif // SCRIPTSERVICE_H

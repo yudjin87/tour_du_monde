@@ -33,6 +33,7 @@ set(__HEADERS
     ${CRSL_TARGET_HEADERS}/IScriptConsole.h 
     ${CRSL_TARGET_HEADERS}/IScriptEngineFactory.h 
     ${CRSL_TARGET_HEADERS}/IScriptingService.h 
+    ${CRSL_TARGET_HEADERS}/IScriptManager.h 
     ${CRSL_TARGET_HEADERS}/IScriptUnit.h 
     ${CRSL_TARGET_HEADERS}/jsscripting_global.h 
     ${CRSL_TARGET_HEADERS}/JsScriptingComponent.h 

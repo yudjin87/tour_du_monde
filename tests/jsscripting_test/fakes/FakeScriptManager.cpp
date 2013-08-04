@@ -24,43 +24,20 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "FakeScriptUnit.h"
+#include "FakeScriptManager.h"
 
 //------------------------------------------------------------------------------
-FakeScriptUnit::FakeScriptUnit(QObject *parent)
-    : ScriptUnit(parent)
-    , saveToFileResult(false)
-    , loadFileResult(true)
+FakeScriptManager::FakeScriptManager(IScriptEngineFactory *factory, QObject *parent)
+    : ScriptManager(factory, parent)
+    , unitForCreating(nullptr)
 {
 }
 
 //------------------------------------------------------------------------------
-FakeScriptUnit::FakeScriptUnit(const QString &filePath, QObject *parent)
-    : ScriptUnit(filePath, parent)
-    , saveToFileResult(false)
-    , loadFileResult(true)
+IScriptUnit *FakeScriptManager::createNewScript(const QString *fileName)
 {
-
-}
-
-//------------------------------------------------------------------------------
-bool FakeScriptUnit::load()
-{
-    return ScriptUnit::load();
-}
-
-//------------------------------------------------------------------------------
-bool FakeScriptUnit::load(const QString &filePath)
-{
-    Q_UNUSED(filePath)
-    return loadFileResult;
-}
-
-//------------------------------------------------------------------------------
-bool FakeScriptUnit::saveToFile(const QString &filePath)
-{
-    Q_UNUSED(filePath)
-    return saveToFileResult;
+    Q_UNUSED(fileName)
+    return unitForCreating;
 }
 
 //------------------------------------------------------------------------------

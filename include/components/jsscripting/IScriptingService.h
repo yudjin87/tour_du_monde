@@ -33,7 +33,7 @@
 
 class IScriptConsole;
 class ServiceLocatorWrapper;
-class ScriptManager;
+class IScriptManager;
 
 /*!
  * @brief
@@ -41,12 +41,13 @@ class ScriptManager;
 class JSSCRIPTING_API IScriptingService : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(IScriptManager *manager READ manager)
 public:
     IScriptingService(){}
 
     virtual IScriptConsole *console() = 0;
 
-    virtual ScriptManager *manager() = 0;
+    virtual IScriptManager *manager() = 0;
 
     virtual ServiceLocatorWrapper *locatorWrapper() = 0;
     virtual const ServiceLocatorWrapper *locatorWrapper() const = 0;

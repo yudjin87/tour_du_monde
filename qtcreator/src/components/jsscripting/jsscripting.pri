@@ -7,6 +7,7 @@ HEADERS += \
     $$PROJECT_HEADERS/IScriptConsole.h \
     $$PROJECT_HEADERS/IScriptEngineFactory.h \
     $$PROJECT_HEADERS/IScriptingService.h \
+    $$PROJECT_HEADERS/IScriptManager.h \
     $$PROJECT_HEADERS/IScriptUnit.h \
     $$PROJECT_HEADERS/jsscripting_global.h \
     $$PROJECT_HEADERS/JsScriptingComponent.h \

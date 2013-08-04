@@ -53,4 +53,4 @@ qt5_use_modules(${CRSL_PROJECT_NAME} Test)
 
 ###############################################################################
 # Copy scripts to the output subdirectory "scripts"
-crsl_copy_extra_files(${CRSL_PROJECT_NAME} "${CMAKE_CURRENT_SOURCE_DIR}/${__SCRIPTS}" $<TARGET_FILE_DIR:${CRSL_PROJECT_NAME}>/scripts)
+crsl_copy_extra_files(${CRSL_PROJECT_NAME} "${__SCRIPTS}" $<TARGET_FILE_DIR:${CRSL_PROJECT_NAME}>/scripts)

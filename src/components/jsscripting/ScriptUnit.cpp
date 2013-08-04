@@ -109,6 +109,11 @@ bool ScriptUnit::load()
     if (m_isLoaded)
         return true;
 
+    if (m_fileName.isEmpty()) {
+        Log.w("No file name specified");
+        return false;
+    }
+
     QFile scriptFile(m_fileName);
     if (!scriptFile.open(QIODevice::ReadOnly)) {
         QString error = QString("Selected file %1 could not be opened!").arg(m_fileName);
@@ -145,11 +150,6 @@ bool ScriptUnit::save()
 //------------------------------------------------------------------------------
 bool ScriptUnit::saveAs(const QString &fileName)
 {
-    if (!m_isLoaded) {
-        Log.w("Should be loaded before saving");
-        return false;
-    }
-
     if (!m_script->isModified())
         return true;
 

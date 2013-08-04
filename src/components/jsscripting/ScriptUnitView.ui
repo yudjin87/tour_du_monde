@@ -20,6 +20,9 @@
       <enum>Qt::Vertical</enum>
      </property>
      <widget class="QTextEdit" name="scriptEditor">
+      <property name="acceptRichText">
+       <bool>false</bool>
+      </property>
       <property name="textInteractionFlags">
        <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse|Qt::TextBrowserInteraction|Qt::TextEditable|Qt::TextEditorInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
       </property>

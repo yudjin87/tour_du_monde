@@ -30,6 +30,7 @@
 
 #include <carousel/logging/LoggerFacade.h>
 
+#include <QtCore/QCoreApplication>
 #include <QtCore/QDirIterator>
 #include <QtCore/QtAlgorithms>
 #include <QtCore/QScopedPointer>
@@ -46,11 +47,11 @@ static LoggerFacade Log = LoggerFacade::createLogger("ScriptManager");
 
 //------------------------------------------------------------------------------
 ScriptManager::ScriptManager(IScriptEngineFactory *factory, QObject *parent)
-    : QObject(parent)
+    : IScriptManager()
     , m_factory(factory)
     , m_scripts(Scripts())
 {
-
+    setParent(parent);
 }
 
 //------------------------------------------------------------------------------
@@ -61,18 +62,84 @@ ScriptManager::~ScriptManager()
 }
 
 //------------------------------------------------------------------------------
+IScriptManager::Scripts ScriptManager::scripts() const
+{
+    return m_scripts;
+}
+
+//------------------------------------------------------------------------------
+IScriptUnit *ScriptManager::scriptByFileName(const QString &fileName)
+{
+    QDir dir(QCoreApplication::applicationDirPath());
+    QString absoluteName = dir.absoluteFilePath(fileName);
+
+    for (IScriptUnit *script : m_scripts)
+        if (script->absoluteFilePath() == absoluteName)
+            return script;
+
+    return nullptr;
+}
+
+//------------------------------------------------------------------------------
+IScriptUnit *ScriptManager::createScript()
+{
+    IScriptUnit *unit = createNewScript();
+    m_scripts.push_back(unit);
+    emit scriptAdded(unit);
+    return unit;
+}
+
+//------------------------------------------------------------------------------
 IScriptUnit *ScriptManager::addScript(const QString &fileName)
 {
-    auto it = m_scripts.find(fileName);
-    if (it != m_scripts.end())
-        return *it;
+    IScriptUnit *existedScript = scriptByFileName(fileName);
+    if (existedScript != nullptr)
+        return existedScript;
 
-    ScriptUnit *unit = new ScriptUnit(fileName);
-    // TODO: handle errors
-    unit->load();
-    m_scripts.insert(fileName, unit);
-    scriptAdded(unit);
+    IScriptUnit *unit = createNewScript(&fileName);
+
+    if (!unit->load())
+        return nullptr;
+
+    m_scripts.push_back(unit);
+    emit scriptAdded(unit);
     return unit;
+}
+
+//------------------------------------------------------------------------------
+void ScriptManager::removeScript(IScriptUnit *script)
+{
+    if (!m_scripts.contains(script))
+        return;
+
+    m_scripts.removeOne(script);
+    emit scriptRemoved(script);
+    script->deleteLater();
+}
+
+//------------------------------------------------------------------------------
+IScriptManager::Scripts ScriptManager::addScripts(const QString &directory)
+{
+    static QStringList nameFilters {"*.js"};
+    static QDirIterator::IteratorFlags flags = QDirIterator::NoIteratorFlags;
+    static QDir::Filters filters = QDir::NoDotAndDotDot | QDir::Readable | QDir::Files;
+
+    // Working directory might be different from the app dir (e.g. is tests are run from CMake)
+    QDir dir(QCoreApplication::applicationDirPath());
+    if (!dir.cd(directory))
+        return Scripts();
+
+    QString absoluteDirectory = dir.absolutePath();
+    Scripts result;
+    QDirIterator iterator(absoluteDirectory, nameFilters, filters, flags);
+    while (iterator.hasNext()) {
+        QString fileName = iterator.next();
+        IScriptUnit *unit = addScript(fileName);
+        if (unit != nullptr)
+            result.append(unit);
+    }
+
+    return result;
 }
 
 //------------------------------------------------------------------------------
@@ -81,7 +148,7 @@ void ScriptManager::runScript(IScriptUnit *script, QString *output, bool *error)
     if (script == nullptr)
         return;
 
-    if (!m_scripts.values().contains(script)) {
+    if (!m_scripts.contains(script)) {
         Log.w(QString("Cannot run unknown script \"%1\"").arg(script->absoluteFilePath()));
         return;
     }
@@ -115,23 +182,9 @@ void ScriptManager::runScript(IScriptUnit *script, QString *output, bool *error)
 }
 
 //------------------------------------------------------------------------------
-void ScriptManager::addScripts(const QString &directory)
+IScriptUnit *ScriptManager::createNewScript(const QString *fileName)
 {
-    static QStringList nameFilters {"*.js"};
-    static QDirIterator::IteratorFlags flags = QDirIterator::NoIteratorFlags;
-    static QDir::Filters filters = QDir::NoDotAndDotDot | QDir::Readable | QDir::Files;
-
-    QDirIterator iterator(directory, nameFilters, filters, flags);
-    while (iterator.hasNext()) {
-        QString fileName = iterator.next();
-        addScript(fileName);
-    }
-}
-
-//------------------------------------------------------------------------------
-ScriptManager::Scripts ScriptManager::scripts() const
-{
-    return m_scripts;
+    return (fileName == nullptr) ? new ScriptUnit() : new ScriptUnit(*fileName);
 }
 
 //------------------------------------------------------------------------------

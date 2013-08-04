@@ -36,11 +36,16 @@ public:
     FakeScriptUnit(QObject *parent = nullptr);
     FakeScriptUnit(const QString &filePath, QObject *parent = nullptr);
 
+public slots:
+    bool load();
+    bool load(const QString &filePath);
+
 protected:
     bool saveToFile(const QString &filePath);
 
 public:
     bool saveToFileResult;
+    bool loadFileResult;
 };
 
 #endif // FAKESCRIPTUNIT_H

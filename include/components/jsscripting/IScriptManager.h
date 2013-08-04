@@ -24,57 +24,60 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SCRIPTMANAGER_H
-#define SCRIPTMANAGER_H
+#ifndef ISCRIPTMANAGER_H
+#define ISCRIPTMANAGER_H
 
-#include <components/jsscripting/IScriptManager.h>
+#include <components/jsscripting/jsscripting_global.h>
 
-class IScriptEngineFactory;
+#include <QtCore/QObject>
+#include <QtCore/QList>
 
-class JSSCRIPTING_API ScriptManager : public IScriptManager
+class IScriptUnit;
+
+class JSSCRIPTING_API IScriptManager : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(QList<IScriptUnit *> scripts READ scripts)
 public:
+    typedef QList<IScriptUnit *> Scripts;
+
+public:
+    IScriptManager(){}
+
+    virtual Scripts scripts() const = 0;
+
+public slots:
     /*!
      * @details
-     *   Does not takes ownership for factory;
+     *   Takes ownership.
      */
-    ScriptManager(IScriptEngineFactory *factory, QObject *parent = nullptr);
-    ~ScriptManager();
-
-    Scripts scripts() const;
-
-    IScriptUnit *scriptByFileName(const QString &fileName);
+    virtual IScriptUnit *createScript() = 0;
 
     /*!
      * @details
      *   Takes ownership.
      */
-    IScriptUnit *createScript();
+    virtual IScriptUnit *addScript(const QString &fileName) = 0;
+
+    virtual void removeScript(IScriptUnit *script) = 0;
+
+    // saves before run
+    virtual void runScript(IScriptUnit *script, QString *output = nullptr, bool *error = nullptr) = 0;
 
     /*!
      * @details
      *   Takes ownership.
      */
-    IScriptUnit *addScript(const QString &fileName);
+    virtual Scripts addScripts(const QString &directory) = 0;
 
-    void removeScript(IScriptUnit *script);
+    virtual IScriptUnit *scriptByFileName(const QString &fileName) = 0;
 
-    // save before run
-    void runScript(IScriptUnit *script, QString *output = nullptr, bool *error = nullptr);
-
-    /*!
-     * @details
-     *   Takes ownership.
-     */
-    Scripts addScripts(const QString &directory);
-
-protected:
-    virtual IScriptUnit *createNewScript(const QString *fileName = nullptr);
+signals:
+    void scriptAdded(IScriptUnit *script);
+    void scriptRemoved(IScriptUnit *script);
 
 private:
-    IScriptEngineFactory *m_factory;
-    Scripts m_scripts;
+    Q_DISABLE_COPY(IScriptManager)
 };
 
-#endif // SCRIPTMANAGER_H
+#endif // ISCRIPTMANAGER_H

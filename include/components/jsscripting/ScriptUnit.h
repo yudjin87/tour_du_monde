@@ -62,6 +62,7 @@ protected:
     virtual bool saveToFile(const QString &filePath);
 
 private:
+    Q_DISABLE_COPY(ScriptUnit)
     static QString absolutePath(const QString &filePath);    
 
 private:

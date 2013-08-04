@@ -24,43 +24,23 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "FakeScriptUnit.h"
+#include "FakeScriptEngineFactory.h"
+
+#include <QtScript/QScriptEngine>
 
 //------------------------------------------------------------------------------
-FakeScriptUnit::FakeScriptUnit(QObject *parent)
-    : ScriptUnit(parent)
-    , saveToFileResult(false)
-    , loadFileResult(true)
+FakeScriptEngineFactory::FakeScriptEngineFactory(QObject *parent)
+    : QObject(parent)
+    , IScriptEngineFactory()
 {
 }
 
 //------------------------------------------------------------------------------
-FakeScriptUnit::FakeScriptUnit(const QString &filePath, QObject *parent)
-    : ScriptUnit(filePath, parent)
-    , saveToFileResult(false)
-    , loadFileResult(true)
+QScriptEngine *FakeScriptEngineFactory::createEngine(QString *output, QObject *parent)
 {
-
-}
-
-//------------------------------------------------------------------------------
-bool FakeScriptUnit::load()
-{
-    return ScriptUnit::load();
-}
-
-//------------------------------------------------------------------------------
-bool FakeScriptUnit::load(const QString &filePath)
-{
-    Q_UNUSED(filePath)
-    return loadFileResult;
-}
-
-//------------------------------------------------------------------------------
-bool FakeScriptUnit::saveToFile(const QString &filePath)
-{
-    Q_UNUSED(filePath)
-    return saveToFileResult;
+    Q_UNUSED(output)
+    Q_UNUSED(parent)
+    return new QScriptEngine();
 }
 
 //------------------------------------------------------------------------------

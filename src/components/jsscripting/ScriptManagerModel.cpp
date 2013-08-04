@@ -44,13 +44,13 @@ static LoggerFacade Log = LoggerFacade::createLogger("ScriptManagerModel");
 }
 
 //------------------------------------------------------------------------------
-ScriptManagerModel::ScriptManagerModel(ScriptManager *data, QObject *parent)
+ScriptManagerModel::ScriptManagerModel(IScriptManager *data, QObject *parent)
     : QObject(parent)
     , m_data(data)
     , m_locator(nullptr)
 {
-    connect(m_data, &ScriptManager::scriptAdded, this, &ScriptManagerModel::scriptAdded);
-    connect(m_data, &ScriptManager::scriptRemoved, this, &ScriptManagerModel::scriptRemoved);
+    connect(m_data, &IScriptManager::scriptAdded, this, &ScriptManagerModel::scriptAdded);
+    connect(m_data, &IScriptManager::scriptRemoved, this, &ScriptManagerModel::scriptRemoved);
 }
 
 //------------------------------------------------------------------------------
@@ -66,7 +66,7 @@ void ScriptManagerModel::injectServiceLocator(IServiceLocator *locator)
 }
 
 //------------------------------------------------------------------------------
-ScriptManager::Scripts ScriptManagerModel::scripts() const
+IScriptManager::Scripts ScriptManagerModel::scripts() const
 {
     return m_data->scripts();
 }
@@ -108,18 +108,6 @@ void ScriptManagerModel::onSave(IScriptUnit *script)
 //            return;
 
 //    }
-
-    // TODO: This should be moved to the separate command
-    //      v   v   v   v   v
-    QString selectedFile = script->absoluteFilePath();
-    QFile scriptFile(selectedFile);
-    if (!scriptFile.open(QIODevice::WriteOnly)) {
-        QString error = QString("Selected file %1 could not be opened!").arg(selectedFile);
-        Log.w(error);
-        QMessageBox::warning(m_locator->locate<QMainWindow>(), "Error during opening file", error);
-        return;
-    }
-
 
     script->save();
 }

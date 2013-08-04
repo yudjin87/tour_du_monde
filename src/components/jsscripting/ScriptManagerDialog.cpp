@@ -89,6 +89,9 @@ void ScriptManagerDialog::onScriptAdded(IScriptUnit *script)
 void ScriptManagerDialog::onRun()
 {
     ScriptUnitView *scriptView = getCurrentView();
+    if (scriptView == nullptr)
+        return;
+
     scriptView->clear();
 
     QString output;
@@ -104,6 +107,9 @@ void ScriptManagerDialog::onRun()
 void ScriptManagerDialog::onSave()
 {
     ScriptUnitView *scriptView = getCurrentView();
+    if (scriptView == nullptr)
+        return;
+
     m_model->onSave(scriptView->data());
     clearModifiedMark(m_ui->tabWidget->currentIndex());
 }

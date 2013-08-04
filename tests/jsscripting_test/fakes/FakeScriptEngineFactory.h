@@ -24,46 +24,20 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SCRIPTMANAGERMODEL_H
-#define SCRIPTMANAGERMODEL_H
+#ifndef FAKESCRIPTENGINEFACTORY_H
+#define FAKESCRIPTENGINEFACTORY_H
 
-#include <components/jsscripting/jsscripting_global.h>
-#include <components/jsscripting/IScriptManager.h>
+#include <components/jsscripting/IScriptEngineFactory.h>
 
 #include <QtCore/QObject>
 
-class IServiceLocator;
-class IScriptUnit;
-class IScriptManager;
-
-class JSSCRIPTING_API ScriptManagerModel : public QObject
+class FakeScriptEngineFactory : public QObject, public IScriptEngineFactory
 {
     Q_OBJECT
 public:
-    /*!
-     * @details
-     *   Does not takes ownership
-     */
-    explicit ScriptManagerModel(IScriptManager *data, QObject *parent = nullptr);
-    ~ScriptManagerModel();
+    FakeScriptEngineFactory(QObject *parent = nullptr);
 
-    void injectServiceLocator(IServiceLocator *locator);
-
-    IScriptManager::Scripts scripts() const;
-
-public slots:
-    void onLoad();
-    void onSave(IScriptUnit *script);
-    void onSaveAll();
-    void onRun(IScriptUnit *script, QString *output = nullptr, bool *error = nullptr);
-
-signals:
-    void scriptAdded(IScriptUnit *script);
-    void scriptRemoved(IScriptUnit *script);
-
-private:
-    IScriptManager *m_data;
-    IServiceLocator *m_locator;
+    QScriptEngine *createEngine(QString *output, QObject *parent);
 };
 
-#endif // SCRIPTMANAGERMODEL_H
+#endif // FAKESCRIPTENGINEFACTORY_H
