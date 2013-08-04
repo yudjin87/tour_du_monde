@@ -13,3 +13,6 @@ LIBS += -L$${DESTDIR}/../bin -lorg.carousel.Interactivity \
                              -lLogging \
                              -lorg.carousel.JsScripting \
 
+###############################################################################
+# Copy script files to the script directory
+copyExtraFilesToDir($$OTHER_FILES, $$DESTDIR/scripts)

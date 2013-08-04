@@ -25,7 +25,7 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "ScriptManagerModel.h"
-#include "ScriptUnit.h"
+#include "IScriptUnit.h"
 
 #include <carousel/logging/LoggerFacade.h>
 #include <carousel/utils/IServiceLocator.h>
@@ -96,7 +96,7 @@ void ScriptManagerModel::onLoad()
 }
 
 //------------------------------------------------------------------------------
-void ScriptManagerModel::onSave(ScriptUnit *script)
+void ScriptManagerModel::onSave(IScriptUnit *script)
 {
     // for saveAs:
 //    if (script->fileName().isEmpty()) {
@@ -131,7 +131,7 @@ void ScriptManagerModel::onSaveAll()
 }
 
 //------------------------------------------------------------------------------
-void ScriptManagerModel::onRun(ScriptUnit *script, QString *output, bool *error)
+void ScriptManagerModel::onRun(IScriptUnit *script, QString *output, bool *error)
 {
     if (script == nullptr)
         return;

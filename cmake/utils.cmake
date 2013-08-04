@@ -140,7 +140,7 @@ endfunction(crsl_set_files_to_copy_on_install)
 function(crsl_copy_extra_files __TARGET __FILES __DIRECTORY)
   foreach(__FILE ${__FILES})
     set(__FILE_NAME "")
-    get_filename_component(__FILE_NAME ${__FILE} NAME)
+    get_filename_component(__FILE_NAME ${__FILE} NAME)    
     add_custom_command(
       TARGET ${__TARGET}
       POST_BUILD

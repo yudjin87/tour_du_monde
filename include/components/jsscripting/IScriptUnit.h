@@ -24,50 +24,49 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SCRIPTUNIT_H
-#define SCRIPTUNIT_H
+#ifndef ISCRIPTUNIT_H
+#define ISCRIPTUNIT_H
 
-#include <components/jsscripting/IScriptUnit.h>
+#include <components/jsscripting/jsscripting_global.h>
 
-class JSSCRIPTING_API ScriptUnit : public IScriptUnit
+#include <QtCore/QObject>
+
+class QTextDocument;
+
+class JSSCRIPTING_API IScriptUnit : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(bool isLoaded READ isLoaded)
+    Q_PROPERTY(QString absoluteFilePath READ absoluteFilePath)
+    Q_PROPERTY(QString fileName READ fileName)
+    Q_PROPERTY(QString scriptText READ scriptText)
+    Q_PROPERTY(QTextDocument *script READ script)
 public:
     /*!
      *
      */
-    ScriptUnit(QObject *parent = nullptr);
-    ScriptUnit(const QString &filePath, QObject *parent = nullptr);
-    ~ScriptUnit();
+    IScriptUnit(){}
 
 public:
-    bool isLoaded() const;
+    virtual bool isLoaded() const = 0;
 
-    QString absoluteFilePath() const;
+    virtual QString absoluteFilePath() const = 0;
 
-    QString fileName() const;
+    virtual QString fileName() const = 0;
 
-    QString scriptText() const;
-    QTextDocument *script();
-    const QTextDocument *script() const;
+    virtual QString scriptText() const = 0;
+    virtual QTextDocument *script() = 0;
+    virtual const QTextDocument *script() const = 0;
 
 public slots:
-    bool load();
-    bool load(const QString &filePath);
-    void clear();
-    bool save();
-    bool saveAs(const QString &filePath);
-
-protected:
-    virtual bool saveToFile(const QString &filePath);
+    virtual bool load() = 0;
+    virtual bool load(const QString &filePath)  = 0;
+    virtual void clear() = 0;
+    virtual bool save() = 0;
+    virtual bool saveAs(const QString &filePath) = 0;
 
 private:
-    static QString absolutePath(const QString &filePath);    
-
-private:
-    bool m_isLoaded;
-    QString m_fileName;
-    QTextDocument *m_script;
+    Q_DISABLE_COPY(IScriptUnit)
 };
 
-#endif // SCRIPTUNIT_H
+#endif // ISCRIPTUNIT_H

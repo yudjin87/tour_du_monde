@@ -28,7 +28,7 @@
 #include "ui_ScriptManagerDialog.h"
 #include "CodeHighlighter.h"
 #include "ScriptUnitView.h"
-#include "ScriptUnit.h"
+#include "IScriptUnit.h"
 #include "ScriptManagerModel.h"
 #include "ColorTheme.h"
 
@@ -55,7 +55,7 @@ ScriptManagerDialog::ScriptManagerDialog(ScriptManagerModel *model, QWidget *par
     connect(m_ui->actionSave, &QAction::triggered, this, &ScriptManagerDialog::onSave);
     connect(m_model, &ScriptManagerModel::scriptAdded, this, &ScriptManagerDialog::onScriptAdded);
 
-    for (ScriptUnit *script : m_model->scripts())
+    for (IScriptUnit *script : m_model->scripts())
         onScriptAdded(script);
 }
 
@@ -71,7 +71,7 @@ ScriptManagerDialog::~ScriptManagerDialog()
 }
 
 //------------------------------------------------------------------------------
-void ScriptManagerDialog::onScriptAdded(ScriptUnit *script)
+void ScriptManagerDialog::onScriptAdded(IScriptUnit *script)
 {
     ScriptUnitView *scriptView = new ScriptUnitView(script, new CodeHighlighter(ColorTheme::getDefault(), this));
     int index = m_ui->tabWidget->addTab(scriptView, script->fileName());

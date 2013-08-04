@@ -36,7 +36,7 @@ namespace Ui
 class ScriptUnitView;
 }
 
-class ScriptUnit;
+class IScriptUnit;
 class QSyntaxHighlighter;
 
 class JSSCRIPTING_API ScriptUnitView : public QWidget
@@ -47,10 +47,10 @@ public:
      * @details
      *  Takes ownership
      */
-    ScriptUnitView(ScriptUnit *data, QSyntaxHighlighter *highlighter, QWidget *parent = nullptr);
+    ScriptUnitView(IScriptUnit *data, QSyntaxHighlighter *highlighter, QWidget *parent = nullptr);
     ~ScriptUnitView();
 
-    ScriptUnit *data();
+    IScriptUnit *data();
 
     void clear();
     void printError(const QString &error);
@@ -58,7 +58,7 @@ public:
 
 private:
     Ui::ScriptUnitView *m_ui;
-    ScriptUnit *m_data;
+    IScriptUnit *m_data;
 };
 
 #endif // SCRIPTUNITVIEW_H

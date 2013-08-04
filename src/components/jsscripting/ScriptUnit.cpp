@@ -30,6 +30,8 @@
 
 #include <QtCore/QFile>
 #include <QtCore/QFileInfo>
+#include <QtCore/QDir>
+#include <QtCore/QCoreApplication>
 #include <QtCore/QTextStream>
 #include <QtGui/QTextDocument>
 
@@ -41,7 +43,7 @@ static LoggerFacade Log = LoggerFacade::createLogger("ScriptUnit");
 
 //------------------------------------------------------------------------------
 ScriptUnit::ScriptUnit(QObject *parent)
-    : QObject()
+    : IScriptUnit()
     , m_isLoaded(false)
     , m_fileName("")
     , m_script(new QTextDocument(this))
@@ -51,7 +53,7 @@ ScriptUnit::ScriptUnit(QObject *parent)
 
 //------------------------------------------------------------------------------
 ScriptUnit::ScriptUnit(const QString &filePath, QObject *parent)
-    : QObject()
+    : IScriptUnit()
     , m_isLoaded(false)
     , m_fileName(absolutePath(filePath))
     , m_script(new QTextDocument(this))
@@ -62,61 +64,6 @@ ScriptUnit::ScriptUnit(const QString &filePath, QObject *parent)
 //------------------------------------------------------------------------------
 ScriptUnit::~ScriptUnit()
 {
-}
-
-//------------------------------------------------------------------------------
-bool ScriptUnit::load()
-{
-    m_isLoaded = false;
-
-    QFile scriptFile(m_fileName);
-    if (!scriptFile.open(QIODevice::ReadOnly)) {
-        QString error = QString("Selected file %1 could not be opened!").arg(m_fileName);
-        Log.w(error);
-        return false;
-    }
-
-    m_script->setPlainText(scriptFile.readAll());
-
-    m_isLoaded = true;
-    m_script->setModified(false);
-    return m_isLoaded;
-}
-
-//------------------------------------------------------------------------------
-bool ScriptUnit::load(const QString &filePath)
-{
-    m_fileName = absolutePath(filePath);
-    return load();
-}
-
-//------------------------------------------------------------------------------
-void ScriptUnit::clear()
-{
-    m_script->clear();
-}
-
-//------------------------------------------------------------------------------
-bool ScriptUnit::save()
-{
-    if (!m_script->isModified())
-        return true;
-
-    if (!saveToFile(m_fileName))
-        return false;
-
-    m_script->setModified(false);
-    return true;
-}
-
-//------------------------------------------------------------------------------
-bool ScriptUnit::saveAs(const QString &fileName)
-{
-    if (!saveToFile(fileName))
-        return false;
-
-    m_fileName = absolutePath(fileName);
-    return true;
 }
 
 //------------------------------------------------------------------------------
@@ -157,10 +104,68 @@ const QTextDocument *ScriptUnit::script() const
 }
 
 //------------------------------------------------------------------------------
+bool ScriptUnit::load()
+{
+    if (m_isLoaded)
+        return true;
+
+    QFile scriptFile(m_fileName);
+    if (!scriptFile.open(QIODevice::ReadOnly)) {
+        QString error = QString("Selected file %1 could not be opened!").arg(m_fileName);
+        Log.w(error);
+        return false;
+    }
+
+    m_script->setPlainText(scriptFile.readAll());
+
+    m_isLoaded = true;
+    m_script->setModified(false);
+    return m_isLoaded;
+}
+
+//------------------------------------------------------------------------------
+bool ScriptUnit::load(const QString &filePath)
+{
+    m_fileName = absolutePath(filePath);
+    return load();
+}
+
+//------------------------------------------------------------------------------
+void ScriptUnit::clear()
+{
+    m_script->clear();
+}
+
+//------------------------------------------------------------------------------
+bool ScriptUnit::save()
+{
+    return saveAs(m_fileName);
+}
+
+//------------------------------------------------------------------------------
+bool ScriptUnit::saveAs(const QString &fileName)
+{
+    if (!m_isLoaded) {
+        Log.w("Should be loaded before saving");
+        return false;
+    }
+
+    if (!m_script->isModified())
+        return true;
+
+    if (!saveToFile(fileName))
+        return false;
+
+    m_fileName = fileName;
+    m_script->setModified(false);
+    return true;
+}
+
+//------------------------------------------------------------------------------
 QString ScriptUnit::absolutePath(const QString &filePath)
 {
-    QFileInfo file(filePath);
-    return file.absoluteFilePath();
+    QDir dir(QCoreApplication::applicationDirPath());
+    return dir.absoluteFilePath(filePath);
 }
 
 //------------------------------------------------------------------------------

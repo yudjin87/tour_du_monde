@@ -24,50 +24,23 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SCRIPTUNIT_H
-#define SCRIPTUNIT_H
+#ifndef FAKESCRIPTUNIT_H
+#define FAKESCRIPTUNIT_H
 
-#include <components/jsscripting/IScriptUnit.h>
+#include <components/jsscripting/ScriptUnit.h>
 
-class JSSCRIPTING_API ScriptUnit : public IScriptUnit
+class FakeScriptUnit : public ScriptUnit
 {
     Q_OBJECT
 public:
-    /*!
-     *
-     */
-    ScriptUnit(QObject *parent = nullptr);
-    ScriptUnit(const QString &filePath, QObject *parent = nullptr);
-    ~ScriptUnit();
-
-public:
-    bool isLoaded() const;
-
-    QString absoluteFilePath() const;
-
-    QString fileName() const;
-
-    QString scriptText() const;
-    QTextDocument *script();
-    const QTextDocument *script() const;
-
-public slots:
-    bool load();
-    bool load(const QString &filePath);
-    void clear();
-    bool save();
-    bool saveAs(const QString &filePath);
+    FakeScriptUnit(QObject *parent = nullptr);
+    FakeScriptUnit(const QString &filePath, QObject *parent = nullptr);
 
 protected:
-    virtual bool saveToFile(const QString &filePath);
+    bool saveToFile(const QString &filePath);
 
-private:
-    static QString absolutePath(const QString &filePath);    
-
-private:
-    bool m_isLoaded;
-    QString m_fileName;
-    QTextDocument *m_script;
+public:
+    bool saveToFileResult;
 };
 
-#endif // SCRIPTUNIT_H
+#endif // FAKESCRIPTUNIT_H

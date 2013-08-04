@@ -61,7 +61,7 @@ ScriptManager::~ScriptManager()
 }
 
 //------------------------------------------------------------------------------
-ScriptUnit *ScriptManager::addScript(const QString &fileName)
+IScriptUnit *ScriptManager::addScript(const QString &fileName)
 {
     auto it = m_scripts.find(fileName);
     if (it != m_scripts.end())
@@ -76,7 +76,7 @@ ScriptUnit *ScriptManager::addScript(const QString &fileName)
 }
 
 //------------------------------------------------------------------------------
-void ScriptManager::runScript(ScriptUnit *script, QString *output, bool *error)
+void ScriptManager::runScript(IScriptUnit *script, QString *output, bool *error)
 {
     if (script == nullptr)
         return;

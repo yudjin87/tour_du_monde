@@ -33,13 +33,13 @@
 #include <QtCore/QMap>
 
 class IScriptEngineFactory;
-class ScriptUnit;
+class IScriptUnit;
 
 class JSSCRIPTING_API ScriptManager : public QObject
 {
     Q_OBJECT
 public:
-    typedef QMap<QString, ScriptUnit *> Scripts;
+    typedef QMap<QString, IScriptUnit *> Scripts;
 
 public:
     /*!
@@ -53,10 +53,10 @@ public:
      * @details
      *   Takes ownership.
      */
-    ScriptUnit *addScript(const QString &fileName);
+    IScriptUnit *addScript(const QString &fileName);
 
     // save before run
-    void runScript(ScriptUnit *script, QString *output = nullptr, bool *error = nullptr);
+    void runScript(IScriptUnit *script, QString *output = nullptr, bool *error = nullptr);
 
     /*!
      * @details
@@ -67,8 +67,8 @@ public:
     Scripts scripts() const;
 
 signals:
-    void scriptAdded(ScriptUnit *script);
-    void scriptRemoved(ScriptUnit *script);
+    void scriptAdded(IScriptUnit *script);
+    void scriptRemoved(IScriptUnit *script);
 
 private:
     IScriptEngineFactory *m_factory;

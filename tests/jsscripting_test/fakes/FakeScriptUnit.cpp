@@ -24,50 +24,28 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SCRIPTUNIT_H
-#define SCRIPTUNIT_H
+#include "FakeScriptUnit.h"
 
-#include <components/jsscripting/IScriptUnit.h>
-
-class JSSCRIPTING_API ScriptUnit : public IScriptUnit
+//------------------------------------------------------------------------------
+FakeScriptUnit::FakeScriptUnit(QObject *parent)
+    : ScriptUnit(parent)
+    , saveToFileResult(false)
 {
-    Q_OBJECT
-public:
-    /*!
-     *
-     */
-    ScriptUnit(QObject *parent = nullptr);
-    ScriptUnit(const QString &filePath, QObject *parent = nullptr);
-    ~ScriptUnit();
+}
 
-public:
-    bool isLoaded() const;
+//------------------------------------------------------------------------------
+FakeScriptUnit::FakeScriptUnit(const QString &filePath, QObject *parent)
+    : ScriptUnit(filePath, parent)
+    , saveToFileResult(false)
+{
 
-    QString absoluteFilePath() const;
+}
 
-    QString fileName() const;
+//------------------------------------------------------------------------------
+bool FakeScriptUnit::saveToFile(const QString &filePath)
+{
+    Q_UNUSED(filePath)
+    return saveToFileResult;
+}
 
-    QString scriptText() const;
-    QTextDocument *script();
-    const QTextDocument *script() const;
-
-public slots:
-    bool load();
-    bool load(const QString &filePath);
-    void clear();
-    bool save();
-    bool saveAs(const QString &filePath);
-
-protected:
-    virtual bool saveToFile(const QString &filePath);
-
-private:
-    static QString absolutePath(const QString &filePath);    
-
-private:
-    bool m_isLoaded;
-    QString m_fileName;
-    QTextDocument *m_script;
-};
-
-#endif // SCRIPTUNIT_H
+//------------------------------------------------------------------------------

@@ -26,12 +26,12 @@
 
 #include "ScriptUnitView.h"
 #include "ui_ScriptUnitView.h"
-#include "ScriptUnit.h"
+#include "IScriptUnit.h"
 
 #include <QtGui/QSyntaxHighlighter>
 
 //------------------------------------------------------------------------------
-ScriptUnitView::ScriptUnitView(ScriptUnit *data, QSyntaxHighlighter *highlighter, QWidget *parent)
+ScriptUnitView::ScriptUnitView(IScriptUnit *data, QSyntaxHighlighter *highlighter, QWidget *parent)
     : QWidget(parent)
     , m_ui(new Ui::ScriptUnitView())
     , m_data(data)
@@ -51,7 +51,7 @@ ScriptUnitView::~ScriptUnitView()
 }
 
 //------------------------------------------------------------------------------
-ScriptUnit *ScriptUnitView::data()
+IScriptUnit *ScriptUnitView::data()
 {
     return m_data;
 }

@@ -33,7 +33,7 @@
 #include <QtCore/QObject>
 
 class IServiceLocator;
-class ScriptUnit;
+class IScriptUnit;
 class ScriptManager;
 
 class JSSCRIPTING_API ScriptManagerModel : public QObject
@@ -53,13 +53,13 @@ public:
 
 public slots:
     void onLoad();
-    void onSave(ScriptUnit *script);
+    void onSave(IScriptUnit *script);
     void onSaveAll();
-    void onRun(ScriptUnit *script, QString *output = nullptr, bool *error = nullptr);
+    void onRun(IScriptUnit *script, QString *output = nullptr, bool *error = nullptr);
 
 signals:
-    void scriptAdded(ScriptUnit *script);
-    void scriptRemoved(ScriptUnit *script);
+    void scriptAdded(IScriptUnit *script);
+    void scriptRemoved(IScriptUnit *script);
 
 private:
     ScriptManager *m_data;

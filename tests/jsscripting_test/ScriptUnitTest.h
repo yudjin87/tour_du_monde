@@ -24,50 +24,29 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SCRIPTUNIT_H
-#define SCRIPTUNIT_H
+#ifndef SCRIPTUNITTEST_H
+#define SCRIPTUNITTEST_H
 
-#include <components/jsscripting/IScriptUnit.h>
+#include <QtCore/QObject>
 
-class JSSCRIPTING_API ScriptUnit : public IScriptUnit
+class ScriptUnitTest: public QObject
 {
     Q_OBJECT
 public:
-    /*!
-     *
-     */
-    ScriptUnit(QObject *parent = nullptr);
-    ScriptUnit(const QString &filePath, QObject *parent = nullptr);
-    ~ScriptUnit();
+    ScriptUnitTest(QObject *parent = nullptr);
 
-public:
-    bool isLoaded() const;
-
-    QString absoluteFilePath() const;
-
-    QString fileName() const;
-
-    QString scriptText() const;
-    QTextDocument *script();
-    const QTextDocument *script() const;
-
-public slots:
-    bool load();
-    bool load(const QString &filePath);
-    void clear();
-    bool save();
-    bool saveAs(const QString &filePath);
-
-protected:
-    virtual bool saveToFile(const QString &filePath);
+private Q_SLOTS:
+    void shouldReturnAbsoluteFilePath();
+    void load_shouldLoadScript();
+    void load_shouldNotLoadScriptWithIncorrectFileName();
+    void load_shouldNotChangeDocumentModifiedFlag();
+    void save_shouldResetDocumentModifiedFlag();
+    void save_shouldNotResetDocumentModifiedFlagIfSavingFailed();
+    void saveAs_shouldChangeFileName();
+    void saveAs_shouldNotChangeFileNameIfSavingFailed();
 
 private:
-    static QString absolutePath(const QString &filePath);    
-
-private:
-    bool m_isLoaded;
-    QString m_fileName;
-    QTextDocument *m_script;
+    QString m_testScriptPath;
 };
 
-#endif // SCRIPTUNIT_H
+#endif // SCRIPTUNITTEST_H

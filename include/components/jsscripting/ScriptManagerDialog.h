@@ -39,7 +39,7 @@ class ScriptManagerDialog;
 
 class ScriptManagerModel;
 class ScriptUnitView;
-class ScriptUnit;
+class IScriptUnit;
 
 class JSSCRIPTING_API ScriptManagerDialog : public QDialog
 {
@@ -52,7 +52,7 @@ public:
     ~ScriptManagerDialog();
 
 private slots:
-    void onScriptAdded(ScriptUnit *script);
+    void onScriptAdded(IScriptUnit *script);
     void onRun();
     void onSave();
     void onCurrentScriptModificationChanged(bool changed);

@@ -2,6 +2,7 @@
 #include "ScriptEngineTest.h"
 #include "ScriptConsoleTest.h"
 #include "ScriptingServiceTest.h"
+#include "ScriptUnitTest.h"
 
 #include "ScriptConsoleViewTest.h"
 
@@ -49,6 +50,9 @@ void runUnitTests(int argc, char *argv[])
 
     ScriptingServiceTest scriptServiceTest;
     QTest::qExec(&scriptServiceTest, argc, argv);
+
+    ScriptUnitTest scriptUnitTest;
+    QTest::qExec(&scriptUnitTest, argc, argv);
 }
 
 //------------------------------------------------------------------------------

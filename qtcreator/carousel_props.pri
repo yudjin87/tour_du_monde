@@ -115,3 +115,29 @@ defineTest(copyExtraFiles) {
 
     export(QMAKE_POST_LINK)
 }
+
+#########################################################
+# Copies the given files to the specified directory
+defineTest(copyExtraFilesToDir) {
+    files = $$1
+    DDIR = $$2
+
+    win32-msvc*:DDIR ~= s,/,\\,g
+    win32-msvc*:ABSOLUTE_PATH ~= s,/,\\,g
+
+    # Create directory for copying
+    win32-msvc* { # for Windows we also should check whether this directory exists
+        QMAKE_POST_LINK += $$QMAKE_CHK_DIR_EXISTS $$quote($$DDIR) $$QMAKE_MKDIR $$quote($$DDIR) $$escape_expand(\\n\\t)
+    } else {
+        QMAKE_POST_LINK += $$QMAKE_MKDIR $$quote($$DDIR) $$escape_expand(\\n\\t)
+    }
+
+    for(FILE, files) {
+        # Replace slashes in paths with backslashes for Windows
+        win32-msvc*:FILE ~= s,/,\\,g
+
+        QMAKE_POST_LINK += $$QMAKE_COPY $$quote($$FILE) $$quote($$DDIR) $$escape_expand(\\n\\t)
+    }
+
+    export(QMAKE_POST_LINK)
+}
