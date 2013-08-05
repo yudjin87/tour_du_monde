@@ -53,12 +53,14 @@ public:
 
 private slots:
     void onScriptAdded(IScriptUnit *script);
+    void onScriptRemoved(IScriptUnit *script);
     void onRun();
     void onSave();
     void onCurrentScriptModificationChanged(bool changed);
 
 private:
     ScriptUnitView *getCurrentView();
+    ScriptUnitView *getView(IScriptUnit *script);
     void clearModifiedMark(int index);
     void setModifiedMark(int index);
 

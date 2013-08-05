@@ -86,6 +86,14 @@ void ScriptManagerDialog::onScriptAdded(IScriptUnit *script)
 }
 
 //------------------------------------------------------------------------------
+void ScriptManagerDialog::onScriptRemoved(IScriptUnit *script)
+{
+    ScriptUnitView *view = getView(script);
+    int index = m_tabs.key(view);
+    m_ui->tabWidget->removeTab(index);
+}
+
+//------------------------------------------------------------------------------
 void ScriptManagerDialog::onRun()
 {
     ScriptUnitView *scriptView = getCurrentView();
@@ -131,6 +139,16 @@ ScriptUnitView *ScriptManagerDialog::getCurrentView()
         return nullptr;
 
     return m_tabs[m_ui->tabWidget->currentIndex()];
+}
+
+//------------------------------------------------------------------------------
+ScriptUnitView *ScriptManagerDialog::getView(IScriptUnit *script)
+{
+    for (ScriptUnitView *scriptView : m_tabs)
+        if (scriptView->data() == script)
+            return scriptView;
+
+    return nullptr;
 }
 
 //------------------------------------------------------------------------------
