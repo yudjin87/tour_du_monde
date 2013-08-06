@@ -33,7 +33,7 @@
 
 //------------------------------------------------------------------------------
 const QByteArray simpleScript(
-        "var obj = serviceLocator.findService(\"ScriptEngineTest\");"
+        "var obj = serviceLocator.locate(\"ScriptEngineTest\");"
         "var name = obj.objectName");
 
 //------------------------------------------------------------------------------
@@ -45,129 +45,131 @@ ScriptConsoleTest::ScriptConsoleTest(QObject *parent)
 //------------------------------------------------------------------------------
 void ScriptConsoleTest::evaluateLine_shouldReturnTrueForCorrectScript()
 {
-    QScriptEngine engine; ScriptConsole console(&engine);
+    ScriptConsole console;
 
-    QString error;
-    QVERIFY(console.evaluateLine(simpleScript, &error));
-    QVERIFY(error.isEmpty());
+    QString output; bool error = true;
+    console.execCommand(simpleScript, &output, &error);
+    QVERIFY(!error);
+    QVERIFY(output.isEmpty());
 }
 
 //------------------------------------------------------------------------------
 void ScriptConsoleTest::evaluateLine_shouldReturnFalseForIncorrectScript()
 {
-    QScriptEngine engine; ScriptConsole console(&engine);
+    ScriptConsole console;
 
-    QString error;
-    QVERIFY(!console.evaluateLine(wrongScript, &error));
-    QVERIFY(!error.isEmpty());
+    QString output; bool error = false;
+    console.execCommand(wrongScript, &output, &error);
+    QVERIFY(error);
+    QVERIFY(!output.isEmpty());
 }
 
 //------------------------------------------------------------------------------
 void ScriptConsoleTest::evaluateLine_shouldPopulateHistory()
 {
-    QScriptEngine engine; ScriptConsole console(&engine);
-    QVERIFY(console.history().isEmpty());
+    ScriptConsole console;
+    QVERIFY(console.commandHistory().isEmpty());
 
-    console.evaluateLine("oldest");
-    console.evaluateLine("older");
-    console.evaluateLine("newest");
+    console.execCommand("oldest");
+    console.execCommand("older");
+    console.execCommand("newest");
 
-    QCOMPARE(console.history().size(), 3);
+    QCOMPARE(console.commandHistory().size(), 3);
 }
 
 //------------------------------------------------------------------------------
 void ScriptConsoleTest::evaluateLine_shouldNotPopulateHistoryWithEmptyLine()
 {
-    QScriptEngine engine; ScriptConsole console(&engine);
-    QVERIFY(console.history().isEmpty());
+    ScriptConsole console;
+    QVERIFY(console.commandHistory().isEmpty());
 
-    console.evaluateLine("oldest");
-    console.evaluateLine("    ");
-    console.evaluateLine("");
-    console.evaluateLine("newest");
+    console.execCommand("oldest");
+    console.execCommand("    ");
+    console.execCommand("");
+    console.execCommand("newest");
 
-    QCOMPARE(console.history().size(), 2);
+    QCOMPARE(console.commandHistory().size(), 2);
 }
 
 //------------------------------------------------------------------------------
 void ScriptConsoleTest::evaluateLine_shouldResetHistoryHead()
 {
-    QScriptEngine engine; ScriptConsole console(&engine);
-    console.evaluateLine("0");
-    console.evaluateLine("1");
-    console.evaluateLine("2");
+    ScriptConsole console;
+    console.execCommand("0");
+    console.execCommand("1");
+    console.execCommand("2");
 
-    console.historyPrev();
-    console.historyPrev();
-    console.historyPrev();
+    console.prevCommand();
+    console.prevCommand();
+    console.prevCommand();
 
-    console.evaluateLine("3");
+    console.execCommand("3");
 
-    QStringList history = console.history();
+    QStringList commandHistory = console.commandHistory();
 
-    QCOMPARE(console.historyNext(), QString(""));
-    QCOMPARE(console.historyPrev(), history[3]);
+    QCOMPARE(console.nextCommand(), QString(""));
+    QCOMPARE(console.prevCommand(), commandHistory[3]);
 }
 
 //------------------------------------------------------------------------------
 void ScriptConsoleTest::historyPrev_shouldReturnCorrectCommand()
 {
-    QScriptEngine engine; ScriptConsole console(&engine);
-    console.evaluateLine("oldest");
-    console.evaluateLine("older");
-    console.evaluateLine("newest");
+    ScriptConsole console;
+    console.execCommand("oldest");
+    console.execCommand("older");
+    console.execCommand("newest");
 
-    QStringList history = console.history();
+    QStringList commandHistory = console.commandHistory();
 
-    QCOMPARE(console.historyPrev(), history[2]); // "last (newest)"    ^
-    QCOMPARE(console.historyPrev(), history[1]); // "older"            |
-    QCOMPARE(console.historyPrev(), history[0]); // "oldest"           |
-    QCOMPARE(console.historyPrev(), history[0]); // "oldest" anyway    |
-    QCOMPARE(console.historyPrev(), history[0]); // "oldest" anyway    |
+    QCOMPARE(console.prevCommand(), commandHistory[2]); // "last (newest)"    ^
+    QCOMPARE(console.prevCommand(), commandHistory[1]); // "older"            |
+    QCOMPARE(console.prevCommand(), commandHistory[0]); // "oldest"           |
+    QCOMPARE(console.prevCommand(), commandHistory[0]); // "oldest" anyway    |
+    QCOMPARE(console.prevCommand(), commandHistory[0]); // "oldest" anyway    |
 }
 
 //------------------------------------------------------------------------------
 void ScriptConsoleTest::historyNext_shouldReturnCorrectCommand()
 {
-    QScriptEngine engine; ScriptConsole console(&engine);
-    console.evaluateLine("oldest");
-    console.evaluateLine("older");
-    console.evaluateLine("newest");
+    ScriptConsole console;
+    console.execCommand("oldest");
+    console.execCommand("older");
+    console.execCommand("newest");
 
-    console.historyPrev();
-    console.historyPrev();
-    console.historyPrev();
+    console.prevCommand();
+    console.prevCommand();
+    console.prevCommand();
 
-    QStringList history = console.history();
-    QCOMPARE(console.historyNext(), history[1]); // "older"           |
-    QCOMPARE(console.historyNext(), history[2]); // "last (newest)"   |
-    QCOMPARE(console.historyNext(), QString("")); // "last"   anyway   |
-    QCOMPARE(console.historyNext(), QString("")); // "last"   anyway   v
+    QStringList commandHistory = console.commandHistory();
+    QCOMPARE(console.nextCommand(), commandHistory[1]); // "older"           |
+    QCOMPARE(console.nextCommand(), commandHistory[2]); // "last (newest)"   |
+    QCOMPARE(console.nextCommand(), QString("")); // "last"   anyway   |
+    QCOMPARE(console.nextCommand(), QString("")); // "last"   anyway   v
 }
 
 //------------------------------------------------------------------------------
 void ScriptConsoleTest::historyPrevNext_shouldReturnCorrectCommands()
 {
-    QScriptEngine engine; ScriptConsole console(&engine);
-    console.evaluateLine("oldest");
-    console.evaluateLine("middle");
-    console.evaluateLine("newest");
+    ScriptConsole console;
+    console.execCommand("oldest");
+    console.execCommand("middle");
+    console.execCommand("newest");
 
-    QStringList history = console.history();
+    QStringList commandHistory = console.commandHistory();
 
-    console.historyPrev();                       // "newest"    ^
-    console.historyPrev();                       // "middle"    ^
-    QCOMPARE(console.historyPrev(), history[0]); // "oldest"    ^
-    QCOMPARE(console.historyNext(), history[1]); // "middle"    v
-    QCOMPARE(console.historyNext(), history[2]); // "newest"    v
-    QCOMPARE(console.historyPrev(), history[1]); // "middle"    ^
-    QCOMPARE(console.historyNext(), history[2]); // "newest"    v
-    QCOMPARE(console.historyNext(), QString("")); // "newest"    v
+    console.prevCommand();                       // "newest"    ^
+    console.prevCommand();                       // "middle"    ^
+    QCOMPARE(console.prevCommand(), commandHistory[0]); // "oldest"    ^
+    QCOMPARE(console.nextCommand(), commandHistory[1]); // "middle"    v
+    QCOMPARE(console.nextCommand(), commandHistory[2]); // "newest"    v
+    QCOMPARE(console.prevCommand(), commandHistory[1]); // "middle"    ^
+    QCOMPARE(console.nextCommand(), commandHistory[2]); // "newest"    v
+    QCOMPARE(console.nextCommand(), QString("")); // "newest"    v
 
-    console.historyNext();
-    console.historyNext();
-    console.historyNext();
-    console.historyNext();
+    console.nextCommand();
+    console.nextCommand();
+    console.nextCommand();
+    console.nextCommand();
 }
 
 //------------------------------------------------------------------------------

@@ -45,7 +45,7 @@ public:
     explicit ColorTheme(const QString &name, QObject *parent = nullptr);
     ~ColorTheme();
 
-    static ColorTheme *createDefault(QObject *parent = nullptr);
+    static ColorTheme *getDefault();
 
     const QString &name() const;
     void setName(const QString &name);

@@ -32,7 +32,6 @@
 #include <QtCore/QObject>
 #include <QtCore/QStringList>
 
-class QScriptProgram;
 class QScriptEngine;
 
 /*!
@@ -54,11 +53,11 @@ public:
     /*!
      * @brief
      */
-    virtual bool evaluateLine(const QString &script, QString *error = nullptr) = 0;
+    virtual void execCommand(const QString &command, QString *output = nullptr, bool *error = nullptr) = 0;
 
-    virtual QString historyPrev() = 0;
-    virtual QString historyNext() = 0;
-    virtual const QStringList &history() const = 0;
+    virtual QString prevCommand() = 0;
+    virtual QString nextCommand() = 0;
+    virtual const QStringList &commandHistory() const = 0;
 
 private:
     Q_DISABLE_COPY(IScriptConsole)

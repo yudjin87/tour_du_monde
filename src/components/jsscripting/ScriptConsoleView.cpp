@@ -56,8 +56,20 @@ void ScriptConsoleView::onEnter()
 {
     QString command = m_ui->commandEdit->text();
     m_ui->commandEdit->clear();
-    m_console->evaluateLine(command);
-    m_ui->commandsList->append(command);
+    QString output;
+    bool error = false;
+    m_console->execCommand(command, &output, &error);
+
+    printOutput(QString(">>> %1\n").arg(command));
+    if (output.isEmpty())
+        return;
+
+    if (error)
+        printError(output);
+    else
+        printOutput(output);
+
+    printOutput("\n");
 }
 
 //------------------------------------------------------------------------------
@@ -67,10 +79,11 @@ bool ScriptConsoleView::eventFilter(QObject *sender, QEvent *event)
 
     if (event->type() == QEvent::KeyPress) {
         QKeyEvent *key = static_cast<QKeyEvent *>(event);
-        switch (key->key())
-        {
-        case Qt::Key_Up: onPrevCommand(); break;
-        case Qt::Key_Down: onNextCommand(); break;
+        switch (key->key()) {
+        case Qt::Key_Up: onPrevCommand();
+            break;
+        case Qt::Key_Down: onNextCommand();
+            break;
         }
     }
 
@@ -79,16 +92,31 @@ bool ScriptConsoleView::eventFilter(QObject *sender, QEvent *event)
 }
 
 //------------------------------------------------------------------------------
+void ScriptConsoleView::printError(const QString &error)
+{
+    m_ui->commandsList->setTextColor(Qt::red);
+    m_ui->commandsList->insertPlainText(error);
+    m_ui->commandsList->setTextColor(Qt::black);
+}
+
+//------------------------------------------------------------------------------
+void ScriptConsoleView::printOutput(const QString &output)
+{
+    if (!output.isEmpty())
+        m_ui->commandsList->insertPlainText(output);
+}
+
+//------------------------------------------------------------------------------
 void ScriptConsoleView::onPrevCommand()
 {
-    QString prev = m_console->historyPrev();
+    QString prev = m_console->prevCommand();
     m_ui->commandEdit->setText(prev);
 }
 
 //------------------------------------------------------------------------------
 void ScriptConsoleView::onNextCommand()
 {
-    QString next = m_console->historyNext();
+    QString next = m_console->nextCommand();
     m_ui->commandEdit->setText(next);
 }
 

@@ -29,6 +29,18 @@
 #include <QtGui/QTextCharFormat>
 
 //------------------------------------------------------------------------------
+namespace
+{
+QFont createDefaultFont()
+{
+    QFont font("Monospace");
+    font.setStyleHint(QFont::TypeWriter);
+    font.setPointSize(9);
+    return font;
+}
+} // namespace
+
+//------------------------------------------------------------------------------
 LexemeAppearance::LexemeAppearance(QObject *parent)
     : QObject(parent)
     , m_name("")
@@ -36,6 +48,7 @@ LexemeAppearance::LexemeAppearance(QObject *parent)
     , m_endPattern()
     , m_format(new QTextCharFormat())
 {
+    m_format->setFont(createDefaultFont());
 }
 
 //------------------------------------------------------------------------------
@@ -46,6 +59,7 @@ LexemeAppearance::LexemeAppearance(const QString &name, QObject *parent)
     , m_endPattern()
     , m_format(new QTextCharFormat())
 {
+    m_format->setFont(createDefaultFont());
 }
 
 //------------------------------------------------------------------------------
@@ -56,7 +70,7 @@ LexemeAppearance::LexemeAppearance(const QString &name, const QString &pattern, 
     , m_endPattern()
     , m_format(new QTextCharFormat())
 {
-
+    m_format->setFont(createDefaultFont());
 }
 
 //------------------------------------------------------------------------------
@@ -67,6 +81,7 @@ LexemeAppearance::LexemeAppearance(const QString &name, const QString &pattern, 
     , m_endPattern()
     , m_format(new QTextCharFormat())
 {
+    m_format->setFont(createDefaultFont());
     m_format->setForeground(foreground);
     m_format->setFontWeight(weight);
 }
@@ -79,6 +94,7 @@ LexemeAppearance::LexemeAppearance(const QString &name, const QString &pattern, 
     , m_endPattern(endPattern)
     , m_format(new QTextCharFormat())
 {
+    m_format->setFont(createDefaultFont());
     m_format->setForeground(foreground);
     m_format->setFontWeight(weight);
 }

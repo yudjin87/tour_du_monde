@@ -27,7 +27,6 @@
 #include "ScriptConsole.h"
 
 #include <carousel/logging/LoggerFacade.h>
-#include <carousel/utils/TypeObjectsMap.h>
 
 #include <QtScript/QScriptEngine>
 
@@ -38,14 +37,27 @@ static LoggerFacade Log = LoggerFacade::createLogger("ScriptConsole");
 }
 
 //------------------------------------------------------------------------------
-ScriptConsole::ScriptConsole(QObject *parent)
-    : m_engine(nullptr)
+ScriptConsole::ScriptConsole(QScriptEngine *engine, QObject *parent)
+    : m_output("")
+    , m_engine(engine)
     , m_history(QStringList())
     , m_historyCommand(m_history.begin())
     , m_historyCapacity(100) // TODO: read from application references
 {
-    m_engine = new QScriptEngine(this);
     setParent(parent);
+    engine->setParent(this);
+}
+
+//------------------------------------------------------------------------------
+ScriptConsole::ScriptConsole(QObject *parent)
+    : m_output("")
+    , m_engine(nullptr)
+    , m_history(QStringList())
+    , m_historyCommand(m_history.begin())
+    , m_historyCapacity(100) // TODO: read from application references
+{
+    setParent(parent);
+    m_engine = new QScriptEngine(this);
 }
 
 //------------------------------------------------------------------------------
@@ -55,26 +67,30 @@ QScriptEngine *ScriptConsole::engine()
 }
 
 //------------------------------------------------------------------------------
-bool ScriptConsole::evaluateLine(const QString &command, QString *error)
+void ScriptConsole::execCommand(const QString &command, QString *output, bool *error)
 {
     addCommandToHistory(command);
 
     QScriptValue result = m_engine->evaluate(command);
+    if (output != nullptr)
+        output->swap(m_output);
+
+    m_output.clear();
 
     if (!result.isError()) {
         if (error != nullptr)
-            error->clear();
-        return true;
+            *error = false;
+        return;
     }
 
     QString scriptError = QString("Script error:\n\"%1\"").arg(result.toString());
     Log.w(scriptError);
 
-    if (error == nullptr)
-        return false;
+    if (output != nullptr)
+        *output = result.toString();
 
-    *error = scriptError;
-    return false;
+    if (error != nullptr)
+        *error = true;
 }
 
 //------------------------------------------------------------------------------
@@ -90,7 +106,7 @@ void ScriptConsole::setHistoryCapacity(int capacity)
 }
 
 //------------------------------------------------------------------------------
-QString ScriptConsole::historyPrev()
+QString ScriptConsole::prevCommand()
 {
     if (m_history.isEmpty())
         return "";
@@ -102,7 +118,7 @@ QString ScriptConsole::historyPrev()
 }
 
 //------------------------------------------------------------------------------
-QString ScriptConsole::historyNext()
+QString ScriptConsole::nextCommand()
 {
     if (m_history.isEmpty())
         return "";
@@ -120,9 +136,15 @@ QString ScriptConsole::historyNext()
 }
 
 //------------------------------------------------------------------------------
-const QStringList &ScriptConsole::history() const
+const QStringList &ScriptConsole::commandHistory() const
 {
     return m_history;
+}
+
+//------------------------------------------------------------------------------
+QString *ScriptConsole::output()
+{
+    return &m_output;
 }
 
 //------------------------------------------------------------------------------

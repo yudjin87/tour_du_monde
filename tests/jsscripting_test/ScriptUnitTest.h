@@ -24,37 +24,29 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SCRIPTSERVICE_H
-#define SCRIPTSERVICE_H
+#ifndef SCRIPTUNITTEST_H
+#define SCRIPTUNITTEST_H
 
-#include <components/jsscripting/IScriptService.h>
+#include <QtCore/QObject>
 
-class IServiceLocator;
-class QScriptEngine;
-
-/*!
- * @brief
- */
-class JSSCRIPTING_API ScriptService : public IScriptService
+class ScriptUnitTest: public QObject
 {
     Q_OBJECT
 public:
-    explicit ScriptService(IServiceLocator *locator, QObject *parent = nullptr);
+    ScriptUnitTest(QObject *parent = nullptr);
 
-    IScriptConsole *console();
-
-    ServiceLocatorWrapper *locatorWrapper();
-    const ServiceLocatorWrapper *locatorWrapper() const;
-    void setLocatorWrapper(ServiceLocatorWrapper *locatorWrapper);
+private Q_SLOTS:
+    void shouldReturnAbsoluteFilePath();
+    void load_shouldLoadScript();
+    void load_shouldNotLoadScriptWithIncorrectFileName();
+    void load_shouldNotChangeDocumentModifiedFlag();
+    void save_shouldResetDocumentModifiedFlag();
+    void save_shouldNotResetDocumentModifiedFlagIfSavingFailed();
+    void saveAs_shouldChangeFileName();
+    void saveAs_shouldNotChangeFileNameIfSavingFailed();
 
 private:
-    Q_DISABLE_COPY(ScriptService)
-
-    void setUpEngine(QScriptEngine* engine);
-
-private:
-    ServiceLocatorWrapper *m_wrapper;
-    IScriptConsole *m_console;
+    QString m_testScriptPath;
 };
 
-#endif // SCRIPTSERVICE_H
+#endif // SCRIPTUNITTEST_H

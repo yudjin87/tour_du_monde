@@ -8,38 +8,59 @@ include(cmake/target_utils)
 ######################################################################
 # Sources
 set(__SOURCES
+    ${CRSL_TARGET_SOURCES}/CarouselEngineConfigurationDelegate.cpp 
     ${CRSL_TARGET_SOURCES}/CodeHighlighter.cpp 
     ${CRSL_TARGET_SOURCES}/ColorTheme.cpp 
     ${CRSL_TARGET_SOURCES}/JsScriptingComponent.cpp 
     ${CRSL_TARGET_SOURCES}/JsScriptingInteractiveExtension.cpp 
     ${CRSL_TARGET_SOURCES}/LexemeAppearance.cpp 
+    ${CRSL_TARGET_SOURCES}/ScriptCollection.cpp 
+    ${CRSL_TARGET_SOURCES}/ScriptCollectionDialog.cpp 
+    ${CRSL_TARGET_SOURCES}/ScriptCollectionModel.cpp 
     ${CRSL_TARGET_SOURCES}/ScriptConsole.cpp 
     ${CRSL_TARGET_SOURCES}/ScriptConsoleView.cpp 
-    ${CRSL_TARGET_SOURCES}/ScriptService.cpp 
+    ${CRSL_TARGET_SOURCES}/ScriptingService.cpp 
+    ${CRSL_TARGET_SOURCES}/ScriptUnit.cpp 
+    ${CRSL_TARGET_SOURCES}/ScriptUnitView.cpp 
     ${CRSL_TARGET_SOURCES}/ServiceLocatorWrapper.cpp 
+    ${CRSL_TARGET_SOURCES}/ShowScriptsOperation.cpp 
 )
 	
 ######################################################################
 # Headers
 set(__HEADERS
+    ${CRSL_TARGET_HEADERS}/CarouselEngineConfigurationDelegate.h 
     ${CRSL_TARGET_HEADERS}/CodeHighlighter.h 
     ${CRSL_TARGET_HEADERS}/ColorTheme.h 
+    ${CRSL_TARGET_HEADERS}/IEngineConfigurationDelegate.h 
+    ${CRSL_TARGET_HEADERS}/IScriptCollection.h 
     ${CRSL_TARGET_HEADERS}/IScriptConsole.h 
-    ${CRSL_TARGET_HEADERS}/IScriptService.h 
+    ${CRSL_TARGET_HEADERS}/IScriptEngineFactory.h 
+    ${CRSL_TARGET_HEADERS}/IScriptExtension.h 
+    ${CRSL_TARGET_HEADERS}/IScriptingService.h 
+    ${CRSL_TARGET_HEADERS}/IScriptUnit.h 
     ${CRSL_TARGET_HEADERS}/jsscripting_global.h 
     ${CRSL_TARGET_HEADERS}/JsScriptingComponent.h 
     ${CRSL_TARGET_HEADERS}/JsScriptingInteractiveExtension.h 
     ${CRSL_TARGET_HEADERS}/LexemeAppearance.h 
+    ${CRSL_TARGET_HEADERS}/ScriptCollection.h 
+    ${CRSL_TARGET_HEADERS}/ScriptCollectionDialog.h 
+    ${CRSL_TARGET_HEADERS}/ScriptCollectionModel.h 
     ${CRSL_TARGET_HEADERS}/ScriptConsole.h 
     ${CRSL_TARGET_HEADERS}/ScriptConsoleView.h 
-    ${CRSL_TARGET_HEADERS}/ScriptService.h 
+    ${CRSL_TARGET_HEADERS}/ScriptingService.h 
+    ${CRSL_TARGET_HEADERS}/ScriptUnit.h 
+    ${CRSL_TARGET_HEADERS}/ScriptUnitView.h 
     ${CRSL_TARGET_HEADERS}/ServiceLocatorWrapper.h 
+    ${CRSL_TARGET_HEADERS}/ShowScriptsOperation.h 
 )
 
 ######################################################################
 # Forms
 set(__FORMS
+    ${CRSL_TARGET_SOURCES}/ScriptCollectionDialog.ui 
     ${CRSL_TARGET_SOURCES}/ScriptConsoleView.ui 
+    ${CRSL_TARGET_SOURCES}/ScriptUnitView.ui 
 )
 
 ######################################################################

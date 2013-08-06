@@ -29,7 +29,6 @@
 
 #include <components/jsscripting/IScriptConsole.h>
 
-class QScriptProgram;
 class QScriptEngine;
 
 /*!
@@ -39,27 +38,37 @@ class JSSCRIPTING_API ScriptConsole : public IScriptConsole
 {
     Q_OBJECT
 public:
+
     explicit ScriptConsole(QObject *parent = nullptr);
+
+    /*!
+     * @details
+     *  Takes ownership for engine
+     */
+    explicit ScriptConsole(QScriptEngine *engine, QObject *parent = nullptr);
 
     QScriptEngine *engine();
 
     /*!
      * @brief
      */
-    bool evaluateLine(const QString &command, QString *error = nullptr);
+    void execCommand(const QString &command, QString *output = nullptr, bool *error = nullptr);
 
     int historyCapacity() const;
     void setHistoryCapacity(int capacity);
 
-    QString historyPrev();
-    QString historyNext();
-    const QStringList &history() const;
+    QString prevCommand();
+    QString nextCommand();
+    const QStringList &commandHistory() const;
+
+    QString *output();
 
 private:
     Q_DISABLE_COPY(ScriptConsole)
     void addCommandToHistory(const QString &command);
 
 private:
+    QString m_output;
     QScriptEngine *m_engine;
     QStringList m_history;
     QStringList::const_iterator m_historyCommand;

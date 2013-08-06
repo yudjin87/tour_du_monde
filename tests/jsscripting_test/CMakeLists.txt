@@ -20,6 +20,10 @@ file(GLOB __SOURCES_FAKES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} fakes/[^.]*.cpp)
 file(GLOB __HEADERS_FAKES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} fakes/[^.]*.h)	
 
 ######################################################################
+# Test scripts
+file(GLOB __SCRIPTS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.js)
+
+######################################################################
 # Qt generated files
 qt5_wrap_cpp(__HEADERS_MOC ${__HEADERS} ${__HEADERS_FAKES})
 
@@ -27,11 +31,12 @@ qt5_wrap_cpp(__HEADERS_MOC ${__HEADERS} ${__HEADERS_FAKES})
 # Group sources into IDE's filters
 source_group("src" FILES ${__SOURCES} ${__HEADERS})
 source_group("src\\fakes" FILES ${__SOURCES_FAKES} ${__HEADERS_FAKES})
+source_group("src\\scripts" FILES ${__SCRIPTS})
 source_group("moc" FILES ${__HEADERS_MOC})
 
 ######################################################################
 # Create target 'CRSL_PROJECT_NAME' from specified source files
-add_executable(${CRSL_PROJECT_NAME} ${__SOURCES} ${__HEADERS} ${__SOURCES_FAKES} ${__HEADERS_FAKES} ${__HEADERS_MOC})
+add_executable(${CRSL_PROJECT_NAME} ${__SOURCES} ${__HEADERS} ${__SOURCES_FAKES} ${__HEADERS_FAKES} ${__SCRIPTS} ${__HEADERS_MOC})
 crsl_add_test(${CRSL_PROJECT_NAME})
 
 ######################################################################
@@ -45,3 +50,7 @@ target_link_libraries(${CRSL_PROJECT_NAME} org.carousel.JsScripting Utils)
 ###############################################################################
 # Qt dependencies
 qt5_use_modules(${CRSL_PROJECT_NAME} Test)
+
+###############################################################################
+# Copy scripts to the output subdirectory "scripts"
+crsl_copy_extra_files(${CRSL_PROJECT_NAME} "${__SCRIPTS}" $<TARGET_FILE_DIR:${CRSL_PROJECT_NAME}>/scripts)

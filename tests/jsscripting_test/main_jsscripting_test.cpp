@@ -1,6 +1,10 @@
 #include "ServiceLocatorWrapperTest.h"
 #include "ScriptEngineTest.h"
 #include "ScriptConsoleTest.h"
+#include "ScriptingServiceTest.h"
+#include "ScriptUnitTest.h"
+#include "ScriptCollectionTest.h"
+#include "CarouselEngineConfigurationDelegateTest.h"
 
 #include "ScriptConsoleViewTest.h"
 
@@ -45,15 +49,27 @@ void runUnitTests(int argc, char *argv[])
 
     ScriptConsoleTest scriptConsoleTest;
     QTest::qExec(&scriptConsoleTest, argc, argv);
+
+    ScriptingServiceTest scriptServiceTest;
+    QTest::qExec(&scriptServiceTest, argc, argv);
+
+    ScriptUnitTest scriptUnitTest;
+    QTest::qExec(&scriptUnitTest, argc, argv);
+
+    ScriptCollectionTest scriptManagerTest;
+    QTest::qExec(&scriptManagerTest, argc, argv);
+
+    CarouselEngineConfigurationDelegateTest carouselEngineConfigurationDelegateTest;
+    QTest::qExec(&carouselEngineConfigurationDelegateTest, argc, argv);
 }
 
 //------------------------------------------------------------------------------
 void runGuiManualTests(QStringList arguments)
 {
-    Q_UNUSED(arguments)
-
-    ScriptConsoleViewTest *scriptConsoleViewTest = new ScriptConsoleViewTest(QApplication::instance());
-    scriptConsoleViewTest->test();
+    if (arguments.contains("ScriptConsoleViewTest")) {
+        ScriptConsoleViewTest *scriptConsoleViewTest = new ScriptConsoleViewTest(QApplication::instance());
+        scriptConsoleViewTest->test();
+    }
 }
 
 //------------------------------------------------------------------------------

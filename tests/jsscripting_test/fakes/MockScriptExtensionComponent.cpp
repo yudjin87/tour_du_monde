@@ -24,59 +24,36 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "ScriptService.h"
-#include "ScriptConsole.h"
-#include "ServiceLocatorWrapper.h"
-
-#include <QtScript/QScriptEngine>
+#include "MockScriptExtensionComponent.h"
 
 //------------------------------------------------------------------------------
-ScriptService::ScriptService(IServiceLocator *locator, QObject *parent)
-    : m_wrapper(nullptr)
-    , m_console(nullptr)
+MockScriptExtensionComponent::MockScriptExtensionComponent()
+    : BaseComponent("MockScriptExtensionComponent")
+    , m_extension(new FakeScriptExtension())
 {
-    m_wrapper = new ServiceLocatorWrapper(locator, this);
-    m_console = new ScriptConsole(this);
-
-    setUpEngine(m_console->engine());
-    setParent(parent);
+    registerExtension<IScriptExtension>(m_extension);
 }
 
 //------------------------------------------------------------------------------
-IScriptConsole *ScriptService::console()
+MockScriptExtensionComponent::MockScriptExtensionComponent(const QString &name)
+    : BaseComponent(name)
+    , m_extension(new FakeScriptExtension())
 {
-    return m_console;
+    registerExtension<IScriptExtension>(m_extension);
 }
 
 //------------------------------------------------------------------------------
-ServiceLocatorWrapper *ScriptService::locatorWrapper()
+MockScriptExtensionComponent::~MockScriptExtensionComponent()
 {
-    return m_wrapper;
+    delete m_extension;
+    m_extension = nullptr;
 }
 
 //------------------------------------------------------------------------------
-const ServiceLocatorWrapper *ScriptService::locatorWrapper() const
+MockNoScriptExtensionComponent::MockNoScriptExtensionComponent()
+    : BaseComponent("MockNoScriptExtensionComponent")
 {
-    return m_wrapper;
-}
 
-//------------------------------------------------------------------------------
-void ScriptService::setLocatorWrapper(ServiceLocatorWrapper *locatorWrapper)
-{
-    delete m_wrapper;
-    m_wrapper = locatorWrapper;
-    if (m_wrapper == nullptr)
-        return;
-
-    m_wrapper->setParent(this);
-    setUpEngine(m_console->engine());
-}
-
-//------------------------------------------------------------------------------
-void ScriptService::setUpEngine(QScriptEngine *engine)
-{
-    QScriptValue value = engine->newQObject(m_wrapper);
-    engine->globalObject().setProperty("serviceLocator", value);
 }
 
 //------------------------------------------------------------------------------

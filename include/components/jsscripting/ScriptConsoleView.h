@@ -60,6 +60,8 @@ private:
     void connectSignalsToSlots();
     void onPrevCommand();
     void onNextCommand();
+    void printError(const QString &error);
+    void printOutput(const QString &output);
 
 private:
     Ui::ScriptConsoleView *m_ui;

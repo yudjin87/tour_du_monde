@@ -28,14 +28,16 @@
 #include "CodeHighlighter.h"
 #include "ColorTheme.h"
 #include "IScriptConsole.h"
-#include "IScriptService.h"
+#include "IScriptingService.h"
 #include "ScriptConsoleView.h"
+#include "ShowScriptsOperation.h"
 
 #include <components/interactivity/ICatalogs.h>
 #include <components/interactivity/IDockWidgetCatalog.h>
 #include <components/interactivity/IMenuCatalog.h>
 #include <components/interactivity/IOperationCatalog.h>
 #include <components/interactivity/ToggleActionWrapper.h>
+#include <components/interactivity/ToogleDialogOperation.h>
 #include <carousel/utils/IServiceLocator.h>
 
 #include <QtWidgets/QDockWidget>
@@ -50,18 +52,25 @@ JsScriptingInteractiveExtension::JsScriptingInteractiveExtension(QObject *parent
 //------------------------------------------------------------------------------
 void JsScriptingInteractiveExtension::configureGui(ICatalogs &inCatalogs, IServiceLocator *serviceLocator)
 {
-    IScriptConsole *console = serviceLocator->locate<IScriptService>()->console();
-    ColorTheme *theme = ColorTheme::createDefault(this);
-    CodeHighlighter *hilighter = new CodeHighlighter(theme, this);
+    IScriptingService *service = serviceLocator->locate<IScriptingService>();
+    IScriptConsole *console = service->console();
+    CodeHighlighter *hilighter = new CodeHighlighter(ColorTheme::getDefault(), this);
 
     IDockWidgetCatalog &catalog = inCatalogs.dockWidgetCatalog();
-    QDockWidget *scriptDock = catalog.addDockWidget(
+
+    // script console
+    QDockWidget *scriptConsoleDock = catalog.addDockWidget(
             new ScriptConsoleView(console, hilighter), "Scripting (not working yet)", Qt::BottomDockWidgetArea);
 
-    Operation *scriptConsole = new ToggleActionWrapper(scriptDock->toggleViewAction(), QIcon(":/jsscripting/images/scriptWindow.png"));
+    Operation *scriptConsole = new ToggleActionWrapper(scriptConsoleDock->toggleViewAction(), QIcon(":/jsscripting/images/scriptWindow.png"));
     inCatalogs.operationCatalog().add(scriptConsole);
     QMenu *viewMenu = inCatalogs.menuCatalog().addMenu("View");
     viewMenu->addAction(scriptConsole);
+
+    // script IDE
+    Operation *scriptManager = new ShowScriptsOperation();
+    inCatalogs.operationCatalog().add(scriptManager);
+    viewMenu->addAction(scriptManager);
 }
 
 //------------------------------------------------------------------------------

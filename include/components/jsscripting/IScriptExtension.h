@@ -24,33 +24,30 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef ISCRIPTSERVICE_H
-#define ISCRIPTSERVICE_H
+#ifndef ISCRIPTEXTENSION_H
+#define ISCRIPTEXTENSION_H
 
+#include <carousel/componentsystem/IComponentExtension.h>
 #include <components/jsscripting/jsscripting_global.h>
 
-#include <QtCore/QObject>
-
-class ServiceLocatorWrapper;
-class IScriptConsole;
+class QScriptEngine;
 
 /*!
  * @brief
+ * @sa IComponent::extension().
  */
-class JSSCRIPTING_API IScriptService : public QObject
+class JSSCRIPTING_API IScriptExtension : public IComponentExtension
 {
-    Q_OBJECT
 public:
-    IScriptService(){}
+    IScriptExtension(){}
 
-    virtual IScriptConsole *console() = 0;
-
-    virtual ServiceLocatorWrapper *locatorWrapper() = 0;
-    virtual const ServiceLocatorWrapper *locatorWrapper() const = 0;
-    virtual void setLocatorWrapper(ServiceLocatorWrapper *locatorWrapper) = 0;
+    /*!
+     * @details
+     */
+    virtual void configureEngine(QScriptEngine *engine) = 0;
 
 private:
-    Q_DISABLE_COPY(IScriptService)
+    Q_DISABLE_COPY(IScriptExtension)
 };
 
-#endif // ISCRIPTSERVICE_H
+#endif // ISCRIPTEXTENSION_H
