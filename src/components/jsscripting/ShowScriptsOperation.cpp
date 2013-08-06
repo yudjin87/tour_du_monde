@@ -24,8 +24,8 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "ShowScriptManagerOperation.h"
-#include "ScriptManagerModel.h"
+#include "ShowScriptsOperation.h"
+#include "ScriptCollectionModel.h"
 
 #include <components/interactivity/IDialogService.h>
 #include <carousel/utils/IServiceLocator.h>
@@ -33,7 +33,7 @@
 #include <QtWidgets/QMainWindow>
 
 //------------------------------------------------------------------------------
-ShowScriptManagerOperation::ShowScriptManagerOperation()
+ShowScriptsOperation::ShowScriptsOperation()
     : Operation("Scripts")
     , m_serviceLocator(nullptr)
 {
@@ -42,17 +42,17 @@ ShowScriptManagerOperation::ShowScriptManagerOperation()
 }
 
 //------------------------------------------------------------------------------
-void ShowScriptManagerOperation::execute()
+void ShowScriptsOperation::execute()
 {
     IDialogService *dialogService = m_serviceLocator->locate<IDialogService>();
 
-    ScriptManagerModel *model = m_serviceLocator->buildInstance<ScriptManagerModel>();
+    ScriptCollectionModel *model = m_serviceLocator->buildInstance<ScriptCollectionModel>();
     dialogService->showDialog(model);
     delete model;
 }
 
 //------------------------------------------------------------------------------
-void ShowScriptManagerOperation::initialize(IServiceLocator *serviceLocator)
+void ShowScriptsOperation::initialize(IServiceLocator *serviceLocator)
 {
     m_serviceLocator = serviceLocator;
 }

@@ -26,7 +26,7 @@
 
 #include "ScriptingService.h"
 #include "ScriptConsole.h"
-#include "ScriptManager.h"
+#include "ScriptCollection.h"
 #include "CarouselEngineConfigurationDelegate.h"
 
 #include <carousel/componentsystem/IComponent.h>
@@ -50,9 +50,9 @@ ScriptingService::ScriptingService(IServiceLocator *locator, IComponentManager *
     : m_componentManager(manager) // TODO: connect to the components adding
     , m_scriptExtensionConfigurationDelegate(nullptr)
     , m_console(nullptr)
-    , m_scriptManager(nullptr)
+    , m_scripts(nullptr)
 {
-    m_scriptManager = new ScriptManager(this, this);
+    m_scripts = new ScriptCollection(this, this);
     m_scriptExtensionConfigurationDelegate = new CarouselEngineConfigurationDelegate(locator, this);
     m_console = new ScriptConsole(this);
     setUpEngine(m_console->engine(), m_console->output());
@@ -72,9 +72,9 @@ IScriptConsole *ScriptingService::console()
 }
 
 //------------------------------------------------------------------------------
-IScriptManager *ScriptingService::manager()
+IScriptCollection *ScriptingService::scripts()
 {
-    return m_scriptManager;
+    return m_scripts;
 }
 
 //------------------------------------------------------------------------------

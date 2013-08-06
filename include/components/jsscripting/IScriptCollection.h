@@ -24,8 +24,8 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef ISCRIPTMANAGER_H
-#define ISCRIPTMANAGER_H
+#ifndef ISCRIPTCOLLECTION_H
+#define ISCRIPTCOLLECTION_H
 
 #include <components/jsscripting/jsscripting_global.h>
 
@@ -34,7 +34,7 @@
 
 class IScriptUnit;
 
-class JSSCRIPTING_API IScriptManager : public QObject
+class JSSCRIPTING_API IScriptCollection : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QList<IScriptUnit *> scripts READ scripts)
@@ -42,7 +42,7 @@ public:
     typedef QList<IScriptUnit *> Scripts;
 
 public:
-    IScriptManager(){}
+    IScriptCollection(){}
 
     virtual Scripts scripts() const = 0;
 
@@ -74,7 +74,7 @@ signals:
     void scriptRemoved(IScriptUnit *script);
 
 private:
-    Q_DISABLE_COPY(IScriptManager)
+    Q_DISABLE_COPY(IScriptCollection)
 };
 
-#endif // ISCRIPTMANAGER_H
+#endif // ISCRIPTCOLLECTION_H

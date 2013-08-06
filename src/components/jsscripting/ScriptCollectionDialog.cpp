@@ -24,12 +24,12 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "ScriptManagerDialog.h"
-#include "ui_ScriptManagerDialog.h"
+#include "ScriptCollectionDialog.h"
+#include "ui_ScriptCollectionDialog.h"
 #include "CodeHighlighter.h"
 #include "ScriptUnitView.h"
 #include "IScriptUnit.h"
-#include "ScriptManagerModel.h"
+#include "ScriptCollectionModel.h"
 #include "ColorTheme.h"
 
 #include <carousel/logging/LoggerFacade.h>
@@ -39,28 +39,28 @@
 //------------------------------------------------------------------------------
 namespace
 {
-static LoggerFacade Log = LoggerFacade::createLogger("ScriptManagerDialog");
+static LoggerFacade Log = LoggerFacade::createLogger("ScriptCollectionDialog");
 }
 
 //------------------------------------------------------------------------------
-ScriptManagerDialog::ScriptManagerDialog(ScriptManagerModel *model, QWidget *parent)
+ScriptCollectionDialog::ScriptCollectionDialog(ScriptCollectionModel *model, QWidget *parent)
     : QDialog(parent)
-    , m_ui(new Ui::ScriptManagerDialog())
+    , m_ui(new Ui::ScriptCollectionDialog())
     , m_model(model)
 {
     m_ui->setupUi(this);
 
-    connect(m_ui->actionLoadScript, &QAction::triggered, m_model, &ScriptManagerModel::onLoad);
-    connect(m_ui->actionRun, &QAction::triggered, this, &ScriptManagerDialog::onRun);
-    connect(m_ui->actionSave, &QAction::triggered, this, &ScriptManagerDialog::onSave);
-    connect(m_model, &ScriptManagerModel::scriptAdded, this, &ScriptManagerDialog::onScriptAdded);
+    connect(m_ui->actionLoadScript, &QAction::triggered, m_model, &ScriptCollectionModel::onLoad);
+    connect(m_ui->actionRun, &QAction::triggered, this, &ScriptCollectionDialog::onRun);
+    connect(m_ui->actionSave, &QAction::triggered, this, &ScriptCollectionDialog::onSave);
+    connect(m_model, &ScriptCollectionModel::scriptAdded, this, &ScriptCollectionDialog::onScriptAdded);
 
     for (IScriptUnit *script : m_model->scripts())
         onScriptAdded(script);
 }
 
 //------------------------------------------------------------------------------
-ScriptManagerDialog::~ScriptManagerDialog()
+ScriptCollectionDialog::~ScriptCollectionDialog()
 {
     // Skip document signals
     for (ScriptUnitView *scriptView : m_tabs)
@@ -71,7 +71,7 @@ ScriptManagerDialog::~ScriptManagerDialog()
 }
 
 //------------------------------------------------------------------------------
-void ScriptManagerDialog::onScriptAdded(IScriptUnit *script)
+void ScriptCollectionDialog::onScriptAdded(IScriptUnit *script)
 {
     ScriptUnitView *scriptView = new ScriptUnitView(script, new CodeHighlighter(ColorTheme::getDefault(), this));
     int index = m_ui->tabWidget->addTab(scriptView, script->fileName());
@@ -82,11 +82,11 @@ void ScriptManagerDialog::onScriptAdded(IScriptUnit *script)
         setModifiedMark(index);
 
     connect(scriptView->data()->script(), &QTextDocument::modificationChanged,
-            this, &ScriptManagerDialog::onCurrentScriptModificationChanged);
+            this, &ScriptCollectionDialog::onCurrentScriptModificationChanged);
 }
 
 //------------------------------------------------------------------------------
-void ScriptManagerDialog::onScriptRemoved(IScriptUnit *script)
+void ScriptCollectionDialog::onScriptRemoved(IScriptUnit *script)
 {
     ScriptUnitView *view = getView(script);
     int index = m_tabs.key(view);
@@ -94,7 +94,7 @@ void ScriptManagerDialog::onScriptRemoved(IScriptUnit *script)
 }
 
 //------------------------------------------------------------------------------
-void ScriptManagerDialog::onRun()
+void ScriptCollectionDialog::onRun()
 {
     ScriptUnitView *scriptView = getCurrentView();
     if (scriptView == nullptr)
@@ -119,7 +119,7 @@ void ScriptManagerDialog::onRun()
 }
 
 //------------------------------------------------------------------------------
-void ScriptManagerDialog::onSave()
+void ScriptCollectionDialog::onSave()
 {
     ScriptUnitView *scriptView = getCurrentView();
     if (scriptView == nullptr)
@@ -130,7 +130,7 @@ void ScriptManagerDialog::onSave()
 }
 
 //------------------------------------------------------------------------------
-void ScriptManagerDialog::onCurrentScriptModificationChanged(bool changed)
+void ScriptCollectionDialog::onCurrentScriptModificationChanged(bool changed)
 {
     if (changed)
         setModifiedMark(m_ui->tabWidget->currentIndex());
@@ -139,7 +139,7 @@ void ScriptManagerDialog::onCurrentScriptModificationChanged(bool changed)
 }
 
 //------------------------------------------------------------------------------
-ScriptUnitView *ScriptManagerDialog::getCurrentView()
+ScriptUnitView *ScriptCollectionDialog::getCurrentView()
 {
     int index = m_ui->tabWidget->currentIndex();
     if (!m_tabs.contains(index))
@@ -149,7 +149,7 @@ ScriptUnitView *ScriptManagerDialog::getCurrentView()
 }
 
 //------------------------------------------------------------------------------
-ScriptUnitView *ScriptManagerDialog::getView(IScriptUnit *script)
+ScriptUnitView *ScriptCollectionDialog::getView(IScriptUnit *script)
 {
     for (ScriptUnitView *scriptView : m_tabs)
         if (scriptView->data() == script)
@@ -159,7 +159,7 @@ ScriptUnitView *ScriptManagerDialog::getView(IScriptUnit *script)
 }
 
 //------------------------------------------------------------------------------
-void ScriptManagerDialog::clearModifiedMark(int index)
+void ScriptCollectionDialog::clearModifiedMark(int index)
 {
     if (!m_tabs.contains(index))
         return;
@@ -173,7 +173,7 @@ void ScriptManagerDialog::clearModifiedMark(int index)
 }
 
 //------------------------------------------------------------------------------
-void ScriptManagerDialog::setModifiedMark(int index)
+void ScriptCollectionDialog::setModifiedMark(int index)
 {
     if (!m_tabs.contains(index))
         return;

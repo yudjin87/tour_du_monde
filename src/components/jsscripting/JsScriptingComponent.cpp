@@ -27,8 +27,8 @@
 #include "JsScriptingComponent.h"
 #include "JsScriptingInteractiveExtension.h"
 #include "ScriptingService.h"
-#include "ScriptManagerDialog.h"
-#include "ScriptManagerModel.h"
+#include "ScriptCollectionDialog.h"
+#include "ScriptCollectionModel.h"
 
 #include <carousel/componentsystem/ComponentExport.h>
 #include <carousel/componentsystem/IComponentManager.h>
@@ -84,10 +84,10 @@ bool JsScriptingComponent::onStartup(IServiceLocator *serviceLocator)
 
     // Services
     IDialogService *dialogService = serviceLocator->locate<IDialogService>();
-    dialogService->registerDialog<ScriptManagerDialog, ScriptManagerModel>();
+    dialogService->registerDialog<ScriptCollectionDialog, ScriptCollectionModel>();
 
-    auto scriptManagerModelCreator = [service](){return new ScriptManagerModel(service->manager());};
-    serviceLocator->registerType<ScriptManagerModel>(scriptManagerModelCreator);
+    auto scriptManagerModelCreator = [service](){return new ScriptCollectionModel(service->scripts());};
+    serviceLocator->registerType<ScriptCollectionModel>(scriptManagerModelCreator);
 
     return true;
 }

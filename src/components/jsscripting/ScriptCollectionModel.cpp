@@ -24,7 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "ScriptManagerModel.h"
+#include "ScriptCollectionModel.h"
 #include "IScriptUnit.h"
 
 #include <carousel/logging/LoggerFacade.h>
@@ -40,39 +40,39 @@
 //------------------------------------------------------------------------------
 namespace
 {
-static LoggerFacade Log = LoggerFacade::createLogger("ScriptManagerModel");
+static LoggerFacade Log = LoggerFacade::createLogger("ScriptCollectionModel");
 }
 
 //------------------------------------------------------------------------------
-ScriptManagerModel::ScriptManagerModel(IScriptManager *data, QObject *parent)
+ScriptCollectionModel::ScriptCollectionModel(IScriptCollection *data, QObject *parent)
     : QObject(parent)
     , m_data(data)
     , m_locator(nullptr)
 {
-    connect(m_data, &IScriptManager::scriptAdded, this, &ScriptManagerModel::scriptAdded);
-    connect(m_data, &IScriptManager::scriptRemoved, this, &ScriptManagerModel::scriptRemoved);
+    connect(m_data, &IScriptCollection::scriptAdded, this, &ScriptCollectionModel::scriptAdded);
+    connect(m_data, &IScriptCollection::scriptRemoved, this, &ScriptCollectionModel::scriptRemoved);
 }
 
 //------------------------------------------------------------------------------
-ScriptManagerModel::~ScriptManagerModel()
+ScriptCollectionModel::~ScriptCollectionModel()
 {
     m_locator = nullptr;
 }
 
 //------------------------------------------------------------------------------
-void ScriptManagerModel::injectServiceLocator(IServiceLocator *locator)
+void ScriptCollectionModel::injectServiceLocator(IServiceLocator *locator)
 {
     m_locator = locator;
 }
 
 //------------------------------------------------------------------------------
-IScriptManager::Scripts ScriptManagerModel::scripts() const
+IScriptCollection::Scripts ScriptCollectionModel::scripts() const
 {
     return m_data->scripts();
 }
 
 //------------------------------------------------------------------------------
-void ScriptManagerModel::onLoad()
+void ScriptCollectionModel::onLoad()
 {
     QFileDialog fileDialog(m_locator->locate<QMainWindow>(), "Load script");
     fileDialog.setNameFilter("JavaScript Files (*.js)");
@@ -96,7 +96,7 @@ void ScriptManagerModel::onLoad()
 }
 
 //------------------------------------------------------------------------------
-void ScriptManagerModel::onSave(IScriptUnit *script)
+void ScriptCollectionModel::onSave(IScriptUnit *script)
 {
     // for saveAs:
 //    if (script->fileName().isEmpty()) {
@@ -113,13 +113,13 @@ void ScriptManagerModel::onSave(IScriptUnit *script)
 }
 
 //------------------------------------------------------------------------------
-void ScriptManagerModel::onSaveAll()
+void ScriptCollectionModel::onSaveAll()
 {
 
 }
 
 //------------------------------------------------------------------------------
-bool ScriptManagerModel::onRun(IScriptUnit *script, QString *output)
+bool ScriptCollectionModel::onRun(IScriptUnit *script, QString *output)
 {
     return script->run(output);
 }

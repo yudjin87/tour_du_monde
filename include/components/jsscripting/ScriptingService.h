@@ -54,7 +54,7 @@ public:
 
     IScriptConsole *console();
 
-    IScriptManager *manager();
+    IScriptCollection *scripts();
 
     /*!
      * @details
@@ -75,7 +75,7 @@ private:
     IComponentManager *m_componentManager;
     IEngineConfigurationDelegate *m_scriptExtensionConfigurationDelegate;
     ScriptConsole *m_console;
-    IScriptManager *m_scriptManager;
+    IScriptCollection *m_scripts;
 };
 
 #endif // SCRIPTSERVICE_H

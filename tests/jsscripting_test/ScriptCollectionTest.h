@@ -24,54 +24,29 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SCRIPTMANAGER_H
-#define SCRIPTMANAGER_H
+#ifndef SCRIPTMANAGERTEST_H
+#define SCRIPTMANAGERTEST_H
 
-#include <components/jsscripting/IScriptManager.h>
+#include <QtCore/QObject>
 
-class IScriptEngineFactory;
-
-class JSSCRIPTING_API ScriptManager : public IScriptManager
+class ScriptCollectionTest: public QObject
 {
     Q_OBJECT
 public:
-    /*!
-     * @details
-     *   Does not takes ownership for factory;
-     */
-    ScriptManager(IScriptEngineFactory *factory, QObject *parent = nullptr);
-    ~ScriptManager();
+    ScriptCollectionTest(QObject *parent = nullptr);
 
-    Scripts scripts() const;
-
-    IScriptUnit *scriptByFileName(const QString &fileName);
-
-    /*!
-     * @details
-     *   Takes ownership.
-     */
-    IScriptUnit *createScript();
-
-    /*!
-     * @details
-     *   Takes ownership.
-     */
-    IScriptUnit *addScript(const QString &fileName);
-
-    void removeScript(IScriptUnit *script);
-
-    /*!
-     * @details
-     *   Takes ownership.
-     */
-    Scripts addScripts(const QString &directory);
-
-protected:
-    virtual IScriptUnit *createNewScript(const QString *fileName = nullptr);
+private Q_SLOTS:
+    void addScript_shouldAddScript();
+    void addScript_shouldLoadScript();
+    void addScript_shouldReturnNullIfLoadingFailed();
+    void addScript_shouldReturnExistedScript();
+    void addScripts_shouldAddAllScriptsFromDirectory();
+    void createScript_shouldAddScript();
+    void removeScript_shouldRemove();
+    void scriptByFileName_shouldReturnScript();
 
 private:
-    IScriptEngineFactory *m_factory;
-    Scripts m_scripts;
+    QString m_testScriptPath;
 };
 
-#endif // SCRIPTMANAGER_H
+#endif // SCRIPTMANAGERTEST_H

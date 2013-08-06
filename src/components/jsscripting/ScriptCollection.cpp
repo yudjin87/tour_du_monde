@@ -24,7 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "ScriptManager.h"
+#include "ScriptCollection.h"
 #include "ScriptUnit.h"
 #include "IScriptEngineFactory.h"
 
@@ -37,12 +37,12 @@
 //------------------------------------------------------------------------------
 namespace
 {
-static LoggerFacade Log = LoggerFacade::createLogger("ScriptManager");
+static LoggerFacade Log = LoggerFacade::createLogger("ScriptCollection");
 }
 
 //------------------------------------------------------------------------------
-ScriptManager::ScriptManager(IScriptEngineFactory *factory, QObject *parent)
-    : IScriptManager()
+ScriptCollection::ScriptCollection(IScriptEngineFactory *factory, QObject *parent)
+    : IScriptCollection()
     , m_factory(factory)
     , m_scripts(Scripts())
 {
@@ -50,20 +50,20 @@ ScriptManager::ScriptManager(IScriptEngineFactory *factory, QObject *parent)
 }
 
 //------------------------------------------------------------------------------
-ScriptManager::~ScriptManager()
+ScriptCollection::~ScriptCollection()
 {
     qDeleteAll(m_scripts);
     m_scripts.clear();
 }
 
 //------------------------------------------------------------------------------
-IScriptManager::Scripts ScriptManager::scripts() const
+IScriptCollection::Scripts ScriptCollection::scripts() const
 {
     return m_scripts;
 }
 
 //------------------------------------------------------------------------------
-IScriptUnit *ScriptManager::scriptByFileName(const QString &fileName)
+IScriptUnit *ScriptCollection::scriptByFileName(const QString &fileName)
 {
     QDir dir(QCoreApplication::applicationDirPath());
     QString absoluteName = dir.absoluteFilePath(fileName);
@@ -76,7 +76,7 @@ IScriptUnit *ScriptManager::scriptByFileName(const QString &fileName)
 }
 
 //------------------------------------------------------------------------------
-IScriptUnit *ScriptManager::createScript()
+IScriptUnit *ScriptCollection::createScript()
 {
     IScriptUnit *unit = createNewScript();
     m_scripts.push_back(unit);
@@ -85,7 +85,7 @@ IScriptUnit *ScriptManager::createScript()
 }
 
 //------------------------------------------------------------------------------
-IScriptUnit *ScriptManager::addScript(const QString &fileName)
+IScriptUnit *ScriptCollection::addScript(const QString &fileName)
 {
     IScriptUnit *existedScript = scriptByFileName(fileName);
     if (existedScript != nullptr)
@@ -102,7 +102,7 @@ IScriptUnit *ScriptManager::addScript(const QString &fileName)
 }
 
 //------------------------------------------------------------------------------
-void ScriptManager::removeScript(IScriptUnit *script)
+void ScriptCollection::removeScript(IScriptUnit *script)
 {
     if (!m_scripts.contains(script))
         return;
@@ -113,7 +113,7 @@ void ScriptManager::removeScript(IScriptUnit *script)
 }
 
 //------------------------------------------------------------------------------
-IScriptManager::Scripts ScriptManager::addScripts(const QString &directory)
+IScriptCollection::Scripts ScriptCollection::addScripts(const QString &directory)
 {
     static QStringList nameFilters {"*.js"};
     static QDirIterator::IteratorFlags flags = QDirIterator::NoIteratorFlags;
@@ -138,7 +138,7 @@ IScriptManager::Scripts ScriptManager::addScripts(const QString &directory)
 }
 
 //------------------------------------------------------------------------------
-IScriptUnit *ScriptManager::createNewScript(const QString *fileName)
+IScriptUnit *ScriptCollection::createNewScript(const QString *fileName)
 {
     return (fileName == nullptr) ? new ScriptUnit(m_factory) : new ScriptUnit(*fileName, m_factory);
 }

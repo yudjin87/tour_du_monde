@@ -24,29 +24,29 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "ScriptManagerTest.h"
+#include "ScriptCollectionTest.h"
 
-#include "fakes/FakeScriptManager.h"
+#include "fakes/FakeScriptCollection.h"
 #include "fakes/FakeScriptUnit.h"
 #include "fakes/FakeScriptEngineFactory.h"
 
-#include <components/jsscripting/ScriptManager.h>
+#include <components/jsscripting/ScriptCollection.h>
 
 #include <QtCore/QCoreApplication>
 #include <QtGui/QTextDocument>
 #include <QtTest/QtTest>
 
 //------------------------------------------------------------------------------
-ScriptManagerTest::ScriptManagerTest(QObject *parent)
+ScriptCollectionTest::ScriptCollectionTest(QObject *parent)
     : QObject(parent)
     , m_testScriptPath(QCoreApplication::applicationDirPath() + "/scripts/TestScript.js")
 {
 }
 
 //------------------------------------------------------------------------------
-void ScriptManagerTest::addScript_shouldAddScript()
+void ScriptCollectionTest::addScript_shouldAddScript()
 {
-    ScriptManager manager(new FakeScriptEngineFactory(this));
+    ScriptCollection manager(new FakeScriptEngineFactory(this));
     QVERIFY(manager.scripts().empty());
     manager.addScript(m_testScriptPath);
 
@@ -54,18 +54,18 @@ void ScriptManagerTest::addScript_shouldAddScript()
 }
 
 //------------------------------------------------------------------------------
-void ScriptManagerTest::addScript_shouldLoadScript()
+void ScriptCollectionTest::addScript_shouldLoadScript()
 {
-    ScriptManager manager(new FakeScriptEngineFactory(this));
+    ScriptCollection manager(new FakeScriptEngineFactory(this));
     manager.addScript(m_testScriptPath);
 
     QVERIFY(manager.scripts().first()->isLoaded());
 }
 
 //------------------------------------------------------------------------------
-void ScriptManagerTest::addScript_shouldReturnNullIfLoadingFailed()
+void ScriptCollectionTest::addScript_shouldReturnNullIfLoadingFailed()
 {
-    FakeScriptManager manager(new FakeScriptEngineFactory(this));
+    FakeScriptCollection manager(new FakeScriptEngineFactory(this));
     FakeScriptUnit *unit = new FakeScriptUnit(); unit->loadFileResult = false;
     manager.unitForCreating = unit;
     QVERIFY(manager.addScript(m_testScriptPath) == nullptr);
@@ -74,9 +74,9 @@ void ScriptManagerTest::addScript_shouldReturnNullIfLoadingFailed()
 }
 
 //------------------------------------------------------------------------------
-void ScriptManagerTest::addScript_shouldReturnExistedScript()
+void ScriptCollectionTest::addScript_shouldReturnExistedScript()
 {
-    ScriptManager manager(new FakeScriptEngineFactory(this));
+    ScriptCollection manager(new FakeScriptEngineFactory(this));
     IScriptUnit *script = manager.addScript(m_testScriptPath);
     IScriptUnit *sameScript = manager.addScript(m_testScriptPath);
 
@@ -84,18 +84,18 @@ void ScriptManagerTest::addScript_shouldReturnExistedScript()
 }
 
 //------------------------------------------------------------------------------
-void ScriptManagerTest::addScripts_shouldAddAllScriptsFromDirectory()
+void ScriptCollectionTest::addScripts_shouldAddAllScriptsFromDirectory()
 {
-    ScriptManager manager(new FakeScriptEngineFactory(this));
-    IScriptManager::Scripts scripts = manager.addScripts("scripts");
+    ScriptCollection manager(new FakeScriptEngineFactory(this));
+    IScriptCollection::Scripts scripts = manager.addScripts("scripts");
     QCOMPARE(scripts.size(), 2);
     QCOMPARE(manager.scripts().size(), 2);
 }
 
 //------------------------------------------------------------------------------
-void ScriptManagerTest::createScript_shouldAddScript()
+void ScriptCollectionTest::createScript_shouldAddScript()
 {
-    ScriptManager manager(new FakeScriptEngineFactory(this));
+    ScriptCollection manager(new FakeScriptEngineFactory(this));
     QVERIFY(manager.scripts().empty());
     manager.createScript();
 
@@ -103,10 +103,10 @@ void ScriptManagerTest::createScript_shouldAddScript()
 }
 
 //------------------------------------------------------------------------------
-void ScriptManagerTest::removeScript_shouldRemove()
+void ScriptCollectionTest::removeScript_shouldRemove()
 {
-    ScriptManager manager(new FakeScriptEngineFactory(this));
-    IScriptManager::Scripts scripts = manager.addScripts("scripts");
+    ScriptCollection manager(new FakeScriptEngineFactory(this));
+    IScriptCollection::Scripts scripts = manager.addScripts("scripts");
 
     manager.removeScript(scripts.first());
 
@@ -114,9 +114,9 @@ void ScriptManagerTest::removeScript_shouldRemove()
 }
 
 //------------------------------------------------------------------------------
-void ScriptManagerTest::scriptByFileName_shouldReturnScript()
+void ScriptCollectionTest::scriptByFileName_shouldReturnScript()
 {
-    ScriptManager manager(new FakeScriptEngineFactory(this));
+    ScriptCollection manager(new FakeScriptEngineFactory(this));
     IScriptUnit *script = manager.addScript(m_testScriptPath);
     IScriptUnit *sameScript = manager.scriptByFileName("scripts/TestScript.js");
 

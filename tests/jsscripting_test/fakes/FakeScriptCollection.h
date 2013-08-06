@@ -24,21 +24,21 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SHOWSCRIPTMANAGEROPERATION_H
-#define SHOWSCRIPTMANAGEROPERATION_H
+#ifndef FAKESCRIPTMANAGER_H
+#define FAKESCRIPTMANAGER_H
 
-#include <components/interactivity/Operation.h>
+#include <components/jsscripting/ScriptCollection.h>
 
-class ShowScriptManagerOperation : public Operation
+class FakeScriptCollection : public ScriptCollection
 {
+    Q_OBJECT
 public:
-    ShowScriptManagerOperation();
+    FakeScriptCollection(IScriptEngineFactory *factory, QObject *parent = nullptr);
 
-    void execute();
-    void initialize(IServiceLocator *serviceLocator);
+    IScriptUnit *createNewScript(const QString *fileName = nullptr);
 
-private:
-    IServiceLocator *m_serviceLocator;
+public:
+    IScriptUnit *unitForCreating;
 };
 
-#endif // SHOWSCRIPTMANAGEROPERATION_H
+#endif // FAKESCRIPTMANAGER_H

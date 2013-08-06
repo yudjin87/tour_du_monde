@@ -24,50 +24,54 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SCRIPTMANAGERVIEW_H
-#define SCRIPTMANAGERVIEW_H
+#ifndef SCRIPTCOLLECTION_H
+#define SCRIPTCOLLECTION_H
 
-#include <components/jsscripting/jsscripting_global.h>
+#include <components/jsscripting/IScriptCollection.h>
 
-#include <QtCore/QMap>
-#include <QtWidgets/QDialog>
+class IScriptEngineFactory;
 
-namespace Ui
-{
-class ScriptManagerDialog;
-}
-
-class ScriptManagerModel;
-class ScriptUnitView;
-class IScriptUnit;
-
-class JSSCRIPTING_API ScriptManagerDialog : public QDialog
+class JSSCRIPTING_API ScriptCollection : public IScriptCollection
 {
     Q_OBJECT
 public:
     /*!
      * @details
+     *   Does not takes ownership for factory;
      */
-    explicit ScriptManagerDialog(ScriptManagerModel *model, QWidget *parent = nullptr);
-    ~ScriptManagerDialog();
+    ScriptCollection(IScriptEngineFactory *factory, QObject *parent = nullptr);
+    ~ScriptCollection();
 
-private slots:
-    void onScriptAdded(IScriptUnit *script);
-    void onScriptRemoved(IScriptUnit *script);
-    void onRun();
-    void onSave();
-    void onCurrentScriptModificationChanged(bool changed);
+    Scripts scripts() const;
+
+    IScriptUnit *scriptByFileName(const QString &fileName);
+
+    /*!
+     * @details
+     *   Takes ownership.
+     */
+    IScriptUnit *createScript();
+
+    /*!
+     * @details
+     *   Takes ownership.
+     */
+    IScriptUnit *addScript(const QString &fileName);
+
+    void removeScript(IScriptUnit *script);
+
+    /*!
+     * @details
+     *   Takes ownership.
+     */
+    Scripts addScripts(const QString &directory);
+
+protected:
+    virtual IScriptUnit *createNewScript(const QString *fileName = nullptr);
 
 private:
-    ScriptUnitView *getCurrentView();
-    ScriptUnitView *getView(IScriptUnit *script);
-    void clearModifiedMark(int index);
-    void setModifiedMark(int index);
-
-private:
-    Ui::ScriptManagerDialog *m_ui;
-    ScriptManagerModel *m_model;
-    QMap<int, ScriptUnitView *> m_tabs;
+    IScriptEngineFactory *m_factory;
+    Scripts m_scripts;
 };
 
-#endif // SCRIPTMANAGERVIEW_H
+#endif // SCRIPTCOLLECTION_H

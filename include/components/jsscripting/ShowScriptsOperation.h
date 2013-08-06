@@ -24,29 +24,21 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SCRIPTMANAGERTEST_H
-#define SCRIPTMANAGERTEST_H
+#ifndef SHOWSCRIPTCOLLECTIONOPERATION_H
+#define SHOWSCRIPTCOLLECTIONOPERATION_H
 
-#include <QtCore/QObject>
+#include <components/interactivity/Operation.h>
 
-class ScriptManagerTest: public QObject
+class ShowScriptsOperation : public Operation
 {
-    Q_OBJECT
 public:
-    ScriptManagerTest(QObject *parent = nullptr);
+    ShowScriptsOperation();
 
-private Q_SLOTS:
-    void addScript_shouldAddScript();
-    void addScript_shouldLoadScript();
-    void addScript_shouldReturnNullIfLoadingFailed();
-    void addScript_shouldReturnExistedScript();
-    void addScripts_shouldAddAllScriptsFromDirectory();
-    void createScript_shouldAddScript();
-    void removeScript_shouldRemove();
-    void scriptByFileName_shouldReturnScript();
+    void execute();
+    void initialize(IServiceLocator *serviceLocator);
 
 private:
-    QString m_testScriptPath;
+    IServiceLocator *m_serviceLocator;
 };
 
-#endif // SCRIPTMANAGERTEST_H
+#endif // SHOWSCRIPTCOLLECTIONOPERATION_H

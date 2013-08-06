@@ -30,7 +30,7 @@
 #include "IScriptConsole.h"
 #include "IScriptingService.h"
 #include "ScriptConsoleView.h"
-#include "ShowScriptManagerOperation.h"
+#include "ShowScriptsOperation.h"
 
 #include <components/interactivity/ICatalogs.h>
 #include <components/interactivity/IDockWidgetCatalog.h>
@@ -68,7 +68,7 @@ void JsScriptingInteractiveExtension::configureGui(ICatalogs &inCatalogs, IServi
     viewMenu->addAction(scriptConsole);
 
     // script IDE
-    Operation *scriptManager = new ShowScriptManagerOperation();
+    Operation *scriptManager = new ShowScriptsOperation();
     inCatalogs.operationCatalog().add(scriptManager);
     viewMenu->addAction(scriptManager);
 }

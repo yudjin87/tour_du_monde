@@ -24,17 +24,17 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "FakeScriptManager.h"
+#include "FakeScriptCollection.h"
 
 //------------------------------------------------------------------------------
-FakeScriptManager::FakeScriptManager(IScriptEngineFactory *factory, QObject *parent)
-    : ScriptManager(factory, parent)
+FakeScriptCollection::FakeScriptCollection(IScriptEngineFactory *factory, QObject *parent)
+    : ScriptCollection(factory, parent)
     , unitForCreating(nullptr)
 {
 }
 
 //------------------------------------------------------------------------------
-IScriptUnit *FakeScriptManager::createNewScript(const QString *fileName)
+IScriptUnit *FakeScriptCollection::createNewScript(const QString *fileName)
 {
     Q_UNUSED(fileName)
     return unitForCreating;

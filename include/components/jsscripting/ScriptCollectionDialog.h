@@ -24,46 +24,50 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SCRIPTMANAGERMODEL_H
-#define SCRIPTMANAGERMODEL_H
+#ifndef SCRIPTCOLLECTIONVIEW_H
+#define SCRIPTCOLLECTIONVIEW_H
 
 #include <components/jsscripting/jsscripting_global.h>
-#include <components/jsscripting/IScriptManager.h>
 
-#include <QtCore/QObject>
+#include <QtCore/QMap>
+#include <QtWidgets/QDialog>
 
-class IServiceLocator;
+namespace Ui
+{
+class ScriptCollectionDialog;
+}
+
+class ScriptCollectionModel;
+class ScriptUnitView;
 class IScriptUnit;
-class IScriptManager;
 
-class JSSCRIPTING_API ScriptManagerModel : public QObject
+class JSSCRIPTING_API ScriptCollectionDialog : public QDialog
 {
     Q_OBJECT
 public:
     /*!
      * @details
-     *   Does not takes ownership
      */
-    explicit ScriptManagerModel(IScriptManager *data, QObject *parent = nullptr);
-    ~ScriptManagerModel();
+    explicit ScriptCollectionDialog(ScriptCollectionModel *model, QWidget *parent = nullptr);
+    ~ScriptCollectionDialog();
 
-    void injectServiceLocator(IServiceLocator *locator);
-
-    IScriptManager::Scripts scripts() const;
-
-public slots:
-    void onLoad();
-    void onSave(IScriptUnit *script);
-    void onSaveAll();
-    bool onRun(IScriptUnit *script, QString *output = nullptr);
-
-signals:
-    void scriptAdded(IScriptUnit *script);
-    void scriptRemoved(IScriptUnit *script);
+private slots:
+    void onScriptAdded(IScriptUnit *script);
+    void onScriptRemoved(IScriptUnit *script);
+    void onRun();
+    void onSave();
+    void onCurrentScriptModificationChanged(bool changed);
 
 private:
-    IScriptManager *m_data;
-    IServiceLocator *m_locator;
+    ScriptUnitView *getCurrentView();
+    ScriptUnitView *getView(IScriptUnit *script);
+    void clearModifiedMark(int index);
+    void setModifiedMark(int index);
+
+private:
+    Ui::ScriptCollectionDialog *m_ui;
+    ScriptCollectionModel *m_model;
+    QMap<int, ScriptUnitView *> m_tabs;
 };
 
-#endif // SCRIPTMANAGERMODEL_H
+#endif // SCRIPTCOLLECTIONVIEW_H

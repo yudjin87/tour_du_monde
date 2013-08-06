@@ -33,7 +33,7 @@
 
 class IScriptConsole;
 class IEngineConfigurationDelegate;
-class IScriptManager;
+class IScriptCollection;
 
 /*!
  * @brief
@@ -41,13 +41,13 @@ class IScriptManager;
 class JSSCRIPTING_API IScriptingService : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(IScriptManager *manager READ manager)
+    Q_PROPERTY(IScriptCollection *scripts READ scripts)
 public:
     IScriptingService(){}
 
     virtual IScriptConsole *console() = 0;
 
-    virtual IScriptManager *manager() = 0;
+    virtual IScriptCollection *scripts() = 0;
 
     virtual IEngineConfigurationDelegate *delegate() = 0;
     virtual const IEngineConfigurationDelegate *delegate() const = 0;

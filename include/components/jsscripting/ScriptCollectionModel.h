@@ -24,21 +24,46 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef FAKESCRIPTMANAGER_H
-#define FAKESCRIPTMANAGER_H
+#ifndef SCRIPTCOLLECTIONMODEL_H
+#define SCRIPTCOLLECTIONMODEL_H
 
-#include <components/jsscripting/ScriptManager.h>
+#include <components/jsscripting/jsscripting_global.h>
+#include <components/jsscripting/IScriptCollection.h>
 
-class FakeScriptManager : public ScriptManager
+#include <QtCore/QObject>
+
+class IServiceLocator;
+class IScriptUnit;
+class IScriptCollection;
+
+class JSSCRIPTING_API ScriptCollectionModel : public QObject
 {
     Q_OBJECT
 public:
-    FakeScriptManager(IScriptEngineFactory *factory, QObject *parent = nullptr);
+    /*!
+     * @details
+     *   Does not takes ownership
+     */
+    explicit ScriptCollectionModel(IScriptCollection *data, QObject *parent = nullptr);
+    ~ScriptCollectionModel();
 
-    IScriptUnit *createNewScript(const QString *fileName = nullptr);
+    void injectServiceLocator(IServiceLocator *locator);
 
-public:
-    IScriptUnit *unitForCreating;
+    IScriptCollection::Scripts scripts() const;
+
+public slots:
+    void onLoad();
+    void onSave(IScriptUnit *script);
+    void onSaveAll();
+    bool onRun(IScriptUnit *script, QString *output = nullptr);
+
+signals:
+    void scriptAdded(IScriptUnit *script);
+    void scriptRemoved(IScriptUnit *script);
+
+private:
+    IScriptCollection *m_data;
+    IServiceLocator *m_locator;
 };
 
-#endif // FAKESCRIPTMANAGER_H
+#endif // SCRIPTCOLLECTIONMODEL_H
