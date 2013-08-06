@@ -32,6 +32,7 @@
 
 #include <QtCore/QSet>
 
+class IComponent;
 class IComponentManager;
 class IServiceLocator;
 class ScriptConsole;
@@ -65,6 +66,9 @@ public:
     IEngineConfigurationDelegate *delegate();
     const IEngineConfigurationDelegate *delegate() const;
     void setDelegate(IEngineConfigurationDelegate *delegate);
+
+protected slots:
+    void onComponentStartedUp(IComponent *component);
 
 private:
     Q_DISABLE_COPY(ScriptingService)

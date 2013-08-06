@@ -27,6 +27,7 @@
 #include "ScriptingServiceTest.h"
 #include "fakes/FakeConfigurationDelegate.h"
 #include "fakes/MockComponentManager.h"
+#include "fakes/MockScriptExtensionComponent.h"
 
 #include <components/jsscripting/CarouselEngineConfigurationDelegate.h>
 #include <components/jsscripting/ServiceLocatorWrapper.h>
@@ -72,11 +73,25 @@ void ScriptingServiceTest::setDelegate_shouldResetConsoleEngine()
     QScriptValue defaultLocator = engine->globalObject().property("serviceLocator");
     QVERIFY(!defaultLocator.isNull());
 
-    FakeConfigurationDelegate *wrapper = new FakeConfigurationDelegate();
-    service.setDelegate(wrapper);
+    FakeConfigurationDelegate *delegate = new FakeConfigurationDelegate();
+    service.setDelegate(delegate);
 
     QObject *newWrapper = engine->globalObject().property("serviceLocator").toQObject();
     QVERIFY(newWrapper->objectName() == "NewWrapper");
+}
+
+//------------------------------------------------------------------------------
+void ScriptingServiceTest::shouldCallConfigureForConsoleEngineWhenComponentStarted()
+{
+    ServiceLocator locator; MockComponentManager manager(&locator);
+    ScriptingService service(&locator, &manager);
+    FakeConfigurationDelegate *delegate = new FakeConfigurationDelegate();
+    service.setDelegate(delegate);
+
+    MockScriptExtensionComponent comp;
+    manager.callOnComponentStarted(&comp);
+
+    QVERIFY(delegate->configureFromComponentCalled);
 }
 
 //------------------------------------------------------------------------------

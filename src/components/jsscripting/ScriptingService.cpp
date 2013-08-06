@@ -47,7 +47,7 @@ static LoggerFacade Log = LoggerFacade::createLogger("ScriptingService");
 
 //------------------------------------------------------------------------------
 ScriptingService::ScriptingService(IServiceLocator *locator, IComponentManager *manager, QObject *parent)
-    : m_componentManager(manager) // TODO: connect to the components adding
+    : m_componentManager(manager)
     , m_scriptExtensionConfigurationDelegate(nullptr)
     , m_console(nullptr)
     , m_scripts(nullptr)
@@ -55,9 +55,11 @@ ScriptingService::ScriptingService(IServiceLocator *locator, IComponentManager *
     m_scripts = new ScriptCollection(this, this);
     m_scriptExtensionConfigurationDelegate = new CarouselEngineConfigurationDelegate(locator, this);
     m_console = new ScriptConsole(this);
-    setUpEngine(m_console->engine(), m_console->output());
 
+    setUpEngine(m_console->engine(), m_console->output());
     setParent(parent);
+    connect(m_componentManager, &IComponentManager::componentStarted,
+            this, &ScriptingService::onComponentStartedUp);
 }
 
 //------------------------------------------------------------------------------
@@ -109,6 +111,15 @@ void ScriptingService::setDelegate(IEngineConfigurationDelegate *delegate)
         m_scriptExtensionConfigurationDelegate->setParent(this);
 
     setUpEngine(m_console->engine(), m_console->output());
+}
+
+//------------------------------------------------------------------------------
+void ScriptingService::onComponentStartedUp(IComponent *component)
+{
+    if (m_scriptExtensionConfigurationDelegate == nullptr)
+        return;
+
+    m_scriptExtensionConfigurationDelegate->configureFromComponent(component, m_console->engine());
 }
 
 //------------------------------------------------------------------------------

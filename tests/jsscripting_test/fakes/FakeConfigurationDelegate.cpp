@@ -32,6 +32,7 @@
 
 //------------------------------------------------------------------------------
 FakeConfigurationDelegate::FakeConfigurationDelegate()
+    : configureFromComponentCalled(false)
 {
 }
 
@@ -40,6 +41,7 @@ void FakeConfigurationDelegate::configureFromComponent(IComponent *component, QS
 {
     Q_UNUSED(component)
     Q_UNUSED(engine)
+    configureFromComponentCalled = true;
 }
 
 //------------------------------------------------------------------------------

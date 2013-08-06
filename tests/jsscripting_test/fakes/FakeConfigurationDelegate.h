@@ -37,6 +37,9 @@ public:
     void configureFromComponent(IComponent *component, QScriptEngine *engine);
 
     void configureDefaults(QScriptEngine *engine, QString *output = nullptr);
+
+public:
+    bool configureFromComponentCalled;
 };
 
 #endif // FAKECONFIGURATIONDELEGATE_H

@@ -39,6 +39,7 @@ private Q_SLOTS:
     void setDelegate_shouldSetupNull();
     void setDelegate_shouldResetConsoleEngine();
 
+    void shouldCallConfigureForConsoleEngineWhenComponentStarted();
 };
 
 #endif // SCRIPTSERVICETEST_H
