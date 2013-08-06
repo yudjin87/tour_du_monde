@@ -43,7 +43,7 @@ ScriptUnitTest::ScriptUnitTest(QObject *parent)
 //------------------------------------------------------------------------------
 void ScriptUnitTest::shouldReturnAbsoluteFilePath()
 {
-    ScriptUnit unit("scripts/TestScript.js");
+    ScriptUnit unit("scripts/TestScript.js", nullptr);
 
 #ifdef Q_OS_WIN32
     QCOMPARE(unit.absoluteFilePath().toLower(), m_testScriptPath.toLower());
@@ -56,7 +56,7 @@ void ScriptUnitTest::shouldReturnAbsoluteFilePath()
 //------------------------------------------------------------------------------
 void ScriptUnitTest::load_shouldLoadScript()
 {
-    ScriptUnit unit(m_testScriptPath);
+    ScriptUnit unit(m_testScriptPath, nullptr);
     QVERIFY(!unit.isLoaded());
     QVERIFY(unit.script()->isEmpty());
     QVERIFY(unit.load());
@@ -67,14 +67,14 @@ void ScriptUnitTest::load_shouldLoadScript()
 //------------------------------------------------------------------------------
 void ScriptUnitTest::load_shouldNotLoadScriptWithIncorrectFileName()
 {
-    ScriptUnit unit("/nowhere/TestScript.js");
+    ScriptUnit unit("/nowhere/TestScript.js", nullptr);
     QVERIFY(!unit.load());
 }
 
 //------------------------------------------------------------------------------
 void ScriptUnitTest::load_shouldNotChangeDocumentModifiedFlag()
 {
-    ScriptUnit unit(m_testScriptPath);
+    ScriptUnit unit(m_testScriptPath, nullptr);
     QVERIFY(!unit.script()->isModified());
     unit.load();
     QVERIFY(!unit.script()->isModified());
@@ -83,7 +83,7 @@ void ScriptUnitTest::load_shouldNotChangeDocumentModifiedFlag()
 //------------------------------------------------------------------------------
 void ScriptUnitTest::save_shouldResetDocumentModifiedFlag()
 {
-    ScriptUnit unit(m_testScriptPath);
+    ScriptUnit unit(m_testScriptPath, nullptr);
     unit.load();
     unit.script()->setModified(true);
     QVERIFY(unit.script()->isModified());

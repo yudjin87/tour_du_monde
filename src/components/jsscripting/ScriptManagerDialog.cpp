@@ -104,8 +104,7 @@ void ScriptManagerDialog::onRun()
     scriptView->clear();
 
     QString output;
-    bool error = false;
-    m_model->onRun(scriptView->data(), &output, &error);
+    bool error = m_model->onRun(scriptView->data(), &output);
 
     // TODO: merge the same functionality with Console view
     if (output.isEmpty())

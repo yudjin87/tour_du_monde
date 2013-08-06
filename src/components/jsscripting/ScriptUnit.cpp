@@ -25,6 +25,7 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "ScriptUnit.h"
+#include "IScriptEngineFactory.h"
 
 #include <carousel/logging/LoggerFacade.h>
 
@@ -34,6 +35,7 @@
 #include <QtCore/QCoreApplication>
 #include <QtCore/QTextStream>
 #include <QtGui/QTextDocument>
+#include <QtScript/QScriptEngine>
 
 //------------------------------------------------------------------------------
 namespace
@@ -42,21 +44,25 @@ static LoggerFacade Log = LoggerFacade::createLogger("ScriptUnit");
 }
 
 //------------------------------------------------------------------------------
-ScriptUnit::ScriptUnit(QObject *parent)
+ScriptUnit::ScriptUnit(IScriptEngineFactory *factory, QObject *parent)
     : IScriptUnit()
     , m_isLoaded(false)
     , m_fileName("")
+    , m_factory(factory)
     , m_script(new QTextDocument(this))
+    , m_engine(nullptr)
 {
     setParent(parent);
 }
 
 //------------------------------------------------------------------------------
-ScriptUnit::ScriptUnit(const QString &filePath, QObject *parent)
+ScriptUnit::ScriptUnit(const QString &filePath, IScriptEngineFactory *factory, QObject *parent)
     : IScriptUnit()
     , m_isLoaded(false)
     , m_fileName(absolutePath(filePath))
+    , m_factory(factory)
     , m_script(new QTextDocument(this))
+    , m_engine(nullptr)
 {
     setParent(parent);
 }
@@ -159,6 +165,33 @@ bool ScriptUnit::saveAs(const QString &fileName)
     m_fileName = fileName;
     m_script->setModified(false);
     return true;
+}
+
+//------------------------------------------------------------------------------
+bool ScriptUnit::run(QString *output)
+{
+    const QString &script = scriptText();
+    if (script.isEmpty()) {
+        Log.w("Empty script - nothing to evaluate");
+        return false;
+    }
+
+    if (!fileName().isEmpty())
+        save();
+
+    // Do not destroy previous engine, because script may still executes
+    m_engine.reset(m_factory->createEngine(output));
+    QScriptValue result = m_engine->evaluate(script);
+    if (!result.isError())
+        return true;
+
+    QString scriptError = QString("Script error:\"%1\"").arg(result.toString());
+    Log.w(scriptError);
+
+    if (output != nullptr)
+        *output = result.toString();
+
+    return false;
 }
 
 //------------------------------------------------------------------------------

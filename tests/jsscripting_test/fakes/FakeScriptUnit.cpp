@@ -28,7 +28,7 @@
 
 //------------------------------------------------------------------------------
 FakeScriptUnit::FakeScriptUnit(QObject *parent)
-    : ScriptUnit(parent)
+    : ScriptUnit(nullptr, parent)
     , saveToFileResult(false)
     , loadFileResult(true)
 {
@@ -36,7 +36,7 @@ FakeScriptUnit::FakeScriptUnit(QObject *parent)
 
 //------------------------------------------------------------------------------
 FakeScriptUnit::FakeScriptUnit(const QString &filePath, QObject *parent)
-    : ScriptUnit(filePath, parent)
+    : ScriptUnit(filePath, nullptr, parent)
     , saveToFileResult(false)
     , loadFileResult(true)
 {

@@ -54,6 +54,8 @@ public:
 
     virtual QString fileName() const = 0;
 
+    virtual bool run(QString *output = nullptr) = 0;
+
     virtual QString scriptText() const = 0;
     virtual QTextDocument *script() = 0;
     virtual const QTextDocument *script() const = 0;

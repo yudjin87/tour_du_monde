@@ -85,7 +85,7 @@ void CarouselEngineConfigurationDelegateTest::configureDefaults_shouldAddPrintFu
     delegate.configureDefaults(&engine, &buff);
     engine.evaluate("print(\"Hello, carousel!\")");
 
-    QCOMPARE(buff, QString("Hello, carousel!"));
+    QCOMPARE(buff, QString("Hello, carousel!\n"));
 }
 
 //------------------------------------------------------------------------------

@@ -119,12 +119,9 @@ void ScriptManagerModel::onSaveAll()
 }
 
 //------------------------------------------------------------------------------
-void ScriptManagerModel::onRun(IScriptUnit *script, QString *output, bool *error)
+bool ScriptManagerModel::onRun(IScriptUnit *script, QString *output)
 {
-    if (script == nullptr)
-        return;
-
-    m_data->runScript(script, output, error);
+    return script->run(output);
 }
 
 //------------------------------------------------------------------------------

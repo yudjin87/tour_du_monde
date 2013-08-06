@@ -33,11 +33,6 @@
 #include <QtCore/QCoreApplication>
 #include <QtCore/QDirIterator>
 #include <QtCore/QtAlgorithms>
-#include <QtCore/QScopedPointer>
-#include <QtScript/QScriptEngine>
-
-//------------------------------------------------------------------------------
-typedef QScopedPointer<QScriptEngine> QScriptEnginePtr;
 
 //------------------------------------------------------------------------------
 namespace
@@ -143,48 +138,9 @@ IScriptManager::Scripts ScriptManager::addScripts(const QString &directory)
 }
 
 //------------------------------------------------------------------------------
-void ScriptManager::runScript(IScriptUnit *script, QString *output, bool *error)
-{
-    if (script == nullptr)
-        return;
-
-    if (!m_scripts.contains(script)) {
-        Log.w(QString("Cannot run unknown script \"%1\"").arg(script->absoluteFilePath()));
-        return;
-    }
-
-    QString scriptCode = script->scriptText();
-    if (scriptCode.isEmpty()) {
-        Log.w("Empty script - nothing to evaluate");
-        return;
-    }
-
-    if (!script->fileName().isEmpty())
-        script->save();
-
-    QScriptEnginePtr engine(m_factory->createEngine(output));
-    QScriptValue result = engine->evaluate(scriptCode);
-    if (!result.isError()) {
-        if (error != nullptr)
-            *error = false;
-
-        return;
-    }
-
-    QString scriptError = QString("Script error:\"%1\"").arg(result.toString());
-    Log.w(scriptError);
-
-    if (output != nullptr)
-        *output = result.toString();
-
-    if (error != nullptr)
-        *error = true;
-}
-
-//------------------------------------------------------------------------------
 IScriptUnit *ScriptManager::createNewScript(const QString *fileName)
 {
-    return (fileName == nullptr) ? new ScriptUnit() : new ScriptUnit(*fileName);
+    return (fileName == nullptr) ? new ScriptUnit(m_factory) : new ScriptUnit(*fileName, m_factory);
 }
 
 //------------------------------------------------------------------------------

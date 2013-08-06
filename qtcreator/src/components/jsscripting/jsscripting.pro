@@ -15,8 +15,8 @@ INCLUDEPATH += $$HPP_SOURCE_TREE/components/jsscripting
 
 LIBS += -L$${DESTDIR} -lComponentSystem \
                       -lFramework \
-                      -lorg.carousel.Interactivity \
                       -lLogging \
+                      -lorg.carousel.Interactivity \
 
 ###############################################################################
 # Copy definition to the output directory, right near the library

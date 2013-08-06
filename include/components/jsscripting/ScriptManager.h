@@ -60,9 +60,6 @@ public:
 
     void removeScript(IScriptUnit *script);
 
-    // save before run
-    void runScript(IScriptUnit *script, QString *output = nullptr, bool *error = nullptr);
-
     /*!
      * @details
      *   Takes ownership.

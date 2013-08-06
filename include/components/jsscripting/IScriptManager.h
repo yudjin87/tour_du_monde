@@ -61,9 +61,6 @@ public slots:
 
     virtual void removeScript(IScriptUnit *script) = 0;
 
-    // saves before run
-    virtual void runScript(IScriptUnit *script, QString *output = nullptr, bool *error = nullptr) = 0;
-
     /*!
      * @details
      *   Takes ownership.

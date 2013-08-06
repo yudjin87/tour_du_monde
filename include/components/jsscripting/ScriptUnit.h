@@ -29,15 +29,22 @@
 
 #include <components/jsscripting/IScriptUnit.h>
 
+#include <QtCore/QScopedPointer>
+
+class IScriptEngineFactory;
+class QScriptEngine;
+
 class JSSCRIPTING_API ScriptUnit : public IScriptUnit
 {
     Q_OBJECT
+    typedef QScopedPointer<QScriptEngine> QScriptEnginePtr;
+
 public:
     /*!
      *
      */
-    ScriptUnit(QObject *parent = nullptr);
-    ScriptUnit(const QString &filePath, QObject *parent = nullptr);
+    ScriptUnit(IScriptEngineFactory *factory, QObject *parent = nullptr);
+    ScriptUnit(const QString &filePath, IScriptEngineFactory *factory, QObject *parent = nullptr);
     ~ScriptUnit();
 
 public:
@@ -57,6 +64,7 @@ public slots:
     void clear();
     bool save();
     bool saveAs(const QString &filePath);
+    bool run(QString *output = nullptr);
 
 protected:
     virtual bool saveToFile(const QString &filePath);
@@ -68,7 +76,9 @@ private:
 private:
     bool m_isLoaded;
     QString m_fileName;
+    IScriptEngineFactory *m_factory;
     QTextDocument *m_script;
+    QScriptEnginePtr m_engine;
 };
 
 #endif // SCRIPTUNIT_H
