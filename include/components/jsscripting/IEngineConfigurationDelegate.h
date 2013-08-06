@@ -24,21 +24,34 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SCRIPTSERVICETEST_H
-#define SCRIPTSERVICETEST_H
+#ifndef IENGINECONFIGURATIONDELEGATE_H
+#define IENGINECONFIGURATIONDELEGATE_H
+
+#include <components/jsscripting/jsscripting_global.h>
 
 #include <QtCore/QObject>
 
-class ScriptingServiceTest: public QObject
+class IComponent;
+class QScriptEngine;
+
+/*!
+ */
+class JSSCRIPTING_API IEngineConfigurationDelegate : public QObject
 {
     Q_OBJECT
 public:
-    ScriptingServiceTest(QObject *parent = nullptr);
+    IEngineConfigurationDelegate(){}
 
-private Q_SLOTS:
-    void setDelegate_shouldSetupNull();
-    void setDelegate_shouldResetConsoleEngine();
+public slots:
+    /*!
+     * @details
+     */
+    virtual void configureFromComponent(IComponent *component, QScriptEngine *engine) = 0;
+    virtual void configureDefaults(QScriptEngine *engine, QString *output = nullptr) = 0;
 
+
+private:
+    Q_DISABLE_COPY(IEngineConfigurationDelegate)
 };
 
-#endif // SCRIPTSERVICETEST_H
+#endif // IENGINECONFIGURATIONDELEGATE_H

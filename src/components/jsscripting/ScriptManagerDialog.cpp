@@ -100,15 +100,23 @@ void ScriptManagerDialog::onRun()
     if (scriptView == nullptr)
         return;
 
+    // TODO: scrip should run itself
     scriptView->clear();
 
     QString output;
     bool error = false;
     m_model->onRun(scriptView->data(), &output, &error);
+
+    // TODO: merge the same functionality with Console view
+    if (output.isEmpty())
+        return;
+
     if (error)
         scriptView->printError(output);
     else
         scriptView->printOutput(output);
+
+    scriptView->printOutput("\n");
 }
 
 //------------------------------------------------------------------------------

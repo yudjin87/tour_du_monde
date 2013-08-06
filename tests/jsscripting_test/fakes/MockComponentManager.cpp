@@ -24,21 +24,30 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SCRIPTSERVICETEST_H
-#define SCRIPTSERVICETEST_H
+#include "MockComponentManager.h"
 
-#include <QtCore/QObject>
-
-class ScriptingServiceTest: public QObject
+//------------------------------------------------------------------------------
+MockComponentManager::MockComponentManager(IServiceLocator *serviceLocator)
+    : ComponentManager(serviceLocator)
 {
-    Q_OBJECT
-public:
-    ScriptingServiceTest(QObject *parent = nullptr);
+}
 
-private Q_SLOTS:
-    void setDelegate_shouldSetupNull();
-    void setDelegate_shouldResetConsoleEngine();
+//------------------------------------------------------------------------------
+void MockComponentManager::callOnComponentStarted(IComponent *component)
+{
+    onComponentStarted(component);
+}
 
-};
+//------------------------------------------------------------------------------
+void MockComponentManager::callOnComponentAboutToShutDown(IComponent *component)
+{
+    onComponentAboutToShutDown(component);
+}
 
-#endif // SCRIPTSERVICETEST_H
+//------------------------------------------------------------------------------
+void MockComponentManager::callOnAboutToShutDown()
+{
+    onAboutToShutDown();
+}
+
+//------------------------------------------------------------------------------

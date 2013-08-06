@@ -32,7 +32,6 @@
 #include <QtCore/QObject>
 #include <QtCore/QStringList>
 
-class QScriptProgram;
 class QScriptEngine;
 
 /*!

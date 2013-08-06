@@ -24,57 +24,36 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "ScriptUnitView.h"
-#include "ui_ScriptUnitView.h"
-#include "IScriptUnit.h"
-
-#include <QtGui/QSyntaxHighlighter>
+#include "MockScriptExtensionComponent.h"
 
 //------------------------------------------------------------------------------
-ScriptUnitView::ScriptUnitView(IScriptUnit *data, QSyntaxHighlighter *highlighter, QWidget *parent)
-    : QWidget(parent)
-    , m_ui(new Ui::ScriptUnitView())
-    , m_data(data)
+MockScriptExtensionComponent::MockScriptExtensionComponent()
+    : BaseComponent("MockScriptExtensionComponent")
+    , m_extension(new FakeScriptExtension())
 {
-    m_ui->setupUi(this);
-    m_ui->scriptEditor->setDocument(m_data->script());
-
-    highlighter->setParent(this);
-    highlighter->setDocument(m_data->script());
+    registerExtension<IScriptExtension>(m_extension);
 }
 
 //------------------------------------------------------------------------------
-ScriptUnitView::~ScriptUnitView()
+MockScriptExtensionComponent::MockScriptExtensionComponent(const QString &name)
+    : BaseComponent(name)
+    , m_extension(new FakeScriptExtension())
 {
-    delete m_ui;
-    m_ui = nullptr;
+    registerExtension<IScriptExtension>(m_extension);
 }
 
 //------------------------------------------------------------------------------
-IScriptUnit *ScriptUnitView::data()
+MockScriptExtensionComponent::~MockScriptExtensionComponent()
 {
-    return m_data;
+    delete m_extension;
+    m_extension = nullptr;
 }
 
 //------------------------------------------------------------------------------
-void ScriptUnitView::clear()
+MockNoScriptExtensionComponent::MockNoScriptExtensionComponent()
+    : BaseComponent("MockNoScriptExtensionComponent")
 {
-    m_ui->outputEditor->clear();
-}
 
-//------------------------------------------------------------------------------
-void ScriptUnitView::printError(const QString &error)
-{
-    // TODO: merge same functional with Console View
-    m_ui->outputEditor->setTextColor(Qt::red);
-    m_ui->outputEditor->append(error);
-    m_ui->outputEditor->setTextColor(Qt::black);
-}
-
-//------------------------------------------------------------------------------
-void ScriptUnitView::printOutput(const QString &output)
-{
-    m_ui->outputEditor->append(output);
 }
 
 //------------------------------------------------------------------------------

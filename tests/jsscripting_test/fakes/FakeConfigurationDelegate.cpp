@@ -24,57 +24,33 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "ScriptUnitView.h"
-#include "ui_ScriptUnitView.h"
-#include "IScriptUnit.h"
+#include "FakeConfigurationDelegate.h"
 
-#include <QtGui/QSyntaxHighlighter>
+#include <components/jsscripting/ServiceLocatorWrapper.h>
+
+#include <QtScript/QScriptEngine>
 
 //------------------------------------------------------------------------------
-ScriptUnitView::ScriptUnitView(IScriptUnit *data, QSyntaxHighlighter *highlighter, QWidget *parent)
-    : QWidget(parent)
-    , m_ui(new Ui::ScriptUnitView())
-    , m_data(data)
+FakeConfigurationDelegate::FakeConfigurationDelegate()
 {
-    m_ui->setupUi(this);
-    m_ui->scriptEditor->setDocument(m_data->script());
-
-    highlighter->setParent(this);
-    highlighter->setDocument(m_data->script());
 }
 
 //------------------------------------------------------------------------------
-ScriptUnitView::~ScriptUnitView()
+void FakeConfigurationDelegate::configureFromComponent(IComponent *component, QScriptEngine *engine)
 {
-    delete m_ui;
-    m_ui = nullptr;
+    Q_UNUSED(component)
+    Q_UNUSED(engine)
 }
 
 //------------------------------------------------------------------------------
-IScriptUnit *ScriptUnitView::data()
+void FakeConfigurationDelegate::configureDefaults(QScriptEngine *engine, QString *output)
 {
-    return m_data;
-}
+    Q_UNUSED(output)
 
-//------------------------------------------------------------------------------
-void ScriptUnitView::clear()
-{
-    m_ui->outputEditor->clear();
-}
-
-//------------------------------------------------------------------------------
-void ScriptUnitView::printError(const QString &error)
-{
-    // TODO: merge same functional with Console View
-    m_ui->outputEditor->setTextColor(Qt::red);
-    m_ui->outputEditor->append(error);
-    m_ui->outputEditor->setTextColor(Qt::black);
-}
-
-//------------------------------------------------------------------------------
-void ScriptUnitView::printOutput(const QString &output)
-{
-    m_ui->outputEditor->append(output);
+    ServiceLocatorWrapper *wrapper = new ServiceLocatorWrapper(nullptr, engine);
+    wrapper->setObjectName("NewWrapper");
+    QScriptValue value = engine->newQObject(wrapper);
+    engine->globalObject().setProperty("serviceLocator", value);
 }
 
 //------------------------------------------------------------------------------

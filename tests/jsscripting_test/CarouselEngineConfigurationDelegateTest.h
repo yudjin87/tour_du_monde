@@ -24,21 +24,23 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SCRIPTSERVICETEST_H
-#define SCRIPTSERVICETEST_H
+#ifndef CAROUSELENGINECONFIGURATIONDELEGATETEST_H
+#define CAROUSELENGINECONFIGURATIONDELEGATETEST_H
 
 #include <QtCore/QObject>
 
-class ScriptingServiceTest: public QObject
+class CarouselEngineConfigurationDelegateTest : public QObject
 {
     Q_OBJECT
 public:
-    ScriptingServiceTest(QObject *parent = nullptr);
+    explicit CarouselEngineConfigurationDelegateTest(QObject *parent = nullptr);
 
 private Q_SLOTS:
-    void setDelegate_shouldSetupNull();
-    void setDelegate_shouldResetConsoleEngine();
+    void configureComponent_shouldConfigureComponentIfItHasScriptExtension();
+    void configureComponent_shouldNotThrowIfComponentHasNoScriptExtension();
+    void configureDefaults_shouldAddServiceLocatorObjectToEngine();
+    void configureDefaults_shouldAddPrintFunctionToEngine();
 
 };
 
-#endif // SCRIPTSERVICETEST_H
+#endif // CAROUSELENGINECONFIGURATIONDELEGATETEST_H

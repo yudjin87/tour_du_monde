@@ -8,6 +8,7 @@ include(cmake/target_utils)
 ######################################################################
 # Sources
 set(__SOURCES
+    ${CRSL_TARGET_SOURCES}/CarouselEngineConfigurationDelegate.cpp 
     ${CRSL_TARGET_SOURCES}/CodeHighlighter.cpp 
     ${CRSL_TARGET_SOURCES}/ColorTheme.cpp 
     ${CRSL_TARGET_SOURCES}/JsScriptingComponent.cpp 
@@ -28,10 +29,13 @@ set(__SOURCES
 ######################################################################
 # Headers
 set(__HEADERS
+    ${CRSL_TARGET_HEADERS}/CarouselEngineConfigurationDelegate.h 
     ${CRSL_TARGET_HEADERS}/CodeHighlighter.h 
     ${CRSL_TARGET_HEADERS}/ColorTheme.h 
+    ${CRSL_TARGET_HEADERS}/IEngineConfigurationDelegate.h 
     ${CRSL_TARGET_HEADERS}/IScriptConsole.h 
     ${CRSL_TARGET_HEADERS}/IScriptEngineFactory.h 
+    ${CRSL_TARGET_HEADERS}/IScriptExtension.h 
     ${CRSL_TARGET_HEADERS}/IScriptingService.h 
     ${CRSL_TARGET_HEADERS}/IScriptManager.h 
     ${CRSL_TARGET_HEADERS}/IScriptUnit.h 

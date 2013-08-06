@@ -27,10 +27,13 @@
 #include "ScriptingService.h"
 #include "ScriptConsole.h"
 #include "ScriptManager.h"
-#include "ServiceLocatorWrapper.h"
+#include "CarouselEngineConfigurationDelegate.h"
 
+#include <carousel/componentsystem/IComponent.h>
+#include <carousel/componentsystem/IComponentManager.h>
 #include <carousel/logging/LoggerFacade.h>
 #include <carousel/utils/IServiceLocator.h>
+#include <carousel/utils/ObservableList.h>
 #include <components/interactivity/ICatalogs.h>
 
 #include <QtWidgets/QMainWindow>
@@ -43,13 +46,14 @@ static LoggerFacade Log = LoggerFacade::createLogger("ScriptingService");
 }
 
 //------------------------------------------------------------------------------
-ScriptingService::ScriptingService(IServiceLocator *locator, QObject *parent)
-    : m_wrapper(nullptr)
+ScriptingService::ScriptingService(IServiceLocator *locator, IComponentManager *manager, QObject *parent)
+    : m_componentManager(manager) // TODO: connect to the components adding
+    , m_scriptExtensionConfigurationDelegate(nullptr)
     , m_console(nullptr)
     , m_scriptManager(nullptr)
 {
     m_scriptManager = new ScriptManager(this, this);
-    m_wrapper = new ServiceLocatorWrapper(locator, this);
+    m_scriptExtensionConfigurationDelegate = new CarouselEngineConfigurationDelegate(locator, this);
     m_console = new ScriptConsole(this);
     setUpEngine(m_console->engine(), m_console->output());
 
@@ -84,64 +88,45 @@ QScriptEngine *ScriptingService::createEngine(QString *output, QObject *parent)
 }
 
 //------------------------------------------------------------------------------
-ServiceLocatorWrapper *ScriptingService::locatorWrapper()
+IEngineConfigurationDelegate *ScriptingService::delegate()
 {
-    return m_wrapper;
+    return m_scriptExtensionConfigurationDelegate;
 }
 
 //------------------------------------------------------------------------------
-const ServiceLocatorWrapper *ScriptingService::locatorWrapper() const
+const IEngineConfigurationDelegate *ScriptingService::delegate() const
 {
-    return m_wrapper;
+    return m_scriptExtensionConfigurationDelegate;
 }
 
 //------------------------------------------------------------------------------
-void ScriptingService::setLocatorWrapper(ServiceLocatorWrapper *locatorWrapper)
+void ScriptingService::setDelegate(IEngineConfigurationDelegate *delegate)
 {
-    delete m_wrapper;
-    m_wrapper = locatorWrapper;
+    delete m_scriptExtensionConfigurationDelegate;
+    m_scriptExtensionConfigurationDelegate = delegate;
 
-    if (m_wrapper != nullptr)
-        m_wrapper->setParent(this);
+    if (m_scriptExtensionConfigurationDelegate != nullptr)
+        m_scriptExtensionConfigurationDelegate->setParent(this);
 
-    setUpEngine(m_console->engine(), nullptr); // TODO: temp
-}
-
-// TODO: temp
-#include <QtCore/QTextStream>
-//------------------------------------------------------------------------------
-QScriptValue myPrintFunction(QScriptContext *context, QScriptEngine *engine, void *out)
-{
-    QString *outP = static_cast<QString *>(out);
-    QString result;
-    QTextStream stream(&result);
-    int i = 0;
-    for (; i < context->argumentCount(); ++i) {
-        if (i > 0)
-            stream << " ";
-        stream << context->argument(i).toString();
-    }
-
-    if (i > 0)
-        stream << '\n';
-
-    if (outP != nullptr)
-        outP->append(*stream.string());
-
-    return engine->undefinedValue();
+    setUpEngine(m_console->engine(), m_console->output());
 }
 
 //------------------------------------------------------------------------------
 void ScriptingService::setUpEngine(QScriptEngine *engine, QString *output)
 {
+    if (m_scriptExtensionConfigurationDelegate == nullptr) {
+        // TODO: clear console engine, uncomment test
+        return;
+    }
+
     if (output != nullptr)
         output->clear();
 
-    QScriptValue value = engine->newQObject(m_wrapper);
-    engine->globalObject().setProperty("serviceLocator", value);
+    m_scriptExtensionConfigurationDelegate->configureDefaults(engine, output);
 
-    QScriptValue fun = engine->newFunction(myPrintFunction, (void *)output);
-    engine->globalObject().setProperty("print", fun);
+    for (IComponent *comp : m_componentManager->components()) {
+        m_scriptExtensionConfigurationDelegate->configureFromComponent(comp, engine);
+    }
 }
 
 //------------------------------------------------------------------------------

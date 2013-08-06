@@ -24,21 +24,19 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SCRIPTSERVICETEST_H
-#define SCRIPTSERVICETEST_H
+#ifndef FAKECONFIGURATIONDELEGATE_H
+#define FAKECONFIGURATIONDELEGATE_H
 
-#include <QtCore/QObject>
+#include <components/jsscripting/IEngineConfigurationDelegate.h>
 
-class ScriptingServiceTest: public QObject
+class FakeConfigurationDelegate : public IEngineConfigurationDelegate
 {
-    Q_OBJECT
 public:
-    ScriptingServiceTest(QObject *parent = nullptr);
+    FakeConfigurationDelegate();
 
-private Q_SLOTS:
-    void setDelegate_shouldSetupNull();
-    void setDelegate_shouldResetConsoleEngine();
+    void configureFromComponent(IComponent *component, QScriptEngine *engine);
 
+    void configureDefaults(QScriptEngine *engine, QString *output = nullptr);
 };
 
-#endif // SCRIPTSERVICETEST_H
+#endif // FAKECONFIGURATIONDELEGATE_H

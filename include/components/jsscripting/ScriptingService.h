@@ -32,6 +32,7 @@
 
 #include <QtCore/QSet>
 
+class IComponentManager;
 class IServiceLocator;
 class ScriptConsole;
 
@@ -47,7 +48,7 @@ public:
      * @details
      *   Does not takes ownership for locator;
      */
-    explicit ScriptingService(IServiceLocator *locator, QObject *parent = nullptr);
+    explicit ScriptingService(IServiceLocator *locator, IComponentManager *manager, QObject *parent = nullptr);
 
     ~ScriptingService();
 
@@ -61,9 +62,9 @@ public:
      */
     QScriptEngine *createEngine(QString *output = nullptr, QObject *parent = nullptr);
 
-    ServiceLocatorWrapper *locatorWrapper();
-    const ServiceLocatorWrapper *locatorWrapper() const;
-    void setLocatorWrapper(ServiceLocatorWrapper *locatorWrapper);
+    IEngineConfigurationDelegate *delegate();
+    const IEngineConfigurationDelegate *delegate() const;
+    void setDelegate(IEngineConfigurationDelegate *delegate);
 
 private:
     Q_DISABLE_COPY(ScriptingService)
@@ -71,7 +72,8 @@ private:
     void setUpEngine(QScriptEngine* engine, QString *output);
 
 private:
-    ServiceLocatorWrapper *m_wrapper;
+    IComponentManager *m_componentManager;
+    IEngineConfigurationDelegate *m_scriptExtensionConfigurationDelegate;
     ScriptConsole *m_console;
     IScriptManager *m_scriptManager;
 };

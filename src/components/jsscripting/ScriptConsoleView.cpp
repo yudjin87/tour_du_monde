@@ -61,10 +61,15 @@ void ScriptConsoleView::onEnter()
     m_console->execCommand(command, &output, &error);
 
     printOutput(QString(">>> %1\n").arg(command));
+    if (output.isEmpty())
+        return;
+
     if (error)
         printError(output);
     else
         printOutput(output);
+
+    printOutput("\n");
 }
 
 //------------------------------------------------------------------------------

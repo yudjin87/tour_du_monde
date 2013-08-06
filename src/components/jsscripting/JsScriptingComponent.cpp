@@ -31,6 +31,7 @@
 #include "ScriptManagerModel.h"
 
 #include <carousel/componentsystem/ComponentExport.h>
+#include <carousel/componentsystem/IComponentManager.h>
 #include <carousel/logging/LoggerFacade.h>
 #include <carousel/utils/IServiceLocator.h>
 
@@ -77,7 +78,8 @@ void JsScriptingComponent::onShutdown(IServiceLocator *serviceLocator)
 //------------------------------------------------------------------------------
 bool JsScriptingComponent::onStartup(IServiceLocator *serviceLocator)
 {
-    IScriptingService *service = new ScriptingService(serviceLocator);
+    IComponentManager *manager = serviceLocator->locate<IComponentManager>();
+    IScriptingService *service = new ScriptingService(serviceLocator, manager);
     serviceLocator->registerInstance<IScriptingService>(service);
 
     // Services

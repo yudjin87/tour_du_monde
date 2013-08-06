@@ -4,6 +4,7 @@
 #include "ScriptingServiceTest.h"
 #include "ScriptUnitTest.h"
 #include "ScriptManagerTest.h"
+#include "CarouselEngineConfigurationDelegateTest.h"
 
 #include "ScriptConsoleViewTest.h"
 
@@ -57,6 +58,9 @@ void runUnitTests(int argc, char *argv[])
 
     ScriptManagerTest scriptManagerTest;
     QTest::qExec(&scriptManagerTest, argc, argv);
+
+    CarouselEngineConfigurationDelegateTest carouselEngineConfigurationDelegateTest;
+    QTest::qExec(&carouselEngineConfigurationDelegateTest, argc, argv);
 }
 
 //------------------------------------------------------------------------------

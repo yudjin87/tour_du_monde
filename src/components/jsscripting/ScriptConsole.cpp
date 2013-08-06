@@ -87,7 +87,7 @@ void ScriptConsole::execCommand(const QString &command, QString *output, bool *e
     Log.w(scriptError);
 
     if (output != nullptr)
-        *output = result.toString() + "\n";
+        *output = result.toString();
 
     if (error != nullptr)
         *error = true;

@@ -32,7 +32,7 @@
 #include <QtCore/QObject>
 
 class IScriptConsole;
-class ServiceLocatorWrapper;
+class IEngineConfigurationDelegate;
 class IScriptManager;
 
 /*!
@@ -49,9 +49,9 @@ public:
 
     virtual IScriptManager *manager() = 0;
 
-    virtual ServiceLocatorWrapper *locatorWrapper() = 0;
-    virtual const ServiceLocatorWrapper *locatorWrapper() const = 0;
-    virtual void setLocatorWrapper(ServiceLocatorWrapper *locatorWrapper) = 0;
+    virtual IEngineConfigurationDelegate *delegate() = 0;
+    virtual const IEngineConfigurationDelegate *delegate() const = 0;
+    virtual void setDelegate(IEngineConfigurationDelegate *delegate) = 0;
 
 private:
     Q_DISABLE_COPY(IScriptingService)

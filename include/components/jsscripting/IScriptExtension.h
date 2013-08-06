@@ -24,21 +24,30 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SCRIPTSERVICETEST_H
-#define SCRIPTSERVICETEST_H
+#ifndef ISCRIPTEXTENSION_H
+#define ISCRIPTEXTENSION_H
 
-#include <QtCore/QObject>
+#include <carousel/componentsystem/IComponentExtension.h>
+#include <components/jsscripting/jsscripting_global.h>
 
-class ScriptingServiceTest: public QObject
+class QScriptEngine;
+
+/*!
+ * @brief
+ * @sa IComponent::extension().
+ */
+class JSSCRIPTING_API IScriptExtension : public IComponentExtension
 {
-    Q_OBJECT
 public:
-    ScriptingServiceTest(QObject *parent = nullptr);
+    IScriptExtension(){}
 
-private Q_SLOTS:
-    void setDelegate_shouldSetupNull();
-    void setDelegate_shouldResetConsoleEngine();
+    /*!
+     * @details
+     */
+    virtual void configureEngine(QScriptEngine *engine) = 0;
 
+private:
+    Q_DISABLE_COPY(IScriptExtension)
 };
 
-#endif // SCRIPTSERVICETEST_H
+#endif // ISCRIPTEXTENSION_H

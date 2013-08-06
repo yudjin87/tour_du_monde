@@ -2,10 +2,13 @@ PROJECT_SOURCES = $$CPP_SOURCE_TREE/components/jsscripting
 PROJECT_HEADERS = $$HPP_SOURCE_TREE/components/jsscripting
 
 HEADERS += \
+    $$PROJECT_HEADERS/CarouselEngineConfigurationDelegate.h \
     $$PROJECT_HEADERS/CodeHighlighter.h \
     $$PROJECT_HEADERS/ColorTheme.h \
+    $$PROJECT_HEADERS/IEngineConfigurationDelegate.h \
     $$PROJECT_HEADERS/IScriptConsole.h \
     $$PROJECT_HEADERS/IScriptEngineFactory.h \
+    $$PROJECT_HEADERS/IScriptExtension.h \
     $$PROJECT_HEADERS/IScriptingService.h \
     $$PROJECT_HEADERS/IScriptManager.h \
     $$PROJECT_HEADERS/IScriptUnit.h \
@@ -25,6 +28,7 @@ HEADERS += \
     $$PROJECT_HEADERS/ShowScriptManagerOperation.h \
 
 SOURCES += \
+    $$PROJECT_SOURCES/CarouselEngineConfigurationDelegate.cpp \
     $$PROJECT_SOURCES/CodeHighlighter.cpp \
     $$PROJECT_SOURCES/ColorTheme.cpp \
     $$PROJECT_SOURCES/JsScriptingComponent.cpp \
