@@ -33,7 +33,8 @@ HEADERS += \
     Map.h \
     CartoComponent.h \
     CartoMetaTypes.h \
-    IMap.h
+    IMap.h \
+    CartoScriptExtension.h
 
 SOURCES += \
     AbstractLayer.cpp \
@@ -42,7 +43,8 @@ SOURCES += \
     CartoComponent.cpp \
     PainterDocumentController.cpp \
     PainterDocument.cpp \
-    CartoMetaTypes.cpp
+    CartoMetaTypes.cpp \
+    CartoScriptExtension.cpp
 
 OTHER_FILES += org.carousel.demos.Carto.definition
 

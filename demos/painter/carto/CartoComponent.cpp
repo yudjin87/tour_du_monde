@@ -26,37 +26,13 @@
 
 #include "CartoComponent.h"
 #include "PainterDocumentController.h"
-
+#include "CartoScriptExtension.h"
 
 #include <display/IDisplay.h>
 
 #include <carousel/componentsystem/ComponentDefinition.h>
 #include <carousel/componentsystem/ComponentExport.h>
 #include <carousel/utils/IServiceLocator.h>
-
-//---------
-
-#include "AbstractLayer.h"
-
-#include <QtScript/QScriptEngine>
-
-#include <components/jsscripting/IScriptService.h>
-#include <components/jsscripting/IScriptConsole.h>
-
-#include <QtScript/QScriptEngine>
-#include <QtScript/QScriptValueIterator>
-
-Q_DECLARE_METATYPE(QList<AbstractLayer *>)
-
-int registerScriptMetaTypes(QScriptEngine *engine);
-
-//------------------------------------------------------------------------------
-int registerScriptMetaTypes(QScriptEngine *engine)
-{
-    return qScriptRegisterMetaType<QList<AbstractLayer *>>(engine,
-        qScriptValueFromSequence<QList<AbstractLayer *>>,
-        qScriptValueToSequence<QList<AbstractLayer *>>);
-}
 
 //------------------------------------------------------------------------------
 static const QByteArray productName("Carto");
@@ -65,6 +41,9 @@ static const QByteArray productName("Carto");
 CartoComponent::CartoComponent()
     : BaseComponent("org.carousel.demos.Carto")
 {
+    IScriptExtension *scriptExtension = new CartoScriptExtension(this);
+    registerExtension<IScriptExtension>(scriptExtension);
+
     addParent("org.carousel.JsScripting", 1, 0);
     addParent("org.carousel.demos.Display", 1, 0);
     addParent("org.carousel.demos.Geodatabase", 1, 0);
@@ -90,9 +69,6 @@ void CartoComponent::onShutdown(IServiceLocator *serviceLocator)
 //------------------------------------------------------------------------------
 bool CartoComponent::onStartup(IServiceLocator *serviceLocator)
 {
-    static const int cartoTypeIds = registerScriptMetaTypes(serviceLocator->locate<IScriptService>()
-                                                            ->console()->engine());
-
     IDisplay *display = serviceLocator->locate<IDisplay>();
     IPainterDocumentController *controller = new PainterDocumentController(display);
     serviceLocator->registerInstance<IPainterDocumentController>(controller);
