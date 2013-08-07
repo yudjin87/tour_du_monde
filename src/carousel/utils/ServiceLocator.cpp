@@ -46,6 +46,21 @@ ServiceLocator::~ServiceLocator()
 }
 
 //------------------------------------------------------------------------------
+QObject *ServiceLocator::buildObject(const QString &className)
+{
+    return buildObject(className, "");
+}
+
+//------------------------------------------------------------------------------
+QObject *ServiceLocator::buildObject(const QString &className, const QString &tag)
+{
+    const factoryMethod &creator = m_creators->getInstance(className, tag);
+    void *data = creator();
+    QObject *object = reinterpret_cast<QObject *>(data);
+    return object;
+}
+
+//------------------------------------------------------------------------------
 QObject *ServiceLocator::locateToObject(const QString &className)
 {
     return locateToObject(className, "");
@@ -61,7 +76,7 @@ QObject *ServiceLocator::locateToObject(const QString &className, const QString 
 
 //------------------------------------------------------------------------------
 void ServiceLocator::registerTypeImpl(const QString &className, factoryMethod method, const QString &tag)
-  {
+{
     m_creators->registerInstance(method, className, tag);
 }
 
@@ -74,11 +89,11 @@ void *ServiceLocator::unregisterInstanceImpl(const QString &className, const QSt
 
 //------------------------------------------------------------------------------
 void *ServiceLocator::buildInstanceImpl(const QString &className, const QString &tag)
-  {
-  const factoryMethod &creator = m_creators->getInstance(className, tag);
-  void *data = creator();
-  return data;
-  }
+{
+    const factoryMethod &creator = m_creators->getInstance(className, tag);
+    void *data = creator();
+    return data;
+}
 
 //------------------------------------------------------------------------------
 void *ServiceLocator::getService(const QString &className, const QString &tag)

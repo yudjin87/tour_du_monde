@@ -42,3 +42,9 @@ QObject *ServiceLocatorWrapper::locate(const QString &name)
 }
 
 //------------------------------------------------------------------------------
+QObject *ServiceLocatorWrapper::build(const QString &name)
+{
+    return m_locator->buildObject(name);
+}
+
+//------------------------------------------------------------------------------

@@ -257,3 +257,14 @@ void ServiceLocatorTest::canBuildBindedInterfaceByTypeAndTag()
 }
 
 //------------------------------------------------------------------------------
+void ServiceLocatorTest::canBuildRegisteredWithFactoryMethodInterfaceClassName()
+{
+    MockServiceLocator mockLocator;
+    auto creator = [](){return new Service1();};
+    mockLocator.registerType<IService>(creator);
+
+    QObject *obj = mockLocator.buildObject("IService");
+    QVERIFY(dynamic_cast<IService *>(obj) != nullptr);
+}
+
+//------------------------------------------------------------------------------

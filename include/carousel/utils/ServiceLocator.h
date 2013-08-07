@@ -49,6 +49,26 @@ public:
 
     /*!
      * @details
+     *   Creates and returns a @a className pointer using empty tag and registered
+     *   factory method, if any. Returns nullptr otherwise.
+     *   This may be usefull for scpipting, where no templates.
+     * @return the corresponding service if such found. Null pointer otherwise.
+     * @note Does not take ownership of the created pointer.
+     */
+    QObject *buildObject(const QString &className);
+
+    /*!
+     * @details
+     *   Creates and returns a @a className pointer using specified tag and registered
+     *   factory method, if any. Returns nullptr otherwise.
+     *   This may be usefull for scpipting, where no templates.
+     * @return the corresponding service if such found. Null pointer otherwise.
+     * @note Does not take ownership of the created pointer.
+     */
+    QObject *buildObject(const QString &className, const QString &tag);
+
+    /*!
+     * @details
      *   Finds the service registered with @a className and empty tag and returns
      *   a QObject pointer to it.
      *   This may be usefull for scpipting, where no templates.

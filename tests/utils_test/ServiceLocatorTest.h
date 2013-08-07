@@ -32,7 +32,9 @@ private Q_SLOTS:
 
     void canBuildRegisteredWithFactoryMethodInterfaceByType();
     void canBuildBindedInterfaceByType();
-    void canBuildBindedInterfaceByTypeAndTag();
+    void canBuildBindedInterfaceByTypeAndTag();    
+    void canBuildRegisteredWithFactoryMethodInterfaceClassName();
+
 };
 
 #endif // SERVICELOCATORTEST_H
