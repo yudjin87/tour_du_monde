@@ -38,6 +38,12 @@ ShapeFileWorkspaceFactory::ShapeFileWorkspaceFactory(IServiceLocator *locator)
 }
 
 //------------------------------------------------------------------------------
+ShapeFileWorkspaceFactory::~ShapeFileWorkspaceFactory()
+{
+    m_locator = nullptr;
+}
+
+//------------------------------------------------------------------------------
 IWorkspace *ShapeFileWorkspaceFactory::openFromFile(const QString &workspacePath)
 {
     return new ShapeFileFeatureWorkspace(workspacePath, m_locator);
