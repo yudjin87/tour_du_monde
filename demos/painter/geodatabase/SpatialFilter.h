@@ -31,6 +31,7 @@
 
 class GEODATABASE_API SpatialFilter : public ISpatialFilter
 {
+    Q_OBJECT
 public:
     SpatialFilter();
 

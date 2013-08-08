@@ -61,6 +61,9 @@ public:
 
     void setupPainter(QPainter *painter);
 
+public slots:
+    void setColor(int r, int g, int b, int a = 255);
+
 protected:
     explicit FillSymbol(QObject *parent = 0);
 

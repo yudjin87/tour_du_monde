@@ -47,6 +47,12 @@ void LineSymbol::setColor(const QColor &color)
 }
 
 //------------------------------------------------------------------------------
+void LineSymbol::setColor(int r, int g, int b, int a)
+{
+    setColor(QColor(r, g, b, a));
+}
+
+//------------------------------------------------------------------------------
 qreal LineSymbol::width() const
 {
     return m_width;

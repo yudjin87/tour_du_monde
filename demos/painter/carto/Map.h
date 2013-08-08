@@ -39,7 +39,6 @@ public:
     Map(IPainterDocument *parentDocument, IDisplay *display);
     ~Map();
 
-    void addLayer(AbstractLayer *layer);
 
     QList<AbstractLayer *> layers() const;
 
@@ -48,6 +47,7 @@ public:
 
 public slots:
     void refresh();
+    void addLayer(AbstractLayer *layer);
 
 private slots:
     void onVisibleBoundsChanged(DisplayTransformation *transform);

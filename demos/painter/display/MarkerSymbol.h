@@ -67,6 +67,9 @@ public:
     const QColor &color() const;
     void setColor(const QColor &color);
 
+public slots:
+    void setColor(int r, int g, int b, int a = 255);
+
 protected:
     explicit MarkerSymbol(QObject *parent = 0);
 

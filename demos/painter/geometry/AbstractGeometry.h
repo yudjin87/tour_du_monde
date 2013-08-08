@@ -28,16 +28,20 @@
 #define ABSTRACTGEOMETRY_H
 
 #include "geometry_api.h"
-
 #include "GeometryType.h"
 
+#include <QtCore/QObject>
 #include <QtCore/QRectF>
 
-class GEOMETRY_API AbstractGeometry
+class GEOMETRY_API AbstractGeometry : public QObject
 {
+    Q_OBJECT
+    Q_PROPERTY(int id READ id)
+    Q_PROPERTY(int type READ type)
+    Q_PROPERTY(QRectF extent READ extent)
 public:
-    AbstractGeometry();
-    AbstractGeometry(const QRectF &extent);
+    explicit AbstractGeometry(QObject *parent = nullptr);
+    explicit AbstractGeometry(const QRectF &extent, QObject *parent = nullptr);
     virtual ~AbstractGeometry();
 
     int id() const;

@@ -48,6 +48,7 @@ public:
 
 private slots:
     void onLayerAdded(AbstractLayer *layer);
+    void onMapRefreshed();
 
 private:
     static QPixmap drawThumbnail(ISymbol *forSymbol, GeometryType type);

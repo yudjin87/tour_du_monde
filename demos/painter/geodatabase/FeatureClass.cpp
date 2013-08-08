@@ -31,10 +31,11 @@
 #include <geometry/AbstractGeometry.h>
 
 //------------------------------------------------------------------------------
-FeatureClass::FeatureClass(GeometryType shapeType, const QRectF &extent)
+FeatureClass::FeatureClass(GeometryType shapeType, const QRectF &extent, QString source)
     : m_type(shapeType)
     , m_features()
     , m_extent(extent)
+    , m_source(source)
 {
 }
 
@@ -58,22 +59,22 @@ GeometryType FeatureClass::shapeType() const
 }
 
 //------------------------------------------------------------------------------
-IFeature &FeatureClass::createFeature()
+IFeature *FeatureClass::createFeature()
 {
     Feature *newFeature = new Feature(m_type);
     m_features.push_back(newFeature);
 
-    return *newFeature;
+    return newFeature;
 }
 
 //------------------------------------------------------------------------------
-const FeatureList &FeatureClass::features() const
+const IFeatureClass::FeatureList &FeatureClass::features() const
 {
     return m_features;
 }
 
 //------------------------------------------------------------------------------
-FeatureList FeatureClass::search(const ISpatialFilter &filter) const
+IFeatureClass::FeatureList FeatureClass::search(const ISpatialFilter &filter) const
 {
     const AbstractGeometry *geometry = filter.geometry();
     const QRectF &extent = geometry->extent();
@@ -85,6 +86,12 @@ FeatureList FeatureClass::search(const ISpatialFilter &filter) const
     }
 
     return toReturn;
+}
+
+//------------------------------------------------------------------------------
+const QString &FeatureClass::source() const
+{
+    return m_source;
 }
 
 //------------------------------------------------------------------------------

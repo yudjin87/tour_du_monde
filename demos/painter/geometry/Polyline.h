@@ -31,10 +31,11 @@
 
 class GEOMETRY_API Polyline : public Polycurve
 {
+    Q_OBJECT
 public:
-    Polyline();
-    Polyline(const QRectF &extent);
-    Polyline(std::initializer_list<QPointF> points);
+    explicit Polyline(QObject *parent = nullptr);
+    explicit Polyline(const QRectF &extent, QObject *parent = nullptr);
+    explicit Polyline(std::initializer_list<QPointF> points, QObject *parent = nullptr);
 
     ~Polyline();
     GeometryType type() const;

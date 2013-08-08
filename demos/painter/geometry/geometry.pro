@@ -25,7 +25,8 @@ HEADERS += \
     IGeometryFactory.h \
     GeometryFactory.h \
     Polycurve.h \
-    GeometryComponent.h
+    GeometryComponent.h \
+    GeometryScriptExtension.h
 
 SOURCES += \
     AbstractGeometry.cpp \
@@ -36,7 +37,8 @@ SOURCES += \
     Polyline.cpp \
     GeometryFactory.cpp \
     Polycurve.cpp \
-    GeometryComponent.cpp
+    GeometryComponent.cpp \
+    GeometryScriptExtension.cpp
 
 OTHER_FILES += org.carousel.demos.Geometry.definition
 

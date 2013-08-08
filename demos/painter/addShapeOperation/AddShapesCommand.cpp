@@ -36,8 +36,8 @@
 #include <geodatabase/IFeatureClass.h>
 #include <carousel/utils/IServiceLocator.h>
 
-#include <QtCore/QFileInfo>
 #include <QtCore/QScopedPointer>
+#include <QtCore/QFileInfo>
 
 //------------------------------------------------------------------------------
 typedef QScopedPointer<IShapeFileWorkspaceFactory> IShapeFileWorkspaceFactoryPtr;
@@ -77,7 +77,6 @@ void AddShapesCommand::redo()
         IFeatureClass *railwaysClass = workspace->openFeatureClass(fileName);
         FeatureLayer *railwaysLayer = new FeatureLayer();
         railwaysLayer->setFeatureClass(railwaysClass);
-        railwaysLayer->setName(shapeFile.baseName());
         doc->map()->addLayer(railwaysLayer);
         doc->map()->refresh();
 

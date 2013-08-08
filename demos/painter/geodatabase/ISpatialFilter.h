@@ -29,13 +29,16 @@
 
 #include "geodatabase_api.h"
 
+#include <QtCore/QObject>
+
 class AbstractGeometry;
 
-class GEODATABASE_API ISpatialFilter
+class GEODATABASE_API ISpatialFilter : public QObject
 {
+    Q_OBJECT
+    Q_PROPERTY(const AbstractGeometry *geometry READ geometry WRITE setGeometry)
 public:
     ISpatialFilter(){}
-    virtual ~ISpatialFilter(){}
 
     /*!
      * @details
@@ -46,6 +49,7 @@ public:
     virtual const AbstractGeometry *geometry() const = 0;
 
     virtual void setGeometry(const AbstractGeometry *geometry) = 0;
+
 private:
     Q_DISABLE_COPY(ISpatialFilter)
 };

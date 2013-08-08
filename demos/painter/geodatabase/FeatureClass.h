@@ -31,23 +31,27 @@
 
 class FeatureClass : public IFeatureClass
 {
+    Q_OBJECT
 public:
-    FeatureClass(GeometryType shapeType, const QRectF &extent);
+    FeatureClass(GeometryType shapeType, const QRectF &extent, QString source);
     ~FeatureClass();
 
     QRectF extent() const;
 
     GeometryType shapeType() const;
 
-    IFeature &createFeature();
+    IFeature *createFeature();
     const FeatureList &features() const;
 
     FeatureList search(const ISpatialFilter &filter) const;
+
+    const QString &source() const;
 
 private:
     GeometryType m_type;
     FeatureList m_features;
     QRectF m_extent;
+    QString m_source;
 };
 
 #endif // FEATURECLASS_H

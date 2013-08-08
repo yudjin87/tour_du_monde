@@ -74,3 +74,9 @@ void MarkerSymbol::setColor(const QColor &color)
 }
 
 //------------------------------------------------------------------------------
+void MarkerSymbol::setColor(int r, int g, int b, int a)
+{
+    setColor(QColor(r, g, b, a));
+}
+
+//------------------------------------------------------------------------------

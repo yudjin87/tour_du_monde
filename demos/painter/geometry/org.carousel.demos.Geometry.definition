@@ -3,4 +3,7 @@
      <productName>Geometry</productName>
      <provider>Carousel</provider>
      <location>./org.carousel.demos.Geometry</location>
+     <parents>
+         <parentComponent name="org.carousel.JsScripting" version="1.0"/>
+     </parents>
  </component>

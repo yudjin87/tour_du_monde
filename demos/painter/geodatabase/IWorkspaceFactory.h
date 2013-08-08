@@ -41,6 +41,7 @@ public:
     IWorkspaceFactory(){}
     virtual ~IWorkspaceFactory(){}
 
+public slots:
     virtual IWorkspace* openFromFile(const QString &workspacePath) = 0;
 
 private:

@@ -31,10 +31,11 @@
 
 class GEOMETRY_API Polygon : public Polycurve
 {
+    Q_OBJECT
 public:
-    Polygon();
-    Polygon(const QRectF &extent);
-    Polygon(std::initializer_list<QPointF> points);
+    explicit Polygon(QObject *parent = nullptr);
+    explicit Polygon(const QRectF &extent, QObject *parent = nullptr);
+    explicit Polygon(std::initializer_list<QPointF> points, QObject *parent = nullptr);
 
     ~Polygon();
 

@@ -40,6 +40,9 @@ class ISymbol;
 class CARTO_API FeatureLayer : public AbstractLayer
 {
     Q_OBJECT
+    Q_PROPERTY(int shapeType READ shapeType)
+    Q_PROPERTY(IFeatureClass *featureClass READ featureClass WRITE setFeatureClass)
+    Q_PROPERTY(FeatureRenderer *renderer READ renderer)
 public:
     FeatureLayer(QObject *parent = nullptr);
     ~FeatureLayer();

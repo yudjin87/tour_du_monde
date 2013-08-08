@@ -24,13 +24,20 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef CARTOMETATYPES_H
-#define CARTOMETATYPES_H
+#ifndef DISPLAYSCRIPTEXTENSION_H
+#define DISPLAYSCRIPTEXTENSION_H
 
-#include <QtCore/QMetaType>
+#include <components/jsscripting/IScriptExtension.h>
 
-Q_DECLARE_METATYPE(IPainterDocument *)
-Q_DECLARE_METATYPE(IPainterDocumentController *)
-Q_DECLARE_METATYPE(IMap *)
+#include <QtCore/QObject>
 
-#endif // CARTOMETATYPES_H
+class DisplayScriptExtension : public QObject, public IScriptExtension
+{
+    Q_OBJECT
+public:
+    explicit DisplayScriptExtension(QObject *parent = nullptr);
+
+    void configureEngine(QScriptEngine *engine);
+};
+
+#endif // DISPLAYSCRIPTEXTENSION_H

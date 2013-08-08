@@ -46,6 +46,7 @@ LayersTreeModel::LayersTreeModel(IMap *map, QObject *parent)
     , m_map(map)
 {
     connect(map, SIGNAL(layerAdded(AbstractLayer*)), this, SLOT(onLayerAdded(AbstractLayer*)));
+    connect(map, SIGNAL(refreshed()), this, SLOT(onMapRefreshed()));
 }
 
 //------------------------------------------------------------------------------
@@ -78,6 +79,12 @@ void LayersTreeModel::onLayerAdded(AbstractLayer *layer)
     Q_UNUSED(layer);
     beginInsertRows(QModelIndex(), 0, m_map->layers().size());
     endInsertRows();
+}
+
+//------------------------------------------------------------------------------
+void LayersTreeModel::onMapRefreshed()
+{
+    emit dataChanged(QModelIndex(), QModelIndex());
 }
 
 //------------------------------------------------------------------------------

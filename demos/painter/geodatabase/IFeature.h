@@ -6,14 +6,19 @@
 #include <geometry/GeometryType.h>
 
 #include <QtCore/QRectF>
+#include <QtCore/QObject>
 
 class AbstractGeometry;
 
-class GEODATABASE_API IFeature
+class GEODATABASE_API IFeature : public QObject
 {
+    Q_OBJECT
+    Q_PROPERTY(int id READ id)
+    Q_PROPERTY(int shapeType READ shapeType)
+    Q_PROPERTY(QRectF extent READ extent)
+    Q_PROPERTY(AbstractGeometry *geometry READ geometry WRITE setGeometry)
 public:
     IFeature(){}
-    virtual ~IFeature(){}
 
     virtual int id() const = 0;
     virtual void setId(int id) = 0;

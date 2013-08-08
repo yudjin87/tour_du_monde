@@ -69,9 +69,9 @@ QString ShapeFileFeatureDataset::name() const
 }
 
 //------------------------------------------------------------------------------
-IWorkspace &ShapeFileFeatureDataset::workspace() const
+IWorkspace *ShapeFileFeatureDataset::workspace() const
 {
-    return m_workspace;
+    return &m_workspace;
 }
 
 //------------------------------------------------------------------------------
@@ -120,7 +120,7 @@ IFeatureClass *ShapeFileFeatureDataset::classByName(const QString &className)
 
     GeometryFactoryPtr geometryFactory(m_locator->buildInstance<IGeometryFactory>());
     GeometryType type = geometryFactory->geometryTypeFromShapeType(header.shapeType);
-    IFeatureClass *featureClass = createFeatureClass(type, header.bBox);
+    IFeatureClass *featureClass = createFeatureClass(type, header.bBox, absoluteFilePath(className));
 
     while (!m_file->atEnd()) {
         Record record;
@@ -128,8 +128,8 @@ IFeatureClass *ShapeFileFeatureDataset::classByName(const QString &className)
         reader->readShapeRecord(record);
 
         AbstractGeometry *geometry = geometryFactory->createGeometry(record.contentLength, record.shapeBlob);
-        IFeature &feature = featureClass->createFeature();
-        feature.setGeometry(geometry);
+        IFeature *feature = featureClass->createFeature();
+        feature->setGeometry(geometry);
 
         delete[] record.shapeBlob;
     }
@@ -169,9 +169,9 @@ GeometryType ShapeFileFeatureDataset::geometryType()
 }
 
 //------------------------------------------------------------------------------
-IFeatureClass *ShapeFileFeatureDataset::createFeatureClass(GeometryType geometryType, const QRectF &extent)
+IFeatureClass *ShapeFileFeatureDataset::createFeatureClass(GeometryType geometryType, const QRectF &extent, const QString &source)
 {
-    return new FeatureClass(geometryType, extent);
+    return new FeatureClass(geometryType, extent, source);
 }
 
 //------------------------------------------------------------------------------
@@ -180,13 +180,8 @@ bool ShapeFileFeatureDataset::prepareToReading(const QString &name)
     if (m_isOpen)
         return true;
 
-    QDir dir(m_workspace.pathName());
-
-    QString shapeFileName = dir.absoluteFilePath(name);
+    QString shapeFileName = absoluteFilePath(name);
     QFileInfo fileInfo(shapeFileName);
-    if (fileInfo.suffix() == "")
-        fileInfo = shapeFileName + ShapeFileFeatureDataset::m_shapeFileExt;
-
     if (!fileInfo.exists())
         return false;
 
@@ -211,6 +206,19 @@ void ShapeFileFeatureDataset::finishReading()
 
     delete m_file;
     m_file = nullptr;
+}
+
+//------------------------------------------------------------------------------
+QString ShapeFileFeatureDataset::absoluteFilePath(const QString &name)
+{
+    QDir dir(m_workspace.pathName());
+
+    QString shapeFileName = dir.absoluteFilePath(name);
+    QFileInfo fileInfo(shapeFileName);
+    if (fileInfo.suffix() == "")
+        fileInfo = shapeFileName + ShapeFileFeatureDataset::m_shapeFileExt;
+
+    return fileInfo.absoluteFilePath();
 }
 
 //------------------------------------------------------------------------------

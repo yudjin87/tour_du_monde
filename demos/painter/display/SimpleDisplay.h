@@ -49,6 +49,7 @@ public:
     void panMoveTo(const QPoint &screenPoint);
     void panStart(const QPoint &screenPoint);
     QRectF panStop();
+    void updateWindow();
 
 protected:
     void mouseMoveEvent(QMouseEvent *event);

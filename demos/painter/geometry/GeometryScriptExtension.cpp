@@ -24,11 +24,16 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "CartoScriptExtension.h"
-#include "AbstractLayer.h"
-#include "IPainterDocumentController.h"
-#include "IPainterDocument.h"
-#include "IMap.h"
+#include "GeometryScriptExtension.h"
+#include "AbstractGeometry.h"
+#include "IGeometryFactory.h"
+#include "GeometryType.h"
+#include "Point.h"
+#include "Polycurve.h"
+#include "Polygon.h"
+#include "Polyline.h"
+#include "Ring.h"
+#include "Segment.h"
 
 #include <components/jsscripting/IScriptingService.h>
 #include <components/jsscripting/IScriptConsole.h>
@@ -38,38 +43,49 @@
 #include <QtScript/QScriptValueIterator>
 
 //------------------------------------------------------------------------------
-Q_DECLARE_METATYPE(IPainterDocument *)
-Q_DECLARE_METATYPE(IPainterDocumentController *)
-Q_DECLARE_METATYPE(IMap *)
-Q_DECLARE_METATYPE(QList<AbstractLayer *>)
+Q_DECLARE_METATYPE(GeometryType)
 
 //------------------------------------------------------------------------------
-static const int IPainterDocumentId = qRegisterMetaType<IPainterDocument *>("IPainterDocument *");
-static const int IMapId = qRegisterMetaType<IMap *>("IMap *");
+static const int AbstractGeometrytId = qRegisterMetaType<AbstractGeometry *>("AbstractGeometry *");
+static const int IGeometryFactoryId = qRegisterMetaType<IGeometryFactory *>("IGeometryFactory *");
+static const int PointId = qRegisterMetaType<Point *>("Point *");
+static const int PolycurveId = qRegisterMetaType<Polycurve *>("Polycurve *");
+static const int PolygonId = qRegisterMetaType<Polygon *>("Polygon *");
+static const int PolylineId = qRegisterMetaType<Polyline *>("Polyline *");
+static const int RingId = qRegisterMetaType<Ring *>("Ring *");
+static const int SegmentId = qRegisterMetaType<Segment *>("Segment *");
 
 //------------------------------------------------------------------------------
 namespace
 {
-int registerScriptMetaTypes(QScriptEngine *engine)
+int registerRingList(QScriptEngine *engine)
 {
-    return qScriptRegisterMetaType<QList<AbstractLayer *>>(engine,
-        qScriptValueFromSequence<QList<AbstractLayer *>>,
-        qScriptValueToSequence<QList<AbstractLayer *>>);
+    return qScriptRegisterMetaType<QList<Ring *>>(engine,
+        qScriptValueFromSequence<QList<Ring *>>,
+        qScriptValueToSequence<QList<Ring *>>);
 }
+
+int registerSegmentList(QScriptEngine *engine)
+{
+    return qScriptRegisterMetaType<QList<Segment *>>(engine,
+        qScriptValueFromSequence<QList<Segment *>>,
+        qScriptValueToSequence<QList<Segment *>>);
+}
+
 } // namespace
 
 //------------------------------------------------------------------------------
-CartoScriptExtension::CartoScriptExtension(QObject *parent)
+GeometryScriptExtension::GeometryScriptExtension(QObject *parent)
     : QObject(parent)
 {
 
 }
 
 //------------------------------------------------------------------------------
-void CartoScriptExtension::configureEngine(QScriptEngine *engine)
+void GeometryScriptExtension::configureEngine(QScriptEngine *engine)
 {
-    int cartoTypeIds = registerScriptMetaTypes(engine);
-    Q_UNUSED(cartoTypeIds);
+    int ringListId = registerRingList(engine); Q_UNUSED(ringListId);
+    int segmentListId = registerSegmentList(engine); Q_UNUSED(segmentListId);
 }
 
 //------------------------------------------------------------------------------

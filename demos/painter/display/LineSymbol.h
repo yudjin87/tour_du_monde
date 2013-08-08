@@ -52,6 +52,9 @@ public:
     qreal width() const;
     void setWidth(qreal width);
 
+public slots:
+    void setColor(int r, int g, int b, int a = 255);
+
 protected:
     explicit LineSymbol(QObject *parent = 0);
 

@@ -27,15 +27,15 @@
 #include "Point.h"
 
 //------------------------------------------------------------------------------
-Point::Point()
-    : AbstractGeometry()
+Point::Point(QObject *parent)
+    : AbstractGeometry(parent)
     , m_value()
 {
 }
 
 //------------------------------------------------------------------------------
-Point::Point(qreal x, qreal y)
-    : AbstractGeometry()
+Point::Point(qreal x, qreal y, QObject *parent)
+    : AbstractGeometry(parent)
     , m_value(x, y)
 {
 }

@@ -38,6 +38,7 @@ class QPainter;
 class DISPLAY_API IDisplay : public QAbstractScrollArea
 {
     Q_OBJECT
+    Q_PROPERTY(DisplayTransformation *transformation READ transformation)
 public:
     IDisplay(){}
     virtual ~IDisplay(){}
@@ -50,9 +51,11 @@ public:
     virtual DisplayTransformation *transformation() = 0;
     virtual const DisplayTransformation *transformation() const = 0;
 
+public slots:
     virtual void panMoveTo(const QPoint &screenPoint) = 0;
     virtual void panStart(const QPoint &screenPoint) = 0;
     virtual QRectF panStop() = 0;
+    virtual void updateWindow() = 0;
 
 signals:
     void visibleBoundsUpdated(DisplayTransformation *transform);

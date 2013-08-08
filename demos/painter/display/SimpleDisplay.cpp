@@ -166,6 +166,12 @@ QRectF SimpleDisplay::panStop()
 }
 
 //------------------------------------------------------------------------------
+void SimpleDisplay::updateWindow()
+{
+    viewport()->update();
+}
+
+//------------------------------------------------------------------------------
 void SimpleDisplay::scrollContentsBy(int dx, int dy)
 {
     m_offset += QPointF(dx, dy);

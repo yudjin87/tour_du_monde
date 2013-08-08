@@ -33,9 +33,11 @@
 
 class GEOMETRY_API Point : public AbstractGeometry
 {
+    Q_OBJECT
+    Q_PROPERTY(QPointF point READ point WRITE setPoint)
 public:
-    Point();
-    Point(qreal x, qreal y);
+    explicit Point(QObject *parent = nullptr);
+    explicit Point(qreal x, qreal y, QObject *parent = nullptr);
 
     QPointF &point();
     const QPointF &point() const;

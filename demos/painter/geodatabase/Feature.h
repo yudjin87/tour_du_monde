@@ -31,8 +31,9 @@
 
 class Feature : public IFeature
 {
+    Q_OBJECT
 public:
-    Feature(GeometryType type);
+    explicit Feature(GeometryType type);
     ~Feature();
 
     int id() const;

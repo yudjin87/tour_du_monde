@@ -27,6 +27,7 @@
 #include "CartoComponent.h"
 #include "PainterDocumentController.h"
 #include "CartoScriptExtension.h"
+#include "FeatureLayer.h"
 
 #include <display/IDisplay.h>
 
@@ -72,6 +73,9 @@ bool CartoComponent::onStartup(IServiceLocator *serviceLocator)
     IDisplay *display = serviceLocator->locate<IDisplay>();
     IPainterDocumentController *controller = new PainterDocumentController(display);
     serviceLocator->registerInstance<IPainterDocumentController>(controller);
+
+    // For creating from scripting
+    serviceLocator->bindType<FeatureLayer, FeatureLayer>();
 
     return true;
 }

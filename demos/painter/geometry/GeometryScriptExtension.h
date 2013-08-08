@@ -24,12 +24,20 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef DISPLAYMETATYPES_H
-#define DISPLAYMETATYPES_H
+#ifndef GEOMETRYSCRIPTEXTENSION_H
+#define GEOMETRYSCRIPTEXTENSION_H
 
-#include <QtCore/QMetaType>
+#include <components/jsscripting/IScriptExtension.h>
 
-Q_DECLARE_METATYPE(FeatureRenderer *)
-Q_DECLARE_METATYPE(ISymbol *)
+#include <QtCore/QObject>
 
-#endif // DISPLAYMETATYPES_H
+class GeometryScriptExtension : public QObject, public IScriptExtension
+{
+    Q_OBJECT
+public:
+    explicit GeometryScriptExtension(QObject *parent = nullptr);
+
+    void configureEngine(QScriptEngine *engine);
+};
+
+#endif // GEOMETRYSCRIPTEXTENSION_H

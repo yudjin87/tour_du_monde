@@ -29,14 +29,15 @@
 
 #include "display/display_api.h"
 
+#include <QtCore/QObject>
+
 class AbstractGeometry;
 class QPainter;
 
-class DISPLAY_API ISymbol
+class DISPLAY_API ISymbol : public QObject
 {
 public:
     ISymbol(){}
-    virtual ~ISymbol(){}
 
     /*!
      * @details

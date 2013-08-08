@@ -41,6 +41,7 @@ public:
     IGeometryFactory(){}
     virtual ~IGeometryFactory(){}
 
+public slots:
     virtual GeometryType geometryTypeFromShapeType(int shapeType) const = 0;
     virtual AbstractGeometry *createGeometry(int bytesCount, const char *geometryBlob) const = 0;
 };

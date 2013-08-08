@@ -62,11 +62,13 @@ QList<AbstractLayer *> Map::layers() const
     return m_layers;
 }
 
+//------------------------------------------------------------------------------
 IPainterDocument *Map::document()
 {
     return m_parentDocument;
 }
 
+//------------------------------------------------------------------------------
 const IPainterDocument *Map::document() const
 {
     return m_parentDocument;
@@ -75,11 +77,16 @@ const IPainterDocument *Map::document() const
 //------------------------------------------------------------------------------
 void Map::refresh()
 {
+    if (m_layers.isEmpty())
+        return;
+
     QPainter *painter = m_display->startDrawing();
     foreach(AbstractLayer *layer, m_layers)
         layer->draw(m_display);
 
     m_display->finishDrawing(painter);
+    m_display->updateWindow();
+    emit refreshed();
 }
 
 //------------------------------------------------------------------------------

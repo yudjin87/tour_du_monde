@@ -34,6 +34,7 @@ class IServiceLocator;
 
 class GEODATABASE_API ShapeFileFeatureWorkspace : public IFeatureWorkspace
 {
+    Q_OBJECT
 public:
     ShapeFileFeatureWorkspace(const QString &workspacePath, IServiceLocator *locator);
     ~ShapeFileFeatureWorkspace();

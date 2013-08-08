@@ -36,6 +36,7 @@ class QFile;
 // shp + shx + dbf = dataset (for shapes)
 class ShapeFileFeatureDataset : public IFeatureDataset
 {
+    Q_OBJECT
 public:
     ShapeFileFeatureDataset(IWorkspace &workspace, const QString &name, IServiceLocator *locator);
     ~ShapeFileFeatureDataset();
@@ -45,18 +46,19 @@ public:
     QRectF extent();
 
     QString name() const;
-    IWorkspace &workspace() const;
+    IWorkspace *workspace() const;
 
     QList<IFeatureClass *> classes();
     IFeatureClass* classById(int id);
     IFeatureClass* classByName(const QString &className = "");
 
 protected:
-    virtual IFeatureClass* createFeatureClass(GeometryType geometryType, const QRectF &extent);
+    virtual IFeatureClass* createFeatureClass(GeometryType geometryType, const QRectF &extent, const QString &source);
 
 private:
     bool prepareToReading(const QString &name);
     void finishReading();
+    QString absoluteFilePath(const QString &name);
 
 private:
     static const QString m_shapeFileExt;

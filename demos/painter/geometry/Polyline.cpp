@@ -27,20 +27,20 @@
 #include "Polyline.h"
 
 //------------------------------------------------------------------------------
-Polyline::Polyline()
-    : Polycurve()
+Polyline::Polyline(QObject *parent)
+    : Polycurve(parent)
 {
 }
 
 //------------------------------------------------------------------------------
-Polyline::Polyline(const QRectF &extent)
-    : Polycurve(extent)
+Polyline::Polyline(const QRectF &extent, QObject *parent)
+    : Polycurve(extent, parent)
 {
 }
 
 //------------------------------------------------------------------------------
-Polyline::Polyline(std::initializer_list<QPointF> points)
-    : Polycurve(points)
+Polyline::Polyline(std::initializer_list<QPointF> points, QObject *parent)
+    : Polycurve(points, parent)
 {
 }
 

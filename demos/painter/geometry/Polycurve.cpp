@@ -28,22 +28,22 @@
 #include "Ring.h"
 
 //------------------------------------------------------------------------------
-Polycurve::Polycurve()
-    : AbstractGeometry()
+Polycurve::Polycurve(QObject *parent)
+    : AbstractGeometry(parent)
     , m_rings()
 {
 }
 
 //------------------------------------------------------------------------------
-Polycurve::Polycurve(const QRectF &extent)
-    : AbstractGeometry(extent)
+Polycurve::Polycurve(const QRectF &extent, QObject *parent)
+    : AbstractGeometry(extent, parent)
     , m_rings()
 {
 }
 
 //------------------------------------------------------------------------------
-Polycurve::Polycurve(std::initializer_list<QPointF> points)
-    : AbstractGeometry()
+Polycurve::Polycurve(std::initializer_list<QPointF> points, QObject *parent)
+    : AbstractGeometry(parent)
     , m_rings()
 {
     m_rings.append(new Ring(points));

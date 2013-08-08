@@ -31,9 +31,11 @@
 
 #include <QtCore/QList>
 #include <QtCore/QString>
+#include <QtCore/QObject>
 
 class IDataset;
 
+// strange hack... Memory management should be reviewed
 template <typename TPointer>
 class OwnedList: public QList<TPointer>
 {
@@ -44,8 +46,10 @@ class OwnedList: public QList<TPointer>
     }
 };
 
-class GEODATABASE_API IWorkspace
+class GEODATABASE_API IWorkspace : public QObject
 {
+    Q_OBJECT
+    Q_PROPERTY(QString pathName READ pathName)
 public:
     enum esriDatasetType {
         FeatureClassDT = 5,
@@ -53,11 +57,14 @@ public:
     };
 
     IWorkspace(){}
-    virtual ~IWorkspace(){}
-
-    virtual OwnedList<IDataset *> *datasets(esriDatasetType byType) = 0;
 
     virtual QString pathName() const = 0;
+
+public slots:
+    virtual OwnedList<IDataset *> *datasets(esriDatasetType byType) = 0;
+
+private:
+    Q_DISABLE_COPY(IWorkspace)
 };
 
 

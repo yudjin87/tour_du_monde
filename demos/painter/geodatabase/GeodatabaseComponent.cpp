@@ -25,6 +25,7 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "GeodatabaseComponent.h"
+#include "GDBScriptExtension.h"
 #include "ShapeFileWorkspaceFactory.h"
 #include "ShapeFileReader.h"
 
@@ -39,6 +40,10 @@ static const QByteArray productName("Geodatabase");
 GeodatabaseComponent::GeodatabaseComponent()
     : BaseComponent("org.carousel.demos.Geodatabase")
 {
+    IScriptExtension *scriptExtension = new GDBScriptExtension(this);
+    registerExtension<IScriptExtension>(scriptExtension);
+
+    addParent("org.carousel.JsScripting", 1, 0);
     addParent("org.carousel.demos.Geometry", 1, 0);
     setShortName("Geodatabase");
     setProductName(productName);

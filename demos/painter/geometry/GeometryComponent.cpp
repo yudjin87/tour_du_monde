@@ -26,6 +26,7 @@
 
 #include "GeometryComponent.h"
 #include "GeometryFactory.h"
+#include "GeometryScriptExtension.h"
 
 #include <carousel/componentsystem/ComponentExport.h>
 #include <carousel/utils/IServiceLocator.h>
@@ -37,6 +38,10 @@ static const QByteArray productName("Geometry");
 GeometryComponent::GeometryComponent()
     : BaseComponent("org.carousel.demos.Geometry")
 {
+    IScriptExtension *scriptExtension = new GeometryScriptExtension(this);
+    registerExtension<IScriptExtension>(scriptExtension);
+
+    addParent("org.carousel.JsScripting", 1, 0);
     setShortName("Geometry");
     setProductName(productName);
     setProvider("Carousel");

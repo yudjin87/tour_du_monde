@@ -27,15 +27,17 @@
 #include "AbstractGeometry.h"
 
 //------------------------------------------------------------------------------
-AbstractGeometry::AbstractGeometry()
-    : m_id(-1)
+AbstractGeometry::AbstractGeometry(QObject *parent)
+    : QObject(parent)
+    , m_id(-1)
     , m_extent()
 {
 }
 
 //------------------------------------------------------------------------------
-AbstractGeometry::AbstractGeometry(const QRectF &extent)
-    : m_id(-1)
+AbstractGeometry::AbstractGeometry(const QRectF &extent, QObject *parent)
+    : QObject(parent)
+    , m_id(-1)
     , m_extent(extent)
 {
 }

@@ -28,22 +28,22 @@
 #include "Segment.h"
 
 //------------------------------------------------------------------------------
-Ring::Ring()
-    : AbstractGeometry()
+Ring::Ring(QObject *parent)
+    : AbstractGeometry(parent)
     , m_segments()
 {
 }
 
 //------------------------------------------------------------------------------
-Ring::Ring(const QRectF &extent)
-    : AbstractGeometry(extent)
+Ring::Ring(const QRectF &extent, QObject *parent)
+    : AbstractGeometry(extent, parent)
     , m_segments()
 {
 }
 
 //------------------------------------------------------------------------------
-Ring::Ring(std::initializer_list<QPointF> points)
-    : AbstractGeometry()
+Ring::Ring(std::initializer_list<QPointF> points, QObject *parent)
+    : AbstractGeometry(parent)
     , m_segments()
 {
     m_segments.append(new Segment(points));

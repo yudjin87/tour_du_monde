@@ -26,6 +26,7 @@
 
 #include "DisplayComponent.h"
 #include "SimpleDisplay.h"
+#include "DisplayScriptExtension.h"
 
 #include <carousel/componentsystem/ComponentDefinition.h>
 #include <carousel/componentsystem/ComponentExport.h>
@@ -44,6 +45,10 @@ static const QByteArray productName("Display");
 DisplayComponent::DisplayComponent(QObject *parent)
     : BaseComponent("org.carousel.demos.Display", parent)
 {
+    IScriptExtension *scriptExtension = new DisplayScriptExtension(this);
+    registerExtension<IScriptExtension>(scriptExtension);
+
+    addParent("org.carousel.JsScripting", 1, 0);
     addParent("org.carousel.Interactivity", 1, 0);
     setShortName("Display");
     setProductName(productName);

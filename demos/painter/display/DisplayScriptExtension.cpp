@@ -24,12 +24,43 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
+#include "DisplayScriptExtension.h"
+
+#include "DisplayTransformation.h"
 #include "FeatureRenderer.h"
+#include "IDisplay.h"
 #include "ISymbol.h"
 
-#include "DisplayMetaTypes.h"
+#include <components/jsscripting/IScriptingService.h>
+#include <components/jsscripting/IScriptConsole.h>
+
+#include <QtCore/QMetaType>
+#include <QtScript/QScriptEngine>
+#include <QtScript/QScriptValueIterator>
+
+//------------------------------------------------------------------------------
+Q_DECLARE_METATYPE(FeatureRenderer *)
+Q_DECLARE_METATYPE(ISymbol *)
+Q_DECLARE_METATYPE(DisplayTransformation *)
+Q_DECLARE_METATYPE(IDisplay *)
 
 //------------------------------------------------------------------------------
 static const int IFeatureRendererId = qRegisterMetaType<FeatureRenderer *>("FeatureRenderer *");
 static const int ISymbolId = qRegisterMetaType<ISymbol *>("ISymbol *");
+static const int DisplayTransformationId = qRegisterMetaType<DisplayTransformation *>("DisplayTransformation *");
+static const int IDisplayId = qRegisterMetaType<IDisplay *>("IDisplay *");
 
+//------------------------------------------------------------------------------
+DisplayScriptExtension::DisplayScriptExtension(QObject *parent)
+    : QObject(parent)
+{
+
+}
+
+//------------------------------------------------------------------------------
+void DisplayScriptExtension::configureEngine(QScriptEngine *engine)
+{
+    Q_UNUSED(engine);
+}
+
+//------------------------------------------------------------------------------

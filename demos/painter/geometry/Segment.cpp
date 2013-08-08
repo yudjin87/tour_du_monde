@@ -27,22 +27,22 @@
 #include "Segment.h"
 
 //------------------------------------------------------------------------------
-Segment::Segment()
-    : AbstractGeometry()
+Segment::Segment(QObject *parent)
+    : AbstractGeometry(parent)
     , m_value()
 {
 }
 
 //------------------------------------------------------------------------------
-Segment::Segment(const QRectF &extent)
-    : AbstractGeometry(extent)
+Segment::Segment(const QRectF &extent, QObject *parent)
+    : AbstractGeometry(extent, parent)
     , m_value()
 {
 }
 
 //------------------------------------------------------------------------------
-Segment::Segment(std::initializer_list<QPointF> points)
-    : AbstractGeometry()
+Segment::Segment(std::initializer_list<QPointF> points, QObject *parent)
+    : AbstractGeometry(parent)
     , m_value(points)
 {
 }

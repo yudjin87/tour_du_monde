@@ -50,7 +50,7 @@ class DISPLAY_API FeatureRenderer : public QObject
      *
      * @note that renderer does not take ownership for the symbol.
      */
-    Q_PROPERTY(ISymbol* symbol READ symbol WRITE setSymbol)
+    Q_PROPERTY(ISymbol *symbol READ symbol WRITE setSymbol)
 
 public:
     FeatureRenderer(QObject *parent = nullptr);

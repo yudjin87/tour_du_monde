@@ -36,13 +36,19 @@ class IFeatureClass;
 // shp + shx + dbf = dataset (for shapes)
 class GEODATABASE_API IFeatureDataset : public IGeoDataset
 {
+    Q_OBJECT
+    Q_PROPERTY(QList<IFeatureClass *> classes READ classes)
 public:
     IFeatureDataset(){}
-    ~IFeatureDataset(){}
 
     virtual QList<IFeatureClass *> classes() = 0;
+
+public slots:
     virtual IFeatureClass* classById(int id) = 0;
     virtual IFeatureClass* classByName(const QString &className = "") = 0;
+
+private:
+    Q_DISABLE_COPY(IFeatureDataset)
 };
 
 #endif // IFEATUREDATASET_H

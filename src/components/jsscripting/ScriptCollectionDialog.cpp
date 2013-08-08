@@ -104,16 +104,16 @@ void ScriptCollectionDialog::onRun()
     scriptView->clear();
 
     QString output;
-    bool error = m_model->onRun(scriptView->data(), &output);
+    bool success = m_model->onRun(scriptView->data(), &output);
 
     // TODO: merge the same functionality with Console view
     if (output.isEmpty())
         return;
 
-    if (error)
-        scriptView->printError(output);
-    else
+    if (success)
         scriptView->printOutput(output);
+    else
+        scriptView->printError(output);
 
     scriptView->printOutput("\n");
 }

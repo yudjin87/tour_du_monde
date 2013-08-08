@@ -30,17 +30,23 @@
 #include "geodatabase_api.h"
 
 #include <QtCore/QString>
+#include <QtCore/QObject>
 
 class IWorkspace;
 
-class GEODATABASE_API IDataset
+class GEODATABASE_API IDataset : public QObject
 {
+    Q_OBJECT
+    Q_PROPERTY(QString name READ name)
+    Q_PROPERTY(IWorkspace *workspace READ workspace)
 public:
     IDataset(){}
-    virtual ~IDataset(){}
 
     virtual QString name() const = 0;
-    virtual IWorkspace &workspace() const = 0;
+    virtual IWorkspace *workspace() const = 0;
+
+private:
+    Q_DISABLE_COPY(IDataset)
 };
 
 #endif // IDATASET_H

@@ -43,18 +43,18 @@ class CARTO_API IMap : public QObject
 public:
     IMap(){}
 
-    virtual void addLayer(AbstractLayer *layer) = 0;
-
     virtual QList<AbstractLayer *> layers() const = 0;
 
     virtual IPainterDocument *document() = 0;
     virtual const IPainterDocument *document() const = 0;
 
 public slots:
+    virtual void addLayer(AbstractLayer *layer) = 0;
     virtual void refresh() = 0;
 
 signals:
     void layerAdded(AbstractLayer *layer);
+    void refreshed();
 
 private:
     Q_DISABLE_COPY(IMap)

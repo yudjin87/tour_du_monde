@@ -10,8 +10,8 @@ DEFINES += DISPLAY_LIB_IMPORT
 
 LIBS += -L$${CAROUSEL_BIN} -lorg.carousel.Interactivity \
 
-DESTDIR = $${DESTDIR}/externalSource
-#DESTDIR = $${DESTDIR}/installedComponents/org.carousel.demos.Display
+#DESTDIR = $${DESTDIR}/externalSource
+DESTDIR = $${DESTDIR}/installedComponents/org.carousel.demos.Display
 
 win32 {
     LIBS += -L$${CAROUSEL_BIN} -lComponentSystem \
@@ -36,7 +36,7 @@ HEADERS += \
     FillSymbol.h \
     SimpleFillSymbol.h \
     DisplayTransformation.h \
-    DisplayMetaTypes.h
+    DisplayScriptExtension.h
 
 SOURCES += \
     DisplayComponent.cpp \
@@ -51,7 +51,7 @@ SOURCES += \
     FillSymbol.cpp \
     SimpleFillSymbol.cpp \
     DisplayTransformation.cpp \
-    DisplayMetaTypes.cpp
+    DisplayScriptExtension.cpp
 
 FORMS +=
 

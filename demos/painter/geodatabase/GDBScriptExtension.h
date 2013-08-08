@@ -24,15 +24,20 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "IPainterDocumentController.h"
-#include "IPainterDocument.h"
-#include "IMap.h"
+#ifndef GDBSCRIPTEXTENSION_H
+#define GDBSCRIPTEXTENSION_H
 
-#include "CartoMetaTypes.h"
+#include <components/jsscripting/IScriptExtension.h>
 
-//------------------------------------------------------------------------------
-static const int IPainterDocumentId = qRegisterMetaType<IPainterDocument *>("IPainterDocument *");
-static const int IMapId = qRegisterMetaType<IMap *>("IMap *");
+#include <QtCore/QObject>
 
+class GDBScriptExtension : public QObject, public IScriptExtension
+{
+    Q_OBJECT
+public:
+    explicit GDBScriptExtension(QObject *parent = nullptr);
 
-//------------------------------------------------------------------------------
+    void configureEngine(QScriptEngine *engine);
+};
+
+#endif // GDBSCRIPTEXTENSION_H

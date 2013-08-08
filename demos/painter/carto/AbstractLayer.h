@@ -38,6 +38,11 @@ class IDisplay;
 class CARTO_API AbstractLayer : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(QRectF extent READ extent)
+    Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
+    Q_PROPERTY(bool visibility READ isVisible WRITE setVisible NOTIFY visibilityChanged)
+    Q_PROPERTY(double minimumScale READ minimumScale WRITE setMinimumScale NOTIFY minimumScaleChanged)
+    Q_PROPERTY(double maximumScale READ maximumScale WRITE setMaximumScale NOTIFY maximumScaleChanged)
 public:
     AbstractLayer(QObject *parent = nullptr);
 
@@ -56,6 +61,12 @@ public:
 
     void setMinimumScale(double minimumScale);
     void setMaximumScale(double maximumScale);
+
+signals:
+    void nameChanged(const QString &newName);
+    void visibilityChanged(bool visible);
+    void minimumScaleChanged(double minimumScale);
+    void maximumScaleChanged(double maximumScale);
 
 protected:
     virtual void hide() = 0;

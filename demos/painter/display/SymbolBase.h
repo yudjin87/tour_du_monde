@@ -29,13 +29,11 @@
 
 #include "display/ISymbol.h"
 
-#include <QtCore/QObject>
-
 class Point;
 class Polygon;
 class Polyline;
 
-class DISPLAY_API SymbolBase : public QObject, public ISymbol
+class DISPLAY_API SymbolBase : public ISymbol
 {
     Q_OBJECT
 public:

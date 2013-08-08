@@ -35,9 +35,11 @@
 
 class GEODATABASE_API IGeoDataset : public IDataset
 {
+    Q_OBJECT
+    Q_PROPERTY(int geometryType READ geometryType)
+    Q_PROPERTY(QRectF extent READ extent)
 public:
     IGeoDataset(){}
-    ~IGeoDataset(){}
 
     virtual GeometryType geometryType() = 0;
 

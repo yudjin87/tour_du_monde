@@ -63,6 +63,12 @@ void FillSymbol::setColor(const QColor &color)
 }
 
 //------------------------------------------------------------------------------
+void FillSymbol::setColor(int r, int g, int b, int a)
+{
+    setColor(QColor(r, g, b, a));
+}
+
+//------------------------------------------------------------------------------
 LineSymbol *FillSymbol::outline()
 {
     return m_outline;

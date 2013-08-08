@@ -34,11 +34,15 @@ class IFeatureClass;
 
 class GEODATABASE_API IFeatureWorkspace : public IWorkspace
 {
+    Q_OBJECT
 public:
     IFeatureWorkspace(){}
-    ~IFeatureWorkspace(){}
 
+public slots:
     virtual IFeatureClass *openFeatureClass(const QString &name) = 0;
+
+private:
+    Q_DISABLE_COPY(IFeatureWorkspace)
 };
 
 #endif // IFEATUREWORKSPACE_H

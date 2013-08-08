@@ -27,20 +27,20 @@
 #include "Polygon.h"
 
 //------------------------------------------------------------------------------
-Polygon::Polygon()
-    : Polycurve()
+Polygon::Polygon(QObject *parent)
+    : Polycurve(parent)
 {
 }
 
 //------------------------------------------------------------------------------
-Polygon::Polygon(const QRectF &extent)
-    : Polycurve(extent)
+Polygon::Polygon(const QRectF &extent, QObject *parent)
+    : Polycurve(extent, parent)
 {
 }
 
 //------------------------------------------------------------------------------
-Polygon::Polygon(std::initializer_list<QPointF> points)
-    : Polycurve(points)
+Polygon::Polygon(std::initializer_list<QPointF> points, QObject *parent)
+    : Polycurve(points, parent)
 {
 
 }

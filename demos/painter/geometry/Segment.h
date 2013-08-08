@@ -35,10 +35,12 @@
 
 class GEOMETRY_API Segment : public AbstractGeometry
 {
+    Q_OBJECT
+    Q_PROPERTY(QPolygonF curve READ curve WRITE setCurve)
 public:
-    Segment();
-    Segment(const QRectF &extent);
-    Segment(std::initializer_list<QPointF> points);
+    explicit Segment(QObject *parent = nullptr);
+    explicit Segment(const QRectF &extent, QObject *parent = nullptr);
+    explicit Segment(std::initializer_list<QPointF> points, QObject *parent = nullptr);
 
     QPolygonF &curve();
     const QPolygonF &curve() const;

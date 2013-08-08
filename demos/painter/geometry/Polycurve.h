@@ -38,10 +38,12 @@ typedef QList<Ring *> RingList;
 
 class GEOMETRY_API Polycurve : public AbstractGeometry
 {
+    Q_OBJECT
+    Q_PROPERTY(QList<Ring *> rings READ rings)
 public:
-    Polycurve();
-    Polycurve(const QRectF &extent);
-    Polycurve(std::initializer_list<QPointF> points);
+    explicit Polycurve(QObject *parent = nullptr);
+    explicit Polycurve(const QRectF &extent, QObject *parent = nullptr);
+    explicit Polycurve(std::initializer_list<QPointF> points, QObject *parent = nullptr);
 
     ~Polycurve();
 

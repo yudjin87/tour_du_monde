@@ -38,6 +38,8 @@
 #include <geodatabase/SpatialFilter.h>
 #include <geometry/Polygon.h>
 
+#include <QtCore/QFileInfo>
+
 //------------------------------------------------------------------------------
 FeatureLayer::FeatureLayer(QObject *parent)
     : AbstractLayer(parent)
@@ -82,7 +84,7 @@ void FeatureLayer::draw(IDisplay *display)
     Polygon extent(display->transformation()->visibleBounds());
     filter.setGeometry(&extent);
 
-    FeatureList features = m_featureClass->search(filter);
+    IFeatureClass::FeatureList features = m_featureClass->search(filter);
     //qDebug(QString("draw %1 features").arg(features.size()).toLatin1());
     m_featureRenderer->draw(features, display);
 }
@@ -110,6 +112,9 @@ void FeatureLayer::setFeatureClass(IFeatureClass *featureClass)
 {
     delete m_featureClass;
     m_featureClass = featureClass;
+
+    QFileInfo fileName(featureClass->source());
+    setName(fileName.baseName());
 
     delete m_symbol;
 

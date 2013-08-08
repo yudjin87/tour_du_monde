@@ -34,9 +34,12 @@ class GEODATABASE_API IShapeFileWorkspaceFactory : public IWorkspaceFactory
     Q_OBJECT
 public:
     IShapeFileWorkspaceFactory(){}
-    ~IShapeFileWorkspaceFactory(){}
 
+public slots:
     virtual IWorkspace* openFromFile(const QString &workspacePath) = 0;
+
+private:
+    Q_DISABLE_COPY(IShapeFileWorkspaceFactory)
 };
 
 #endif // ISHAPEFILEWORKSPACEFACTORY_H
