@@ -48,7 +48,7 @@ public:
 
 public slots:
     virtual QObject *locate(const QString &name);
-    virtual QObject *build(const QString &name);
+    virtual QObject *build(const QString &name, bool takeOwnership = false);
 
 private:
     IServiceLocator *m_locator;

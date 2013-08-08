@@ -42,9 +42,16 @@ QObject *ServiceLocatorWrapper::locate(const QString &name)
 }
 
 //------------------------------------------------------------------------------
-QObject *ServiceLocatorWrapper::build(const QString &name)
+QObject *ServiceLocatorWrapper::build(const QString &name, bool takeOwnership)
 {
-    return m_locator->buildObject(name);
+    QObject *obj = m_locator->buildObject(name);
+    if (obj == nullptr)
+        return nullptr;
+
+    if (takeOwnership)
+        obj->setParent(this);
+
+    return obj;
 }
 
 //------------------------------------------------------------------------------
