@@ -53,7 +53,7 @@ public:
     /*!
      * @brief
      */
-    virtual void execCommand(const QString &command, QString *output = nullptr, bool *error = nullptr) = 0;
+    virtual bool execCommand(const QString &command, QString *output = nullptr) = 0;
 
     virtual QString prevCommand() = 0;
     virtual QString nextCommand() = 0;

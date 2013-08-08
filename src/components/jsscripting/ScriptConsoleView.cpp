@@ -57,17 +57,16 @@ void ScriptConsoleView::onEnter()
     QString command = m_ui->commandEdit->text();
     m_ui->commandEdit->clear();
     QString output;
-    bool error = false;
-    m_console->execCommand(command, &output, &error);
+    bool success = m_console->execCommand(command, &output);
 
     printOutput(QString(">>> %1\n").arg(command));
     if (output.isEmpty())
         return;
 
-    if (error)
-        printError(output);
-    else
+    if (success)
         printOutput(output);
+    else
+        printError(output);
 
     printOutput("\n");
 }

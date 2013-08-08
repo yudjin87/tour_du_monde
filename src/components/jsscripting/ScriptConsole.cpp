@@ -67,7 +67,7 @@ QScriptEngine *ScriptConsole::engine()
 }
 
 //------------------------------------------------------------------------------
-void ScriptConsole::execCommand(const QString &command, QString *output, bool *error)
+bool ScriptConsole::execCommand(const QString &command, QString *output)
 {
     addCommandToHistory(command);
 
@@ -77,11 +77,9 @@ void ScriptConsole::execCommand(const QString &command, QString *output, bool *e
 
     m_output.clear();
 
-    if (!result.isError()) {
-        if (error != nullptr)
-            *error = false;
-        return;
-    }
+    if (!result.isError())
+        return true;
+
 
     QString scriptError = QString("Script error:\n\"%1\"").arg(result.toString());
     Log.w(scriptError);
@@ -89,8 +87,7 @@ void ScriptConsole::execCommand(const QString &command, QString *output, bool *e
     if (output != nullptr)
         *output = result.toString();
 
-    if (error != nullptr)
-        *error = true;
+    return false;
 }
 
 //------------------------------------------------------------------------------

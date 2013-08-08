@@ -52,7 +52,7 @@ public:
     /*!
      * @brief
      */
-    void execCommand(const QString &command, QString *output = nullptr, bool *error = nullptr);
+    bool execCommand(const QString &command, QString *output = nullptr);
 
     int historyCapacity() const;
     void setHistoryCapacity(int capacity);

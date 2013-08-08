@@ -47,9 +47,8 @@ void ScriptConsoleTest::evaluateLine_shouldReturnTrueForCorrectScript()
 {
     ScriptConsole console;
 
-    QString output; bool error = true;
-    console.execCommand(simpleScript, &output, &error);
-    QVERIFY(!error);
+    QString output;
+    QVERIFY(console.execCommand(simpleScript, &output));
     QVERIFY(output.isEmpty());
 }
 
@@ -58,9 +57,8 @@ void ScriptConsoleTest::evaluateLine_shouldReturnFalseForIncorrectScript()
 {
     ScriptConsole console;
 
-    QString output; bool error = false;
-    console.execCommand(wrongScript, &output, &error);
-    QVERIFY(error);
+    QString output;
+    QVERIFY(!console.execCommand(wrongScript, &output));
     QVERIFY(!output.isEmpty());
 }
 
