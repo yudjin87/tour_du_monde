@@ -119,9 +119,3 @@ void ScriptCollectionModel::onSaveAll()
 }
 
 //------------------------------------------------------------------------------
-bool ScriptCollectionModel::onRun(IScriptUnit *script, QString *output)
-{
-    return script->run(output);
-}
-
-//------------------------------------------------------------------------------

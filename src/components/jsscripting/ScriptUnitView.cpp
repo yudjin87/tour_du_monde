@@ -28,6 +28,7 @@
 #include "ui_ScriptUnitView.h"
 #include "IScriptUnit.h"
 
+#include <QtGui/QKeyEvent>
 #include <QtGui/QSyntaxHighlighter>
 
 //------------------------------------------------------------------------------
@@ -38,6 +39,7 @@ ScriptUnitView::ScriptUnitView(IScriptUnit *data, QSyntaxHighlighter *highlighte
 {
     m_ui->setupUi(this);
     m_ui->scriptEditor->setDocument(m_data->script());
+    m_ui->scriptEditor->installEventFilter(this);
 
     highlighter->setParent(this);
     highlighter->setDocument(m_data->script());
@@ -75,6 +77,66 @@ void ScriptUnitView::printError(const QString &error)
 void ScriptUnitView::printOutput(const QString &output)
 {
     m_ui->outputEditor->append(output);
+}
+
+//------------------------------------------------------------------------------
+void ScriptUnitView::onRun()
+{
+    clear();
+
+    QString output;
+    bool success = m_data->run(&output);
+
+    // TODO: merge the same functionality with Console view
+    if (output.isEmpty())
+        return;
+
+    if (success)
+        printOutput(output);
+    else
+        printError(output);
+
+    printOutput("\n");
+}
+
+//------------------------------------------------------------------------------
+bool ScriptUnitView::eventFilter(QObject *sender, QEvent *event)
+{
+    if (event->type() == QEvent::KeyPress) {
+        QKeyEvent *key = static_cast<QKeyEvent *>(event);
+        if (onKeyPressed(key))
+            return true;
+    }
+
+    // standard event processing
+    return QObject::eventFilter(sender, event);
+}
+
+//------------------------------------------------------------------------------
+bool ScriptUnitView::onKeyPressed(QKeyEvent *event)
+{
+    int key = event->key();
+    if (event->modifiers().testFlag(Qt::ControlModifier) && processControlKey(key)) {
+        event->accept();
+        return true;
+    }
+
+    return false;
+}
+
+//------------------------------------------------------------------------------
+bool ScriptUnitView::processControlKey(int key)
+{
+    switch (key) {
+    case Qt::Key_Space:
+        //start completition
+        return true;
+
+    default:
+        break;
+    }
+
+    return false;
 }
 
 //------------------------------------------------------------------------------

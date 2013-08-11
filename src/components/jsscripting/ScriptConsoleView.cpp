@@ -74,8 +74,6 @@ void ScriptConsoleView::onEnter()
 //------------------------------------------------------------------------------
 bool ScriptConsoleView::eventFilter(QObject *sender, QEvent *event)
 {
-    Q_UNUSED(sender)
-
     if (event->type() == QEvent::KeyPress) {
         QKeyEvent *key = static_cast<QKeyEvent *>(event);
         switch (key->key()) {

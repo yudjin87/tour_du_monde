@@ -55,7 +55,6 @@ public slots:
     void onLoad();
     void onSave(IScriptUnit *script);
     void onSaveAll();
-    bool onRun(IScriptUnit *script, QString *output = nullptr);
 
 signals:
     void scriptAdded(IScriptUnit *script);

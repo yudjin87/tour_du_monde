@@ -59,6 +59,9 @@
    <property name="toolTip">
     <string>Run current</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+Return</string>
+   </property>
   </action>
   <action name="actionSave">
    <property name="icon">

@@ -35,6 +35,7 @@
 #include <carousel/logging/LoggerFacade.h>
 
 #include <QtCore/QSettings>
+#include <QtGui/QKeyEvent>
 #include <QtGui/QTextDocument>
 
 //------------------------------------------------------------------------------
@@ -78,6 +79,23 @@ ScriptCollectionDialog::~ScriptCollectionDialog()
 }
 
 //------------------------------------------------------------------------------
+void ScriptCollectionDialog::keyPressEvent(QKeyEvent *event)
+{
+    int key = event->key();
+    if (key == Qt::Key_S && event->modifiers().testFlag(Qt::ControlModifier)) {
+        ScriptUnitView *scriptView = getCurrentView();
+        if (scriptView == nullptr)
+            return;
+
+        scriptView->data()->save();
+        event->accept();
+        return;
+    }
+
+    QDialog::keyPressEvent(event);
+}
+
+//------------------------------------------------------------------------------
 void ScriptCollectionDialog::onScriptAdded(IScriptUnit *script)
 {
     ScriptUnitView *scriptView = new ScriptUnitView(script, new CodeHighlighter(ColorTheme::getDefault(), this));
@@ -108,22 +126,7 @@ void ScriptCollectionDialog::onRun()
     if (scriptView == nullptr)
         return;
 
-    // TODO: scrip should run itself
-    scriptView->clear();
-
-    QString output;
-    bool success = m_model->onRun(scriptView->data(), &output);
-
-    // TODO: merge the same functionality with Console view
-    if (output.isEmpty())
-        return;
-
-    if (success)
-        scriptView->printOutput(output);
-    else
-        scriptView->printError(output);
-
-    scriptView->printOutput("\n");
+    scriptView->onRun();
 }
 
 //------------------------------------------------------------------------------

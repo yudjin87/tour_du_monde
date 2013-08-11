@@ -56,6 +56,18 @@ public:
     void printError(const QString &error);
     void printOutput(const QString &output);
 
+public slots:
+    void onRun();
+
+protected:
+    bool eventFilter(QObject *sender, QEvent *event);
+
+private:
+    bool onKeyPressed(QKeyEvent *event);
+
+private:
+    bool processControlKey(int key);
+
 private:
     Ui::ScriptUnitView *m_ui;
     IScriptUnit *m_data;
