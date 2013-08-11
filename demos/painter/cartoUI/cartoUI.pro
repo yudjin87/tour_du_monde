@@ -10,15 +10,15 @@ DEFINES += CARTO_UI_LIB_IMPORT
 
 DESTDIR = $${DESTDIR}/externalSource
 
-win32 {
-    LIBS += -L$${CAROUSEL_BIN} -lComponentSystem \
-                               -lorg.carousel.Interactivity \
-                               -lFramework
 
-    LIBS += -L$${DESTDIR} -lorg.carousel.demos.Display \
-                          -lorg.carousel.demos.Carto \
-                          -lorg.carousel.demos.Geometry
-}
+LIBS += -L$${CAROUSEL_BIN} -lorg.carousel.Interactivity \
+                           -lComponentSystem \
+                           -lFramework \
+
+LIBS += -L$${DESTDIR} -lorg.carousel.demos.Display \
+                      -lorg.carousel.demos.Carto \
+                      -lorg.carousel.demos.Geometry
+
 
 HEADERS += \
     cartoUI_api.h \

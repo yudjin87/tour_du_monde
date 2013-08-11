@@ -10,7 +10,8 @@ INCLUDEPATH += $$PAINTER_WD
 
 CONFIG(dll, staticlib|dll):DEFINES += LIB_IMPORT
 
-#CONFIG += plugin
+CONFIG += plugin
+
 #########################################################
 # c++0x is skipped for the MSVC compiler.
 !win32-msvc*:QMAKE_CXXFLAGS += -std=c++0x

@@ -185,6 +185,7 @@ void ComponentInstallerTest::install_shouldNotCallLoadComponentsIfOrphanComponen
 void ComponentInstallerTest::install_shouldCreateSubDirectoryForEachComponent()
 {
     FakeComponentInstaller installer(DEFAULT_DIRECTORY);
+    installer.setInstallComponentInSeparateDir(true);
     MockComponent *child1 = new MockComponent(QString("TestComponent1"));
     ComponentDefinition *def1 = const_cast<ComponentDefinition *>(child1->definition());
     def1->setDefinitionLocation(pathToComponentDefinition("TestComponent1"));
@@ -217,6 +218,7 @@ void ComponentInstallerTest::install_shouldCreateSubDirectoryForEachComponent()
 void ComponentInstallerTest::install_shouldReturnPathesToTheCopiedDefinitions()
 {
     FakeComponentInstaller installer(DEFAULT_DIRECTORY);
+    installer.setInstallComponentInSeparateDir(true);
     MockComponent *child1 = new MockComponent(QString("TestComponent1"));
     ComponentDefinition *def1 = const_cast<ComponentDefinition *>(child1->definition());
     def1->setDefinitionLocation(pathToComponentDefinition("TestComponent1"));
@@ -246,6 +248,7 @@ void ComponentInstallerTest::install_shouldReturnPathesToTheCopiedDefinitions()
 void ComponentInstallerTest::install_shouldCopyDefinitionFile()
 {
     FakeComponentInstaller installer(DEFAULT_DIRECTORY);
+    installer.setInstallComponentInSeparateDir(true);
     MockComponent *child1 = new MockComponent(QString("TestComponent1"));
     ComponentDefinition *def1 = const_cast<ComponentDefinition *>(child1->definition());
     def1->setDefinitionLocation(pathToComponentDefinition("TestComponent1"));
@@ -271,6 +274,7 @@ void ComponentInstallerTest::install_shouldCopyDefinitionFile()
 void ComponentInstallerTest::install_shouldCopyLibraryFile()
 {
     FakeComponentInstaller installer(DEFAULT_DIRECTORY);
+    installer.setInstallComponentInSeparateDir(true);
     MockComponent *child1 = new MockComponent(QString("TestComponent1"));
     ComponentDefinition *def1 = const_cast<ComponentDefinition *>(child1->definition());
     def1->setDefinitionLocation(pathToComponentDefinition("TestComponent1"));

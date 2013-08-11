@@ -13,12 +13,10 @@ LIBS += -L$${CAROUSEL_BIN} -lorg.carousel.Interactivity \
 DESTDIR = $${DESTDIR}/externalSource
 #DESTDIR = $${DESTDIR}/installedComponents/org.carousel.demos.Display
 
-win32 {
-    LIBS += -L$${CAROUSEL_BIN} -lComponentSystem \
-                               -lFramework \
+LIBS += -L$${CAROUSEL_BIN} -lComponentSystem \
+                           -lFramework
 
-    LIBS += -L$${DESTDIR} -lorg.carousel.demos.Geometry \
-}
+LIBS += -L$${DESTDIR} -lorg.carousel.demos.Geometry \
 
 HEADERS += \
     display_api.h \

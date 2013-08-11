@@ -10,15 +10,13 @@ DEFINES += ADDSHAPEOPERATION_LIB_IMPORT
 
 DESTDIR = $${DESTDIR}/externalSource
 
-win32 {
-    LIBS += -L$${CAROUSEL_BIN} -lComponentSystem \
-                               -lorg.carousel.Interactivity \
-                               -lFramework
+LIBS += -L$${CAROUSEL_BIN} -lorg.carousel.Interactivity \
+                           -lComponentSystem \
+                           -lFramework \
 
-    LIBS += -L$${DESTDIR} -lorg.carousel.demos.Display \
-                          -lorg.carousel.demos.Carto \
-                          -lorg.carousel.demos.Geodatabase
-}
+LIBS += -L$${DESTDIR} -lorg.carousel.demos.Display \
+                      -lorg.carousel.demos.Carto \
+                      -lorg.carousel.demos.Geodatabase
 
 HEADERS += \
     AddShapeOperationComponent.h \

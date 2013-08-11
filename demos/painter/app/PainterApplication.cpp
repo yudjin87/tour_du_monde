@@ -34,6 +34,7 @@ PainterApplication::PainterApplication(int &argc, char **argv)
 {
     setApplicationName("painter");
     setOrganizationName("carousel-demo");
+    addLibraryPath("/home/eugene/devel/carousel/demos/painter/product/gnu-x32-debug/bin/installedComponents");
 }
 
 //------------------------------------------------------------------------------

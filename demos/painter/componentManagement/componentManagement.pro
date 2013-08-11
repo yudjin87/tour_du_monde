@@ -9,14 +9,11 @@ TEMPLATE = lib
 DEFINES += COMPONENTMANAGEMENT_LIB_IMPORT
 
 LIBS += -L$${CAROUSEL_BIN} -lorg.carousel.Interactivity \
+                           -lorg.carousel.ComponentSystemUI \
+                           -lComponentSystem \
+                           -lFramework \
 
-win32 {
-    LIBS += -L$${CAROUSEL_BIN} -lComponentSystem \
-                               -lorg.carousel.ComponentSystemUI \
-                               -lFramework \
-}
-
-DESTDIR = $${DESTDIR}/components
+DESTDIR = $${DESTDIR}/lib
 
 FORMS +=
 

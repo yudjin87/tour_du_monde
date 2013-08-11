@@ -2,13 +2,14 @@ include(../shared.pri)
 
 QT       += core widgets
 
-TARGET = painter
+win32:TARGET = painter.exe
+unix:TARGET = painter.bin
 
 TEMPLATE = app
 
 DESTDIR = $${BIN_OUTPUT_PATH}/bin
 
-LIBS += -L$${DESTDIR}/components -lorg.carousel.demos.ComponentManagement
+LIBS += -L$${DESTDIR}/lib -lorg.carousel.demos.ComponentManagement
 
 LIBS += -L$${CAROUSEL_BIN} -lComponentSystem \
                            -lBooting \
@@ -34,14 +35,21 @@ HEADERS  += \
 FORMS += \
     MainWindow.ui
 
+
+SHAPES += buckinghamshire/README
+SHAPES += buckinghamshire/buildings.shp
+SHAPES += buckinghamshire/landuse.shp
+SHAPES += buckinghamshire/natural.shp
+SHAPES += buckinghamshire/railways.shp
+SHAPES += buckinghamshire/waterways.shp
+
+START_UP = painter.sh
+
 OTHER_FILES += \
-    buckinghamshire/README \
-    buckinghamshire/buildings.shp \
-    buckinghamshire/landuse.shp \
-    buckinghamshire/natural.shp \
-    buckinghamshire/railways.shp \
-    buckinghamshire/waterways.shp
+    $${START_UP} \
+    $${SHAPES}
 
 ###############################################################################
 # Copy demo data files to the output dir
-copyExtraFiles($$OTHER_FILES, $$DESTDIR/data)
+copyExtraFiles($$SHAPES, $$DESTDIR/data)
+unix:copyExtraFiles($$START_UP, $$DESTDIR/)

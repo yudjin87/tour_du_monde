@@ -10,15 +10,14 @@ DEFINES += NAVIGATIONOPERATIONS_LIB_IMPORT
 
 DESTDIR = $${DESTDIR}/externalSource
 
-win32 {
-    LIBS += -L$${CAROUSEL_BIN} -lComponentSystem \
-                               -lFramework \
-                               -lorg.carousel.Interactivity \
+LIBS += -L$${CAROUSEL_BIN} -lComponentSystem \
+                           -lFramework \
+                           -lorg.carousel.Interactivity \
 
-    LIBS += -L$${DESTDIR} -lorg.carousel.demos.Display \
-                          -lorg.carousel.demos.Carto \
-                          -lorg.carousel.demos.Geometry
-}
+LIBS += -L$${DESTDIR} -lorg.carousel.demos.Display \
+                      -lorg.carousel.demos.Carto \
+                      -lorg.carousel.demos.Geometry
+
 
 HEADERS += \
     NavigationOperationsComponent.h \

@@ -51,7 +51,11 @@ typedef QScopedPointer<IComponentDependencies> IComponentDependenciesPtr;
 //------------------------------------------------------------------------------
 ComponentInstaller::ComponentInstaller(const QString &destinationDirectory)
     : m_destinationDirectory(destinationDirectory)
+#ifdef Q_OS_WIN32
     , m_separateDirForComponent(true)
+#else
+    , m_separateDirForComponent(false)
+#endif // #ifdef Q_OS_WIN32
 {
 }
 

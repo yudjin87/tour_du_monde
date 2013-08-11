@@ -8,10 +8,13 @@ TARGET = org.carousel.demos.Geometry
 
 DEFINES += GEOMETRY_LIB_IMPORT
 
+
 LIBS += -L$${CAROUSEL_BIN} -lUtils \
                            -lComponentSystem \
 
 DESTDIR = $${DESTDIR}/externalSource
+
+
 
 HEADERS += \
     geometry_api.h \

@@ -16,11 +16,9 @@ LIBS += -L$${CAROUSEL_BIN} -lUtils \
 DESTDIR = $${DESTDIR}/externalSource
 
 LIBS += -L$${DESTDIR} -lorg.carousel.demos.Display \
+                      -lorg.carousel.demos.Geodatabase \
+                      -lorg.carousel.demos.Geometry
 
-win32 {
-    LIBS += -L$${DESTDIR} -lorg.carousel.demos.Geodatabase \
-                          -lorg.carousel.demos.Geometry
-}
 
 HEADERS += \
     carto_api.h \
