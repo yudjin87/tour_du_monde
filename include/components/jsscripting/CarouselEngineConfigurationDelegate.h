@@ -55,6 +55,8 @@ protected:
     virtual void configureServiceLocator(QScriptEngine *engine, IServiceLocator *locator);
     virtual void configurePrintFunc(QScriptEngine *engine, QString *output);
 
+    virtual void registerBasePrimitives(QScriptEngine *engine);
+
 private:
     Q_DISABLE_COPY(CarouselEngineConfigurationDelegate)
     static QScriptValue print(QScriptContext *context, QScriptEngine *engine, void *out);

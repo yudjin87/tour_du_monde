@@ -28,9 +28,14 @@
 #include "IScriptExtension.h"
 #include "ServiceLocatorWrapper.h"
 
+#include "prototypes/PointPrototype.h"
+#include "prototypes/PointFPrototype.h"
+#include "prototypes/RectFPrototype.h"
+
 #include <carousel/componentsystem/IComponent.h>
 #include <carousel/logging/LoggerFacade.h>
 
+#include <QtCore/QPoint>
 #include <QtScript/QScriptEngine>
 
 //------------------------------------------------------------------------------
@@ -64,6 +69,7 @@ void CarouselEngineConfigurationDelegate::configureDefaults(QScriptEngine *engin
 {
     configureServiceLocator(engine, m_locator);
     configurePrintFunc(engine, output);
+    registerBasePrimitives(engine);
 }
 
 //------------------------------------------------------------------------------
@@ -85,6 +91,22 @@ void CarouselEngineConfigurationDelegate::configurePrintFunc(QScriptEngine *engi
 {
     QScriptValue printFunc = engine->newFunction(&CarouselEngineConfigurationDelegate::print, (void *)output);
     engine->globalObject().setProperty("print", printFunc);
+}
+
+//------------------------------------------------------------------------------
+void CarouselEngineConfigurationDelegate::registerBasePrimitives(QScriptEngine *engine)
+{
+    PointPrototype *point = new PointPrototype(engine);
+    engine->setDefaultPrototype(qMetaTypeId<QPoint *>(), engine->newQObject(point));
+    engine->setDefaultPrototype(qMetaTypeId<QPoint>(), engine->newQObject(point));
+
+    PointFPrototype *pointF = new PointFPrototype(engine);
+    engine->setDefaultPrototype(qMetaTypeId<QPointF *>(), engine->newQObject(pointF));
+    engine->setDefaultPrototype(qMetaTypeId<QPointF>(), engine->newQObject(pointF));
+
+    RectFPrototype *rectF = new RectFPrototype(engine);
+    engine->setDefaultPrototype(qMetaTypeId<QRectF *>(), engine->newQObject(rectF));
+    engine->setDefaultPrototype(qMetaTypeId<QRectF>(), engine->newQObject(rectF));
 }
 
 //------------------------------------------------------------------------------

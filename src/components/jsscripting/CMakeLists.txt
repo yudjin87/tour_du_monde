@@ -14,6 +14,9 @@ set(__SOURCES
     ${CRSL_TARGET_SOURCES}/JsScriptingComponent.cpp 
     ${CRSL_TARGET_SOURCES}/JsScriptingInteractiveExtension.cpp 
     ${CRSL_TARGET_SOURCES}/LexemeAppearance.cpp 
+    ${CRSL_TARGET_SOURCES}/prototypes/PointFPrototype.cpp 
+    ${CRSL_TARGET_SOURCES}/prototypes/PointPrototype.cpp 
+    ${CRSL_TARGET_SOURCES}/prototypes/RectFPrototype.cpp 
     ${CRSL_TARGET_SOURCES}/ScriptCollection.cpp 
     ${CRSL_TARGET_SOURCES}/ScriptCollectionDialog.cpp 
     ${CRSL_TARGET_SOURCES}/ScriptCollectionModel.cpp 
@@ -43,6 +46,9 @@ set(__HEADERS
     ${CRSL_TARGET_HEADERS}/JsScriptingComponent.h 
     ${CRSL_TARGET_HEADERS}/JsScriptingInteractiveExtension.h 
     ${CRSL_TARGET_HEADERS}/LexemeAppearance.h 
+    ${CRSL_TARGET_HEADERS}/prototypes/PointFPrototype.h 
+    ${CRSL_TARGET_HEADERS}/prototypes/PointPrototype.h 
+    ${CRSL_TARGET_HEADERS}/prototypes/RectFPrototype.h 
     ${CRSL_TARGET_HEADERS}/ScriptCollection.h 
     ${CRSL_TARGET_HEADERS}/ScriptCollectionDialog.h 
     ${CRSL_TARGET_HEADERS}/ScriptCollectionModel.h 
