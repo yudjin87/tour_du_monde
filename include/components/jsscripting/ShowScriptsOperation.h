@@ -29,6 +29,10 @@
 
 #include <components/interactivity/Operation.h>
 
+#include <QtCore/QPointer>
+
+class QDialog;
+
 class ShowScriptsOperation : public Operation
 {
 public:
@@ -39,6 +43,7 @@ public:
 
 private:
     IServiceLocator *m_serviceLocator;
+    QPointer<QDialog> m_scriptsDialog;
 };
 
 #endif // SHOWSCRIPTCOLLECTIONOPERATION_H

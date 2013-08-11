@@ -34,6 +34,7 @@
 
 #include <carousel/logging/LoggerFacade.h>
 
+#include <QtCore/QSettings>
 #include <QtGui/QTextDocument>
 
 //------------------------------------------------------------------------------
@@ -57,6 +58,9 @@ ScriptCollectionDialog::ScriptCollectionDialog(ScriptCollectionModel *model, QWi
 
     for (IScriptUnit *script : m_model->scripts())
         onScriptAdded(script);
+
+    QSettings settings;
+    restoreGeometry(settings.value(QString(metaObject()->className()) +"/geometry").toByteArray());
 }
 
 //------------------------------------------------------------------------------
@@ -68,6 +72,9 @@ ScriptCollectionDialog::~ScriptCollectionDialog()
 
     delete m_ui;
     m_ui = nullptr;
+
+    QSettings settings;
+    settings.setValue(QString(metaObject()->className()) +"/geometry", saveGeometry());
 }
 
 //------------------------------------------------------------------------------
@@ -75,6 +82,7 @@ void ScriptCollectionDialog::onScriptAdded(IScriptUnit *script)
 {
     ScriptUnitView *scriptView = new ScriptUnitView(script, new CodeHighlighter(ColorTheme::getDefault(), this));
     int index = m_ui->tabWidget->addTab(scriptView, script->fileName());
+    m_ui->tabWidget->setCurrentIndex(index);
     m_tabs.insert(index, scriptView);
 
     bool modified = scriptView->data()->script()->isModified();

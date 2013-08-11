@@ -36,6 +36,7 @@
 ShowScriptsOperation::ShowScriptsOperation()
     : Operation("Scripts")
     , m_serviceLocator(nullptr)
+    , m_scriptsDialog(nullptr)
 {
     setIcon(QIcon(":/jsscripting/images/scriptIDE.png"));
     setIconVisibleInMenu(true);
@@ -44,11 +45,17 @@ ShowScriptsOperation::ShowScriptsOperation()
 //------------------------------------------------------------------------------
 void ShowScriptsOperation::execute()
 {
-    IDialogService *dialogService = m_serviceLocator->locate<IDialogService>();
+    if (m_scriptsDialog == nullptr) {
+        IDialogService *dialogService = m_serviceLocator->locate<IDialogService>();
+        ScriptCollectionModel *model = m_serviceLocator->buildInstance<ScriptCollectionModel>();
+        m_scriptsDialog = dialogService->createDialog(model);
+        model->setParent(m_scriptsDialog);
+    }
 
-    ScriptCollectionModel *model = m_serviceLocator->buildInstance<ScriptCollectionModel>();
-    dialogService->showDialog(model);
-    delete model;
+    if (m_scriptsDialog->isVisible())
+        m_scriptsDialog->activateWindow();
+    else
+        m_scriptsDialog->show();
 }
 
 //------------------------------------------------------------------------------

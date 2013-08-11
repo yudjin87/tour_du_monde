@@ -60,7 +60,7 @@ void JsScriptingInteractiveExtension::configureGui(ICatalogs &inCatalogs, IServi
 
     // script console
     QDockWidget *scriptConsoleDock = catalog.addDockWidget(
-            new ScriptConsoleView(console, hilighter), "Scripting (not working yet)", Qt::BottomDockWidgetArea);
+            new ScriptConsoleView(console, hilighter), "Script console", Qt::BottomDockWidgetArea);
 
     Operation *scriptConsole = new ToggleActionWrapper(scriptConsoleDock->toggleViewAction(), QIcon(":/jsscripting/images/scriptWindow.png"));
     inCatalogs.operationCatalog().add(scriptConsole);
