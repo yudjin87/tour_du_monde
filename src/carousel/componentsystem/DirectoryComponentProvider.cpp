@@ -28,9 +28,18 @@
 #include "ComponentProvider.h"
 #include "FileComponentProvider.h"
 
+#include <carousel/logging/LoggerFacade.h>
+
+#include <QtCore/QCoreApplication>
 #include <QtCore/QFile>
 #include <QtCore/QFileInfoList>
 #include <QtCore/QScopedPointer>
+
+//------------------------------------------------------------------------------
+namespace
+{
+static LoggerFacade Log = LoggerFacade::createLogger("DirectoryComponentProvider");
+}
 
 //------------------------------------------------------------------------------
 typedef QScopedPointer<FileComponentProvider> FileComponentProviderPtr;
@@ -116,7 +125,8 @@ void DirectoryComponentProvider::setPath(const QString &path)
     if (!directoryToComponents.isDir())
         return;
 
-    m_path = path;
+    QDir dir(QCoreApplication::applicationDirPath());
+    m_path =  dir.absoluteFilePath(path);
 }
 
 //------------------------------------------------------------------------------
@@ -164,6 +174,7 @@ QList<IComponent *> DirectoryComponentProvider::update()
 
     QStringList nameFilters(m_definitionExtension);
     QDirIterator iterator(m_path, nameFilters, m_filters, m_flags);
+    Log.d(QString("Looking for components in \"%1\"").arg(m_path));
 
     QList<IComponent *> discoveredComponents;
     while (iterator.hasNext()) {
