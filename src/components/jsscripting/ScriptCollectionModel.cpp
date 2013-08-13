@@ -128,3 +128,9 @@ void ScriptCollectionModel::onCreateScript()
 }
 
 //------------------------------------------------------------------------------
+void ScriptCollectionModel::onScriptRemoved(IScriptUnit *script)
+{
+    m_data->removeScript(script);
+}
+
+//------------------------------------------------------------------------------

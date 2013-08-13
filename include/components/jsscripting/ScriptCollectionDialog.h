@@ -60,17 +60,18 @@ private slots:
     void onRun();
     void onSave();
     void onCurrentScriptModificationChanged(bool changed);
+    void onScriptFileNameChanged();
+    void onTabCloseRequested(int index);
 
 private:
     ScriptUnitView *getCurrentView();
-    ScriptUnitView *getView(IScriptUnit *script);
     void clearModifiedMark(int index);
     void setModifiedMark(int index);
+    int indexByScript(IScriptUnit *script) const;
 
 private:
     Ui::ScriptCollectionDialog *m_ui;
     ScriptCollectionModel *m_model;
-    QMap<int, ScriptUnitView *> m_tabs;
 };
 
 #endif // SCRIPTCOLLECTIONVIEW_H

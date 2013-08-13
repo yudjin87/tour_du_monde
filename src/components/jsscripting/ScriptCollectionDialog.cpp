@@ -56,6 +56,7 @@ ScriptCollectionDialog::ScriptCollectionDialog(ScriptCollectionModel *model, QWi
     connect(m_ui->actionLoadScript, &QAction::triggered, m_model, &ScriptCollectionModel::onLoad);
     connect(m_ui->actionRun, &QAction::triggered, this, &ScriptCollectionDialog::onRun);
     connect(m_ui->actionSave, &QAction::triggered, this, &ScriptCollectionDialog::onSave);
+    connect(m_ui->tabWidget, &QTabWidget::tabCloseRequested, this, &ScriptCollectionDialog::onTabCloseRequested);
     connect(m_model, &ScriptCollectionModel::scriptAdded, this, &ScriptCollectionDialog::onScriptAdded);
 
     for (IScriptUnit *script : m_model->scripts())
@@ -69,8 +70,11 @@ ScriptCollectionDialog::ScriptCollectionDialog(ScriptCollectionModel *model, QWi
 ScriptCollectionDialog::~ScriptCollectionDialog()
 {
     // Skip document signals
-    for (ScriptUnitView *scriptView : m_tabs)
+    for (int i = 0; i < m_ui->tabWidget->count(); ++i) {
+        ScriptUnitView *scriptView = qobject_cast<ScriptUnitView *>(m_ui->tabWidget->widget(i));
         scriptView->data()->script()->disconnect(this);
+        delete scriptView;
+    }
 
     delete m_ui;
     m_ui = nullptr;
@@ -100,23 +104,28 @@ void ScriptCollectionDialog::keyPressEvent(QKeyEvent *event)
 void ScriptCollectionDialog::onScriptAdded(IScriptUnit *script)
 {
     ScriptUnitView *scriptView = new ScriptUnitView(script, new CodeHighlighter(ColorTheme::getDefault(), this));
-    int index = m_ui->tabWidget->addTab(scriptView, script->fileName());
+    bool savable = !script->fileName().isEmpty();
+    int index = m_ui->tabWidget->addTab(scriptView, savable
+                                        ? script->fileName()
+                                        : "Untitled");
+
     m_ui->tabWidget->setCurrentIndex(index);
-    m_tabs.insert(index, scriptView);
 
     bool modified = scriptView->data()->script()->isModified();
-    if (modified)
+    if (modified || !savable) // script in memory always marked as unsaved
         setModifiedMark(index);
 
     connect(scriptView->data()->script(), &QTextDocument::modificationChanged,
             this, &ScriptCollectionDialog::onCurrentScriptModificationChanged);
+
+    connect(scriptView->data(), &IScriptUnit::fileNameChanged,
+            this, &ScriptCollectionDialog::onScriptFileNameChanged);
 }
 
 //------------------------------------------------------------------------------
 void ScriptCollectionDialog::onScriptRemoved(IScriptUnit *script)
 {
-    ScriptUnitView *view = getView(script);
-    int index = m_tabs.key(view);
+    int index = indexByScript(script);
     m_ui->tabWidget->removeTab(index);
 }
 
@@ -151,31 +160,31 @@ void ScriptCollectionDialog::onCurrentScriptModificationChanged(bool changed)
 }
 
 //------------------------------------------------------------------------------
-ScriptUnitView *ScriptCollectionDialog::getCurrentView()
+void ScriptCollectionDialog::onScriptFileNameChanged()
 {
-    int index = m_ui->tabWidget->currentIndex();
-    if (!m_tabs.contains(index))
-        return nullptr;
-
-    return m_tabs[m_ui->tabWidget->currentIndex()];
+    IScriptUnit *script = qobject_cast<IScriptUnit *>(sender());
+    int index = indexByScript(script);
+    m_ui->tabWidget->setTabText(index, script->fileName());
 }
 
 //------------------------------------------------------------------------------
-ScriptUnitView *ScriptCollectionDialog::getView(IScriptUnit *script)
+void ScriptCollectionDialog::onTabCloseRequested(int index)
 {
-    for (ScriptUnitView *scriptView : m_tabs)
-        if (scriptView->data() == script)
-            return scriptView;
+    ScriptUnitView *view = qobject_cast<ScriptUnitView *>(m_ui->tabWidget->widget(index));
+    m_ui->tabWidget->removeTab(index);
+    m_model->onScriptRemoved(view->data());
+    delete view;
+}
 
-    return nullptr;
+//------------------------------------------------------------------------------
+ScriptUnitView *ScriptCollectionDialog::getCurrentView()
+{
+    return qobject_cast<ScriptUnitView *>(m_ui->tabWidget->currentWidget());
 }
 
 //------------------------------------------------------------------------------
 void ScriptCollectionDialog::clearModifiedMark(int index)
 {
-    if (!m_tabs.contains(index))
-        return;
-
     QString tabTitle = m_ui->tabWidget->tabText(index);
     if (!tabTitle.endsWith("*"))
         return;
@@ -187,15 +196,24 @@ void ScriptCollectionDialog::clearModifiedMark(int index)
 //------------------------------------------------------------------------------
 void ScriptCollectionDialog::setModifiedMark(int index)
 {
-    if (!m_tabs.contains(index))
-        return;
-
     QString tabTitle = m_ui->tabWidget->tabText(index);
     if (tabTitle.endsWith("*"))
         return;
 
     tabTitle.append("*");
     m_ui->tabWidget->setTabText(index, tabTitle);
+}
+
+//------------------------------------------------------------------------------
+int ScriptCollectionDialog::indexByScript(IScriptUnit *script) const
+{
+    for (int i = 0; i < m_ui->tabWidget->count(); ++i) {
+        ScriptUnitView *scriptView = qobject_cast<ScriptUnitView *>(m_ui->tabWidget->widget(i));
+        if (scriptView->data() == script)
+            return i;
+    }
+
+    return -1;
 }
 
 //------------------------------------------------------------------------------

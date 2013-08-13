@@ -67,6 +67,9 @@ public slots:
     virtual bool save() = 0;
     virtual bool saveAs(const QString &filePath) = 0;
 
+signals:
+    void fileNameChanged();
+
 private:
     Q_DISABLE_COPY(IScriptUnit)
 };

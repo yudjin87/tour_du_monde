@@ -138,6 +138,7 @@ bool ScriptUnit::load()
 bool ScriptUnit::load(const QString &filePath)
 {
     m_fileName = absolutePath(filePath);
+    emit fileNameChanged();
     return load();
 }
 
@@ -156,6 +157,9 @@ bool ScriptUnit::save()
 //------------------------------------------------------------------------------
 bool ScriptUnit::saveAs(const QString &fileName)
 {
+    if (fileName.isEmpty())
+        return false;
+
     if (!m_script->isModified())
         return true;
 
@@ -163,6 +167,8 @@ bool ScriptUnit::saveAs(const QString &fileName)
         return false;
 
     m_fileName = fileName;
+    emit fileNameChanged();
+
     m_script->setModified(false);
     return true;
 }

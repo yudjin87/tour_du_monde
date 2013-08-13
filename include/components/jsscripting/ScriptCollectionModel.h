@@ -54,6 +54,7 @@ public:
 public slots:
     void onLoad();
     bool onSave(IScriptUnit *script);
+    void onScriptRemoved(IScriptUnit *script);
     void onSaveAll();
     void onCreateScript();
 
