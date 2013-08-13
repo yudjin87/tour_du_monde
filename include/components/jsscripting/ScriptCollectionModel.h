@@ -53,8 +53,9 @@ public:
 
 public slots:
     void onLoad();
-    void onSave(IScriptUnit *script);
+    bool onSave(IScriptUnit *script);
     void onSaveAll();
+    void onCreateScript();
 
 signals:
     void scriptAdded(IScriptUnit *script);

@@ -22,6 +22,7 @@
        <height>24</height>
       </size>
      </property>
+     <addaction name="actionNewScript"/>
      <addaction name="actionLoadScript"/>
      <addaction name="actionSave"/>
      <addaction name="separator"/>
@@ -42,7 +43,7 @@
      <normaloff>:/jsscripting/images/scriptLoad.png</normaloff>:/jsscripting/images/scriptLoad.png</iconset>
    </property>
    <property name="text">
-    <string>loadScript</string>
+    <string>Load script</string>
    </property>
    <property name="toolTip">
     <string>Load script</string>
@@ -73,6 +74,18 @@
    </property>
    <property name="toolTip">
     <string>Save current script</string>
+   </property>
+  </action>
+  <action name="actionNewScript">
+   <property name="icon">
+    <iconset resource="jsscripting.qrc">
+     <normaloff>:/jsscripting/images/scriptAdd.png</normaloff>:/jsscripting/images/scriptAdd.png</iconset>
+   </property>
+   <property name="text">
+    <string>New script</string>
+   </property>
+   <property name="toolTip">
+    <string>Add new script</string>
    </property>
   </action>
  </widget>

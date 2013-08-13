@@ -52,6 +52,7 @@ ScriptCollectionDialog::ScriptCollectionDialog(ScriptCollectionModel *model, QWi
 {
     m_ui->setupUi(this);
 
+    connect(m_ui->actionNewScript, &QAction::triggered, m_model, &ScriptCollectionModel::onCreateScript);
     connect(m_ui->actionLoadScript, &QAction::triggered, m_model, &ScriptCollectionModel::onLoad);
     connect(m_ui->actionRun, &QAction::triggered, this, &ScriptCollectionDialog::onRun);
     connect(m_ui->actionSave, &QAction::triggered, this, &ScriptCollectionDialog::onSave);
@@ -136,8 +137,8 @@ void ScriptCollectionDialog::onSave()
     if (scriptView == nullptr)
         return;
 
-    m_model->onSave(scriptView->data());
-    clearModifiedMark(m_ui->tabWidget->currentIndex());
+    if (m_model->onSave(scriptView->data()))
+        clearModifiedMark(m_ui->tabWidget->currentIndex());
 }
 
 //------------------------------------------------------------------------------
