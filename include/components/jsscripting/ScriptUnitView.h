@@ -64,9 +64,8 @@ protected:
 
 private:
     bool onKeyPressed(QKeyEvent *event);
-
-private:
     bool processControlKey(int key);
+    void insertIndent();
 
 private:
     Ui::ScriptUnitView *m_ui;

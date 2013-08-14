@@ -121,6 +121,12 @@ bool ScriptUnitView::onKeyPressed(QKeyEvent *event)
         return true;
     }
 
+    if (key == Qt::Key_Tab) {
+        insertIndent();
+        event->accept();
+        return true;
+    }
+
     return false;
 }
 
@@ -137,6 +143,17 @@ bool ScriptUnitView::processControlKey(int key)
     }
 
     return false;
+}
+
+//------------------------------------------------------------------------------
+void ScriptUnitView::insertIndent()
+{
+    static const int indent_size = 4;
+    int position = indent_size - m_ui->scriptEditor->textCursor().positionInBlock() % indent_size;
+    if (position == 0)
+        position = indent_size;
+
+    m_ui->scriptEditor->insertPlainText(QString(position, ' '));
 }
 
 //------------------------------------------------------------------------------
