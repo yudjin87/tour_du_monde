@@ -69,7 +69,9 @@ class COMP_API IComponent : public QObject
      *   When the availability is enabled, the component is checked in the Components dialog.
      */
     Q_PROPERTY(Availability availability READ availability WRITE setAvailability NOTIFY availabilityChanged)
-
+    Q_PROPERTY(bool started READ started)
+    Q_PROPERTY(QString name READ name)
+    Q_PROPERTY(const ComponentDefinition *definition READ definition)
 public:
     /*!
      * @details

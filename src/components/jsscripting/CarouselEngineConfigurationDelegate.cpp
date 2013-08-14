@@ -28,6 +28,7 @@
 #include "IScriptExtension.h"
 #include "ServiceLocatorWrapper.h"
 
+#include "prototypes/ComponentDefinitionPrototype.h"
 #include "prototypes/PointPrototype.h"
 #include "prototypes/PointFPrototype.h"
 #include "prototypes/RectFPrototype.h"
@@ -39,10 +40,23 @@
 #include <QtScript/QScriptEngine>
 
 //------------------------------------------------------------------------------
+static const int IComponentDefinitionId = qRegisterMetaType<ComponentDefinition *>("ComponentDefinition *");
+static const int ConstIComponentDefinitionId = qRegisterMetaType<const ComponentDefinition *>("const ComponentDefinition *");
+
+//------------------------------------------------------------------------------
 namespace
 {
 static LoggerFacade Log = LoggerFacade::createLogger("CarouselEngineConfigurationDelegate");
+
+//------------------------------------------------------------------------------
+int registerComponentsList(QScriptEngine *engine)
+{
+    return qScriptRegisterMetaType<QList<IComponent *>>(engine,
+        qScriptValueFromSequence<QList<IComponent *>>,
+        qScriptValueToSequence<QList<IComponent *>>);
 }
+} // namespace
+
 
 //------------------------------------------------------------------------------
 CarouselEngineConfigurationDelegate::CarouselEngineConfigurationDelegate(IServiceLocator *locator, QObject *parent)
@@ -70,6 +84,8 @@ void CarouselEngineConfigurationDelegate::configureDefaults(QScriptEngine *engin
     configureServiceLocator(engine, m_locator);
     configurePrintFunc(engine, output);
     registerBasePrimitives(engine);
+    registerComponentSystemPrototypes(engine);
+    registerIComponentsList(engine);
 }
 
 //------------------------------------------------------------------------------
@@ -94,6 +110,14 @@ void CarouselEngineConfigurationDelegate::configurePrintFunc(QScriptEngine *engi
 }
 
 //------------------------------------------------------------------------------
+void CarouselEngineConfigurationDelegate::registerComponentSystemPrototypes(QScriptEngine *engine)
+{
+    ComponentDefinitionPrototype *def = new ComponentDefinitionPrototype(engine);
+    engine->setDefaultPrototype(qMetaTypeId<const ComponentDefinition *>(), engine->newQObject(def));
+    engine->setDefaultPrototype(qMetaTypeId<ComponentDefinition *>(), engine->newQObject(def));
+}
+
+//------------------------------------------------------------------------------
 void CarouselEngineConfigurationDelegate::registerBasePrimitives(QScriptEngine *engine)
 {
     PointPrototype *point = new PointPrototype(engine);
@@ -107,6 +131,13 @@ void CarouselEngineConfigurationDelegate::registerBasePrimitives(QScriptEngine *
     RectFPrototype *rectF = new RectFPrototype(engine);
     engine->setDefaultPrototype(qMetaTypeId<QRectF *>(), engine->newQObject(rectF));
     engine->setDefaultPrototype(qMetaTypeId<QRectF>(), engine->newQObject(rectF));
+}
+
+//------------------------------------------------------------------------------
+void CarouselEngineConfigurationDelegate::registerIComponentsList(QScriptEngine *engine)
+{
+    int componentListId = registerComponentsList(engine);
+    Q_UNUSED(componentListId);
 }
 
 //------------------------------------------------------------------------------

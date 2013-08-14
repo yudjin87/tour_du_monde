@@ -32,7 +32,6 @@
 
 #include <QtCore/QObject>
 #include <QtCore/QList>
-#include <QtCore/QList>
 
 class IComponent;
 class IComponentDependencies;
@@ -62,6 +61,10 @@ class ObservableList;
 class COMP_API IComponentManager : public QObject
 {
     Q_OBJECT
+
+    Q_PROPERTY(QList<IComponent *> orphanComponents READ orphanComponents)
+    Q_PROPERTY(QList<IComponent *> stoppedComponents READ stoppedComponents)
+    Q_PROPERTY(QList<IComponent *> startedComponents READ startedComponents)
 public:
     IComponentManager(){}
     virtual ~IComponentManager(){}

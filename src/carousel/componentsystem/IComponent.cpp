@@ -27,9 +27,9 @@
 #include "IComponent.h"
 
 //------------------------------------------------------------------------------
-int IComponentMetatypeId = qRegisterMetaType<IComponent*>("IComponent*");
-int IComponentListMetatypeId = qRegisterMetaType<QList<IComponent*>>("QList<IComponent*>");
-int IComponentAvailabilityId = qRegisterMetaType<IComponent::Availability>("IComponent::Availability");
+static int IComponentMetatypeId = qRegisterMetaType<IComponent*>("IComponent*");
+static int IComponentListMetatypeId = qRegisterMetaType<QList<IComponent*>>("QList<IComponent*>");
+static int IComponentAvailabilityId = qRegisterMetaType<IComponent::Availability>("IComponent::Availability");
 
 //------------------------------------------------------------------------------
 QStringList toStringList(const QList<IComponent *> &components)
@@ -40,3 +40,5 @@ QStringList toStringList(const QList<IComponent *> &components)
 
     return names;
 }
+
+//------------------------------------------------------------------------------

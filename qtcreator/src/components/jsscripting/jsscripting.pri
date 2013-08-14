@@ -16,6 +16,7 @@ HEADERS += \
     $$PROJECT_HEADERS/JsScriptingComponent.h \
     $$PROJECT_HEADERS/JsScriptingInteractiveExtension.h \
     $$PROJECT_HEADERS/LexemeAppearance.h \
+    $$PROJECT_HEADERS/prototypes/ComponentDefinitionPrototype.h \
     $$PROJECT_HEADERS/prototypes/PointFPrototype.h \
     $$PROJECT_HEADERS/prototypes/PointPrototype.h \
     $$PROJECT_HEADERS/prototypes/RectFPrototype.h \
@@ -37,6 +38,7 @@ SOURCES += \
     $$PROJECT_SOURCES/JsScriptingComponent.cpp \
     $$PROJECT_SOURCES/JsScriptingInteractiveExtension.cpp \
     $$PROJECT_SOURCES/LexemeAppearance.cpp \
+    $$PROJECT_SOURCES/prototypes/ComponentDefinitionPrototype.cpp \
     $$PROJECT_SOURCES/prototypes/PointFPrototype.cpp \
     $$PROJECT_SOURCES/prototypes/PointPrototype.cpp \
     $$PROJECT_SOURCES/prototypes/RectFPrototype.cpp \
