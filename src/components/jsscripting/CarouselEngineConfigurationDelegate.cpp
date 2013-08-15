@@ -36,7 +36,9 @@
 #include <carousel/componentsystem/IComponent.h>
 #include <carousel/logging/LoggerFacade.h>
 
+#include <QtCore/QEventLoop>
 #include <QtCore/QPoint>
+#include <QtCore/QTimer>
 #include <QtScript/QScriptEngine>
 
 //------------------------------------------------------------------------------
@@ -82,7 +84,8 @@ void CarouselEngineConfigurationDelegate::configureFromComponent(IComponent *com
 void CarouselEngineConfigurationDelegate::configureDefaults(QScriptEngine *engine, QString *output)
 {
     configureServiceLocator(engine, m_locator);
-    configurePrintFunc(engine, output);
+    registerPrintFunc(engine, output);
+    registerWaitFunc(engine);
     registerBasePrimitives(engine);
     registerComponentSystemPrototypes(engine);
     registerIComponentsList(engine);
@@ -103,10 +106,17 @@ void CarouselEngineConfigurationDelegate::configureServiceLocator(QScriptEngine 
 }
 
 //------------------------------------------------------------------------------
-void CarouselEngineConfigurationDelegate::configurePrintFunc(QScriptEngine *engine, QString *output)
+void CarouselEngineConfigurationDelegate::registerPrintFunc(QScriptEngine *engine, QString *output)
 {
     QScriptValue printFunc = engine->newFunction(&CarouselEngineConfigurationDelegate::print, (void *)output);
     engine->globalObject().setProperty("print", printFunc);
+}
+
+//------------------------------------------------------------------------------
+void CarouselEngineConfigurationDelegate::registerWaitFunc(QScriptEngine *engine)
+{
+    QScriptValue waitFunc = engine->newFunction(&CarouselEngineConfigurationDelegate::wait);
+    engine->globalObject().setProperty("wait", waitFunc);
 }
 
 //------------------------------------------------------------------------------
@@ -137,6 +147,26 @@ void CarouselEngineConfigurationDelegate::registerIComponentsList(QScriptEngine 
 {
     int componentListId = registerComponentsList(engine);
     Q_UNUSED(componentListId);
+}
+
+//------------------------------------------------------------------------------
+QScriptValue CarouselEngineConfigurationDelegate::wait(QScriptContext *context, QScriptEngine *engine)
+{
+    if (context->argumentCount() != 1) {
+        context->throwError(QScriptContext::SyntaxError, "Wrong number of arguments: wait(int) is expected");
+        return engine->undefinedValue();
+    }
+
+    int milliseconds = context->argument(0).toInt32();
+
+    QEventLoop loop;
+    QTimer timer;
+    timer.setInterval(milliseconds);
+    QObject::connect(&timer, &QTimer::timeout, &loop, &QEventLoop::quit);
+    timer.start();
+    loop.exec();
+
+    return engine->undefinedValue();
 }
 
 //------------------------------------------------------------------------------

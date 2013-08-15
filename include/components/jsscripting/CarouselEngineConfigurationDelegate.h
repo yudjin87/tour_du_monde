@@ -53,8 +53,9 @@ public slots:
 protected:
     virtual void configureExtension(QScriptEngine *engine, IScriptExtension *extension);
     virtual void configureServiceLocator(QScriptEngine *engine, IServiceLocator *locator);
-    virtual void configurePrintFunc(QScriptEngine *engine, QString *output);
 
+    virtual void registerPrintFunc(QScriptEngine *engine, QString *output);
+    virtual void registerWaitFunc(QScriptEngine *engine);
     virtual void registerComponentSystemPrototypes(QScriptEngine *engine);
     virtual void registerBasePrimitives(QScriptEngine *engine);
     virtual void registerIComponentsList(QScriptEngine *engine);
@@ -62,6 +63,7 @@ protected:
 private:
     Q_DISABLE_COPY(CarouselEngineConfigurationDelegate)
     static QScriptValue print(QScriptContext *context, QScriptEngine *engine, void *out);
+    static QScriptValue wait(QScriptContext *context, QScriptEngine *engine);
 
 private:
     IServiceLocator *m_locator;
