@@ -24,35 +24,37 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef POINTPROTOTYPE_H
-#define POINTPROTOTYPE_H
+#ifndef POINTCLASS_H
+#define POINTCLASS_H
 
-#include <QtCore/QPoint>
 #include <QtCore/QObject>
-#include <QtScript/QScriptable>
+#include <QtCore/QPoint>
 
-class PointPrototype : public QObject, public QScriptable
+#include <QtScript/QScriptClass>
+
+class QScriptEngine;
+class QScriptContext;
+
+class PointClass : public QObject, public QScriptClass
 {
     Q_OBJECT
-    Q_PROPERTY(int x READ x WRITE setX)
-    Q_PROPERTY(int y READ y WRITE setY)
 public:
-    PointPrototype(QObject *parent = nullptr);
+    PointClass(QScriptEngine* engine = nullptr);
+    ~PointClass();
 
-    int x() const;
-    void setX(int x);
-
-    int y() const;
-    void setY(int y);
-
-public slots:
-   QString toString();
+    QScriptValue constructor();
+    QScriptValue newInstance();
+    QScriptValue newInstance(const QPoint&);
+    QString name() const;
+    QScriptValue prototype() const;
 
 private:
-   QPoint *thisPoint() const;
+    static QScriptValue construct(QScriptContext* ctx, QScriptEngine* eng);
+    static QScriptValue toScriptValue(QScriptEngine* eng, const QPoint&);
+    static void fromScriptValue(const QScriptValue& obj, QPoint&);
+
+    QScriptValue m_proto;
+    QScriptValue m_ctor;
 };
 
-Q_DECLARE_METATYPE(QPoint *)
-Q_DECLARE_METATYPE(QPoint)
-
-#endif // POINTPROTOTYPE_H
+#endif // POINTCLASS_H

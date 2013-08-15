@@ -29,7 +29,7 @@
 #include "ServiceLocatorWrapper.h"
 
 #include "prototypes/ComponentDefinitionPrototype.h"
-#include "prototypes/PointPrototype.h"
+#include "prototypes/PointClass.h"
 #include "prototypes/PointFPrototype.h"
 #include "prototypes/RectFPrototype.h"
 
@@ -120,9 +120,8 @@ void CarouselEngineConfigurationDelegate::registerComponentSystemPrototypes(QScr
 //------------------------------------------------------------------------------
 void CarouselEngineConfigurationDelegate::registerBasePrimitives(QScriptEngine *engine)
 {
-    PointPrototype *point = new PointPrototype(engine);
-    engine->setDefaultPrototype(qMetaTypeId<QPoint *>(), engine->newQObject(point));
-    engine->setDefaultPrototype(qMetaTypeId<QPoint>(), engine->newQObject(point));
+    PointClass *point = new PointClass(engine);
+    engine->globalObject().setProperty("QPoint", point->constructor());
 
     PointFPrototype *pointF = new PointFPrototype(engine);
     engine->setDefaultPrototype(qMetaTypeId<QPointF *>(), engine->newQObject(pointF));

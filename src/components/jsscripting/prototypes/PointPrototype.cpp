@@ -38,41 +38,25 @@ PointPrototype::PointPrototype(QObject *parent)
 //------------------------------------------------------------------------------
 int PointPrototype::x() const
 {
-    QPoint *point = qscriptvalue_cast<QPoint *>(thisObject());
-    if (point == nullptr)
-        return 0; // TODO: throw script error: TypeError
-
-    return point->x();
+    return thisPoint()->x();
 }
 
 //------------------------------------------------------------------------------
 void PointPrototype::setX(int x)
 {
-    QPoint *point = qscriptvalue_cast<QPoint*>(thisObject());
-    if (point == nullptr)
-        return;
-
-    point->setX(x);
+    thisPoint()->setX(x);
 }
 
 //------------------------------------------------------------------------------
 int PointPrototype::y() const
 {
-    QPoint *point = qscriptvalue_cast<QPoint*>(thisObject());
-    if (point == nullptr)
-        return 0;
-
-    return point->y();
+    return thisPoint()->y();
 }
 
 //------------------------------------------------------------------------------
 void PointPrototype::setY(int y)
 {
-    QPoint *point = qscriptvalue_cast<QPoint*>(thisObject());
-    if (point == nullptr)
-        return;
-
-    point->setY(y);
+    thisPoint()->setY(y);
 }
 
 //------------------------------------------------------------------------------
@@ -82,6 +66,16 @@ QString PointPrototype::toString()
     return pattern
             .arg(x())
             .arg(y());
+}
+
+//------------------------------------------------------------------------------
+QPoint *PointPrototype::thisPoint() const
+{
+    QPoint *point = qscriptvalue_cast<QPoint *>(thisObject().data());
+    if (point == nullptr)
+        return 0; // TODO: throw script error: TypeError
+
+    return point;
 }
 
 //------------------------------------------------------------------------------

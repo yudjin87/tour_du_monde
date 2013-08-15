@@ -15,6 +15,7 @@ set(__SOURCES
     ${CRSL_TARGET_SOURCES}/JsScriptingInteractiveExtension.cpp 
     ${CRSL_TARGET_SOURCES}/LexemeAppearance.cpp 
     ${CRSL_TARGET_SOURCES}/prototypes/ComponentDefinitionPrototype.cpp 
+    ${CRSL_TARGET_SOURCES}/prototypes/PointClass.cpp 
     ${CRSL_TARGET_SOURCES}/prototypes/PointFPrototype.cpp 
     ${CRSL_TARGET_SOURCES}/prototypes/PointPrototype.cpp 
     ${CRSL_TARGET_SOURCES}/prototypes/RectFPrototype.cpp 
@@ -48,6 +49,7 @@ set(__HEADERS
     ${CRSL_TARGET_HEADERS}/JsScriptingInteractiveExtension.h 
     ${CRSL_TARGET_HEADERS}/LexemeAppearance.h 
     ${CRSL_TARGET_HEADERS}/prototypes/ComponentDefinitionPrototype.h 
+    ${CRSL_TARGET_HEADERS}/prototypes/PointClass.h 
     ${CRSL_TARGET_HEADERS}/prototypes/PointFPrototype.h 
     ${CRSL_TARGET_HEADERS}/prototypes/PointPrototype.h 
     ${CRSL_TARGET_HEADERS}/prototypes/RectFPrototype.h 
