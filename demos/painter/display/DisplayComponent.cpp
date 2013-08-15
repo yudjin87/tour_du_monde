@@ -34,8 +34,6 @@
 #include <components/interactivity/InputDispatcher.h>
 #include <carousel/utils/IServiceLocator.h>
 
-#include <QtWidgets/QGraphicsScene>
-#include <QtWidgets/QGraphicsView>
 #include <QtWidgets/QMainWindow>
 
 //------------------------------------------------------------------------------
@@ -64,11 +62,8 @@ DisplayComponent::~DisplayComponent()
 //------------------------------------------------------------------------------
 void DisplayComponent::onShutdown(IServiceLocator *serviceLocator)
 {
-//    QGraphicsScene *scene = serviceLocator->unregisterInstance<QGraphicsScene>();
-//    QGraphicsView *view = scene->views().first();
-
-//    delete scene;
-//    delete view;
+    IDisplay *display = serviceLocator->unregisterInstance<IDisplay>();
+    delete display;
 
     IInteractionService* interactionService = serviceLocator->locate<IInteractionService>();
     interactionService->setDispatcher(nullptr);
@@ -77,12 +72,7 @@ void DisplayComponent::onShutdown(IServiceLocator *serviceLocator)
 //------------------------------------------------------------------------------
 bool DisplayComponent::onStartup(IServiceLocator *serviceLocator)
 {
-//    QGraphicsScene *scene = new QGraphicsScene();
-//    QGraphicsView *view = new QGraphicsView(scene);
-//    view->scale(50000, 50000);
-
     QMainWindow *mainWindow = serviceLocator->locate<QMainWindow>();
-    //mainWindow->setCentralWidget(view);
 
     SimpleDisplay *display = new SimpleDisplay(mainWindow);
     mainWindow->setCentralWidget(display);
