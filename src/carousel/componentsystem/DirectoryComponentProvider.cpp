@@ -236,7 +236,6 @@ QString DirectoryComponentProvider::getCheckedDirectoryPath(const QString &path)
         return "";
     }
 
-    // Strange, but QFileInfo::canonicalFilePath() don't skip redundant "." element
     return directoryToComponents.canonicalFilePath();
 }
 
