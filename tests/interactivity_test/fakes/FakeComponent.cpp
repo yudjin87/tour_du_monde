@@ -27,8 +27,8 @@
 #include "FakeComponent.h"
 
 //------------------------------------------------------------------------------
-FakeComponent::FakeComponent()
-    : BaseComponent("FakeComponent")
+FakeComponent::FakeComponent(const QString &name)
+    : BaseComponent(name)
 {
 }
 

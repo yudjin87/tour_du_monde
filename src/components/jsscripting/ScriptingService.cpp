@@ -56,10 +56,9 @@ ScriptingService::ScriptingService(IServiceLocator *locator, IComponentManager *
     m_scriptExtensionConfigurationDelegate = new CarouselEngineConfigurationDelegate(locator, this);
     m_console = new ScriptConsole(this);
 
-    setUpEngine(m_console->engine(), m_console->output());
     setParent(parent);
-    connect(m_componentManager, &IComponentManager::componentStarted,
-            this, &ScriptingService::onComponentStartedUp);
+    connect(m_componentManager, &IComponentManager::startedUp,
+            this, &ScriptingService::onComponentManagerStartedUp);
 }
 
 //------------------------------------------------------------------------------
@@ -111,6 +110,14 @@ void ScriptingService::setDelegate(IEngineConfigurationDelegate *delegate)
         m_scriptExtensionConfigurationDelegate->setParent(this);
 
     setUpEngine(m_console->engine(), m_console->output());
+}
+
+//------------------------------------------------------------------------------
+void ScriptingService::onComponentManagerStartedUp()
+{
+    setUpEngine(m_console->engine(), m_console->output());
+    connect(m_componentManager, &IComponentManager::componentStarted,
+            this, &ScriptingService::onComponentStartedUp);
 }
 
 //------------------------------------------------------------------------------

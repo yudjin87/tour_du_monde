@@ -171,7 +171,6 @@ void CarouselInteractionService::setDispatcher(IInputDispatcher *dispatcher)
         dispatcher->setReceiver(m_activeTool);
 
     m_dispatcher = dispatcher;
-
 }
 
 //------------------------------------------------------------------------------
@@ -195,13 +194,25 @@ void CarouselInteractionService::loadUiState(int version /* = 0*/)
 //------------------------------------------------------------------------------
 void CarouselInteractionService::onComponentStartedUp(IComponent *component)
 {
-    if (m_componentConfigurationDelegate == nullptr)
-        return;
+    if (configureComponent(component))
+        loadUiState();
+}
 
-    m_componentConfigurationDelegate->configure(component, *m_catalogs);
+//------------------------------------------------------------------------------
+void CarouselInteractionService::onComponentManagerStartedUp()
+{
+    connect(m_componentManager, SIGNAL(componentStarted(IComponent *)),
+            SLOT(onComponentStartedUp(IComponent *)));
 
-    // TODO: Load only if configure returns true
-    loadUiState();
+    connect(m_componentManager, SIGNAL(componentAboutToShutDown(IComponent *)),
+            SLOT(onComponentAboutToShutDown(IComponent *)));
+
+    bool atLeasOneSuccess = false;
+    for (IComponent *component : m_componentManager->components())
+        atLeasOneSuccess = configureComponent(component) || atLeasOneSuccess;
+
+    if (atLeasOneSuccess)
+        loadUiState();
 }
 
 //------------------------------------------------------------------------------
@@ -237,13 +248,19 @@ void CarouselInteractionService::onToolDeleted()
 //------------------------------------------------------------------------------
 void CarouselInteractionService::makeConnections()
 {
-    connect(m_componentManager, SIGNAL(componentStarted(IComponent *)),
-            SLOT(onComponentStartedUp(IComponent *)));
-
-    connect(m_componentManager, SIGNAL(componentAboutToShutDown(IComponent *)),
-            SLOT(onComponentAboutToShutDown(IComponent *)));
-
+    connect(m_componentManager, SIGNAL(startedUp()), SLOT(onComponentManagerStartedUp()));
     connect(m_componentManager, SIGNAL(aboutToShutDown()), SLOT(onComponentManagerAboutToShutDown()));
+}
+
+//------------------------------------------------------------------------------
+bool CarouselInteractionService::configureComponent(IComponent *component)
+{
+    if (m_componentConfigurationDelegate == nullptr)
+        return false;
+
+    // componentConfigurationDelegate->configure should also return result
+    m_componentConfigurationDelegate->configure(component, *m_catalogs);
+    return true;
 }
 
 //------------------------------------------------------------------------------

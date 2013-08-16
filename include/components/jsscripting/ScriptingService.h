@@ -68,6 +68,7 @@ public:
     void setDelegate(IEngineConfigurationDelegate *delegate);
 
 protected slots:
+    void onComponentManagerStartedUp();
     void onComponentStartedUp(IComponent *component);
 
 private:

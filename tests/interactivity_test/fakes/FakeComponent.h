@@ -33,7 +33,7 @@ class FakeComponent : public BaseComponent
 {
    Q_OBJECT
 public:
-    FakeComponent();
+    FakeComponent(const QString &name = "FakeComponent");
 };
 
 #endif // FAKEOMPONENT_H

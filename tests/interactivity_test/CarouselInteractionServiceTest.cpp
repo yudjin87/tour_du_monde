@@ -256,7 +256,25 @@ void CarouselInteractionServiceTest::shouldSaveUiStateWhenComponentManagerShutdD
 }
 
 //------------------------------------------------------------------------------
-void CarouselInteractionServiceTest::shouldCallConfigureWhenComponentStarted()
+void CarouselInteractionServiceTest::shouldtCallConfigureWhenComponentManagerStarted()
+{
+    QMainWindow mainWnd; MockComponentManager manager(&m_serviceLocator);
+
+    CarouselInteractionService service(&m_serviceLocator, &mainWnd, &manager);
+    MockComponentConfigurationDelegate* delegate = new MockComponentConfigurationDelegate();
+    service.setConfigurationDelegate(delegate);
+
+    manager.addComponent(new FakeComponent());
+    manager.addComponent(new FakeComponent("FakeComponent2"));
+
+    manager.callStartedUp();
+
+    QVERIFY(delegate->m_configureCalled);
+    QCOMPARE(delegate->m_configureCalls, 2);
+}
+
+//------------------------------------------------------------------------------
+void CarouselInteractionServiceTest::shouldNotCallConfigureWhenComponentStartedUntilManagerStarted()
 {
     QMainWindow mainWnd; MockComponentManager manager(&m_serviceLocator);
 
@@ -266,6 +284,23 @@ void CarouselInteractionServiceTest::shouldCallConfigureWhenComponentStarted()
 
     FakeComponent comp;
     manager.callOnComponentStarted(&comp);
+
+    QVERIFY(!delegate->m_configureCalled);
+}
+
+//------------------------------------------------------------------------------
+void CarouselInteractionServiceTest::shouldCallConfigureWhenComponentStarted()
+{
+    QMainWindow mainWnd; MockComponentManager manager(&m_serviceLocator);
+
+    CarouselInteractionService service(&m_serviceLocator, &mainWnd, &manager);
+    MockComponentConfigurationDelegate* delegate = new MockComponentConfigurationDelegate();
+    service.setConfigurationDelegate(delegate);
+    manager.callStartedUp();
+
+    FakeComponent *comp = new FakeComponent();
+    manager.addComponent(comp);
+    manager.callOnComponentStarted(comp);
 
     QVERIFY(delegate->m_configureCalled);
 }
@@ -278,9 +313,11 @@ void CarouselInteractionServiceTest::shouldCallLoadUiStateWhenComponentStarted()
     MockCarouselInteractionService service(&m_serviceLocator, &mainWnd, &manager);
     MockComponentConfigurationDelegate* delegate = new MockComponentConfigurationDelegate();
     service.setConfigurationDelegate(delegate);
+    manager.callStartedUp();
 
-    FakeComponent comp;
-    manager.callOnComponentStarted(&comp);
+    FakeComponent *comp = new FakeComponent();
+    manager.addComponent(comp);
+    manager.callOnComponentStarted(comp);
 
     QVERIFY(service.loadUiCalled);
 }
@@ -293,6 +330,7 @@ void CarouselInteractionServiceTest::shouldConnectDelegateDeconfigureMethodWithC
     CarouselInteractionService service(&m_serviceLocator, &mainWnd, &manager);
     MockComponentConfigurationDelegate* delegate = new MockComponentConfigurationDelegate();
     service.setConfigurationDelegate(delegate);
+    manager.callStartedUp();
 
     FakeComponent comp;
     manager.callOnComponentAboutToShutDown(&comp);

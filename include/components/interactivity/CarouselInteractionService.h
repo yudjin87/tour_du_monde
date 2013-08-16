@@ -167,6 +167,15 @@ public:
 protected slots:
     /*!
      * @details
+     *   Configures all started @a components using configuration delegate (if any).
+     *   It also connects the onComponentStartedUp() slot to the manager's
+     *   componentStarted() signal
+     *   This slot is invoked when @a component manager started up.
+     */
+    void onComponentManagerStartedUp();
+
+    /*!
+     * @details
      *   Configures a @a component using configuration delegate (if any).
      *   This slot is invoked when @a component is started up.
      */
@@ -202,6 +211,7 @@ protected slots:
 
 private:
     void makeConnections();
+    bool configureComponent(IComponent *component);
 
 private:
     IInputDispatcher *m_dispatcher;
