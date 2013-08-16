@@ -27,18 +27,13 @@ else
     me="$0"
 fi
 
-bindir=`dirname "$me"`
-libDir=`cd "${bindir}/lib" ; pwd`
-installedComponentsDir=`cd "${bindir}/installedComponents" ; pwd`
-carouselDir=`cd "${bindir}/../../../../../product/gnu-x32-debug/bin" ; pwd`
-echo "libDir ${libDir}"
-echo "installedComponentsDir ${installedComponentsDir}"
-echo "carouselDir ${carouselDir}"
-
+binDir=`dirname "$me"`
+libDir=`cd "${binDir}/lib" ; pwd`
+carouselDir=`cd "${binDir}/../../../../../product/gnu-x32-debug/bin" ; pwd`
 
 LD_LIBRARY_PATH="${libDir}:${installedComponentsDir}:${carouselDir}:${LD_LIBRARY_PATH}"
 export LD_LIBRARY_PATH
-echo "start ${bindir}/painter.bin"
+echo "start ${binDir}/painter.bin"
 
-exec "${bindir}/painter.bin" ${1+"$@"}
+exec "${binDir}/painter.bin" ${1+"$@"}
 

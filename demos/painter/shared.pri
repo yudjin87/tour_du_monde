@@ -44,6 +44,17 @@ static {# everything below takes effect with CONFIG+=static
     DEFINES -= STATIC_BUILD
 }
 
+macx {
+    # QMAKE_LFLAGS_SONAME = -Wl,-install_name,@executable_path/../PlugIns/$${PROVIDER}/
+} else:linux-* {
+    # do the rpath by hand since it's not possible to use ORIGIN in QMAKE_RPATHDIR
+    QMAKE_RPATHDIR += \$\$ORIGIN/.
+    QMAKE_RPATHDIR += \$\$ORIGIN/installedComponents
+    IDE_PLUGIN_RPATH = $$join(QMAKE_RPATHDIR, ":")
+    QMAKE_LFLAGS += -Wl,-z,origin \'-Wl,-rpath,$${IDE_PLUGIN_RPATH}\'
+    QMAKE_RPATHDIR =
+}
+
 BIN_OUTPUT_PATH = product/$${BUILD_CONFIG}
 CAROUSEL_BIN    = $${PAINTER_WD}/../../$${BIN_OUTPUT_PATH}/bin
 
