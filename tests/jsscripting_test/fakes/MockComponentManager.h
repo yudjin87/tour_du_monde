@@ -37,6 +37,7 @@ public:
     void callOnComponentStarted(IComponent *component);
     void callOnComponentAboutToShutDown(IComponent *component);
     void callOnAboutToShutDown();
+    void callOnStartUp();
 };
 
 #endif // MOCKCOMPONENTMANAGER_H

@@ -87,6 +87,7 @@ void ScriptingServiceTest::shouldCallConfigureForConsoleEngineWhenComponentStart
     ScriptingService service(&locator, &manager);
     FakeConfigurationDelegate *delegate = new FakeConfigurationDelegate();
     service.setDelegate(delegate);
+    manager.callOnStartUp();
 
     MockScriptExtensionComponent comp;
     manager.callOnComponentStarted(&comp);

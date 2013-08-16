@@ -51,3 +51,9 @@ void MockComponentManager::callOnAboutToShutDown()
 }
 
 //------------------------------------------------------------------------------
+void MockComponentManager::callOnStartUp()
+{
+    onStartedUp();
+}
+
+//------------------------------------------------------------------------------
