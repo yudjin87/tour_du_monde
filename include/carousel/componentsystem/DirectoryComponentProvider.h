@@ -236,6 +236,9 @@ protected:
     virtual FileComponentProvider *createFileComponentProvider(const QString &definitionPath);
 
 private:
+    static QString getCheckedDirectoryPath(const QString &path);
+
+private:
     QString m_path;
     QString m_definitionExtension;
     QDirIterator::IteratorFlags m_flags;

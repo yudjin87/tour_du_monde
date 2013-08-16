@@ -11,6 +11,8 @@ public:
     
 private Q_SLOTS:
     void shouldNotSetupWrongDirectoryPath();
+    void shouldSetupPathAccordingToTheApplicationDir();
+    void shouldCorrectlySetupAbsolutePath();
 
     void initialize_shouldReturnTrue();
     void initialize_shouldCallUpdate();

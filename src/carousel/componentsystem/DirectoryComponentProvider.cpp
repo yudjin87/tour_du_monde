@@ -121,12 +121,19 @@ void DirectoryComponentProvider::registerComponent(IComponent *component)
 //------------------------------------------------------------------------------
 void DirectoryComponentProvider::setPath(const QString &path)
 {
-    QFileInfo directoryToComponents(path);
-    if (!directoryToComponents.isDir())
+    QDir libDir;
+    if (libDir.isAbsolutePath(path)) {
+        m_path = getCheckedDirectoryPath(path);
         return;
+    }
 
-    QDir dir(QCoreApplication::applicationDirPath());
-    m_path =  dir.absoluteFilePath(path);
+    libDir.cd(QCoreApplication::applicationDirPath());
+    if (!libDir.cd(path)) {
+        Log.d(QString("Unexisting path: \"%1\" ").arg(QDir::cleanPath(libDir.absoluteFilePath(path))));
+        return;
+    }
+
+    m_path = getCheckedDirectoryPath(libDir.absolutePath());
 }
 
 //------------------------------------------------------------------------------
@@ -159,7 +166,6 @@ const QString &DirectoryComponentProvider::extension() const
     return m_definitionExtension;
 }
 
-
 //------------------------------------------------------------------------------
 QDirIterator::IteratorFlags DirectoryComponentProvider::flags() const
 {
@@ -169,8 +175,10 @@ QDirIterator::IteratorFlags DirectoryComponentProvider::flags() const
 //------------------------------------------------------------------------------
 QList<IComponent *> DirectoryComponentProvider::update()
 {
-    if (m_path.isEmpty())
+    if (m_path.isEmpty()) {
+        Log.d("Empty path. Nothing to look up.");
         return QList<IComponent *>();
+    }
 
     QStringList nameFilters(m_definitionExtension);
     QDirIterator iterator(m_path, nameFilters, m_filters, m_flags);
@@ -217,6 +225,19 @@ bool DirectoryComponentProvider::onInitialize()
 FileComponentProvider *DirectoryComponentProvider::createFileComponentProvider(const QString &definitionPath)
 {
     return new FileComponentProvider(definitionPath);
+}
+
+//------------------------------------------------------------------------------
+QString DirectoryComponentProvider::getCheckedDirectoryPath(const QString &path)
+{
+    QFileInfo directoryToComponents(path);
+    if (!directoryToComponents.isDir()) {
+        Log.w(QString("Not a dir: \"%1\"").arg(path));
+        return "";
+    }
+
+    // Strange, but QFileInfo::canonicalFilePath() don't skip redundant "." element
+    return directoryToComponents.canonicalFilePath();
 }
 
 //------------------------------------------------------------------------------

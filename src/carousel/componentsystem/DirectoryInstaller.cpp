@@ -29,6 +29,14 @@
 
 #include <QtCore/QScopedPointer>
 
+#include <carousel/logging/LoggerFacade.h>
+
+//------------------------------------------------------------------------------
+namespace
+{
+static LoggerFacade Log = LoggerFacade::createLogger("DirectoryInstaller");
+}
+
 //------------------------------------------------------------------------------
 typedef QScopedPointer<DirectoryComponentProvider> DirectoryComponentProviderPtr;
 
@@ -48,6 +56,7 @@ DirectoryComponentProvider *DirectoryInstaller::createProvider(const QString &so
 //------------------------------------------------------------------------------
 QList<IComponent *> DirectoryInstaller::discoverComponents()
 {
+    Log.d(QString("Discovering components in the \"%1\" direcotry...").arg(m_sourceDirectory));
     DirectoryComponentProviderPtr provider(createProvider(m_sourceDirectory));
     if (!provider->initialize())
         return QList<IComponent *>();

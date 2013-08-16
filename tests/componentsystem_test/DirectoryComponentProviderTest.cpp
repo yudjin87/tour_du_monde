@@ -28,6 +28,28 @@ void DirectoryComponentProviderTest::shouldNotSetupWrongDirectoryPath()
 }
 
 //------------------------------------------------------------------------------
+void DirectoryComponentProviderTest::shouldSetupPathAccordingToTheApplicationDir()
+{
+    QString curDir = QDir::currentPath();
+    QDir otherDir(QCoreApplication::applicationDirPath());
+    QVERIFY(otherDir.cdUp());
+
+    QVERIFY(QDir::setCurrent(otherDir.absolutePath()));
+    AutoDirectoryComponentProvider provider("components");
+    QVERIFY(!provider.path().isEmpty());
+
+    QVERIFY(QDir::setCurrent(curDir));
+}
+
+//------------------------------------------------------------------------------
+void DirectoryComponentProviderTest::shouldCorrectlySetupAbsolutePath()
+{
+    AutoDirectoryComponentProvider provider(QCoreApplication::applicationDirPath());
+
+    QVERIFY(provider.path().toLower() == QCoreApplication::applicationDirPath().toLower());
+}
+
+//------------------------------------------------------------------------------
 void DirectoryComponentProviderTest::initialize_shouldReturnTrue()
 {
     AutoDirectoryComponentProvider provider(definitionsLocation);
