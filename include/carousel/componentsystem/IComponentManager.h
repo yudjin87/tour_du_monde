@@ -313,6 +313,12 @@ signals:
 
     /*!
      * @details
+     *   This signal is emmited after @a manager startup() call.
+     */
+    void startedUp();
+
+    /*!
+     * @details
      *   This signal is emmited before @a component will be shut down by the
      *   IComponentManager.
      */

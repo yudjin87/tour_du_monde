@@ -243,6 +243,7 @@ DependenciesSolvingResult ComponentManager::startup()
 
     m_started = true;
 
+    onStartedUp();
     return result;
 }
 
@@ -315,6 +316,12 @@ DependenciesSolvingResult ComponentManager::startupComponents(QList<IComponent *
     m_orphanComponents += solvingResult.orphans().toSet();
 
     return DependenciesSolvingResult(realyStartedComponents);
+}
+
+//------------------------------------------------------------------------------
+void ComponentManager::onStartedUp()
+{
+    emit startedUp();
 }
 
 //------------------------------------------------------------------------------

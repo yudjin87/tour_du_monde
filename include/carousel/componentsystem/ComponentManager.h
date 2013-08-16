@@ -308,6 +308,12 @@ public:
 protected slots:
     /*!
      * @details
+     *   This method is invoked after @a manager started up.
+     */
+    virtual void onStartedUp();
+
+    /*!
+     * @details
      *   This method is invoked before @a manager will be shut down.
      */
     virtual void onAboutToShutDown();
