@@ -63,9 +63,9 @@ public:
      */
     QScriptEngine *createEngine(QString *output = nullptr, QObject *parent = nullptr);
 
-    IEngineConfigurationDelegate *delegate();
-    const IEngineConfigurationDelegate *delegate() const;
-    void setDelegate(IEngineConfigurationDelegate *delegate);
+    IScriptEngineConfigurationDelegate *delegate();
+    const IScriptEngineConfigurationDelegate *delegate() const;
+    void setDelegate(IScriptEngineConfigurationDelegate *delegate);
 
 protected slots:
     void onComponentManagerStartedUp();
@@ -78,7 +78,7 @@ private:
 
 private:
     IComponentManager *m_componentManager;
-    IEngineConfigurationDelegate *m_scriptExtensionConfigurationDelegate;
+    IScriptEngineConfigurationDelegate *m_scriptExtensionConfigurationDelegate;
     ScriptConsole *m_console;
     IScriptCollection *m_scripts;
 };

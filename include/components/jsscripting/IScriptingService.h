@@ -32,7 +32,7 @@
 #include <QtCore/QObject>
 
 class IScriptConsole;
-class IEngineConfigurationDelegate;
+class IScriptEngineConfigurationDelegate;
 class IScriptCollection;
 
 /*!
@@ -49,9 +49,9 @@ public:
 
     virtual IScriptCollection *scripts() = 0;
 
-    virtual IEngineConfigurationDelegate *delegate() = 0;
-    virtual const IEngineConfigurationDelegate *delegate() const = 0;
-    virtual void setDelegate(IEngineConfigurationDelegate *delegate) = 0;
+    virtual IScriptEngineConfigurationDelegate *delegate() = 0;
+    virtual const IScriptEngineConfigurationDelegate *delegate() const = 0;
+    virtual void setDelegate(IScriptEngineConfigurationDelegate *delegate) = 0;
 
 private:
     Q_DISABLE_COPY(IScriptingService)

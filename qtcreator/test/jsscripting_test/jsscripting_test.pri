@@ -1,7 +1,7 @@
 TEST_PROJECT_SOURCES = $$CPP_TESTS_TREE/jsscripting_test
 
 SOURCES += \
-    $$TEST_PROJECT_SOURCES/CarouselEngineConfigurationDelegateTest.cpp \
+    $$TEST_PROJECT_SOURCES/CarouselScriptEngineConfigurationDelegateTest.cpp \
     $$TEST_PROJECT_SOURCES/fakes/FakeConfigurationDelegate.cpp \
     $$TEST_PROJECT_SOURCES/fakes/FakeScriptCollection.cpp \
     $$TEST_PROJECT_SOURCES/fakes/FakeScriptEngineFactory.cpp \
@@ -18,7 +18,7 @@ SOURCES += \
     $$TEST_PROJECT_SOURCES/ServiceLocatorWrapperTest.cpp \
 
 HEADERS += \
-    $$TEST_PROJECT_SOURCES/CarouselEngineConfigurationDelegateTest.h \
+    $$TEST_PROJECT_SOURCES/CarouselScriptEngineConfigurationDelegateTest.h \
     $$TEST_PROJECT_SOURCES/fakes/FakeConfigurationDelegate.h \
     $$TEST_PROJECT_SOURCES/fakes/FakeScriptCollection.h \
     $$TEST_PROJECT_SOURCES/fakes/FakeScriptEngineFactory.h \

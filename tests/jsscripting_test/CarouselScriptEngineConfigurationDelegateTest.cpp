@@ -24,26 +24,26 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "CarouselEngineConfigurationDelegateTest.h"
+#include "CarouselScriptEngineConfigurationDelegateTest.h"
 #include "fakes/MockScriptExtensionComponent.h"
 
 #include <carousel/utils/ServiceLocator.h>
-#include <components/jsscripting/CarouselEngineConfigurationDelegate.h>
+#include <components/jsscripting/CarouselScriptEngineConfigurationDelegate.h>
 
 #include <QtScript/QScriptEngine>
 #include <QtTest/QtTest>
 
 //------------------------------------------------------------------------------
-CarouselEngineConfigurationDelegateTest::CarouselEngineConfigurationDelegateTest(QObject *parent)
+CarouselScriptEngineConfigurationDelegateTest::CarouselScriptEngineConfigurationDelegateTest(QObject *parent)
     : QObject(parent)
 {
 }
 
 //------------------------------------------------------------------------------
-void CarouselEngineConfigurationDelegateTest::configureComponent_shouldConfigureComponentIfItHasScriptExtension()
+void CarouselScriptEngineConfigurationDelegateTest::configureComponent_shouldConfigureComponentIfItHasScriptExtension()
 {
     ServiceLocator locator; QScriptEngine engine;
-    CarouselEngineConfigurationDelegate delegate(&locator);
+    CarouselScriptEngineConfigurationDelegate delegate(&locator);
     MockScriptExtensionComponent component;
 
     delegate.configureFromComponent(&component, &engine);
@@ -52,10 +52,10 @@ void CarouselEngineConfigurationDelegateTest::configureComponent_shouldConfigure
 }
 
 //------------------------------------------------------------------------------
-void CarouselEngineConfigurationDelegateTest::configureComponent_shouldNotThrowIfComponentHasNoScriptExtension()
+void CarouselScriptEngineConfigurationDelegateTest::configureComponent_shouldNotThrowIfComponentHasNoScriptExtension()
 {
     ServiceLocator locator; QScriptEngine engine;
-    CarouselEngineConfigurationDelegate delegate(&locator);
+    CarouselScriptEngineConfigurationDelegate delegate(&locator);
     MockNoScriptExtensionComponent component;
 
     delegate.configureFromComponent(&component, &engine);
@@ -64,10 +64,10 @@ void CarouselEngineConfigurationDelegateTest::configureComponent_shouldNotThrowI
 }
 
 //------------------------------------------------------------------------------
-void CarouselEngineConfigurationDelegateTest::configureDefaults_shouldAddServiceLocatorObjectToEngine()
+void CarouselScriptEngineConfigurationDelegateTest::configureDefaults_shouldAddServiceLocatorObjectToEngine()
 {
     ServiceLocator locator; QScriptEngine engine;
-    CarouselEngineConfigurationDelegate delegate(&locator);
+    CarouselScriptEngineConfigurationDelegate delegate(&locator);
     QString buff;
 
     delegate.configureDefaults(&engine, &buff);
@@ -76,10 +76,10 @@ void CarouselEngineConfigurationDelegateTest::configureDefaults_shouldAddService
 }
 
 //------------------------------------------------------------------------------
-void CarouselEngineConfigurationDelegateTest::configureDefaults_shouldAddPrintFunctionToEngine()
+void CarouselScriptEngineConfigurationDelegateTest::configureDefaults_shouldAddPrintFunctionToEngine()
 {
     ServiceLocator locator; QScriptEngine engine;
-    CarouselEngineConfigurationDelegate delegate(&locator);
+    CarouselScriptEngineConfigurationDelegate delegate(&locator);
 
     QString buff;
     delegate.configureDefaults(&engine, &buff);

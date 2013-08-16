@@ -27,7 +27,7 @@
 #include "ScriptingService.h"
 #include "ScriptConsole.h"
 #include "ScriptCollection.h"
-#include "CarouselEngineConfigurationDelegate.h"
+#include "CarouselScriptEngineConfigurationDelegate.h"
 
 #include <carousel/componentsystem/IComponent.h>
 #include <carousel/componentsystem/IComponentManager.h>
@@ -53,7 +53,7 @@ ScriptingService::ScriptingService(IServiceLocator *locator, IComponentManager *
     , m_scripts(nullptr)
 {
     m_scripts = new ScriptCollection(this, this);
-    m_scriptExtensionConfigurationDelegate = new CarouselEngineConfigurationDelegate(locator, this);
+    m_scriptExtensionConfigurationDelegate = new CarouselScriptEngineConfigurationDelegate(locator, this);
     m_console = new ScriptConsole(this);
 
     setParent(parent);
@@ -89,19 +89,19 @@ QScriptEngine *ScriptingService::createEngine(QString *output, QObject *parent)
 }
 
 //------------------------------------------------------------------------------
-IEngineConfigurationDelegate *ScriptingService::delegate()
+IScriptEngineConfigurationDelegate *ScriptingService::delegate()
 {
     return m_scriptExtensionConfigurationDelegate;
 }
 
 //------------------------------------------------------------------------------
-const IEngineConfigurationDelegate *ScriptingService::delegate() const
+const IScriptEngineConfigurationDelegate *ScriptingService::delegate() const
 {
     return m_scriptExtensionConfigurationDelegate;
 }
 
 //------------------------------------------------------------------------------
-void ScriptingService::setDelegate(IEngineConfigurationDelegate *delegate)
+void ScriptingService::setDelegate(IScriptEngineConfigurationDelegate *delegate)
 {
     delete m_scriptExtensionConfigurationDelegate;
     m_scriptExtensionConfigurationDelegate = delegate;

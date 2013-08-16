@@ -27,7 +27,7 @@
 #ifndef CAROUSELENGINECONFIGURATIONDELEGATE_H
 #define CAROUSELENGINECONFIGURATIONDELEGATE_H
 
-#include <components/jsscripting/IEngineConfigurationDelegate.h>
+#include <components/jsscripting/IScriptEngineConfigurationDelegate.h>
 
 class IServiceLocator;
 class IScriptExtension;
@@ -36,11 +36,11 @@ class QScriptContext;
 
 /*!
  */
-class JSSCRIPTING_API CarouselEngineConfigurationDelegate : public IEngineConfigurationDelegate
+class JSSCRIPTING_API CarouselScriptEngineConfigurationDelegate : public IScriptEngineConfigurationDelegate
 {
     Q_OBJECT
 public:
-    CarouselEngineConfigurationDelegate(IServiceLocator *locator, QObject *parent = nullptr);
+    CarouselScriptEngineConfigurationDelegate(IServiceLocator *locator, QObject *parent = nullptr);
 
 public slots:
     /*!
@@ -61,7 +61,7 @@ protected:
     virtual void registerIComponentsList(QScriptEngine *engine);
 
 private:
-    Q_DISABLE_COPY(CarouselEngineConfigurationDelegate)
+    Q_DISABLE_COPY(CarouselScriptEngineConfigurationDelegate)
     static QScriptValue print(QScriptContext *context, QScriptEngine *engine, void *out);
     static QScriptValue wait(QScriptContext *context, QScriptEngine *engine);
 

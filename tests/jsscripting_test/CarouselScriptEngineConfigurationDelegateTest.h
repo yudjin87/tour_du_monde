@@ -29,11 +29,11 @@
 
 #include <QtCore/QObject>
 
-class CarouselEngineConfigurationDelegateTest : public QObject
+class CarouselScriptEngineConfigurationDelegateTest : public QObject
 {
     Q_OBJECT
 public:
-    explicit CarouselEngineConfigurationDelegateTest(QObject *parent = nullptr);
+    explicit CarouselScriptEngineConfigurationDelegateTest(QObject *parent = nullptr);
 
 private Q_SLOTS:
     void configureComponent_shouldConfigureComponentIfItHasScriptExtension();

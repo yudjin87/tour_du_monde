@@ -24,7 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "CarouselEngineConfigurationDelegate.h"
+#include "CarouselScriptEngineConfigurationDelegate.h"
 #include "IScriptExtension.h"
 #include "ServiceLocatorWrapper.h"
 
@@ -48,7 +48,7 @@ static const int ConstIComponentDefinitionId = qRegisterMetaType<const Component
 //------------------------------------------------------------------------------
 namespace
 {
-static LoggerFacade Log = LoggerFacade::createLogger("CarouselEngineConfigurationDelegate");
+static LoggerFacade Log = LoggerFacade::createLogger("CarouselScriptEngineConfigurationDelegate");
 
 //------------------------------------------------------------------------------
 int registerComponentsList(QScriptEngine *engine)
@@ -61,15 +61,15 @@ int registerComponentsList(QScriptEngine *engine)
 
 
 //------------------------------------------------------------------------------
-CarouselEngineConfigurationDelegate::CarouselEngineConfigurationDelegate(IServiceLocator *locator, QObject *parent)
-    : IEngineConfigurationDelegate()
+CarouselScriptEngineConfigurationDelegate::CarouselScriptEngineConfigurationDelegate(IServiceLocator *locator, QObject *parent)
+    : IScriptEngineConfigurationDelegate()
     , m_locator(locator)
 {
     setParent(parent);
 }
 
 //------------------------------------------------------------------------------
-void CarouselEngineConfigurationDelegate::configureFromComponent(IComponent *component, QScriptEngine *engine)
+void CarouselScriptEngineConfigurationDelegate::configureFromComponent(IComponent *component, QScriptEngine *engine)
 {
     IScriptExtension *scriptExtension = component->extension<IScriptExtension>();
     if (scriptExtension == nullptr) {
@@ -81,7 +81,7 @@ void CarouselEngineConfigurationDelegate::configureFromComponent(IComponent *com
 }
 
 //------------------------------------------------------------------------------
-void CarouselEngineConfigurationDelegate::configureDefaults(QScriptEngine *engine, QString *output)
+void CarouselScriptEngineConfigurationDelegate::configureDefaults(QScriptEngine *engine, QString *output)
 {
     configureServiceLocator(engine, m_locator);
     registerPrintFunc(engine, output);
@@ -92,13 +92,13 @@ void CarouselEngineConfigurationDelegate::configureDefaults(QScriptEngine *engin
 }
 
 //------------------------------------------------------------------------------
-void CarouselEngineConfigurationDelegate::configureExtension(QScriptEngine *engine, IScriptExtension *extension)
+void CarouselScriptEngineConfigurationDelegate::configureExtension(QScriptEngine *engine, IScriptExtension *extension)
 {
     extension->configureEngine(engine);
 }
 
 //------------------------------------------------------------------------------
-void CarouselEngineConfigurationDelegate::configureServiceLocator(QScriptEngine *engine, IServiceLocator *locator)
+void CarouselScriptEngineConfigurationDelegate::configureServiceLocator(QScriptEngine *engine, IServiceLocator *locator)
 {
     ServiceLocatorWrapper *wrapper = new ServiceLocatorWrapper(locator, engine);
     QScriptValue value = engine->newQObject(wrapper);
@@ -106,21 +106,21 @@ void CarouselEngineConfigurationDelegate::configureServiceLocator(QScriptEngine 
 }
 
 //------------------------------------------------------------------------------
-void CarouselEngineConfigurationDelegate::registerPrintFunc(QScriptEngine *engine, QString *output)
+void CarouselScriptEngineConfigurationDelegate::registerPrintFunc(QScriptEngine *engine, QString *output)
 {
-    QScriptValue printFunc = engine->newFunction(&CarouselEngineConfigurationDelegate::print, (void *)output);
+    QScriptValue printFunc = engine->newFunction(&CarouselScriptEngineConfigurationDelegate::print, (void *)output);
     engine->globalObject().setProperty("print", printFunc);
 }
 
 //------------------------------------------------------------------------------
-void CarouselEngineConfigurationDelegate::registerWaitFunc(QScriptEngine *engine)
+void CarouselScriptEngineConfigurationDelegate::registerWaitFunc(QScriptEngine *engine)
 {
-    QScriptValue waitFunc = engine->newFunction(&CarouselEngineConfigurationDelegate::wait);
+    QScriptValue waitFunc = engine->newFunction(&CarouselScriptEngineConfigurationDelegate::wait);
     engine->globalObject().setProperty("wait", waitFunc);
 }
 
 //------------------------------------------------------------------------------
-void CarouselEngineConfigurationDelegate::registerComponentSystemPrototypes(QScriptEngine *engine)
+void CarouselScriptEngineConfigurationDelegate::registerComponentSystemPrototypes(QScriptEngine *engine)
 {
     ComponentDefinitionPrototype *def = new ComponentDefinitionPrototype(engine);
     engine->setDefaultPrototype(qMetaTypeId<const ComponentDefinition *>(), engine->newQObject(def));
@@ -128,7 +128,7 @@ void CarouselEngineConfigurationDelegate::registerComponentSystemPrototypes(QScr
 }
 
 //------------------------------------------------------------------------------
-void CarouselEngineConfigurationDelegate::registerBasePrimitives(QScriptEngine *engine)
+void CarouselScriptEngineConfigurationDelegate::registerBasePrimitives(QScriptEngine *engine)
 {
     PointClass *point = new PointClass(engine);
     engine->globalObject().setProperty("QPoint", point->constructor());
@@ -143,14 +143,14 @@ void CarouselEngineConfigurationDelegate::registerBasePrimitives(QScriptEngine *
 }
 
 //------------------------------------------------------------------------------
-void CarouselEngineConfigurationDelegate::registerIComponentsList(QScriptEngine *engine)
+void CarouselScriptEngineConfigurationDelegate::registerIComponentsList(QScriptEngine *engine)
 {
     int componentListId = registerComponentsList(engine);
     Q_UNUSED(componentListId);
 }
 
 //------------------------------------------------------------------------------
-QScriptValue CarouselEngineConfigurationDelegate::wait(QScriptContext *context, QScriptEngine *engine)
+QScriptValue CarouselScriptEngineConfigurationDelegate::wait(QScriptContext *context, QScriptEngine *engine)
 {
     if (context->argumentCount() != 1) {
         context->throwError(QScriptContext::SyntaxError, "Wrong number of arguments: wait(int) is expected");
@@ -170,7 +170,7 @@ QScriptValue CarouselEngineConfigurationDelegate::wait(QScriptContext *context, 
 }
 
 //------------------------------------------------------------------------------
-QScriptValue CarouselEngineConfigurationDelegate::print(QScriptContext *context, QScriptEngine *engine, void *out)
+QScriptValue CarouselScriptEngineConfigurationDelegate::print(QScriptContext *context, QScriptEngine *engine, void *out)
 {
     QString *output = static_cast<QString *>(out);
     if (output == nullptr)

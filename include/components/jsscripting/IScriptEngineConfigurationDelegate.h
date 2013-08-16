@@ -36,11 +36,11 @@ class QScriptEngine;
 
 /*!
  */
-class JSSCRIPTING_API IEngineConfigurationDelegate : public QObject
+class JSSCRIPTING_API IScriptEngineConfigurationDelegate : public QObject
 {
     Q_OBJECT
 public:
-    IEngineConfigurationDelegate(){}
+    IScriptEngineConfigurationDelegate(){}
 
 public slots:
     /*!
@@ -49,9 +49,8 @@ public slots:
     virtual void configureFromComponent(IComponent *component, QScriptEngine *engine) = 0;
     virtual void configureDefaults(QScriptEngine *engine, QString *output = nullptr) = 0;
 
-
 private:
-    Q_DISABLE_COPY(IEngineConfigurationDelegate)
+    Q_DISABLE_COPY(IScriptEngineConfigurationDelegate)
 };
 
 #endif // IENGINECONFIGURATIONDELEGATE_H

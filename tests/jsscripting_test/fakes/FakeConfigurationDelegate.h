@@ -27,9 +27,9 @@
 #ifndef FAKECONFIGURATIONDELEGATE_H
 #define FAKECONFIGURATIONDELEGATE_H
 
-#include <components/jsscripting/IEngineConfigurationDelegate.h>
+#include <components/jsscripting/IScriptEngineConfigurationDelegate.h>
 
-class FakeConfigurationDelegate : public IEngineConfigurationDelegate
+class FakeConfigurationDelegate : public IScriptEngineConfigurationDelegate
 {
 public:
     FakeConfigurationDelegate();

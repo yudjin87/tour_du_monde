@@ -29,7 +29,7 @@
 #include "fakes/MockComponentManager.h"
 #include "fakes/MockScriptExtensionComponent.h"
 
-#include <components/jsscripting/CarouselEngineConfigurationDelegate.h>
+#include <components/jsscripting/CarouselScriptEngineConfigurationDelegate.h>
 #include <components/jsscripting/ServiceLocatorWrapper.h>
 #include <components/jsscripting/ScriptingService.h>
 #include <components/jsscripting/IScriptConsole.h>
