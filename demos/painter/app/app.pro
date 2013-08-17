@@ -45,11 +45,19 @@ SHAPES += buckinghamshire/waterways.shp
 
 START_UP = painter.sh
 
+SCRIPTS += scripts/changeColor.js
+SCRIPTS += scripts/components.js
+SCRIPTS += scripts/loadLayer.js
+SCRIPTS += scripts/navigation.js
+SCRIPTS += scripts/uiManipulations.js
+
 OTHER_FILES += \
     $${START_UP} \
-    $${SHAPES}
+    $${SHAPES} \
+    $${SCRIPTS} \
 
 ###############################################################################
 # Copy demo data files to the output dir
 copyExtraFiles($$SHAPES, $$DESTDIR/data)
+copyExtraFiles($$SCRIPTS, $$DESTDIR/scripts)
 unix:copyExtraFiles($$START_UP, $$DESTDIR/)
