@@ -69,11 +69,8 @@ ScriptCollectionDialog::ScriptCollectionDialog(ScriptCollectionModel *model, QWi
 //------------------------------------------------------------------------------
 ScriptCollectionDialog::~ScriptCollectionDialog()
 {
-    // Skip document signals
     for (int i = 0; i < m_ui->tabWidget->count(); ++i) {
-        ScriptUnitView *scriptView = qobject_cast<ScriptUnitView *>(m_ui->tabWidget->widget(i));
-        scriptView->data()->script()->disconnect(this);
-        delete scriptView;
+        delete m_ui->tabWidget->widget(i);
     }
 
     delete m_ui;
