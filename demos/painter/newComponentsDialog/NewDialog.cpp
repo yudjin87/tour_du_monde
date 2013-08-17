@@ -50,7 +50,7 @@ NewDialog::NewDialog(ComponentDefinitionsModel *model, QWidget *parent)
 void NewDialog::onOpenComponentsDirectory(bool) const
 {
     // TODO: should be obtained from the app settings
-    QDesktopServices::openUrl(QUrl::fromLocalFile(QApplication::applicationDirPath() + "./installedComponents"));
+    QDesktopServices::openUrl(QUrl::fromLocalFile(QApplication::applicationDirPath() + "/installedComponents"));
 }
 
 //------------------------------------------------------------------------------
