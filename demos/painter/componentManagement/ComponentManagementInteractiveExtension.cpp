@@ -52,10 +52,10 @@ void ComponentManagementInteractiveExtension::configureGui(ICatalogs &inCatalogs
     Operation *installComponents = operationCatalog.add(new InstallComponentsOperation());
     Operation *showComponents = operationCatalog.add(new ShowComponentsOperation());
 
-    IToolBarCatalog &toolbarCatalog = inCatalogs.toolBarCatalog();
-    QToolBar *toolBar = toolbarCatalog.add("Components");
-    toolBar->addAction(installComponents);
-    toolBar->addAction(showComponents);
+    //IToolBarCatalog &toolbarCatalog = inCatalogs.toolBarCatalog();
+    //QToolBar *toolBar = toolbarCatalog.add("Components");
+    //toolBar->addAction(installComponents);
+    //toolBar->addAction(showComponents);
 
     IMenuCatalog &menuCatalog = inCatalogs.menuCatalog();
     QMenu *menu = menuCatalog.addMenu("Components");

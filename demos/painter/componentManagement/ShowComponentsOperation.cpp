@@ -34,7 +34,7 @@
 
 //------------------------------------------------------------------------------
 ShowComponentsOperation::ShowComponentsOperation()
-    : Operation("Show components")
+    : Operation("View all")
     , m_serviceLocator(nullptr)
 {
 }
