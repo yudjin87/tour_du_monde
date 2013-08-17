@@ -92,6 +92,12 @@ QString ScriptUnit::scriptText() const
 }
 
 //------------------------------------------------------------------------------
+void ScriptUnit::setScriptText(const QString &plainText)
+{
+    m_script->setPlainText(plainText);
+}
+
+//------------------------------------------------------------------------------
 QString ScriptUnit::absoluteFilePath() const
 {
     return m_fileName;

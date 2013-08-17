@@ -39,7 +39,7 @@ class JSSCRIPTING_API IScriptUnit : public QObject
     Q_PROPERTY(bool isLoaded READ isLoaded)
     Q_PROPERTY(QString absoluteFilePath READ absoluteFilePath)
     Q_PROPERTY(QString fileName READ fileName)
-    Q_PROPERTY(QString scriptText READ scriptText)
+    Q_PROPERTY(QString scriptText READ scriptText WRITE setScriptText)
     Q_PROPERTY(QTextDocument *script READ script)
 public:
     /*!
@@ -54,9 +54,8 @@ public:
 
     virtual QString fileName() const = 0;
 
-    virtual bool run(QString *output = nullptr) = 0;
-
     virtual QString scriptText() const = 0;
+    virtual void setScriptText(const QString &plainText) = 0;
     virtual QTextDocument *script() = 0;
     virtual const QTextDocument *script() const = 0;
 
@@ -66,6 +65,9 @@ public slots:
     virtual void clear() = 0;
     virtual bool save() = 0;
     virtual bool saveAs(const QString &filePath) = 0;
+
+    // TODO: should emit output instead of getting it
+    virtual bool run(QString *output = nullptr) = 0;
 
 signals:
     void fileNameChanged();

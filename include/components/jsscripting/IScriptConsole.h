@@ -40,6 +40,8 @@ class QScriptEngine;
 class JSSCRIPTING_API IScriptConsole : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(int historyCapacity READ historyCapacity WRITE setHistoryCapacity)
+    Q_PROPERTY(QStringList commandHistory READ commandHistory)
 public:
     IScriptConsole(){}
 
@@ -50,6 +52,9 @@ public:
     virtual int historyCapacity() const = 0;
     virtual void setHistoryCapacity(int capacity) = 0;
 
+    virtual const QStringList &commandHistory() const = 0;
+
+public slots:
     /*!
      * @brief
      */
@@ -57,7 +62,7 @@ public:
 
     virtual QString prevCommand() = 0;
     virtual QString nextCommand() = 0;
-    virtual const QStringList &commandHistory() const = 0;
+
 
 private:
     Q_DISABLE_COPY(IScriptConsole)

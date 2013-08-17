@@ -55,6 +55,7 @@ public:
     QString fileName() const;
 
     QString scriptText() const;
+    void setScriptText(const QString &plainText);
     QTextDocument *script();
     const QTextDocument *script() const;
 

@@ -42,6 +42,7 @@ class JSSCRIPTING_API IScriptingService : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(IScriptCollection *scripts READ scripts)
+    Q_PROPERTY(IScriptConsole *console READ console)
 public:
     IScriptingService(){}
 

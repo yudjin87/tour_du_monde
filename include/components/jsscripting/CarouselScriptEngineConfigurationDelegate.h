@@ -56,9 +56,9 @@ protected:
 
     virtual void registerPrintFunc(QScriptEngine *engine, QString *output);
     virtual void registerWaitFunc(QScriptEngine *engine);
-    virtual void registerComponentSystemPrototypes(QScriptEngine *engine);
     virtual void registerBasePrimitives(QScriptEngine *engine);
-    virtual void registerIComponentsList(QScriptEngine *engine);
+    virtual void registerComponentSystemTypes(QScriptEngine *engine);
+    virtual void registerJsScriptingTypes(QScriptEngine *engine);
 
 private:
     Q_DISABLE_COPY(CarouselScriptEngineConfigurationDelegate)

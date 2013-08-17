@@ -26,6 +26,9 @@
 
 #include "CarouselScriptEngineConfigurationDelegate.h"
 #include "IScriptExtension.h"
+#include "IScriptConsole.h"
+#include "IScriptCollection.h"
+#include "IScriptUnit.h"
 #include "ServiceLocatorWrapper.h"
 
 #include "prototypes/ComponentDefinitionPrototype.h"
@@ -42,8 +45,18 @@
 #include <QtScript/QScriptEngine>
 
 //------------------------------------------------------------------------------
+Q_DECLARE_METATYPE(IScriptConsole *)
+Q_DECLARE_METATYPE(IScriptCollection *)
+Q_DECLARE_METATYPE(IScriptUnit *)
+Q_DECLARE_METATYPE(QList<IScriptUnit *>)
+
+//------------------------------------------------------------------------------
 static const int IComponentDefinitionId = qRegisterMetaType<ComponentDefinition *>("ComponentDefinition *");
 static const int ConstIComponentDefinitionId = qRegisterMetaType<const ComponentDefinition *>("const ComponentDefinition *");
+
+static const int IScriptConsoleId = qRegisterMetaType<IScriptConsole *>("IScriptConsole *");
+static const int IScriptCollectionId = qRegisterMetaType<IScriptCollection *>("IScriptCollection *");
+static const int IScriptUnitId = qRegisterMetaType<IScriptUnit *>("IScriptUnit *");
 
 //------------------------------------------------------------------------------
 namespace
@@ -57,6 +70,16 @@ int registerComponentsList(QScriptEngine *engine)
         qScriptValueFromSequence<QList<IComponent *>>,
         qScriptValueToSequence<QList<IComponent *>>);
 }
+
+//------------------------------------------------------------------------------
+int registerScriptUnitList(QScriptEngine *engine)
+{
+    return qScriptRegisterMetaType<QList<IScriptUnit *>>(engine,
+        qScriptValueFromSequence<QList<IScriptUnit *>>,
+        qScriptValueToSequence<QList<IScriptUnit *>>);
+}
+
+//------------------------------------------------------------------------------
 } // namespace
 
 
@@ -87,8 +110,8 @@ void CarouselScriptEngineConfigurationDelegate::configureDefaults(QScriptEngine 
     registerPrintFunc(engine, output);
     registerWaitFunc(engine);
     registerBasePrimitives(engine);
-    registerComponentSystemPrototypes(engine);
-    registerIComponentsList(engine);
+    registerComponentSystemTypes(engine);
+    registerJsScriptingTypes(engine);
 }
 
 //------------------------------------------------------------------------------
@@ -120,11 +143,21 @@ void CarouselScriptEngineConfigurationDelegate::registerWaitFunc(QScriptEngine *
 }
 
 //------------------------------------------------------------------------------
-void CarouselScriptEngineConfigurationDelegate::registerComponentSystemPrototypes(QScriptEngine *engine)
+void CarouselScriptEngineConfigurationDelegate::registerComponentSystemTypes(QScriptEngine *engine)
 {
     ComponentDefinitionPrototype *def = new ComponentDefinitionPrototype(engine);
     engine->setDefaultPrototype(qMetaTypeId<const ComponentDefinition *>(), engine->newQObject(def));
     engine->setDefaultPrototype(qMetaTypeId<ComponentDefinition *>(), engine->newQObject(def));
+
+    int componentListId = registerComponentsList(engine);
+    Q_UNUSED(componentListId);
+}
+
+//------------------------------------------------------------------------------
+void CarouselScriptEngineConfigurationDelegate::registerJsScriptingTypes(QScriptEngine *engine)
+{
+    int scriptUnitListId = registerScriptUnitList(engine);
+    Q_UNUSED(scriptUnitListId);
 }
 
 //------------------------------------------------------------------------------
@@ -140,13 +173,6 @@ void CarouselScriptEngineConfigurationDelegate::registerBasePrimitives(QScriptEn
     RectFPrototype *rectF = new RectFPrototype(engine);
     engine->setDefaultPrototype(qMetaTypeId<QRectF *>(), engine->newQObject(rectF));
     engine->setDefaultPrototype(qMetaTypeId<QRectF>(), engine->newQObject(rectF));
-}
-
-//------------------------------------------------------------------------------
-void CarouselScriptEngineConfigurationDelegate::registerIComponentsList(QScriptEngine *engine)
-{
-    int componentListId = registerComponentsList(engine);
-    Q_UNUSED(componentListId);
 }
 
 //------------------------------------------------------------------------------
