@@ -4,6 +4,11 @@
 project(tests CXX)
 
 ###############################################################################
+# Test executables should have absolute linking paths to the 3d party libraries,
+# particulary, for Qt
+set(CMAKE_SKIP_BUILD_RPATH FALSE)
+
+###############################################################################
 # Add concrete projects to the group
 add_subdirectory(booting_test)
 add_subdirectory(componentsystem_test)
