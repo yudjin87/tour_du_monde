@@ -61,7 +61,7 @@ public:
      * @details
      *   Does not takes ownership for created engine;
      */
-    QScriptEngine *createEngine(QString *output = nullptr, QObject *parent = nullptr);
+    QScriptEngine *createEngine(IOutputHandler *output = nullptr, QObject *parent = nullptr);
 
     IScriptEngineConfigurationDelegate *delegate();
     const IScriptEngineConfigurationDelegate *delegate() const;
@@ -74,7 +74,7 @@ protected slots:
 private:
     Q_DISABLE_COPY(ScriptingService)
 
-    void setUpEngine(QScriptEngine* engine, QString *output);
+    void setUpEngine(QScriptEngine* engine, IOutputHandler *output);
 
 private:
     IComponentManager *m_componentManager;

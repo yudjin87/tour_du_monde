@@ -79,7 +79,7 @@ IScriptCollection *ScriptingService::scripts()
 }
 
 //------------------------------------------------------------------------------
-QScriptEngine *ScriptingService::createEngine(QString *output, QObject *parent)
+QScriptEngine *ScriptingService::createEngine(IOutputHandler *output, QObject *parent)
 {
     Log.d("Creating new script engine.");
     QScriptEngine *engine = new QScriptEngine(parent);
@@ -109,13 +109,13 @@ void ScriptingService::setDelegate(IScriptEngineConfigurationDelegate *delegate)
     if (m_scriptExtensionConfigurationDelegate != nullptr)
         m_scriptExtensionConfigurationDelegate->setParent(this);
 
-    setUpEngine(m_console->engine(), m_console->output());
+    setUpEngine(m_console->engine(), m_console);
 }
 
 //------------------------------------------------------------------------------
 void ScriptingService::onComponentManagerStartedUp()
 {
-    setUpEngine(m_console->engine(), m_console->output());
+    setUpEngine(m_console->engine(), m_console);
     connect(m_componentManager, &IComponentManager::componentStarted,
             this, &ScriptingService::onComponentStartedUp);
 }
@@ -130,15 +130,12 @@ void ScriptingService::onComponentStartedUp(IComponent *component)
 }
 
 //------------------------------------------------------------------------------
-void ScriptingService::setUpEngine(QScriptEngine *engine, QString *output)
+void ScriptingService::setUpEngine(QScriptEngine *engine, IOutputHandler *output)
 {
     if (m_scriptExtensionConfigurationDelegate == nullptr) {
         // TODO: clear console engine, uncomment test
         return;
     }
-
-    if (output != nullptr)
-        output->clear();
 
     m_scriptExtensionConfigurationDelegate->configureDefaults(engine, output);
 

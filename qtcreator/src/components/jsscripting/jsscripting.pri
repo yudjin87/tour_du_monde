@@ -5,6 +5,7 @@ HEADERS += \
     $$PROJECT_HEADERS/CarouselScriptEngineConfigurationDelegate.h \
     $$PROJECT_HEADERS/CodeHighlighter.h \
     $$PROJECT_HEADERS/ColorTheme.h \
+    $$PROJECT_HEADERS/IOutputHandler.h \
     $$PROJECT_HEADERS/IScriptCollection.h \
     $$PROJECT_HEADERS/IScriptConsole.h \
     $$PROJECT_HEADERS/IScriptEngineConfigurationDelegate.h \

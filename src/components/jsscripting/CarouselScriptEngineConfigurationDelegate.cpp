@@ -25,6 +25,7 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "CarouselScriptEngineConfigurationDelegate.h"
+#include "IOutputHandler.h"
 #include "IScriptExtension.h"
 #include "IScriptConsole.h"
 #include "IScriptCollection.h"
@@ -104,7 +105,7 @@ void CarouselScriptEngineConfigurationDelegate::configureFromComponent(IComponen
 }
 
 //------------------------------------------------------------------------------
-void CarouselScriptEngineConfigurationDelegate::configureDefaults(QScriptEngine *engine, QString *output)
+void CarouselScriptEngineConfigurationDelegate::configureDefaults(QScriptEngine *engine, IOutputHandler *output)
 {
     configureServiceLocator(engine, m_locator);
     registerPrintFunc(engine, output);
@@ -129,7 +130,7 @@ void CarouselScriptEngineConfigurationDelegate::configureServiceLocator(QScriptE
 }
 
 //------------------------------------------------------------------------------
-void CarouselScriptEngineConfigurationDelegate::registerPrintFunc(QScriptEngine *engine, QString *output)
+void CarouselScriptEngineConfigurationDelegate::registerPrintFunc(QScriptEngine *engine, IOutputHandler *output)
 {
     QScriptValue printFunc = engine->newFunction(&CarouselScriptEngineConfigurationDelegate::print, (void *)output);
     engine->globalObject().setProperty("print", printFunc);
@@ -198,17 +199,18 @@ QScriptValue CarouselScriptEngineConfigurationDelegate::wait(QScriptContext *con
 //------------------------------------------------------------------------------
 QScriptValue CarouselScriptEngineConfigurationDelegate::print(QScriptContext *context, QScriptEngine *engine, void *out)
 {
-    QString *output = static_cast<QString *>(out);
+    IOutputHandler *output = static_cast<IOutputHandler *>(out);
     if (output == nullptr)
         return engine->undefinedValue();
 
+    QString outputMessage;
     for (int i = 0; i < context->argumentCount(); ++i) {
         if (i > 0)
-            output->append(" ");
-        output->append(context->argument(i).toString());
+            outputMessage.append(" ");
+        outputMessage.append(context->argument(i).toString());
     }
 
-    output->append("\n");
+    output->print(outputMessage);
 
     return engine->undefinedValue();
 }

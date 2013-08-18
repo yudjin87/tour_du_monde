@@ -29,6 +29,7 @@
 
 #include <components/jsscripting/jsscripting_global.h>
 
+class IOutputHandler;
 class QObject;
 class QScriptEngine;
 
@@ -45,7 +46,7 @@ public:
      * @details
      *   Does not takes ownership for created engine;
      */
-    virtual QScriptEngine *createEngine(QString *output = nullptr, QObject *parent = nullptr) = 0;
+    virtual QScriptEngine *createEngine(IOutputHandler *output = nullptr, QObject *parent = nullptr) = 0;
 
 private:
     Q_DISABLE_COPY(IScriptEngineFactory)

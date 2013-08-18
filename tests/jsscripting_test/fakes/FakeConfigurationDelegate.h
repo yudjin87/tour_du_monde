@@ -36,7 +36,7 @@ public:
 
     void configureFromComponent(IComponent *component, QScriptEngine *engine);
 
-    void configureDefaults(QScriptEngine *engine, QString *output = nullptr);
+    void configureDefaults(QScriptEngine *engine, IOutputHandler *output = nullptr);
 
 public:
     bool configureFromComponentCalled;

@@ -25,6 +25,7 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "CarouselScriptEngineConfigurationDelegateTest.h"
+#include "fakes/MockOutputHandler.h"
 #include "fakes/MockScriptExtensionComponent.h"
 
 #include <carousel/utils/ServiceLocator.h>
@@ -68,9 +69,9 @@ void CarouselScriptEngineConfigurationDelegateTest::configureDefaults_shouldAddS
 {
     ServiceLocator locator; QScriptEngine engine;
     CarouselScriptEngineConfigurationDelegate delegate(&locator);
-    QString buff;
 
-    delegate.configureDefaults(&engine, &buff);
+    MockOutputHandler output;
+    delegate.configureDefaults(&engine, &output);
 
     QVERIFY(engine.globalObject().property("serviceLocator").isValid());
 }
@@ -81,11 +82,11 @@ void CarouselScriptEngineConfigurationDelegateTest::configureDefaults_shouldAddP
     ServiceLocator locator; QScriptEngine engine;
     CarouselScriptEngineConfigurationDelegate delegate(&locator);
 
-    QString buff;
-    delegate.configureDefaults(&engine, &buff);
+    MockOutputHandler output;
+    delegate.configureDefaults(&engine, &output);
     engine.evaluate("print(\"Hello, carousel!\")");
 
-    QCOMPARE(buff, QString("Hello, carousel!\n"));
+    QCOMPARE(output.lastMessage, QString("Hello, carousel!"));
 }
 
 //------------------------------------------------------------------------------

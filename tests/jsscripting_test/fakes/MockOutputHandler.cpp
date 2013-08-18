@@ -24,35 +24,18 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "FakeConfigurationDelegate.h"
-
-#include <components/jsscripting/ServiceLocatorWrapper.h>
-
-#include <QtScript/QScriptEngine>
+#include "MockOutputHandler.h"
 
 //------------------------------------------------------------------------------
-FakeConfigurationDelegate::FakeConfigurationDelegate()
-    : configureFromComponentCalled(false)
+MockOutputHandler::MockOutputHandler(QObject *parent)
+    : QObject(parent)
 {
 }
 
 //------------------------------------------------------------------------------
-void FakeConfigurationDelegate::configureFromComponent(IComponent *component, QScriptEngine *engine)
+void MockOutputHandler::print(const QString &message)
 {
-    Q_UNUSED(component)
-    Q_UNUSED(engine)
-    configureFromComponentCalled = true;
-}
-
-//------------------------------------------------------------------------------
-void FakeConfigurationDelegate::configureDefaults(QScriptEngine *engine, IOutputHandler *output)
-{
-    Q_UNUSED(output)
-
-    ServiceLocatorWrapper *wrapper = new ServiceLocatorWrapper(nullptr, engine);
-    wrapper->setObjectName("NewWrapper");
-    QScriptValue value = engine->newQObject(wrapper);
-    engine->globalObject().setProperty("serviceLocator", value);
+    lastMessage = message;
 }
 
 //------------------------------------------------------------------------------

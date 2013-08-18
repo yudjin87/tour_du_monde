@@ -7,6 +7,7 @@ SOURCES += \
     $$TEST_PROJECT_SOURCES/fakes/FakeScriptEngineFactory.cpp \
     $$TEST_PROJECT_SOURCES/fakes/FakeScriptUnit.cpp \
     $$TEST_PROJECT_SOURCES/fakes/MockComponentManager.cpp \
+    $$TEST_PROJECT_SOURCES/fakes/MockOutputHandler.cpp \
     $$TEST_PROJECT_SOURCES/fakes/MockScriptExtensionComponent.cpp \
     $$TEST_PROJECT_SOURCES/main_jsscripting_test.cpp \
     $$TEST_PROJECT_SOURCES/ScriptCollectionTest.cpp \
@@ -24,6 +25,7 @@ HEADERS += \
     $$TEST_PROJECT_SOURCES/fakes/FakeScriptEngineFactory.h \
     $$TEST_PROJECT_SOURCES/fakes/FakeScriptUnit.h \
     $$TEST_PROJECT_SOURCES/fakes/MockComponentManager.h \
+    $$TEST_PROJECT_SOURCES/fakes/MockOutputHandler.h \
     $$TEST_PROJECT_SOURCES/fakes/MockScriptExtensionComponent.h \
     $$TEST_PROJECT_SOURCES/ScriptCollectionTest.h \
     $$TEST_PROJECT_SOURCES/ScriptConsoleTest.h \

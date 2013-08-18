@@ -59,13 +59,15 @@ public:
     QTextDocument *script();
     const QTextDocument *script() const;
 
+    void print(const QString &message);
+
 public slots:
     bool load();
     bool load(const QString &filePath);
     void clear();
     bool save();
     bool saveAs(const QString &filePath);
-    bool run(QString *output = nullptr);
+    bool run();
 
 protected:
     virtual bool saveToFile(const QString &filePath);

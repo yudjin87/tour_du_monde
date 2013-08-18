@@ -32,6 +32,7 @@
 #include <QtCore/QObject>
 
 class IComponent;
+class IOutputHandler;
 class QScriptEngine;
 
 /*!
@@ -47,7 +48,7 @@ public slots:
      * @details
      */
     virtual void configureFromComponent(IComponent *component, QScriptEngine *engine) = 0;
-    virtual void configureDefaults(QScriptEngine *engine, QString *output = nullptr) = 0;
+    virtual void configureDefaults(QScriptEngine *engine, IOutputHandler *output = nullptr) = 0;
 
 private:
     Q_DISABLE_COPY(IScriptEngineConfigurationDelegate)

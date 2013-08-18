@@ -28,6 +28,7 @@
 #define ISCRIPTCONSOLE_H
 
 #include <components/jsscripting/jsscripting_global.h>
+#include <components/jsscripting/IOutputHandler.h>
 
 #include <QtCore/QObject>
 #include <QtCore/QStringList>
@@ -37,7 +38,7 @@ class QScriptEngine;
 /*!
  * @brief
  */
-class JSSCRIPTING_API IScriptConsole : public QObject
+class JSSCRIPTING_API IScriptConsole : public QObject, public IOutputHandler
 {
     Q_OBJECT
     Q_PROPERTY(int historyCapacity READ historyCapacity WRITE setHistoryCapacity)
@@ -58,11 +59,15 @@ public slots:
     /*!
      * @brief
      */
-    virtual bool execCommand(const QString &command, QString *output = nullptr) = 0;
+    virtual bool execCommand(const QString &command) = 0;
 
     virtual QString prevCommand() = 0;
     virtual QString nextCommand() = 0;
 
+signals:
+    void aboutToExecute(const QString &message);
+    void printed(const QString &message);
+    void error(const QString &message); // TODO: rename it!
 
 private:
     Q_DISABLE_COPY(IScriptConsole)

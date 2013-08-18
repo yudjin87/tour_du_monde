@@ -43,6 +43,10 @@ ScriptUnitView::ScriptUnitView(IScriptUnit *data, QSyntaxHighlighter *highlighte
 
     highlighter->setParent(this);
     highlighter->setDocument(m_data->script());
+
+    // TODO: merge the same functionality with Console view
+    connect(data, &IScriptUnit::printed, this, &ScriptUnitView::printOutput);
+    connect(data, &IScriptUnit::error, this, &ScriptUnitView::printError);
 }
 
 //------------------------------------------------------------------------------
@@ -83,20 +87,7 @@ void ScriptUnitView::printOutput(const QString &output)
 void ScriptUnitView::onRun()
 {
     clear();
-
-    QString output;
-    bool success = m_data->run(&output);
-
-    // TODO: merge the same functionality with Console view
-    if (output.isEmpty())
-        return;
-
-    if (success)
-        printOutput(output);
-    else
-        printError(output);
-
-    printOutput("\n");
+    m_data->run();
 }
 
 //------------------------------------------------------------------------------

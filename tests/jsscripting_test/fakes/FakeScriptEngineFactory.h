@@ -37,7 +37,7 @@ class FakeScriptEngineFactory : public QObject, public IScriptEngineFactory
 public:
     FakeScriptEngineFactory(QObject *parent = nullptr);
 
-    QScriptEngine *createEngine(QString *output, QObject *parent);
+    QScriptEngine *createEngine(IOutputHandler *output, QObject *parent);
 };
 
 #endif // FAKESCRIPTENGINEFACTORY_H

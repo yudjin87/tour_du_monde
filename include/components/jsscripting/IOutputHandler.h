@@ -24,23 +24,28 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "FakeScriptEngineFactory.h"
+#ifndef IOUTPUTHANDLER_H
+#define IOUTPUTHANDLER_H
 
-#include <QtScript/QScriptEngine>
+#include <components/jsscripting/jsscripting_global.h>
 
-//------------------------------------------------------------------------------
-FakeScriptEngineFactory::FakeScriptEngineFactory(QObject *parent)
-    : QObject(parent)
-    , IScriptEngineFactory()
+/*!
+ * @brief
+ */
+class JSSCRIPTING_API IOutputHandler
 {
-}
+public:
+    IOutputHandler(){}
+    virtual ~IOutputHandler(){}
 
-//------------------------------------------------------------------------------
-QScriptEngine *FakeScriptEngineFactory::createEngine(IOutputHandler *output, QObject *parent)
-{
-    Q_UNUSED(output)
-    Q_UNUSED(parent)
-    return new QScriptEngine();
-}
+    virtual void print(const QString &message) = 0;
 
-//------------------------------------------------------------------------------
+    // virtual void alert(const QString &message) = 0;
+    // virtual void prompt(const QString &message) = 0;
+    // virtual void confirm(const QString &message) = 0;
+
+private:
+    Q_DISABLE_COPY(IOutputHandler)
+};
+
+#endif // IOUTPUTHANDLER_H

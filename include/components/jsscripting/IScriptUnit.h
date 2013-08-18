@@ -28,12 +28,13 @@
 #define ISCRIPTUNIT_H
 
 #include <components/jsscripting/jsscripting_global.h>
+#include <components/jsscripting/IOutputHandler.h>
 
 #include <QtCore/QObject>
 
 class QTextDocument;
 
-class JSSCRIPTING_API IScriptUnit : public QObject
+class JSSCRIPTING_API IScriptUnit : public QObject, public IOutputHandler
 {
     Q_OBJECT
     Q_PROPERTY(bool isLoaded READ isLoaded)
@@ -67,10 +68,12 @@ public slots:
     virtual bool saveAs(const QString &filePath) = 0;
 
     // TODO: should emit output instead of getting it
-    virtual bool run(QString *output = nullptr) = 0;
+    virtual bool run() = 0;
 
 signals:
     void fileNameChanged();
+    void printed(const QString &message);
+    void error(const QString &message);
 
 private:
     Q_DISABLE_COPY(IScriptUnit)

@@ -24,23 +24,23 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "FakeScriptEngineFactory.h"
+#ifndef MOCKOUTPUTHANDLER_H
+#define MOCKOUTPUTHANDLER_H
 
-#include <QtScript/QScriptEngine>
+#include <components/jsscripting/IOutputHandler.h>
 
-//------------------------------------------------------------------------------
-FakeScriptEngineFactory::FakeScriptEngineFactory(QObject *parent)
-    : QObject(parent)
-    , IScriptEngineFactory()
+#include <QtCore/QObject>
+
+class MockOutputHandler : public QObject, public IOutputHandler
 {
-}
+    Q_OBJECT
+public:
+    MockOutputHandler(QObject *parent = nullptr);
 
-//------------------------------------------------------------------------------
-QScriptEngine *FakeScriptEngineFactory::createEngine(IOutputHandler *output, QObject *parent)
-{
-    Q_UNUSED(output)
-    Q_UNUSED(parent)
-    return new QScriptEngine();
-}
+    void print(const QString &message);
 
-//------------------------------------------------------------------------------
+public:
+    QString lastMessage;
+};
+
+#endif // MOCKOUTPUTHANDLER_H

@@ -116,6 +116,12 @@ const QTextDocument *ScriptUnit::script() const
 }
 
 //------------------------------------------------------------------------------
+void ScriptUnit::print(const QString &message)
+{
+    emit printed(message);
+}
+
+//------------------------------------------------------------------------------
 bool ScriptUnit::load()
 {
     if (m_isLoaded)
@@ -180,7 +186,7 @@ bool ScriptUnit::saveAs(const QString &fileName)
 }
 
 //------------------------------------------------------------------------------
-bool ScriptUnit::run(QString *output)
+bool ScriptUnit::run()
 {
     const QString &script = scriptText();
     if (script.isEmpty()) {
@@ -191,8 +197,9 @@ bool ScriptUnit::run(QString *output)
     if (!fileName().isEmpty())
         save();
 
-    // Do not destroy previous engine, because script may still executes
-    m_engine.reset(m_factory->createEngine(output));
+    // Do not destroy previous engine right after exiting this scope,
+    // because script may still executes. So, destroy only when new run() is called
+    m_engine.reset(m_factory->createEngine(this));
     QScriptValue result = m_engine->evaluate(script);
     if (!result.isError())
         return true;
@@ -200,8 +207,7 @@ bool ScriptUnit::run(QString *output)
     QString scriptError = QString("Script error:\"%1\"").arg(result.toString());
     Log.w(scriptError);
 
-    if (output != nullptr)
-        *output = result.toString();
+    emit error(result.toString());
 
     return false;
 }

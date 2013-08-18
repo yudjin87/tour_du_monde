@@ -55,13 +55,15 @@ protected:
 
 private slots:
     void onEnter();
+    void onAboutToExecute(const QString &command);
+    void printError(const QString &error);
+    void printOutput(const QString &output);
 
 private:
     void connectSignalsToSlots();
     void onPrevCommand();
     void onNextCommand();
-    void printError(const QString &error);
-    void printOutput(const QString &output);
+    void scrollDown();
 
 private:
     Ui::ScriptConsoleView *m_ui;

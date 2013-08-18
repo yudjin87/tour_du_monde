@@ -38,8 +38,7 @@ static LoggerFacade Log = LoggerFacade::createLogger("ScriptConsole");
 
 //------------------------------------------------------------------------------
 ScriptConsole::ScriptConsole(QScriptEngine *engine, QObject *parent)
-    : m_output("")
-    , m_engine(engine)
+    : m_engine(engine)
     , m_history(QStringList())
     , m_historyCommand(m_history.begin())
     , m_historyCapacity(100) // TODO: read from application references
@@ -50,8 +49,7 @@ ScriptConsole::ScriptConsole(QScriptEngine *engine, QObject *parent)
 
 //------------------------------------------------------------------------------
 ScriptConsole::ScriptConsole(QObject *parent)
-    : m_output("")
-    , m_engine(nullptr)
+    : m_engine(nullptr)
     , m_history(QStringList())
     , m_historyCommand(m_history.begin())
     , m_historyCapacity(100) // TODO: read from application references
@@ -67,25 +65,19 @@ QScriptEngine *ScriptConsole::engine()
 }
 
 //------------------------------------------------------------------------------
-bool ScriptConsole::execCommand(const QString &command, QString *output)
+bool ScriptConsole::execCommand(const QString &command)
 {
+    emit aboutToExecute(command);
     addCommandToHistory(command);
 
     QScriptValue result = m_engine->evaluate(command);
-    if (output != nullptr)
-        output->swap(m_output);
-
-    m_output.clear();
-
     if (!result.isError())
         return true;
-
 
     QString scriptError = QString("Script error:\n\"%1\"").arg(result.toString());
     Log.w(scriptError);
 
-    if (output != nullptr)
-        *output = result.toString();
+    emit error(result.toString());
 
     return false;
 }
@@ -139,9 +131,9 @@ const QStringList &ScriptConsole::commandHistory() const
 }
 
 //------------------------------------------------------------------------------
-QString *ScriptConsole::output()
+void ScriptConsole::print(const QString &message)
 {
-    return &m_output;
+    emit printed(message);
 }
 
 //------------------------------------------------------------------------------

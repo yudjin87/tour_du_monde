@@ -29,6 +29,7 @@
 
 #include <components/jsscripting/IScriptEngineConfigurationDelegate.h>
 
+class IOutputHandler;
 class IServiceLocator;
 class IScriptExtension;
 class QScriptValue;
@@ -48,13 +49,13 @@ public slots:
      */
     void configureFromComponent(IComponent *component, QScriptEngine *engine);
 
-    void configureDefaults(QScriptEngine *engine, QString *output = nullptr);
+    void configureDefaults(QScriptEngine *engine, IOutputHandler *output = nullptr);
 
 protected:
     virtual void configureExtension(QScriptEngine *engine, IScriptExtension *extension);
     virtual void configureServiceLocator(QScriptEngine *engine, IServiceLocator *locator);
 
-    virtual void registerPrintFunc(QScriptEngine *engine, QString *output);
+    virtual void registerPrintFunc(QScriptEngine *engine, IOutputHandler *output);
     virtual void registerWaitFunc(QScriptEngine *engine);
     virtual void registerBasePrimitives(QScriptEngine *engine);
     virtual void registerComponentSystemTypes(QScriptEngine *engine);

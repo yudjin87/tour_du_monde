@@ -30,6 +30,7 @@
 
 #include <QtScript/QScriptEngine>
 #include <QtTest/QtTest>
+#include <QtTest/QSignalSpy>
 
 //------------------------------------------------------------------------------
 const QByteArray simpleScript(
@@ -46,20 +47,25 @@ ScriptConsoleTest::ScriptConsoleTest(QObject *parent)
 void ScriptConsoleTest::evaluateLine_shouldReturnTrueForCorrectScript()
 {
     ScriptConsole console;
+    QSignalSpy printed(&console, SIGNAL(printed(QString)));
+    QSignalSpy error(&console, SIGNAL(error(QString)));
 
-    QString output;
-    QVERIFY(console.execCommand(simpleScript, &output));
-    QVERIFY(output.isEmpty());
+    QVERIFY(console.execCommand(simpleScript));
+
+    QVERIFY(printed.isEmpty());
+    QVERIFY(error.isEmpty());
 }
 
 //------------------------------------------------------------------------------
 void ScriptConsoleTest::evaluateLine_shouldReturnFalseForIncorrectScript()
 {
-    ScriptConsole console;
+    ScriptConsole console;    
+    QSignalSpy printed(&console, SIGNAL(printed(QString)));
+    QSignalSpy error(&console, SIGNAL(error(QString)));
 
-    QString output;
-    QVERIFY(!console.execCommand(wrongScript, &output));
-    QVERIFY(!output.isEmpty());
+    QVERIFY(!console.execCommand(wrongScript));
+    QVERIFY(printed.isEmpty());
+    QVERIFY(!error.isEmpty());
 }
 
 //------------------------------------------------------------------------------

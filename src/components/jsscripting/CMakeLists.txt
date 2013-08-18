@@ -37,6 +37,7 @@ set(__HEADERS
     ${CRSL_TARGET_HEADERS}/CarouselScriptEngineConfigurationDelegate.h 
     ${CRSL_TARGET_HEADERS}/CodeHighlighter.h 
     ${CRSL_TARGET_HEADERS}/ColorTheme.h 
+    ${CRSL_TARGET_HEADERS}/IOutputHandler.h 
     ${CRSL_TARGET_HEADERS}/IScriptCollection.h 
     ${CRSL_TARGET_HEADERS}/IScriptConsole.h 
     ${CRSL_TARGET_HEADERS}/IScriptEngineConfigurationDelegate.h 
