@@ -29,6 +29,7 @@ set(__SOURCES
     ${CRSL_TARGET_SOURCES}/ScriptUnitView.cpp 
     ${CRSL_TARGET_SOURCES}/ServiceLocatorWrapper.cpp 
     ${CRSL_TARGET_SOURCES}/ShowScriptsOperation.cpp 
+    ${CRSL_TARGET_SOURCES}/SimpleCompleter.cpp 
 )
 	
 ######################################################################
@@ -64,6 +65,7 @@ set(__HEADERS
     ${CRSL_TARGET_HEADERS}/ScriptUnitView.h 
     ${CRSL_TARGET_HEADERS}/ServiceLocatorWrapper.h 
     ${CRSL_TARGET_HEADERS}/ShowScriptsOperation.h 
+    ${CRSL_TARGET_HEADERS}/SimpleCompleter.h 
 )
 
 ######################################################################

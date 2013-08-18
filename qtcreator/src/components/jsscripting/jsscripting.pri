@@ -32,6 +32,7 @@ HEADERS += \
     $$PROJECT_HEADERS/ScriptUnitView.h \
     $$PROJECT_HEADERS/ServiceLocatorWrapper.h \
     $$PROJECT_HEADERS/ShowScriptsOperation.h \
+    $$PROJECT_HEADERS/SimpleCompleter.h \
 
 SOURCES += \
     $$PROJECT_SOURCES/CarouselScriptEngineConfigurationDelegate.cpp \
@@ -55,6 +56,7 @@ SOURCES += \
     $$PROJECT_SOURCES/ScriptUnitView.cpp \
     $$PROJECT_SOURCES/ServiceLocatorWrapper.cpp \
     $$PROJECT_SOURCES/ShowScriptsOperation.cpp \
+    $$PROJECT_SOURCES/SimpleCompleter.cpp \
 
 OTHER_FILES += \
     $$PROJECT_SOURCES/org.carousel.JsScripting.definition \

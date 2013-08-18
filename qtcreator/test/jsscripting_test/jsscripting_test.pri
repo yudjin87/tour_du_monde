@@ -17,6 +17,7 @@ SOURCES += \
     $$TEST_PROJECT_SOURCES/ScriptingServiceTest.cpp \
     $$TEST_PROJECT_SOURCES/ScriptUnitTest.cpp \
     $$TEST_PROJECT_SOURCES/ServiceLocatorWrapperTest.cpp \
+    $$TEST_PROJECT_SOURCES/SimpleCompleterTest.cpp \
 
 HEADERS += \
     $$TEST_PROJECT_SOURCES/CarouselScriptEngineConfigurationDelegateTest.h \
@@ -34,6 +35,7 @@ HEADERS += \
     $$TEST_PROJECT_SOURCES/ScriptingServiceTest.h \
     $$TEST_PROJECT_SOURCES/ScriptUnitTest.h \
     $$TEST_PROJECT_SOURCES/ServiceLocatorWrapperTest.h \
+    $$TEST_PROJECT_SOURCES/SimpleCompleterTest.h \
 
 OTHER_FILES += \
     $$TEST_PROJECT_SOURCES/TestScript.js \

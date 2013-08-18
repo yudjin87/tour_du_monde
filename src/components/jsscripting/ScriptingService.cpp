@@ -57,8 +57,7 @@ ScriptingService::ScriptingService(IServiceLocator *locator, IComponentManager *
     m_console = new ScriptConsole(this);
 
     setParent(parent);
-    connect(m_componentManager, &IComponentManager::startedUp,
-            this, &ScriptingService::onComponentManagerStartedUp);
+    connect(m_componentManager, &IComponentManager::startedUp, this, &ScriptingService::onComponentManagerStartedUp);
 }
 
 //------------------------------------------------------------------------------

@@ -5,6 +5,7 @@
 #include "ScriptUnitTest.h"
 #include "ScriptCollectionTest.h"
 #include "CarouselScriptEngineConfigurationDelegateTest.h"
+#include "SimpleCompleterTest.h"
 
 #include "ScriptConsoleViewTest.h"
 
@@ -61,6 +62,9 @@ void runUnitTests(int argc, char *argv[])
 
     CarouselScriptEngineConfigurationDelegateTest carouselScriptEngineConfigurationDelegateTest;
     QTest::qExec(&carouselScriptEngineConfigurationDelegateTest, argc, argv);
+
+    SimpleCompleterTest simpleCompleterTest;
+    QTest::qExec(&simpleCompleterTest, argc, argv);
 }
 
 //------------------------------------------------------------------------------
