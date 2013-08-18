@@ -30,6 +30,7 @@
 #include <components/jsscripting/IOutputHandler.h>
 
 #include <QtCore/QObject>
+#include <QtCore/QStringList>
 
 class MockOutputHandler : public QObject, public IOutputHandler
 {
@@ -40,6 +41,7 @@ public:
     void print(const QString &message);
 
 public:
+    QStringList messages;
     QString lastMessage;
 };
 

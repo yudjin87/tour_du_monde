@@ -36,6 +36,7 @@ MockOutputHandler::MockOutputHandler(QObject *parent)
 void MockOutputHandler::print(const QString &message)
 {
     lastMessage = message;
+    messages.push_back(message);
 }
 
 //------------------------------------------------------------------------------

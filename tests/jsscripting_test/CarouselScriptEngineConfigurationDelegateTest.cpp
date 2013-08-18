@@ -90,3 +90,41 @@ void CarouselScriptEngineConfigurationDelegateTest::configureDefaults_shouldAddP
 }
 
 //------------------------------------------------------------------------------
+void CarouselScriptEngineConfigurationDelegateTest::explore_shouldPrintAllGlobals()
+{
+    ServiceLocator locator; QScriptEngine engine;
+    CarouselScriptEngineConfigurationDelegate delegate(&locator);
+
+    MockOutputHandler output;
+    delegate.configureDefaults(&engine, &output);
+    engine.evaluate("explore()");
+
+    QVERIFY(!output.messages.empty());
+    QVERIFY(output.messages.contains("Math (instance)"));
+    QVERIFY(output.messages.contains("explore()"));
+    QVERIFY(output.messages.contains("NaN"));
+}
+
+//------------------------------------------------------------------------------
+void CarouselScriptEngineConfigurationDelegateTest::explore_shouldPrintVariableMembers()
+{
+    ServiceLocator locator; QScriptEngine engine;
+    CarouselScriptEngineConfigurationDelegate delegate(&locator);
+
+    MockOutputHandler output;
+    delegate.configureDefaults(&engine, &output);
+    engine.evaluate("explore(serviceLocator)");
+
+    QVERIFY(!output.messages.empty());
+    QVERIFY(!output.messages.contains("objectName"));
+    QVERIFY(!output.messages.contains("destroyed(QObject*)"));
+    QVERIFY(!output.messages.contains("destroyed()"));
+    QVERIFY(!output.messages.contains("deleteLater()"));
+    QVERIFY(!output.messages.contains("objectNameChanged(QString)"));
+
+    QVERIFY(output.messages.contains("locate(QString)"));
+    QVERIFY(output.messages.contains("build(QString)"));
+    QVERIFY(output.messages.contains("build(QString,bool)"));
+}
+
+//------------------------------------------------------------------------------

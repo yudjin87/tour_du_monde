@@ -43,7 +43,9 @@
 #include <QtCore/QEventLoop>
 #include <QtCore/QPoint>
 #include <QtCore/QTimer>
+#include <QtCore/QList>
 #include <QtScript/QScriptEngine>
+#include <QtScript/QScriptValueIterator>
 
 //------------------------------------------------------------------------------
 Q_DECLARE_METATYPE(IScriptConsole *)
@@ -63,6 +65,12 @@ static const int IScriptUnitId = qRegisterMetaType<IScriptUnit *>("IScriptUnit *
 namespace
 {
 static LoggerFacade Log = LoggerFacade::createLogger("CarouselScriptEngineConfigurationDelegate");
+static QList<QString> qobjectProperties = {
+    "objectName",
+    "destroyed(QObject*)",
+    "destroyed()",
+    "deleteLater()",
+    "objectNameChanged(QString)"};
 
 //------------------------------------------------------------------------------
 int registerComponentsList(QScriptEngine *engine)
@@ -82,7 +90,6 @@ int registerScriptUnitList(QScriptEngine *engine)
 
 //------------------------------------------------------------------------------
 } // namespace
-
 
 //------------------------------------------------------------------------------
 CarouselScriptEngineConfigurationDelegate::CarouselScriptEngineConfigurationDelegate(IServiceLocator *locator, QObject *parent)
@@ -110,6 +117,7 @@ void CarouselScriptEngineConfigurationDelegate::configureDefaults(QScriptEngine 
     configureServiceLocator(engine, m_locator);
     registerPrintFunc(engine, output);
     registerWaitFunc(engine);
+    registerExploreFunc(engine, output);
     registerBasePrimitives(engine);
     registerComponentSystemTypes(engine);
     registerJsScriptingTypes(engine);
@@ -134,6 +142,13 @@ void CarouselScriptEngineConfigurationDelegate::registerPrintFunc(QScriptEngine 
 {
     QScriptValue printFunc = engine->newFunction(&CarouselScriptEngineConfigurationDelegate::print, (void *)output);
     engine->globalObject().setProperty("print", printFunc);
+}
+
+//------------------------------------------------------------------------------
+void CarouselScriptEngineConfigurationDelegate::registerExploreFunc(QScriptEngine *engine, IOutputHandler *output)
+{
+    QScriptValue exploreFunc = engine->newFunction(&CarouselScriptEngineConfigurationDelegate::explore, (void *)output);
+    engine->globalObject().setProperty("explore", exploreFunc);
 }
 
 //------------------------------------------------------------------------------
@@ -197,6 +212,52 @@ QScriptValue CarouselScriptEngineConfigurationDelegate::wait(QScriptContext *con
 }
 
 //------------------------------------------------------------------------------
+QScriptValue CarouselScriptEngineConfigurationDelegate::explore(QScriptContext *context, QScriptEngine *engine, void *out)
+{
+    if (context->argumentCount() > 2) {
+        context->throwError(QScriptContext::SyntaxError, "Wrong number of arguments: explore() or explore(obj) is expected");
+        return engine->undefinedValue();
+    }
+
+    IOutputHandler *output = static_cast<IOutputHandler *>(out);
+    if (output == nullptr)
+        return engine->undefinedValue();
+
+    if (context->argumentCount() == 0) {
+        // Print out all global objects like class names, functions, global variables, etc
+        QScriptValueIterator it(engine->globalObject());
+        while (it.hasNext()) {
+            it.next();
+            QScriptValue val = it.value();
+            if (val.isFunction())
+                output->print(it.name() + "()");
+            else if (val.isObject())
+                output->print(it.name() + " (instance)");
+            else
+                output->print(it.name());
+        }
+
+    } else {
+        // Print out object members
+        QScriptValue obj = context->argument(0);
+        if (!obj.isValid()) {
+            output->print("No members");
+            return engine->undefinedValue();
+        }
+
+        QScriptValueIterator membersIt(obj);
+        while (membersIt.hasNext()) {
+            membersIt.next();
+            QString name = membersIt.name();
+            if (!qobjectProperties.contains(name))
+                output->print(membersIt.name());
+        }
+    }
+
+    return engine->undefinedValue();
+}
+
+//------------------------------------------------------------------------------
 QScriptValue CarouselScriptEngineConfigurationDelegate::print(QScriptContext *context, QScriptEngine *engine, void *out)
 {
     IOutputHandler *output = static_cast<IOutputHandler *>(out);
@@ -213,6 +274,19 @@ QScriptValue CarouselScriptEngineConfigurationDelegate::print(QScriptContext *co
     output->print(outputMessage);
 
     return engine->undefinedValue();
+}
+
+//------------------------------------------------------------------------------
+QScriptValue CarouselScriptEngineConfigurationDelegate::findValue(QScriptEngine *engine, const QString& name)
+{
+    QScriptValueIterator it(engine->globalObject());
+    while (it.hasNext()) {
+        it.next();
+        if (it.name() == name)
+            return it.value();
+    }
+
+    return QScriptValue();
 }
 
 //------------------------------------------------------------------------------

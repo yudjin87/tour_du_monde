@@ -40,6 +40,8 @@ private Q_SLOTS:
     void configureComponent_shouldNotThrowIfComponentHasNoScriptExtension();
     void configureDefaults_shouldAddServiceLocatorObjectToEngine();
     void configureDefaults_shouldAddPrintFunctionToEngine();
+    void explore_shouldPrintAllGlobals();
+    void explore_shouldPrintVariableMembers();
 };
 
 #endif // CAROUSELENGINECONFIGURATIONDELEGATETEST_H

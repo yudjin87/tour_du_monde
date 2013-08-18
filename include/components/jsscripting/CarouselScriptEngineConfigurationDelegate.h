@@ -56,6 +56,7 @@ protected:
     virtual void configureServiceLocator(QScriptEngine *engine, IServiceLocator *locator);
 
     virtual void registerPrintFunc(QScriptEngine *engine, IOutputHandler *output);
+    virtual void registerExploreFunc(QScriptEngine *engine, IOutputHandler *output);
     virtual void registerWaitFunc(QScriptEngine *engine);
     virtual void registerBasePrimitives(QScriptEngine *engine);
     virtual void registerComponentSystemTypes(QScriptEngine *engine);
@@ -65,6 +66,8 @@ private:
     Q_DISABLE_COPY(CarouselScriptEngineConfigurationDelegate)
     static QScriptValue print(QScriptContext *context, QScriptEngine *engine, void *out);
     static QScriptValue wait(QScriptContext *context, QScriptEngine *engine);
+    static QScriptValue explore(QScriptContext *context, QScriptEngine *engine, void *out);
+    static QScriptValue findValue(QScriptEngine *engine, const QString &name);
 
 private:
     IServiceLocator *m_locator;
