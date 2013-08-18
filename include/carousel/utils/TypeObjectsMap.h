@@ -54,6 +54,12 @@ public:
 
     /*!
      * @details
+     *   Gets instance by the index.
+     */
+    TValue getInstance(int index) const;
+
+    /*!
+     * @details
      *   Finds pointer associated with specified type id and empty tag
      *   in inner objects dictionary.
      * @return The value corresponded with specified type id if such found. Null pointer otherwise.
@@ -137,6 +143,13 @@ TypeObjectsMap<TValue>::~TypeObjectsMap()
 {
     foreach(InstanceObject<TValue> *object, m_objects)
         delete object;
+}
+
+//------------------------------------------------------------------------------
+template<typename TValue>
+TValue TypeObjectsMap<TValue>::getInstance(int index) const
+{
+    return m_objects.at(index)->instance;
 }
 
 //------------------------------------------------------------------------------

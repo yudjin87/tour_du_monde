@@ -69,6 +69,12 @@ public:
 
     /*!
      * @details
+     *   Gets service by index.
+     */
+    QObject *locateByIndex(int index);
+
+    /*!
+     * @details
      *   Finds the service registered with @a className and empty tag and returns
      *   a QObject pointer to it.
      *   This may be usefull for scpipting, where no templates.
@@ -84,6 +90,11 @@ public:
      * @return the corresponding service if such found. Null pointer otherwis
      */
     QObject *locateToObject(const QString &className, const QString &tag);
+
+    /*!
+     *   Gets an amount of registered services;
+     */
+    int servicesCount() const;
 
 protected:
     /*!

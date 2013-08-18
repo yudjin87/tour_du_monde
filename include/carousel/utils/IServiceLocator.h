@@ -204,6 +204,14 @@ public:
 
     /*!
      * @details
+     *   Gets service by index.
+     *
+     * @sa servicesCount()
+     */
+    virtual QObject *locateByIndex(int index) = 0;
+
+    /*!
+     * @details
      *   Finds the service registered with @a className and empty tag and returns
      *   a QObject pointer to it.
      *   This may be usefull for scpipting, where no templates.
@@ -235,6 +243,11 @@ public:
      */
     template<typename TService>
     TService *locate(const QString &tag);
+
+    /*!
+     *   Gets an amount of registered services;
+     */
+    virtual int servicesCount() const = 0;
 
     /*!
      * @details

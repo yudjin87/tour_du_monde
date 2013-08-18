@@ -61,6 +61,14 @@ QObject *ServiceLocator::buildObject(const QString &className, const QString &ta
 }
 
 //------------------------------------------------------------------------------
+QObject *ServiceLocator::locateByIndex(int index)
+{
+    void *data = m_objects->getInstance(index);
+    QObject *object = reinterpret_cast<QObject *>(data);
+    return object;
+}
+
+//------------------------------------------------------------------------------
 QObject *ServiceLocator::locateToObject(const QString &className)
 {
     return locateToObject(className, "");
@@ -72,6 +80,12 @@ QObject *ServiceLocator::locateToObject(const QString &className, const QString 
     void *foundInstance = getService(className, tag);
     QObject *service = reinterpret_cast<QObject *>(foundInstance);
     return service;
+}
+
+//------------------------------------------------------------------------------
+int ServiceLocator::servicesCount() const
+{
+    return m_objects->size();
 }
 
 //------------------------------------------------------------------------------
