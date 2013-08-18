@@ -158,6 +158,11 @@ else()
 endif()
 
 ###############################################################################
+# Do not add any prefixes to the library dependency locations
+# (e.g. <currentDir>/<LibName> - it leads to wrong library names on the dependency section
+set(CMAKE_SKIP_BUILD_RPATH TRUE)
+
+###############################################################################
 # Configure the Qt stuff
 include(cmake/import_qt5.cmake)
 include_directories("${Qt5_INCLUDE_DIRS}")
