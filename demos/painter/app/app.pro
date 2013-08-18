@@ -50,6 +50,7 @@ SCRIPTS += scripts/components.js
 SCRIPTS += scripts/loadLayer.js
 SCRIPTS += scripts/navigation.js
 SCRIPTS += scripts/uiManipulations.js
+SCRIPTS += scripts/scripting.js
 
 OTHER_FILES += \
     $${START_UP} \
