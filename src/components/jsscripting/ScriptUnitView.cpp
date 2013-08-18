@@ -30,6 +30,7 @@
 
 #include <QtGui/QKeyEvent>
 #include <QtGui/QSyntaxHighlighter>
+#include <QtWidgets/QFileDialog>
 
 //------------------------------------------------------------------------------
 ScriptUnitView::ScriptUnitView(IScriptUnit *data, QSyntaxHighlighter *highlighter, QWidget *parent)
@@ -91,6 +92,26 @@ void ScriptUnitView::onRun()
 }
 
 //------------------------------------------------------------------------------
+bool ScriptUnitView::onSave()
+{
+    // for saveAs:
+    if (m_data->fileName().isEmpty()) {
+        QFileDialog fileDialog(parentWidget(), "Save script");
+        fileDialog.setNameFilter("JavaScript Files (*.js)");
+        fileDialog.setFileMode(QFileDialog::AnyFile);
+        fileDialog.setDefaultSuffix("js");
+        fileDialog.setDirectory(QCoreApplication::applicationDirPath() + "/scripts");  // TODO: get last selected directory from settings
+        if (!fileDialog.exec())
+            return false;
+
+        QString fileName = fileDialog.selectedFiles().first();
+        return m_data->saveAs(fileName);
+    }
+
+    return m_data->save();
+}
+
+//------------------------------------------------------------------------------
 bool ScriptUnitView::eventFilter(QObject *sender, QEvent *event)
 {
     if (event->type() == QEvent::KeyPress) {
@@ -127,6 +148,10 @@ bool ScriptUnitView::processControlKey(int key)
     switch (key) {
     case Qt::Key_Space:
         //start completition
+        return true;
+
+    case Qt::Key_S:
+        onSave();
         return true;
 
     default:

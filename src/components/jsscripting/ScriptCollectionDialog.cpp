@@ -81,26 +81,9 @@ ScriptCollectionDialog::~ScriptCollectionDialog()
 }
 
 //------------------------------------------------------------------------------
-void ScriptCollectionDialog::keyPressEvent(QKeyEvent *event)
-{
-    int key = event->key();
-    if (key == Qt::Key_S && event->modifiers().testFlag(Qt::ControlModifier)) {
-        ScriptUnitView *scriptView = getCurrentView();
-        if (scriptView == nullptr)
-            return;
-
-        scriptView->data()->save();
-        event->accept();
-        return;
-    }
-
-    QDialog::keyPressEvent(event);
-}
-
-//------------------------------------------------------------------------------
 void ScriptCollectionDialog::onScriptAdded(IScriptUnit *script)
 {
-    ScriptUnitView *scriptView = new ScriptUnitView(script, new CodeHighlighter(ColorTheme::getDefault(), this));
+    ScriptUnitView *scriptView = new ScriptUnitView(script, new CodeHighlighter(ColorTheme::getDefault(), this), this);
     bool savable = !script->fileName().isEmpty();
     int index = m_ui->tabWidget->addTab(scriptView, savable
                                         ? script->fileName()
@@ -143,7 +126,7 @@ void ScriptCollectionDialog::onSave()
     if (scriptView == nullptr)
         return;
 
-    if (m_model->onSave(scriptView->data()))
+    if (scriptView->onSave())
         clearModifiedMark(m_ui->tabWidget->currentIndex());
 }
 

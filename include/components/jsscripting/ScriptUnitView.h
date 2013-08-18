@@ -47,7 +47,7 @@ public:
      * @details
      *  Takes ownership
      */
-    ScriptUnitView(IScriptUnit *data, QSyntaxHighlighter *highlighter, QWidget *parent = nullptr);
+    ScriptUnitView(IScriptUnit *data, QSyntaxHighlighter *highlighter, QWidget *parent);
     ~ScriptUnitView();
 
     IScriptUnit *data();
@@ -58,6 +58,7 @@ public:
 
 public slots:
     void onRun();
+    bool onSave();
 
 protected:
     bool eventFilter(QObject *sender, QEvent *event);

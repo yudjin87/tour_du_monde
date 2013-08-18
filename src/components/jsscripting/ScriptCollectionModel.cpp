@@ -96,26 +96,6 @@ void ScriptCollectionModel::onLoad()
 }
 
 //------------------------------------------------------------------------------
-bool ScriptCollectionModel::onSave(IScriptUnit *script)
-{
-    // for saveAs:
-    if (script->fileName().isEmpty()) {
-        QFileDialog fileDialog(m_locator->locate<QMainWindow>(), "Save script");
-        fileDialog.setNameFilter("JavaScript Files (*.js)");
-        fileDialog.setFileMode(QFileDialog::AnyFile);
-        fileDialog.setDefaultSuffix("js");
-        fileDialog.setDirectory(QCoreApplication::applicationDirPath() + "/scripts");  // TODO: get last selected directory from settings
-        if (!fileDialog.exec())
-            return false;
-
-        QString fileName = fileDialog.selectedFiles().first();
-        return script->saveAs(fileName);
-    }
-
-    return script->save();
-}
-
-//------------------------------------------------------------------------------
 void ScriptCollectionModel::onSaveAll()
 {
 

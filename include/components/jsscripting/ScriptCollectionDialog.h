@@ -51,9 +51,6 @@ public:
     explicit ScriptCollectionDialog(ScriptCollectionModel *model, QWidget *parent = nullptr);
     ~ScriptCollectionDialog();
 
-protected:
-    void keyPressEvent(QKeyEvent *event);
-
 private slots:
     void onScriptAdded(IScriptUnit *script);
     void onScriptRemoved(IScriptUnit *script);
