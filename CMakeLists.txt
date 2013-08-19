@@ -164,6 +164,8 @@ set(CMAKE_SKIP_BUILD_RPATH TRUE)
 
 ###############################################################################
 # Configure the Qt stuff
+# Automatically link Qt executables to qtmain target on Windows.
+cmake_policy(SET CMP0020 NEW)
 include(cmake/import_qt5.cmake)
 include_directories("${Qt5_INCLUDE_DIRS}")
 

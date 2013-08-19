@@ -65,12 +65,27 @@ static const int IScriptUnitId = qRegisterMetaType<IScriptUnit *>("IScriptUnit *
 namespace
 {
 static LoggerFacade Log = LoggerFacade::createLogger("CarouselScriptEngineConfigurationDelegate");
+
+#ifdef Q_COMPILER_INITIALIZER_LISTS // MSVC does not support it yet
 static QList<QString> qobjectProperties = {
     "objectName",
     "destroyed(QObject*)",
     "destroyed()",
     "deleteLater()",
     "objectNameChanged(QString)"};
+#else
+QList<QString> initList()
+{
+	QList<QString> qobjectProperties;
+    qobjectProperties.push_back("objectName");
+    qobjectProperties.push_back("destroyed(QObject*)");
+    qobjectProperties.push_back("destroyed()");
+    qobjectProperties.push_back("deleteLater()");
+    qobjectProperties.push_back("objectNameChanged(QString)");
+	return qobjectProperties;
+}
+static QList<QString> qobjectProperties = initList();
+#endif //#ifdef Q_COMPILER_INITIALIZER_LISTS
 
 //------------------------------------------------------------------------------
 int registerComponentsList(QScriptEngine *engine)

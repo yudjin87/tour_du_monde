@@ -66,18 +66,36 @@ if(QT_COPY_LIBRARIES)
     set(__Qt5_PLUGINS_RELEASE
         ${Qt5_PLUGINS_DIRS}/platforms/${CMAKE_SHARED_LIBRARY_PREFIX}${__PLATFORM_PLUGIN}${CMAKE_SHARED_LIBRARY_SUFFIX})
 
+    ########################################################################################
+    # Find Qt dependencies
+    set(__Qt5_DEPS
+        ${__QT_ROOT_DIR}/bin/icudt51.dll
+        ${__QT_ROOT_DIR}/bin/icuin51.dll
+        ${__QT_ROOT_DIR}/bin/icuuc51.dll)
+
+    set(__Qt5_DEPS_DEBUG
+        ${__Qt5_DEPS}
+        ${__QT_ROOT_DIR}/bin/libGLESv2d.dll)
+
+    set(__Qt5_DEPS_RELEASE
+        ${__Qt5_DEPS}
+        ${__QT_ROOT_DIR}/bin/libGLESv2.dll)
+
     message(STATUS "Creating install target for copying Qt5 libraries and plugins...")
 
     # Copy to the binaries
     crsl_set_files_to_copy_on_install("${__Qt5_all_RUNTIMES_DEBUG}" "${__Qt5_all_RUNTIMES_RELEASE}" "${CAROUSEL_WD}/product" "${CRSL_COMPILER}" "-x${CRSL_TARGET_PLATFORM_BITS}" bin)
+    crsl_set_files_to_copy_on_install("${__Qt5_DEPS_DEBUG}" "${__Qt5_DEPS_RELEASE}" "${CAROUSEL_WD}/product" "${CRSL_COMPILER}" "-x${CRSL_TARGET_PLATFORM_BITS}" bin)
     crsl_set_files_to_copy_on_install("${__Qt5_PLUGINS_DEBUG}" "${__Qt5_PLUGINS_RELEASE}" "${CAROUSEL_WD}/product" "${CRSL_COMPILER}" "-x${CRSL_TARGET_PLATFORM_BITS}" bin/platforms)
 
     # Copy to the unit tests
     crsl_set_files_to_copy_on_install("${__Qt5_all_RUNTIMES_DEBUG}" "${__Qt5_all_RUNTIMES_RELEASE}" "${CAROUSEL_WD}/product" "${CRSL_COMPILER}" "-x${CRSL_TARGET_PLATFORM_BITS}" unittest)
+    crsl_set_files_to_copy_on_install("${__Qt5_DEPS_DEBUG}" "${__Qt5_DEPS_RELEASE}" "${CAROUSEL_WD}/product" "${CRSL_COMPILER}" "-x${CRSL_TARGET_PLATFORM_BITS}" unittest)
     crsl_set_files_to_copy_on_install("${__Qt5_PLUGINS_DEBUG}" "${__Qt5_PLUGINS_RELEASE}" "${CAROUSEL_WD}/product" "${CRSL_COMPILER}" "-x${CRSL_TARGET_PLATFORM_BITS}" unittest/platforms)
 
     # Copy to manual tests
     crsl_set_files_to_copy_on_install("${__Qt5_all_RUNTIMES_DEBUG}" "${__Qt5_all_RUNTIMES_RELEASE}" "${CAROUSEL_WD}/product" "${CRSL_COMPILER}" "-x${CRSL_TARGET_PLATFORM_BITS}" manual-test)
+    crsl_set_files_to_copy_on_install("${__Qt5_DEPS_DEBUG}" "${__Qt5_DEPS_RELEASE}" "${CAROUSEL_WD}/product" "${CRSL_COMPILER}" "-x${CRSL_TARGET_PLATFORM_BITS}" manual-test)
     crsl_set_files_to_copy_on_install("${__Qt5_PLUGINS_DEBUG}" "${__Qt5_PLUGINS_RELEASE}" "${CAROUSEL_WD}/product" "${CRSL_COMPILER}" "-x${CRSL_TARGET_PLATFORM_BITS}" manual-test/platforms)
 
 endif()
