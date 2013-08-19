@@ -58,9 +58,12 @@ ScriptCollectionDialog::ScriptCollectionDialog(ScriptCollectionModel *model, QWi
     connect(m_ui->actionSave, &QAction::triggered, this, &ScriptCollectionDialog::onSave);
     connect(m_ui->tabWidget, &QTabWidget::tabCloseRequested, this, &ScriptCollectionDialog::onTabCloseRequested);
     connect(m_model, &ScriptCollectionModel::scriptAdded, this, &ScriptCollectionDialog::onScriptAdded);
+    connect(m_model, &ScriptCollectionModel::scriptRemoved, this, &ScriptCollectionDialog::onScriptRemoved);
 
-    for (IScriptUnit *script : m_model->scripts())
+    for (IScriptUnit *script : m_model->scripts()) {
+        setActionsEnabled(true);
         onScriptAdded(script);
+    }
 
     QSettings settings;
     restoreGeometry(settings.value(QString(metaObject()->className()) +"/geometry").toByteArray());
@@ -90,6 +93,7 @@ void ScriptCollectionDialog::onScriptAdded(IScriptUnit *script)
                                         : "Untitled");
 
     m_ui->tabWidget->setCurrentIndex(index);
+    setActionsEnabled(true);
 
     bool modified = scriptView->data()->script()->isModified();
     if (modified || !savable) // script in memory always marked as unsaved
@@ -106,7 +110,12 @@ void ScriptCollectionDialog::onScriptAdded(IScriptUnit *script)
 void ScriptCollectionDialog::onScriptRemoved(IScriptUnit *script)
 {
     int index = indexByScript(script);
+    ScriptUnitView *view = qobject_cast<ScriptUnitView *>(m_ui->tabWidget->widget(index));
     m_ui->tabWidget->removeTab(index);
+    delete view;
+
+    if (m_ui->tabWidget->count() == 0)
+        setActionsEnabled(false);
 }
 
 //------------------------------------------------------------------------------
@@ -151,9 +160,7 @@ void ScriptCollectionDialog::onScriptFileNameChanged()
 void ScriptCollectionDialog::onTabCloseRequested(int index)
 {
     ScriptUnitView *view = qobject_cast<ScriptUnitView *>(m_ui->tabWidget->widget(index));
-    m_ui->tabWidget->removeTab(index);
     m_model->onScriptRemoved(view->data());
-    delete view;
 }
 
 //------------------------------------------------------------------------------
@@ -194,6 +201,13 @@ int ScriptCollectionDialog::indexByScript(IScriptUnit *script) const
     }
 
     return -1;
+}
+
+//------------------------------------------------------------------------------
+void ScriptCollectionDialog::setActionsEnabled(bool enable)
+{
+    m_ui->actionRun->setEnabled(enable);
+    m_ui->actionSave->setEnabled(enable);
 }
 
 //------------------------------------------------------------------------------

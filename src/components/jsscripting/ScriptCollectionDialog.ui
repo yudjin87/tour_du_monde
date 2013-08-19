@@ -51,8 +51,14 @@
    <property name="toolTip">
     <string>Load script</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
   </action>
   <action name="actionRun">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="icon">
     <iconset resource="jsscripting.qrc">
      <normaloff>:/jsscripting/images/scriptRun.png</normaloff>:/jsscripting/images/scriptRun.png</iconset>
@@ -68,6 +74,9 @@
    </property>
   </action>
   <action name="actionSave">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="icon">
     <iconset resource="jsscripting.qrc">
      <normaloff>:/jsscripting/images/scriptSave.png</normaloff>:/jsscripting/images/scriptSave.png</iconset>
@@ -77,6 +86,9 @@
    </property>
    <property name="toolTip">
     <string>Save current script</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
    </property>
   </action>
   <action name="actionNewScript">
@@ -89,6 +101,9 @@
    </property>
    <property name="toolTip">
     <string>Add new script</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
    </property>
   </action>
  </widget>

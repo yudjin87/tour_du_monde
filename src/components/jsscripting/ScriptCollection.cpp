@@ -117,8 +117,10 @@ IScriptCollection::Scripts ScriptCollection::addScripts(const QString &directory
 {
 #ifdef Q_COMPILER_INITIALIZER_LISTS // MSVC does not support it yet
     static QStringList nameFilters {"*.js"};
-#endif
+#else
     static QStringList nameFilters("*.js");
+#endif // #ifdef Q_COMPILER_INITIALIZER_LISTS
+
     static QDirIterator::IteratorFlags flags = QDirIterator::NoIteratorFlags;
     static QDir::Filters filters = QDir::NoDotAndDotDot | QDir::Readable | QDir::Files;
 

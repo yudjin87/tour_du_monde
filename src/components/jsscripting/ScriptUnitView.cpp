@@ -150,10 +150,6 @@ bool ScriptUnitView::processControlKey(int key)
         //start completition
         return true;
 
-    case Qt::Key_S:
-        onSave();
-        return true;
-
     default:
         break;
     }

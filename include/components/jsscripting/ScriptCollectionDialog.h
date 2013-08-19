@@ -65,6 +65,7 @@ private:
     void clearModifiedMark(int index);
     void setModifiedMark(int index);
     int indexByScript(IScriptUnit *script) const;
+    void setActionsEnabled(bool enable);
 
 private:
     Ui::ScriptCollectionDialog *m_ui;
