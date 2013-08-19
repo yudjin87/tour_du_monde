@@ -44,71 +44,71 @@ ScriptCollectionTest::ScriptCollectionTest(QObject *parent)
 }
 
 //------------------------------------------------------------------------------
-void ScriptCollectionTest::addScript_shouldAddScript()
+void ScriptCollectionTest::createFromFile_shouldAddScript()
 {
     ScriptCollection manager(new FakeScriptEngineFactory(this));
     QVERIFY(manager.scripts().empty());
-    manager.addScript(m_testScriptPath);
+    manager.createFromFile(m_testScriptPath);
 
     QCOMPARE(manager.scripts().size(), 1);
 }
 
 //------------------------------------------------------------------------------
-void ScriptCollectionTest::addScript_shouldLoadScript()
+void ScriptCollectionTest::createFromFile_shouldLoadScript()
 {
     ScriptCollection manager(new FakeScriptEngineFactory(this));
-    manager.addScript(m_testScriptPath);
+    manager.createFromFile(m_testScriptPath);
 
     QVERIFY(manager.scripts().first()->isLoaded());
 }
 
 //------------------------------------------------------------------------------
-void ScriptCollectionTest::addScript_shouldReturnNullIfLoadingFailed()
+void ScriptCollectionTest::createFromFile_shouldReturnNullIfLoadingFailed()
 {
     FakeScriptCollection manager(new FakeScriptEngineFactory(this));
     FakeScriptUnit *unit = new FakeScriptUnit(); unit->loadFileResult = false;
     manager.unitForCreating = unit;
-    QVERIFY(manager.addScript(m_testScriptPath) == nullptr);
+    QVERIFY(manager.createFromFile(m_testScriptPath) == nullptr);
 
     QVERIFY(manager.scripts().empty());
 }
 
 //------------------------------------------------------------------------------
-void ScriptCollectionTest::addScript_shouldReturnExistedScript()
+void ScriptCollectionTest::createFromFile_shouldReturnExistedScript()
 {
     ScriptCollection manager(new FakeScriptEngineFactory(this));
-    IScriptUnit *script = manager.addScript(m_testScriptPath);
-    IScriptUnit *sameScript = manager.addScript(m_testScriptPath);
+    IScriptUnit *script = manager.createFromFile(m_testScriptPath);
+    IScriptUnit *sameScript = manager.createFromFile(m_testScriptPath);
 
     QCOMPARE(script, sameScript);
 }
 
 //------------------------------------------------------------------------------
-void ScriptCollectionTest::addScripts_shouldAddAllScriptsFromDirectory()
+void ScriptCollectionTest::createFromDirectory_shouldAddAllScriptsFromDirectory()
 {
     ScriptCollection manager(new FakeScriptEngineFactory(this));
-    IScriptCollection::Scripts scripts = manager.addScripts("scripts");
+    IScriptCollection::Scripts scripts = manager.createFromDirectory("scripts");
     QCOMPARE(scripts.size(), 2);
     QCOMPARE(manager.scripts().size(), 2);
 }
 
 //------------------------------------------------------------------------------
-void ScriptCollectionTest::createScript_shouldAddScript()
+void ScriptCollectionTest::create_shouldAddScript()
 {
     ScriptCollection manager(new FakeScriptEngineFactory(this));
     QVERIFY(manager.scripts().empty());
-    manager.createScript();
+    manager.create();
 
     QCOMPARE(manager.scripts().size(), 1);
 }
 
 //------------------------------------------------------------------------------
-void ScriptCollectionTest::removeScript_shouldRemove()
+void ScriptCollectionTest::remove_shouldRemove()
 {
     ScriptCollection manager(new FakeScriptEngineFactory(this));
-    IScriptCollection::Scripts scripts = manager.addScripts("scripts");
+    IScriptCollection::Scripts scripts = manager.createFromDirectory("scripts");
 
-    manager.removeScript(scripts.first());
+    manager.remove(scripts.first());
 
     QCOMPARE(manager.scripts().size(), 1);
 }
@@ -117,7 +117,7 @@ void ScriptCollectionTest::removeScript_shouldRemove()
 void ScriptCollectionTest::scriptByFileName_shouldReturnScript()
 {
     ScriptCollection manager(new FakeScriptEngineFactory(this));
-    IScriptUnit *script = manager.addScript(m_testScriptPath);
+    IScriptUnit *script = manager.createFromFile(m_testScriptPath);
     IScriptUnit *sameScript = manager.scriptByFileName("scripts/TestScript.js");
 
     QCOMPARE(script, sameScript);

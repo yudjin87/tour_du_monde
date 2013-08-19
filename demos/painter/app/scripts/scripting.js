@@ -2,7 +2,7 @@ var scriptService = serviceLocator.locate("IScriptingService");
 var scriptCollection = scriptService.scripts;
 
 /*
-var newScriptUnit = scriptCollection.createScript();
+var newScriptUnit = scriptCollection.create();
 newScriptUnit.scriptText = "var scriptService = serviceLocator.locate(\"IScriptingService\");\n" 
 newScriptUnit.scriptText += "var scriptCollection = scriptService.scripts;\n"
 newScriptUnit.scriptText += "var scriptConsole = scriptService.console;\n" 

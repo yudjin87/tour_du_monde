@@ -76,7 +76,7 @@ IScriptUnit *ScriptCollection::scriptByFileName(const QString &fileName)
 }
 
 //------------------------------------------------------------------------------
-IScriptUnit *ScriptCollection::createScript()
+IScriptUnit *ScriptCollection::create()
 {
     IScriptUnit *unit = createNewScript();
     m_scripts.push_back(unit);
@@ -85,7 +85,7 @@ IScriptUnit *ScriptCollection::createScript()
 }
 
 //------------------------------------------------------------------------------
-IScriptUnit *ScriptCollection::addScript(const QString &fileName)
+IScriptUnit *ScriptCollection::createFromFile(const QString &fileName)
 {
     IScriptUnit *existedScript = scriptByFileName(fileName);
     if (existedScript != nullptr)
@@ -102,7 +102,7 @@ IScriptUnit *ScriptCollection::addScript(const QString &fileName)
 }
 
 //------------------------------------------------------------------------------
-void ScriptCollection::removeScript(IScriptUnit *script)
+void ScriptCollection::remove(IScriptUnit *script)
 {
     if (!m_scripts.contains(script))
         return;
@@ -113,7 +113,7 @@ void ScriptCollection::removeScript(IScriptUnit *script)
 }
 
 //------------------------------------------------------------------------------
-IScriptCollection::Scripts ScriptCollection::addScripts(const QString &directory)
+IScriptCollection::Scripts ScriptCollection::createFromDirectory(const QString &directory)
 {
 #ifdef Q_COMPILER_INITIALIZER_LISTS // MSVC does not support it yet
     static QStringList nameFilters {"*.js"};
@@ -134,7 +134,7 @@ IScriptCollection::Scripts ScriptCollection::addScripts(const QString &directory
     QDirIterator iterator(absoluteDirectory, nameFilters, filters, flags);
     while (iterator.hasNext()) {
         QString fileName = iterator.next();
-        IScriptUnit *unit = addScript(fileName);
+        IScriptUnit *unit = createFromFile(fileName);
         if (unit != nullptr)
             result.append(unit);
     }

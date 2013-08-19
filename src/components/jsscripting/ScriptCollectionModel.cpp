@@ -92,7 +92,7 @@ void ScriptCollectionModel::onLoad()
         return;
     }
 
-    m_data->addScript(selectedFile);
+    m_data->createFromFile(selectedFile);
 }
 
 //------------------------------------------------------------------------------
@@ -104,13 +104,13 @@ void ScriptCollectionModel::onSaveAll()
 //------------------------------------------------------------------------------
 void ScriptCollectionModel::onCreateScript()
 {
-    m_data->createScript();
+    m_data->create();
 }
 
 //------------------------------------------------------------------------------
 void ScriptCollectionModel::onScriptRemoved(IScriptUnit *script)
 {
-    m_data->removeScript(script);
+    m_data->remove(script);
 }
 
 //------------------------------------------------------------------------------

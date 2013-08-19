@@ -50,21 +50,21 @@ public:
      * @details
      *   Takes ownership.
      */
-    IScriptUnit *createScript();
+    IScriptUnit *create();
 
     /*!
      * @details
      *   Takes ownership.
      */
-    IScriptUnit *addScript(const QString &fileName);
+    IScriptUnit *createFromFile(const QString &fileName);
 
-    void removeScript(IScriptUnit *script);
+    void remove(IScriptUnit *script);
 
     /*!
      * @details
      *   Takes ownership.
      */
-    Scripts addScripts(const QString &directory);
+    Scripts createFromDirectory(const QString &directory);
 
 protected:
     virtual IScriptUnit *createNewScript(const QString *fileName = nullptr);

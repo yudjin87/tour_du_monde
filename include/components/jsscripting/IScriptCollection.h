@@ -51,21 +51,21 @@ public slots:
      * @details
      *   Takes ownership.
      */
-    virtual IScriptUnit *createScript() = 0;
+    virtual IScriptUnit *create() = 0;
 
     /*!
      * @details
      *   Takes ownership.
      */
-    virtual IScriptUnit *addScript(const QString &fileName) = 0;
+    virtual IScriptUnit *createFromFile(const QString &fileName) = 0;
 
-    virtual void removeScript(IScriptUnit *script) = 0;
+    virtual void remove(IScriptUnit *script) = 0;
 
     /*!
      * @details
      *   Takes ownership.
      */
-    virtual Scripts addScripts(const QString &directory) = 0;
+    virtual Scripts createFromDirectory(const QString &directory) = 0;
 
     virtual IScriptUnit *scriptByFileName(const QString &fileName) = 0;
 

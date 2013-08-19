@@ -36,13 +36,13 @@ public:
     ScriptCollectionTest(QObject *parent = nullptr);
 
 private Q_SLOTS:
-    void addScript_shouldAddScript();
-    void addScript_shouldLoadScript();
-    void addScript_shouldReturnNullIfLoadingFailed();
-    void addScript_shouldReturnExistedScript();
-    void addScripts_shouldAddAllScriptsFromDirectory();
-    void createScript_shouldAddScript();
-    void removeScript_shouldRemove();
+    void createFromFile_shouldAddScript();
+    void createFromFile_shouldLoadScript();
+    void createFromFile_shouldReturnNullIfLoadingFailed();
+    void createFromFile_shouldReturnExistedScript();
+    void createFromDirectory_shouldAddAllScriptsFromDirectory();
+    void create_shouldAddScript();
+    void remove_shouldRemove();
     void scriptByFileName_shouldReturnScript();
 
 private:
