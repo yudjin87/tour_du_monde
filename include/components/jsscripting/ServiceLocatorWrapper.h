@@ -30,6 +30,7 @@
 #include <components/jsscripting/jsscripting_global.h>
 
 #include <QtCore/QObject>
+#include <QtCore/QStringList>
 
 class IServiceLocator;
 
@@ -43,8 +44,12 @@ class IServiceLocator;
 class JSSCRIPTING_API ServiceLocatorWrapper : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(QStringList services READ services)
 public:
     explicit ServiceLocatorWrapper(IServiceLocator *locator, QObject *parent = nullptr);
+
+public:
+    virtual QStringList services() const;
 
 public slots:
     virtual QObject *locate(const QString &name);

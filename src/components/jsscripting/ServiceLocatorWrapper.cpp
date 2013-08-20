@@ -55,3 +55,9 @@ QObject *ServiceLocatorWrapper::build(const QString &name, bool takeOwnership)
 }
 
 //------------------------------------------------------------------------------
+QStringList ServiceLocatorWrapper::services() const
+{
+    return m_locator->services();
+}
+
+//------------------------------------------------------------------------------

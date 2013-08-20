@@ -21,8 +21,9 @@ private Q_SLOTS:
 
     void canLocateToRegisterInstanceByType();
     void canLocateToRegisterInstanceByTypeAndTag();
-    void canLocateToRegisteredObjectByClassName();    
-    void canLocateByIndex();
+    void canLocateToRegisteredObjectByClassName();
+
+    void services_shouldReturnAllRegisteredServices();
 
     // Types
     void canRegisterFactoryMethodForType();

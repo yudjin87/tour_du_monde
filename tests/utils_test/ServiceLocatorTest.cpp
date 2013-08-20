@@ -3,6 +3,7 @@
 #include "fakes/Services.h"
 
 #include <carousel/utils/ServiceLocator.h>
+#include <QtCore/QStringList>
 #include <QtTest/QtTest>
 
 //------------------------------------------------------------------------------
@@ -143,15 +144,17 @@ void ServiceLocatorTest::canLocateToRegisteredObjectByClassName()
 }
 
 //------------------------------------------------------------------------------
-void ServiceLocatorTest::canLocateByIndex()
+void ServiceLocatorTest::services_shouldReturnAllRegisteredServices()
 {
     Service1 service(45);
 
     ServiceLocator locator;
     locator.registerInstance<IService>(&service);
-    QObject *located_service = locator.locateByIndex(0);
+    locator.registerInstance<ServiceLocatorTest>(this);
 
-    QVERIFY(located_service == &service);
+    QStringList services = locator.services();
+
+    QCOMPARE(services.size(), 2);
 }
 
 //------------------------------------------------------------------------------

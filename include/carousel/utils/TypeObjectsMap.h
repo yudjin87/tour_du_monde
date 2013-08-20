@@ -27,6 +27,7 @@
 #ifndef TYPEOBJECTSMAP_H
 #define TYPEOBJECTSMAP_H
 
+#include <QtCore/QStringList>
 #include <QtCore/QString>
 #include <QtCore/QVector>
 
@@ -105,6 +106,18 @@ public:
      *   Null pointer otherwise.
      */
     TValue unregisterInstance(const QString &forTypeId, const QString &tag);
+
+    /*!
+     * @details
+     *   Returns all registered keys for instances;
+     */
+    QStringList keys() const;
+
+    /*!
+     * @details
+     *   Returns all registered with specified @a tag keys for instances;
+     */
+    QStringList keys(const QString &tag) const;
 
 private:
     InstanceObject<TValue> *findInstance(const QString &type_id, const QString &tag) const;
@@ -223,6 +236,26 @@ TValue TypeObjectsMap<TValue>::unregisterInstance(const QString &forTypeId, cons
 
 //------------------------------------------------------------------------------
 template<typename TValue>
+QStringList TypeObjectsMap<TValue>::keys() const
+{
+    return keys("");
+}
+
+//------------------------------------------------------------------------------
+template<typename TValue>
+QStringList TypeObjectsMap<TValue>::keys(const QString &tag) const
+{
+    QStringList result;
+    for (InstanceObject<TValue> *obj : m_objects) {
+        if (obj->tag == tag)
+            result.push_back(obj->typeId);
+    }
+
+    return result;
+}
+
+//------------------------------------------------------------------------------
+template<typename TValue>
 InstanceObject<TValue> *TypeObjectsMap<TValue>::findInstance(const QString &type_id, const QString &tag) const
 {
     auto predicate = std::bind(&TypeObjectsMap<TValue>::findPredicate, std::placeholders::_1, type_id, tag);
@@ -236,5 +269,4 @@ InstanceObject<TValue> *TypeObjectsMap<TValue>::findInstance(const QString &type
 }
 
 //------------------------------------------------------------------------------
-
 #endif // TYPEOBJECTSMAP_H

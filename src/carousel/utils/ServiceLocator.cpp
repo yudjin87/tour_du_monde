@@ -25,8 +25,9 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "ServiceLocator.h"
-
 #include "TypeObjectsMap.h"
+
+#include <QtCore/QStringList>
 
 //------------------------------------------------------------------------------
 ServiceLocator::ServiceLocator()
@@ -61,14 +62,6 @@ QObject *ServiceLocator::buildObject(const QString &className, const QString &ta
 }
 
 //------------------------------------------------------------------------------
-QObject *ServiceLocator::locateByIndex(int index)
-{
-    void *data = m_objects->getInstance(index);
-    QObject *object = reinterpret_cast<QObject *>(data);
-    return object;
-}
-
-//------------------------------------------------------------------------------
 QObject *ServiceLocator::locateToObject(const QString &className)
 {
     return locateToObject(className, "");
@@ -83,9 +76,15 @@ QObject *ServiceLocator::locateToObject(const QString &className, const QString 
 }
 
 //------------------------------------------------------------------------------
-int ServiceLocator::servicesCount() const
+QStringList ServiceLocator::services() const
 {
-    return m_objects->size();
+    return services("");
+}
+
+//------------------------------------------------------------------------------
+QStringList ServiceLocator::services(const QString &tag) const
+{
+    return m_objects->keys(tag);
 }
 
 //------------------------------------------------------------------------------
