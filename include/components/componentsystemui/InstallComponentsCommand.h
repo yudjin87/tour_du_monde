@@ -28,19 +28,18 @@
 #define INSTALLCOMPONENTSCOMMAND_H
 
 #include <components/componentsystemui/componentsystem_ui_global.h>
+#include <components/undo/AbstractUndoCommand.h>
 
-#include <QtCore/QObject>
 #include <QtCore/QStringList>
-#include <QtWidgets/QUndoCommand>
 
 class IComponent;
 class IComponentManager;
 
-class COMP_SYSTEM_UI_API InstallComponentsCommand : public QObject, public QUndoCommand
+class COMP_SYSTEM_UI_API InstallComponentsCommand : public AbstractUndoCommand
 {
     Q_OBJECT
 public:
-    InstallComponentsCommand(IComponentManager *manager, QUndoCommand* parent = nullptr);
+    InstallComponentsCommand(QUndoStack *stack, IComponentManager *manager, QUndoCommand* parent = nullptr);
     ~InstallComponentsCommand();
 
     void redo();

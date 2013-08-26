@@ -3,6 +3,6 @@ CONFIG  += ordered
 
 SUBDIRS += \
     interactivity \
-    componentsystemui \
     undo \
+    componentsystemui \
     jsscripting \

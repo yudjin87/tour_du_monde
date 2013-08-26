@@ -13,6 +13,7 @@ INCLUDEPATH += $$HPP_SOURCE_TREE/components/componentsystemui
 
 LIBS += -L$${DESTDIR} -lComponentSystem \
                       -lorg.carousel.Interactivity \
+                      -lorg.carousel.Undo \
                       -lFramework \
                       -lUtils \
                       -lLogging \

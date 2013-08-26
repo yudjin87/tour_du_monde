@@ -7,5 +7,6 @@
      <location>./org.carousel.ComponentSystemUI</location>
      <parents>
          <parentComponent name="org.carousel.Interactivity" version="1.0"/>
+         <parentComponent name="org.carousel.Undo" version="1.0"/>
      </parents>
  </component>

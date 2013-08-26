@@ -32,7 +32,6 @@
 #include <QtCore/QCoreApplication>
 #include <QtWidgets/QFileDialog>
 #include <QtWidgets/QMainWindow>
-#include <QtWidgets/QUndoStack>
 
 //------------------------------------------------------------------------------
 InstallComponentsOperation::InstallComponentsOperation()
@@ -61,8 +60,7 @@ void InstallComponentsOperation::execute()
     foreach(const QString &fileName, fileDialog.selectedFiles())
         command->addDefinitionPath(fileName);
 
-    QUndoStack *undo = m_serviceLocator->locate<QUndoStack>();
-    undo->push(command);
+    command->pushToStack();
 }
 
 //------------------------------------------------------------------------------

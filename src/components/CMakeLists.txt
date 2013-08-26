@@ -8,8 +8,8 @@ add_subdirectory(jsscripting)
 ###############################################################################
 # Specify dependencies for correct build order
 add_dependencies(org.carousel.Interactivity     Logging Utils ComponentSystem)
-add_dependencies(org.carousel.ComponentSystemUI ComponentSystem)
 add_dependencies(org.carousel.Undo              org.carousel.Interactivity)
+add_dependencies(org.carousel.ComponentSystemUI ComponentSystem org.carousel.Undo)
 add_dependencies(org.carousel.JsScripting       org.carousel.Interactivity)
 
 ###############################################################################

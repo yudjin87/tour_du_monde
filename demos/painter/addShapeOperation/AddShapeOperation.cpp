@@ -32,7 +32,6 @@
 #include <QtCore/QCoreApplication>
 #include <QtWidgets/QFileDialog>
 #include <QtWidgets/QMainWindow>
-#include <QtWidgets/QUndoStack>
 
 //------------------------------------------------------------------------------
 AddShapeOperation::AddShapeOperation()
@@ -55,9 +54,7 @@ void AddShapeOperation::execute()
 
     AddShapesCommand *addShapesCommand = m_serviceLocator->buildInstance<AddShapesCommand>();
     addShapesCommand->addShapeFiles(fileDialog.selectedFiles());
-
-    QUndoStack *undoStack = m_serviceLocator->locate<QUndoStack>();
-    undoStack->push(addShapesCommand);
+    addShapesCommand->pushToStack();
 }
 
 //------------------------------------------------------------------------------

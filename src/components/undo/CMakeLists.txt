@@ -8,6 +8,7 @@ include(cmake/target_utils)
 ######################################################################
 # Sources
 set(__SOURCES
+    ${CRSL_TARGET_SOURCES}/AbstractUndoCommand.cpp 
     ${CRSL_TARGET_SOURCES}/RedoOperation.cpp 
     ${CRSL_TARGET_SOURCES}/UndoComponent.cpp 
     ${CRSL_TARGET_SOURCES}/UndoInteractiveExtension.cpp 
@@ -17,6 +18,7 @@ set(__SOURCES
 ######################################################################
 # Headers
 set(__HEADERS
+    ${CRSL_TARGET_HEADERS}/AbstractUndoCommand.h 
     ${CRSL_TARGET_HEADERS}/RedoOperation.h 
     ${CRSL_TARGET_HEADERS}/undo_global.h 
     ${CRSL_TARGET_HEADERS}/UndoComponent.h 

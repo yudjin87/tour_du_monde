@@ -27,17 +27,17 @@
 #ifndef ADDSHAPESCOMMAND_H
 #define ADDSHAPESCOMMAND_H
 
-#include <QtCore/QObject>
+#include <components/undo/AbstractUndoCommand.h>
+
 #include <QtCore/QStringList>
-#include <QtWidgets/QUndoCommand>
 
 class IServiceLocator;
 
-class AddShapesCommand : public QObject, public QUndoCommand
+class AddShapesCommand : public AbstractUndoCommand
 {
     Q_OBJECT
 public:
-    AddShapesCommand(IServiceLocator *locator, QUndoCommand* parent = 0);
+    AddShapesCommand(QUndoStack *stack, IServiceLocator *locator, QUndoCommand* parent = 0);
     ~AddShapesCommand();
 
     void addShapeFiles(const QStringList &files);

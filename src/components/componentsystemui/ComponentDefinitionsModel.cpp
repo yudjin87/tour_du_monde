@@ -38,7 +38,6 @@
 #include <QtGui/QIcon>
 #include <QtWidgets/QFileDialog>
 #include <QtWidgets/QMainWindow>
-#include <QtWidgets/QUndoStack>
 
 //------------------------------------------------------------------------------
 ComponentDefinitionsModel::ComponentDefinitionsModel(const ObservableList<IComponent *> &components, QObject *parent)
@@ -210,8 +209,7 @@ void ComponentDefinitionsModel::onInstall()
     foreach(const QString &fileName, fileDialog.selectedFiles())
         command->addDefinitionPath(fileName);
 
-    QUndoStack *undo = m_locator->locate<QUndoStack>();
-    undo->push(command);
+    command->pushToStack();
 }
 
 //------------------------------------------------------------------------------
@@ -223,8 +221,7 @@ void ComponentDefinitionsModel::onToogleEnable(const QModelIndex &index)
     IComponent *comp = m_components.at(index.row());
     command->addComponentToSwitchState(comp);
 
-    QUndoStack *undo = m_locator->locate<QUndoStack>();
-    undo->push(command);
+    command->pushToStack();
 }
 
 //------------------------------------------------------------------------------

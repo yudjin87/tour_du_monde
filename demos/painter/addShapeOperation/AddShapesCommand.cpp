@@ -43,8 +43,8 @@
 typedef QScopedPointer<IShapeFileWorkspaceFactory> IShapeFileWorkspaceFactoryPtr;
 
 //------------------------------------------------------------------------------
-AddShapesCommand::AddShapesCommand(IServiceLocator *locator, QUndoCommand *parent)
-    : QUndoCommand(parent)
+AddShapesCommand::AddShapesCommand(QUndoStack *stack, IServiceLocator *locator, QUndoCommand *parent)
+    : AbstractUndoCommand(stack, parent)
     , m_locator(locator)
 {
     setText("adding shape layer(s)");

@@ -32,6 +32,8 @@
 #include <carousel/componentsystem/ComponentExport.h>
 #include <carousel/utils/IServiceLocator.h>
 
+#include <QtWidgets/QUndoStack>
+
 //------------------------------------------------------------------------------
 static const QByteArray productName("AddShapeOperation");
 
@@ -60,8 +62,9 @@ AddShapeOperationComponent::~AddShapeOperationComponent()
 
 //------------------------------------------------------------------------------
 bool AddShapeOperationComponent::onStartup(IServiceLocator *serviceLocator)
-{
-    auto creator = [serviceLocator](){return new AddShapesCommand(serviceLocator);};
+{    
+    QUndoStack *stack = serviceLocator->locate<QUndoStack>();
+    auto creator = [stack, serviceLocator](){return new AddShapesCommand(stack, serviceLocator);};
     serviceLocator->registerType<AddShapesCommand>(creator);
 
     return true;

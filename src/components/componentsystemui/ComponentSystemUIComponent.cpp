@@ -39,6 +39,8 @@
 
 #include <components/interactivity/IDialogService.h>
 
+#include <QtWidgets/QUndoStack>
+
 //------------------------------------------------------------------------------
 namespace
 {
@@ -59,6 +61,7 @@ ComponentSystemUIComponent::ComponentSystemUIComponent(QObject *parent)
     setProvider("Carousel");
     setVersion(1, 0);
     addParent("org.carousel.Interactivity", 1, 0);
+    addParent("org.carousel.Undo", 1, 0);
 }
 
 //------------------------------------------------------------------------------
@@ -79,12 +82,13 @@ void ComponentSystemUIComponent::onShutdown(IServiceLocator *serviceLocator)
 bool ComponentSystemUIComponent::onStartup(IServiceLocator *serviceLocator)
 {
     IComponentManager *manager = serviceLocator->locate<IComponentManager>();
+    QUndoStack *stack = serviceLocator->locate<QUndoStack>();
 
     // Commands
-    auto enableCreator = [manager](){return new EnableComponentCommand(manager);};
+    auto enableCreator = [stack, manager](){return new EnableComponentCommand(stack, manager);};
     serviceLocator->registerType<EnableComponentCommand>(enableCreator);
 
-    auto installCreator = [manager](){return new InstallComponentsCommand(manager);};
+    auto installCreator = [stack, manager](){return new InstallComponentsCommand(stack, manager);};
     serviceLocator->registerType<InstallComponentsCommand>(installCreator);
 
     // Services

@@ -24,40 +24,31 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef ENABLECOMPONENTCOMMAND_H
-#define ENABLECOMPONENTCOMMAND_H
+#include "AbstractUndoCommand.h"
 
-#include <components/componentsystemui/componentsystem_ui_global.h>
-#include <components/undo/AbstractUndoCommand.h>
+#include <carousel/logging/LoggerFacade.h>
+#include <carousel/utils/IServiceLocator.h>
 
-#include <QtCore/QList>
-#include <QtCore/QSet>
+#include <QtWidgets/QUndoStack>
 
-class IComponent;
-class IComponentManager;
-
-class COMP_SYSTEM_UI_API EnableComponentCommand : public AbstractUndoCommand
+//------------------------------------------------------------------------------
+namespace
 {
-    Q_OBJECT
-public:
-    EnableComponentCommand(QUndoStack *stack, IComponentManager *manager, QUndoCommand* parent = nullptr);
-    ~EnableComponentCommand();
+static LoggerFacade Log = LoggerFacade::createLogger("AbstractUndoCommand");
+}
 
-    void addComponentToDisable(IComponent *component);
-    void addComponentToEnable(IComponent *component);
+//------------------------------------------------------------------------------
+AbstractUndoCommand::AbstractUndoCommand(QUndoStack *stack, QUndoCommand *parent)
+    : QObject(nullptr)
+    , QUndoCommand(parent)
+    , m_stack(stack)
+{
+}
 
-    void addComponentToSwitchState(IComponent *component);
+//------------------------------------------------------------------------------
+void AbstractUndoCommand::pushToStack()
+{
+    m_stack->push(this);
+}
 
-    QList<IComponent *> componentsToDisable() const;
-    QList<IComponent *> componentsToEnable() const;
-
-    void redo();
-    void undo();
-
-private:
-    IComponentManager *m_manager;
-    QSet<IComponent *> m_componentsToDisable;
-    QSet<IComponent *> m_componentsToEnable;
-};
-
-#endif // ENABLECOMPONENTCOMMAND_H
+//------------------------------------------------------------------------------

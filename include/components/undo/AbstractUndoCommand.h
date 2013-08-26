@@ -24,40 +24,28 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef ENABLECOMPONENTCOMMAND_H
-#define ENABLECOMPONENTCOMMAND_H
+#ifndef ABSTRACTUNDOCOMMAND_H
+#define ABSTRACTUNDOCOMMAND_H
 
-#include <components/componentsystemui/componentsystem_ui_global.h>
-#include <components/undo/AbstractUndoCommand.h>
+#include <components/undo/undo_global.h>
 
-#include <QtCore/QList>
-#include <QtCore/QSet>
+#include <QtCore/QObject>
+#include <QtWidgets/QUndoCommand>
 
-class IComponent;
-class IComponentManager;
+class QUndoStack;
 
-class COMP_SYSTEM_UI_API EnableComponentCommand : public AbstractUndoCommand
+class UNDO_API AbstractUndoCommand : public QObject, public QUndoCommand
 {
     Q_OBJECT
-public:
-    EnableComponentCommand(QUndoStack *stack, IComponentManager *manager, QUndoCommand* parent = nullptr);
-    ~EnableComponentCommand();
+public slots:
+    void pushToStack();
 
-    void addComponentToDisable(IComponent *component);
-    void addComponentToEnable(IComponent *component);
-
-    void addComponentToSwitchState(IComponent *component);
-
-    QList<IComponent *> componentsToDisable() const;
-    QList<IComponent *> componentsToEnable() const;
-
-    void redo();
-    void undo();
+protected:
+    AbstractUndoCommand(QUndoStack *stack, QUndoCommand* parent = nullptr);
 
 private:
-    IComponentManager *m_manager;
-    QSet<IComponent *> m_componentsToDisable;
-    QSet<IComponent *> m_componentsToEnable;
+    QUndoStack *m_stack;
 };
 
-#endif // ENABLECOMPONENTCOMMAND_H
+#endif // ABSTRACTUNDOCOMMAND_H
+

@@ -39,8 +39,8 @@
 #include <QtCore/QFileInfo>
 
 //------------------------------------------------------------------------------
-InstallComponentsCommand::InstallComponentsCommand(IComponentManager *manager, QUndoCommand *parent)
-    : QUndoCommand(parent)
+InstallComponentsCommand::InstallComponentsCommand(QUndoStack *stack, IComponentManager *manager, QUndoCommand *parent)
+    : AbstractUndoCommand(stack, parent)
     , m_manager(manager)
     , m_sourceDirectoryPath("")
     , m_installPath("./installedComponents") // TODO: should be obtained from the app settings
@@ -124,6 +124,7 @@ void InstallComponentsCommand::redo()
         m_manager->startupComponents(m_installedComponents);
         return;
     }
+
     // Get component names from the files
     QStringList componentNames;
     foreach(const QString &fileName, m_definitionFiles) {

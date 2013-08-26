@@ -31,8 +31,8 @@
 #include <carousel/componentsystem/IComponentManager.h>
 
 //------------------------------------------------------------------------------
-EnableComponentCommand::EnableComponentCommand(IComponentManager *manager, QUndoCommand* parent)
-    : QUndoCommand(parent)
+EnableComponentCommand::EnableComponentCommand(QUndoStack *stack, IComponentManager *manager, QUndoCommand* parent)
+    : AbstractUndoCommand(stack, parent)
     , m_manager(manager)
 {
     setText("enabling components");
