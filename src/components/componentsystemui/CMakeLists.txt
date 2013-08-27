@@ -9,21 +9,27 @@ include(cmake/target_utils)
 # Sources
 set(__SOURCES
     ${CRSL_TARGET_SOURCES}/ComponentDefinitionsModel.cpp 
+    ${CRSL_TARGET_SOURCES}/ComponentManagementInteractiveExtension.cpp 
     ${CRSL_TARGET_SOURCES}/ComponentsDialog.cpp 
     ${CRSL_TARGET_SOURCES}/ComponentSystemUIComponent.cpp 
     ${CRSL_TARGET_SOURCES}/EnableComponentCommand.cpp 
     ${CRSL_TARGET_SOURCES}/InstallComponentsCommand.cpp 
+    ${CRSL_TARGET_SOURCES}/InstallComponentsOperation.cpp 
+    ${CRSL_TARGET_SOURCES}/ShowComponentsOperation.cpp 
 )
 
 ######################################################################
 # Headers
 set(__HEADERS
     ${CRSL_TARGET_HEADERS}/ComponentDefinitionsModel.h 
+    ${CRSL_TARGET_HEADERS}/ComponentManagementInteractiveExtension.h 
     ${CRSL_TARGET_HEADERS}/ComponentsDialog.h 
     ${CRSL_TARGET_HEADERS}/componentsystem_ui_global.h 
     ${CRSL_TARGET_HEADERS}/ComponentSystemUIComponent.h 
     ${CRSL_TARGET_HEADERS}/EnableComponentCommand.h 
     ${CRSL_TARGET_HEADERS}/InstallComponentsCommand.h 
+    ${CRSL_TARGET_HEADERS}/InstallComponentsOperation.h 
+    ${CRSL_TARGET_HEADERS}/ShowComponentsOperation.h 
 )
 
 ######################################################################

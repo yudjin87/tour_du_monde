@@ -27,7 +27,7 @@
 #include "ComponentSystemUIComponent.h"
 #include "ComponentDefinitionsModel.h"
 #include "ComponentsDialog.h"
-
+#include "ComponentManagementInteractiveExtension.h"
 #include "EnableComponentCommand.h"
 #include "InstallComponentsCommand.h"
 
@@ -55,6 +55,9 @@ static const QByteArray description(
 ComponentSystemUIComponent::ComponentSystemUIComponent(QObject *parent)
     : BaseComponent("org.carousel.ComponentSystemUI", parent)
 {
+    IInteractiveExtension *interactiveExtension = new ComponentManagementInteractiveExtension(this);
+    registerExtension<IInteractiveExtension>(interactiveExtension);
+
     setShortName("Component System UI");
     setProductName("ComponentSystemUI");
     setDescription(description);

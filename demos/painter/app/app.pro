@@ -9,8 +9,6 @@ TEMPLATE = app
 
 DESTDIR = $${BIN_OUTPUT_PATH}/bin
 
-LIBS += -L$${DESTDIR}/lib -lorg.carousel.demos.ComponentManagement
-
 LIBS += -L$${CAROUSEL_BIN} -lComponentSystem \
                            -lBooting \
                            -lFramework \

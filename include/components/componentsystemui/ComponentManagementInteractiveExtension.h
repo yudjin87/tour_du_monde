@@ -24,23 +24,20 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef COMPONENTMANAGEMENTCOMPONENT_H
-#define COMPONENTMANAGEMENTCOMPONENT_H
+#ifndef COMPONENTMANAGEMENTINTERACTIVEEXTENSION_H
+#define COMPONENTMANAGEMENTINTERACTIVEEXTENSION_H
 
-#include "componentManagement_api.h"
+#include <components/interactivity/IInteractiveExtension.h>
 
-#include <carousel/componentsystem/BaseComponent.h>
+#include <QtCore/QObject>
 
-class COMPONENTMANAGEMENT_API ComponentManagementComponent : public BaseComponent
+class ComponentManagementInteractiveExtension : public QObject, public IInteractiveExtension
 {
     Q_OBJECT
 public:
-    ComponentManagementComponent(QObject *parent = nullptr);
-    ~ComponentManagementComponent();
+    ComponentManagementInteractiveExtension(QObject *parent = nullptr);
 
-protected:
-    bool onStartup(IServiceLocator *serviceLocator);
-    void onShutdown(IServiceLocator *serviceLocator);
+    void configureGui(ICatalogs &inCatalogs, IServiceLocator *serviceLocator);
 };
 
-#endif // COMPONENTMANAGEMENTCOMPONENT_H
+#endif // COMPONENTMANAGEMENTINTERACTIVEEXTENSION_H

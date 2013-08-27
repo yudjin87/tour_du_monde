@@ -2,7 +2,6 @@ TEMPLATE = subdirs
 CONFIG  += ordered
 
 SUBDIRS += \
-    componentManagement \
     app \
     geometry \
     display \

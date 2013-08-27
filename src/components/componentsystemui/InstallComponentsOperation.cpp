@@ -38,7 +38,7 @@ InstallComponentsOperation::InstallComponentsOperation()
     : Operation("Install new")
     , m_serviceLocator(nullptr)
 {
-    setIcon(QIcon(":/componentManagement/images/install_component.png"));
+    setIcon(QIcon(":/componentSystemUi/images/install_component.png"));
     setIconVisibleInMenu(true);
 }
 
