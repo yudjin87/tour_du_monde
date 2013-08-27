@@ -56,11 +56,24 @@ void CarouselComponentConfigurationDelegateTest::shouldCallConfigureGuiIfCompone
 {
     CarouselComponentConfigurationDelegate delegate(&m_locator);
     MockInteractiveExtension component;
+    component.startup(nullptr);
 
     QMainWindow mw; Catalogs ctlgs(mw, nullptr);
     delegate.configure(&component, ctlgs);
 
     QVERIFY(component.m_interactiveExtension->m_configureCalled);
+}
+
+//------------------------------------------------------------------------------
+void CarouselComponentConfigurationDelegateTest::shouldNotCallConfigureIfComponentWasNotStarted()
+{
+    CarouselComponentConfigurationDelegate delegate(&m_locator);
+    MockInteractiveExtension component;
+
+    QMainWindow mw; Catalogs ctlgs(mw, nullptr);
+    delegate.configure(&component, ctlgs);
+
+    QVERIFY(!component.m_interactiveExtension->m_configureCalled);
 }
 
 //------------------------------------------------------------------------------
@@ -80,6 +93,7 @@ void CarouselComponentConfigurationDelegateTest::shouldRegisterChangesForCompone
 {
     CarouselComponentConfigurationDelegate delegate(&m_locator);
     MockInteractiveExtension component;
+    component.startup(nullptr);
     component.m_interactiveExtension->setCunfigureFunc(&configureCatalogs);
     QMainWindow mw; Catalogs ctlgs(mw, nullptr);
     delegate.configure(&component, ctlgs);
@@ -112,6 +126,7 @@ void CarouselComponentConfigurationDelegateTest::shouldNotRegisterChangesAfterCo
 {
     CarouselComponentConfigurationDelegate delegate(&m_locator);
     MockInteractiveExtension component;
+    component.startup(nullptr);
     component.m_interactiveExtension->setCunfigureFunc(&configureCatalogs);
     QMainWindow mw; Catalogs ctlgs(mw, nullptr);
     delegate.configure(&component, ctlgs);
@@ -129,7 +144,8 @@ void CarouselComponentConfigurationDelegateTest::shouldNotRegisterChangesAfterCo
 void CarouselComponentConfigurationDelegateTest::shouldDeconfigureComponent()
 {
     CarouselComponentConfigurationDelegate delegate(&m_locator);
-    MockInteractiveExtension component;
+    MockInteractiveExtension component;    
+    component.startup(nullptr);
     component.m_interactiveExtension->setCunfigureFunc(&configureCatalogs);
     QMainWindow mw; Catalogs ctlgs(mw, nullptr);
 

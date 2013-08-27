@@ -37,6 +37,7 @@ public:
 
 private Q_SLOTS:
     void configureComponent_shouldConfigureComponentIfItHasScriptExtension();
+    void configureComponent_shouldNotCallConfigureIfComponentWasNotStarted();
     void configureComponent_shouldNotThrowIfComponentHasNoScriptExtension();
     void configureDefaults_shouldAddServiceLocatorObjectToEngine();
     void configureDefaults_shouldAddPrintFunctionToEngine();

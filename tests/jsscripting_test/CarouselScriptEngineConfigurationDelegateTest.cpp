@@ -46,10 +46,23 @@ void CarouselScriptEngineConfigurationDelegateTest::configureComponent_shouldCon
     ServiceLocator locator; QScriptEngine engine;
     CarouselScriptEngineConfigurationDelegate delegate(&locator);
     MockScriptExtensionComponent component;
+    component.startup(nullptr);
 
     delegate.configureFromComponent(&component, &engine);
 
     QVERIFY(component.m_extension->m_configureCalled);
+}
+
+//------------------------------------------------------------------------------
+void CarouselScriptEngineConfigurationDelegateTest::configureComponent_shouldNotCallConfigureIfComponentWasNotStarted()
+{
+    ServiceLocator locator; QScriptEngine engine;
+    CarouselScriptEngineConfigurationDelegate delegate(&locator);
+    MockScriptExtensionComponent component;
+
+    delegate.configureFromComponent(&component, &engine);
+
+    QVERIFY(!component.m_extension->m_configureCalled);
 }
 
 //------------------------------------------------------------------------------
@@ -58,6 +71,7 @@ void CarouselScriptEngineConfigurationDelegateTest::configureComponent_shouldNot
     ServiceLocator locator; QScriptEngine engine;
     CarouselScriptEngineConfigurationDelegate delegate(&locator);
     MockNoScriptExtensionComponent component;
+    component.startup(nullptr);
 
     delegate.configureFromComponent(&component, &engine);
 

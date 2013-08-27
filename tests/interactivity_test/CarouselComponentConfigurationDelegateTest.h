@@ -39,6 +39,7 @@ public:
     
 private Q_SLOTS:
     void shouldCallConfigureGuiIfComponentHasInteractiveExtension();
+    void shouldNotCallConfigureIfComponentWasNotStarted();
     void shouldNotThrowIfComponentHasNoInteractiveExtension();
     void shouldRegisterChangesForComponent();
     void shouldReturnNullForUnconfiguredComponent();

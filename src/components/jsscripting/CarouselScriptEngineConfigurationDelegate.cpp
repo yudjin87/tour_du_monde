@@ -117,6 +117,12 @@ CarouselScriptEngineConfigurationDelegate::CarouselScriptEngineConfigurationDele
 //------------------------------------------------------------------------------
 void CarouselScriptEngineConfigurationDelegate::configureFromComponent(IComponent *component, QScriptEngine *engine)
 {
+    // TODO: move it to the generic delegate (see CarouselComponentConfigurationDelegate)
+    if (!component->started()) {
+        Log.d(QString("Component \"%1\" does not started. Skip it.").arg(component->name()));
+        return;
+    }
+
     IScriptExtension *scriptExtension = component->extension<IScriptExtension>();
     if (scriptExtension == nullptr) {
         Log.d(QString("Component \"%1\" does not have script extension for configuring. Skip it.").arg(component->name()));

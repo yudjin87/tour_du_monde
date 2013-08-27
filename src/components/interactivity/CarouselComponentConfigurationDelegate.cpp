@@ -70,6 +70,12 @@ CarouselComponentConfigurationDelegate::~CarouselComponentConfigurationDelegate(
 //------------------------------------------------------------------------------
 void CarouselComponentConfigurationDelegate::configure(IComponent *component, ICatalogs &catalogs)
 {
+    // TODO: move it to the generic delegate (see CarouselScriptEngineConfigurationDelegate)
+    if (!component->started()) {
+        Log.d(QString("Component \"%1\" does not started. Skip it.").arg(component->name()));
+        return;
+    }
+
     IInteractiveExtension *interactiveExtension = component->extension<IInteractiveExtension>();
     if (interactiveExtension == nullptr) {
         Log.d(QString("Component \"%1\" does not have interactive extension for configuring. Skip it.").arg(component->name()));
