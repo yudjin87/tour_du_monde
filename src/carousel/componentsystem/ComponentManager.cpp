@@ -313,7 +313,15 @@ DependenciesSolvingResult ComponentManager::startupComponents(QList<IComponent *
         }
     }
 
-    m_orphanComponents += solvingResult.orphans().toSet();
+    QList<IComponent *> orphans = solvingResult.orphans();
+    if (!orphans.empty()) {
+        QStringList orphanComponents;
+        for (IComponent *comp : orphans)
+            orphanComponents.append(comp->name());
+
+        Log.i(QString("Following components were not started (orphans): %1.").arg(orphanComponents.join(", ")));
+        m_orphanComponents += orphans.toSet();
+    }
 
     return DependenciesSolvingResult(realyStartedComponents);
 }
