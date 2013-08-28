@@ -48,6 +48,7 @@ DisplayComponent::DisplayComponent(QObject *parent)
 
     addParent("org.carousel.JsScripting", 1, 0);
     addParent("org.carousel.Interactivity", 1, 0);
+    addParent("org.carousel.demos.Geometry", 1, 0);
     setShortName("Display");
     setProductName(productName);
     setProvider("Carousel");
