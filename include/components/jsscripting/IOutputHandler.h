@@ -31,13 +31,31 @@
 
 /*!
  * @brief
+ *   This handler is used for the JavaScript's print() function.
+ * @details
+ *   During configuration QScriptEngine with default types and functions, an
+ *   IScriptEngineConfigurationDelegate configures the JavaScript's print() function
+ *   in such way, that each time when print() is invoked from the script, IOutputHandler::print()
+ *   will be invoked.
+ *
+ * @sa IScriptEngineConfigurationDelegate
  */
 class JSSCRIPTING_API IOutputHandler
 {
 public:
+    /*!
+     * @details
+     * @constructor{IOutputHandler}.
+     */
     IOutputHandler(){}
     virtual ~IOutputHandler(){}
 
+    /*!
+     * @details
+     *   It is invoked each time when print() is invoked from the script.
+     *   A @a message is a parameter, that was passed to the JavaScript's print()
+     *   function.
+     */
     virtual void print(const QString &message) = 0;
 
     // virtual void alert(const QString &message) = 0;

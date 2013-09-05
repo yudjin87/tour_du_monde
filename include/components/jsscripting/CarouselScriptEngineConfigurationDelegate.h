@@ -36,19 +36,43 @@ class QScriptValue;
 class QScriptContext;
 
 /*!
+ * @brief
+ *   It is a default implementation of the IScriptEngineConfigurationDelegate interface.
+ * @details
+ *   Each time when new QScriptEngine is created to evaluate some JavaScript,
+ *   this the configureFromComponent() method is invoked by the ScriptingService
+ *   for each component to get it a chance to register custom types, new functions
+ *   and other objects. Also it is called when new component is started at runtime.
+ *
+ * @sa IScriptExtension
  */
 class JSSCRIPTING_API CarouselScriptEngineConfigurationDelegate : public IScriptEngineConfigurationDelegate
 {
     Q_OBJECT
 public:
+    /*!
+     * @details
+     * @constructor{CarouselScriptEngineConfigurationDelegate} using specified @a locator for wrapping it for
+     *   script.
+     */
     CarouselScriptEngineConfigurationDelegate(IServiceLocator *locator, QObject *parent = nullptr);
 
 public slots:
     /*!
      * @details
+     *   Configures specified @a engine using IScriptExtension extension from the @a component.
+     *   Does nothing, if component does not provide IScriptExtension.
      */
     void configureFromComponent(IComponent *component, QScriptEngine *engine);
 
+    /*!
+     * @details
+     *   Configures specified @a engine with default types and functions like explore() and
+     *   prototype for the QPoint.
+     *
+     *   An @a output is a handler for the print() function. Each time when print() is invoked
+     *   from the script, IOutputHandler::print() will be invoked.
+     */
     void configureDefaults(QScriptEngine *engine, IOutputHandler *output = nullptr);
 
 protected:
