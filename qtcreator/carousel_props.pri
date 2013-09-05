@@ -91,7 +91,7 @@ UI_SOURCES_DIR  = $${CAROUSEL_WD}/$${BIN_OUTPUT_PATH}/intermediate/ui/$${TARGET}
 # Compiler flags
 #########################################################
 # c++0x is skipped for the MSVC compiler.
-!win32-msvc*:QMAKE_CXXFLAGS += -std=c++0x
+!win32-msvc*:QMAKE_CXXFLAGS += -std=c++11
 
 #########################################################
 # MSVC compiler shows this warning, but with virtual inheritance
