@@ -1,6 +1,6 @@
 ###############################################################################
 # -W3          Sets warning level.
-set(CRSL_CXX_FLAGS_COMMON "-DUNICODE -D_UNICODE -std=c++0x")
+set(CRSL_CXX_FLAGS_COMMON "-DUNICODE -D_UNICODE -std=c++11")
 
 ###############################################################################
 # -D_DEBUG    Specify debug macros.
