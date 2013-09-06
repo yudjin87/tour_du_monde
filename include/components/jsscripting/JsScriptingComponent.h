@@ -78,13 +78,13 @@ class ServiceLocatorWrapper;
  *   QScriptEngine.
  *
  *   Registered services:
- * @li IScriptingService;
+ * @li IScriptingService (entry point);
  *   Registered dialogs:
  * @li ScriptCollectionDialog;
  *   Registered types:
  * @li ScriptCollectionModel;
  *
- * @sa IScriptEngineConfigurationDelegate, IScriptExtension
+ * @sa IScriptEngineConfigurationDelegate, IScriptExtension, IScriptingService
  */
 class JSSCRIPTING_API JsScriptingComponent : public BaseComponent
 {
