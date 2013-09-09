@@ -60,3 +60,4 @@ OTHER_FILES += \
 copyExtraFiles($$SHAPES, $$DESTDIR/data)
 copyExtraFiles($$SCRIPTS, $$DESTDIR/scripts)
 unix:copyExtraFiles($$START_UP, $$DESTDIR/)
+unix:prepareScriptFile($$DESTDIR/$$START_UP)

@@ -101,3 +101,11 @@ defineTest(copyExtraFiles) {
 
     export(QMAKE_POST_LINK)
 }
+
+#########################################################
+# Change %CONFIG% placeholder in the painter.sh startup script
+defineTest(prepareScriptFile) {
+    file = $$1
+    QMAKE_POST_LINK +=  sed -i 's/%CONFIG%/$${BUILD_CONFIG}/g' $$file
+    export(QMAKE_POST_LINK)
+}
