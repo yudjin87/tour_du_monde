@@ -123,6 +123,9 @@ public slots:
      * @details
      *   Tries to load script from a @a filePath.
      *   Sets @a filePath as a current file name and returns @a true, if loading was successful.
+     *
+     *   Since after successful loading file name is changed, the fileNameChanged() signal is
+     *   emitted.
      */
     virtual bool load(const QString &filePath) = 0;
 
@@ -134,18 +137,59 @@ public slots:
 
     /*!
      * @details
-     *   Tries to load script from the fileName().
-     *   Returns @a true, if loading was successful.
+     *   Tries to save script to the fileName().
+     *   Returns @a true, if saving was successful.
      */
     virtual bool save() = 0;
+
+    /*!
+     * @details
+     *   Tries to save script to a @a filePath.
+     *   Sets @a filePath as a current file name and returns @a true, if saving was successful.
+     *
+     *   Since after successful saving file name is changed, the fileNameChanged() signal is
+     *   emitted.
+     */
     virtual bool saveAs(const QString &filePath) = 0;
 
+    /*!
+     * @details
+     *   Tries to save script to the fileName(). All print() functions called from the script
+     *   will be emitted as printed() signal.
+     *   Returns @a true, if script was evaluated without errors. Otherwise, returns false and
+     *   emits the error() signal.
+     */
     virtual bool run() = 0;
 
 signals:
+    /*!
+     * @details
+     *   This signal is emitted when script's file name is changed. It could happen
+     *   on loading a new file or saving as a new file.
+     *
+     * @sa load(), saveAs()
+     */
     void fileNameChanged();
+
+    /*!
+     * @details
+     *   This signal is emmited when the print() function is called from the script.
+     *   Connect to this signal if you want to echo message, for example,
+     *   into text edit.
+     *
+     * @sa run
+     */
     void printed(const QString &message);
-    void error(const QString &message);
+
+    /*!
+     * @details
+     *   This signal is emmited when the error is appears during evaluate the script.
+     *   Connect to this signal if you want to echo error, for example,
+     *   into text edit.
+     *
+     * @sa run
+     */
+    void error(const QString &error);
 
 private:
     Q_DISABLE_COPY(IScriptUnit)

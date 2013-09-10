@@ -45,7 +45,7 @@ class JSSCRIPTING_API ScriptUnitView : public QWidget
 public:
     /*!
      * @details
-     *  Takes ownership
+     *  Takes ownership for highlighter
      */
     ScriptUnitView(IScriptUnit *data, QSyntaxHighlighter *highlighter, QWidget *parent);
     ~ScriptUnitView();

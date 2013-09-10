@@ -47,7 +47,11 @@ class QScriptEngine;
  *   Also, when this interface is implemented, an IOutputHandler one should be implemented
  *   too to be able to redirect print() functions to the console printed() signal.
  *
- *   You can get reference to the IScriptConsole using IScriptingService::console().
+ *   You can get reference to the IScriptConsole using
+ * @code
+ *     IScriptingService *service = serviceLocator->locate<IScriptingService>();
+ *     IScriptConsole *console = service->console();
+ * @endcode
  *
  * @sa ScriptConsoleView
  */

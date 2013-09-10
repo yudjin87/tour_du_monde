@@ -37,17 +37,6 @@ static LoggerFacade Log = LoggerFacade::createLogger("ScriptConsole");
 }
 
 //------------------------------------------------------------------------------
-ScriptConsole::ScriptConsole(QScriptEngine *engine, QObject *parent)
-    : m_engine(engine)
-    , m_history(QStringList())
-    , m_historyCommand(m_history.begin())
-    , m_historyCapacity(100) // TODO: read from application references
-{
-    setParent(parent);
-    engine->setParent(this);
-}
-
-//------------------------------------------------------------------------------
 ScriptConsole::ScriptConsole(QObject *parent)
     : m_engine(nullptr)
     , m_history(QStringList())
@@ -56,6 +45,17 @@ ScriptConsole::ScriptConsole(QObject *parent)
 {
     setParent(parent);
     m_engine = new QScriptEngine(this);
+}
+
+//------------------------------------------------------------------------------
+ScriptConsole::ScriptConsole(QScriptEngine *engine, QObject *parent)
+    : m_engine(engine)
+    , m_history(QStringList())
+    , m_historyCommand(m_history.begin())
+    , m_historyCapacity(100) // TODO: read from application references
+{
+    setParent(parent);
+    engine->setParent(this);
 }
 
 //------------------------------------------------------------------------------

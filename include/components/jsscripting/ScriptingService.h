@@ -39,7 +39,24 @@ class ScriptConsole;
 
 /*!
  * @brief
- * todo: rename to ScriptingService
+ *   It is default implementation of the IScriptingService and IScriptEngineFactory interfaces.
+ * @details
+ *   This service provides references to the important parts of the JsScripting component -
+ *   IScriptConsole and IScriptCollection. While these objects are used to evaluate scripts,
+ *   there is also one more important reference - to the IScriptEngineConfigurationDelegate.
+ *   This delegate is invoked every time to configure QScriptEngine when new script is evaluated
+ *   by IScriptUnit or when new component is started. It is allows new components to extend
+ *   JavaScript with custom types, functions or wrappers for their objects.
+ *
+ *   It is registered in the service locator by the JsScriptingComponent.
+ *   You can locate to this service from the service locator:
+ * @code
+ *   IScriptingService *service = serviceLocator->locate<IScriptingService>();
+ *   IScriptConsole *console = service->console();
+ * @endcode
+ *
+ *   Also it implements the IScriptEngineFactory to create configured QScriptEngine for the
+ *   ScriptUnit.
  */
 class JSSCRIPTING_API ScriptingService : public IScriptingService, public IScriptEngineFactory
 {
@@ -47,28 +64,73 @@ class JSSCRIPTING_API ScriptingService : public IScriptingService, public IScrip
 public:
     /*!
      * @details
+     * @constructor{ScriptingService}.
      *   Does not takes ownership for locator;
      */
     explicit ScriptingService(IServiceLocator *locator, IComponentManager *manager, QObject *parent = nullptr);
 
     ~ScriptingService();
 
+    /*!
+     * @details
+     *   Gets the script console.
+     */
     IScriptConsole *console();
 
+    /*!
+     * @details
+     *   Gets the scripts, that loaded into the application.
+     */
     IScriptCollection *scripts();
 
     /*!
      * @details
-     *   Does not takes ownership for created engine;
+     *   Gets the delegate which is used for QScriptEngine configuration.
+     */
+    IScriptEngineConfigurationDelegate *delegate();
+
+    /*!
+     * @details
+     *   Gets the delegate which is used for QScriptEngine configuration.
+     */
+    const IScriptEngineConfigurationDelegate *delegate() const;
+
+    /*!
+     * @details
+     *   Sets the delegate which is used for QScriptEngine configuration.
+     *   This delegate is used for configuration console() engine right after component manager
+     *   started up and as soons as new components are started.
+     */
+    void setDelegate(IScriptEngineConfigurationDelegate *delegate);
+
+    /*!
+     * @details
+     *   Creates a new instance of the QScriptEngine class and populated with new functions
+     *   or types from other components.
+     *
+     *   Also, during configuration, an @a output is set in such way, that all
+     *   output, obtained during execution by the QScriptEngine will be redirected
+     *   to this handler.
+     *
+     *   A @a parent could be used as a parent for created engine.
+     *
+     *   Note, that it does not takes ownership for created engine;
      */
     QScriptEngine *createEngine(IOutputHandler *output = nullptr, QObject *parent = nullptr);
 
-    IScriptEngineConfigurationDelegate *delegate();
-    const IScriptEngineConfigurationDelegate *delegate() const;
-    void setDelegate(IScriptEngineConfigurationDelegate *delegate);
-
 protected slots:
+    /*!
+     * @details
+     *   After component manager started up, service configures console engine using
+     *   all started components and also subscribes to the IComponentManager::componentStarted
+     *   signal for configuration engine using newly started components.
+     */
     void onComponentManagerStartedUp();
+
+    /*!
+     * @details
+     *   Configures console engine using a just started @a component.
+     */
     void onComponentStartedUp(IComponent *component);
 
 private:

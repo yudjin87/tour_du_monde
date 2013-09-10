@@ -33,35 +33,75 @@ class QScriptEngine;
 
 /*!
  * @brief
+ *   It is a defaul implementation of the IScriptConsole.
+ * @details
+ *   There are methods similiar to the just a console or terminal - execute command
+ *   and command history. But this object does not pretend for visualizatoin, there
+ *   is the ScriptConsoleView for this purpose.
+ *
+ *   Also, when this interface is implemented, an IOutputHandler one should be implemented
+ *   too to be able to redirect print() functions to the console printed() signal.
+ *
+ *   You can get reference to the IScriptConsole using
+ * @code
+ *     IScriptingService *service = serviceLocator->locate<IScriptingService>();
+ *     IScriptConsole *console = service->console();
+ * @endcode
+ *
+ * @sa ScriptConsoleView
  */
 class JSSCRIPTING_API ScriptConsole : public IScriptConsole
 {
     Q_OBJECT
 public:
-
+    /*!
+     * @details
+     * @constructor{ScriptConsole} using defaul QScriptEngine as an engine
+     *   for command execution.
+     */
     explicit ScriptConsole(QObject *parent = nullptr);
 
     /*!
      * @details
-     *  Takes ownership for engine
+     * @constructor{ScriptConsole} using specified @a engine for command execution.
+     *
+     *   Note, that it takes ownership for engine.
      */
     explicit ScriptConsole(QScriptEngine *engine, QObject *parent = nullptr);
 
+    /*!
+     * @details
+     *   Gets an script engine, that executes commands. See IScriptExtension extension,
+     *   if you want to extend script engine in more common way.
+     *
+     * @sa execCommand
+     */
     QScriptEngine *engine();
 
     /*!
-     * @brief
+     * @details
+     *   Gets a maximum amount of commands, stored in the history collection. When current size
+     *   reaches this amount, further execCommand() calls will remove oldest command from the history.
+     *
+     * @sa setHistoryCapacity, execCommand
      */
-    bool execCommand(const QString &command);
-
     int historyCapacity() const;
+
+    /*!
+     * @details
+     *   Sets a maximum amount of commands, stored in the history collection.
+     *
+     * @sa historyCapacity, execCommand
+     */
     void setHistoryCapacity(int capacity);
 
-    QString prevCommand();
-    QString nextCommand();
+    /*!
+     * @details
+     *   Gets all executed commands on this console.
+     *
+     * @sa prevCommand, nextCommand
+     */
     const QStringList &commandHistory() const;
-
-    void print(const QString &message);
 
 private:
     Q_DISABLE_COPY(ScriptConsole)
