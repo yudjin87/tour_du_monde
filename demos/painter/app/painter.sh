@@ -29,7 +29,7 @@ fi
 
 binDir=`dirname "$me"`
 libDir=`cd "${binDir}/lib" ; pwd`
-carouselDir=`cd "${binDir}/../../../../../product/gnu-x32-debug/bin" ; pwd`
+carouselDir=`cd "${binDir}/../../../../../product/%CONFIG%/bin" ; pwd`
 
 LD_LIBRARY_PATH="${libDir}:${installedComponentsDir}:${carouselDir}:${LD_LIBRARY_PATH}"
 export LD_LIBRARY_PATH

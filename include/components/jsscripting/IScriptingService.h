@@ -67,12 +67,26 @@ public:
 
     /*!
      * @details
-     *   Gets the scripts, that loaded into the application
+     *   Gets the scripts, that loaded into the application.
      */
     virtual IScriptCollection *scripts() = 0;
 
+    /*!
+     * @details
+     *   Gets the delegate which is used for QScriptEngine configuration.
+     */
     virtual IScriptEngineConfigurationDelegate *delegate() = 0;
+
+    /*!
+     * @details
+     *   Gets the delegate which is used for QScriptEngine configuration.
+     */
     virtual const IScriptEngineConfigurationDelegate *delegate() const = 0;
+
+    /*!
+     * @details
+     *   Sets the delegate which is used for QScriptEngine configuration.
+     */
     virtual void setDelegate(IScriptEngineConfigurationDelegate *delegate) = 0;
 
 private:
