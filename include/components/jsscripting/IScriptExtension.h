@@ -50,10 +50,20 @@ class QScriptEngine;
 class JSSCRIPTING_API IScriptExtension : public IComponentExtension
 {
 public:
+    /*!
+     * @details
+     * @constructor{IScriptExtension}.
+     */
     IScriptExtension(){}
 
     /*!
      * @details
+     *   This method will be invoked every time when a new instance of the QScriptEngine
+     *   is needed to be configured by other components. Usually each execution of the
+     *   IScriptUnit is required a new engine.
+     *
+     *   Implement this method to extend an @a engine with additional functions, classes or
+     *   wrappers for your types.
      */
     virtual void configureEngine(QScriptEngine *engine) = 0;
 

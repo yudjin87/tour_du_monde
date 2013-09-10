@@ -37,6 +37,19 @@ class QScriptEngine;
 
 /*!
  * @brief
+ *   This abstract class provides methods for manipulatin with scripting console
+ *   object.
+ * @details
+ *   There are methods similiar to the just a console or terminal - execute command
+ *   and command history. But this object does not pretend for visualizatoin, there
+ *   is the ScriptConsoleView for this purpose.
+ *
+ *   Also, when this interface is implemented, an IOutputHandler one should be implemented
+ *   too to be able to redirect print() functions to the console printed() signal.
+ *
+ *   You can get reference to the IScriptConsole using IScriptingService::console().
+ *
+ * @sa ScriptConsoleView
  */
 class JSSCRIPTING_API IScriptConsole : public QObject, public IOutputHandler
 {
@@ -44,6 +57,10 @@ class JSSCRIPTING_API IScriptConsole : public QObject, public IOutputHandler
     Q_PROPERTY(int historyCapacity READ historyCapacity WRITE setHistoryCapacity)
     Q_PROPERTY(QStringList commandHistory READ commandHistory)
 public:
+    /*!
+     * @details
+     * @constructor{IScriptConsole}.
+     */
     IScriptConsole(){}
 
     /*!
