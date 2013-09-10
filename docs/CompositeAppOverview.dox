@@ -1,5 +1,5 @@
 /**
-@page CompositeAppOverview 
+@page CompositeAppOverview  Composite application overview
 
 @section CompositeAppOverviewSection Composite application overview
 
@@ -15,6 +15,7 @@ What is a composite application?
 <li>@ref ManagingDependenciesBetweenTheComponents "Managing dependencies between the components" (object factories);</li>
 <li>@ref LifeTimePhases "Life-time phases" (how control some classes usage);</li>
 <li>@ref PresentationAndModelResponsibilities "Presentation and model responsibilities and organization";</li>
+<li>@ref JsScripting "JavaScript support";</li>
 <li>@ref UnitTesting "Unit testing";</li>
 <li>@ref Examples "Examples";</li>
 </ol>
@@ -105,7 +106,7 @@ After registration all basic shared services and components are ready to start. 
 <li>The Component manager begins the components startup process, and loads and initializes the Interactivity component;</li>
 <li>In the startup of the Interactivity component, it registers the IDialogService with the locator;</li>
 <li>The Component manager then starts the CS management UI component (the order of component starting is based on the component dependencies);</li>
-<li>The CS management UI component registers factory for the Show components Operation with IDialogService constructor injection, which was resolving through the locator.</li>
+<li>The CS management UI component registers the ComponentsDialog widget for the ComponentDefinitionsModel in the IDialogService, so then client code can visualize ComponentDefinitionsModel without knowing of concrete widget (the widget could be changed by other component in run-time).</li>
 </ol>
 
 @image html ConfigurationPhase.png
@@ -144,6 +145,9 @@ Interaction approach (menu items and tool handlers):
 <li>As was said later, operations could use undoable commands to modify data;</li>
 <li>New menu items and toolbars with tools and operations can be registered and added to the GUI using IMenuCatalog, IOperationCatalog and IToolBarCatalog;</li>
 </ol>
+
+@subsection JsScripting JavaScript support
+TODO
 
 @subsection UnitTesting Unit testing
 
