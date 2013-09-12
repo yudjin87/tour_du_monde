@@ -33,6 +33,12 @@ set(__HEADERS
 )
 
 ######################################################################
+# Resources
+set(__RESOURCES
+    ${CRSL_TARGET_SOURCES}/componentsystemui.qrc 
+)
+
+######################################################################
 # Forms
 set(__FORMS
     ${CRSL_TARGET_SOURCES}/ComponentsDialog.ui 
@@ -48,6 +54,7 @@ set(__OTHER_FILES
 # Qt generated files
 qt5_wrap_cpp(__HEADERS_MOC ${__HEADERS})
 qt5_wrap_ui(__UI_HEADERS ${__FORMS})
+qt5_add_resources(__GENERATED_RESOURCES ${__RESOURCES})
 
 # As moc files are generated in the binary dir, tell CMake
 # to always look for includes there:
@@ -59,10 +66,11 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 source_group("src" FILES ${__SOURCES} ${__HEADERS} ${__OTHER_FILES})
 source_group("moc" FILES ${__HEADERS_MOC})
 source_group("forms" FILES ${__UI_HEADERS} ${__FORMS})
+source_group("res" FILES ${__GENERATED_RESOURCES} ${__RESOURCES})
 
 ######################################################################
 # Create target 'CRSL_PROJECT_NAME' from specified source files
-add_library(${CRSL_PROJECT_NAME} ${CRSL_LIB_TYPE} ${__SOURCES} ${__HEADERS} ${__HEADERS_MOC} ${__FORMS} ${__UI_HEADERS} ${__OTHER_FILES})
+add_library(${CRSL_PROJECT_NAME} ${CRSL_LIB_TYPE} ${__SOURCES} ${__HEADERS} ${__HEADERS_MOC} ${__FORMS} ${__UI_HEADERS} ${__OTHER_FILES} ${__RESOURCES} ${__GENERATED_RESOURCES})
 
 ######################################################################
 # Setup output path
