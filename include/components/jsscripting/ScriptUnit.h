@@ -170,6 +170,14 @@ public slots:
      */
     bool run();
 
+    /*!
+     * @details
+     *   It is invoked each time when print() is invoked from the script.
+     *   A @a message is a parameter, that was passed to the JavaScript's print()
+     *   function.
+     */
+    void print(const QString &message);
+
 protected:
     virtual bool saveToFile(const QString &filePath);
 

@@ -103,6 +103,47 @@ public:
      */
     const QStringList &commandHistory() const;
 
+public slots:
+    /*!
+     * @details
+     *   Pushes command at the end of history, resetting history pointer (ponts to the last
+     *   command) and tries to execute a @a command. Before executing the aboutToExecute() signal
+     *   is emitted. If command was executed without errors, returns @a true. Otherwise, returns
+     *   @a false and emits the error() signal.
+     *
+     *   If the number of executed commands exceeded the historyCapacity() value, then first command
+     *   will be removed from the history.
+     */
+    bool execCommand(const QString &command);
+
+    /*!
+     * @details
+     *   Moves command pointer to the previous command and returns its value.
+     *   If current command is the first one - returns it and does not move
+     *   pointer.
+     *
+     * @sa nextCommand, commandHistory
+     */
+    QString prevCommand();
+
+    /*!
+     * @details
+     *   Moves command pointer to the next command and returns its value.
+     *   If current command is the last one - returns it and does not move
+     *   pointer.
+     *
+     * @sa prevCommand, commandHistory
+     */
+    QString nextCommand();
+
+    /*!
+     * @details
+     *   It is invoked each time when print() is invoked from the script.
+     *   A @a message is a parameter, that was passed to the JavaScript's print()
+     *   function.
+     */
+    void print(const QString &message);
+
 private:
     Q_DISABLE_COPY(ScriptConsole)
     void addCommandToHistory(const QString &command);
