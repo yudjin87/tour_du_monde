@@ -1,7 +1,7 @@
 Carousel
 ========
 
-Note, that it is still in development!
+Note, that it is still in development. See demo project for available capabilities.
 ----------
 
 Carousel is a managed component library for desktop applications that helps to extending core functionality of the application by external or internal components. An extension (component) can provide a toolbar with new tools, menus,  commands or dock widgets, listen for and respond to events, perform feature validation, and so on. 
@@ -30,3 +30,9 @@ gcc-4.7.2 x64 </li>
 <li>
 Clang-4.2 x64 (MacOS 10.7) </li>
 </ol>
+
+Feedback
+----------
+Feel free to contact me for any questions or propositions!
+Eugene Chuguy (eugene.chuguy@gmail.com)
+
