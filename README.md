@@ -3,6 +3,8 @@ Carousel
 
 Note, that it is still in development. 
 ----------
+See demo project for available capabilities (partially described here http://youtu.be/ajz-kjwT990)
+
 
 Carousel is a managed component library for desktop applications that helps to extending core functionality of the application by external or internal components. An extension (component) can provide a toolbar with new tools, menus,  commands or dock widgets, listen for and respond to events, perform feature validation, and so on. 
 
