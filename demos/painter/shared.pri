@@ -13,8 +13,8 @@ CONFIG(dll, staticlib|dll):DEFINES += LIB_IMPORT
 CONFIG += plugin
 
 #########################################################
-# c++0x is skipped for the MSVC compiler.
-!win32-msvc*:QMAKE_CXXFLAGS += -std=c++0x
+# c++11 is skipped for the MSVC compiler.
+!win32-msvc*:QMAKE_CXXFLAGS += -std=c++11
 
 # Format binary output path:
 win32-g*:BUILD_CONFIG=mingw
