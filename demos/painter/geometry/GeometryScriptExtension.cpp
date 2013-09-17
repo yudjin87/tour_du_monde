@@ -46,16 +46,6 @@
 Q_DECLARE_METATYPE(GeometryType)
 
 //------------------------------------------------------------------------------
-static const int AbstractGeometrytId = qRegisterMetaType<AbstractGeometry *>("AbstractGeometry *");
-static const int IGeometryFactoryId = qRegisterMetaType<IGeometryFactory *>("IGeometryFactory *");
-static const int PointId = qRegisterMetaType<Point *>("Point *");
-static const int PolycurveId = qRegisterMetaType<Polycurve *>("Polycurve *");
-static const int PolygonId = qRegisterMetaType<Polygon *>("Polygon *");
-static const int PolylineId = qRegisterMetaType<Polyline *>("Polyline *");
-static const int RingId = qRegisterMetaType<Ring *>("Ring *");
-static const int SegmentId = qRegisterMetaType<Segment *>("Segment *");
-
-//------------------------------------------------------------------------------
 namespace
 {
 int registerRingList(QScriptEngine *engine)
@@ -86,6 +76,15 @@ void GeometryScriptExtension::configureEngine(QScriptEngine *engine)
 {
     int ringListId = registerRingList(engine); Q_UNUSED(ringListId);
     int segmentListId = registerSegmentList(engine); Q_UNUSED(segmentListId);
+
+    REGISTER_METATYPE(AbstractGeometry);
+    REGISTER_METATYPE(IGeometryFactory);
+    REGISTER_METATYPE(Point);
+    REGISTER_METATYPE(Polycurve);
+    REGISTER_METATYPE(Polygon);
+    REGISTER_METATYPE(Polyline);
+    REGISTER_METATYPE(Ring);
+    REGISTER_METATYPE(Segment);
 }
 
 //------------------------------------------------------------------------------

@@ -47,20 +47,6 @@
 Q_DECLARE_METATYPE(GeometryType)
 
 //------------------------------------------------------------------------------
-
-// TODO: provide a macros with Q_UNUSED
-static const int IDatasetId = qRegisterMetaType<IFeature *>("IDataset *");
-static const int IFeatureId = qRegisterMetaType<IFeature *>("IFeature *");
-static const int IFeatureClassId = qRegisterMetaType<IFeatureClass *>("IFeatureClass *");
-static const int IFeatureWorkspaceId = qRegisterMetaType<IFeatureWorkspace *>("IFeatureWorkspace *");
-static const int IFeatureDatasetId = qRegisterMetaType<IFeatureDataset *>("IFeatureDataset *");
-static const int IGeoDatasetId = qRegisterMetaType<IGeoDataset *>("IGeoDataset *");
-static const int IShapeFileWorkspaceFactoryId = qRegisterMetaType<IShapeFileWorkspaceFactory *>("IShapeFileWorkspaceFactory *");
-static const int ISpatialFilterId = qRegisterMetaType<ISpatialFilter *>("ISpatialFilter *");
-static const int IWorkspaceId = qRegisterMetaType<IWorkspace *>("IWorkspace *");
-static const int IWorkspaceFactoryId = qRegisterMetaType<IWorkspaceFactory *>("IWorkspaceFactory *");
-
-//------------------------------------------------------------------------------
 namespace
 {
 int registerFeatureList(QScriptEngine *engine)
@@ -91,6 +77,17 @@ void GDBScriptExtension::configureEngine(QScriptEngine *engine)
 {
     int featureListId = registerFeatureList(engine); Q_UNUSED(featureListId);
     int featureClassListId = registerFeatureClassList(engine); Q_UNUSED(featureClassListId);
+
+    REGISTER_METATYPE(IDataset);
+    REGISTER_METATYPE(IFeature);
+    REGISTER_METATYPE(IFeatureWorkspace);
+    REGISTER_METATYPE(IFeatureClass);
+    REGISTER_METATYPE(IFeatureDataset);
+    REGISTER_METATYPE(IGeoDataset);
+    REGISTER_METATYPE(IShapeFileWorkspaceFactory);
+    REGISTER_METATYPE(ISpatialFilter);
+    REGISTER_METATYPE(IWorkspace);
+    REGISTER_METATYPE(IWorkspaceFactory);
 }
 
 //------------------------------------------------------------------------------

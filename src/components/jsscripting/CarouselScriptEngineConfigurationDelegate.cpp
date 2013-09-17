@@ -54,14 +54,6 @@ Q_DECLARE_METATYPE(IScriptUnit *)
 Q_DECLARE_METATYPE(QList<IScriptUnit *>)
 
 //------------------------------------------------------------------------------
-static const int IComponentDefinitionId = qRegisterMetaType<ComponentDefinition *>("ComponentDefinition *");
-static const int ConstIComponentDefinitionId = qRegisterMetaType<const ComponentDefinition *>("const ComponentDefinition *");
-
-static const int IScriptConsoleId = qRegisterMetaType<IScriptConsole *>("IScriptConsole *");
-static const int IScriptCollectionId = qRegisterMetaType<IScriptCollection *>("IScriptCollection *");
-static const int IScriptUnitId = qRegisterMetaType<IScriptUnit *>("IScriptUnit *");
-
-//------------------------------------------------------------------------------
 namespace
 {
 static LoggerFacade Log = LoggerFacade::createLogger("CarouselScriptEngineConfigurationDelegate");
@@ -112,6 +104,12 @@ CarouselScriptEngineConfigurationDelegate::CarouselScriptEngineConfigurationDele
     , m_locator(locator)
 {
     setParent(parent);
+
+    REGISTER_CONST_METATYPE(ComponentDefinition);
+    REGISTER_METATYPE(ComponentDefinition);
+    REGISTER_METATYPE(IScriptConsole);
+    REGISTER_METATYPE(IScriptCollection);
+    REGISTER_METATYPE(IScriptUnit);
 }
 
 //------------------------------------------------------------------------------

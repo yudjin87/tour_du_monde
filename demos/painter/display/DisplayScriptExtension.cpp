@@ -45,12 +45,6 @@ Q_DECLARE_METATYPE(DisplayTransformation *)
 Q_DECLARE_METATYPE(IDisplay *)
 
 //------------------------------------------------------------------------------
-static const int IFeatureRendererId = qRegisterMetaType<FeatureRenderer *>("FeatureRenderer *");
-static const int ISymbolId = qRegisterMetaType<ISymbol *>("ISymbol *");
-static const int DisplayTransformationId = qRegisterMetaType<DisplayTransformation *>("DisplayTransformation *");
-static const int IDisplayId = qRegisterMetaType<IDisplay *>("IDisplay *");
-
-//------------------------------------------------------------------------------
 DisplayScriptExtension::DisplayScriptExtension(QObject *parent)
     : QObject(parent)
 {
@@ -61,6 +55,10 @@ DisplayScriptExtension::DisplayScriptExtension(QObject *parent)
 void DisplayScriptExtension::configureEngine(QScriptEngine *engine)
 {
     Q_UNUSED(engine);
+    REGISTER_METATYPE(FeatureRenderer);
+    REGISTER_METATYPE(ISymbol);
+    REGISTER_METATYPE(DisplayTransformation);
+    REGISTER_METATYPE(IDisplay);
 }
 
 //------------------------------------------------------------------------------

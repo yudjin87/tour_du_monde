@@ -64,11 +64,35 @@ public:
      *
      *   Implement this method to extend an @a engine with additional functions, classes or
      *   wrappers for your types.
+     *
+     * @sa REGISTER_METATYPE
      */
     virtual void configureEngine(QScriptEngine *engine) = 0;
 
 private:
     Q_DISABLE_COPY(IScriptExtension)
 };
+
+#define QUOTE_X(t) #t
+#define QUOTE(t) QUOTE_X(t)
+#define POINTER *
+#define CONST const
+
+/*!
+ * @details
+ *   A convinient macro that allows to register a @a Type pointer at the Qt meta system.
+ *
+ *   E.g. REGISTER_METATYPE(IScriptUnit); will produce the following code:
+ * @code
+ *   static const int TypeIScriptUnitId = qRegisterMetaType<IScriptUnit *>("IScriptUnit*")
+ * @endcode
+ */
+#define REGISTER_METATYPE(Type) static const int Type##Id = qRegisterMetaType<Type *>(#Type QUOTE(POINTER))
+
+/*!
+ * @details
+ *   A convinient macro that allows to register a @a Type pointer at the Qt meta system.
+ */
+#define REGISTER_CONST_METATYPE(Type) static const int ConstType##Id = qRegisterMetaType<const Type *>(QUOTE(CONST) #Type QUOTE(POINTER))
 
 #endif // ISCRIPTEXTENSION_H

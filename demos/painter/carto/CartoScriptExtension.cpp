@@ -44,10 +44,6 @@ Q_DECLARE_METATYPE(IMap *)
 Q_DECLARE_METATYPE(QList<AbstractLayer *>)
 
 //------------------------------------------------------------------------------
-static const int IPainterDocumentId = qRegisterMetaType<IPainterDocument *>("IPainterDocument *");
-static const int IMapId = qRegisterMetaType<IMap *>("IMap *");
-
-//------------------------------------------------------------------------------
 namespace
 {
 int registerScriptMetaTypes(QScriptEngine *engine)
@@ -70,6 +66,9 @@ void CartoScriptExtension::configureEngine(QScriptEngine *engine)
 {
     int cartoTypeIds = registerScriptMetaTypes(engine);
     Q_UNUSED(cartoTypeIds);
+
+    REGISTER_METATYPE(IPainterDocument);
+    REGISTER_METATYPE(IMap);
 }
 
 //------------------------------------------------------------------------------
