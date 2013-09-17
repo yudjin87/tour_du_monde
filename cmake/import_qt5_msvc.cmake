@@ -75,10 +75,12 @@ if(QT_COPY_LIBRARIES)
 
     set(__Qt5_DEPS_DEBUG
         ${__Qt5_DEPS}
+        ${__QT_ROOT_DIR}/bin/libEGLd.dll
         ${__QT_ROOT_DIR}/bin/libGLESv2d.dll)
 
     set(__Qt5_DEPS_RELEASE
         ${__Qt5_DEPS}
+        ${__QT_ROOT_DIR}/bin/libEGL.dll
         ${__QT_ROOT_DIR}/bin/libGLESv2.dll)
 
     message(STATUS "Creating install target for copying Qt5 libraries and plugins...")
