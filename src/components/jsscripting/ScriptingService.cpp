@@ -27,6 +27,7 @@
 #include "ScriptingService.h"
 #include "ScriptConsole.h"
 #include "ScriptCollection.h"
+#include "IScriptUnit.h"
 #include "CarouselScriptEngineConfigurationDelegate.h"
 
 #include <carousel/componentsystem/IComponent.h>
@@ -48,16 +49,26 @@ static LoggerFacade Log = LoggerFacade::createLogger("ScriptingService");
 //------------------------------------------------------------------------------
 ScriptingService::ScriptingService(IServiceLocator *locator, IComponentManager *manager, QObject *parent)
     : m_componentManager(manager)
-    , m_scriptExtensionConfigurationDelegate(nullptr)
-    , m_console(nullptr)
-    , m_scripts(nullptr)
+    , m_scriptExtensionConfigurationDelegate(new CarouselScriptEngineConfigurationDelegate(locator, this))
+    , m_console(new ScriptConsole(this))
+    , m_scripts(new ScriptCollection(this, this))
+    , m_startScript()
 {
-    m_scripts = new ScriptCollection(this, this);
-    m_scriptExtensionConfigurationDelegate = new CarouselScriptEngineConfigurationDelegate(locator, this);
-    m_console = new ScriptConsole(this);
-
     setParent(parent);
     connect(m_componentManager, &IComponentManager::startedUp, this, &ScriptingService::onComponentManagerStartedUp);
+}
+
+//------------------------------------------------------------------------------
+ScriptingService::ScriptingService(IServiceLocator *locator, IComponentManager *manager, const QString &startScript, QObject *parent)
+    : m_componentManager(manager)
+    , m_scriptExtensionConfigurationDelegate(new CarouselScriptEngineConfigurationDelegate(locator, this))
+    , m_console(new ScriptConsole(this))
+    , m_scripts(new ScriptCollection(this, this))
+    , m_startScript(startScript)
+{
+    setParent(parent);
+    connect(m_componentManager, &IComponentManager::startedUp, this, &ScriptingService::onComponentManagerStartedUp);
+    connect(m_componentManager, &IComponentManager::startedUp, this, &ScriptingService::runStartScript, Qt::QueuedConnection);
 }
 
 //------------------------------------------------------------------------------
@@ -115,6 +126,7 @@ void ScriptingService::setDelegate(IScriptEngineConfigurationDelegate *delegate)
 void ScriptingService::onComponentManagerStartedUp()
 {
     setUpEngine(m_console->engine(), m_console);
+
     connect(m_componentManager, &IComponentManager::componentStarted,
             this, &ScriptingService::onComponentStartedUp);
 }
@@ -140,6 +152,21 @@ void ScriptingService::setUpEngine(QScriptEngine *engine, IOutputHandler *output
 
     for (IComponent *comp : m_componentManager->components()) {
         m_scriptExtensionConfigurationDelegate->configureFromComponent(comp, engine);
+    }
+}
+
+//------------------------------------------------------------------------------
+void ScriptingService::runStartScript()
+{
+    if (m_startScript.isEmpty())
+        return;
+
+    IScriptUnit *startScript = m_scripts->createFromFile(m_startScript);
+    if (startScript != nullptr) {
+        Log.d(QString("Running start script \"%1\" ...").arg(m_startScript));
+        startScript->run();
+    } else {
+        Log.w(QString("Failed to load start script \"%1\"").arg(m_startScript));
     }
 }
 

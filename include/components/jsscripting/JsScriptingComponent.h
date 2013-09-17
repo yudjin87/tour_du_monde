@@ -110,6 +110,9 @@ protected:
      *   in the @a serviceLocator.
      */
     bool onStartup(IServiceLocator *serviceLocator);
+
+private:
+    QString getStartedScriptFromAgrs() const;
 };
 
 #endif // JSSCRIPTINGCOMPONENT_H

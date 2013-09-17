@@ -69,6 +69,14 @@ public:
      */
     explicit ScriptingService(IServiceLocator *locator, IComponentManager *manager, QObject *parent = nullptr);
 
+    /*!
+     * @details
+     * @constructor{ScriptingService}.
+     *   A @a startScript script will be laoded and started right after IComponentManager::startedUp signal.
+     *   Does not takes ownership for locator;
+     */
+    ScriptingService(IServiceLocator *locator, IComponentManager *manager, const QString &startScript, QObject *parent = nullptr);
+
     ~ScriptingService();
 
     /*!
@@ -138,11 +146,15 @@ private:
 
     void setUpEngine(QScriptEngine* engine, IOutputHandler *output);
 
+private slots:
+    void runStartScript();
+
 private:
     IComponentManager *m_componentManager;
     IScriptEngineConfigurationDelegate *m_scriptExtensionConfigurationDelegate;
     ScriptConsole *m_console;
     IScriptCollection *m_scripts;
+    QString m_startScript;
 };
 
 #endif // SCRIPTSERVICE_H

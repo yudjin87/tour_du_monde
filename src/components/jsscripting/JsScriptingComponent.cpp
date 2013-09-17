@@ -30,6 +30,7 @@
 #include "ScriptCollectionDialog.h"
 #include "ScriptCollectionModel.h"
 
+#include <carousel/componentsystem/ComponentDefinition.h>
 #include <carousel/componentsystem/ComponentExport.h>
 #include <carousel/componentsystem/IComponentManager.h>
 #include <carousel/logging/LoggerFacade.h>
@@ -37,6 +38,8 @@
 
 #include <components/interactivity/IDialogService.h>
 #include <components/interactivity/IInteractionService.h>
+
+#include <algorithm>
 
 //------------------------------------------------------------------------------
 namespace
@@ -79,7 +82,7 @@ void JsScriptingComponent::onShutdown(IServiceLocator *serviceLocator)
 bool JsScriptingComponent::onStartup(IServiceLocator *serviceLocator)
 {
     IComponentManager *manager = serviceLocator->locate<IComponentManager>();
-    IScriptingService *service = new ScriptingService(serviceLocator, manager);
+    IScriptingService *service = new ScriptingService(serviceLocator, manager, getStartedScriptFromAgrs());
     serviceLocator->registerInstance<IScriptingService>(service);
 
     // Services
@@ -90,6 +93,24 @@ bool JsScriptingComponent::onStartup(IServiceLocator *serviceLocator)
     serviceLocator->registerType<ScriptCollectionModel>(scriptManagerModelCreator);
 
     return true;
+}
+
+//------------------------------------------------------------------------------
+QString JsScriptingComponent::getStartedScriptFromAgrs() const
+{
+    // TODO: Handle optional argument ... may be it should be one more extension
+    QStringList args = definition()->arguments();
+    auto it = std::find(args.cbegin(), args.cend(), "--start-script");
+    if (it == args.cend())
+        return QString();
+
+    ++it;
+    if (it == args.cend()) {
+        Log.e("Wrong parameters. Usage [--start-script <scriptFilePath>]");
+        return QString();
+    }
+
+    return *it;
 }
 
 //------------------------------------------------------------------------------
