@@ -109,8 +109,18 @@ QMap<GeometryType, AbstractGeometry *> fillThumbnails()
 {
     QMap<GeometryType, AbstractGeometry *> map;
     map.insert(GeometryPoint, new Point(8, 8));
+
+#ifdef Q_COMPILER_INITIALIZER_LISTS
     map.insert(GeometryPolyline, new Polyline({QPointF(2, 8), QPointF(14, 8)}));
     map.insert(GeometryPolygon, new Polygon({QPointF(2, 2), QPointF(14, 2), QPointF(14, 14), QPointF(2, 14)}));
+#else
+    QVector<QPointF> polyline; polyline.append(QPointF(2, 8)); polyline.append(QPointF(14, 8));
+    map.insert(GeometryPolyline, new Polyline(polyline));
+
+    QVector<QPointF> polygone; polygone.append(QPointF( 2,  2)); polygone.append(QPointF(14,  2));
+                               polygone.append(QPointF(14, 14)); polygone.append(QPointF( 2, 14));
+    map.insert(GeometryPolygon, new Polygon(polygone));
+#endif // #ifdef Q_COMPILER_INITIALIZER_LISTS
 
     return map;
 }
