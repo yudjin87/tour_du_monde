@@ -31,7 +31,7 @@
 #include <carousel/componentsystem/ParentDefinitions.h>
 
 #include <QtCore/QObject>
-#include <QtCore/QString>
+#include <QtCore/QStringList>
 
 class IComponent;
 class Version;
@@ -170,6 +170,12 @@ public:
 
     /*!
      * @details
+     *   Gets the arguments, passed to the application on start.
+     */
+    const QStringList &arguments() const;
+
+    /*!
+     * @details
      *   Gets the version of a component.
      */
     const Version *version() const;
@@ -229,6 +235,15 @@ public:
 
     /*!
      * @details
+     *   Sets the arguments, passed to the application on start. The BaseComponent
+     *   sets all arguments right in startup.
+     *
+     * @todo: filter argumets for each component
+     */
+    void setArguments(const QStringList &arguments);
+
+    /*!
+     * @details
      *   Sets the version of a component.
      */
     void setVersion(int major_version, int minor_version, int build_version = 0, int revision_version = 0);
@@ -251,6 +266,7 @@ private:
     QString m_provider;
     QString m_componentLocation;
     QString m_definitionLocation;
+    QStringList m_arguments;
     Version *m_version;
     ParentDefinitions m_parents;
     bool m_isBuiltIn;

@@ -31,6 +31,7 @@
 #include <carousel/logging/LoggerFacade.h>
 #include <carousel/utils/TypeObjectsMap.h>
 
+#include <QtCore/QCoreApplication>
 #include <QtCore/QSettings>
 
 //------------------------------------------------------------------------------
@@ -133,6 +134,8 @@ bool BaseComponent::startup(IServiceLocator *serviceLocator)
         Log.w(QString("Component \"%1\" is being started up, but it was not shut down.").arg(name()));
         return true;
     }
+
+    m_definition->setArguments(QCoreApplication::arguments());
 
     m_isStarted = onStartup(serviceLocator);
     return m_isStarted;

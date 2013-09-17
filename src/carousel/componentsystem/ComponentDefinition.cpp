@@ -43,6 +43,7 @@ ComponentDefinition::ComponentDefinition()
     , m_provider(ComponentDefinition::defaultProvider())
     , m_componentLocation("")
     , m_definitionLocation("")
+    , m_arguments()
     , m_version(new Version())
     , m_parents()
     , m_isBuiltIn(false)
@@ -59,6 +60,7 @@ ComponentDefinition::ComponentDefinition(const QString &componentName, bool isBu
     , m_provider(ComponentDefinition::defaultProvider())
     , m_componentLocation("")
     , m_definitionLocation("")
+    , m_arguments()
     , m_version(new Version())
     , m_parents()
     , m_isBuiltIn(isBuiltIn)
@@ -181,6 +183,12 @@ const QString &ComponentDefinition::provider() const
 }
 
 //------------------------------------------------------------------------------
+const QStringList &ComponentDefinition::arguments() const
+{
+    return m_arguments;
+}
+
+//------------------------------------------------------------------------------
 const Version *ComponentDefinition::version() const
 {
     return m_version;
@@ -232,6 +240,12 @@ void ComponentDefinition::setComponentLocation(const QString &componentLocation)
 void ComponentDefinition::setDefinitionLocation(const QString &definitionLocation)
 {
     m_definitionLocation = definitionLocation;
+}
+
+//------------------------------------------------------------------------------
+void ComponentDefinition::setArguments(const QStringList &arguments)
+{
+    m_arguments = arguments;
 }
 
 //------------------------------------------------------------------------------
