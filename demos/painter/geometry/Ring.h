@@ -31,7 +31,9 @@
 
 #include <QtCore/QList>
 
+#ifdef Q_COMPILER_INITIALIZER_LISTS // MSVC does not support it yet
 #include <initializer_list>
+#endif // #ifdef Q_COMPILER_INITIALIZER_LISTS
 
 class Segment;
 
@@ -44,7 +46,11 @@ class GEOMETRY_API Ring : public AbstractGeometry
 public:
     explicit Ring(QObject *parent = nullptr);
     explicit Ring(const QRectF &extent, QObject *parent = nullptr);
+#ifdef Q_COMPILER_INITIALIZER_LISTS
     explicit Ring(std::initializer_list<QPointF> points, QObject *parent = nullptr);
+#else
+    explicit Ring(QVector<QPointF> points, QObject *parent = nullptr);
+#endif // #ifdef Q_COMPILER_INITIALIZER_LISTS
     ~Ring();
 
     SegmentList &segments();

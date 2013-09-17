@@ -39,11 +39,17 @@ Polygon::Polygon(const QRectF &extent, QObject *parent)
 }
 
 //------------------------------------------------------------------------------
+#ifdef Q_COMPILER_INITIALIZER_LISTS
 Polygon::Polygon(std::initializer_list<QPointF> points, QObject *parent)
     : Polycurve(points, parent)
 {
-
 }
+#else
+Polygon::Polygon(QVector<QPointF> points, QObject *parent)
+    : Polycurve(points, parent)
+{
+}
+#endif // #ifdef Q_COMPILER_INITIALIZER_LISTS
 
 //------------------------------------------------------------------------------
 Polygon::~Polygon()

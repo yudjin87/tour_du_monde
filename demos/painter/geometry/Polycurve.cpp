@@ -42,12 +42,21 @@ Polycurve::Polycurve(const QRectF &extent, QObject *parent)
 }
 
 //------------------------------------------------------------------------------
+#ifdef Q_COMPILER_INITIALIZER_LISTS
 Polycurve::Polycurve(std::initializer_list<QPointF> points, QObject *parent)
     : AbstractGeometry(parent)
     , m_rings()
 {
     m_rings.append(new Ring(points));
 }
+#else
+Polycurve::Polycurve(QVector<QPointF> points, QObject *parent)
+    : AbstractGeometry(parent)
+    , m_rings()
+{
+    m_rings.append(new Ring(points));
+}
+#endif // #ifdef Q_COMPILER_INITIALIZER_LISTS
 
 //------------------------------------------------------------------------------
 Polycurve::~Polycurve()

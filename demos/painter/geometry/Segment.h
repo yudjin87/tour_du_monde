@@ -31,7 +31,9 @@
 
 #include <QtGui/QPolygonF>
 
+#ifdef Q_COMPILER_INITIALIZER_LISTS // MSVC does not support it yet
 #include <initializer_list>
+#endif // #ifdef Q_COMPILER_INITIALIZER_LISTS
 
 class GEOMETRY_API Segment : public AbstractGeometry
 {
@@ -40,7 +42,12 @@ class GEOMETRY_API Segment : public AbstractGeometry
 public:
     explicit Segment(QObject *parent = nullptr);
     explicit Segment(const QRectF &extent, QObject *parent = nullptr);
+
+#ifdef Q_COMPILER_INITIALIZER_LISTS
     explicit Segment(std::initializer_list<QPointF> points, QObject *parent = nullptr);
+#else
+    explicit Segment(QVector<QPointF> points, QObject *parent = nullptr);
+#endif // #ifdef Q_COMPILER_INITIALIZER_LISTS
 
     QPolygonF &curve();
     const QPolygonF &curve() const;
