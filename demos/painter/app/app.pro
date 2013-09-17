@@ -2,7 +2,7 @@ include(../shared.pri)
 
 QT       += core widgets
 
-win32:TARGET = painter.exe
+win32:TARGET = painter
 unix:TARGET = painter.bin
 
 TEMPLATE = app
