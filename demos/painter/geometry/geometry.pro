@@ -1,6 +1,6 @@
 include(../shared.pri)
 
-QT       += core
+QT       += core script
 
 TEMPLATE = lib
 
@@ -11,6 +11,7 @@ DEFINES += GEOMETRY_LIB_IMPORT
 
 LIBS += -L$${CAROUSEL_BIN} -lUtils \
                            -lComponentSystem \
+                           -lorg.carousel.JsSCripting \
 
 DESTDIR = $${DESTDIR}/externalSource
 

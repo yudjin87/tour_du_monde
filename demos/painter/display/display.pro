@@ -1,6 +1,6 @@
 include(../shared.pri)
 
-QT       += core widgets
+QT       += core widgets script
 
 TARGET = org.carousel.demos.Display
 
@@ -9,6 +9,7 @@ TEMPLATE = lib
 DEFINES += DISPLAY_LIB_IMPORT
 
 LIBS += -L$${CAROUSEL_BIN} -lorg.carousel.Interactivity \
+                           -lorg.carousel.JsSCripting \
 
 DESTDIR = $${DESTDIR}/externalSource
 #DESTDIR = $${DESTDIR}/installedComponents/org.carousel.demos.Display

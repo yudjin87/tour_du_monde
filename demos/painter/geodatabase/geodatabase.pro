@@ -1,6 +1,6 @@
 include(../shared.pri)
 
-QT       += gui
+QT       += gui script
 
 TEMPLATE = lib
 
@@ -11,6 +11,7 @@ DEFINES += GEODATABASE_LIB_IMPORT
 LIBS += -L$${CAROUSEL_BIN} -lUtils \
                            -lComponentSystem \
                            -lFramework \
+                           -lorg.carousel.JsSCripting \
 
 DESTDIR = $${DESTDIR}/externalSource
 
