@@ -8,13 +8,11 @@ TEMPLATE = lib
 
 DEFINES += DISPLAY_LIB_IMPORT
 
-LIBS += -L$${CAROUSEL_BIN} -lorg.carousel.Interactivity \
-                           -lorg.carousel.JsSCripting \
-
 DESTDIR = $${DESTDIR}/externalSource
-#DESTDIR = $${DESTDIR}/installedComponents/org.carousel.demos.Display
 
-LIBS += -L$${CAROUSEL_BIN} -lComponentSystem \
+LIBS += -L$${CAROUSEL_BIN} -lorg.carousel.Interactivity \
+                           -lorg.carousel.JsScripting \
+                           -lComponentSystem \
                            -lFramework
 
 LIBS += -L$${DESTDIR} -lorg.carousel.demos.Geometry \

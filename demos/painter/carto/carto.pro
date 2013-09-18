@@ -12,7 +12,7 @@ DEFINES += CARTO_LIB_IMPORT
 LIBS += -L$${CAROUSEL_BIN} -lUtils \
                            -lComponentSystem \
                            -lFramework \
-                           -lorg.carousel.JsSCripting \
+                           -lorg.carousel.JsScripting \
 
 DESTDIR = $${DESTDIR}/externalSource
 

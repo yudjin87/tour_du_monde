@@ -9,13 +9,11 @@ TARGET = org.carousel.demos.Geometry
 DEFINES += GEOMETRY_LIB_IMPORT
 
 
-LIBS += -L$${CAROUSEL_BIN} -lUtils \
-                           -lComponentSystem \
-                           -lorg.carousel.JsSCripting \
-
 DESTDIR = $${DESTDIR}/externalSource
 
-
+LIBS += -L$${CAROUSEL_BIN} -lUtils \
+                           -lComponentSystem \
+                           -lorg.carousel.JsScripting \
 
 HEADERS += \
     geometry_api.h \

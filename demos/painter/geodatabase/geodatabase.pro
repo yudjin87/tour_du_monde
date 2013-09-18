@@ -8,16 +8,14 @@ TARGET = org.carousel.demos.Geodatabase
 
 DEFINES += GEODATABASE_LIB_IMPORT
 
+DESTDIR = $${DESTDIR}/externalSource
+
 LIBS += -L$${CAROUSEL_BIN} -lUtils \
                            -lComponentSystem \
                            -lFramework \
-                           -lorg.carousel.JsSCripting \
-
-DESTDIR = $${DESTDIR}/externalSource
+                           -lorg.carousel.JsScripting \
 
 LIBS += -L$${DESTDIR} -lorg.carousel.demos.Geometry \
-
-
 
 HEADERS += \
     geodatabase_api.h \
