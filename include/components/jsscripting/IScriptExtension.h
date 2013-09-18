@@ -87,12 +87,15 @@ private:
  *   static const int TypeIScriptUnitId = qRegisterMetaType<IScriptUnit *>("IScriptUnit*")
  * @endcode
  */
-#define REGISTER_METATYPE(Type) static const int Type##Id = qRegisterMetaType<Type *>(#Type QUOTE(POINTER))
+#define REGISTER_METATYPE(Type) static const int Type##Id = qRegisterMetaType<Type *>(#Type QUOTE(POINTER)); \
+    Q_UNUSED(Type##Id)
 
 /*!
  * @details
  *   A convinient macro that allows to register a @a Type pointer at the Qt meta system.
  */
-#define REGISTER_CONST_METATYPE(Type) static const int ConstType##Id = qRegisterMetaType<const Type *>(QUOTE(CONST) #Type QUOTE(POINTER))
+#define REGISTER_CONST_METATYPE(Type) static const int ConstType##Id = qRegisterMetaType<const Type *>(QUOTE(CONST) #Type QUOTE(POINTER))\
+    Q_UNUSED(Type##Id)
+
 
 #endif // ISCRIPTEXTENSION_H
