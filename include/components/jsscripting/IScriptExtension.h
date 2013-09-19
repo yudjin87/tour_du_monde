@@ -94,8 +94,8 @@ private:
  * @details
  *   A convinient macro that allows to register a @a Type pointer at the Qt meta system.
  */
-#define REGISTER_CONST_METATYPE(Type) static const int ConstType##Id = qRegisterMetaType<const Type *>(QUOTE(CONST) #Type QUOTE(POINTER))\
-    Q_UNUSED(Type##Id)
+#define REGISTER_CONST_METATYPE(Type) static const int ConstType##Id = qRegisterMetaType<const Type *>(QUOTE(CONST) #Type QUOTE(POINTER)); \
+    Q_UNUSED(ConstType##Id)
 
 
 #endif // ISCRIPTEXTENSION_H
