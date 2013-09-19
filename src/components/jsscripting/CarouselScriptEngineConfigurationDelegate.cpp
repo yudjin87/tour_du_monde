@@ -40,6 +40,8 @@
 #include <carousel/componentsystem/IComponent.h>
 #include <carousel/logging/LoggerFacade.h>
 
+#include <QtCore/QCoreApplication>
+#include <QtCore/QDir>
 #include <QtCore/QFile>
 #include <QtCore/QTextStream>
 #include <QtCore/QEventLoop>
@@ -303,7 +305,8 @@ QScriptValue CarouselScriptEngineConfigurationDelegate::include(QScriptContext *
 
     QString filePath = context->argument(0).toString();
 
-    QFile scriptFile(filePath);
+    QDir abs(QCoreApplication::applicationDirPath());
+    QFile scriptFile(abs.absoluteFilePath(filePath));
     if (!scriptFile.open(QIODevice::ReadOnly)) {
         Log.w(QString("Could not open included script file: \"%1\"").arg(filePath));
         return engine->undefinedValue();
