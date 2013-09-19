@@ -43,6 +43,7 @@ SHAPES += buckinghamshire/waterways.shp
 
 START_UP = painter.sh
 
+SCRIPTS += scripts/startup.js
 SCRIPTS += scripts/changeColor.js
 SCRIPTS += scripts/components.js
 SCRIPTS += scripts/loadLayer.js

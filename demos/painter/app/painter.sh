@@ -35,5 +35,5 @@ LD_LIBRARY_PATH="${libDir}:${installedComponentsDir}:${carouselDir}:${LD_LIBRARY
 export LD_LIBRARY_PATH
 echo "start ${binDir}/painter.bin"
 
-exec "${binDir}/painter.bin" ${1+"$@"}
+exec "${binDir}/painter.bin --start-script ./scripts/startup.js" ${1+"$@"}
 
