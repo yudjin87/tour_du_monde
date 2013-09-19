@@ -37,6 +37,7 @@
 //------------------------------------------------------------------------------
 CarouselScriptEngineConfigurationDelegateTest::CarouselScriptEngineConfigurationDelegateTest(QObject *parent)
     : QObject(parent)
+    , m_testScriptPath("./scripts/TestScript.js")
 {
 }
 
@@ -101,6 +102,25 @@ void CarouselScriptEngineConfigurationDelegateTest::configureDefaults_shouldAddP
     engine.evaluate("print(\"Hello, carousel!\")");
 
     QCOMPARE(output.lastMessage, QString("Hello, carousel!"));
+}
+
+//------------------------------------------------------------------------------
+void CarouselScriptEngineConfigurationDelegateTest::configureDefaults_shouldAddIncludeFunctionToEngine()
+{
+    ServiceLocator locator; QScriptEngine engine;
+    CarouselScriptEngineConfigurationDelegate delegate(&locator);
+
+    MockOutputHandler output;
+    delegate.configureDefaults(&engine, &output);
+    QScriptValue result = engine.evaluate(QString("include(\"%1\");").arg(m_testScriptPath));
+    QVERIFY(result.isValid());
+
+    QScriptValue includedScriptValue = engine.globalObject().property("a");
+    QVERIFY(includedScriptValue.isValid());
+
+    int value = includedScriptValue.toInt32();
+
+    QCOMPARE(value, 111);
 }
 
 //------------------------------------------------------------------------------

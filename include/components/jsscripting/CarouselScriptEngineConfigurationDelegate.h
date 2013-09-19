@@ -67,7 +67,7 @@ public slots:
 
     /*!
      * @details
-     *   Configures specified @a engine with default types and functions like explore() and
+     *   Configures specified @a engine with default types and functions like explore(), include() and
      *   prototype for the QPoint.
      *
      *   An @a output is a handler for the print() function. Each time when print() is invoked
@@ -82,6 +82,7 @@ protected:
     virtual void registerPrintFunc(QScriptEngine *engine, IOutputHandler *output);
     virtual void registerExploreFunc(QScriptEngine *engine, IOutputHandler *output);
     virtual void registerWaitFunc(QScriptEngine *engine);
+    virtual void registerIncludeFunc(QScriptEngine *engine);
     virtual void registerBasePrimitives(QScriptEngine *engine);
     virtual void registerComponentSystemTypes(QScriptEngine *engine);
     virtual void registerJsScriptingTypes(QScriptEngine *engine);
@@ -91,6 +92,7 @@ private:
     static QScriptValue print(QScriptContext *context, QScriptEngine *engine, void *out);
     static QScriptValue wait(QScriptContext *context, QScriptEngine *engine);
     static QScriptValue explore(QScriptContext *context, QScriptEngine *engine, void *out);
+    static QScriptValue include(QScriptContext *context, QScriptEngine *engine, void *thisObj);
     static QScriptValue findValue(QScriptEngine *engine, const QString &name);
 
 private:

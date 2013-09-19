@@ -40,6 +40,8 @@
 #include <carousel/componentsystem/IComponent.h>
 #include <carousel/logging/LoggerFacade.h>
 
+#include <QtCore/QFile>
+#include <QtCore/QTextStream>
 #include <QtCore/QEventLoop>
 #include <QtCore/QPoint>
 #include <QtCore/QTimer>
@@ -137,6 +139,7 @@ void CarouselScriptEngineConfigurationDelegate::configureDefaults(QScriptEngine 
     registerPrintFunc(engine, output);
     registerWaitFunc(engine);
     registerExploreFunc(engine, output);
+    registerIncludeFunc(engine);
     registerBasePrimitives(engine);
     registerComponentSystemTypes(engine);
     registerJsScriptingTypes(engine);
@@ -159,14 +162,14 @@ void CarouselScriptEngineConfigurationDelegate::configureServiceLocator(QScriptE
 //------------------------------------------------------------------------------
 void CarouselScriptEngineConfigurationDelegate::registerPrintFunc(QScriptEngine *engine, IOutputHandler *output)
 {
-    QScriptValue printFunc = engine->newFunction(&CarouselScriptEngineConfigurationDelegate::print, (void *)output);
+    QScriptValue printFunc = engine->newFunction(&CarouselScriptEngineConfigurationDelegate::print, output);
     engine->globalObject().setProperty("print", printFunc);
 }
 
 //------------------------------------------------------------------------------
 void CarouselScriptEngineConfigurationDelegate::registerExploreFunc(QScriptEngine *engine, IOutputHandler *output)
 {
-    QScriptValue exploreFunc = engine->newFunction(&CarouselScriptEngineConfigurationDelegate::explore, (void *)output);
+    QScriptValue exploreFunc = engine->newFunction(&CarouselScriptEngineConfigurationDelegate::explore, output);
     engine->globalObject().setProperty("explore", exploreFunc);
 }
 
@@ -175,6 +178,13 @@ void CarouselScriptEngineConfigurationDelegate::registerWaitFunc(QScriptEngine *
 {
     QScriptValue waitFunc = engine->newFunction(&CarouselScriptEngineConfigurationDelegate::wait);
     engine->globalObject().setProperty("wait", waitFunc);
+}
+
+//------------------------------------------------------------------------------
+void CarouselScriptEngineConfigurationDelegate::registerIncludeFunc(QScriptEngine *engine)
+{
+    QScriptValue includeFunc = engine->newFunction(&CarouselScriptEngineConfigurationDelegate::include, this);
+    engine->globalObject().setProperty("include", includeFunc);
 }
 
 //------------------------------------------------------------------------------
@@ -274,6 +284,35 @@ QScriptValue CarouselScriptEngineConfigurationDelegate::explore(QScriptContext *
     }
 
     return engine->undefinedValue();
+}
+
+//------------------------------------------------------------------------------
+QScriptValue CarouselScriptEngineConfigurationDelegate::include(QScriptContext *context, QScriptEngine *engine, void *thisObj)
+{
+    CarouselScriptEngineConfigurationDelegate *self = static_cast<CarouselScriptEngineConfigurationDelegate *>(thisObj);
+    if (self == nullptr)
+        return engine->undefinedValue();
+
+    if (context->argumentCount() != 1) {
+        Log.w("\"include\": Incorrect number of arguments. Expected: include(filePath)");
+        return engine->undefinedValue();
+    }
+
+    context->setActivationObject(context->parentContext()->activationObject());
+    context->setThisObject(context->parentContext()->thisObject());
+
+    QString filePath = context->argument(0).toString();
+
+    QFile scriptFile(filePath);
+    if (!scriptFile.open(QIODevice::ReadOnly)) {
+        Log.w(QString("Could not open included script file: \"%1\"").arg(filePath));
+        return engine->undefinedValue();
+    }
+
+    QTextStream stream(&scriptFile);
+    QString contents = stream.readAll();
+
+    return engine->evaluate(contents);
 }
 
 //------------------------------------------------------------------------------

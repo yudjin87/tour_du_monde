@@ -216,7 +216,7 @@ bool ScriptUnit::run()
 QString ScriptUnit::absolutePath(const QString &filePath)
 {
     QDir dir(QCoreApplication::applicationDirPath());
-    return dir.absoluteFilePath(filePath);
+    return QDir::cleanPath(dir.absoluteFilePath(filePath));
 }
 
 //------------------------------------------------------------------------------
