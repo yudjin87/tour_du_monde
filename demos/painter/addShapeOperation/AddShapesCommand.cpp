@@ -64,7 +64,7 @@ void AddShapesCommand::addShapeFiles(const QStringList &files)
 //------------------------------------------------------------------------------
 void AddShapesCommand::redo()
 {
-    foreach(const QString &fileName, m_files) {
+    for (const QString &fileName : m_files) {
         QFileInfo shapeFile(fileName);
         const QString &workingDirectory = shapeFile.absolutePath();
 

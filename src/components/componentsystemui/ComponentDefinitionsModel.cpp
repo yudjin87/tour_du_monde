@@ -206,7 +206,7 @@ void ComponentDefinitionsModel::onInstall()
     InstallComponentsCommand* command = m_locator->buildInstance<InstallComponentsCommand>();
     command->setSourceDirectoryPath(selectedFile.absolutePath());
 
-    foreach(const QString &fileName, fileDialog.selectedFiles())
+    for (const QString &fileName : fileDialog.selectedFiles())
         command->addDefinitionPath(fileName);
 
     command->pushToStack();

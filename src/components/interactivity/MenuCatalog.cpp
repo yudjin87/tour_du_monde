@@ -35,7 +35,7 @@ MenuCatalog::MenuCatalog(QMenuBar &menuBar)
     : m_menuBar(menuBar)
 {
     QList<QAction *> actions = m_menuBar.actions();
-    foreach(QAction *action, actions)
+    for (QAction *action : actions)
         installEventFilterForSubMenus(action->menu());
 }
 
@@ -133,7 +133,7 @@ const QMenu *MenuCatalog::findMenu(const QString &title) const
 {
     QList<QAction *> actions = m_menuBar.actions();
 
-    foreach(QAction *action, actions) {
+    for (QAction *action : actions) {
         if (action->text() == title)
             return action->menu();
 
@@ -156,7 +156,7 @@ const QMenu *MenuCatalog::findMenuEverywhere(const QString &title) const
 {
     const QList<QMenu *> &allMenus = menus();
 
-    foreach(QMenu *menu, allMenus) {
+    for (QMenu *menu : allMenus) {
         if (menu->title() == title)
             return menu;
     }
@@ -173,7 +173,7 @@ QMenu *MenuCatalog::findPopup(const QString &title)
 //------------------------------------------------------------------------------
 const QMenu *MenuCatalog::findPopup(const QString &title) const
 {
-    foreach(QMenu *menu, m_popupMenus) {
+    for (QMenu *menu : m_popupMenus) {
         if (menu->title() == title)
             return menu;
 
@@ -191,7 +191,7 @@ QList<QMenu *> MenuCatalog::menus() const
     QList<QMenu *> menuBarMenus;
 
     QList<QAction *> actions = m_menuBar.actions();
-    foreach(QAction *action, actions) {
+    for (QAction *action : actions) {
         if (action->menu() != nullptr)
             menuBarMenus.push_back(action->menu());
     }
@@ -199,7 +199,7 @@ QList<QMenu *> MenuCatalog::menus() const
     QList<QMenu *> menusToReturn;
     menusToReturn.append(menuBarMenus);
 
-    foreach(QMenu *menu, menuBarMenus) {
+    for (QMenu *menu : menuBarMenus) {
         QList<QMenu *> children = extractChildMenus(menu);
         menusToReturn.append(children);
     }
@@ -214,7 +214,7 @@ void MenuCatalog::removeMenu(const QString &title)
 {
     QList<QAction *> actions = m_menuBar.actions();
 
-    foreach(QAction *action, actions) {
+    for (QAction *action : actions) {
         if (action->text() == title) {
             m_menuBar.removeAction(action);
             m_removedMenus.push_back(action->menu());
@@ -239,7 +239,7 @@ QMenu *MenuCatalog::findMenu(const QString &title, QMenu *inMenu) const
 
     QList<QAction *> actions = inMenu->actions();
 
-    foreach(QAction *action, actions) {
+    for (QAction *action : actions) {
         if (action->text() == title)
             return action->menu();
 
@@ -306,7 +306,7 @@ QList<QMenu *> MenuCatalog::extractChildMenus(QMenu *parentMenu)
 
     QList<QAction *> actions = parentMenu->actions();
 
-    foreach(QAction *action, actions) {
+    for (QAction *action : actions) {
         return extractChildMenus(action->menu());
     }
 
@@ -317,7 +317,7 @@ QList<QMenu *> MenuCatalog::extractChildMenus(QMenu *parentMenu)
 void MenuCatalog::installEventFilterForSubMenus(QMenu *menu)
 {
     menu->installEventFilter(this);
-    foreach(QAction *action, menu->actions()) {
+    for (QAction *action : menu->actions()) {
         if (action->menu() != nullptr)
             installEventFilterForSubMenus(action->menu());
     }

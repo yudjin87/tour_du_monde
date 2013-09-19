@@ -41,7 +41,7 @@ Map::Map(IPainterDocument *parentDocument, IDisplay *display)
 //------------------------------------------------------------------------------
 Map::~Map()
 {
-    foreach(AbstractLayer *layer, m_layers)
+    for (AbstractLayer *layer : m_layers)
         delete layer;
 
     m_layers.clear();
@@ -81,7 +81,7 @@ void Map::refresh()
         return;
 
     QPainter *painter = m_display->startDrawing();
-    foreach(AbstractLayer *layer, m_layers)
+    for (AbstractLayer *layer : m_layers)
         layer->draw(m_display);
 
     m_display->finishDrawing(painter);

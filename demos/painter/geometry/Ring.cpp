@@ -85,7 +85,7 @@ GeometryType Ring::type() const
 //------------------------------------------------------------------------------
 void Ring::clearData()
 {
-    foreach(Segment *segment, m_segments)
+    for (Segment *segment : m_segments)
         delete segment;
 
     m_segments.clear();

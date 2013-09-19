@@ -88,7 +88,7 @@ QToolBar *ToolBarCatalog::find(const QString &title)
 //------------------------------------------------------------------------------
 const QToolBar *ToolBarCatalog::find(const QString &title) const
 {
-    foreach(QToolBar *toolbar, m_toolbars) {
+    for (QToolBar *toolbar : m_toolbars) {
         if (toolbar->windowTitle() == title)
             return toolbar;
     }

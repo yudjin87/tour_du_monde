@@ -46,7 +46,7 @@ ParentDefinitions::~ParentDefinitions()
 //------------------------------------------------------------------------------
 bool ParentDefinitions::contains(const QString &parentName) const
 {
-    foreach(ParentDefinition *com, m_parents) {
+    for (ParentDefinition *com : m_parents) {
         if (com->name() == parentName)
             return true;
     }
@@ -69,7 +69,7 @@ int ParentDefinitions::size() const
 //------------------------------------------------------------------------------
 const Version *ParentDefinitions::operator [](const QString &parentName) const
 {
-    foreach(ParentDefinition *com, m_parents) {
+    for (ParentDefinition *com : m_parents) {
         if (com->name() == parentName)
             return com->version();
     }

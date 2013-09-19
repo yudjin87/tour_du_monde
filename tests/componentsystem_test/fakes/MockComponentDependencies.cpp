@@ -43,7 +43,7 @@ bool MockComponentDependencies::addComponent(IComponent *component)
 //------------------------------------------------------------------------------
 DependenciesSolvingResult MockComponentDependencies::completeListWithChildren(const QList<IComponent *> &forChildren) const
 {
-    foreach(IComponent *comp, forChildren)
+    for (IComponent *comp : forChildren)
         emit onCompleteListWithChildren(comp);
 
     ++completeListWithChildrenCalled;

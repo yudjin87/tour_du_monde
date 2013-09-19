@@ -117,14 +117,14 @@ DependenciesSolvingResult ComponentInstaller::tryToInstall(const QStringList &co
 
     // Add existed componens to resolve componens for install
     IComponentDependenciesPtr dependencies(createDependencies());
-    foreach(IComponent *comp, m_existedComponents)
+    for (IComponent *comp : m_existedComponents)
         dependencies->addComponent(comp);
 
     QList<IComponent *> discoveredComponents = discoverComponents();
 
     // Select components to install from the all discovered components
     QList<IComponent *> toInstall;
-    foreach(IComponent *comp, discoveredComponents) {
+    for (IComponent *comp : discoveredComponents) {
         dependencies->addComponent(comp);
         if (componentNames.contains(comp->name()))
             toInstall.push_back(comp);
@@ -138,7 +138,7 @@ DependenciesSolvingResult ComponentInstaller::tryToInstall(const QStringList &co
     }
 
     // Return only components that have to be installed
-    foreach(IComponent *comp, result.ordered()) {
+    for (IComponent *comp : result.ordered()) {
         if (toInstall.contains(comp))
             continue;
 
@@ -147,7 +147,7 @@ DependenciesSolvingResult ComponentInstaller::tryToInstall(const QStringList &co
     }
 
     // Delete unused components
-    foreach(IComponent *comp, discoveredComponents) {
+    for (IComponent *comp : discoveredComponents) {
         if (!toInstall.contains(comp))
             delete comp;
     }
@@ -169,7 +169,7 @@ QStringList ComponentInstaller::install()
     loadComponents(m_componentsToInstall);
 
     QStringList copiedDefinitions;
-    foreach(IComponent *comp, m_componentsToInstall) {
+    for (IComponent *comp : m_componentsToInstall) {
         QString componentPath = createComponentDirectory(comp->name());
 
         QString definitionFileName = componentPath + QDir::separator() + comp->name() + ".definition";

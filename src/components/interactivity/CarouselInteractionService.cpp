@@ -120,7 +120,7 @@ void CarouselInteractionService::resetUi()
     }
 
     Log.i("Reset UI.");
-    foreach(IComponent *comp, m_componentManager->components()) {
+    for (IComponent *comp : m_componentManager->components()) {
         m_componentConfigurationDelegate->deconfigure(comp, *m_catalogs);
         m_componentConfigurationDelegate->configure(comp, *m_catalogs);
     }

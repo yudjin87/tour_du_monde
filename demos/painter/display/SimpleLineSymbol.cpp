@@ -65,8 +65,8 @@ void SimpleLineSymbol::setStyle(Qt::PenStyle style)
 //------------------------------------------------------------------------------
 void SimpleLineSymbol::drawPolyline(const Polyline &polyline, QPainter &painter)
 {
-    foreach(const Ring *ring, polyline.rings()) {
-        foreach(const Segment *segment, ring->segments()) {
+    for (const Ring *ring : polyline.rings()) {
+        for (const Segment *segment : ring->segments()) {
             painter.drawPolyline(segment->curve());
         }
     }

@@ -83,10 +83,10 @@ void EnableComponentCommand::redo()
     DependenciesSolvingResult stoppedComponents = m_manager->shutdownComponents(m_componentsToDisable.toList());
 
     // Parent components may appear, so store them for restoring on undo
-    foreach(IComponent *comp, startedComponents.ordered())
+    for (IComponent *comp : startedComponents.ordered())
         m_componentsToEnable.insert(comp);
 
-    foreach(IComponent *comp, stoppedComponents.ordered())
+    for (IComponent *comp : stoppedComponents.ordered())
         m_componentsToDisable.insert(comp);
 }
 

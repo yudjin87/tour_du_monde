@@ -76,7 +76,7 @@ ComponentManager::ComponentManager(IServiceLocator *serviceLocator, IComponentDe
 //------------------------------------------------------------------------------
 ComponentManager::~ComponentManager()
 {
-    foreach(IComponent *comp, m_components->components())
+    for (IComponent *comp : m_components->components())
         delete comp;
 
     delete m_components;
@@ -202,7 +202,7 @@ DependenciesSolvingResult ComponentManager::shutdownComponents(const QList<IComp
     DependenciesSolvingResult solvingResult = m_components->completeListWithParents(components);
     QList<IComponent *> componentsToShutdown = solvingResult.ordered();
     QList<IComponent *> realyShutdownComponents;
-    foreach(IComponent *comp, componentsToShutdown) {
+    for (IComponent *comp : componentsToShutdown) {
         if (!m_components->components().contains(comp)) {
             Log.i(QString("Can not shutdown unexisting component: \"%1\".").arg(comp->name()));
             continue;
@@ -280,7 +280,7 @@ DependenciesSolvingResult ComponentManager::startupComponents(QList<IComponent *
     QSet<IComponent *> skippedComponents;
     QList<IComponent *> componentsToStart = solvingResult.ordered();
     QList<IComponent *> realyStartedComponents;
-    foreach(IComponent *comp, componentsToStart) {
+    for (IComponent *comp : componentsToStart) {
         if (comp->started() || skippedComponents.contains(comp))
             continue;
 
@@ -303,7 +303,7 @@ DependenciesSolvingResult ComponentManager::startupComponents(QList<IComponent *
 
             QStringList skipedChildren;
             DependenciesSolvingResult children = m_components->completeListWithParent(comp);
-            foreach(IComponent *comp, children.ordered()) {
+            for (IComponent *comp : children.ordered()) {
                 skippedComponents.insert(comp);
                 skipedChildren.append(comp->name());
             }

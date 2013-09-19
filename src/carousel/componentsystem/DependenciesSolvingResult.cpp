@@ -131,7 +131,7 @@ bool DependenciesSolvingResult::precidate(IComponent *component, const QString &
 //------------------------------------------------------------------------------
 void DependenciesSolvingResult::collectComponents(const QStringList &names, QList<IComponent *> &result) const
 {
-    foreach(const QString &name, names) {
+    for (const QString &name : names) {
         std::function<bool(IComponent *)> pred = std::bind(&DependenciesSolvingResult::precidate, std::placeholders::_1, name);
         auto component = std::find_if(m_components.begin(), m_components.end(), pred);
         if (component != m_components.end())

@@ -42,7 +42,7 @@ bool removeTree(const QString &dirName)
     if (!dir.exists(dirName))
         return true;
 
-    foreach(QFileInfo info, dir.entryInfoList(filters, QDir::DirsFirst)) {
+    for (QFileInfo info : dir.entryInfoList(filters, QDir::DirsFirst)) {
         if (info.isDir())
             result = removeTree(info.absoluteFilePath());
         else

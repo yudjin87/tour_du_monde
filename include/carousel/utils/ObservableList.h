@@ -487,7 +487,7 @@ int ObservableList<TItem>::removeAll(const TItem &item)
         return 0;
 
     QList<TItem> items;
-    foreach(const TItem &itemInList, m_items) {
+    for (const TItem &itemInList : m_items) {
         bool sameItem = itemInList == item;
         if (sameItem && m_items.contains(itemInList))
             items.push_back(itemInList);
@@ -682,7 +682,7 @@ void ObservableList<TItem>::sort(LessThan<TItem> &lessThan)
 template <typename TItem>
 void ObservableList<TItem>::notifyObservers(Changes<TItem>& changes)
 {
-    foreach(IListObserver<TItem> *observer, m_observers)
+    for (IListObserver<TItem> *observer : m_observers)
         observer->onChanged(changes);
 }
 

@@ -142,20 +142,20 @@ void CarouselComponentConfigurationDelegate::deconfigure(IComponent *component, 
     // TODO: implement me!
 
     // Deleting added toolbars
-    foreach(QToolBar *toolbar, changes->addedToolbars())
+    for (QToolBar *toolbar : changes->addedToolbars())
         catalogs.toolBarCatalog().deleteToolbar(toolbar);
 
     // Deleting added dockable widgets
-    foreach(QDockWidget *dockWidget, changes->addedDockWidgets())
+    for (QDockWidget *dockWidget : changes->addedDockWidgets())
         catalogs.dockWidgetCatalog().deleteDockWidget(dockWidget);
 
     // Deleting added to the menu bar menus
-    foreach(QMenu *menu, changes->addedMenus())
+    for (QMenu *menu : changes->addedMenus())
         catalogs.menuCatalog().deleteMenu(menu);
 
     // Deleting added operations at the end, after they have been
     // removed from the wigdets
-    foreach(Operation *operation, changes->addedOperations())
+    for (Operation *operation : changes->addedOperations())
         catalogs.operationCatalog().deleteOperation(operation);
 
 }

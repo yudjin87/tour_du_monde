@@ -40,7 +40,7 @@ FakeEnableComponentCommand::FakeEnableComponentCommand(ComponentDependencies *de
 void FakeEnableComponentCommand::redo()
 {
     bool enable = false;
-    foreach(IComponent *comp, m_dependencies->components()) {
+    for (IComponent *comp : m_dependencies->components()) {
         comp->setAvailability(enable ? IComponent::Enabled : IComponent::Disabled);
         enable = !enable;
     }

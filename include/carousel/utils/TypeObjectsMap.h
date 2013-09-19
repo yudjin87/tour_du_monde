@@ -141,7 +141,7 @@ TypeObjectsMap<TValue>::TypeObjectsMap()
 template<typename TValue>
 TypeObjectsMap<TValue>::~TypeObjectsMap()
 {
-    foreach(InstanceObject<TValue> *object, m_objects)
+    for (InstanceObject<TValue> *object : m_objects)
         delete object;
 }
 

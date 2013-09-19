@@ -57,7 +57,7 @@ void InstallComponentsOperation::execute()
     InstallComponentsCommand* command = m_serviceLocator->buildInstance<InstallComponentsCommand>();
     command->setSourceDirectoryPath(selectedFile.absolutePath());
 
-    foreach(const QString &fileName, fileDialog.selectedFiles())
+    for (const QString &fileName : fileDialog.selectedFiles())
         command->addDefinitionPath(fileName);
 
     command->pushToStack();

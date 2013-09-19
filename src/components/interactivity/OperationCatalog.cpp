@@ -62,7 +62,7 @@ QList<Operation *> OperationCatalog::operations() const
 QList<Operation *> OperationCatalog::operations(const QString &byCategory) const
 {
     QList<Operation *> operations;
-    foreach(Operation *operation, m_operations)
+    for (Operation *operation : m_operations)
         if (operation->category() == byCategory)
             operations.push_back(operation);
 
@@ -92,7 +92,7 @@ Operation *OperationCatalog::find(const QString &name)
 //------------------------------------------------------------------------------
 const Operation *OperationCatalog::find(const QString &name) const
 {
-    foreach(Operation *operation, m_operations)
+    for (Operation *operation : m_operations)
         if (operation->name() == name)
             return operation;
 

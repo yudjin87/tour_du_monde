@@ -42,7 +42,7 @@ FeatureClass::FeatureClass(GeometryType shapeType, const QRectF &extent, QString
 //------------------------------------------------------------------------------
 FeatureClass::~FeatureClass()
 {
-    foreach(IFeature *feature, m_features)
+    for (IFeature *feature : m_features)
         delete feature;
 }
 

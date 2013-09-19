@@ -79,7 +79,7 @@ const RingList &Polycurve::rings() const
 //------------------------------------------------------------------------------
 void Polycurve::clearData()
 {
-    foreach(Ring *ring, m_rings)
+    for (Ring *ring : m_rings)
         delete ring;
 
     m_rings.clear();

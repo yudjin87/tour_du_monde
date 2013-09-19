@@ -10,8 +10,8 @@ MockCompositeComponentProvider::MockCompositeComponentProvider()
 //------------------------------------------------------------------------------
 MockCompositeComponentProvider::~MockCompositeComponentProvider()
 {
-    foreach(IComponentProvider *provider, m_providers)
-        foreach(IComponent *component, provider->components())
+    for (IComponentProvider *provider : m_providers)
+        for (IComponent *component : provider->components())
             delete component;
 }
 

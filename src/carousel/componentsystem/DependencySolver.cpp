@@ -119,7 +119,7 @@ bool DependencySolver::solve(QStringList &ordered, QStringList &orphans, QString
     }
 
     // Clean ordered list
-    foreach (const QString &unknownComponent, orderedList) {
+    for (const QString &unknownComponent : orderedList) {
         if (m_knownComponents.contains(unknownComponent))
             continue;
 
@@ -141,7 +141,7 @@ bool DependencySolver::solve(QStringList &ordered, QStringList &orphans, QString
 void DependencySolver::removeMissingComponents(const QString &unknownComponent, QStringList &orderedList, QStringList &orphans) const
 {
     const QStringList &children = *m_dependencyMatrix->value(unknownComponent);
-    foreach (const QString &orphan, children) {
+    for (const QString &orphan : children) {
         orderedList.removeOne(orphan);
         orphans.append(orphan);
         removeMissingComponents(orphan, orderedList, orphans);
@@ -167,13 +167,13 @@ QStringList DependencySolver::findLeaves(const QStringList &skip) const
 {
     QStringList result;
 
-    foreach (const QString &parentComponent, m_dependencyMatrix->keys()) {
+    for (const QString &parentComponent : m_dependencyMatrix->keys()) {
         if (skip.contains(parentComponent))
             continue;
 
         int count = 0;
         const QStringList &children = *m_dependencyMatrix->value(parentComponent);
-        foreach (const QString &child, children) {
+        for  (const QString &child : children) {
             if (skip.contains(child))
                 continue;
 

@@ -58,7 +58,7 @@ void CarouselBootloader::configureComponentManager()
     Log.i("Initializing component manager.");
     Log.i(QString("Adding %1 components to the component manager.").arg(m_componentProvider->components().count()));
 
-    foreach(IComponent *component, m_componentProvider->components()) {
+    for (IComponent *component : m_componentProvider->components()) {
         m_componentManager->addComponent(component);
         Log.i(QString("%1 component has been added to the component manager.").arg(component->name()));
     }

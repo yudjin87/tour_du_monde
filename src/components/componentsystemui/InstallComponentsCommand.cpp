@@ -127,14 +127,14 @@ void InstallComponentsCommand::redo()
 
     // Get component names from the files
     QStringList componentNames;
-    foreach(const QString &fileName, m_definitionFiles) {
+    for (const QString &fileName : m_definitionFiles) {
         QFileInfo definitionFile(fileName);
         componentNames.push_back(definitionFile.completeBaseName());
     }
 
     // Add existed components
     DirectoryInstaller installer(m_sourceDirectoryPath, m_installPath);
-    foreach(IComponent *comp, m_manager->components()) {
+    for (IComponent *comp : m_manager->components()) {
         installer.addExistedComponent(comp);
     }
 
@@ -145,7 +145,7 @@ void InstallComponentsCommand::redo()
         return;
 
     // Startup installed components
-    foreach(const QString &fileName, installedDefinitionFiles) {
+    for (const QString &fileName : installedDefinitionFiles) {
         FileComponentProvider provider(fileName);
         IComponent *component = provider.loadComponent();
         if (m_manager->addComponent(component))

@@ -145,7 +145,7 @@ DependenciesSolvingResult ComponentDependencies::completeListWithParents(const Q
         solver.addComponent(parent->name());
 
         DependenciesSolvingResult result = getChildComponents(parent);
-        foreach (IComponent * child, result.ordered()) {
+        for (IComponent * child : result.ordered()) {
             if (!completeList.contains(child) && !unresolvedList.contains(child))
                 unresolvedList.push_back(child);
 
@@ -182,7 +182,7 @@ IComponent *ComponentDependencies::componentByName(const QString &byName) const
     if (m_components.empty())
         return nullptr;
 
-    foreach(IComponent *com, m_components) {
+    for (IComponent *com : m_components) {
         if (com->name() == byName)
             return com;
     }
@@ -221,7 +221,7 @@ DependenciesSolvingResult ComponentDependencies::getChildComponents(const ICompo
 
     QList<IComponent *> components_to_return;
 
-    foreach(IComponent *com, m_components) {
+    for (IComponent *com : m_components) {
         const ComponentDefinition *definition = com->definition();
         const ParentDefinitions &parents = definition->parents();
         if (parents.contains(forParent->name()))
@@ -240,7 +240,7 @@ DependenciesSolvingResult ComponentDependencies::solveDependencies(const QList<I
     QStringList missing;
     DependencySolver solver;
 
-    foreach (IComponent *com, components) {
+    for (IComponent *com : components) {
         solver.addComponent(com->name());
 
         const ComponentDefinition *definition = com->definition();

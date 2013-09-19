@@ -63,8 +63,8 @@ void SimpleFillSymbol::setStyle(Qt::BrushStyle style)
 //------------------------------------------------------------------------------
 void SimpleFillSymbol::drawPolygon(const Polygon &polygon, QPainter &painter)
 {
-    foreach(const Ring *ring, polygon.rings()) {
-        foreach(const Segment *segment, ring->segments()) {
+    for (const Ring *ring : polygon.rings()) {
+        for (const Segment *segment : ring->segments()) {
             const QPolygonF &poly = segment->curve();
             painter.drawPolygon(poly);
         }

@@ -50,7 +50,7 @@ bool CompositeComponentProvider::initialize()
         return true;
 
     m_alreadyInit = true;
-    foreach(IComponentProvider *provider, m_providers)
+    for (IComponentProvider *provider : m_providers)
         m_alreadyInit &= provider->initialize();
 
     return m_alreadyInit;
@@ -67,8 +67,8 @@ QList<IComponent *> CompositeComponentProvider::components() const
 {
     QList<IComponent *> components_to_return;
 
-    foreach(IComponentProvider *provider, m_providers)
-        foreach(IComponent *component, provider->components())
+    for (IComponentProvider *provider : m_providers)
+        for (IComponent *component : provider->components())
             components_to_return.push_back(component);
 
     return components_to_return;
