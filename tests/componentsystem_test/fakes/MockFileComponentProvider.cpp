@@ -118,7 +118,7 @@ MockProxyComponent::MockProxyComponent(ComponentDefinition *definition, QObject 
 }
 
 //------------------------------------------------------------------------------
-bool MockProxyComponent::initialize()
+bool MockProxyComponent::initialize(QString *)
 {
     return initializeReturnValue;
 }

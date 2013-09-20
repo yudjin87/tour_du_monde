@@ -26,6 +26,10 @@ private slots:
     // startup activities
     void startup_shouldShouldNotCallIfAlreadyDid();
     void startup_shouldStartComponents();
+    void startup_shouldStartComponentsWithCorrectState_data();
+    void startup_shouldStartComponentsWithCorrectState();
+    void startup_shouldSetStateForComponent();
+    void startup_shouldNotChangeStateForFailedToStartComponent();
     void startup_shouldNotStartDisabledComponent();
     void startupAllComponents_shouldCallCheck(); // which calls resolving
     void startupAllComponents_shouldRemoveThemFromStoppedList();
@@ -49,6 +53,7 @@ private slots:
     void shutdownAllComponents_shouldNotShutdownBuiltInComponent();
     void shutdownAllComponents_shouldDisableComponent();
     void shutdownComponents_shouldReturnJustShutDownComponents();
+    void shutdownComponents_shouldSetStoppedStateForComponent();
     void shutdown_shouldShutdownAllComponents();
     void shutdown_shouldShutdownBuiltInComponents();
     void shutdown_shouldNotDisableComponent();

@@ -279,36 +279,28 @@ DependenciesSolvingResult ComponentManager::startupComponents(QList<IComponent *
 
     QSet<IComponent *> skippedComponents;
     QList<IComponent *> componentsToStart = solvingResult.ordered();
-    QList<IComponent *> realyStartedComponents;
+    QList<IComponent *> reallyStartedComponents;
     for (IComponent *comp : componentsToStart) {
         if (comp->started() || skippedComponents.contains(comp))
             continue;
 
-        if (!m_components->components().contains(comp)) {
-            Log.i(QString("Can not start unexisting component: \"%1\".").arg(comp->name()));
-            continue;
-        }
-
-        if (comp->started()) {
-            Log.i(QString("\"%1\" component is already started. Skip it.").arg(comp->name()));
-            continue;
-        }
-
-        if ((this->*(m_startUpFunc))(comp)) {
+        if (tryToStartComponent(comp)) {
             Log.i(QString("\"%1\" component is started.").arg(comp->name()));
             onComponentStarted(comp);
-            realyStartedComponents.push_back(comp);
+            reallyStartedComponents.push_back(comp);
         } else {
+
             Log.i(QString("Can not startup component: \"%1\".").arg(comp->name()));
 
             QStringList skipedChildren;
             DependenciesSolvingResult children = m_components->completeListWithParent(comp);
-            for (IComponent *comp : children.ordered()) {
-                skippedComponents.insert(comp);
-                skipedChildren.append(comp->name());
+            for (IComponent *skippedComp : children.ordered()) {
+                skippedComponents.insert(skippedComp);
+                if (skippedComp != comp)
+                    skipedChildren.append(skippedComp->name()); // don't include name of failed component in the message
             }
 
-            QString info = QString("Following child component(s) will not started too: %1.").arg(skipedChildren.join(","));
+            QString info = QString("Can not startup component: \"%1\". Following child component(s) will not started too: %1.").arg(skipedChildren.join(","));
             Log.i(info);
         }
     }
@@ -316,14 +308,16 @@ DependenciesSolvingResult ComponentManager::startupComponents(QList<IComponent *
     QList<IComponent *> orphans = solvingResult.orphans();
     if (!orphans.empty()) {
         QStringList orphanComponents;
-        for (IComponent *comp : orphans)
+        for (IComponent *comp : orphans) {
+            comp->definition()->setError("Can not startup, because parent component(s) are not started.");
             orphanComponents.append(comp->name());
+        }
 
         Log.i(QString("Following components were not started (orphans): %1.").arg(orphanComponents.join(", ")));
         m_orphanComponents += orphans.toSet();
     }
 
-    return DependenciesSolvingResult(realyStartedComponents);
+    return DependenciesSolvingResult(reallyStartedComponents);
 }
 
 //------------------------------------------------------------------------------
@@ -370,14 +364,22 @@ bool ComponentManager::startCheckedComponent(IComponent *component)
         return false;
     }
 
-    return component->startup(m_serviceLocator);
+    if (!component->startup(m_serviceLocator))
+        return false;
+
+    component->setState(IComponent::Running);
+    return true;
 }
 
 //------------------------------------------------------------------------------
 bool ComponentManager::enableAndStartComponent(IComponent *component)
 {
     component->setAvailability(IComponent::Enabled);
-    return component->startup(m_serviceLocator);
+    if (!component->startup(m_serviceLocator))
+        return false;
+
+    component->setState(IComponent::Running);
+    return true;
 }
 
 //------------------------------------------------------------------------------
@@ -388,6 +390,7 @@ void ComponentManager::shutdownCheckedComponent(IComponent *component)
         return;
 
     component->setAvailability(IComponent::Disabled);
+    component->setState(IComponent::Stopped);
     component->shutdown(m_serviceLocator);
 }
 
@@ -395,6 +398,33 @@ void ComponentManager::shutdownCheckedComponent(IComponent *component)
 void ComponentManager::forceShutdownCheckedComponent(IComponent *component)
 {
     component->shutdown(m_serviceLocator);
+    component->setState(IComponent::Stopped);
+}
+
+//------------------------------------------------------------------------------
+bool ComponentManager::tryToStartComponent(IComponent *component)
+{
+    if (!m_components->components().contains(component)) {
+        Log.i(QString("Can not start unexisting component: \"%1\".").arg(component->name()));
+        return false;
+    }
+
+    // TODO: use static initialization with initializer list
+    QList<IComponent::State> startableStates;
+    startableStates << IComponent::Initialized << IComponent::Stopped << IComponent::Orphan;
+
+    if (!startableStates.contains(component->state())) {
+        Log.i(QString("Could not start component \"%1\" with state %2.").arg(component->name()).arg(component->state()));
+        return false;
+    }
+
+    if (!(this->*(m_startUpFunc))(component)) {
+        Log.i(QString("Component \"%1\" startup was failed.").arg(component->name()));
+        return false;
+    }
+
+    Log.i(QString("\"%1\" component is started.").arg(component->name()));
+    return true;
 }
 
 //------------------------------------------------------------------------------

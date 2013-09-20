@@ -26,6 +26,8 @@ signals:
 public:
     IServiceLocator *m_serviceLocator;
     bool m_returnValue;
+    bool m_onStartupCalled;
+    bool m_onShutdownCalled;
     QList<MockComponent *> *m_registrator;
 };
 

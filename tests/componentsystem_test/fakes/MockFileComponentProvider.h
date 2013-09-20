@@ -68,7 +68,7 @@ public:
     MockProxyComponent(QObject *parent = nullptr);
     MockProxyComponent(ComponentDefinition *definition, QObject *parent = nullptr);
 
-    bool initialize();
+    bool initialize(QString *error = nullptr);
 
     static bool initializeReturnValue;
 };

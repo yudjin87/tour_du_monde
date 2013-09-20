@@ -56,7 +56,7 @@ void CarouselComponentConfigurationDelegateTest::shouldCallConfigureGuiIfCompone
 {
     CarouselComponentConfigurationDelegate delegate(&m_locator);
     MockInteractiveExtension component;
-    component.startup(nullptr);
+    component.startup(nullptr); component.setState(IComponent::Running); component.setState(IComponent::Running);
 
     QMainWindow mw; Catalogs ctlgs(mw, nullptr);
     delegate.configure(&component, ctlgs);
@@ -93,7 +93,7 @@ void CarouselComponentConfigurationDelegateTest::shouldRegisterChangesForCompone
 {
     CarouselComponentConfigurationDelegate delegate(&m_locator);
     MockInteractiveExtension component;
-    component.startup(nullptr);
+    component.startup(nullptr); component.setState(IComponent::Running);
     component.m_interactiveExtension->setCunfigureFunc(&configureCatalogs);
     QMainWindow mw; Catalogs ctlgs(mw, nullptr);
     delegate.configure(&component, ctlgs);
@@ -126,7 +126,7 @@ void CarouselComponentConfigurationDelegateTest::shouldNotRegisterChangesAfterCo
 {
     CarouselComponentConfigurationDelegate delegate(&m_locator);
     MockInteractiveExtension component;
-    component.startup(nullptr);
+    component.startup(nullptr); component.setState(IComponent::Running);
     component.m_interactiveExtension->setCunfigureFunc(&configureCatalogs);
     QMainWindow mw; Catalogs ctlgs(mw, nullptr);
     delegate.configure(&component, ctlgs);
@@ -145,7 +145,7 @@ void CarouselComponentConfigurationDelegateTest::shouldDeconfigureComponent()
 {
     CarouselComponentConfigurationDelegate delegate(&m_locator);
     MockInteractiveExtension component;    
-    component.startup(nullptr);
+    component.startup(nullptr); component.setState(IComponent::Running);
     component.m_interactiveExtension->setCunfigureFunc(&configureCatalogs);
     QMainWindow mw; Catalogs ctlgs(mw, nullptr);
 

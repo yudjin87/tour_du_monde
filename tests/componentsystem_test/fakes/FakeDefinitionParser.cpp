@@ -17,6 +17,7 @@ FakeDefinitionParser::FakeDefinitionParser()
     , m_error("")
     , m_version("")
     , m_parents()
+    , m_readResult(true)
 {
     QDir absolutePath = QCoreApplication::applicationDirPath();
     m_componentLocation = absolutePath.relativeFilePath(pathToComponent("TestComponent2", false));
@@ -33,7 +34,7 @@ bool FakeDefinitionParser::read(const QString &text)
 {
     Q_UNUSED(text)
     emit readCalled();
-    return true;
+    return m_readResult;
 }
 
 //------------------------------------------------------------------------------
@@ -41,7 +42,7 @@ bool FakeDefinitionParser::read(const QByteArray &text)
 {
     Q_UNUSED(text)
     emit readCalled();
-    return true;
+    return m_readResult;
 }
 
 //------------------------------------------------------------------------------
@@ -49,7 +50,7 @@ bool FakeDefinitionParser::read(QIODevice *dev)
 {
     Q_UNUSED(dev)
     emit readCalled();
-    return true;
+    return m_readResult;
 }
 
 //------------------------------------------------------------------------------

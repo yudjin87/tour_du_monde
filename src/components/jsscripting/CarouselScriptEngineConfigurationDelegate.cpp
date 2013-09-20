@@ -109,7 +109,6 @@ CarouselScriptEngineConfigurationDelegate::CarouselScriptEngineConfigurationDele
 {
     setParent(parent);
 
-    REGISTER_CONST_METATYPE(ComponentDefinition);
     REGISTER_METATYPE(ComponentDefinition);
     REGISTER_METATYPE(IScriptConsole);
     REGISTER_METATYPE(IScriptCollection);

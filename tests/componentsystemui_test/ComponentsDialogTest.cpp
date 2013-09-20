@@ -53,6 +53,8 @@ ComponentDefinition *createDefinition(QString name, bool builtIn, QString compLo
     def->setProductName(product);
     def->setShortComponentName(shortName);
 
+    def->setError(QString("Cannot parse file %1").arg(defLocation));
+
     return def;
 }
 
@@ -65,8 +67,9 @@ ComponentsDialogTest::ComponentsDialogTest(QObject *parent)
 {
 
     dependencies = new ComponentDependencies(this);
-    for (int i = 0; i < 11; ++i) {
+    for (int i = 0; i < 13; ++i) {
         IComponent *comp = new ProxyComponent(createDefinition(QString("org.tests.Component%1").arg(i), (i % 3), "/to/nowhere/library", "/to/nowhere/definition", "Description", "ComponentA product", QString("Component %1").arg(i)));
+        comp->setState(IComponent::State( i % 8));
         components.push_back(comp);
         dependencies->addComponent(comp);
     }

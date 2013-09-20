@@ -41,10 +41,26 @@ static LoggerFacade Log = LoggerFacade::createLogger("BaseComponent");
 }
 
 //------------------------------------------------------------------------------
+static int IComponentMetatypeId = qRegisterMetaType<IComponent*>("IComponent*");
+static int IComponentListMetatypeId = qRegisterMetaType<QList<IComponent*>>("QList<IComponent*>");
+static int IComponentAvailabilityId = qRegisterMetaType<IComponent::Availability>("IComponent::Availability");
+static int IComponentStateId = qRegisterMetaType<IComponent::State>("IComponent::State");
+
+//------------------------------------------------------------------------------
+QStringList toStringList(const QList<IComponent *> &components)
+{
+    QStringList names;
+    for (IComponent *comp : components)
+        names.push_back(comp->name());
+
+    return names;
+}
+
+//------------------------------------------------------------------------------
 BaseComponent::BaseComponent(const QString &name, QObject *parent)
     : m_definition(new ComponentDefinition(name, true))
-    , m_isStarted(false)
     , m_availability(IComponent::Enabled)
+    , m_state(IComponent::Initialized)
     , m_typeObjectsMap(new TypeObjectsMap<void *>())
 {
     setParent(parent);
@@ -56,8 +72,8 @@ BaseComponent::BaseComponent(const QString &name, QObject *parent)
 //------------------------------------------------------------------------------
 BaseComponent::BaseComponent(ComponentDefinition *definition, QObject *parent)
     : m_definition(definition)
-    , m_isStarted(false)
     , m_availability(IComponent::Enabled)
+    , m_state(IComponent::Initialized)
     , m_typeObjectsMap(new TypeObjectsMap<void *>())
 {
     setParent(parent);
@@ -98,6 +114,18 @@ IComponent::Availability BaseComponent::availability() const
 }
 
 //------------------------------------------------------------------------------
+IComponent::State BaseComponent::state() const
+{
+    return m_state;
+}
+
+//------------------------------------------------------------------------------
+ComponentDefinition *BaseComponent::definition()
+{
+    return m_definition;
+}
+
+//------------------------------------------------------------------------------
 const ComponentDefinition *BaseComponent::definition() const
 {
     return m_definition;
@@ -112,33 +140,30 @@ const QString &BaseComponent::name() const
 //------------------------------------------------------------------------------
 bool BaseComponent::started() const
 {
-    return m_isStarted;
+    return state() == IComponent::Running;
 }
 
 //------------------------------------------------------------------------------
 void BaseComponent::shutdown(IServiceLocator *serviceLocator)
 {
-    if (!m_isStarted) {
+    if (!started()) {
         Log.w(QString("Component \"%1\" is being shut down, but it was not started up.").arg(name()));
         return;
     }
 
-    m_isStarted = false;
     onShutdown(serviceLocator);
 }
 
 //------------------------------------------------------------------------------
 bool BaseComponent::startup(IServiceLocator *serviceLocator)
 {
-    if (m_isStarted) {
+    if (started()) {
         Log.w(QString("Component \"%1\" is being started up, but it was not shut down.").arg(name()));
         return true;
     }
 
     m_definition->setArguments(QCoreApplication::arguments());
-
-    m_isStarted = onStartup(serviceLocator);
-    return m_isStarted;
+    return onStartup(serviceLocator);
 }
 
 //------------------------------------------------------------------------------
@@ -190,9 +215,21 @@ void BaseComponent::setAvailability(IComponent::Availability newMode)
 }
 
 //------------------------------------------------------------------------------
+void BaseComponent::setState(IComponent::State newState)
+{
+    m_state = newState;
+}
+
+//------------------------------------------------------------------------------
 void BaseComponent::setDescription(const QString &description)
 {
     m_definition->setDescription(description);
+}
+
+//------------------------------------------------------------------------------
+void BaseComponent::setError(const QString &error)
+{
+    m_definition->setError(error);
 }
 
 //------------------------------------------------------------------------------

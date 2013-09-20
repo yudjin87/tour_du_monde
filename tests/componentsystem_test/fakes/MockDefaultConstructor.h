@@ -41,6 +41,9 @@ public:
 
 signals:
     void constructCalled();
+
+public:
+    bool *m_constructResult;
 };
 
 #endif // MOCKDEFAULTCONSTRUCTOR_H

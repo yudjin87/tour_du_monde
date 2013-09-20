@@ -46,6 +46,7 @@ ProxyComponent::ProxyComponent(ComponentDefinition *definition, QObject *parent)
     , m_component(nullptr)
     , m_initialized(false)
 {
+    setState(IComponent::Invalid);
 }
 
 //------------------------------------------------------------------------------
@@ -55,6 +56,7 @@ ProxyComponent::ProxyComponent(ComponentDefinition *definition, IComponentLoader
     , m_component(nullptr)
     , m_initialized(false)
 {
+    setState(IComponent::Invalid);
 }
 
 //------------------------------------------------------------------------------
@@ -76,7 +78,7 @@ ProxyComponent::~ProxyComponent()
 }
 
 //------------------------------------------------------------------------------
-bool ProxyComponent::initialize()
+bool ProxyComponent::initialize(QString *error)
 {
     if (m_initialized)
         return true;
@@ -87,6 +89,9 @@ bool ProxyComponent::initialize()
     }
 
     if (definition()->componentName().trimmed().isEmpty()) {
+        if (error != nullptr)
+            *error = "Cannot initialize with empty component name.";
+
         Log.w("Cannot initialize with empty component name.");
         return false;
     }
@@ -98,8 +103,11 @@ bool ProxyComponent::initialize()
     // Library file should exist and should be readable
     QFileInfo checkFile(libraryPath);
     if (!checkFile.isReadable()) {
-        Log.w(QString("Cannot initialize because component lirary file \"%1\" does not exist or it is not readable.")
-              .arg(libraryPath));
+        QString em = QString("Cannot initialize because component library file \"%1\" does not exist or it is not readable.").arg(libraryPath);
+        Log.w(em);
+        if (error != nullptr)
+            *error = em;
+
         return false;
     }
 
@@ -143,13 +151,17 @@ bool ProxyComponent::onStartup(IServiceLocator *serviceLocator)
 
     if (!m_loader->load()) {
         Log.w("Cannot start up because loading failed.");
+        setError(m_loader->errorString());
         return false;
     }
 
     m_component = m_loader->instance();
 
-    if (m_component == nullptr)
+    if (m_component == nullptr) {
+        Log.w("Cannot start up null instance.");
+        setError(m_loader->errorString());
         return false;
+    }
 
     Log.d("Start up loaded component.");
     return m_component->startup(serviceLocator);

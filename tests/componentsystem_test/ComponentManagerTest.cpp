@@ -10,11 +10,14 @@
 
 #include <carousel/componentsystem/ComponentManager.h>
 
+#include <QtCore/QSettings>
 #include <QtTest/QtTest>
 
 //------------------------------------------------------------------------------
 ComponentManagerTest::ComponentManagerTest()
 {
+    QSettings settings;
+    settings.clear();
 }
 
 //------------------------------------------------------------------------------
@@ -150,6 +153,81 @@ void ComponentManagerTest::startup_shouldStartComponents()
     manager.startup();
 
     QVERIFY(descriptionComponent->started());
+}
+
+//------------------------------------------------------------------------------
+void ComponentManagerTest::startup_shouldStartComponentsWithCorrectState_data()
+{
+    QTest::addColumn<int>("state");
+    QTest::addColumn<bool>("result");
+
+    /*
+     *                                                 ┌────────┐
+     *                                              ┌─>│ Orphan ├───────┐
+     *                                              │  └────────┘       v
+     *   ┌─────────┐  ┌────────────┐  ┌────────┐  ┌─┴───────────┐  ┌─────────┐
+     *   │ Invalid ├─>│ Discovered ├─>│ Parsed ├─>│ Initialized ├─>│ Running │
+     *   └─────────┘  └────────────┘  └────────┘  └─────────────┘  └─┬───────┘
+     *                                                               v    ^
+     *                                                             ┌──────┴──┐
+     *                                                             │ Stopped │
+     *                                                             └─────────┘
+     */
+
+    QTest::newRow("Invalid")      << int(IComponent::Invalid)      << false;
+    QTest::newRow("Discovered")   << int(IComponent::Discovered)   << false;
+    QTest::newRow("Parsed")       << int(IComponent::Parsed)       << false;
+    QTest::newRow("Initialized")  << int(IComponent::Initialized)  << true;
+    QTest::newRow("Running")      << int(IComponent::Running)      << true;
+    QTest::newRow("Stopped")      << int(IComponent::Stopped)      << true;
+    QTest::newRow("Orphan")       << int(IComponent::Orphan)       << true;
+}
+
+//------------------------------------------------------------------------------
+void ComponentManagerTest::startup_shouldStartComponentsWithCorrectState()
+{
+    QFETCH(int, state);
+    QFETCH(bool, result);
+
+    TestDescriptionComponent *comp = new TestDescriptionComponent();
+    comp->setState(IComponent::State(state));
+
+    ComponentManager manager(&m_locator);
+    manager.addComponent(comp);
+
+    manager.startup();
+
+    QCOMPARE(comp->started(), result);
+}
+
+//------------------------------------------------------------------------------
+void ComponentManagerTest::startup_shouldSetStateForComponent()
+{
+    TestDescriptionComponent *comp = new TestDescriptionComponent();
+    comp->setState(IComponent::Initialized);
+
+    ComponentManager manager(&m_locator);
+    manager.addComponent(comp);
+
+    manager.startup();
+
+    QCOMPARE(comp->state(), IComponent::Running);
+}
+
+//------------------------------------------------------------------------------
+void ComponentManagerTest::startup_shouldNotChangeStateForFailedToStartComponent()
+{
+    MockComponent *comp = new MockComponent();
+    comp->m_returnValue = false;
+    comp->setState(IComponent::Initialized);
+    comp->setAvailability(IComponent::Enabled);
+
+    ComponentManager manager(&m_locator);
+    manager.addComponent(comp);
+
+    manager.startup();
+
+    QCOMPARE(comp->state(), IComponent::Initialized);
 }
 
 //------------------------------------------------------------------------------
@@ -331,6 +409,7 @@ void ComponentManagerTest::shutdownAllComponents_shouldNotShutdownBuiltInCompone
     QSignalSpy spy(componentA, SIGNAL(whenShutdown(const QString &)));
 
     componentA->startup(nullptr);
+    componentA->setState(IComponent::Running);
 
     QCOMPARE(componentA->started(), true);
 
@@ -376,6 +455,21 @@ void ComponentManagerTest::shutdownComponents_shouldReturnJustShutDownComponents
     // Only componentA should appear that time
     QCOMPARE(result.ordered().size(), 1);
     QVERIFY(result.ordered().first()->name() == "A");
+}
+
+//------------------------------------------------------------------------------
+void ComponentManagerTest::shutdownComponents_shouldSetStoppedStateForComponent()
+{
+    MockComponent *componentA = createComponent("A");
+    componentA->setState(IComponent::Initialized);
+
+    ComponentManager manager(&m_locator);
+    manager.addComponent(componentA);
+
+    manager.startup();
+    manager.shutdownComponent(componentA);
+
+    QCOMPARE(componentA->state(), IComponent::Stopped);
 }
 
 //------------------------------------------------------------------------------

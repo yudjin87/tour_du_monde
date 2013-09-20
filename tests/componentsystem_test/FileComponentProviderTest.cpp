@@ -93,13 +93,33 @@ void FileComponentProviderTest::initialize_shouldCallLoadComponent()
 }
 
 //------------------------------------------------------------------------------
-void FileComponentProviderTest::loadComponent_shouldReturnNullIfPathIsEmpty()
+void FileComponentProviderTest::loadComponent_shouldSetInvalidStateIfPathIsEmpty()
 {
     AutoFileComponentProvider provider;
 
     IComponent *result = provider.loadComponent();
+    QCOMPARE(result->state(), IComponent::Invalid);
+}
 
-    QVERIFY(result == nullptr);
+//------------------------------------------------------------------------------
+void FileComponentProviderTest::loadComponent_shouldSetDiscoveredStateIfParserReturnFalse()
+{
+    MockFileComponentProvider provider(definitionPath, new FakeDefinitionParser());
+    provider.parser->m_readResult = false;
+
+    IComponent *result = provider.loadComponent();
+    QCOMPARE(result->state(), IComponent::Discovered);
+}
+
+//------------------------------------------------------------------------------
+void FileComponentProviderTest::loadComponent_shouldSetDiscoveredStateIfConstructorReturnFalse()
+{
+    MockFileComponentProvider provider(definitionPath);
+	provider.constructor = new MockDefaultConstructor();
+    provider.constructor->m_constructResult = new bool(false);
+
+    IComponent *result = provider.loadComponent();
+    QCOMPARE(result->state(), IComponent::Discovered);
 }
 
 //------------------------------------------------------------------------------
@@ -110,7 +130,7 @@ void FileComponentProviderTest::loadComponent_shouldLoadComponent()
     IComponent *result = provider.loadComponent();
     MockProxyComponent::initializeReturnValue = false;
 
-    QVERIFY(result != nullptr);
+    QCOMPARE(result->state(), IComponent::Initialized);
 }
 
 //------------------------------------------------------------------------------
@@ -160,7 +180,7 @@ void FileComponentProviderTest::loadComponent_shouldNotPopulateComponentIfItsIni
 }
 
 //------------------------------------------------------------------------------
-void FileComponentProviderTest::loadComponent_shouldReturnNullIfComponentItsInitializationFault()
+void FileComponentProviderTest::loadComponent_shouldSetParsedStateIfConstructorReturnTrueButInitializationFailed()
 {
     MockFileComponentProvider provider(definitionPath);
 
@@ -168,7 +188,7 @@ void FileComponentProviderTest::loadComponent_shouldReturnNullIfComponentItsInit
     IComponent *result = provider.loadComponent();
     MockProxyComponent::initializeReturnValue = true;
 
-    QVERIFY(result == nullptr);
+    QCOMPARE(result->state(), IComponent::Parsed);
 }
 
 //------------------------------------------------------------------------------

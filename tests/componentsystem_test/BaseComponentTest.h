@@ -17,7 +17,7 @@ private Q_SLOTS:
     void shouldSetAvailabilityEnabledByDefault();
 
     void shouldReturnResultOfProtectedMethodOnFirstSuccessfulStartup();
-    void shouldAssignResultOfProtectedMethodToTheStartedFlag();
+    void started_shouldReturnCorrectValue();
     void shouldNotStartupIfAlreadyStarted();
     void shouldShutdownIfAlreadyStoped();
 

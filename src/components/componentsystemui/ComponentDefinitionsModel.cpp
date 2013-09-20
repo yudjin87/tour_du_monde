@@ -92,7 +92,7 @@ int ComponentDefinitionsModel::rowCount(const QModelIndex &parent) const
 //------------------------------------------------------------------------------
 int ComponentDefinitionsModel::columnCount(const QModelIndex &parent) const
 {
-    return (parent.column() > 0) ? 0 : 5;
+    return (parent.column() > 0) ? 0 : 6;
 }
 
 //------------------------------------------------------------------------------
@@ -103,10 +103,11 @@ QVariant ComponentDefinitionsModel::headerData(int section, Qt::Orientation orie
 
     switch (section) {
     case 0: return "Name";
-    case 1: return "Product name";
-    case 2: return "Provider";
-    case 3: return "Version";
-    case 4: return "Internal name";
+    case 1: return "Enabled";
+    case 2: return "Product name";
+    case 3: return "Provider";
+    case 4: return "Version";
+    case 5: return "Internal name";
 
     default: return QVariant();
     }
@@ -126,10 +127,11 @@ QVariant ComponentDefinitionsModel::data(const QModelIndex &index, int role) con
     case Qt::DisplayRole:
         switch (index.column()) {
         case 0: return def->shortComponentName();
-        case 1: return def->productName();
-        case 2: return def->provider();
-        case 3: return def->version()->toString();
-        case 4: return def->componentName();
+        case 1: return "";
+        case 2: return def->productName();
+        case 3: return def->provider();
+        case 4: return def->version()->toString();
+        case 5: return def->componentName();
         default:
             qWarning("data: invalid display value column %d", index.column());
             break;
@@ -138,7 +140,7 @@ QVariant ComponentDefinitionsModel::data(const QModelIndex &index, int role) con
 
     case Qt::CheckStateRole:
         switch (index.column()) {
-        case 0: return comp->availability() == IComponent::Enabled
+        case 1: return comp->availability() == IComponent::Enabled
                     ? Qt::Checked
                     : Qt::Unchecked;
         default: return QVariant::Invalid;
@@ -146,10 +148,10 @@ QVariant ComponentDefinitionsModel::data(const QModelIndex &index, int role) con
         break;
 
     case Qt::ToolTipRole:
-        if (index.column() == 0) {
+        if (comp->state() == IComponent::Running || comp->state() == IComponent::Stopped) {
             return def->isBuiltIn() ? tr("Built-in") : def->definitionLocation();
         } else {
-            return QVariant::Invalid;
+            return def->error();
         }
 
     case Qt::TextColorRole:
@@ -160,8 +162,12 @@ QVariant ComponentDefinitionsModel::data(const QModelIndex &index, int role) con
 
     case Qt::DecorationRole:
         if (index.column() == 0) {
-            QIcon icon;
-            return icon;
+            if ((int)comp->state() <= (int)IComponent::Initialized)
+                return QIcon(":/componentSystemUi/images/error.png");
+            if (comp->state() == IComponent::Running || comp->state() == IComponent::Stopped)
+                return QIcon(":/componentSystemUi/images/ok.png");
+            if (comp->state() == IComponent::Orphan)
+                return QIcon(":/componentSystemUi/images/notloaded.png");
         }
         break;
     }

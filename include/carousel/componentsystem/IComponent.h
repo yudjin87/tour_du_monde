@@ -62,16 +62,18 @@ class COMP_API IComponent : public QObject
 {
     Q_OBJECT
     Q_ENUMS(Availability)
+    Q_ENUMS(State)
 
     /*!
      * @details
      *   Gets or sets the value specified whether this component is enabled, disabled, or unavailable.
      *   When the availability is enabled, the component is checked in the Components dialog.
      */
-    Q_PROPERTY(Availability availability READ availability WRITE setAvailability NOTIFY availabilityChanged)
+    Q_PROPERTY(Availability availability READ availability NOTIFY availabilityChanged)
+    Q_PROPERTY(State state READ state)
     Q_PROPERTY(bool started READ started)
     Q_PROPERTY(QString name READ name)
-    Q_PROPERTY(const ComponentDefinition *definition READ definition)
+    Q_PROPERTY(ComponentDefinition *definition READ definition)
 public:
     /*!
      * @details
@@ -102,6 +104,34 @@ public:
         Unavailable
     };
 
+    /*!
+     * @details
+     *   The component goes through several steps while being loaded. The state gives a
+     *   hint on what went wrong in case of an error.
+     * @code
+     *                                                 ┌────────┐
+     *                                              ┌─>│ Orphan ├───────┐
+     *                                              │  └────────┘       v
+     *   ┌─────────┐  ┌────────────┐  ┌────────┐  ┌─┴───────────┐  ┌─────────┐
+     *   │ Invalid ├─>│ Discovered ├─>│ Parsed ├─>│ Initialized ├─>│ Running │
+     *   └─────────┘  └────────────┘  └────────┘  └─────────────┘  └─┬───────┘
+     *                                                               v    ^
+     *                                                             ┌──────┴──┐
+     *                                                             │ Stopped │
+     *                                                             └─────────┘
+     * @endcode
+     */
+    enum State
+    {
+        Invalid = 0,  // definition path is invalid or don't have an read access
+        Discovered, // definition is found and read
+        Parsed,     // definition is parsed
+        Initialized, // properties are set from the parsing definition, library file is found. Default value for statically registered components
+        Running,
+        Stopped,      // shutdown was called
+        Orphan        // parents were not found or could not started
+    };
+
     virtual ~IComponent(){}
 
     /*!
@@ -111,6 +141,23 @@ public:
      * @sa setAvailability
      */
     virtual Availability availability() const = 0;
+
+    /*!
+     * @details
+     *   Gets the state in which the component currently is. See the description of the
+     *   IComponent::State enum for details.
+     * @sa setState
+     */
+    virtual State state() const = 0;
+
+    /*!
+     * @details
+     *   Gets the component definition that can specify component dependencies
+     *   and also describes the component.
+     *
+     *   Note, that component takes ownership for its defition.
+     */
+    virtual ComponentDefinition *definition() = 0;
 
     /*!
      * @details
@@ -173,6 +220,16 @@ public:
      * @sa availability
      */
     virtual void setAvailability(Availability newMode) = 0;
+
+    /*!
+     * @details
+     *   Sets the value specified the component current state.
+     *
+     * @note You should not use this method directly, it is for internal goals only.
+     *
+     * @sa state
+     */
+    virtual void setState(State newState) = 0;
 
     /*!
      * @details

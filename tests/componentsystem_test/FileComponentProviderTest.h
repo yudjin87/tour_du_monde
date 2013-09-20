@@ -43,13 +43,15 @@ private Q_SLOTS:
     void initialize_shouldReturnFalseIfLoadingReturnsNull();
     void initialize_shouldCallLoadComponent();
 
-    void loadComponent_shouldReturnNullIfPathIsEmpty();
+    void loadComponent_shouldSetInvalidStateIfPathIsEmpty();
+    void loadComponent_shouldSetDiscoveredStateIfParserReturnFalse();
+    void loadComponent_shouldSetDiscoveredStateIfConstructorReturnFalse();
+    void loadComponent_shouldSetParsedStateIfConstructorReturnTrueButInitializationFailed();
     void loadComponent_shouldLoadComponent();
     void loadComponent_shouldCallReadOnParser();
     void loadComponent_shouldCallConstructOnConstructor();
     void loadComponent_shouldPopulateWithComponent();
     void loadComponent_shouldNotPopulateComponentIfItsInitializationFault();
-    void loadComponent_shouldReturnNullIfComponentItsInitializationFault();
 
 private:
     const QString definitionPath;

@@ -1,5 +1,8 @@
 <RCC>
     <qresource prefix="/componentSystemUi">
         <file>images/install_component.png</file>
+        <file>images/error.png</file>
+        <file>images/notloaded.png</file>
+        <file>images/ok.png</file>
     </qresource>
 </RCC>

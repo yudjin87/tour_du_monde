@@ -1,6 +1,5 @@
 #include "FakeComponentLoader.h"
 
-#include "MockComponent.h"
 
 //------------------------------------------------------------------------------
 FakeComponentLoader::FakeComponentLoader()

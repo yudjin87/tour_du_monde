@@ -18,7 +18,6 @@ SOURCES += \
     $$PROJECT_SOURCES/DirectoryInstaller.cpp \
     $$PROJECT_SOURCES/DirectoryWatchingComponentProvider.cpp \
     $$PROJECT_SOURCES/FileComponentProvider.cpp \
-    $$PROJECT_SOURCES/IComponent.cpp \
     $$PROJECT_SOURCES/ParentDefinition.cpp \
     $$PROJECT_SOURCES/ParentDefinitions.cpp \
     $$PROJECT_SOURCES/ProxyComponent.cpp \

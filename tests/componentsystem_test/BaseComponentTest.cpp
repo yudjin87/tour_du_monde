@@ -57,6 +57,8 @@ void BaseComponentTest::shouldSetLoadedAvailability()
 void BaseComponentTest::shouldEmitWhenAvailabilitySet()
 {
     SimpleComponent component("Comp1");
+    component.setAvailability(IComponent::Enabled);
+
     QSignalSpy spy(&component, SIGNAL(availabilityChanged(IComponent::Availability)));
 
     component.setAvailability(IComponent::Disabled);
@@ -84,7 +86,7 @@ void BaseComponentTest::shouldSaveSetAvailabilityInDestructor()
 void BaseComponentTest::shouldNotSetAvailabilityIfDidNotLoad()
 {
     QSettings settings;
-    settings.setValue("components_availability/empty", 0);
+    settings.clear();
     settings.sync();
 
     SimpleComponent component("Comp1");
@@ -103,13 +105,15 @@ void BaseComponentTest::shouldReturnResultOfProtectedMethodOnFirstSuccessfulStar
 }
 
 //------------------------------------------------------------------------------
-void BaseComponentTest::shouldAssignResultOfProtectedMethodToTheStartedFlag()
+void BaseComponentTest::started_shouldReturnCorrectValue()
 {
     SimpleComponent mockComponent;
     mockComponent.startup(nullptr);
+    mockComponent.setState(IComponent::Running);
     QVERIFY(mockComponent.started());
 
-    MockComponent mockComponent2; mockComponent2.m_returnValue = false;
+    MockComponent mockComponent2;
+    mockComponent.setState(IComponent::Initialized);
     mockComponent2.startup(nullptr);
     QVERIFY(!mockComponent2.started());
 }
@@ -121,6 +125,7 @@ void BaseComponentTest::shouldNotStartupIfAlreadyStarted()
     QSignalSpy spy(&mockComponent, SIGNAL(whenStarted(const QString &)));
 
     mockComponent.startup(nullptr);
+    mockComponent.setState(IComponent::Running);
     mockComponent.startup(nullptr); // should not be emitted the second time
 
     // make sure the signal was emitted exactly one time

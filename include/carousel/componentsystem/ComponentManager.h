@@ -389,6 +389,7 @@ protected slots:
     virtual void forceShutdownCheckedComponent(IComponent *component);
 
 private:
+    bool tryToStartComponent(IComponent *component);
     bool addComponentInternal(IComponent *component);
     void resetCheck();
 

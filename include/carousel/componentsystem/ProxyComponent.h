@@ -70,7 +70,7 @@ public:
      *
      *   @a parser should already read properties.
      */
-    virtual bool initialize();
+    virtual bool initialize(QString *error = nullptr);
 
 protected:
     /*!

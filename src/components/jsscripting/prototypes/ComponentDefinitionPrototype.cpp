@@ -96,6 +96,12 @@ const QString &ComponentDefinitionPrototype::provider() const
 }
 
 //------------------------------------------------------------------------------
+const QString &ComponentDefinitionPrototype::error() const
+{
+    return thisDef()->error();
+}
+
+//------------------------------------------------------------------------------
 const ParentDefinitions &ComponentDefinitionPrototype::parents() const
 {
     return thisDef()->parents();

@@ -47,6 +47,8 @@ ProxyComponentTest::ProxyComponentTest(QObject *parent)
     , definitionLocation(pathToComponentDefinition("TestComponent2"))
 {
     componentFileName = pathToComponent("TestComponent2");
+    QSettings settings;
+    settings.clear();
 
     QSettings::setPath(QSettings::NativeFormat, QSettings::UserScope, ".");
 }
@@ -194,7 +196,7 @@ void ProxyComponentTest::startupShouldCallStartupOnTheLoadedComponent()
 
     component.startup(&m_locator);
 
-    QVERIFY(loader->mockComponent->started());
+    QVERIFY((dynamic_cast<MockComponent *>(loader->mockComponent))->m_onStartupCalled);
 }
 
 //------------------------------------------------------------------------------
@@ -222,6 +224,7 @@ void ProxyComponentTest::shutdownShouldUnloadComponent()
     ProxyComponent component(def, loader, nullptr);
     component.initialize();
     component.startup(&m_locator);
+    component.setState(IComponent::Running);
 
     component.shutdown(&m_locator);
 
@@ -238,11 +241,12 @@ void ProxyComponentTest::shutdownShouldShutdownLoadedComponent()
     ProxyComponent component(def, loader, nullptr);
     component.initialize();
     component.startup(&m_locator);
+    component.setState(IComponent::Running);
+    component.loadedComponent()->setState(IComponent::Running);
 
-    QVERIFY(loader->mockComponent->started());
+    QVERIFY((dynamic_cast<MockComponent *>(loader->mockComponent))->m_onStartupCalled);
     component.shutdown(&m_locator);
-
-    QVERIFY(!loader->mockComponent->started());
+    QVERIFY((dynamic_cast<MockComponent *>(loader->mockComponent))->m_onShutdownCalled);
 }
 
 //------------------------------------------------------------------------------

@@ -36,6 +36,7 @@ public:
     QString m_error;
     QString m_version;
     ParentsList m_parents;
+    bool m_readResult;
 };
 
 #endif // FAKEDEFINITIONPARSER_H

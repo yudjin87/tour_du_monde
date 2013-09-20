@@ -64,6 +64,23 @@ public:
 
     /*!
      * @details
+     *   Gets the state in which the component currently is. See the description of the
+     *   IComponent::State enum for details.
+     * @sa setState
+     */
+    State state() const override;
+
+    /*!
+     * @details
+     *   Gets the component definition that can specify component dependencies
+     *   and also describes the component.
+     *
+     *   Note, that component takes ownership for its defition.
+     */
+    ComponentDefinition *definition() override;
+
+    /*!
+     * @details
      *   Gets the component definition that can specify component dependencies
      *   and also describes the component.
      *
@@ -104,6 +121,16 @@ public:
      * @sa availability
      */
     void setAvailability(Availability newMode) override;
+
+    /*!
+     * @details
+     *   Sets the value specified the component current state.
+     *
+     * @note You should not use this method directly, it is for internal goals only.
+     *
+     * @sa state
+     */
+    void setState(State newState) override;
 
     /*!
      * @details
@@ -225,6 +252,8 @@ protected:
      */
     void setDescription(const QString &description);
 
+    void setError(const QString &error);
+
     /*!
      * @details
      *   Sets the short component name.
@@ -263,8 +292,8 @@ private:
 
 private:
     ComponentDefinition *m_definition;
-    bool m_isStarted;
     Availability m_availability;
+    State m_state;
     TypeObjectsMap<void *> *m_typeObjectsMap;
 };
 

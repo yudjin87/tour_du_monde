@@ -123,6 +123,12 @@ public:
 
     /*!
      * @details
+     *   Gets a detailed, possibly multi-line, error description in case of an error.
+     */
+    const QString &error() const;
+
+    /*!
+     * @details
      *   Gets a flag which determines whether component registered statically in code
      *   (build-in) or dynamically (on start-time or run-time).
      */
@@ -179,6 +185,12 @@ public:
      *   Gets the version of a component.
      */
     const Version *version() const;
+
+    /*!
+     * @details
+     *   Sets an error description in case of an error.
+     */
+    void setError(const QString &error);
 
     /*!
      * @details
@@ -266,6 +278,7 @@ private:
     QString m_provider;
     QString m_componentLocation;
     QString m_definitionLocation;
+    QString m_error;
     QStringList m_arguments;
     Version *m_version;
     ParentDefinitions m_parents;

@@ -43,6 +43,7 @@ ComponentDefinition::ComponentDefinition()
     , m_provider(ComponentDefinition::defaultProvider())
     , m_componentLocation("")
     , m_definitionLocation("")
+    , m_error("")
     , m_arguments()
     , m_version(new Version())
     , m_parents()
@@ -60,6 +61,7 @@ ComponentDefinition::ComponentDefinition(const QString &componentName, bool isBu
     , m_provider(ComponentDefinition::defaultProvider())
     , m_componentLocation("")
     , m_definitionLocation("")
+    , m_error("")
     , m_arguments()
     , m_version(new Version())
     , m_parents()
@@ -80,6 +82,7 @@ ComponentDefinition::~ComponentDefinition()
     m_componentShortName = "";
     m_componentLocation = "";
     m_definitionLocation = "";
+    m_error = "";
 }
 
 //------------------------------------------------------------------------------
@@ -128,6 +131,12 @@ const QString &ComponentDefinition::definitionLocation() const
 const QString &ComponentDefinition::description() const
 {
     return m_description;
+}
+
+//------------------------------------------------------------------------------
+const QString &ComponentDefinition::error() const
+{
+    return m_error;
 }
 
 //------------------------------------------------------------------------------
@@ -192,6 +201,12 @@ const QStringList &ComponentDefinition::arguments() const
 const Version *ComponentDefinition::version() const
 {
     return m_version;
+}
+
+//------------------------------------------------------------------------------
+void ComponentDefinition::setError(const QString &error)
+{
+    m_error = error;
 }
 
 //------------------------------------------------------------------------------

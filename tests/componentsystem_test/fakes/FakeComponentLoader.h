@@ -1,11 +1,11 @@
 #ifndef FAKECOMPONENTLOADER_H
 #define FAKECOMPONENTLOADER_H
 
+#include "MockComponent.h"
+
 #include <carousel/componentsystem/IComponentLoader.h>
 
 #include <QtCore/QObject>
-
-class MockComponent;
 
 class FakeComponentLoader : public QObject, public IComponentLoader
 {

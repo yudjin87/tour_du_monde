@@ -86,31 +86,43 @@ IComponent *FileComponentProvider::lastLoadedComponent() const
 //------------------------------------------------------------------------------
 IComponent *FileComponentProvider::loadComponent()
 {
-    if (m_path.isEmpty())
-        return nullptr;
+    ComponentDefinition *definition = createDefintion();
+    ProxyComponent *proxy = createProxy(definition);
+
+    proxy->setState(IComponent::Invalid);
+    if (m_path.isEmpty()) {
+        definition->setError("Definition file path is empty");
+        return proxy;
+    }
 
     IDefinitionParserPtr parser(createParser());
     QFile file(m_path);
-    if (!file.open(QIODevice::ReadOnly))
-        return nullptr;
+    if (!file.open(QIODevice::ReadOnly)){
+        definition->setError(QString("Could not open definition file \"%1\" for reading").arg(m_path));
+        return proxy;
+    }
 
-    if (!parser->read(&file))
-        return nullptr;
+    proxy->setState(IComponent::Discovered);
+    if (!parser->read(&file)){
+        definition->setError(QString("Could not parse definition file \"%1\"").arg(m_path));
+        return proxy;
+    }
 
-    ComponentDefinition *definition = createDefintion();
     DefinitionConstuctorPtr constructor(createDefinitionConstuctor());
     constructor->setLocationConstructorDelegate(new AbsolutePathComponentLocationConstructorDelegate(m_path));
     if (!constructor->construct(definition, parser.data())) {
-        delete definition;
-        return nullptr;
+        definition->setError(QString("Could not apply parsed properties from definition file \"%1\"").arg(m_path));
+        return proxy;
     }
 
-    ProxyComponent *proxy = createProxy(definition);
-    if (!proxy->initialize()) {
-        delete proxy;        
-        return nullptr;
+    proxy->setState(IComponent::Parsed);
+    QString error;
+    if (!proxy->initialize(&error)) {
+        definition->setError(error);
+        return proxy;
     }
 
+    proxy->setState(IComponent::Initialized);
     m_lastLoadedComponent = proxy;
     registerComponent(proxy);
 
@@ -121,7 +133,7 @@ IComponent *FileComponentProvider::loadComponent()
 bool FileComponentProvider::onInitialize()
 {
     IComponent *loadedComponent = loadComponent();
-    return loadedComponent != nullptr;
+	return loadedComponent->state() == IComponent::Initialized;
 }
 
 //------------------------------------------------------------------------------

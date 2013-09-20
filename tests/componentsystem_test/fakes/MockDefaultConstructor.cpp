@@ -28,6 +28,7 @@
 
 //------------------------------------------------------------------------------
 MockDefaultConstructor::MockDefaultConstructor()
+    : m_constructResult(nullptr)
 {
 }
 
@@ -36,6 +37,10 @@ bool MockDefaultConstructor::construct(ComponentDefinition *definition, const ID
 {
     bool result = DefinitionConstuctor::construct(definition, parser);
     emit constructCalled();
+
+    if (m_constructResult != nullptr)
+        return *m_constructResult;
+
     return result;
 }
 

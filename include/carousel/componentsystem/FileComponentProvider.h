@@ -71,9 +71,12 @@ public:
    /*!
     * @details
     *   Loads definition from the specified path and tries to create
-    *   proxy component from it.
+    *   proxy component from it. It also sets component state to determine
+    *   errors (if any).
     *
-    *   Returns a new discovered component.
+    *   Returns a new component.
+    *
+    * @sa IComponent::State
     */
     virtual IComponent *loadComponent();
 
