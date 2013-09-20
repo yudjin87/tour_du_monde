@@ -54,11 +54,11 @@ SimpleDisplay::SimpleDisplay(QWidget *parent)
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
 
-    Throttle* throttle = new Throttle(this);
-    //connect(this, SIGNAL(needChange()), throttle, SLOT(start()));
-    //connect(throttle, SIGNAL(elapsed()), this, SLOT(emitChanged()));
+    // Throttle* throttle = new Throttle(150, this);
+    // connect(this, SIGNAL(needChange()), throttle, SLOT(start()));
+    // connect(throttle, SIGNAL(elapsed()), this, SLOT(emitChanged()));
 
-    connect(this, SIGNAL(needChange()), this, SLOT(emitChanged()));
+    connect(this, &SimpleDisplay::needChange, this, &SimpleDisplay::emitChanged);
 
     m_conn = connect(m_transform, &DisplayTransformation::visibleBoundsChanged, this, &SimpleDisplay::onVisibleBoundChanged);
 
@@ -184,6 +184,7 @@ void SimpleDisplay::scrollContentsBy(int dx, int dy)
 //------------------------------------------------------------------------------
 void SimpleDisplay::mouseMoveEvent(QMouseEvent *event)
 {
+    Q_UNUSED(event)
     //QPoint point = event->pos();
 
     // QPointF mapPoint = m_transform->toMapPoint(point.x(), point.y());

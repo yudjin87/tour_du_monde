@@ -74,7 +74,7 @@ void AbstractApplication::showMainWindow(QMainWindow *mainWindow)
 IServiceLocator *AbstractApplication::startLoadingSequence(IBootloader &bootloader)
 {
     bootloader.run();
-    connect(this, SIGNAL(aboutToQuit()), this, SLOT(onAboutToQuit()));
+    connect(this, &QApplication::aboutToQuit, this, &AbstractApplication::onAboutToQuit);
     return bootloader.serviceLocator();
 }
 

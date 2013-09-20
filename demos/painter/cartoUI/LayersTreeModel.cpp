@@ -45,8 +45,8 @@ LayersTreeModel::LayersTreeModel(IMap *map, QObject *parent)
     : QAbstractListModel(parent)
     , m_map(map)
 {
-    connect(map, SIGNAL(layerAdded(AbstractLayer*)), this, SLOT(onLayerAdded(AbstractLayer*)));
-    connect(map, SIGNAL(refreshed()), this, SLOT(onMapRefreshed()));
+    connect(map, &IMap::layerAdded, this, &LayersTreeModel::onLayerAdded);
+    connect(map, &IMap::refreshed, this, &LayersTreeModel::onMapRefreshed);
 }
 
 //------------------------------------------------------------------------------

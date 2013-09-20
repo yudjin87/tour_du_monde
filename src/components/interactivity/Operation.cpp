@@ -124,8 +124,8 @@ void Operation::onToggled(bool checked)
 //------------------------------------------------------------------------------
 void Operation::connectToSignals()
 {
-    m_triggeredConnection = connect(this, SIGNAL(triggered(bool)), this, SLOT(onTriggered(bool)));
-    m_toggledConnection = connect(this, SIGNAL(toggled(bool)), this, SLOT(onToggled(bool)));
+    m_triggeredConnection = connect(this, &QAction::triggered, this, &Operation::onTriggered);
+    m_toggledConnection = connect(this, &QAction::toggled, this, &Operation::onToggled);
 }
 
 //------------------------------------------------------------------------------

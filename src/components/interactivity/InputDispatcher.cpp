@@ -80,7 +80,7 @@ void InputDispatcher::setSender(QWidget *interceptedWidget)
     QWidget *old = m_interceptedWidget;
     m_interceptedWidget = interceptedWidget;
     if (m_interceptedWidget != nullptr)
-        connect(m_interceptedWidget, SIGNAL(destroyed()), SLOT(onSenderDeleted()));
+        connect(m_interceptedWidget, &QObject::destroyed, this, &InputDispatcher::onSenderDeleted);
 
     m_isWorking = invalidate(old);
 }
@@ -90,7 +90,7 @@ void InputDispatcher::setReceiver(IInputReceiver *receiver)
 {
     m_receiver = receiver;
     if (m_receiver != nullptr)
-        connect(dynamic_cast<QObject *>(m_receiver), SIGNAL(destroyed()), SLOT(onReceiverDeleted()));
+        connect(dynamic_cast<QObject *>(m_receiver), &QObject::destroyed, this, &InputDispatcher::onReceiverDeleted);
 
     m_isWorking = invalidate(m_interceptedWidget);
 }

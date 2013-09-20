@@ -54,7 +54,7 @@ void RedoOperation::initialize(IServiceLocator *serviceLocator)
     m_action = stack->createRedoAction(this);
     setEnabled(m_action->isEnabled());
 
-    connect(m_action, SIGNAL(changed()), SLOT(onActionChanged()));
+    connect(m_action, &QAction::changed, this, &RedoOperation::onActionChanged);
 }
 
 //------------------------------------------------------------------------------

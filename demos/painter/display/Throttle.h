@@ -35,8 +35,8 @@ class Throttle : public QObject
 {
     Q_OBJECT
 public:
-    explicit Throttle(QObject *parent = 0);
-    Throttle(int minimumDelay = 150, QObject *parent = 0);
+    explicit Throttle(QObject *parent = nullptr);
+    explicit Throttle(int minimumDelay, QObject *parent = nullptr);
 
 signals:
     void elapsed();

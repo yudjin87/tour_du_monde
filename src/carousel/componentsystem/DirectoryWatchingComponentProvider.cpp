@@ -84,7 +84,7 @@ bool DirectoryWatchingComponentProvider::onInitialize()
     m_watcher = createWatcher();
     m_watcher->addPath(m_provider->path());
 
-    connect(m_watcher, SIGNAL(directoryChanged(const QString &)), SLOT(onDirectoryChanged(const QString &)));
+    connect(m_watcher, &QFileSystemWatcher::directoryChanged, this, &DirectoryWatchingComponentProvider::onDirectoryChanged);
 
     return result;
 }

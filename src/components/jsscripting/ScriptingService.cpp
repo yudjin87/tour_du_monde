@@ -127,8 +127,7 @@ void ScriptingService::onComponentManagerStartedUp()
 {
     setUpEngine(m_console->engine(), m_console);
 
-    connect(m_componentManager, &IComponentManager::componentStarted,
-            this, &ScriptingService::onComponentStartedUp);
+    connect(m_componentManager, &IComponentManager::componentStarted, this, &ScriptingService::onComponentStartedUp);
 }
 
 //------------------------------------------------------------------------------

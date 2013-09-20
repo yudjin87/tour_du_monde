@@ -135,8 +135,8 @@ void CarouselInteractionService::setActiveTool(ITool *activeTool)
         Log.d("Connect to new tool's signals.");
         QObject *tool = dynamic_cast<QObject *>(activeTool);
         Q_ASSERT(tool != nullptr);
-        this->connect(tool, SIGNAL(executingStopped()), SLOT(onToolExecutingStopped()));
-        this->connect(tool, SIGNAL(destroyed()), SLOT(onToolDeleted()));
+        connect(tool, SIGNAL(executingStopped()), this, SLOT(onToolExecutingStopped()));
+        connect(tool, &QObject::destroyed, this, &CarouselInteractionService::onToolDeleted);
     }
 
     if (m_activeTool != nullptr) {
@@ -201,11 +201,8 @@ void CarouselInteractionService::onComponentStartedUp(IComponent *component)
 //------------------------------------------------------------------------------
 void CarouselInteractionService::onComponentManagerStartedUp()
 {
-    connect(m_componentManager, SIGNAL(componentStarted(IComponent *)),
-            SLOT(onComponentStartedUp(IComponent *)));
-
-    connect(m_componentManager, SIGNAL(componentAboutToShutDown(IComponent *)),
-            SLOT(onComponentAboutToShutDown(IComponent *)));
+    connect(m_componentManager, &IComponentManager::componentStarted, this, &CarouselInteractionService::onComponentStartedUp);
+    connect(m_componentManager, &IComponentManager::componentAboutToShutDown, this, &CarouselInteractionService::onComponentAboutToShutDown);
 
     bool atLeasOneSuccess = false;
     for (IComponent *component : m_componentManager->components())
@@ -248,8 +245,8 @@ void CarouselInteractionService::onToolDeleted()
 //------------------------------------------------------------------------------
 void CarouselInteractionService::makeConnections()
 {
-    connect(m_componentManager, SIGNAL(startedUp()), SLOT(onComponentManagerStartedUp()));
-    connect(m_componentManager, SIGNAL(aboutToShutDown()), SLOT(onComponentManagerAboutToShutDown()));
+    connect(m_componentManager, &IComponentManager::startedUp, this, &CarouselInteractionService::onComponentManagerStartedUp);
+    connect(m_componentManager, &IComponentManager::aboutToShutDown, this, &CarouselInteractionService::onComponentManagerAboutToShutDown);
 }
 
 //------------------------------------------------------------------------------
