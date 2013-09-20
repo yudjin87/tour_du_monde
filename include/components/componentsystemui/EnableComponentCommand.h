@@ -51,8 +51,8 @@ public:
     QList<IComponent *> componentsToDisable() const;
     QList<IComponent *> componentsToEnable() const;
 
-    void redo();
-    void undo();
+    void redo() override;
+    void undo() override;
 
 private:
     IComponentManager *m_manager;

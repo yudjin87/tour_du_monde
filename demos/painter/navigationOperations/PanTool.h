@@ -8,12 +8,12 @@ class PanTool : public ToolBase
 public:
     PanTool();
 
-    void execute();
-    void initialize(IServiceLocator *serviceLocator);
-    void onMouseDown(QMouseEvent *event);
-    void onMouseMove(QMouseEvent *event);
-    void onMouseUp(QMouseEvent *event);
-    void stopExecuting();
+    void execute() override;
+    void initialize(IServiceLocator *serviceLocator) override;
+    void onMouseDown(QMouseEvent *event) override;
+    void onMouseMove(QMouseEvent *event) override;
+    void onMouseUp(QMouseEvent *event) override;
+    void stopExecuting() override;
 
 private:
     IServiceLocator *m_serviceLocator;

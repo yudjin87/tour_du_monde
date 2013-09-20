@@ -63,7 +63,7 @@ public slots:
      *   Configures specified @a engine using IScriptExtension extension from the @a component.
      *   Does nothing, if component does not provide IScriptExtension.
      */
-    void configureFromComponent(IComponent *component, QScriptEngine *engine);
+    void configureFromComponent(IComponent *component, QScriptEngine *engine) override;
 
     /*!
      * @details
@@ -73,7 +73,7 @@ public slots:
      *   An @a output is a handler for the print() function. Each time when print() is invoked
      *   from the script, IOutputHandler::print() will be invoked.
      */
-    void configureDefaults(QScriptEngine *engine, IOutputHandler *output = nullptr);
+    void configureDefaults(QScriptEngine *engine, IOutputHandler *output = nullptr) override;
 
 protected:
     virtual void configureExtension(QScriptEngine *engine, IScriptExtension *extension);

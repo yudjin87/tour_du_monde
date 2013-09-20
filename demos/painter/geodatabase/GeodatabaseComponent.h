@@ -38,7 +38,7 @@ public:
     ~GeodatabaseComponent();
 
 protected:
-    bool onStartup(IServiceLocator *serviceLocator);
+    bool onStartup(IServiceLocator *serviceLocator) override;
 };
 
 #endif // GEODATABASECOMPONENT_H

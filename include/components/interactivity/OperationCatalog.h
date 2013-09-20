@@ -66,19 +66,19 @@ public:
      *   fileMenu->addAction(operationCatalog->add(new MyPrintOperation()));
      * @endcode
      */
-    Operation *add(Operation *newOperation);
+    Operation *add(Operation *newOperation) override;
 
     /*!
      * @details
      *   Returns all operations, added to the catalog.
      */
-    QList<Operation *> operations() const;
+    QList<Operation *> operations() const override;
 
     /*!
      * @details
      *   Returns all operations with specified category.
      */
-    QList<Operation *> operations(const QString &byCategory) const;
+    QList<Operation *> operations(const QString &byCategory) const override;
 
     /*!
      * @details
@@ -89,7 +89,7 @@ public:
      *   only by IComponentConfigurationDelegate to deconfigure component
      *   and revert changes is did.
      */
-    void deleteOperation(const QString &name);
+    void deleteOperation(const QString &name) override;
 
     /*!
      * @details
@@ -99,7 +99,7 @@ public:
      *   only by IComponentConfigurationDelegate to deconfigure component
      *   and revert changes is did.
      */
-    void deleteOperation(Operation *operation);
+    void deleteOperation(Operation *operation) override;
 
     /*!
      * @details
@@ -109,7 +109,7 @@ public:
      * @return
      *   Found operation. Null, if there are no operations with such name.
      */
-    Operation *find(const QString &name);
+    Operation *find(const QString &name) override;
 
     /*!
      * @details
@@ -119,7 +119,7 @@ public:
      * @return
      *   Found operation. Null, if there are no operations with such name.
      */
-    const Operation *find(const QString &name) const;
+    const Operation *find(const QString &name) const override;
 
     /*!
      * @details

@@ -60,7 +60,7 @@ public:
      *   When the availability is enabled, the component is checked in the Components dialog.
      * @sa setAvailability
      */
-    Availability availability() const;
+    Availability availability() const override;
 
     /*!
      * @details
@@ -69,7 +69,7 @@ public:
      *
      *   Note, that component takes ownership for its defition.
      */
-    const ComponentDefinition *definition() const;
+    const ComponentDefinition *definition() const override;
 
     /*!
      * @details
@@ -77,7 +77,7 @@ public:
      *   in inner objects dictionary.
      * @return The raw pointer corresponded with specified type id if such found. Null pointer otherwise.
      */
-    void *getExtension(const QString &byTypeId) const;
+    void *getExtension(const QString &byTypeId) const override;
 
     /*!
      * @details
@@ -86,7 +86,7 @@ public:
      *
      * @sa ComponentDefinition::isCompatible()
      */
-    bool isCompatible(const IComponent *withOther) const;
+    bool isCompatible(const IComponent *withOther) const override;
 
     /*!
      * @details
@@ -95,7 +95,7 @@ public:
      *
      *   It is a shortcut for the definition()->name().
      */
-    const QString &name() const;
+    const QString &name() const override;
 
     /*!
      * @details
@@ -103,7 +103,7 @@ public:
      *   The checked state of the component is saved in the user settings.
      * @sa availability
      */
-    void setAvailability(Availability newMode);
+    void setAvailability(Availability newMode) override;
 
     /*!
      * @details
@@ -113,13 +113,13 @@ public:
      * @note You should not use this method directly, use IComponentManager::shutdownComponent()
      *   instead.
      */
-    void shutdown(IServiceLocator *serviceLocator);
+    void shutdown(IServiceLocator *serviceLocator) override;
 
     /*!
      * @details
      *   Gets the value determined whether component is already started or not.
      */
-    bool started() const;
+    bool started() const override;
 
     /*!
      * @details
@@ -133,7 +133,7 @@ public:
      * @note You should not use this method directly, use IComponentManager::startupComponent()
      *   instead.
      */
-    bool startup(IServiceLocator *serviceLocator);
+    bool startup(IServiceLocator *serviceLocator) override;
 
 protected:
     /*!

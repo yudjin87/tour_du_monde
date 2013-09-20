@@ -80,13 +80,13 @@ public:
      * @details
      *   Returns @a true if script was loaded from the file.
      */
-    bool isLoaded() const;
+    bool isLoaded() const override;
 
     /*!
      * @details
      *   Gets the absolute path to the file from wich script was loaded (if it was loaded).
      */
-    QString absoluteFilePath() const;
+    QString absoluteFilePath() const override;
 
     /*!
      * @details
@@ -94,31 +94,31 @@ public:
      *
      * @sa QFileInfo::fileName, absoluteFilePath
      */
-    QString fileName() const;
+    QString fileName() const override;
 
     /*!
      * @details
      *   Gets script as a plain text.
      */
-    QString scriptText() const;
+    QString scriptText() const override;
 
     /*!
      * @details
      *   Sets a new @a plainText as a script.
      */
-    void setScriptText(const QString &plainText);
+    void setScriptText(const QString &plainText) override;
 
     /*!
      * @details
      *   Gets script as a document.
      */
-    QTextDocument *script();
+    QTextDocument *script() override;
 
     /*!
      * @details
      *   Gets script as a document.
      */
-    const QTextDocument *script() const;
+    const QTextDocument *script() const override;
 
 public slots:
     /*!
@@ -126,7 +126,7 @@ public slots:
      *   Tries to load script from the fileName().
      *   Returns @a true, if loading was successful.
      */
-    bool load();
+    bool load() override;
 
     /*!
      * @details
@@ -136,20 +136,20 @@ public slots:
      *   Since after successful loading file name is changed, the fileNameChanged() signal is
      *   emitted.
      */
-    bool load(const QString &filePath);
+    bool load(const QString &filePath) override;
 
     /*!
      * @details
      *   Clears script body.
      */
-    void clear();
+    void clear() override;
 
     /*!
      * @details
      *   Tries to save script to the fileName().
      *   Returns @a true, if saving was successful.
      */
-    bool save();
+    bool save() override;
 
     /*!
      * @details
@@ -159,7 +159,7 @@ public slots:
      *   Since after successful saving file name is changed, the fileNameChanged() signal is
      *   emitted.
      */
-    bool saveAs(const QString &filePath);
+    bool saveAs(const QString &filePath) override;
 
     /*!
      * @details
@@ -168,7 +168,7 @@ public slots:
      *   Returns @a true, if script was evaluated without errors. Otherwise, returns false and
      *   emits the error() signal.
      */
-    bool run();
+    bool run() override;
 
     /*!
      * @details
@@ -176,7 +176,7 @@ public slots:
      *   A @a message is a parameter, that was passed to the JavaScript's print()
      *   function.
      */
-    void print(const QString &message);
+    void print(const QString &message) override;
 
 protected:
     virtual bool saveToFile(const QString &filePath);

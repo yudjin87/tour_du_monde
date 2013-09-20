@@ -47,13 +47,13 @@ public:
      * @details
      *   Prepares the display for drawing the symbol by setting brush.
      */
-    void setupPainter(QPainter *painter);
+    void setupPainter(QPainter *painter) override;
 
     Qt::BrushStyle style() const;
     void setStyle(Qt::BrushStyle style);
 
 protected:
-    void drawPolygon(const Polygon &polygon, QPainter &painter);
+    void drawPolygon(const Polygon &polygon, QPainter &painter) override;
 
 private:
     QBrush m_brush;

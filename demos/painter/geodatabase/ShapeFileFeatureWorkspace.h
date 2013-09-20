@@ -39,11 +39,11 @@ public:
     ShapeFileFeatureWorkspace(const QString &workspacePath, IServiceLocator *locator);
     ~ShapeFileFeatureWorkspace();
 
-    OwnedList<IDataset *> *datasets(esriDatasetType byType);
+    OwnedList<IDataset *> *datasets(esriDatasetType byType) override;
 
-    QString pathName() const;
+    QString pathName() const override;
 
-    IFeatureClass *openFeatureClass(const QString &name);
+    IFeatureClass *openFeatureClass(const QString &name) override;
 
 private:
     QString m_workspacePath;

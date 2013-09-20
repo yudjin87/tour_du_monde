@@ -61,19 +61,19 @@ public:
      *   sent to this tool by IInputDispatcher.
      * @sa setDispatcher, dispatcher
      */
-    ITool *activeTool();
+    ITool *activeTool() override;
 
     /*!
      * @details
      *   Gets the catalog collection.
      */
-    ICatalogs &catalogs();
+    ICatalogs &catalogs() override;
 
     /*!
      * @details
      *   Gets the immutable catalog collection.
      */
-    const ICatalogs &catalogs() const;
+    const ICatalogs &catalogs() const override;
 
     /*!
      * @details
@@ -88,7 +88,7 @@ public:
      *   Gets the current user input dispatcher. Null by default.
      * @sa setDispatcher, activeTool
      */
-    IInputDispatcher *dispatcher();
+    IInputDispatcher *dispatcher() override;
 
     /*!
      * @details
@@ -103,13 +103,13 @@ public:
      *
      * @sa saveUiState()
      */
-    void loadUiState(int version = 0);
+    void loadUiState(int version = 0) override;
 
     /*!
      * @details
      *   Gets the application shell or main window.
      */
-    QMainWindow &mainWindow();
+    QMainWindow &mainWindow() override;
 
     /*!
      * @details
@@ -118,7 +118,7 @@ public:
      *   and configure components again.
      * @sa setConfigurationDelegate
      */
-    void resetUi();
+    void resetUi() override;
 
     /*!
      * @details
@@ -129,14 +129,14 @@ public:
      *
      * @sa loadUiState()
      */
-    void saveUiState(int version = 0);
+    void saveUiState(int version = 0) override;
 
     /*!
      * @details
      *   Deactivates current tool and sets the specified tool as active.
      * @sa activeTool
      */
-    void setActiveTool(ITool *activeTool);
+    void setActiveTool(ITool *activeTool) override;
 
     /*!
      * @details
@@ -147,7 +147,7 @@ public:
      *   CarouselComponentConfigurationDelegate is used by default. Note, that
      *   CarouselInteractionService takes ownership of the configuration delegate.
      */
-    void setConfigurationDelegate(IComponentConfigurationDelegate *configurationDelegate);
+    void setConfigurationDelegate(IComponentConfigurationDelegate *configurationDelegate) override;
 
     /*!
      * @details
@@ -162,7 +162,7 @@ public:
      *   dispatcher.
      * @sa setDispatcher, activeTool
      */
-    void setDispatcher(IInputDispatcher *dispatcher);
+    void setDispatcher(IInputDispatcher *dispatcher) override;
 
 protected slots:
     /*!

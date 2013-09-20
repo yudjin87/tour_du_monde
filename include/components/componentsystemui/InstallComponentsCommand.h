@@ -42,8 +42,8 @@ public:
     InstallComponentsCommand(QUndoStack *stack, IComponentManager *manager, QUndoCommand* parent = nullptr);
     ~InstallComponentsCommand();
 
-    void redo();
-    void undo();
+    void redo() override;
+    void undo() override;
 
 public slots:
     void addDefinitionPath(const QString &definitionPath);

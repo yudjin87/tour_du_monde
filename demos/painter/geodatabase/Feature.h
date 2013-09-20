@@ -36,17 +36,17 @@ public:
     explicit Feature(GeometryType type);
     ~Feature();
 
-    int id() const;
-    void setId(int id);
+    int id() const override;
+    void setId(int id) override;
 
-    const QRectF &extent() const;
+    const QRectF &extent() const override;
 
-    AbstractGeometry *geometry();
-    const AbstractGeometry *geometry() const;
+    AbstractGeometry *geometry() override;
+    const AbstractGeometry *geometry() const override;
 
-    void setGeometry(AbstractGeometry *geometry);
+    void setGeometry(AbstractGeometry *geometry) override;
 
-    GeometryType shapeType() const;
+    GeometryType shapeType() const override;
 
 private:
     GeometryType m_type;

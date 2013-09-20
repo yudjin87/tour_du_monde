@@ -51,7 +51,7 @@ public:
     ~ScriptConsoleView();
     
 protected:
-    bool eventFilter(QObject *sender, QEvent *event);
+    bool eventFilter(QObject *sender, QEvent *event) override;
 
 private slots:
     void onEnter();

@@ -43,7 +43,7 @@ public:
 #endif // #ifdef Q_COMPILER_INITIALIZER_LISTS
 
     ~Polyline();
-    GeometryType type() const;
+    GeometryType type() const override;
 };
 
 #endif // POLYLINE_H

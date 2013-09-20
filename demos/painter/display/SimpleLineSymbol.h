@@ -47,13 +47,13 @@ public:
      * @details
      *   Prepares the display for drawing the symbol by setting pen.
      */
-    void setupPainter(QPainter *painter);
+    void setupPainter(QPainter *painter) override;
 
     Qt::PenStyle style() const;
     void setStyle(Qt::PenStyle style);
 
 protected:
-    void drawPolyline(const Polyline &polyline, QPainter &painter);
+    void drawPolyline(const Polyline &polyline, QPainter &painter) override;
 
 private:
     QPen m_pen;

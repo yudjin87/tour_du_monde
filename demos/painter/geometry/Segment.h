@@ -53,7 +53,7 @@ public:
     const QPolygonF &curve() const;
     void setCurve(const QPolygonF &curve);
 
-    GeometryType type() const;
+    GeometryType type() const override;
 
 private:
     QPolygonF m_value;

@@ -84,7 +84,7 @@ protected:
      *
      * @return @a false, if path is empty.
      */
-    bool onInitialize();
+    bool onInitialize() override;
 
     /*!
      * @details

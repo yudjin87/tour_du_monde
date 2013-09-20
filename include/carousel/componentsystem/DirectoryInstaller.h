@@ -49,13 +49,13 @@ protected:
      *
      *   The ComponentInstaller takes ownership for discovered components.
      */
-    QList<IComponent *> discoverComponents();
+    QList<IComponent *> discoverComponents() override;
 
     /*!
      * @details
      *   Since components already on the user's file system, just returns that list.
      */
-    QList<IComponent *> loadComponents(const QList<IComponent *> &componentsToInstall);
+    QList<IComponent *> loadComponents(const QList<IComponent *> &componentsToInstall) override;
 
 private:
     QString m_sourceDirectory;

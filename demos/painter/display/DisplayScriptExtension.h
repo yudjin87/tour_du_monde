@@ -37,7 +37,7 @@ class DisplayScriptExtension : public QObject, public IScriptExtension
 public:
     explicit DisplayScriptExtension(QObject *parent = nullptr);
 
-    void configureEngine(QScriptEngine *engine);
+    void configureEngine(QScriptEngine *engine) override;
 };
 
 #endif // DISPLAYSCRIPTEXTENSION_H

@@ -41,16 +41,16 @@ public:
     ShapeFileFeatureDataset(IWorkspace &workspace, const QString &name, IServiceLocator *locator);
     ~ShapeFileFeatureDataset();
 
-    GeometryType geometryType();
+    GeometryType geometryType() override;
 
-    QRectF extent();
+    QRectF extent() override;
 
-    QString name() const;
-    IWorkspace *workspace() const;
+    QString name() const override;
+    IWorkspace *workspace() const override;
 
-    QList<IFeatureClass *> classes();
-    IFeatureClass* classById(int id);
-    IFeatureClass* classByName(const QString &className = "");
+    QList<IFeatureClass *> classes() override;
+    IFeatureClass* classById(int id) override;
+    IFeatureClass* classByName(const QString &className = "") override;
 
 protected:
     virtual IFeatureClass* createFeatureClass(GeometryType geometryType, const QRectF &extent, const QString &source);

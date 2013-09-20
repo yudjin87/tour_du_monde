@@ -36,16 +36,16 @@ public:
     FeatureClass(GeometryType shapeType, const QRectF &extent, QString source);
     ~FeatureClass();
 
-    QRectF extent() const;
+    QRectF extent() const override;
 
-    GeometryType shapeType() const;
+    GeometryType shapeType() const override;
 
-    IFeature *createFeature();
-    const FeatureList &features() const;
+    IFeature *createFeature() override;
+    const FeatureList &features() const override;
 
-    FeatureList search(const ISpatialFilter &filter) const;
+    FeatureList search(const ISpatialFilter &filter) const override;
 
-    const QString &source() const;
+    const QString &source() const override;
 
 private:
     GeometryType m_type;

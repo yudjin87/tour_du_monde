@@ -51,9 +51,9 @@ public:
 
     FeatureRenderer *renderer() const;
 
-    void draw(IDisplay *display);
+    void draw(IDisplay *display) override;
 
-    QRectF extent() const;
+    QRectF extent() const override;
 
     IFeatureClass *featureClass();
     const IFeatureClass *featureClass() const;
@@ -61,8 +61,8 @@ public:
     void setFeatureClass(IFeatureClass *featureClass);
 
 protected:
-    void show();
-    void hide();
+    void show() override;
+    void hide() override;
 
 private:
     IFeatureClass *m_featureClass;

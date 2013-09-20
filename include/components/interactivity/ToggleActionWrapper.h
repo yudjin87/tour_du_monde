@@ -89,13 +89,13 @@ public:
      * @details
      *    Triggers wrapped action.
      */
-    void execute();
+    void execute() override;
 
     /*!
      * @details
      *    Triggers wrapped action.
      */
-    void stopExecuting();
+    void stopExecuting() override;
 
 private slots:
     void onActionChanged(bool checked);

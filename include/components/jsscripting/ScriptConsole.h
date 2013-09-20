@@ -76,7 +76,7 @@ public:
      *
      * @sa execCommand
      */
-    QScriptEngine *engine();
+    QScriptEngine *engine() override;
 
     /*!
      * @details
@@ -85,7 +85,7 @@ public:
      *
      * @sa setHistoryCapacity, execCommand
      */
-    int historyCapacity() const;
+    int historyCapacity() const override;
 
     /*!
      * @details
@@ -93,7 +93,7 @@ public:
      *
      * @sa historyCapacity, execCommand
      */
-    void setHistoryCapacity(int capacity);
+    void setHistoryCapacity(int capacity) override;
 
     /*!
      * @details
@@ -101,7 +101,7 @@ public:
      *
      * @sa prevCommand, nextCommand
      */
-    const QStringList &commandHistory() const;
+    const QStringList &commandHistory() const override;
 
 public slots:
     /*!
@@ -114,7 +114,7 @@ public slots:
      *   If the number of executed commands exceeded the historyCapacity() value, then first command
      *   will be removed from the history.
      */
-    bool execCommand(const QString &command);
+    bool execCommand(const QString &command) override;
 
     /*!
      * @details
@@ -124,7 +124,7 @@ public slots:
      *
      * @sa nextCommand, commandHistory
      */
-    QString prevCommand();
+    QString prevCommand() override;
 
     /*!
      * @details
@@ -134,7 +134,7 @@ public slots:
      *
      * @sa prevCommand, commandHistory
      */
-    QString nextCommand();
+    QString nextCommand() override;
 
     /*!
      * @details
@@ -142,7 +142,7 @@ public slots:
      *   A @a message is a parameter, that was passed to the JavaScript's print()
      *   function.
      */
-    void print(const QString &message);
+    void print(const QString &message) override;
 
 private:
     Q_DISABLE_COPY(ScriptConsole)

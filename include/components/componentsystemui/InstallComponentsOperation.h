@@ -34,8 +34,8 @@ class InstallComponentsOperation : public Operation
 public:
     InstallComponentsOperation();
 
-    void execute();
-    void initialize(IServiceLocator *serviceLocator);
+    void execute() override;
+    void initialize(IServiceLocator *serviceLocator) override;
 
 private:
     IServiceLocator *m_serviceLocator;

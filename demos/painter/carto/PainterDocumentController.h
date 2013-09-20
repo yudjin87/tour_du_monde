@@ -38,7 +38,7 @@ public:
     PainterDocumentController(IDisplay *display);
     ~PainterDocumentController();
 
-    IPainterDocument *document();
+    IPainterDocument *document() override;
 
 private:
     IPainterDocument *m_document;

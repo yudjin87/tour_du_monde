@@ -102,7 +102,7 @@ public:
      *   It determines where the operation will appear in the Operations panel
      *   of the Customize dialog.
      */
-    QString category() const;
+    QString category() const override;
 
     /*!
      * @details
@@ -111,7 +111,7 @@ public:
      *
      *   It is also emmits executingStopped() signal.
      */
-    void stopExecuting();
+    void stopExecuting() override;
 
     /*!
      * @details
@@ -123,7 +123,7 @@ public:
      *
      *   Does nothing by default.
      */
-    void initialize(IServiceLocator *serviceLocator);
+    void initialize(IServiceLocator *serviceLocator) override;
 
     /*!
      * @details
@@ -135,14 +135,14 @@ public:
      *   @note the text() property of a operation is the string that appears when the operation
      *   is placed on a operation bar.
      */
-    QString name() const;
+    QString name() const override;
 
 signals:
     /*!
      * @details
      *   This signal is emited when operation is deactivated.
      */
-    void executingStopped();
+    void executingStopped() override;
 
 protected:
     /*!

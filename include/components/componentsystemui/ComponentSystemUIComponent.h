@@ -43,7 +43,7 @@ protected:
      * @details
      *   Shuts down the component.
      */
-    void onShutdown(IServiceLocator *serviceLocator);
+    void onShutdown(IServiceLocator *serviceLocator) override;
 
     /*!
      * @details
@@ -57,7 +57,7 @@ protected:
      * @return @a false, if serviceLocator is a null pointer.
      *   Otherwise, return @a true.
      */
-    bool onStartup(IServiceLocator *serviceLocator);
+    bool onStartup(IServiceLocator *serviceLocator) override;
 };
 
 #endif // COMPONENTSYSTEMUICOMPONENT_H

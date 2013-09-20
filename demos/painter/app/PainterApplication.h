@@ -36,7 +36,7 @@ public:
     PainterApplication(int &argc, char **argv);
 
 protected:
-    void finishLoadingSequence(IServiceLocator *serviceLocator);
+    void finishLoadingSequence(IServiceLocator *serviceLocator) override;
 };
 
 #endif // PAINTERAPPLICATION_H

@@ -38,8 +38,8 @@ public:
     ~CartoComponent();
 
 protected:
-    bool onStartup(IServiceLocator *serviceLocator);
-    void onShutdown(IServiceLocator *serviceLocator);
+    bool onStartup(IServiceLocator *serviceLocator) override;
+    void onShutdown(IServiceLocator *serviceLocator) override;
 };
 
 #endif // CARTOCOMPONENT_H

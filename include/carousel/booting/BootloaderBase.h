@@ -60,14 +60,14 @@ public:
      * @details
      *   Runs the bootloading process.
      */
-    void run();
+    void run() override;
 
     /*!
      * @details
      *   Gets the service locator, which should contains base objects after
      *   bootloading.
      */
-    IServiceLocator *serviceLocator() const;
+    IServiceLocator *serviceLocator() const override;
 
 protected:
     /*!

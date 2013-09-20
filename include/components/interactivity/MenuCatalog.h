@@ -66,7 +66,7 @@ public:
      * @endcode
      * @sa OperationCatalog::register();
      */
-    QMenu *addMenu(const QString &title);
+    QMenu *addMenu(const QString &title) override;
 
     /*!
      * @details
@@ -74,7 +74,7 @@ public:
      *   The menu bar takes ownership of the menu.
      *   Returns the new menu.
      */
-    QMenu *addMenu(const QIcon &icon, const QString &title);
+    QMenu *addMenu(const QIcon &icon, const QString &title) override;
 
     /*!
      * @details
@@ -82,7 +82,7 @@ public:
      *   You can use this menu later for the popup, using findPopup().
      *   Returns the new menu.
      */
-    QMenu *addPopup(const QString &title);
+    QMenu *addPopup(const QString &title) override;
 
     /*!
      * @details
@@ -91,7 +91,7 @@ public:
      *   You can use this menu later for the popup, using findPopup().
      *   Returns the new menu.
      */
-    QMenu *addPopup(const QIcon &icon, const QString &title);
+    QMenu *addPopup(const QIcon &icon, const QString &title) override;
 
     /*!
      * @details
@@ -104,7 +104,7 @@ public:
      *
      *   To remove menu from menu bar without deleting use removeMenu().
      */
-    void deleteMenu(const QString &title);
+    void deleteMenu(const QString &title) override;
 
     /*!
      * @details
@@ -116,7 +116,7 @@ public:
      *
      *   To remove menu from menu bar without deleting use removeMenu().
      */
-     void deleteMenu(QMenu *menu);
+     void deleteMenu(QMenu *menu) override;
 
     /*!
      * @details
@@ -125,7 +125,7 @@ public:
      * @return
      *   Found menu. Null, if there are no menus with such title.
      */
-    QMenu *findMenu(const QString &title);
+    QMenu *findMenu(const QString &title) override;
 
     /*!
      * @details
@@ -134,7 +134,7 @@ public:
      * @return
      *   Found menu. Null, if there are no menus with such title.
      */
-    const QMenu *findMenu(const QString &title) const;
+    const QMenu *findMenu(const QString &title) const override;
 
     /*!
      * @details
@@ -143,7 +143,7 @@ public:
      * @return
      *   Found menu. Null, if there are no menus with such title.
      */
-    QMenu *findMenuEverywhere(const QString &title);
+    QMenu *findMenuEverywhere(const QString &title) override;
 
     /*!
      * @details
@@ -152,7 +152,7 @@ public:
      * @return
      *   Found menu. Null, if there are no menus with such title.
      */
-    const QMenu *findMenuEverywhere(const QString &title) const;
+    const QMenu *findMenuEverywhere(const QString &title) const override;
 
     /*!
      * @details
@@ -160,7 +160,7 @@ public:
      * @return
      *   Found menu. Null, if there are no popup menus with such title.
      */
-    QMenu *findPopup(const QString &title);
+    QMenu *findPopup(const QString &title) override;
 
     /*!
      * @details
@@ -168,14 +168,14 @@ public:
      * @return
      *   Found menu. Null, if there are no popup menus with such title.
      */
-    const QMenu *findPopup(const QString &title) const;
+    const QMenu *findPopup(const QString &title) const override;
 
     /*!
      * @details
      *   Returns all menus, found in the menu bar, other menus and
      *   in removed menus list.
      */
-    QList<QMenu *> menus() const;
+    QList<QMenu *> menus() const override;
 
     /*!
      * @details
@@ -185,20 +185,20 @@ public:
      *
      *   To remove menu item from the menu use QMenu::removeAction().
      */
-    void removeMenu(const QString &title);
+    void removeMenu(const QString &title) override;
 
     /*!
      * @details
      *   Returns all popups menus, registered in the catalog.
      */
-    QList<QMenu *> popups() const;
+    QList<QMenu *> popups() const override;
 
     /*!
      * @details
      *   MenuCatalog installs itself as QObject's event filter to
      *   handle menus adding and removing.
      */
-    bool eventFilter(QObject *obj, QEvent *event);
+    bool eventFilter(QObject *obj, QEvent *event) override;
 
 protected:
     /*!

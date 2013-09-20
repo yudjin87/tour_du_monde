@@ -67,14 +67,14 @@ public slots:
      *   An @a application will be passed to the extension to obtain application model, for
      *   example, to use it in the Qt View-Model approach.
      */
-    void configure(IComponent *component, ICatalogs &catalogs);
+    void configure(IComponent *component, ICatalogs &catalogs) override;
 
     /*!
      * @details
      *   Removes all component configurations from catalogs. Invokes
      *   after component has been shut down.
      */
-    void deconfigure(IComponent *component, ICatalogs &catalogs);
+    void deconfigure(IComponent *component, ICatalogs &catalogs) override;
 
     /*!
      * @details
@@ -83,7 +83,7 @@ public slots:
      * @return @a nullptr, if component has not been configured
      *   by this delegate.
      */
-    const ConfigurationChanges *changesByComponent(IComponent *component) const;
+    const ConfigurationChanges *changesByComponent(IComponent *component) const override;
 
 private:
     Q_DISABLE_COPY(CarouselComponentConfigurationDelegate)

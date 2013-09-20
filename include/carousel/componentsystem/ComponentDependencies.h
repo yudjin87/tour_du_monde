@@ -68,7 +68,7 @@ public:
      *   Returns @a true if component was succesfully added. If it is a null point or already
      *   existed one - returns @a false.
      */
-    bool addComponent(IComponent *component);
+    bool addComponent(IComponent *component) override;
 
     /*!
      * @details
@@ -90,7 +90,7 @@ public:
      * @param forChild
      *   The component to get the dependencies (or parents) for.
      */
-    DependenciesSolvingResult completeListWithChild(IComponent *forChild) const;
+    DependenciesSolvingResult completeListWithChild(IComponent *forChild) const override;
 
     /*!
      * @details
@@ -104,7 +104,7 @@ public:
      * @param forChildren
      *   The components to get the dependencies (or parents) for.
      */
-    DependenciesSolvingResult completeListWithChildren(const QList<IComponent *> &forChildren) const;
+    DependenciesSolvingResult completeListWithChildren(const QList<IComponent *> &forChildren) const override;
 
     /*!
      * @details
@@ -126,7 +126,7 @@ public:
      * @param forParent
      *   The component to get the components that depend on it (or its implicit children).
      */
-    DependenciesSolvingResult completeListWithParent(IComponent *forParent) const;
+    DependenciesSolvingResult completeListWithParent(IComponent *forParent) const override;
 
     /*!
      * @details
@@ -148,20 +148,20 @@ public:
      * @param forParents
      *   The components to get the other components that depend on they (or their implicit children).
      */
-    DependenciesSolvingResult completeListWithParents(const QList<IComponent *> &forParents) const;
+    DependenciesSolvingResult completeListWithParents(const QList<IComponent *> &forParents) const override;
 
     /*!
      * @details
      *   Finds the component by its name.
      *   Null pointer, if list is empty, or if component with specified name was not added.
      */
-    IComponent *componentByName(const QString &byName) const;
+    IComponent *componentByName(const QString &byName) const override;
 
     /*!
      * @details
      *   Returns a list of added components.
      */
-    const ObservableList<IComponent *> &components() const;
+    const ObservableList<IComponent *> &components() const override;
 
     /*!
      * @details
@@ -176,7 +176,7 @@ public:
      *   The component to get the dependencies (or parents) for.
      *   If @a forChild is null - result with empty collections will be returned.
      */
-    QList<IComponent *> getParentDefinitions(const IComponent *forChild) const;
+    QList<IComponent *> getParentDefinitions(const IComponent *forChild) const override;
 
     /*!
      * @details
@@ -194,7 +194,7 @@ public:
      *   If @a forParent is null or component with such name does not exists - result with
      *   empty collections will be returned.
      */
-    DependenciesSolvingResult getChildComponents(const IComponent *forParent) const;
+    DependenciesSolvingResult getChildComponents(const IComponent *forParent) const override;
 
     /*!
      * @details
@@ -209,7 +209,7 @@ public:
      *   completeListWithChildren(components())
      * @endcode
      */
-    DependenciesSolvingResult orderedComponents() const;
+    DependenciesSolvingResult orderedComponents() const override;
 
 private:
     static DependenciesSolvingResult solveDependencies(const QList<IComponent *> &components);

@@ -36,13 +36,13 @@ public:
     ShapeFileReader(QIODevice *inputDevice = nullptr);
     ~ShapeFileReader();
 
-    QIODevice *inputDevice() const;
+    QIODevice *inputDevice() const override;
 
-    bool readHeader(ShapeFileHeader &outHeader);
+    bool readHeader(ShapeFileHeader &outHeader) override;
 
-    void readShapeRecord(Record &record);
+    void readShapeRecord(Record &record) override;
 
-    void setInputDevice(QIODevice *inputDevice);
+    void setInputDevice(QIODevice *inputDevice) override;
 
 private:
     void readFileCode(int &fileCode);

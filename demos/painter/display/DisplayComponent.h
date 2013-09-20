@@ -41,8 +41,8 @@ public:
     ~DisplayComponent();
 
 protected:
-    bool onStartup(IServiceLocator *serviceLocator);
-    void onShutdown(IServiceLocator *serviceLocator);
+    bool onStartup(IServiceLocator *serviceLocator) override;
+    void onShutdown(IServiceLocator *serviceLocator) override;
 
 private:
     Q_DISABLE_COPY(DisplayComponent)

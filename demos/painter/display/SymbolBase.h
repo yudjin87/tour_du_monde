@@ -44,19 +44,19 @@ public slots:
      * @details
      *   Draws the specified shape.
      */
-    void draw(const AbstractGeometry *geometry);
+    void draw(const AbstractGeometry *geometry) override;
 
     /*!
      * @details
      *   Prepares the painter for drawing the symbol.
      */
-    void setupPainter(QPainter *painter);
+    void setupPainter(QPainter *painter) override;
 
     /*!
      * @details
      *   Restores painter to original state.
      */
-    void resetPainter();
+    void resetPainter() override;
 
 protected:
     explicit SymbolBase(QObject *parent = 0);

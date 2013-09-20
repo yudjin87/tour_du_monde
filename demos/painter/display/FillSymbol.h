@@ -59,7 +59,7 @@ public:
     const LineSymbol *outline() const;
     void setOutline(LineSymbol *outline);
 
-    void setupPainter(QPainter *painter);
+    void setupPainter(QPainter *painter) override;
 
 public slots:
     void setColor(int r, int g, int b, int a = 255);

@@ -56,7 +56,7 @@ public:
      *   Completes component location and returns the absolute path
      *   to the component.
      */
-    QString constructLocation(const QString &relativePathToComponent);
+    QString constructLocation(const QString &relativePathToComponent) override;
 
 private:
     QString m_definitionLocation;

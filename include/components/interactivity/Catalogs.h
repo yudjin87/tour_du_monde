@@ -61,49 +61,49 @@ public:
      * @details
      *   Gets the operation catalog.
      */
-    IOperationCatalog &operationCatalog();
+    IOperationCatalog &operationCatalog() override;
 
     /*!
      * @details
      *   Gets the immutable operation catalog.
      */
-    const IOperationCatalog &operationCatalog() const;
+    const IOperationCatalog &operationCatalog() const override;
 
     /*!
      * @details
      *   Gets the dockable widget catalog.
      */
-    IDockWidgetCatalog &dockWidgetCatalog();
+    IDockWidgetCatalog &dockWidgetCatalog() override;
 
     /*!
      * @details
      *   Gets the immutable dockable widget catalog.
      */
-    const IDockWidgetCatalog &dockWidgetCatalog() const;
+    const IDockWidgetCatalog &dockWidgetCatalog() const override;
 
     /*!
      * @details
      *   Gets the menu catalog.
      */
-    IMenuCatalog &menuCatalog();
+    IMenuCatalog &menuCatalog() override;
 
     /*!
      * @details
      *   Gets the immutable menu catalog.
      */
-    const IMenuCatalog &menuCatalog() const;
+    const IMenuCatalog &menuCatalog() const override;
 
     /*!
      * @details
      *   Gets the toolbar catalog.
      */
-    IToolBarCatalog &toolBarCatalog();
+    IToolBarCatalog &toolBarCatalog() override;
 
     /*!
      * @details
      *   Gets the immutable toolbar catalog.
      */
-    const IToolBarCatalog &toolBarCatalog() const;
+    const IToolBarCatalog &toolBarCatalog() const override;
 
 private:
     OperationCatalog *m_operationCatalog;

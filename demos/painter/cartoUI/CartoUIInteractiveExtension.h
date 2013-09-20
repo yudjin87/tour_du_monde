@@ -37,7 +37,7 @@ class CartoUIInteractiveExtension : public QObject, public IInteractiveExtension
 public:
     CartoUIInteractiveExtension(QObject *parent = nullptr);
 
-    void configureGui(ICatalogs &inCatalogs, IServiceLocator *serviceLocator);
+    void configureGui(ICatalogs &inCatalogs, IServiceLocator *serviceLocator) override;
 };
 
 

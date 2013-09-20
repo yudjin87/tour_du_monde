@@ -79,59 +79,59 @@ public:
      *   Gets the error occurred during reading (method read()).
      *   Returns empty string if error was not occurred.
      */
-    const QString &error() const;
+    const QString &error() const override;
 
     /*!
      * @details
      *   Gets the component Id.
      */
-    const QString &componentShortName() const;
+    const QString &componentShortName() const override;
 
     /*!
      * @details
      *   Gets the parsed component name.
      */
-    const QString &componentName() const;
+    const QString &componentName() const override;
 
     /*!
      * @details
      *   Gets the parsed component location (relative or absolyte) without library extension.
      */
-    const QString &componentLocation() const;
+    const QString &componentLocation() const override;
 
     /*!
      * @details
      *   Gets the parsed component description.
      *   @a Optional, can be empty string.
      */
-    const QString &description() const;
+    const QString &description() const override;
 
     /*!
      * @details
      *   Gets the parsed component parents names.
      *   @a Optional, can be empty list.
      */
-    const ParentsList &parents() const;
+    const ParentsList &parents() const override;
 
     /*!
      * @details
      *   Gets the parsed product name.
      *   @a Optional, can be empty string.
      */
-    const QString &productName() const;
+    const QString &productName() const override;
 
     /*!
      * @details
      *   Gets the name of component's provider - the person or company,
      *   who created this component.
      */
-    const QString &provider() const;
+    const QString &provider() const override;
 
     /*!
      * @details
      *   Gets the string representation of version of a component.
      */
-    const QString &version() const;
+    const QString &version() const override;
 
     /*!
      * @details
@@ -140,19 +140,19 @@ public:
      *   If a parse error occurs (incorrect format, missing xml tags or attributes, etc),
      *   this function returns @a false. The error message could be got through error() method.
      */
-    bool read(const QString &text);
+    bool read(const QString &text) override;
 
     /*!
      * @details
      * @overload.
      */
-    bool read(const QByteArray &data);
+    bool read(const QByteArray &data) override;
 
     /*!
      * @details
      * @overload
      */
-    bool read(QIODevice* dev);
+    bool read(QIODevice* dev) override;
 
 protected:
     /*!

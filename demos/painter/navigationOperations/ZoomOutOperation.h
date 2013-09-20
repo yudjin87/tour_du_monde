@@ -34,8 +34,8 @@ class ZoomOutOperation : public Operation
 public:
     ZoomOutOperation();
 
-    void execute();
-    void initialize(IServiceLocator *serviceLocator);
+    void execute() override;
+    void initialize(IServiceLocator *serviceLocator) override;
 
 private:
     IServiceLocator *m_serviceLocator;

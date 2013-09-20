@@ -70,10 +70,10 @@ public:
      * @details
      *   Prepares the display for drawing the symbol by setting pen and brush.
      */
-    void setupPainter(QPainter *painter);
+    void setupPainter(QPainter *painter) override;
 
 protected:
-    void drawPoint(const Point &point, QPainter &painter);
+    void drawPoint(const Point &point, QPainter &painter) override;
 
 private:
     bool m_outline;

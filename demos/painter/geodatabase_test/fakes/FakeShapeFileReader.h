@@ -38,13 +38,13 @@ public:
     FakeShapeFileReader();
     ~FakeShapeFileReader();
 
-    QIODevice *inputDevice() const;
+    QIODevice *inputDevice() const override;
 
-    bool readHeader(ShapeFileHeader &outHeader);
+    bool readHeader(ShapeFileHeader &outHeader) override;
 
-    void readShapeRecord(Record &outRecHeader);
+    void readShapeRecord(Record &outRecHeader) override;
 
-    void setInputDevice(QIODevice *inputDevice);
+    void setInputDevice(QIODevice *inputDevice) override;
 
 signals:
     void deviceIsSet(QString fileName, qint64 pos, bool isOpen);

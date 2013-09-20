@@ -65,7 +65,7 @@ protected:
      *
      *   Returns provider's initialization result.
      */
-    bool onInitialize();
+    bool onInitialize() override;
 
 private slots:
     void onDirectoryChanged(const QString &path);

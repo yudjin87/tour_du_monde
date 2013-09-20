@@ -40,14 +40,14 @@ public:
     ~Map();
 
 
-    QList<AbstractLayer *> layers() const;
+    QList<AbstractLayer *> layers() const override;
 
-    IPainterDocument *document();
-    const IPainterDocument *document() const;
+    IPainterDocument *document() override;
+    const IPainterDocument *document() const override;
 
 public slots:
-    void refresh();
-    void addLayer(AbstractLayer *layer);
+    void refresh() override;
+    void addLayer(AbstractLayer *layer) override;
 
 private slots:
     void onVisibleBoundsChanged(DisplayTransformation *transform);

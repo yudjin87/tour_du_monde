@@ -48,7 +48,7 @@ public:
     ~CodeHighlighter();
 
 protected:
-    void highlightBlock(const QString &text);
+    void highlightBlock(const QString &text) override;
 
 private:
     void highlightLines(const QString &text);

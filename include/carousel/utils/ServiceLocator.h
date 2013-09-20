@@ -55,7 +55,7 @@ public:
      * @return the corresponding service if such found. Null pointer otherwise.
      * @note Does not take ownership of the created pointer.
      */
-    QObject *buildObject(const QString &className);
+    QObject *buildObject(const QString &className) override;
 
     /*!
      * @details
@@ -65,7 +65,7 @@ public:
      * @return the corresponding service if such found. Null pointer otherwise.
      * @note Does not take ownership of the created pointer.
      */
-    QObject *buildObject(const QString &className, const QString &tag);
+    QObject *buildObject(const QString &className, const QString &tag) override;
 
     /*!
      * @details
@@ -74,7 +74,7 @@ public:
      *   This may be usefull for scpipting, where no templates.
      * @return the corresponding service if such found. Null pointer otherwis
      */
-    QObject *locateToObject(const QString &className);
+    QObject *locateToObject(const QString &className) override;
 
     /*!
      * @details
@@ -83,17 +83,17 @@ public:
      *   This may be usefull for scpipting, where no templates.
      * @return the corresponding service if such found. Null pointer otherwis
      */
-    QObject *locateToObject(const QString &className, const QString &tag);
+    QObject *locateToObject(const QString &className, const QString &tag) override;
 
     /*!
      *   Gets the services, registered with an empty tag
      */
-    QStringList services() const;
+    QStringList services() const override;
 
     /*!
      *   Gets the registered with @a tag services;
      */
-    QStringList services(const QString &tag) const;
+    QStringList services(const QString &tag) const override;
 
 protected:
     /*!
@@ -104,7 +104,7 @@ protected:
      * @return The raw pointer corresponded with specified interface id and tag if such found.
      *   Null pointer otherwise.
      */
-    void *buildInstanceImpl(const QString &className, const QString &tag);
+    void *buildInstanceImpl(const QString &className, const QString &tag) override;
 
     /*!
      * @details
@@ -113,7 +113,7 @@ protected:
      * @return The raw pointer corresponded with specified type id and tag if such found.
      *   Null pointer otherwise.
      */
-    void *getService(const QString &className, const QString &tag);
+    void *getService(const QString &className, const QString &tag) override;
 
     /*!
      * @details
@@ -121,7 +121,7 @@ protected:
      * @param className
      *   The name of type which @a instance should be associated with.
      */
-    void registerInstanceImpl(void *instance, const QString &className, const QString &tag);
+    void registerInstanceImpl(void *instance, const QString &className, const QString &tag) override;
 
     /*!
      * @details
@@ -130,7 +130,7 @@ protected:
      * @param className
      *   The name of type which @a factory method should be associated with.
      */
-    void registerTypeImpl(const QString &className, factoryMethod method, const QString &tag);
+    void registerTypeImpl(const QString &className, factoryMethod method, const QString &tag) override;
 
     /*!
      * @details
@@ -141,7 +141,7 @@ protected:
      * @return The raw pointer corresponded with specified type id and tag if such found.
      *   Null pointer otherwise.
      */
-    void *unregisterInstanceImpl(const QString &className, const QString &tag);
+    void *unregisterInstanceImpl(const QString &className, const QString &tag) override;
 
 protected:
     TypeObjectsMap<void *> *m_objects;

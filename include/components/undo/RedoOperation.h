@@ -52,13 +52,13 @@ public:
      * @details
      *   Calls wrapped action for redo.
      */
-    void execute();
+    void execute() override;
 
     /*!
      * @details
      *   Retrieves a wrapped action from the QUndoStack.
      */
-    void initialize(IServiceLocator *serviceLocator);
+    void initialize(IServiceLocator *serviceLocator) override;
 
 private slots:
     void onActionChanged();

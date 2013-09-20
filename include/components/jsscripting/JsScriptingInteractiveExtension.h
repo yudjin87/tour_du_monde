@@ -37,7 +37,7 @@ class JsScriptingInteractiveExtension : public QObject, public IInteractiveExten
 public:
     JsScriptingInteractiveExtension(QObject *parent = nullptr);
 
-    void configureGui(ICatalogs &inCatalogs, IServiceLocator *serviceLocator);
+    void configureGui(ICatalogs &inCatalogs, IServiceLocator *serviceLocator) override;
 };
 
 #endif // JS_SCRIPTING_EXTENSION_H

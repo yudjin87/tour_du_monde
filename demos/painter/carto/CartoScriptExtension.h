@@ -37,7 +37,7 @@ class CartoScriptExtension : public QObject, public IScriptExtension
 public:
     explicit CartoScriptExtension(QObject *parent = nullptr);
     
-    void configureEngine(QScriptEngine *engine);
+    void configureEngine(QScriptEngine *engine) override;
 };
 
 #endif // CARTOSCRIPTEXTENSION_H

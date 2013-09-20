@@ -65,20 +65,20 @@ public:
      * @details
      *   Gets the all components registered at the provider.
      */
-    QList<IComponent *> components() const;
+    QList<IComponent *> components() const override;
 
     /*!
      * @details
      *   Initializes the provider, which may load and validate the components.
      *   Returns @a true, if initialization was succesful; otherwise, returns @a false.
      */
-    bool initialize();
+    bool initialize() override;
 
     /*!
      * @details
      *   Returns @a true, if provider alreadyinitialzied; otherwise, returns @a false.
      */
-    bool isInitialized() const;
+    bool isInitialized() const override;
 
     /*!
      * @details
@@ -88,7 +88,7 @@ public:
      *   from the providers - the last one doesn't allow duplicating components.
      *   @a Null pointers will be skipped.
      */
-    void registerComponent(IComponent *component);
+    void registerComponent(IComponent *component) override;
 
 protected:
     /*!

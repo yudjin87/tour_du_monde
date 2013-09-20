@@ -34,7 +34,7 @@ class FakeFeature : public Feature
 public:
     FakeFeature(GeometryType type);
 
-    void setGeometry(AbstractGeometry *geometry);
+    void setGeometry(AbstractGeometry *geometry) override;
 
 public:
     bool geometryWasSet;

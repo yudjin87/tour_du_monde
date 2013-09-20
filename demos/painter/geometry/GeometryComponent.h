@@ -38,7 +38,7 @@ public:
     ~GeometryComponent();
 
 protected:
-    bool onStartup(IServiceLocator *serviceLocator);
+    bool onStartup(IServiceLocator *serviceLocator) override;
 };
 
 #endif // GEOMETRYCOMPONENT_H

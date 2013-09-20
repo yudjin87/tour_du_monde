@@ -42,9 +42,9 @@ class GeometryFactory : public IGeometryFactory
 public:
     GeometryFactory();
 
-    GeometryType geometryTypeFromShapeType(int shapeType) const;
+    GeometryType geometryTypeFromShapeType(int shapeType) const override;
 
-    AbstractGeometry *createGeometry(int bytesCount, const char *geometryBlob) const;
+    AbstractGeometry *createGeometry(int bytesCount, const char *geometryBlob) const override;
 
 private:
     static const QMap<int, GeometryType> m_typesMap;

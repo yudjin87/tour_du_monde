@@ -132,20 +132,20 @@ public:
      * @details
      *   Gets the all components registered at the provider.
      */
-    QList<IComponent *> components() const;
+    QList<IComponent *> components() const override;
 
     /*!
      * @details
      *   Initializes the provider, which may load and validate the components.
      *   Returns @a true, if initialization was succesful; otherwise, returns @a false.
      */
-    bool initialize();
+    bool initialize() override;
 
     /*!
      * @details
      *   Returns @a true, if provider alreadyinitialzied; otherwise, returns @a false.
      */
-    bool isInitialized() const;
+    bool isInitialized() const override;
 
     /*!
      * @details
@@ -155,19 +155,19 @@ public:
      *   from the providers - the last one doesn't allow duplicating components.
      *   @a Null pointers will be skipped.
      */
-    void registerComponent(IComponent *component);
+    void registerComponent(IComponent *component) override;
 
    /*!
     * @details
     *   Sets the root directory path containing component definitions.
     */
-   void setPath(const QString &path);
+   void setPath(const QString &path) override;
 
    /*!
     * @details
     *   Sets the definition files extension "*.definition" is by default.
     */
-   void setExtension(const QString &definitionExtension);
+   void setExtension(const QString &definitionExtension) override;
 
    /*!
     * @details
@@ -175,7 +175,7 @@ public:
     *
     *   QDir::NoDotAndDotDot | QDir::Readable are by default.
     */
-   void setFilters(QDir::Filters filters);
+   void setFilters(QDir::Filters filters) override;
 
    /*!
     * @details
@@ -183,31 +183,31 @@ public:
     *
     *   QDirIterator::Subdirectories is by default.
     */
-   void setFlags(QDirIterator::IteratorFlags flags);
+   void setFlags(QDirIterator::IteratorFlags flags) override;
 
    /*!
     * @details
     *   Gets the directory path containing component definitions.
     */
-   const QString &path() const;
+   const QString &path() const override;
 
    /*!
     * @details
     *   Gets the definition files extension.
     */
-   const QString &extension() const;
+   const QString &extension() const override;
 
    /*!
     * @details
     *   Gets the filters for searching files in the specified path.
     */
-   QDir::Filters filters() const;
+   QDir::Filters filters() const override;
 
    /*!
     * @details
     *   Gets the flag for iterating over files in the specified path.
     */
-   QDirIterator::IteratorFlags flags() const;
+   QDirIterator::IteratorFlags flags() const override;
 
    /*!
     * @details
@@ -216,7 +216,7 @@ public:
     *
     *   Returns list of the new discovered components.
     */
-    QList<IComponent *> update();
+    QList<IComponent *> update() override;
 
 protected:
     /*!

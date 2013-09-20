@@ -35,11 +35,11 @@ public:
     PainterDocument();
     ~PainterDocument();
 
-    IMap *map();
+    IMap *map() override;
 
-    void addMap(IMap *map);
+    void addMap(IMap *map) override;
 
-    const QString &name() const;
+    const QString &name() const override;
 
 private:
     QString m_name;

@@ -42,8 +42,8 @@ public:
 
     void addShapeFiles(const QStringList &files);
 
-    void redo();
-    void undo();
+    void redo() override;
+    void undo() override;
 
 private:
     IServiceLocator *m_locator;

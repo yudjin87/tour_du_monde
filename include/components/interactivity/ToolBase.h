@@ -90,7 +90,7 @@ public:
      *   Write the code that performs the action when the tool is clicked in this method.
      * @note Do not forget to call parent method ToolBase::execute();
      */
-    void execute();
+    void execute() override;
 
     /*!
      * @details
@@ -99,7 +99,7 @@ public:
      *
      *   Does nothing by default, just calls parent one.
      */
-    void stopExecuting();
+    void stopExecuting() override;
 
     /*!
      * @details
@@ -108,7 +108,7 @@ public:
      *   When subclassing ToolBase, use the initialize() method to get a hook to the
      *   application.
      */
-    void initialize(IServiceLocator *serviceLocator);
+    void initialize(IServiceLocator *serviceLocator) override;
 
     /*!
      * @details
@@ -121,43 +121,43 @@ public:
      *   know that it handled the onContextMenu event by returning true. If you
      *   don't do this, the standard context menu will be displayed.
      */
-    bool onContextMenu(QContextMenuEvent *event);
+    bool onContextMenu(QContextMenuEvent *event) override;
 
     /*!
      * @details
      *   Occurs when a mouse button is double clicked when this tool is active.
      */
-    void onDoubleClick(QMouseEvent *event);
+    void onDoubleClick(QMouseEvent *event) override;
 
     /*!
      * @details
      *   Occurs when a key on the keyboard is pressed when this tool is active.
      */
-    void onKeyDown(QKeyEvent *event);
+    void onKeyDown(QKeyEvent *event) override;
 
     /*!
      * @details
      *   Occurs when a key on the keyboard is released when this tool is active.
      */
-    void onKeyUp(QKeyEvent *event);
+    void onKeyUp(QKeyEvent *event) override;
 
     /*!
      * @details
      *   Occurs when a mouse button is pressed when this tool is active.
      */
-    void onMouseDown(QMouseEvent *event);
+    void onMouseDown(QMouseEvent *event) override;
 
     /*!
      * @details
      *   Occurs when the mouse is moved when this tool is active.
      */
-    void onMouseMove(QMouseEvent *event);
+    void onMouseMove(QMouseEvent *event) override;
 
     /*!
      * @details
      *   Occurs when a mouse button is released when this tool is active.
      */
-    void onMouseUp(QMouseEvent *event);
+    void onMouseUp(QMouseEvent *event) override;
 
 private:
     IServiceLocator *m_serviceLocator;

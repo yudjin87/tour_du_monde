@@ -45,8 +45,8 @@ public:
     QScriptValue constructor();
     QScriptValue newInstance();
     QScriptValue newInstance(const QPoint&);
-    QString name() const;
-    QScriptValue prototype() const;
+    QString name() const override;
+    QScriptValue prototype() const override;
 
 private:
     static QScriptValue construct(QScriptContext* ctx, QScriptEngine* eng);

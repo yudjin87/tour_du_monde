@@ -54,7 +54,7 @@ public:
      * @details
      *   Returns a text string with the description of the last error that occurred.
      */
-    QString errorString() const;
+    QString errorString() const override;
 
     /*!
      * @details
@@ -69,7 +69,7 @@ public:
      *
      * @sa instance().
      */
-    bool deleteInstance();
+    bool deleteInstance() override;
 
     /*!
      * @details
@@ -77,7 +77,7 @@ public:
      *
      *   By default, this property contains an empty string.
      */
-    QString fileName() const;
+    QString fileName() const override;
 
     /*!
      * @details
@@ -92,13 +92,13 @@ public:
      *
      * @sa load().
      */
-    IComponent *instance();
+    IComponent *instance() override;
 
     /*!
      * @details
      *   Returns true if the component is loaded; otherwise returns false.
      */
-    bool isLoaded() const;
+    bool isLoaded() const override;
 
     /*!
      * @details
@@ -109,7 +109,7 @@ public:
      *
      * @sa deleteInstance().
      */
-    bool load();
+    bool load() override;
 
     /*!
      * @details
@@ -119,7 +119,7 @@ public:
      *
      *   See the documentation of QLibrary::loadHints() for a complete description of how this property works.
      */
-    QLibrary::LoadHints	loadHints() const;
+    QLibrary::LoadHints	loadHints() const override;
 
     /*!
      * @details
@@ -133,7 +133,7 @@ public:
      *
      * @sa fileName().
      */
-    void setFileName(const QString &fileName);
+    void setFileName(const QString &fileName) override;
 
     /*!
      * @details
@@ -141,7 +141,7 @@ public:
      *
      * @sa loadHints().
      */
-    void setLoadHints(QLibrary::LoadHints loadHints);
+    void setLoadHints(QLibrary::LoadHints loadHints) override;
 
     /*!
      * @details
@@ -156,7 +156,7 @@ public:
      *
      * @sa instance(), deleteInstance() and load().
      */
-    bool unload();
+    bool unload() override;
 
 private:
     /*!

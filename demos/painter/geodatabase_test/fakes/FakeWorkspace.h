@@ -34,9 +34,9 @@ class FakeWorkspace : public IWorkspace
 public:
     FakeWorkspace(const QString &pathName = "");
 
-    OwnedList<IDataset *> *datasets(esriDatasetType byType);
+    OwnedList<IDataset *> *datasets(esriDatasetType byType) override;
 
-    QString pathName() const;
+    QString pathName() const override;
 
 public:
     QString m_pathName;

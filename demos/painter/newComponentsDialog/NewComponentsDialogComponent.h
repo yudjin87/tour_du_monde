@@ -39,8 +39,8 @@ public:
     ~NewComponentsDialogComponent();
 
 protected:
-    bool onStartup(IServiceLocator *serviceLocator);
-    void onShutdown(IServiceLocator *serviceLocator);
+    bool onStartup(IServiceLocator *serviceLocator) override;
+    void onShutdown(IServiceLocator *serviceLocator) override;
 };
 
 #endif // NEWCOMPONENTSDIALOGCOMPONENT_H

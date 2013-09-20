@@ -72,14 +72,14 @@ public:
      * @sa IToolBarCatalog::add()
      *   Note, that toolbar catalog takes ownership of the new toolbar.
      */
-    QToolBar *add(Qt::ToolBarArea area, const QString &title);
+    QToolBar *add(Qt::ToolBarArea area, const QString &title) override;
 
     /*!
      * @details
      * @overload
      *   Equivalent of calling add(Qt::TopToolBarArea, title)
      */
-    QToolBar *add(const QString &title);
+    QToolBar *add(const QString &title) override;
 
     /*!
      * @details
@@ -89,13 +89,13 @@ public:
      *   only by IComponentConfigurationDelegate to deconfigure component
      *   and revert changes is did.
      */
-    void deleteToolbar(QToolBar *toolbar);
+    void deleteToolbar(QToolBar *toolbar) override;
 
     /*!
      * @details
      * @overload
      */
-    void deleteToolbar(const QString &title);
+    void deleteToolbar(const QString &title) override;
 
     /*!
      * @details
@@ -104,19 +104,19 @@ public:
      * @return
      *   Found toolbar. Null, if there are no toolbars with such title.
      */
-    QToolBar *find(const QString &title);
+    QToolBar *find(const QString &title) override;
 
     /*!
      * @details
      * @overload
      */
-    const QToolBar *find(const QString &title) const;
+    const QToolBar *find(const QString &title) const override;
 
     /*!
      * @details
      *   Gets list of all added toolbars.
      */
-    QList<QToolBar *> toolbars() const;
+    QList<QToolBar *> toolbars() const override;
 
 protected:
     /*!

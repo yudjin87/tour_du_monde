@@ -40,9 +40,9 @@ public:
     Bootloader();
 
 protected:
-    void configureComponentProvider();
-    IComponentProvider *createComponentProvider();
-    QMainWindow *createMainWindow();
+    void configureComponentProvider() override;
+    IComponentProvider *createComponentProvider() override;
+    QMainWindow *createMainWindow() override;
 };
 
 #endif // BOOTLOADER_H

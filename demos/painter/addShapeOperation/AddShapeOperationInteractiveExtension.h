@@ -37,7 +37,7 @@ class AddShapeOperationInteractiveExtension : public QObject, public IInteractiv
 public:
     AddShapeOperationInteractiveExtension(QObject *parent = nullptr);
 
-    void configureGui(ICatalogs &inCatalogs, IServiceLocator *serviceLocator);
+    void configureGui(ICatalogs &inCatalogs, IServiceLocator *serviceLocator) override;
 };
 
 #endif // ADDSHAPEOPERATION_INTERACTIVEEXTENSION_H

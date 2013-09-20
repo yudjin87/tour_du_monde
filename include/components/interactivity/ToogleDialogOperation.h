@@ -62,15 +62,15 @@ public:
     /*!
      * @details
      */
-    void execute();
+    void execute() override;
 
     /*!
      * @details
      */
-    void stopExecuting();
+    void stopExecuting() override;
 
 protected:
-    bool eventFilter(QObject *sender, QEvent *event);
+    bool eventFilter(QObject *sender, QEvent *event) override;
 
 private:
     QWidget *m_widget;

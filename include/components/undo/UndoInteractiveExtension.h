@@ -53,7 +53,7 @@ public:
      *
      * @sa UndoOperation, RedoOperation
      */
-    void configureGui(ICatalogs &inCatalogs, IServiceLocator *serviceLocator);
+    void configureGui(ICatalogs &inCatalogs, IServiceLocator *serviceLocator) override;
 };
 
 #endif // UNDOINTERACTIVEEXTENSION_H

@@ -88,44 +88,44 @@ public:
      * @details
      *   Creates and returns a new instance of the TextLogger with specified name.
      */
-    LoggerFacade *getLogger(const QString &name);
+    LoggerFacade *getLogger(const QString &name) override;
 
     /*!
      * @details
      *   Sends a @a debug log message to the output stream.
      *   Debug logs are stripped at runtime in release configuration.
      */
-    void d(const QString &message);
+    void d(const QString &message) override;
 
     /*!
      * @details
      *   Sends an @a error log message to the output stream.
      */
-    void e(const QString &message);
+    void e(const QString &message) override;
 
     /*!
      * @details
      *   Sends a @a fatal log message to the output stream.
      */
-    void f(const QString &message);
+    void f(const QString &message) override;
 
     /*!
      * @details
      *   Sends an @a info log message to the output stream.
      */
-    void i(const QString &message);
+    void i(const QString &message) override;
 
     /*!
      * @details
      *   Sends a @a trace log message to the output stream.
      */
-    void t(const QString &message);
+    void t(const QString &message) override;
 
     /*!
      * @details
      *   Sends a @a warning log message to the output stream.
      */
-    void w(const QString &message);
+    void w(const QString &message) override;
 
 protected:
     virtual void log(const QString &message, const QString &category);

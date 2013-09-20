@@ -87,7 +87,7 @@ public:
      *
      * @sa IComponentDependencies::addComponent()
      */
-    bool addComponent(IComponent *component);
+    bool addComponent(IComponent *component) override;
 
     /*!
      * @details
@@ -100,7 +100,7 @@ public:
      *
      * @sa isChecked()
      */
-    DependenciesSolvingResult check();
+    DependenciesSolvingResult check() override;
 
     /*!
      * @details
@@ -109,13 +109,13 @@ public:
      *
      * @sa IComponentDependencies::dependencies().
      */
-    const ObservableList<IComponent *> &components() const;
+    const ObservableList<IComponent *> &components() const override;
 
     /*!
      * @details
      *   Returns a component dependencies.
      */
-    const IComponentDependencies &dependencies() const;
+    const IComponentDependencies &dependencies() const override;
 
     /*!
      * @details
@@ -126,14 +126,14 @@ public:
      *
      * @sa check()
      */
-    bool isChecked() const;
+    bool isChecked() const override;
 
     /*!
      * @details
      *   Gets an initialization data that will be passed to the started components.
      * @sa startupComponent()
      */
-    IServiceLocator *serviceLocator() const;
+    IServiceLocator *serviceLocator() const override;
 
     /*!
      * @details
@@ -145,7 +145,7 @@ public:
      *
      * @sa orphanComponents()
      */
-    QStringList missingComponents() const;
+    QStringList missingComponents() const override;
 
     /*!
      * @details
@@ -157,26 +157,26 @@ public:
      *
      * @sa missingComponents()
      */
-    QList<IComponent *> orphanComponents() const;
+    QList<IComponent *> orphanComponents() const override;
 
     /*!
      * @details
      *   Returns a list of already stopped or non-started yet components.
      */
-    QList<IComponent *> stoppedComponents() const;
+    QList<IComponent *> stoppedComponents() const override;
 
     /*!
      * @details
      *   Returns a list of started components.
      */
-    QList<IComponent *> startedComponents() const;
+    QList<IComponent *> startedComponents() const override;
 
     /*!
      * @details
      *   Shuts down all the components. Call this method when your application is going to
      *   quit
      */
-    void shutdown();
+    void shutdown() override;
 
     /*!
      * @details
@@ -193,7 +193,7 @@ public:
      *   were realy shut down. Components that already were shut down
      *   will not appear to the result list.
      */
-    DependenciesSolvingResult shutdownComponent(IComponent *component);
+    DependenciesSolvingResult shutdownComponent(IComponent *component) override;
 
     /*!
      * @details
@@ -207,7 +207,7 @@ public:
      * @sa shutdownComponents()
      *
      */
-    DependenciesSolvingResult shutdownAllComponents();
+    DependenciesSolvingResult shutdownAllComponents() override;
 
     /*!
      * @details
@@ -221,7 +221,7 @@ public:
      *   were realy shut down. Components that already were shut down
      *   will not appear to the result list.
      */
-    DependenciesSolvingResult shutdownComponents(const QList<IComponent *> &components);
+    DependenciesSolvingResult shutdownComponents(const QList<IComponent *> &components) override;
 
     /*!
      * @details
@@ -235,7 +235,7 @@ public:
      *
      * @sa shutdown()
      */
-    DependenciesSolvingResult startup();
+    DependenciesSolvingResult startup() override;
 
     /*!
      * @details
@@ -260,7 +260,7 @@ public:
      * @note component should be added to the manager before starting.
      * @sa addComponent(), check()
      */
-    DependenciesSolvingResult startupComponent(IComponent *component);
+    DependenciesSolvingResult startupComponent(IComponent *component) override;
 
     /*!
      * @details
@@ -275,7 +275,7 @@ public:
      *
      * @sa addComponent(), check(), startupComponents()
      */
-    DependenciesSolvingResult startupAllComponents();
+    DependenciesSolvingResult startupAllComponents() override;
 
     /*!
      * @details
@@ -302,7 +302,7 @@ public:
      * @note components should be added to the manager before starting.
      * @sa addComponent(), check(), startupAllComponents()
      */
-    DependenciesSolvingResult startupComponents(QList<IComponent *> components);
+    DependenciesSolvingResult startupComponents(QList<IComponent *> components) override;
 
 
 protected slots:

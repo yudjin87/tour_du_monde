@@ -43,7 +43,7 @@ public:
 
     ~Polygon();
 
-    GeometryType type() const;
+    GeometryType type() const override;
 };
 
 

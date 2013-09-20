@@ -62,7 +62,7 @@ public:
      *   Note, that catalog takes ownership of the new
      *   dock widget.
      */
-    QDockWidget *addDockWidget(QWidget *widget, const QString &windowTitle = "");
+    QDockWidget *addDockWidget(QWidget *widget, const QString &windowTitle = "") override;
 
     /*!
      * @details
@@ -73,7 +73,7 @@ public:
      *   Note, that catalog takes ownership of the new
      *   dock widget.
      */
-    QDockWidget *addDockWidget(QWidget *widget, const QString &windowTitle, Qt::DockWidgetArea area);
+    QDockWidget *addDockWidget(QWidget *widget, const QString &windowTitle, Qt::DockWidgetArea area) override;
 
     /*!
      * @details
@@ -83,13 +83,13 @@ public:
      *   only by IComponentConfigurationDelegate to deconfigure component
      *   and revert changes is did.
      */
-    void deleteDockWidget(QDockWidget *dockWidget);
+    void deleteDockWidget(QDockWidget *dockWidget) override;
 
     /*!
      * @details
      *   Returns all dockable widgets added to the catalog.
      */
-    QList<QDockWidget *> dockWidgets() const;
+    QList<QDockWidget *> dockWidgets() const override;
 
 protected:
     /*!

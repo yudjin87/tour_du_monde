@@ -43,19 +43,19 @@ public:
     ComponentInstaller(const QString &destinationDirectory = ComponentInstaller::defaultInstallDir());
     ~ComponentInstaller();
 
-    bool installComponentInSeparateDir() const;
-    void setInstallComponentInSeparateDir(bool separate);
+    bool installComponentInSeparateDir() const override;
+    void setInstallComponentInSeparateDir(bool separate) override;
 
-    const QString &installDirectory() const;
-    void setInstallDirectory(const QString &destinationDirectory);
+    const QString &installDirectory() const override;
+    void setInstallDirectory(const QString &destinationDirectory) override;
 
-    void addExistedComponent(IComponent *component);
+    void addExistedComponent(IComponent *component) override;
 
-    QList<IComponent *> existedComponents() const;
+    QList<IComponent *> existedComponents() const override;
 
-    DependenciesSolvingResult tryToInstall(const QStringList &componentNames);
+    DependenciesSolvingResult tryToInstall(const QStringList &componentNames) override;
 
-    QStringList install();
+    QStringList install() override;
 
     static QString defaultInstallDir();
 

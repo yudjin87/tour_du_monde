@@ -41,9 +41,9 @@ public:
      *
      * @note that filter does not take ownership for the geometry.
      */
-    const AbstractGeometry *geometry() const;
+    const AbstractGeometry *geometry() const override;
 
-    void setGeometry(const AbstractGeometry *geometry);
+    void setGeometry(const AbstractGeometry *geometry) override;
 
 private:
     const AbstractGeometry *m_geometry;

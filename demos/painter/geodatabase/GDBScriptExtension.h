@@ -37,7 +37,7 @@ class GDBScriptExtension : public QObject, public IScriptExtension
 public:
     explicit GDBScriptExtension(QObject *parent = nullptr);
 
-    void configureEngine(QScriptEngine *engine);
+    void configureEngine(QScriptEngine *engine) override;
 };
 
 #endif // GDBSCRIPTEXTENSION_H

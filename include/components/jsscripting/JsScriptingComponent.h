@@ -102,14 +102,14 @@ protected:
      * @details
      *   Shuts down the component.
      */
-    void onShutdown(IServiceLocator *serviceLocator);
+    void onShutdown(IServiceLocator *serviceLocator) override;
 
     /*!
      * @details
      *   Registers IScriptingService, ScriptCollectionDialog and ScriptCollectionModel
      *   in the @a serviceLocator.
      */
-    bool onStartup(IServiceLocator *serviceLocator);
+    bool onStartup(IServiceLocator *serviceLocator) override;
 
 private:
     QString getStartedScriptFromAgrs() const;

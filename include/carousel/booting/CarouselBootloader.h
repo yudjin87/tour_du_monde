@@ -59,7 +59,7 @@ protected:
      * @details
      *   Adds all components registered in provider to the component manager.
      */
-    void configureComponentManager();
+    void configureComponentManager() override;
 
     /*!
      * @details
@@ -67,13 +67,13 @@ protected:
      *   used services.
      *   May be overridden in a derived class to add specific services required by the application.
      */
-    void configureServiceLocator();
+    void configureServiceLocator() override;
 
     /*!
      * @details
      *   Initializes the component provider.
      */
-    void initialiseComponentProvider();
+    void initialiseComponentProvider() override;
 
     /*!
      * @details
@@ -88,7 +88,7 @@ protected:
      *   \li then calls initialiseComponentProvider();
      *   \li and finally calls configureComponentManager().
      */
-    void safeRun();
+    void safeRun() override;
 };
 
 #endif // CAROUSELBOOTLOADER_H

@@ -11,8 +11,8 @@ public:
     FakeGeometryFactory();
     ~FakeGeometryFactory();
 
-    GeometryType geometryTypeFromShapeType(int shapeType) const;
-    AbstractGeometry *createGeometry(int bytesCount, const char *geometryBlob) const;
+    GeometryType geometryTypeFromShapeType(int shapeType) const override;
+    AbstractGeometry *createGeometry(int bytesCount, const char *geometryBlob) const override;
 
 public:
     GeometryType type;

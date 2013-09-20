@@ -27,7 +27,7 @@
 #ifndef FILEUTILS_H
 #define FILEUTILS_H
 
-#include <carousel/utils/IServiceLocator.h>
+#include <carousel/utils/utils_global.h>
 
 #include <QtCore/QString>
 

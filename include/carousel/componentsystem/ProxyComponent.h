@@ -58,7 +58,7 @@ public:
      *   in inner objects dictionary.
      * @return The raw pointer corresponded with specified type id if such found. Null pointer otherwise.
      */
-    void *getExtension(const QString &byTypeId) const;
+    void *getExtension(const QString &byTypeId) const override;
 
     IComponent *loadedComponent() const;
 
@@ -78,7 +78,7 @@ protected:
      *   It is a defensive declaration of the public shutdown() method, that invokes only after startup().
      *   When override in derived classes shuts down the component. Nothing to do by default.
      */
-    virtual void onShutdown(IServiceLocator *serviceLocator);
+    virtual void onShutdown(IServiceLocator *serviceLocator) override;
 
     /*!
      * @details
@@ -88,7 +88,7 @@ protected:
      * @param serviceLocator is a reference to the services pool. It is needed to register/locate to
      *   common services and other components' services.
      */
-    virtual bool onStartup(IServiceLocator *serviceLocator);
+    virtual bool onStartup(IServiceLocator *serviceLocator) override;
 
 private:
     Q_DISABLE_COPY(ProxyComponent)

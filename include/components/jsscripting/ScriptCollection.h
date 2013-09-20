@@ -61,7 +61,7 @@ public:
      * @details
      *   Gets all loaded scripts.
      */
-    Scripts scripts() const;
+    Scripts scripts() const override;
 
 public slots:
     /*!
@@ -71,7 +71,7 @@ public slots:
      *
      * @sa scriptAdded
      */
-    IScriptUnit *create();
+    IScriptUnit *create() override;
 
     /*!
      * @details
@@ -81,7 +81,7 @@ public slots:
      *
      * @sa scriptAdded
      */
-    IScriptUnit *createFromFile(const QString &fileName);
+    IScriptUnit *createFromFile(const QString &fileName) override;
 
     /*!
      * @details
@@ -89,7 +89,7 @@ public slots:
      *
      * @sa scriptRemoved
      */
-    void remove(IScriptUnit *script);
+    void remove(IScriptUnit *script) override;
 
     /*!
      * @details
@@ -99,13 +99,13 @@ public slots:
      *
      * @sa scriptAdded
      */
-    Scripts createFromDirectory(const QString &directory);
+    Scripts createFromDirectory(const QString &directory) override;
 
     /*!
      * @details
      *   Gets script by its file name (if any);
      */
-    IScriptUnit *scriptByFileName(const QString &fileName);
+    IScriptUnit *scriptByFileName(const QString &fileName) override;
 
 protected:
     /*!

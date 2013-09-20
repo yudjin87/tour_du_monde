@@ -75,7 +75,7 @@ public:
      *   Events will not be intercepted until @a sender or @a receiver is null.
      *   @a Deactivating by default.
      */
-    void activate();
+    void activate() override;
 
     /*!
      * @details
@@ -83,7 +83,7 @@ public:
      *   intercepting.
      *   It is a default state.
      */
-    void deactivate();
+    void deactivate() override;
 
     /*!
      * @details
@@ -93,7 +93,7 @@ public:
      *   than receiver or sender is null. As soon as they be set, it will start
      *   working.
      */
-    bool isActive() const;
+    bool isActive() const override;
 
     /*!
      * @details
@@ -103,34 +103,34 @@ public:
      *   to the receiver.
      *   Returns @a false if is not active, or @a widget or @a receiver is null.
      */
-    bool isWorking() const;
+    bool isWorking() const override;
 
     /*!
      * @details
      *   Sets the reference to widget events will be intercepted from.
      */
-    void setSender(QWidget *interceptedWidget);
+    void setSender(QWidget *interceptedWidget) override;
 
     /*!
      * @details
      *   Sets the receiver events form widget will be sended to.
      */
-    void setReceiver(IInputReceiver *receiver);
+    void setReceiver(IInputReceiver *receiver) override;
 
     /*!
      * @details
      *   Returns widget events will be intercepted from.
      */
-    QWidget *sender() const;
+    QWidget *sender() const override;
 
     /*!
      * @details
      *   Returns the reveived events object.
      */
-    IInputReceiver *receiver() const;
+    IInputReceiver *receiver() const override;
 
 protected:
-    bool eventFilter(QObject *sender, QEvent *event);
+    bool eventFilter(QObject *sender, QEvent *event) override;
 
 private:
     bool canStartWorking();

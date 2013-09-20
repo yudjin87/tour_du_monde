@@ -38,26 +38,26 @@ public:
     SimpleDisplay(QWidget *parent = nullptr);
     ~SimpleDisplay();
 
-    QPainter *painter();
+    QPainter *painter() override;
 
-    QPainter *startDrawing();
-    void finishDrawing(QPainter *painter);
+    QPainter *startDrawing() override;
+    void finishDrawing(QPainter *painter) override;
 
-    DisplayTransformation *transformation();
-    const DisplayTransformation *transformation() const;
+    DisplayTransformation *transformation() override;
+    const DisplayTransformation *transformation() const override;
 
-    void panMoveTo(const QPoint &screenPoint);
-    void panStart(const QPoint &screenPoint);
-    QRectF panStop();
-    void updateWindow();
+    void panMoveTo(const QPoint &screenPoint) override;
+    void panStart(const QPoint &screenPoint) override;
+    QRectF panStop() override;
+    void updateWindow() override;
 
 protected:
-    void mouseMoveEvent(QMouseEvent *event);
-    void resizeEvent(QResizeEvent *event);
-    void paintEvent(QPaintEvent *event);
-    void showEvent(QShowEvent * event);
+    void mouseMoveEvent(QMouseEvent *event) override;
+    void resizeEvent(QResizeEvent *event) override;
+    void paintEvent(QPaintEvent *event) override;
+    void showEvent(QShowEvent * event) override;
 
-    void scrollContentsBy(int dx, int dy);
+    void scrollContentsBy(int dx, int dy) override;
 
 signals:
     void needChange();

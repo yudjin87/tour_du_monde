@@ -38,7 +38,7 @@ public:
     ShapeFileWorkspaceFactory(IServiceLocator *locator);
     ~ShapeFileWorkspaceFactory();
 
-    IWorkspace* openFromFile(const QString &workspacePath);
+    IWorkspace* openFromFile(const QString &workspacePath) override;
 
 private:
     IServiceLocator *m_locator;

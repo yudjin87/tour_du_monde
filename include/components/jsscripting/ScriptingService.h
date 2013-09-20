@@ -83,25 +83,25 @@ public:
      * @details
      *   Gets the script console.
      */
-    IScriptConsole *console();
+    IScriptConsole *console() override;
 
     /*!
      * @details
      *   Gets the scripts, that loaded into the application.
      */
-    IScriptCollection *scripts();
+    IScriptCollection *scripts() override;
 
     /*!
      * @details
      *   Gets the delegate which is used for QScriptEngine configuration.
      */
-    IScriptEngineConfigurationDelegate *delegate();
+    IScriptEngineConfigurationDelegate *delegate() override;
 
     /*!
      * @details
      *   Gets the delegate which is used for QScriptEngine configuration.
      */
-    const IScriptEngineConfigurationDelegate *delegate() const;
+    const IScriptEngineConfigurationDelegate *delegate() const override;
 
     /*!
      * @details
@@ -109,7 +109,7 @@ public:
      *   This delegate is used for configuration console() engine right after component manager
      *   started up and as soons as new components are started.
      */
-    void setDelegate(IScriptEngineConfigurationDelegate *delegate);
+    void setDelegate(IScriptEngineConfigurationDelegate *delegate) override;
 
     /*!
      * @details
@@ -124,7 +124,7 @@ public:
      *
      *   Note, that it does not takes ownership for created engine;
      */
-    QScriptEngine *createEngine(IOutputHandler *output = nullptr, QObject *parent = nullptr);
+    QScriptEngine *createEngine(IOutputHandler *output = nullptr, QObject *parent = nullptr) override;
 
 protected slots:
     /*!
