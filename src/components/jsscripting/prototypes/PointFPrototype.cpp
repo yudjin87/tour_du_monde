@@ -78,7 +78,7 @@ void PointFPrototype::setY(qreal y)
 //------------------------------------------------------------------------------
 QString PointFPrototype::toString()
 {
-    static QString pattern = "QPointF(x: %2, y: %2)";
+    static QString pattern = "QPointF(x: %1, y: %2)";
     return pattern
             .arg(x())
             .arg(y());

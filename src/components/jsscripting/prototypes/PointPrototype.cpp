@@ -62,7 +62,7 @@ void PointPrototype::setY(int y)
 //------------------------------------------------------------------------------
 QString PointPrototype::toString()
 {
-    static QString pattern = "QPoint(x: %2, y: %2)";
+    static QString pattern = "QPoint(x: %1, y: %2)";
     return pattern
             .arg(x())
             .arg(y());

@@ -77,7 +77,7 @@ qreal RectFPrototype::bottom() const
 //------------------------------------------------------------------------------
 QString RectFPrototype::toString()
 {
-    static QString pattern = "QRectF(l: %2, t: %2, r: %3, b: %4)";
+    static QString pattern = "QRectF(l: %1, t: %2, r: %3, b: %4)";
     return pattern
             .arg(left())
             .arg(top())
