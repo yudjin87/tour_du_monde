@@ -120,12 +120,6 @@ IComponent::State BaseComponent::state() const
 }
 
 //------------------------------------------------------------------------------
-ComponentDefinition *BaseComponent::definition()
-{
-    return m_definition;
-}
-
-//------------------------------------------------------------------------------
 const ComponentDefinition *BaseComponent::definition() const
 {
     return m_definition;

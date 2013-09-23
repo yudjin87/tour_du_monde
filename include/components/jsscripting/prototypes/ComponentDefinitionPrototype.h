@@ -46,7 +46,6 @@ class ComponentDefinitionPrototype : public QObject, public QScriptable
     Q_PROPERTY(QString componentName READ componentName)
     Q_PROPERTY(QString definitionLocation READ definitionLocation)
     Q_PROPERTY(QString description READ description)
-    Q_PROPERTY(QString shortComponentName READ shortComponentName)
     Q_PROPERTY(QString productName READ productName)
     Q_PROPERTY(QString provider READ provider)
     Q_PROPERTY(QString description READ description)

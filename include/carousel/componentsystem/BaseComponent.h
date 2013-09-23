@@ -77,15 +77,6 @@ public:
      *
      *   Note, that component takes ownership for its defition.
      */
-    ComponentDefinition *definition() override;
-
-    /*!
-     * @details
-     *   Gets the component definition that can specify component dependencies
-     *   and also describes the component.
-     *
-     *   Note, that component takes ownership for its defition.
-     */
     const ComponentDefinition *definition() const override;
 
     /*!

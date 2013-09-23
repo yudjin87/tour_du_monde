@@ -73,7 +73,7 @@ class COMP_API IComponent : public QObject
     Q_PROPERTY(State state READ state)
     Q_PROPERTY(bool started READ started)
     Q_PROPERTY(QString name READ name)
-    Q_PROPERTY(ComponentDefinition *definition READ definition)
+    Q_PROPERTY(const ComponentDefinition *definition READ definition)
 public:
     /*!
      * @details
@@ -149,15 +149,6 @@ public:
      * @sa setState
      */
     virtual State state() const = 0;
-
-    /*!
-     * @details
-     *   Gets the component definition that can specify component dependencies
-     *   and also describes the component.
-     *
-     *   Note, that component takes ownership for its defition.
-     */
-    virtual ComponentDefinition *definition() = 0;
 
     /*!
      * @details

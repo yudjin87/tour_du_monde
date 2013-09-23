@@ -309,7 +309,8 @@ DependenciesSolvingResult ComponentManager::startupComponents(QList<IComponent *
     if (!orphans.empty()) {
         QStringList orphanComponents;
         for (IComponent *comp : orphans) {
-            comp->definition()->setError("Can not startup, because parent component(s) are not started.");
+            // HACK. We cannot expose non-const definition from the component, but we should set error message
+            const_cast<ComponentDefinition *>(comp->definition())->setError("Can not startup, because parent component(s) are not started.");
             orphanComponents.append(comp->name());
         }
 
