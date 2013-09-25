@@ -15,7 +15,7 @@ public:
     void callCreateServiceLocator();
     void callCreateMainWindow();
 
-    LoggerFacade *logger() const;
+    ILoggerEngineCreator *logger() const;
     IComponentProvider *componentProvider() const;
     IComponentManager *componentManager() const;
     IServiceLocator *serviceLocator() const;

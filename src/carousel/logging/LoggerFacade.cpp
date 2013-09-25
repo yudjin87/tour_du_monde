@@ -25,32 +25,27 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "LoggerFacade.h"
+#include "ILoggerEngine.h"
+#include "ILoggerEngineCreator.h"
 
 //------------------------------------------------------------------------------
 namespace
 {
-static LoggerFacade *LoggerEngine = nullptr;
+static ILoggerEngineCreator *LoggerEngineCreator = nullptr;
 }
 
 //------------------------------------------------------------------------------
 LoggerFacade::LoggerFacade(const QString &name)
-    : m_engine(nullptr)
+    : m_engine()
     , m_name(name)
 {
 }
 
 //------------------------------------------------------------------------------
-LoggerFacade::LoggerFacade(LoggerFacade *engine)
-    : m_engine(engine)
-    , m_name("")
-{
-}
-
-//------------------------------------------------------------------------------
-LoggerFacade *LoggerFacade::logger()
+ILoggerEngine *LoggerFacade::logger()
 {
     if (m_engine == nullptr)
-        m_engine = LoggerFacade::loggerEngine()->getLogger(m_name);
+        m_engine = LoggerEngineCreator->getLogger(m_name);
 
     return m_engine;
 }
@@ -70,29 +65,15 @@ LoggerFacade LoggerFacade::createLogger(const QString &name)
 }
 
 //------------------------------------------------------------------------------
-LoggerFacade *LoggerFacade::loggerEngine()
+ILoggerEngineCreator *LoggerFacade::loggerEngine()
 {
-    return LoggerEngine;
+    return LoggerEngineCreator;
 }
 
 //------------------------------------------------------------------------------
-void LoggerFacade::installLoggerEngine(LoggerFacade *loggerEngine)
+void LoggerFacade::installLoggerEngineCreator(ILoggerEngineCreator *loggerEngine)
 {
-    LoggerEngine = loggerEngine;
-}
-
-//------------------------------------------------------------------------------
-LoggerFacade* LoggerFacade::getLogger(const QString &name)
-{
-    Q_UNUSED(name)
-    return this;
-}
-
-
-//------------------------------------------------------------------------------
-const QString &LoggerFacade::name() const
-{
-    return m_name;
+    LoggerEngineCreator = loggerEngine;
 }
 
 //------------------------------------------------------------------------------

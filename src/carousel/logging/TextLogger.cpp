@@ -31,20 +31,24 @@
 
 //------------------------------------------------------------------------------
 TextLogger::TextLogger(QTextStream &output)
-    : LoggerFacade("Root")
+    : ILoggerEngine()
+    , ILoggerEngineCreator()
     , m_outputStream(output)
+    , m_name("Root")
 {
 }
 
 //------------------------------------------------------------------------------
 TextLogger::TextLogger(QTextStream &output, const QString &name)
-    : LoggerFacade(name)
+    : ILoggerEngine()
+    , ILoggerEngineCreator()
     , m_outputStream(output)
+    , m_name(name)
 {
 }
 
 //------------------------------------------------------------------------------
-LoggerFacade *TextLogger::getLogger(const QString &name)
+ILoggerEngine *TextLogger::getLogger(const QString &name)
 {
     return new TextLogger(m_outputStream, name);
 }
@@ -102,6 +106,12 @@ void TextLogger::log(const QString &message, const QString &category)
             .arg(message);
 
     m_outputStream << formatedMessage << endl;
+}
+
+//------------------------------------------------------------------------------
+const QString &TextLogger::name() const
+{
+    return m_name;
 }
 
 //------------------------------------------------------------------------------

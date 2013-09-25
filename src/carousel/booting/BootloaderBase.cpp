@@ -104,7 +104,7 @@ IComponentProvider *BootloaderBase::createComponentProvider()
 }
 
 //------------------------------------------------------------------------------
-LoggerFacade *BootloaderBase::createLoggerEngine()
+ILoggerEngineCreator *BootloaderBase::createLoggerEngine()
 {
     static QTextStream text(stdout);
     return new TextLogger(text);

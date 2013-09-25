@@ -29,8 +29,10 @@
 
 #include <carousel/logging/logging_global.h>
 
-#include <QtCore/QObject>
 #include <QtCore/QString>
+
+class ILoggerEngine;
+class ILoggerEngineCreator;
 
 /*!
  * @brief
@@ -65,7 +67,7 @@ public:
      * @constructor{LoggerFacade} using specified logger name.
      */
     LoggerFacade(const QString &name);
-    virtual ~LoggerFacade();
+    ~LoggerFacade();
 
     /*!
      * @details
@@ -80,96 +82,72 @@ public:
 
     /*!
      * @details
-     *   Gets an installed logger engine.
+     *   Gets an installed logger engine creator.
      *
      *   Usually you do not use it. Use LoggerFacade::createLogger() instead.
      */
-    static LoggerFacade* loggerEngine();
+    static ILoggerEngineCreator *loggerEngine();
 
     /*!
      * @details
-     *   Installs a logger engine which will be used at least by carousel libraries and its
-     *   components.
+     *   Installs a logger engine creator which will be used for engine creation at least
+     *   by carousel libraries and its components.
      *
-     *   Logger engine is installed by the BootloaderBase during the loading sequence.
+     *   Logger engine creator is installed by the BootloaderBase during the loading sequence.
      *   By default TextLogger is installed, but it is strongly recomended to use some
      *   robust logging engine (e.g. log4cplus). To do it you should override
      *   BootloaderBase::createLoggerEngine() method in your own bootloader and return pointer
      *   to the new logging engine facade.
      */
-    static void installLoggerEngine(LoggerFacade *loggerEngine);
-
-    /*!
-     * @details
-     *   Retrieves a logger with name @a name.
-     *
-     *   Depends on installed logging engine it can return named logger if it already exists,
-     *   or create a new instance, otherwise.
-     *
-     *   Default implementation just returns already created instance regardless of the @a name.
-     */
-    virtual LoggerFacade *getLogger(const QString &name);
+    static void installLoggerEngineCreator(ILoggerEngineCreator *loggerEngine);
 
     /*!
      * @details
      *   Sends a @a debug log message.
      *   Default implementation does nothing.
      */
-    virtual void d(const QString &message);
+    void d(const QString &message);
 
     /*!
      * @details
      *   Sends an @a error log message.
      *   Default implementation does nothing.
      */
-    virtual void e(const QString &message);
+    void e(const QString &message);
 
     /*!
      * @details
      *   Sends a @a fatal log message.
      *   Default implementation does nothing.
      */
-    virtual void f(const QString &message);
+    void f(const QString &message);
 
     /*!
      * @details
      *   Sends an @a info log message.
      *   Default implementation does nothing.
      */
-    virtual void i(const QString &message);
+    void i(const QString &message);
 
     /*!
      * @details
      *   Sends a @a trace log message.
      *   Default implementation does nothing.
      */
-    virtual void t(const QString &message);
+    void t(const QString &message);
 
     /*!
      * @details
      *   Sends a @a warning log message.
      *   Default implementation does nothing.
      */
-    virtual void w(const QString &message);
-
-    /*!
-     * @details
-     *   The name which will append in the log message to the output stream.
-     */
-    const QString &name() const;
-
-protected:
-    /*!
-     * @details
-     * @constructor{LoggerFacade} using specified logger engine and empty name.
-     */
-    LoggerFacade(LoggerFacade *engine);
+    void w(const QString &message);
 
 private:
-    LoggerFacade *logger();
+    ILoggerEngine *logger();
 
 private:
-    LoggerFacade *m_engine;
+    ILoggerEngine *m_engine;
     QString m_name;
 };
 

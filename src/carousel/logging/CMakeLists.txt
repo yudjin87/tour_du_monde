@@ -16,6 +16,8 @@ set(__SOURCES
 ######################################################################
 # Headers
 set(__HEADERS
+    ${CRSL_TARGET_HEADERS}/ILoggerEngine.h 
+    ${CRSL_TARGET_HEADERS}/ILoggerEngineCreator.h 
     ${CRSL_TARGET_HEADERS}/LoggerFacade.h 
     ${CRSL_TARGET_HEADERS}/logging_global.h 
     ${CRSL_TARGET_HEADERS}/NullLogger.h 

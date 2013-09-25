@@ -25,7 +25,7 @@ public:
     const QStringList &methodCalls() const;
 
 protected:
-    LoggerFacade *createLoggerEngine();
+    ILoggerEngineCreator *createLoggerEngine();
     IComponentProvider *createComponentProvider();
     IComponentManager *createComponentManager();
     IServiceLocator *createServiceLocator();

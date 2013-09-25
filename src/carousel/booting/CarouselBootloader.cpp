@@ -49,7 +49,7 @@ CarouselBootloader::CarouselBootloader()
 //------------------------------------------------------------------------------
 CarouselBootloader::~CarouselBootloader()
 {
-    LoggerFacade::installLoggerEngine(nullptr);
+    LoggerFacade::installLoggerEngineCreator(nullptr);
 }
 
 //------------------------------------------------------------------------------
@@ -84,7 +84,7 @@ void CarouselBootloader::safeRun()
 {
     m_logger = createLoggerEngine();
 
-    LoggerFacade::installLoggerEngine(m_logger);
+    LoggerFacade::installLoggerEngineCreator(m_logger);
     Log.i("Logger has been created.");
 
     Log.i("Creating IServiceLocator.");

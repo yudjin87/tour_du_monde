@@ -32,7 +32,7 @@
 
 class IServiceLocator;
 class IComponentManager;
-class LoggerFacade;
+class ILoggerEngineCreator;
 class IComponentProvider;
 class QMainWindow;
 
@@ -124,7 +124,7 @@ protected:
      *   classes to instantiate your own logger facade over the better logging
      *   system (e.g. log4cplus).
      */
-    virtual LoggerFacade *createLoggerEngine();
+    virtual ILoggerEngineCreator *createLoggerEngine();
 
     /*!
      * @details
@@ -168,9 +168,9 @@ protected:
 
     /*!
      * @details
-     *   Logger facade used by the bootloader.
+     *   Logger facade creator used by the bootloader.
      */
-    LoggerFacade *m_logger;
+    ILoggerEngineCreator *m_logger;
 
     /*!
      * @details

@@ -27,7 +27,8 @@
 #ifndef TEXTLOGGER_H
 #define TEXTLOGGER_H
 
-#include <carousel/logging/LoggerFacade.h>
+#include <carousel/logging/ILoggerEngine.h>
+#include <carousel/logging/ILoggerEngineCreator.h>
 
 #include <QtCore/QTextStream>
 
@@ -65,7 +66,7 @@
  *
  * @note This class is not thread-safe.
  */
-class LOGGING_API TextLogger : public LoggerFacade
+class LOGGING_API TextLogger : public ILoggerEngine, public ILoggerEngineCreator
 {
 public:
     /*!
@@ -88,7 +89,7 @@ public:
      * @details
      *   Creates and returns a new instance of the TextLogger with specified name.
      */
-    LoggerFacade *getLogger(const QString &name) override;
+    ILoggerEngine *getLogger(const QString &name) override;
 
     /*!
      * @details
@@ -130,12 +131,21 @@ public:
 protected:
     virtual void log(const QString &message, const QString &category);
 
+    /*!
+     * @details
+     *   The name which will append in the log message to the output stream.
+     */
+    const QString &name() const;
+
 protected:
     /*!
      * @details
      *   The specified output stream for the logging.
      */
     QTextStream &m_outputStream;
+
+private:
+    QString m_name;
 };
 
 #endif // TEXTLOGGER_H

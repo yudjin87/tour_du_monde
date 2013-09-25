@@ -7,6 +7,8 @@ SOURCES += \
     $$PROJECT_SOURCES/TextLogger.cpp \
 
 HEADERS += \
+    $$PROJECT_HEADERS/ILoggerEngine.h \
+    $$PROJECT_HEADERS/ILoggerEngineCreator.h \
     $$PROJECT_HEADERS/LoggerFacade.h \
     $$PROJECT_HEADERS/logging_global.h \
     $$PROJECT_HEADERS/NullLogger.h \

@@ -27,7 +27,8 @@
 #ifndef NULLLOGGER_H
 #define NULLLOGGER_H
 
-#include <carousel/logging/LoggerFacade.h>
+#include <carousel/logging/ILoggerEngine.h>
+#include <carousel/logging/ILoggerEngineCreator.h>
 
 /*!
  * @brief
@@ -36,7 +37,7 @@
  *   You might return this object in the overridden function BootloaderBase::createLogger()
  *   if you don't need any logging and/or you lack resources.
  */
-class LOGGING_API NullLogger : public LoggerFacade
+class LOGGING_API NullLogger : public ILoggerEngine, public ILoggerEngineCreator
 {
 public:
     /*!
@@ -47,9 +48,10 @@ public:
 
     /*!
      * @details
-     *   Creates and returns a new instance of the TextLogger with specified name.
+     *   Creates and returns a new instance of the NullLogger. The @a name
+     *   parameter is ignored.
      */
-    LoggerFacade *getLogger(const QString &name) override;
+    ILoggerEngine *getLogger(const QString &name) override;
 
     /*!
      * @details

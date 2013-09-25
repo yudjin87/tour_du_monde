@@ -74,7 +74,7 @@ const QStringList &CarouselBootloaderMock::methodCalls() const
 }
 
 //------------------------------------------------------------------------------
-LoggerFacade *CarouselBootloaderMock::createLoggerEngine()
+ILoggerEngineCreator *CarouselBootloaderMock::createLoggerEngine()
 {
     mcreateLoggerCalled = true;
     m_methodCalls.push_back("createLoggerEngine");

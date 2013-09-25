@@ -28,12 +28,13 @@
 
 //------------------------------------------------------------------------------
 NullLogger::NullLogger()
-    : LoggerFacade("NullLogger")
+    : ILoggerEngine()
+    , ILoggerEngineCreator()
 {
 }
 
 //------------------------------------------------------------------------------
-LoggerFacade *NullLogger::getLogger(const QString &name)
+ILoggerEngine *NullLogger::getLogger(const QString &name)
 {
     Q_UNUSED(name)
     return new NullLogger();

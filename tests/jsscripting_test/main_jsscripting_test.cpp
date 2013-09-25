@@ -9,6 +9,7 @@
 
 #include "ScriptConsoleViewTest.h"
 
+#include <carousel/logging/LoggerFacade.h>
 #include <carousel/logging/NullLogger.h>
 #include <carousel/logging/TextLogger.h>
 
@@ -28,12 +29,12 @@ int main(int argc, char *argv[])
     if (app.arguments().contains("-g")) {
         QTextStream text(stdout);
         TextLogger log(text);
-        LoggerFacade::installLoggerEngine(&log);
+        LoggerFacade::installLoggerEngineCreator(&log);
         runGuiManualTests(app.arguments());
         return app.exec();
     } else {
         NullLogger log;
-        LoggerFacade::installLoggerEngine(&log);
+        LoggerFacade::installLoggerEngineCreator(&log);
         runUnitTests(argc, argv);
         return 0;
     }
