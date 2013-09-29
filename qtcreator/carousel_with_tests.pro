@@ -8,4 +8,6 @@ TEMPLATE = subdirs
 CONFIG  += ordered
 
 SUBDIRS += src \
-           test
+           test \
+
+include(doc/doc.pri)
