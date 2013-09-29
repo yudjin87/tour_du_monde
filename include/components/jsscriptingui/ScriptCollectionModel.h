@@ -24,41 +24,46 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef CODEHIGHLIGHTER_H
-#define CODEHIGHLIGHTER_H
+#ifndef SCRIPTCOLLECTIONMODEL_H
+#define SCRIPTCOLLECTIONMODEL_H
 
-#include <components/jsscripting/jsscripting_global.h>
+#include <components/jsscriptingui/jsscriptingui_global.h>
+#include <components/jsscripting/IScriptCollection.h>
 
-#include <QtGui/QSyntaxHighlighter>
+#include <QtCore/QObject>
 
-class ColorTheme;
+class IServiceLocator;
+class IScriptUnit;
+class IScriptCollection;
 
-/*!
- * @brief
- */
-class JSSCRIPTING_API CodeHighlighter : public QSyntaxHighlighter
+class JSSCRIPTING_UI_API ScriptCollectionModel : public QObject
 {
     Q_OBJECT
 public:
     /*!
      * @details
-     *   Does not takes ownership.
+     *   Does not takes ownership
      */
-    explicit CodeHighlighter(ColorTheme *theme, QObject *parent = nullptr);
-    ~CodeHighlighter();
+    explicit ScriptCollectionModel(IScriptCollection *data, QObject *parent = nullptr);
+    ~ScriptCollectionModel();
 
-protected:
-    void highlightBlock(const QString &text) override;
+    void injectServiceLocator(IServiceLocator *locator);
+
+    IScriptCollection::Scripts scripts() const;
+
+public slots:
+    void onLoad();
+    void onScriptRemoved(IScriptUnit *script);
+    void onSaveAll();
+    void onCreateScript();
+
+signals:
+    void scriptAdded(IScriptUnit *script);
+    void scriptRemoved(IScriptUnit *script);
 
 private:
-    void highlightLines(const QString &text);
-    void highlightCommentBlocks(const QString &text);
-
-private:
-    Q_DISABLE_COPY(CodeHighlighter)
-
-private:
-    ColorTheme *m_theme;
+    IScriptCollection *m_data;
+    IServiceLocator *m_locator;
 };
 
-#endif // CODEHIGHLIGHTER_H
+#endif // SCRIPTCOLLECTIONMODEL_H

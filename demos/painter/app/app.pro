@@ -16,6 +16,7 @@ LIBS += -L$${CAROUSEL_BIN} -lComponentSystem \
                            -lLogging \
                            -lorg.carousel.Interactivity \
                            -lorg.carousel.JsScripting \
+                           -lorg.carousel.JsScriptingUI \
                            -lorg.carousel.ComponentSystemUI \
                            -lorg.carousel.Undo \
 

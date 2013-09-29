@@ -24,53 +24,41 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SCRIPTUNITVIEW_H
-#define SCRIPTUNITVIEW_H
+#ifndef CODEHIGHLIGHTER_H
+#define CODEHIGHLIGHTER_H
 
-#include <components/jsscripting/jsscripting_global.h>
+#include <components/jsscriptingui/jsscriptingui_global.h>
 
-#include <QtWidgets/QWidget>
+#include <QtGui/QSyntaxHighlighter>
 
-namespace Ui
-{
-class ScriptUnitView;
-}
+class ColorTheme;
 
-class IScriptUnit;
-class QSyntaxHighlighter;
-
-class JSSCRIPTING_API ScriptUnitView : public QWidget
+/*!
+ * @brief
+ */
+class JSSCRIPTING_UI_API CodeHighlighter : public QSyntaxHighlighter
 {
     Q_OBJECT
 public:
     /*!
      * @details
-     *  Takes ownership for highlighter
+     *   Does not takes ownership.
      */
-    ScriptUnitView(IScriptUnit *data, QSyntaxHighlighter *highlighter, QWidget *parent);
-    ~ScriptUnitView();
-
-    IScriptUnit *data();
-
-    void clear();
-    void printError(const QString &error);
-    void printOutput(const QString &output);
-
-public slots:
-    void onRun();
-    bool onSave();
+    explicit CodeHighlighter(ColorTheme *theme, QObject *parent = nullptr);
+    ~CodeHighlighter();
 
 protected:
-    bool eventFilter(QObject *sender, QEvent *event);
+    void highlightBlock(const QString &text) override;
 
 private:
-    bool onKeyPressed(QKeyEvent *event);
-    bool processControlKey(int key);
-    void insertIndent();
+    void highlightLines(const QString &text);
+    void highlightCommentBlocks(const QString &text);
 
 private:
-    Ui::ScriptUnitView *m_ui;
-    IScriptUnit *m_data;
+    Q_DISABLE_COPY(CodeHighlighter)
+
+private:
+    ColorTheme *m_theme;
 };
 
-#endif // SCRIPTUNITVIEW_H
+#endif // CODEHIGHLIGHTER_H

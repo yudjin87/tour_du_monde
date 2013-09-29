@@ -42,8 +42,8 @@
   </layout>
   <action name="actionLoadScript">
    <property name="icon">
-    <iconset resource="jsscripting.qrc">
-     <normaloff>:/jsscripting/images/scriptLoad.png</normaloff>:/jsscripting/images/scriptLoad.png</iconset>
+    <iconset resource="jsscriptingui.qrc">
+     <normaloff>:/jsscriptingui/images/scriptLoad.png</normaloff>:/jsscriptingui/images/scriptLoad.png</iconset>
    </property>
    <property name="text">
     <string>Load script</string>
@@ -60,8 +60,8 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="jsscripting.qrc">
-     <normaloff>:/jsscripting/images/scriptRun.png</normaloff>:/jsscripting/images/scriptRun.png</iconset>
+    <iconset resource="jsscriptingui.qrc">
+     <normaloff>:/jsscriptingui/images/scriptRun.png</normaloff>:/jsscriptingui/images/scriptRun.png</iconset>
    </property>
    <property name="text">
     <string>Run</string>
@@ -78,8 +78,8 @@
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="jsscripting.qrc">
-     <normaloff>:/jsscripting/images/scriptSave.png</normaloff>:/jsscripting/images/scriptSave.png</iconset>
+    <iconset resource="jsscriptingui.qrc">
+     <normaloff>:/jsscriptingui/images/scriptSave.png</normaloff>:/jsscriptingui/images/scriptSave.png</iconset>
    </property>
    <property name="text">
     <string>Save</string>
@@ -93,8 +93,8 @@
   </action>
   <action name="actionNewScript">
    <property name="icon">
-    <iconset resource="jsscripting.qrc">
-     <normaloff>:/jsscripting/images/scriptAdd.png</normaloff>:/jsscripting/images/scriptAdd.png</iconset>
+    <iconset resource="jsscriptingui.qrc">
+     <normaloff>:/jsscriptingui/images/scriptAdd.png</normaloff>:/jsscriptingui/images/scriptAdd.png</iconset>
    </property>
    <property name="text">
     <string>New script</string>
@@ -108,7 +108,7 @@
   </action>
  </widget>
  <resources>
-  <include location="jsscripting.qrc"/>
+  <include location="jsscriptingui.qrc"/>
  </resources>
  <connections/>
 </ui>

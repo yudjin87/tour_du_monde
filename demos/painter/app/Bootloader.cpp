@@ -33,6 +33,7 @@
 #include <carousel/componentsystem/IComponent.h>
 #include <components/componentsystemui/ComponentSystemUIComponent.h>
 #include <components/jsscripting/JsScriptingComponent.h>
+#include <components/jsscriptingui/JsScriptingUIComponent.h>
 #include <components/interactivity/InteractionServiceComponent.h>
 #include <components/undo/UndoComponent.h>
 
@@ -52,6 +53,7 @@ void Bootloader::configureComponentProvider()
     provider->registerComponent(new ComponentSystemUIComponent());
     provider->registerComponent(new InteractionServiceComponent());
     provider->registerComponent(new JsScriptingComponent());
+    provider->registerComponent(new JsScriptingUIComponent());
     provider->registerComponent(new UndoComponent());
 }
 

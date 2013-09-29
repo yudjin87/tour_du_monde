@@ -10,3 +10,4 @@ SUBDIRS += \
     logging_test \
     utils_test \
     jsscripting_test \
+    jsscriptingui_test \

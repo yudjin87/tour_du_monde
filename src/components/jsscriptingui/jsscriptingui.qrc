@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix="/jsscripting">
+    <qresource prefix="/jsscriptingui">
         <file>images/scriptWindow.png</file>
         <file>images/scriptAdd.png</file>
         <file>images/scriptLoad.png</file>

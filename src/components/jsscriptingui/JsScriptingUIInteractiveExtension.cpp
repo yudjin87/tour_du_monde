@@ -24,14 +24,14 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "JsScriptingInteractiveExtension.h"
+#include "JsScriptingUIInteractiveExtension.h"
 #include "CodeHighlighter.h"
 #include "ColorTheme.h"
-#include "IScriptConsole.h"
-#include "IScriptingService.h"
 #include "ScriptConsoleView.h"
 #include "ShowScriptsOperation.h"
 
+#include <components/jsscripting/IScriptConsole.h>
+#include <components/jsscripting/IScriptingService.h>
 #include <components/interactivity/ICatalogs.h>
 #include <components/interactivity/IDockWidgetCatalog.h>
 #include <components/interactivity/IMenuCatalog.h>
@@ -44,13 +44,13 @@
 #include <QtWidgets/QMenu>
 
 //------------------------------------------------------------------------------
-JsScriptingInteractiveExtension::JsScriptingInteractiveExtension(QObject *parent /*= nullptr*/)
+JsScriptingUIInteractiveExtension::JsScriptingUIInteractiveExtension(QObject *parent /*= nullptr*/)
     : QObject(parent)
 {
 }
 
 //------------------------------------------------------------------------------
-void JsScriptingInteractiveExtension::configureGui(ICatalogs &inCatalogs, IServiceLocator *serviceLocator)
+void JsScriptingUIInteractiveExtension::configureGui(ICatalogs &inCatalogs, IServiceLocator *serviceLocator)
 {
     IScriptingService *service = serviceLocator->locate<IScriptingService>();
     IScriptConsole *console = service->console();
@@ -62,7 +62,7 @@ void JsScriptingInteractiveExtension::configureGui(ICatalogs &inCatalogs, IServi
     QDockWidget *scriptConsoleDock = catalog.addDockWidget(
             new ScriptConsoleView(console, hilighter), "Script console", Qt::BottomDockWidgetArea);
 
-    Operation *scriptConsole = new ToggleActionWrapper(scriptConsoleDock->toggleViewAction(), QIcon(":/jsscripting/images/scriptWindow.png"));
+    Operation *scriptConsole = new ToggleActionWrapper(scriptConsoleDock->toggleViewAction(), QIcon(":/jsscriptingui/images/scriptWindow.png"));
     inCatalogs.operationCatalog().add(scriptConsole);
     QMenu *viewMenu = inCatalogs.menuCatalog().addMenu("View");
     viewMenu->addAction(scriptConsole);

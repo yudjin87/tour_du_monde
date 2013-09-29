@@ -25,8 +25,8 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "ScriptCollectionModel.h"
-#include "IScriptUnit.h"
 
+#include <components/jsscripting/IScriptUnit.h>
 #include <carousel/logging/LoggerFacade.h>
 #include <carousel/utils/IServiceLocator.h>
 

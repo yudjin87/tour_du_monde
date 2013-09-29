@@ -7,42 +7,20 @@
 #include "CarouselScriptEngineConfigurationDelegateTest.h"
 #include "SimpleCompleterTest.h"
 
-#include "ScriptConsoleViewTest.h"
-
 #include <carousel/logging/LoggerFacade.h>
 #include <carousel/logging/NullLogger.h>
-#include <carousel/logging/TextLogger.h>
 
-#include <QtCore/QStringList>
 #include <QtTest/QTest>
-#include <QtWidgets/QApplication>
-
-//------------------------------------------------------------------------------
-void runGuiManualTests(QStringList arguments);
-void runUnitTests(int argc, char *argv[]);
+#include <QtCore/QCoreApplication>
 
 //------------------------------------------------------------------------------
 int main(int argc, char *argv[])
 {
-    QApplication app(argc, argv);
+    QCoreApplication app(argc, argv);
 
-    if (app.arguments().contains("-g")) {
-        QTextStream text(stdout);
-        TextLogger log(text);
-        LoggerFacade::installLoggerEngineCreator(&log);
-        runGuiManualTests(app.arguments());
-        return app.exec();
-    } else {
-        NullLogger log;
-        LoggerFacade::installLoggerEngineCreator(&log);
-        runUnitTests(argc, argv);
-        return 0;
-    }
-}
+    NullLogger log;
+    LoggerFacade::installLoggerEngineCreator(&log);
 
-//------------------------------------------------------------------------------
-void runUnitTests(int argc, char *argv[])
-{
     ServiceLocatorWrapperTest serviceLocatorWrapperTest;
     QTest::qExec(&serviceLocatorWrapperTest, argc, argv);
 
@@ -66,16 +44,8 @@ void runUnitTests(int argc, char *argv[])
 
     SimpleCompleterTest simpleCompleterTest;
     QTest::qExec(&simpleCompleterTest, argc, argv);
+
+    return 0;
 }
 
 //------------------------------------------------------------------------------
-void runGuiManualTests(QStringList arguments)
-{
-    if (arguments.contains("ScriptConsoleViewTest")) {
-        ScriptConsoleViewTest *scriptConsoleViewTest = new ScriptConsoleViewTest(QApplication::instance());
-        scriptConsoleViewTest->test();
-    }
-}
-
-//------------------------------------------------------------------------------
-

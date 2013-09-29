@@ -26,7 +26,8 @@
 
 #include "ScriptUnitView.h"
 #include "ui_ScriptUnitView.h"
-#include "IScriptUnit.h"
+
+#include <components/jsscripting/IScriptUnit.h>
 
 #include <QtGui/QKeyEvent>
 #include <QtGui/QSyntaxHighlighter>

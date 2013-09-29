@@ -27,7 +27,7 @@
 #ifndef LEXEMEAPPEARANCE_H
 #define LEXEMEAPPEARANCE_H
 
-#include <components/jsscripting/jsscripting_global.h>
+#include <components/jsscriptingui/jsscriptingui_global.h>
 
 #include <QtCore/QObject>
 #include <QtCore/QRegExp>
@@ -39,7 +39,7 @@ class QTextCharFormat;
 /*!
  * @brief
  */
-class JSSCRIPTING_API LexemeAppearance : public QObject
+class JSSCRIPTING_UI_API LexemeAppearance : public QObject
 {
     Q_OBJECT
 public:

@@ -12,7 +12,6 @@ SOURCES += \
     $$TEST_PROJECT_SOURCES/main_jsscripting_test.cpp \
     $$TEST_PROJECT_SOURCES/ScriptCollectionTest.cpp \
     $$TEST_PROJECT_SOURCES/ScriptConsoleTest.cpp \
-    $$TEST_PROJECT_SOURCES/ScriptConsoleViewTest.cpp \
     $$TEST_PROJECT_SOURCES/ScriptEngineTest.cpp \
     $$TEST_PROJECT_SOURCES/ScriptingServiceTest.cpp \
     $$TEST_PROJECT_SOURCES/ScriptUnitTest.cpp \
@@ -30,7 +29,6 @@ HEADERS += \
     $$TEST_PROJECT_SOURCES/fakes/MockScriptExtensionComponent.h \
     $$TEST_PROJECT_SOURCES/ScriptCollectionTest.h \
     $$TEST_PROJECT_SOURCES/ScriptConsoleTest.h \
-    $$TEST_PROJECT_SOURCES/ScriptConsoleViewTest.h \
     $$TEST_PROJECT_SOURCES/ScriptEngineTest.h \
     $$TEST_PROJECT_SOURCES/ScriptingServiceTest.h \
     $$TEST_PROJECT_SOURCES/ScriptUnitTest.h \

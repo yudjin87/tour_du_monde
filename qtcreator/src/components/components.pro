@@ -6,3 +6,4 @@ SUBDIRS += \
     undo \
     componentsystemui \
     jsscripting \
+    jsscriptingui \

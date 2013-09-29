@@ -25,8 +25,9 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "ScriptConsoleView.h"
-#include "IScriptConsole.h"
 #include "ui_ScriptConsoleView.h"
+
+#include <components/jsscripting/IScriptConsole.h>
 
 #include <QtGui/QKeyEvent>
 #include <QtGui/QSyntaxHighlighter>

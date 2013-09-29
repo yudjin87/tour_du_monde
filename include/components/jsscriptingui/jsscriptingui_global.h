@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- 
+
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -24,46 +24,19 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SCRIPTCOLLECTIONMODEL_H
-#define SCRIPTCOLLECTIONMODEL_H
+#ifndef JSSCRIPTINGUI_GLOBAL_H
+#define JSSCRIPTINGUI_GLOBAL_H
 
-#include <components/jsscripting/jsscripting_global.h>
-#include <components/jsscripting/IScriptCollection.h>
+#include <QtCore/qglobal.h>
 
-#include <QtCore/QObject>
+#if defined(STATIC_BUILD)
+#   define JSSCRIPTING_UI_API
+#else
+#   if defined(ORG_CAROUSEL_JSSCRIPTINGUI_LIBRARY)
+#       define JSSCRIPTING_UI_API Q_DECL_EXPORT
+#   else
+#       define JSSCRIPTING_UI_API Q_DECL_IMPORT
+#   endif //#if defined(ORG_CAROUSEL_JSSCRIPTINGUI_LIBRARY)
+#endif //#if defined(STATIC_BUILD)
 
-class IServiceLocator;
-class IScriptUnit;
-class IScriptCollection;
-
-class JSSCRIPTING_API ScriptCollectionModel : public QObject
-{
-    Q_OBJECT
-public:
-    /*!
-     * @details
-     *   Does not takes ownership
-     */
-    explicit ScriptCollectionModel(IScriptCollection *data, QObject *parent = nullptr);
-    ~ScriptCollectionModel();
-
-    void injectServiceLocator(IServiceLocator *locator);
-
-    IScriptCollection::Scripts scripts() const;
-
-public slots:
-    void onLoad();
-    void onScriptRemoved(IScriptUnit *script);
-    void onSaveAll();
-    void onCreateScript();
-
-signals:
-    void scriptAdded(IScriptUnit *script);
-    void scriptRemoved(IScriptUnit *script);
-
-private:
-    IScriptCollection *m_data;
-    IServiceLocator *m_locator;
-};
-
-#endif // SCRIPTCOLLECTIONMODEL_H
+#endif // JSSCRIPTINGUI_GLOBAL_H

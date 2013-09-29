@@ -38,7 +38,7 @@ ShowScriptsOperation::ShowScriptsOperation()
     , m_serviceLocator(nullptr)
     , m_scriptsDialog(nullptr)
 {
-    setIcon(QIcon(":/jsscripting/images/scriptIDE.png"));
+    setIcon(QIcon(":/jsscriptingui/images/scriptIDE.png"));
     setIconVisibleInMenu(true);
 }
 

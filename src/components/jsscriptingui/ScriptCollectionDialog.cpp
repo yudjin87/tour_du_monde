@@ -28,10 +28,10 @@
 #include "ui_ScriptCollectionDialog.h"
 #include "CodeHighlighter.h"
 #include "ScriptUnitView.h"
-#include "IScriptUnit.h"
 #include "ScriptCollectionModel.h"
 #include "ColorTheme.h"
 
+#include <components/jsscripting/IScriptUnit.h>
 #include <carousel/logging/LoggerFacade.h>
 
 #include <QtCore/QSettings>

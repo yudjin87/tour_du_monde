@@ -24,21 +24,28 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "JsScriptingComponent.h"
-#include "ScriptingService.h"
+#include "JsScriptingUIComponent.h"
+#include "JsScriptingUIInteractiveExtension.h"
+#include "ScriptCollectionDialog.h"
+#include "ScriptCollectionModel.h"
 
+#include <components/jsscripting/IScriptConsole.h>
+#include <components/jsscripting/IScriptingService.h>
 #include <carousel/componentsystem/ComponentDefinition.h>
 #include <carousel/componentsystem/ComponentExport.h>
 #include <carousel/componentsystem/IComponentManager.h>
 #include <carousel/logging/LoggerFacade.h>
 #include <carousel/utils/IServiceLocator.h>
 
+#include <components/interactivity/IDialogService.h>
+#include <components/interactivity/IInteractionService.h>
+
 #include <algorithm>
 
 //------------------------------------------------------------------------------
 namespace
 {
-static LoggerFacade Log = LoggerFacade::createLogger("JsScriptingComponent");
+static LoggerFacade Log = LoggerFacade::createLogger("JsScriptingUIComponent");
 }
 
 //------------------------------------------------------------------------------
@@ -46,57 +53,49 @@ static const QByteArray description(
         "");
 
 //------------------------------------------------------------------------------
-JsScriptingComponent::JsScriptingComponent(QObject *parent)
-    : BaseComponent("org.carousel.JsScripting", parent)
+JsScriptingUIComponent::JsScriptingUIComponent(QObject *parent)
+    : BaseComponent("org.carousel.JsScriptingUI", parent)
 {
-    setShortName("JsScripting");
-    setProductName("JsScripting");
+    IInteractiveExtension *interactiveExtension = new JsScriptingUIInteractiveExtension(this);
+    registerExtension<IInteractiveExtension>(interactiveExtension);
+
+    setShortName("JsScriptingUI");
+    setProductName("JsScriptingUI");
     setDescription(description);
     setProvider("Carousel");
     setVersion(1, 0);
+    addParent("org.carousel.JsScripting", 1, 0);
+    addParent("org.carousel.Interactivity", 1, 0);
 }
 
 //------------------------------------------------------------------------------
-JsScriptingComponent::~JsScriptingComponent()
+JsScriptingUIComponent::~JsScriptingUIComponent()
 {
 }
 
 //------------------------------------------------------------------------------
-void JsScriptingComponent::onShutdown(IServiceLocator *serviceLocator)
+void JsScriptingUIComponent::onShutdown(IServiceLocator *serviceLocator)
 {
-    IScriptingService *service = serviceLocator->unregisterInstance<IScriptingService>();
-    delete service;
+    Q_UNUSED(serviceLocator)
+    // TODO: unregister dialog
 }
 
 //------------------------------------------------------------------------------
-bool JsScriptingComponent::onStartup(IServiceLocator *serviceLocator)
+bool JsScriptingUIComponent::onStartup(IServiceLocator *serviceLocator)
 {
-    IComponentManager *manager = serviceLocator->locate<IComponentManager>();
-    IScriptingService *service = new ScriptingService(serviceLocator, manager, getStartedScriptFromAgrs());
-    serviceLocator->registerInstance<IScriptingService>(service);
+    IScriptingService *service = serviceLocator->locate<IScriptingService>();
+
+    // Services
+    IDialogService *dialogService = serviceLocator->locate<IDialogService>();
+    dialogService->registerDialog<ScriptCollectionDialog, ScriptCollectionModel>();
+
+    auto scriptManagerModelCreator = [service](){return new ScriptCollectionModel(service->scripts());};
+    serviceLocator->registerType<ScriptCollectionModel>(scriptManagerModelCreator);
 
     return true;
 }
 
 //------------------------------------------------------------------------------
-QString JsScriptingComponent::getStartedScriptFromAgrs() const
-{
-    // TODO: Handle optional argument ... may be it should be one more extension
-    QStringList args = definition()->arguments();
-    auto it = std::find(args.cbegin(), args.cend(), "--start-script");
-    if (it == args.cend())
-        return QString();
-
-    ++it;
-    if (it == args.cend()) {
-        Log.e("Wrong parameters. Usage [--start-script <scriptFilePath>]");
-        return QString();
-    }
-
-    return *it;
-}
-
-//------------------------------------------------------------------------------
-EXPORT_COMPONENT(JsScriptingComponent)
+EXPORT_COMPONENT(JsScriptingUIComponent)
 
 //------------------------------------------------------------------------------

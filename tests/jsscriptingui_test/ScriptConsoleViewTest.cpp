@@ -27,9 +27,9 @@
 #include "ScriptConsoleViewTest.h"
 
 #include <components/jsscripting/ScriptConsole.h>
-#include <components/jsscripting/ScriptConsoleView.h>
-#include <components/jsscripting/CodeHighlighter.h>
-#include <components/jsscripting/ColorTheme.h>
+#include <components/jsscriptingui/ScriptConsoleView.h>
+#include <components/jsscriptingui/CodeHighlighter.h>
+#include <components/jsscriptingui/ColorTheme.h>
 
 //------------------------------------------------------------------------------
 ScriptConsoleViewTest::ScriptConsoleViewTest(QObject *parent)

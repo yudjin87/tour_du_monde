@@ -1,16 +1,18 @@
 include (../test_shared.pri)
-include (jsscripting_test.pri)
+include (jsscriptingui_test.pri)
 
-QT      -= widgets
-QT      += script gui
+QT      += widgets
+QT      += script
 
-TARGET = jsscripting_test
+TARGET = jsscriptingui_test
 
-LIBS += -L$${DESTDIR}/../bin -lComponentSystem \
+LIBS += -L$${DESTDIR}/../bin -lorg.carousel.Interactivity \
+                             -lComponentSystem \
                              -lFramework \
                              -lUtils \
                              -lLogging \
                              -lorg.carousel.JsScripting \
+                             -lorg.carousel.JsScriptingUI \
 
 ###############################################################################
 # Copy script files to the script directory

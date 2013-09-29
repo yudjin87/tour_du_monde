@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- 
+
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -24,52 +24,51 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SCRIPTCOLLECTIONVIEW_H
-#define SCRIPTCOLLECTIONVIEW_H
+#ifndef SCRIPTCONSOLEVIEW_H
+#define SCRIPTCONSOLE_H
 
-#include <components/jsscripting/jsscripting_global.h>
+#include <components/jsscriptingui/jsscriptingui_global.h>
 
-#include <QtCore/QMap>
-#include <QtWidgets/QDialog>
+#include <QtWidgets/QWidget>
 
 namespace Ui
 {
-class ScriptCollectionDialog;
+class ScriptConsoleView;
 }
 
-class ScriptCollectionModel;
-class ScriptUnitView;
-class IScriptUnit;
+class IScriptConsole;
+class QSyntaxHighlighter;
 
-class JSSCRIPTING_API ScriptCollectionDialog : public QDialog
+class JSSCRIPTING_UI_API ScriptConsoleView : public QWidget
 {
-    Q_OBJECT
+    Q_OBJECT    
 public:
     /*!
      * @details
+     *   Takes ownership for hilighter.
      */
-    explicit ScriptCollectionDialog(ScriptCollectionModel *model, QWidget *parent = nullptr);
-    ~ScriptCollectionDialog();
+    ScriptConsoleView(IScriptConsole *console, QSyntaxHighlighter *hilighter, QWidget *parent = nullptr);
+    ~ScriptConsoleView();
+    
+protected:
+    bool eventFilter(QObject *sender, QEvent *event) override;
 
 private slots:
-    void onScriptAdded(IScriptUnit *script);
-    void onScriptRemoved(IScriptUnit *script);
-    void onRun();
-    void onSave();
-    void onCurrentScriptModificationChanged(bool changed);
-    void onScriptFileNameChanged();
-    void onTabCloseRequested(int index);
+    void onEnter();
+    void onAboutToExecute(const QString &command);
+    void printError(const QString &error);
+    void printOutput(const QString &output);
 
 private:
-    ScriptUnitView *getCurrentView();
-    void clearModifiedMark(int index);
-    void setModifiedMark(int index);
-    int indexByScript(IScriptUnit *script) const;
-    void setActionsEnabled(bool enable);
+    void connectSignalsToSlots();
+    void onPrevCommand();
+    void onNextCommand();
+    void scrollDown();
 
 private:
-    Ui::ScriptCollectionDialog *m_ui;
-    ScriptCollectionModel *m_model;
+    Ui::ScriptConsoleView *m_ui;
+    IScriptConsole *m_console;
+    QSyntaxHighlighter *m_hilighter;
 };
 
-#endif // SCRIPTCOLLECTIONVIEW_H
+#endif // SCRIPTCONSOLEVIEW_H

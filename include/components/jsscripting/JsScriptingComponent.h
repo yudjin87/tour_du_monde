@@ -38,9 +38,7 @@ class ServiceLocatorWrapper;
  *   This class represents a component, that adds JavaScript facilities using QtScript module.
  * @details
  *   The JsScriptingComponent provides objects that allow custom application
- *   to expose its API to the JavaScript. This component populates GUI with script console
- *   dockable widget and with simple script editor, which allows to create, save, load and run
- *   new scripts.
+ *   to expose its API to the JavaScript.
  *
  *   All objsects, registered in the IServiceLocator are available from the script. Also one more object
  *   is available in the JS global context - it is the serviceLocator:
@@ -79,12 +77,8 @@ class ServiceLocatorWrapper;
  *
  *   Registered services:
  * @li IScriptingService (entry point);
- *   Registered dialogs:
- * @li ScriptCollectionDialog;
- *   Registered types:
- * @li ScriptCollectionModel;
  *
- * @sa IScriptEngineConfigurationDelegate, IScriptExtension, IScriptingService
+ * @sa JsScriptingUIComponent, IScriptEngineConfigurationDelegate, IScriptExtension, IScriptingService
  */
 class JSSCRIPTING_API JsScriptingComponent : public BaseComponent
 {
@@ -106,8 +100,7 @@ protected:
 
     /*!
      * @details
-     *   Registers IScriptingService, ScriptCollectionDialog and ScriptCollectionModel
-     *   in the @a serviceLocator.
+     *   Registers IScriptingService in the @a serviceLocator.
      */
     bool onStartup(IServiceLocator *serviceLocator) override;
 

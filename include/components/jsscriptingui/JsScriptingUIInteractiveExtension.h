@@ -24,54 +24,20 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef COLORTHEME_H
-#define COLORTHEME_H
+#ifndef JS_SCRIPTING_UI_EXTENSION_H
+#define JS_SCRIPTING_UI_EXTENSION_H
 
-#include <components/jsscripting/jsscripting_global.h>
+#include <components/interactivity/IInteractiveExtension.h>
 
 #include <QtCore/QObject>
-#include <QtCore/QList>
 
-class LexemeAppearance;
-
-/*!
- * @brief
- */
-class JSSCRIPTING_API ColorTheme : public QObject
+class JsScriptingUIInteractiveExtension : public QObject, public IInteractiveExtension
 {
     Q_OBJECT
 public:
-    explicit ColorTheme(QObject *parent = nullptr);
-    explicit ColorTheme(const QString &name, QObject *parent = nullptr);
-    ~ColorTheme();
+    JsScriptingUIInteractiveExtension(QObject *parent = nullptr);
 
-    static ColorTheme *getDefault();
-
-    const QString &name() const;
-    void setName(const QString &name);
-
-    /*!
-     * @details
-     *   Takes ownership.
-     */
-    void addLexeme(LexemeAppearance *lexeme);
-
-    /*!
-     * @details
-     *   Takes ownership.
-     */
-    void addBlockLexeme(LexemeAppearance *lexeme);
-
-    const QList<LexemeAppearance *> &lexemes() const;
-
-    const QList<LexemeAppearance *> &blockLexemes() const;
-private:
-    Q_DISABLE_COPY(ColorTheme)
-
-private:
-    QString m_name;
-    QList<LexemeAppearance *> m_lexemes;
-    QList<LexemeAppearance *> m_blockLexemes;
+    void configureGui(ICatalogs &inCatalogs, IServiceLocator *serviceLocator) override;
 };
 
-#endif // COLORTHEME_H
+#endif // JS_SCRIPTING_UI_EXTENSION_H
