@@ -32,15 +32,12 @@
 #include <carousel/logging/TextLogger.h>
 #include <carousel/utils/ServiceLocator.h>
 
-#include <QtWidgets/QMainWindow>
-
 //------------------------------------------------------------------------------
 BootloaderBase::BootloaderBase()
     : m_componentManager(nullptr)
     , m_componentProvider(nullptr)
     , m_logger(nullptr)
     , m_serviceLocator(nullptr)
-    , m_mainWindow(nullptr)
     , m_alreadyRunned(false)
 {
 }
@@ -59,9 +56,6 @@ BootloaderBase::~BootloaderBase()
 
     delete m_serviceLocator;
     m_serviceLocator = nullptr;
-
-    delete m_mainWindow;
-    m_mainWindow = nullptr;
 }
 
 //------------------------------------------------------------------------------
@@ -114,12 +108,6 @@ ILoggerEngineCreator *BootloaderBase::createLoggerEngine()
 IServiceLocator *BootloaderBase::createServiceLocator()
 {
     return new ServiceLocator();
-}
-
-//------------------------------------------------------------------------------
-QMainWindow *BootloaderBase::createMainWindow()
-{
-    return new QMainWindow();
 }
 
 //------------------------------------------------------------------------------

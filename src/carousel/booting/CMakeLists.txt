@@ -44,4 +44,4 @@ target_link_libraries(${CRSL_PROJECT_NAME} Logging Utils ComponentSystem)
 
 ###############################################################################
 # Qt dependencies
-qt5_use_modules(${CRSL_PROJECT_NAME} Core Widgets)
+qt5_use_modules(${CRSL_PROJECT_NAME} Core)

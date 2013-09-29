@@ -75,15 +75,6 @@ void CarouselBootloaderTest::shouldCallCreateServiceLocatorOnRun()
 }
 
 //------------------------------------------------------------------------------
-void CarouselBootloaderTest::shouldCallCreateMainWindowOnRun()
-{
-    CarouselBootloaderMock mockLoader;
-    mockLoader.run();
-
-    QVERIFY(mockLoader.createMainWindowCalled());
-}
-
-//------------------------------------------------------------------------------
 void CarouselBootloaderTest::shouldCallConfigureComponentProviderOnRun()
 {
     CarouselBootloaderMock mockLoader;
@@ -131,12 +122,10 @@ void CarouselBootloaderTest::shouldCallRunSequenceInOrderOnRun()
     QCOMPARE(methodCalls[1], QString("createServiceLocator"));
     QCOMPARE(methodCalls[2], QString("createComponentManager"));
     QCOMPARE(methodCalls[3], QString("createComponentProvider"));
-    QCOMPARE(methodCalls[4], QString("createMainWindow"));
-    QCOMPARE(methodCalls[5], QString("configureComponentProvider"));
-    QCOMPARE(methodCalls[6], QString("configureServiceLocator"));
-    QCOMPARE(methodCalls[7], QString("initialiseComponentProvider"));
-    QCOMPARE(methodCalls[8], QString("configureComponentManager"));
-
+    QCOMPARE(methodCalls[4], QString("configureComponentProvider"));
+    QCOMPARE(methodCalls[5], QString("configureServiceLocator"));
+    QCOMPARE(methodCalls[6], QString("initialiseComponentProvider"));
+    QCOMPARE(methodCalls[7], QString("configureComponentManager"));
 }
 
 //------------------------------------------------------------------------------
@@ -186,20 +175,6 @@ void CarouselBootloaderTest::configuringServiceLocatorShouldAddComponentManagerT
     IComponentManager *componentManager  = serviceLocator->locate<IComponentManager>();
 
     QVERIFY(componentManager != nullptr);
-}
-
-//------------------------------------------------------------------------------
-void CarouselBootloaderTest::configuringServiceLocatorShouldAddMainWindowToServices()
-{
-    CarouselBootloader carouselBootloader;
-    carouselBootloader.run();
-
-    IServiceLocator *serviceLocator = carouselBootloader.serviceLocator();
-    QVERIFY(serviceLocator != nullptr);
-
-    QMainWindow *mainWindow  = serviceLocator->locate<QMainWindow>();
-
-    QVERIFY(mainWindow != nullptr);
 }
 
 //------------------------------------------------------------------------------

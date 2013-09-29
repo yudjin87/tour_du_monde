@@ -34,7 +34,6 @@ class IServiceLocator;
 class IComponentManager;
 class ILoggerEngineCreator;
 class IComponentProvider;
-class QMainWindow;
 
 /*!
  * @brief
@@ -135,12 +134,6 @@ protected:
 
     /*!
      * @details
-     *   Creates default main window class and takes ownership.
-     */
-    virtual QMainWindow *createMainWindow();
-
-    /*!
-     * @details
      *   Does nothing by default. When overridden in derived classes should call
      *   IComponentProvider::initialize() method for the created component provider.
      */
@@ -177,12 +170,6 @@ protected:
      *   Service locator for the application.
      */
     IServiceLocator *m_serviceLocator;
-
-    /*!
-     * @details
-     *   Main window (shell) for the application.
-     */
-    QMainWindow *m_mainWindow;
 
 private:
     bool m_alreadyRunned;

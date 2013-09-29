@@ -1,7 +1,7 @@
 include (../test_shared.pri)
 include (booting_test.pri)
 
-QT      += widgets
+QT -= widgets gui
 
 TARGET = booting_test
 

@@ -55,17 +55,6 @@ void BaseBootloaderTest::shouldCreateDefaultServiceLocator()
 }
 
 //------------------------------------------------------------------------------
-void BaseBootloaderTest::shouldCreateDefaultMainWindow()
-{
-    BootloaderMock loader;
-    loader.callCreateMainWindow();
-
-    QMainWindow *defaultMainWindow = loader.mainWindow();
-
-    QVERIFY(defaultMainWindow != nullptr);
-}
-
-//------------------------------------------------------------------------------
 void BaseBootloaderTest::canRunOnlyOncePerInstance()
 {
     BootloaderMock loader;

@@ -31,12 +31,6 @@ void BootloaderMock::callCreateServiceLocator()
 }
 
 //------------------------------------------------------------------------------
-void BootloaderMock::callCreateMainWindow()
-{
-    m_mainWindow = createMainWindow();
-}
-
-//------------------------------------------------------------------------------
 ILoggerEngineCreator *BootloaderMock::logger() const
 {
     return m_logger;
@@ -58,12 +52,6 @@ IComponentManager *BootloaderMock::componentManager() const
 IServiceLocator *BootloaderMock::serviceLocator() const
 {
     return m_serviceLocator;
-}
-
-//------------------------------------------------------------------------------
-QMainWindow *BootloaderMock::mainWindow() const
-{
-    return m_mainWindow;
 }
 
 //------------------------------------------------------------------------------

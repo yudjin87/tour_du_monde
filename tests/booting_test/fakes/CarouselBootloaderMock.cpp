@@ -6,7 +6,6 @@ CarouselBootloaderMock::CarouselBootloaderMock()
     , mcreateComponentProviderCalled(false)
     , mcreateComponentManagerCalled(false)
     , mcreateServiceLocatorCalled(false)
-    , mcreateMainWindowCalled(false)
     , minitialiseComponentProviderCalled(false)
     , mconfigureComponentProviderCalled(false)
     , mconfigureComponentManagerCalled(false)
@@ -36,12 +35,6 @@ bool CarouselBootloaderMock::createComponentManagerCalled() const
 bool CarouselBootloaderMock::createServiceLocatorCalled() const
 {
     return mcreateServiceLocatorCalled;
-}
-
-//------------------------------------------------------------------------------
-bool CarouselBootloaderMock::createMainWindowCalled() const
-{
-    return mcreateMainWindowCalled;
 }
 
 //------------------------------------------------------------------------------
@@ -103,14 +96,6 @@ IServiceLocator *CarouselBootloaderMock::createServiceLocator()
     mcreateServiceLocatorCalled = true;
     m_methodCalls.push_back("createServiceLocator");
     return CarouselBootloader::createServiceLocator();
-}
-
-//------------------------------------------------------------------------------
-QMainWindow *CarouselBootloaderMock::createMainWindow()
-{
-    mcreateMainWindowCalled = true;
-    m_methodCalls.push_back("createMainWindow");
-    return CarouselBootloader::createMainWindow();
 }
 
 //------------------------------------------------------------------------------

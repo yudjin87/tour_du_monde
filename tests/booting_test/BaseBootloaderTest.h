@@ -14,7 +14,6 @@ private Q_SLOTS:
     void shouldCreateDefaultComponentProvider();
     void shouldCreateDefaultComponentManager();
     void shouldCreateDefaultServiceLocator();
-    void shouldCreateDefaultMainWindow();
     void canRunOnlyOncePerInstance();
 };
 

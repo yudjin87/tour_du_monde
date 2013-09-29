@@ -29,7 +29,6 @@ protected:
     IComponentProvider *createComponentProvider();
     IComponentManager *createComponentManager();
     IServiceLocator *createServiceLocator();
-    QMainWindow *createMainWindow();
     void initialiseComponentProvider();
     void configureComponentProvider();
     void configureComponentManager();
@@ -40,7 +39,6 @@ private:
     bool mcreateComponentProviderCalled;
     bool mcreateComponentManagerCalled;
     bool mcreateServiceLocatorCalled;
-    bool mcreateMainWindowCalled;
     bool minitialiseComponentProviderCalled;
     bool mconfigureComponentProviderCalled;
     bool mconfigureComponentManagerCalled;

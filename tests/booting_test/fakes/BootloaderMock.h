@@ -19,7 +19,6 @@ public:
     IComponentProvider *componentProvider() const;
     IComponentManager *componentManager() const;
     IServiceLocator *serviceLocator() const;
-    QMainWindow *mainWindow() const;
 
     int runAttemptsCount() const;
 

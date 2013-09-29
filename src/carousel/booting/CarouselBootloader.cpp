@@ -32,8 +32,6 @@
 #include <carousel/logging/LoggerFacade.h>
 #include <carousel/utils/IServiceLocator.h>
 
-#include <QtWidgets/QMainWindow>
-
 //------------------------------------------------------------------------------
 namespace
 {
@@ -70,7 +68,6 @@ void CarouselBootloader::configureServiceLocator()
     // TODO: give a chanse to avoid default registration
     m_serviceLocator->registerInstance<IComponentProvider>(m_componentProvider);
     m_serviceLocator->registerInstance<IComponentManager>(m_componentManager);
-    m_serviceLocator->registerInstance<QMainWindow>(m_mainWindow);
 }
 
 //------------------------------------------------------------------------------
@@ -95,9 +92,6 @@ void CarouselBootloader::safeRun()
 
     Log.i("Creating IComponentProvider.");
     m_componentProvider = createComponentProvider();
-
-    Log.i("Creating MainWindow.");
-    m_mainWindow = createMainWindow();
 
     Log.i("Configuring IComponentProvider.");
     configureComponentProvider();

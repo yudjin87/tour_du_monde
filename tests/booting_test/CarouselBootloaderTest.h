@@ -17,7 +17,6 @@ private Q_SLOTS:
     void shouldCallCreateComponentProviderOnRun();
     void shouldCallCreateComponentManagerOnRun();
     void shouldCallCreateServiceLocatorOnRun();
-    void shouldCallCreateMainWindowOnRun();
     void shouldCallConfigureComponentProviderOnRun();
     void shouldCallConfigureComponentManagerOnRun();
     void shouldCallConfigureServiceLocatorOnRun();
@@ -29,7 +28,6 @@ private Q_SLOTS:
 
     void configuringServiceLocatorShouldAddComponentProviderToServices();
     void configuringServiceLocatorShouldAddComponentManagerToServices();
-    void configuringServiceLocatorShouldAddMainWindowToServices();
 
     void shouldInstallNullLoggerEngineInDestructor();
 };
