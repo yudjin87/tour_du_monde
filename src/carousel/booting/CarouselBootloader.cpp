@@ -87,6 +87,9 @@ void CarouselBootloader::safeRun()
     Log.i("Creating IServiceLocator.");
     m_serviceLocator = createServiceLocator();
 
+    Log.i("Starting loading sequence.");
+    onLoadingSequenceStarting();
+
     Log.i("Creating IComponentManager.");
     m_componentManager = createComponentManager();
 
@@ -105,7 +108,11 @@ void CarouselBootloader::safeRun()
     Log.i("Configuring IComponentManager.");
     configureComponentManager();
 
-    Log.i("Loading sequence completed.");
+    Log.i("Starting IComponentManager.");
+    startComponentManager();
+
+    Log.i("Loading sequence finished.");
+    onLoadingSequenceFinised();
 }
 
 //------------------------------------------------------------------------------

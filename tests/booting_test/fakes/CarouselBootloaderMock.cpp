@@ -3,6 +3,7 @@
 //------------------------------------------------------------------------------
 CarouselBootloaderMock::CarouselBootloaderMock()
     : mcreateLoggerCalled(false)
+    , monLoadingSequenceStartingCalled(false)
     , mcreateComponentProviderCalled(false)
     , mcreateComponentManagerCalled(false)
     , mcreateServiceLocatorCalled(false)
@@ -10,6 +11,8 @@ CarouselBootloaderMock::CarouselBootloaderMock()
     , mconfigureComponentProviderCalled(false)
     , mconfigureComponentManagerCalled(false)
     , mconfigureServiceLocatorCalled(false)
+    , mstartComponentManagerCalled(false)
+    , monLoadingSequenceFinisedCalled(false)
 {
 }
 
@@ -64,6 +67,12 @@ bool CarouselBootloaderMock::configureServiceLocatorCalled() const
 const QStringList &CarouselBootloaderMock::methodCalls() const
 {
     return m_methodCalls;
+}
+
+//------------------------------------------------------------------------------
+IServiceLocator *CarouselBootloaderMock::locator()
+{
+    return serviceLocator();
 }
 
 //------------------------------------------------------------------------------
@@ -128,6 +137,30 @@ void CarouselBootloaderMock::configureServiceLocator()
     mconfigureServiceLocatorCalled = true;
     m_methodCalls.push_back("configureServiceLocator");
     CarouselBootloader::configureServiceLocator();
+}
+
+//------------------------------------------------------------------------------
+void CarouselBootloaderMock::onLoadingSequenceStarting()
+{
+    monLoadingSequenceStartingCalled = true;
+    m_methodCalls.push_back("onLoadingSequenceStarting");
+    CarouselBootloader::onLoadingSequenceStarting();
+}
+
+//------------------------------------------------------------------------------
+void CarouselBootloaderMock::startComponentManager()
+{
+    mstartComponentManagerCalled = true;
+    m_methodCalls.push_back("startComponentManager");
+    CarouselBootloader::startComponentManager();
+}
+
+//------------------------------------------------------------------------------
+void CarouselBootloaderMock::onLoadingSequenceFinised()
+{
+    monLoadingSequenceFinisedCalled = true;
+    m_methodCalls.push_back("onLoadingSequenceFinised");
+    CarouselBootloader::onLoadingSequenceFinised();
 }
 
 //------------------------------------------------------------------------------

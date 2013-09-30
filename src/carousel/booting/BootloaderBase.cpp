@@ -32,6 +32,8 @@
 #include <carousel/logging/TextLogger.h>
 #include <carousel/utils/ServiceLocator.h>
 
+#include <QtCore/QCoreApplication>
+
 //------------------------------------------------------------------------------
 BootloaderBase::BootloaderBase()
     : m_componentManager(nullptr)
@@ -70,7 +72,7 @@ void BootloaderBase::run()
 }
 
 //------------------------------------------------------------------------------
-IServiceLocator *BootloaderBase::serviceLocator() const
+IServiceLocator *BootloaderBase::serviceLocator()
 {
     return m_serviceLocator;
 }
@@ -113,6 +115,36 @@ IServiceLocator *BootloaderBase::createServiceLocator()
 //------------------------------------------------------------------------------
 void BootloaderBase::initialiseComponentProvider()
 {
+}
+
+//------------------------------------------------------------------------------
+void BootloaderBase::onLoadingSequenceFinised()
+{
+
+}
+
+//------------------------------------------------------------------------------
+void BootloaderBase::onLoadingSequenceStarting()
+{
+    connect(QCoreApplication::instance(), &QCoreApplication::aboutToQuit, this, &BootloaderBase::onAboutToQuit);
+}
+
+//------------------------------------------------------------------------------
+void BootloaderBase::shutdownComponentManager()
+{
+    m_componentManager->shutdown();
+}
+
+//------------------------------------------------------------------------------
+void BootloaderBase::startComponentManager()
+{
+    m_componentManager->startup();
+}
+
+//------------------------------------------------------------------------------
+void BootloaderBase::onAboutToQuit()
+{
+    shutdownComponentManager();
 }
 
 //------------------------------------------------------------------------------

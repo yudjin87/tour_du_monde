@@ -10,6 +10,9 @@ gnu*/
 make*/
 nmake*/
 
+# back-up files
+*~
+
 Makefile
 Makefile.*
 *.pdb

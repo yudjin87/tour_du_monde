@@ -12,7 +12,6 @@ DEFINES += ORG_CAROUSEL_UNDO_LIBRARY
 INCLUDEPATH += $$HPP_SOURCE_TREE/components/undo
 
 LIBS += -L$${DESTDIR} -lComponentSystem \
-                      -lFramework \
                       -lorg.carousel.Interactivity \
                       -lLogging \
 

@@ -61,13 +61,6 @@ public:
      */
     void run() override;
 
-    /*!
-     * @details
-     *   Gets the service locator, which should contains base objects after
-     *   bootloading.
-     */
-    IServiceLocator *serviceLocator() const override;
-
 protected:
     /*!
      * @details
@@ -141,10 +134,56 @@ protected:
 
     /*!
      * @details
+     *   This method is just called at the end of the loading sequence, when IComponentManager
+     *   already started. You can override this method to show main window, for example.
+     *
+     *   It does nothing by default.
+     */
+    virtual void onLoadingSequenceFinised();
+
+    /*!
+     * @details
+     *   This method is just called at the begining of the loading sequence. You can override
+     *   this method to show splash screen, for example, or to register main window in the service
+     *   locator But when override you have to call parent method too, because it also subscribes
+     *   to the QCoreApplication::aboutToQuit() signal.
+     */
+    virtual void onLoadingSequenceStarting();
+
+    /*!
+     * @details
      *   It is a safe part of the public run() method, that guaranted it would be called
      *   in derived class only once per instance.
      */
     virtual void safeRun() = 0;
+
+    /*!
+     * @details
+     *   Shuts down a component manager. This method is invoked from the onAboutToQuit,
+     *   as a result of QCoreApplication::aboutToQuit signal.
+     */
+    virtual void shutdownComponentManager();
+
+    /*!
+     * @details
+     *   Starts a component manager. This method should be invoked after IComponentManager configuration.
+     */
+    virtual void startComponentManager();
+
+    /*!
+     * @details
+     *   Gets the service locator, which should contains base objects after
+     *   bootloading.
+     */
+    IServiceLocator *serviceLocator();
+
+protected slots:
+    /*!
+     * @details
+     *   Performs a finalazing actions such as shutting down a component manager.
+     *   This slot is invoked on QCoreApplication::aboutToQuit() signal.
+     */
+    virtual void onAboutToQuit();
 
 protected:
     /*!

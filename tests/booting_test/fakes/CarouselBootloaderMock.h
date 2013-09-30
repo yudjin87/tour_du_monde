@@ -24,8 +24,11 @@ public:
 
     const QStringList &methodCalls() const;
 
+    IServiceLocator *locator();
+
 protected:
     ILoggerEngineCreator *createLoggerEngine();
+    void onLoadingSequenceStarting();
     IComponentProvider *createComponentProvider();
     IComponentManager *createComponentManager();
     IServiceLocator *createServiceLocator();
@@ -33,9 +36,12 @@ protected:
     void configureComponentProvider();
     void configureComponentManager();
     void configureServiceLocator();
+    void startComponentManager();
+    void onLoadingSequenceFinised();
 
 private:
     bool mcreateLoggerCalled;
+    bool monLoadingSequenceStartingCalled;
     bool mcreateComponentProviderCalled;
     bool mcreateComponentManagerCalled;
     bool mcreateServiceLocatorCalled;
@@ -43,6 +49,8 @@ private:
     bool mconfigureComponentProviderCalled;
     bool mconfigureComponentManagerCalled;
     bool mconfigureServiceLocatorCalled;
+    bool mstartComponentManagerCalled;
+    bool monLoadingSequenceFinisedCalled;
     QStringList m_methodCalls;
 };
 

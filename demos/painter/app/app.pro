@@ -11,7 +11,6 @@ DESTDIR = $${BIN_OUTPUT_PATH}/bin
 
 LIBS += -L$${CAROUSEL_BIN} -lComponentSystem \
                            -lBooting \
-                           -lFramework \
                            -lUtils \
                            -lLogging \
                            -lorg.carousel.Interactivity \

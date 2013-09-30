@@ -8,17 +8,17 @@
 #include "CarouselInteractionServiceTest.h"
 #include "ToolBaseTest.h"
 #include "DialogServiceTest.h"
-#include "fakes/MockApplication.h"
 
 #include <carousel/logging/LoggerFacade.h>
 #include <carousel/logging/NullLogger.h>
 
 #include <QtTest/QtTest>
+#include <QtWidgets/QApplication>
 
 //------------------------------------------------------------------------------
 int main(int argc, char *argv[])
 {
-    MockApplication app(argc, argv);
+    QApplication app(argc, argv);
     NullLogger log;
     LoggerFacade::installLoggerEngineCreator(&log);
 

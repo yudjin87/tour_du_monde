@@ -6,7 +6,6 @@ SOURCES += \
     $$TEST_PROJECT_SOURCES/DialogServiceTest.cpp \
     $$TEST_PROJECT_SOURCES/DockWidgetCatalogTest.cpp \
     $$TEST_PROJECT_SOURCES/fakes/FakeComponent.cpp \
-    $$TEST_PROJECT_SOURCES/fakes/MockApplication.cpp \
     $$TEST_PROJECT_SOURCES/fakes/MockCarouselInteractionService.cpp \
     $$TEST_PROJECT_SOURCES/fakes/MockComponentConfigurationDelegate.cpp \
     $$TEST_PROJECT_SOURCES/fakes/MockComponentManager.cpp \
@@ -35,7 +34,6 @@ HEADERS += \
     $$TEST_PROJECT_SOURCES/DialogServiceTest.h \
     $$TEST_PROJECT_SOURCES/DockWidgetCatalogTest.h \
     $$TEST_PROJECT_SOURCES/fakes/FakeComponent.h \
-    $$TEST_PROJECT_SOURCES/fakes/MockApplication.h \
     $$TEST_PROJECT_SOURCES/fakes/MockCarouselInteractionService.h \
     $$TEST_PROJECT_SOURCES/fakes/MockComponentConfigurationDelegate.h \
     $$TEST_PROJECT_SOURCES/fakes/MockComponentManager.h \

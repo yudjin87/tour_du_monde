@@ -7,7 +7,6 @@ QT      += script gui
 TARGET = jsscripting_test
 
 LIBS += -L$${DESTDIR}/../bin -lComponentSystem \
-                             -lFramework \
                              -lUtils \
                              -lLogging \
                              -lorg.carousel.JsScripting \

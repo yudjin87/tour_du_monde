@@ -27,14 +27,19 @@
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
 
+//------------------------------------------------------------------------------
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+    , m_ui(new Ui::MainWindow)
 {
-    ui->setupUi(this);
+    m_ui->setupUi(this);
 }
 
+//------------------------------------------------------------------------------
 MainWindow::~MainWindow()
 {
-    delete ui;
+    delete m_ui;
+    m_ui = nullptr;
 }
+
+//------------------------------------------------------------------------------

@@ -8,7 +8,6 @@ TARGET = jsscriptingui_test
 
 LIBS += -L$${DESTDIR}/../bin -lorg.carousel.Interactivity \
                              -lComponentSystem \
-                             -lFramework \
                              -lUtils \
                              -lLogging \
                              -lorg.carousel.JsScripting \

@@ -77,16 +77,18 @@ protected:
 
     /*!
      * @details
-     *   Performs the carousel-specific booting sequence:
+     *   It is a template method, that performs the carousel-specific booting sequence:
      *   \li first calls BootloaderBase::createLoggerEngine() - override this method to instantiate logger facade over your favorite logging system;
      *   \li then calls BootloaderBase::createServiceLocator();
+     *   \li then calls BootloaderBase::onLoadingSequenceStarting - override this method to show splash screen, for example, or to register main window in the service locator;
      *   \li then calls BootloaderBase::createComponentManager();
      *   \li then calls BootloaderBase::createComponentProvider() - override this method to instantiate specific component provider;
-     *   \li then calls BootloaderBase::createMainWindow();
      *   \li then calls BootloaderBase::configureComponentProvider() - override this method to register components statically or specify parameters for their dynamic discovering;
      *   \li then calls configureServiceLocator();
      *   \li then calls initialiseComponentProvider();
-     *   \li and finally calls configureComponentManager().
+     *   \li then calls configureComponentManager();
+     *   \li then calls startComponentManager();
+     *   \li and finally calls BootloaderBase::onLoadingSequenceFinised() - override this method to show main window, for example.
      */
     void safeRun() override;
 };

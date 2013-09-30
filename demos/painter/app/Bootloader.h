@@ -27,11 +27,9 @@
 #ifndef BOOTLOADER_H
 #define BOOTLOADER_H
 
+#include "MainWindow.h"
+
 #include <carousel/booting/CarouselBootloader.h>
-
-#include <QtCore/QVector>
-
-class IComponent;
 
 class Bootloader : public CarouselBootloader
 {
@@ -42,7 +40,11 @@ public:
 protected:
     void configureComponentProvider() override;
     IComponentProvider *createComponentProvider() override;
-    QMainWindow *createMainWindow() override;
+    void onLoadingSequenceStarting();
+    void onLoadingSequenceFinised() override;
+
+private:
+    MainWindow m_mainWindow;
 };
 
 #endif // BOOTLOADER_H

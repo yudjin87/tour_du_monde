@@ -25,19 +25,17 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "Bootloader.h"
-#include "MainWindow.h"
 
 #include <carousel/componentsystem/CompositeComponentProvider.h>
 #include <carousel/componentsystem/DirectoryComponentProvider.h>
 #include <carousel/componentsystem/IComponentManager.h>
 #include <carousel/componentsystem/IComponent.h>
+#include <carousel/utils/IServiceLocator.h>
 #include <components/componentsystemui/ComponentSystemUIComponent.h>
 #include <components/jsscripting/JsScriptingComponent.h>
 #include <components/jsscriptingui/JsScriptingUIComponent.h>
 #include <components/interactivity/InteractionServiceComponent.h>
 #include <components/undo/UndoComponent.h>
-
-#include <QtCore/QCoreApplication>
 
 //------------------------------------------------------------------------------
 Bootloader::Bootloader()
@@ -64,9 +62,16 @@ IComponentProvider *Bootloader::createComponentProvider()
 }
 
 //------------------------------------------------------------------------------
-QMainWindow *Bootloader::createMainWindow()
+void Bootloader::onLoadingSequenceFinised()
 {
-    return new MainWindow();
+    m_mainWindow.show();
+}
+
+//------------------------------------------------------------------------------
+void Bootloader::onLoadingSequenceStarting()
+{
+    CarouselBootloader::onLoadingSequenceStarting();
+    serviceLocator()->registerInstance<QMainWindow>(&m_mainWindow);
 }
 
 //------------------------------------------------------------------------------

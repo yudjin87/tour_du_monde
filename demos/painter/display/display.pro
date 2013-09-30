@@ -13,7 +13,6 @@ DESTDIR = $${DESTDIR}/externalSource
 LIBS += -L$${CAROUSEL_BIN} -lorg.carousel.Interactivity \
                            -lorg.carousel.JsScripting \
                            -lComponentSystem \
-                           -lFramework
 
 LIBS += -L$${DESTDIR} -lorg.carousel.demos.Geometry \
 

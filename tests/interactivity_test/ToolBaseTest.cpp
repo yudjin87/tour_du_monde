@@ -26,7 +26,6 @@
 
 #include "ToolBaseTest.h"
 
-#include "fakes/MockApplication.h"
 #include "fakes/MockInteractionService.h"
 
 #include <components/interactivity/ToolBase.h>

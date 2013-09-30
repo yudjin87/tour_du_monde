@@ -59,9 +59,7 @@ The bootloader instance is one of the first instances who starts Carousel mechan
 Mainly, is starts a @ref RegistrationPhase "registration phase.
 
 It creates and registers an IServiceLocator itself and common services, like LoggerFacade,
-IComponentManager and, optionally, QMainWindow for the GUI applications. QMainWindow is
-just a shell or frame for the application, it is absolutely empty, but then new components
-could populate it with menus, toolbars, dock widgets and the central widget.
+IComponentManager.
 
 Usually an IBootloader is implemented (in BootloaderBase or in more specific CarouselBootloader
 class) as a sequence of pairs **create<smth>() - configure<smth>()** methods, and each of them
@@ -69,10 +67,10 @@ could be overridden to replace default instantiation or default configuration.
 For example, to use your own logger system it is just needed to override BootloaderBase::createLoggerEngine()
 method.
 
-After bootloading process the configured IServiceLocator is available through
-serviceLocator() method. Later it will be injected to the all components and other
-elements during **configuration phase**, when they will start or initialize. It is needed to register/locate to
-common services and your components' services.
+After bootloading process the configured IServiceLocator is set to the IComponentManager.
+Later it will be injected to the all components and other elements during @a configuration
+@a phase, when they will start or initialize. It is needed to register/locate to common
+services and your components' services.
 
 To start new application you also should to override BootloaderBase::createComponentProvider() or
 BootloaderBase::configureComponentProvider() method to determine way in which your application will
@@ -92,19 +90,20 @@ IComponentProvider *MyBootloader::createComponentProvider()
 }
 @endcode
 
-Then just pass bootloader to the application:
-
+  Then just run the bootloader:
 @code
-#include "MyBootloader.h"
-#include <carousel/framework/AbstractApplication.h>
+  #include "MyBootloader.h"
+  #include "MyApplication.h"
 
-int main(int argc, char *argv[])
-{
-    AbstractApplication application(argc, argv);
- 
-    MyBootloader bootloader;
-    return application.runApplicationLoop(bootloader);
-}
+  int main(int argc, char *argv[])
+  {
+      MyApplication application(argc, argv);
+
+      MyBootloader bootloader;
+      launcher.run();
+
+      return application.exec();
+  }
 @endcode
 
 @subsection ServiceLocator Service Locator  

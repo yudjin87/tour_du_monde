@@ -23,14 +23,13 @@
  * Boston, MA 02110-1301 USA
  *
  * END_COMMON_COPYRIGHT_HEADER */
+
 #ifndef IBOOTLOADER_H
 #define IBOOTLOADER_H
 
 #include <carousel/booting/booting_global.h>
 
 #include <QtCore/QObject>
-
-class IServiceLocator;
 
 /*!
  * @brief
@@ -41,9 +40,7 @@ class IServiceLocator;
  *   Mainly, is starts a @a registration @a phase.
  *
  *   It creates and registers an IServiceLocator itself and common services, like LoggerFacade,
- *   IComponentManager and, optionally, QMainWindow for the GUI applications. QMainWindow is
- *   just a shell or frame for the application, it is absolutely empty, but then new components
- *   could populate it with menus, toolbars, dock widgets and the central widget.
+ *   IComponentManager.
  *
  *   Usually an IBootloader is implemented (in BootloaderBase or in more specific CarouselBootloader
  *   class) as a sequence of pairs @a create<smth>() - @a configure<smth>() methods, and each of them
@@ -51,10 +48,10 @@ class IServiceLocator;
  *   For example, to use your own logger system it is just needed to override BootloaderBase::createLoggerEngine()
  *   method.
  *
- *   After bootloading process the configured IServiceLocator is available through
- *   serviceLocator() method. Later it will be injected to the all components and other
- *   elements during @a configuration @a phase, when they will start or initialize. It is needed to register/locate to
- *   common services and your components' services.
+ *   After bootloading process the configured IServiceLocator is set to the IComponentManager.
+ *   Later it will be injected to the all components and other elements during @a configuration
+ *   @a phase, when they will start or initialize. It is needed to register/locate to common
+ *   services and your components' services.
  *
  *   To start new application you also should to override BootloaderBase::createComponentProvider() or
  *   BootloaderBase::configureComponentProvider() method to determine way in which your application will
@@ -73,17 +70,19 @@ class IServiceLocator;
  *   }
  * @endcode
  *
- *   Then just pass bootloader to the application:
+ *   Then just run the bootloader:
  * @code
  *   #include "MyBootloader.h"
- *   #include <carousel/framework/AbstractApplication.h>
+ *   #include "MyApplication.h"
  *
  *   int main(int argc, char *argv[])
  *   {
- *       AbstractApplication application(argc, argv);
+ *       MyApplication application(argc, argv);
  *
  *       MyBootloader bootloader;
- *       return application.runApplicationLoop(bootloader);
+ *       launcher.run();
+ *
+ *       return application.exec();
  *   }
  * @endcode
  */
@@ -99,17 +98,6 @@ public:
      *   Runs the bootloading process.
      */
     virtual void run() = 0;
-
-    /*!
-     * @details
-     *   Gets the service locator, which should contains base objects after
-     *   bootloading.
-     *
-     * @note You can use service locator instance only after running bootloading
-     *   sequence.
-     * @sa run
-     */
-    virtual IServiceLocator *serviceLocator() const = 0;
 
 private:
     Q_DISABLE_COPY(IBootloader)

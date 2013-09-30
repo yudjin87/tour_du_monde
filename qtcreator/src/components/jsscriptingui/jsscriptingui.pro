@@ -14,7 +14,6 @@ DEFINES += ORG_CAROUSEL_JSSCRIPTINGUI_LIBRARY
 INCLUDEPATH += $$HPP_SOURCE_TREE/components/jsscriptingui
 
 LIBS += -L$${DESTDIR} -lComponentSystem \
-                      -lFramework \
                       -lLogging \
                       -lorg.carousel.JsScripting \
                       -lorg.carousel.Interactivity \

@@ -27,16 +27,13 @@
 #ifndef PAINTERAPPLICATION_H
 #define PAINTERAPPLICATION_H
 
-#include <carousel/framework/AbstractApplication.h>
+#include <QtWidgets/QApplication>
 
-class PainterApplication : public AbstractApplication
+class PainterApplication : public QApplication
 {
     Q_OBJECT
 public:
     PainterApplication(int &argc, char **argv);
-
-protected:
-    void finishLoadingSequence(IServiceLocator *serviceLocator) override;
 };
 
 #endif // PAINTERAPPLICATION_H

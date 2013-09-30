@@ -6,4 +6,3 @@ SUBDIRS += \
     logging \
     componentsystem \    
     booting \
-    framework\

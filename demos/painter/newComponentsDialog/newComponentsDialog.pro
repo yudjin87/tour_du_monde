@@ -11,7 +11,6 @@ DEFINES += NEWCOMPONENTSDIALOG_LIB_IMPORT
 LIBS += -L$${CAROUSEL_BIN} -lorg.carousel.Interactivity \
                            -lorg.carousel.ComponentSystemUI \
                            -lComponentSystem \
-                           -lFramework \
                            -lUtils \
 
 DESTDIR = $${DESTDIR}/externalSource

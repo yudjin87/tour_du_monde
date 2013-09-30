@@ -120,12 +120,15 @@ void CarouselBootloaderTest::shouldCallRunSequenceInOrderOnRun()
 
     QCOMPARE(methodCalls[0], QString("createLoggerEngine"));
     QCOMPARE(methodCalls[1], QString("createServiceLocator"));
-    QCOMPARE(methodCalls[2], QString("createComponentManager"));
-    QCOMPARE(methodCalls[3], QString("createComponentProvider"));
-    QCOMPARE(methodCalls[4], QString("configureComponentProvider"));
-    QCOMPARE(methodCalls[5], QString("configureServiceLocator"));
-    QCOMPARE(methodCalls[6], QString("initialiseComponentProvider"));
-    QCOMPARE(methodCalls[7], QString("configureComponentManager"));
+    QCOMPARE(methodCalls[2], QString("onLoadingSequenceStarting"));
+    QCOMPARE(methodCalls[3], QString("createComponentManager"));
+    QCOMPARE(methodCalls[4], QString("createComponentProvider"));
+    QCOMPARE(methodCalls[5], QString("configureComponentProvider"));
+    QCOMPARE(methodCalls[6], QString("configureServiceLocator"));
+    QCOMPARE(methodCalls[7], QString("initialiseComponentProvider"));
+    QCOMPARE(methodCalls[8], QString("configureComponentManager"));
+    QCOMPARE(methodCalls[9], QString("startComponentManager"));
+    QCOMPARE(methodCalls[10], QString("onLoadingSequenceFinised"));
 }
 
 //------------------------------------------------------------------------------
@@ -152,10 +155,10 @@ void CarouselBootloaderTest::configuringComponentManagerShouldAddComponentsToIt(
 //------------------------------------------------------------------------------
 void CarouselBootloaderTest::configuringServiceLocatorShouldAddComponentProviderToServices()
 {
-    CarouselBootloader carouselBootloader;
+    CarouselBootloaderMock carouselBootloader;
     carouselBootloader.run();
 
-    IServiceLocator *serviceLocator = carouselBootloader.serviceLocator();
+    IServiceLocator *serviceLocator = carouselBootloader.locator();
     QVERIFY(serviceLocator != nullptr);
 
     IComponentProvider *provider = serviceLocator->locate<IComponentProvider>();
@@ -166,10 +169,10 @@ void CarouselBootloaderTest::configuringServiceLocatorShouldAddComponentProvider
 //------------------------------------------------------------------------------
 void CarouselBootloaderTest::configuringServiceLocatorShouldAddComponentManagerToServices()
 {
-    CarouselBootloader carouselBootloader;
+    CarouselBootloaderMock carouselBootloader;
     carouselBootloader.run();
 
-    IServiceLocator *serviceLocator = carouselBootloader.serviceLocator();
+    IServiceLocator *serviceLocator = carouselBootloader.locator();
     QVERIFY(serviceLocator != nullptr);
 
     IComponentManager *componentManager  = serviceLocator->locate<IComponentManager>();

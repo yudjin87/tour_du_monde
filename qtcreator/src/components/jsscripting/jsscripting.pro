@@ -14,7 +14,6 @@ DEFINES += ORG_CAROUSEL_JSSCRIPTING_LIBRARY
 INCLUDEPATH += $$HPP_SOURCE_TREE/components/jsscripting
 
 LIBS += -L$${DESTDIR} -lComponentSystem \
-                      -lFramework \
                       -lLogging \
 
 ###############################################################################

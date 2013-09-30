@@ -32,5 +32,7 @@ int main(int argc, char *argv[])
     PainterApplication application(argc, argv);
 
     Bootloader bootloader;
-    return application.runApplicationLoop(bootloader);
+    bootloader.run();
+
+    return application.exec();
 }
