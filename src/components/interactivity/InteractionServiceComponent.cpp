@@ -133,6 +133,11 @@ bool InteractionServiceComponent::InteractionServiceComponentPrivate::onStartup(
 
     // IDialogService registration
     QMainWindow *mainWindow = serviceLocator->locate<QMainWindow>();
+    if (mainWindow == nullptr) {
+        Log.e("Could not locate to the QMainWindow. Failed to start.");
+        return false;
+    }
+
     m_dialogService = new DialogService(mainWindow, serviceLocator);
     serviceLocator->registerInstance<IDialogService>(m_dialogService);
 
