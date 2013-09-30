@@ -54,7 +54,9 @@ ScriptCollectionDialog::ScriptCollectionDialog(ScriptCollectionModel *model, QWi
 
     connect(m_ui->actionNewScript, &QAction::triggered, m_model, &ScriptCollectionModel::onCreateScript);
     connect(m_ui->actionLoadScript, &QAction::triggered, m_model, &ScriptCollectionModel::onLoad);
+
     connect(m_ui->actionRun, &QAction::triggered, this, &ScriptCollectionDialog::onRun);
+    connect(m_ui->actionAbort, &QAction::triggered, this, &ScriptCollectionDialog::onAbort);
     connect(m_ui->actionSave, &QAction::triggered, this, &ScriptCollectionDialog::onSave);
     connect(m_ui->tabWidget, &QTabWidget::tabCloseRequested, this, &ScriptCollectionDialog::onTabCloseRequested);
     connect(m_model, &ScriptCollectionModel::scriptAdded, this, &ScriptCollectionDialog::onScriptAdded);
@@ -140,6 +142,16 @@ void ScriptCollectionDialog::onSave()
 }
 
 //------------------------------------------------------------------------------
+void ScriptCollectionDialog::onAbort()
+{
+    ScriptUnitView *scriptView = getCurrentView();
+    if (scriptView == nullptr)
+        return;
+
+    scriptView->onAbort();
+}
+
+//------------------------------------------------------------------------------
 void ScriptCollectionDialog::onCurrentScriptModificationChanged(bool changed)
 {
     if (changed)
@@ -208,6 +220,7 @@ void ScriptCollectionDialog::setActionsEnabled(bool enable)
 {
     m_ui->actionRun->setEnabled(enable);
     m_ui->actionSave->setEnabled(enable);
+    m_ui->actionAbort->setEnabled(enable);
 }
 
 //------------------------------------------------------------------------------

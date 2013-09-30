@@ -27,13 +27,22 @@
 #ifndef SCRIPTUNITTEST_H
 #define SCRIPTUNITTEST_H
 
+#include <components/jsscripting/IScriptEngineFactory.h>
 #include <QtCore/QObject>
 
-class ScriptUnitTest: public QObject
+class ScriptUnit;
+
+class ScriptUnitTest: public QObject, public IScriptEngineFactory
 {
     Q_OBJECT
 public:
     ScriptUnitTest(QObject *parent = nullptr);
+
+    QScriptEngine *createEngine(IOutputHandler *output, QObject *parent);
+
+public slots:
+    void onTimer_isRunningShouldReturnTrue();
+    void onTimer_abort_shouldAbortCurrentScript();
 
 private Q_SLOTS:
     void shouldReturnAbsoluteFilePath();
@@ -44,9 +53,12 @@ private Q_SLOTS:
     void save_shouldNotResetDocumentModifiedFlagIfSavingFailed();
     void saveAs_shouldChangeFileName();
     void saveAs_shouldNotChangeFileNameIfSavingFailed();
+    void isRunning_shouldReturnTrueForEvaluatedScript();
+    void abort_shouldAbortCurrentScript();
 
 private:
     QString m_testScriptPath;
+    ScriptUnit *m_unit;
 };
 
 #endif // SCRIPTUNITTEST_H

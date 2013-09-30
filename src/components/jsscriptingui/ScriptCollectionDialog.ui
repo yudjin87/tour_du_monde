@@ -27,6 +27,7 @@
      <addaction name="actionSave"/>
      <addaction name="separator"/>
      <addaction name="actionRun"/>
+     <addaction name="actionAbort"/>
     </widget>
    </item>
    <item>
@@ -104,6 +105,21 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+N</string>
+   </property>
+  </action>
+  <action name="actionAbort">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="jsscriptingui.qrc">
+     <normaloff>:/jsscriptingui/images/scriptAbort.png</normaloff>:/jsscriptingui/images/scriptAbort.png</iconset>
+   </property>
+   <property name="text">
+    <string>Abort</string>
+   </property>
+   <property name="toolTip">
+    <string>Abort current script</string>
    </property>
   </action>
  </widget>

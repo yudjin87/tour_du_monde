@@ -73,6 +73,15 @@ ScriptUnit::~ScriptUnit()
 }
 
 //------------------------------------------------------------------------------
+bool ScriptUnit::isRunning() const
+{
+    if (m_engine == nullptr)
+        return false;
+
+    return m_engine->isEvaluating();
+}
+
+//------------------------------------------------------------------------------
 bool ScriptUnit::isLoaded() const
 {
     return m_isLoaded;
@@ -183,6 +192,19 @@ bool ScriptUnit::saveAs(const QString &fileName)
 
     m_script->setModified(false);
     return true;
+}
+
+//------------------------------------------------------------------------------
+void ScriptUnit::abort()
+{
+    if (m_engine == nullptr)
+        return;
+
+    if (!m_engine->isEvaluating())
+        return;
+
+    m_engine->abortEvaluation();
+    emit aborted();
 }
 
 //------------------------------------------------------------------------------

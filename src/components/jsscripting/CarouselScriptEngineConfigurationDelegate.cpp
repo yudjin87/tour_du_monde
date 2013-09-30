@@ -137,6 +137,7 @@ void CarouselScriptEngineConfigurationDelegate::configureFromComponent(IComponen
 //------------------------------------------------------------------------------
 void CarouselScriptEngineConfigurationDelegate::configureDefaults(QScriptEngine *engine, IOutputHandler *output)
 {
+    engine->setProcessEventsInterval(300);
     configureServiceLocator(engine, m_locator);
     registerPrintFunc(engine, output);
     registerWaitFunc(engine);

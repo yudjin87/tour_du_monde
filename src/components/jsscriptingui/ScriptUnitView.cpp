@@ -49,6 +49,7 @@ ScriptUnitView::ScriptUnitView(IScriptUnit *data, QSyntaxHighlighter *highlighte
     // TODO: merge the same functionality with Console view
     connect(data, &IScriptUnit::printed, this, &ScriptUnitView::printOutput);
     connect(data, &IScriptUnit::error, this, &ScriptUnitView::printError);
+    connect(data, &IScriptUnit::aborted, this, &ScriptUnitView::onAborted);
 }
 
 //------------------------------------------------------------------------------
@@ -83,6 +84,12 @@ void ScriptUnitView::printError(const QString &error)
 void ScriptUnitView::printOutput(const QString &output)
 {
     m_ui->outputEditor->append(output);
+}
+
+//------------------------------------------------------------------------------
+void ScriptUnitView::onAbort()
+{
+    m_data->abort();
 }
 
 //------------------------------------------------------------------------------
@@ -167,6 +174,12 @@ void ScriptUnitView::insertIndent()
         position = indent_size;
 
     m_ui->scriptEditor->insertPlainText(QString(position, ' '));
+}
+
+//------------------------------------------------------------------------------
+void ScriptUnitView::onAborted()
+{
+    printError("Aborted by user...");
 }
 
 //------------------------------------------------------------------------------

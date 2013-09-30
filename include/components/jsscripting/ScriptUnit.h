@@ -120,7 +120,23 @@ public:
      */
     const QTextDocument *script() const override;
 
+
+    /*!
+     * @details
+     *   Returns true if this script unit is currently running, otherwise returns false.
+     */
+    bool isRunning() const override;
+
 public slots:
+    /*!
+     * @details
+     *   Aborts execution of current script unit.
+     *
+     *   If the unit does not run a script (i.e. isRunning() returns false), this function
+     *   does nothing.
+     */
+    void abort() override;
+
     /*!
      * @details
      *   Tries to load script from the fileName().

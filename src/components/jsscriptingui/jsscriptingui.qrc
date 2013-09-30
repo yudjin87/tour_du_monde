@@ -6,5 +6,6 @@
         <file>images/scriptRun.png</file>
         <file>images/scriptSave.png</file>
         <file>images/scriptIDE.png</file>
+        <file>images/scriptAbort.png</file>
     </qresource>
 </RCC>

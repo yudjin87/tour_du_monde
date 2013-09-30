@@ -58,6 +58,7 @@ public:
 
 public slots:
     void onRun();
+    void onAbort();
     bool onSave();
 
 protected:
@@ -67,6 +68,7 @@ private:
     bool onKeyPressed(QKeyEvent *event);
     bool processControlKey(int key);
     void insertIndent();
+    void onAborted();
 
 private:
     Ui::ScriptUnitView *m_ui;

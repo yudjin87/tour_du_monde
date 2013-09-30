@@ -56,6 +56,7 @@ private slots:
     void onScriptRemoved(IScriptUnit *script);
     void onRun();
     void onSave();
+    void onAbort();
     void onCurrentScriptModificationChanged(bool changed);
     void onScriptFileNameChanged();
     void onTabCloseRequested(int index);

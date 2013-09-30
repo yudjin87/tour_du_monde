@@ -55,6 +55,7 @@ class JSSCRIPTING_API IScriptUnit : public QObject, public IOutputHandler
 {
     Q_OBJECT
     Q_PROPERTY(bool isLoaded READ isLoaded)
+    Q_PROPERTY(bool isRunning READ isRunning)
     Q_PROPERTY(QString absoluteFilePath READ absoluteFilePath)
     Q_PROPERTY(QString fileName READ fileName)
     Q_PROPERTY(QString scriptText READ scriptText WRITE setScriptText)
@@ -111,7 +112,22 @@ public:
      */
     virtual const QTextDocument *script() const = 0;
 
-public slots:    
+    /*!
+     * @details
+     *   Returns true if this script unit is currently running, otherwise returns false.
+     */
+    virtual bool isRunning() const = 0;
+
+public slots:
+    /*!
+     * @details
+     *   Aborts execution of current script unit.
+     *
+     *   If the unit does not run a script (i.e. isRunning() returns false), this function
+     *   does nothing.
+     */
+    virtual void abort() = 0;
+
     /*!
      * @details
      *   Tries to load script from the fileName().
@@ -162,6 +178,14 @@ public slots:
     virtual bool run() = 0;
 
 signals:
+    /*!
+     * @details
+     *   This signal is emitted when script's execution is aborted.
+     *
+     * @sa run(), abort()
+     */
+    void aborted();
+
     /*!
      * @details
      *   This signal is emitted when script's file name is changed. It could happen

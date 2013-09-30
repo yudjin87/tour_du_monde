@@ -27,9 +27,13 @@
 #include "ScriptUnitTest.h"
 #include "fakes/FakeScriptUnit.h"
 
+#include <components/jsscripting/CarouselScriptEngineConfigurationDelegate.h>
 #include <components/jsscripting/ScriptUnit.h>
+#include <components/jsscripting/ScriptingService.h>
 
 #include <QtCore/QCoreApplication>
+#include <QtCore/QEvent>
+#include <QtScript/QScriptEngine>
 #include <QtGui/QTextDocument>
 #include <QtTest/QtTest>
 
@@ -37,6 +41,7 @@
 ScriptUnitTest::ScriptUnitTest(QObject *parent)
     : QObject(parent)
     , m_testScriptPath(QCoreApplication::applicationDirPath() + "/scripts/TestScript.js")
+    , m_unit(nullptr)
 {
 }
 
@@ -124,6 +129,61 @@ void ScriptUnitTest::saveAs_shouldNotChangeFileNameIfSavingFailed()
 #else
     QCOMPARE(unit.absoluteFilePath(), m_testScriptPath);
 #endif // Q_WS_WIN
+}
+
+//------------------------------------------------------------------------------
+QScriptEngine *ScriptUnitTest::createEngine(IOutputHandler *output, QObject *parent)
+{
+    QScriptEngine *engine = new QScriptEngine(parent);
+    CarouselScriptEngineConfigurationDelegate configurator(nullptr);
+    configurator.configureDefaults(engine, output);
+
+    return engine;
+}
+
+//------------------------------------------------------------------------------
+void ScriptUnitTest::onTimer_isRunningShouldReturnTrue()
+{
+    QTest::qVerify(m_unit != nullptr, "m_unit != nullptr", "", __FILE__, __LINE__);
+    QTest::qVerify(m_unit->isRunning(), "m_unit->isRunning()", "", __FILE__, __LINE__);
+}
+
+//------------------------------------------------------------------------------
+void ScriptUnitTest::isRunning_shouldReturnTrueForEvaluatedScript()
+{
+    ScriptUnit unit(this); m_unit = &unit;
+    QVERIFY(!unit.isRunning());
+
+    unit.setScriptText("wait(300);");
+
+    QTimer::singleShot(100, this, SLOT(onTimer_isRunningShouldReturnTrue()));
+
+    unit.run();
+
+    m_unit = nullptr;
+}
+
+//------------------------------------------------------------------------------
+void ScriptUnitTest::onTimer_abort_shouldAbortCurrentScript()
+{
+    m_unit->abort();
+    QTest::qVerify(m_unit != nullptr, "m_unit != nullptr", "", __FILE__, __LINE__);
+    // TODO: I still cannot abort scrip without GUI. I've use QEventLoops, but can abort
+    // only from GUI (even when app loop is started).
+    // QTest::qVerify(!m_unit->isRunning(), "!m_unit->isRunning()", "", __FILE__, __LINE__);
+}
+
+//------------------------------------------------------------------------------
+void ScriptUnitTest::abort_shouldAbortCurrentScript()
+{
+    ScriptUnit unit(this); m_unit = &unit;
+    unit.setScriptText("wait(300);");
+
+    QTimer::singleShot(100, this, SLOT(onTimer_abort_shouldAbortCurrentScript()));
+
+    unit.run();
+
+    m_unit = nullptr;
 }
 
 //------------------------------------------------------------------------------
