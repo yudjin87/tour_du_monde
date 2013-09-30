@@ -15,9 +15,7 @@ set(__SOURCES
 ######################################################################
 # Headers
 set(__HEADERS
-    ${CRSL_TARGET_HEADERS}/Changes.h 
     ${CRSL_TARGET_HEADERS}/FileUtils.h 
-    ${CRSL_TARGET_HEADERS}/IListObserver.h 
     ${CRSL_TARGET_HEADERS}/IServiceLocator.h 
     ${CRSL_TARGET_HEADERS}/ListDictionary.h 
     ${CRSL_TARGET_HEADERS}/ObservableList.h 

@@ -33,10 +33,7 @@
 #include <QtCore/QList>
 
 class IComponent;
-
-template <typename TItem>
-class ObservableList;
-
+class ComponentCollection;
 
 /*!
  * @brief
@@ -161,7 +158,7 @@ public:
      * @details
      *   Returns a list of added components.
      */
-    virtual const ObservableList<IComponent *> &components() const = 0;
+    virtual const ComponentCollection &components() const = 0;
 
     /*!
      * @details

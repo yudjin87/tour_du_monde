@@ -24,29 +24,34 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef OBSERVABLELISTTEST_H
-#define OBSERVABLELISTTEST_H
+#include "ComponentCollection.h"
+#include "IComponent.h"
 
-#include <QtCore/QObject>
-
-class ObservableListTest: public QObject
+//------------------------------------------------------------------------------
+ComponentCollection::ComponentCollection(QObject *parent)
+    : QObject(parent)
+    , ObservableList<IComponent *>()
 {
-    Q_OBJECT
-public:
-    ObservableListTest(QObject *parent = 0);
+}
 
-private Q_SLOTS:
-    void shouldAddItemsCorrectly();
-    void shouldRemoveItemsCorrectly();
-    void shouldGetCorrectElemets();
-    void shouldFindElementsCorrectly();
+//------------------------------------------------------------------------------
+ComponentCollection::ComponentCollection(const QList<IComponent *> &components, QObject *parent)
+    : QObject(parent)
+    , ObservableList<IComponent *>(components)
+{
 
-    void shouldNotifyAboutItemsAdding();
-    void shouldNotifyAboutItemsRemoving();
-    void shouldNotifyAboutClearing();
+}
 
-    void shouldSortItems();
-    void shouldSortItemsWithCustomPredicate();
-};
+//------------------------------------------------------------------------------
+void ComponentCollection::added(IComponent *component)
+{
+    emit componentAdded(component);
+}
 
-#endif // OBSERVABLELISTTEST_H
+//------------------------------------------------------------------------------
+void ComponentCollection::removed(IComponent *component)
+{
+    emit componentRemoved(component);
+}
+
+//------------------------------------------------------------------------------

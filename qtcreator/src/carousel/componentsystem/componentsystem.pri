@@ -4,6 +4,7 @@ PROJECT_HEADERS = $$HPP_SOURCE_TREE/carousel/componentsystem
 SOURCES += \
     $$PROJECT_SOURCES/AbsolutePathComponentLocationConstructorDelegate.cpp \
     $$PROJECT_SOURCES/BaseComponent.cpp \
+    $$PROJECT_SOURCES/ComponentCollection.cpp \
     $$PROJECT_SOURCES/ComponentDefinition.cpp \
     $$PROJECT_SOURCES/ComponentDependencies.cpp \
     $$PROJECT_SOURCES/ComponentInstaller.cpp \
@@ -28,6 +29,7 @@ SOURCES += \
 HEADERS += \
     $$PROJECT_HEADERS/AbsolutePathComponentLocationConstructorDelegate.h \
     $$PROJECT_HEADERS/BaseComponent.h \
+    $$PROJECT_HEADERS/ComponentCollection.h \
     $$PROJECT_HEADERS/ComponentDefinition.h \
     $$PROJECT_HEADERS/ComponentDependencies.h \
     $$PROJECT_HEADERS/ComponentExport.h \

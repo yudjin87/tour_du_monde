@@ -27,11 +27,11 @@
 #include "ComponentManager.h"
 #include "ComponentDefinition.h"
 #include "ComponentDependencies.h"
+#include "ComponentCollection.h"
 #include "IComponent.h"
 
 #include <carousel/logging/LoggerFacade.h>
 #include <carousel/utils/IServiceLocator.h>
-#include <carousel/utils/ObservableList.h>
 
 #include <QtCore/QSet>
 #include <QtCore/QCoreApplication>

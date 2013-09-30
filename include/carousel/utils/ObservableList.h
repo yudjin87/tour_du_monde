@@ -27,9 +27,6 @@
 #ifndef OBSERVABLELIST_H
 #define OBSERVABLELIST_H
 
-#include <carousel/utils/IListObserver.h>
-#include <carousel/utils/Changes.h>
-
 #include <QtCore/QList>
 #include <QtCore/QSet>
 #include <QtCore/QtAlgorithms>
@@ -41,20 +38,16 @@
  *   ObservableList<TItem> extends Qt's generic container classes by adding observable availability.
  *   It stores a list of values and provides almost all functionality as well as QList<TItem> does.
  *
- *   Also it provides two methods for inistalling (installObserver()) and removing (removeObserver())
- *   observers, which want to know about this list changed (items were added, removed, sorted, etc).
- *
- * @note ObservableList does not take ownership on the observers.
+ *   Also it provides methods virtual methods like added() or removed(). You can emit appropriate signals
+ *   from these methods, when derive from this class
  */
 template <typename TItem>
 class ObservableList
 {
 public:
     ObservableList();
+    explicit ObservableList(const QList<TItem> &items);
     ~ObservableList();
-
-    void installObserver(IListObserver<TItem> *observer) const;
-    bool removeObserver(IListObserver<TItem> *observer) const;
 
     /*!
      * @details
@@ -65,7 +58,7 @@ public:
      *   preallocates extra space on both sides of its internal buffer to
      *   allow for fast growth at both ends of the list.
      *
-     *   Notify observers with ChangedAction::Add action and added item.
+     *   Calls added() virtual method.
      */
     void append(const TItem &item);
 
@@ -86,7 +79,7 @@ public:
      *   preallocates extra space on both sides of its internal buffer to
      *   allow for fast growth at both ends of the list.
      *
-     *   Notify observers with ChangedAction::Add action and added item.
+     *   Calls added() virtual method.
      */
     void prepend(const TItem &item);
 
@@ -289,7 +282,7 @@ public:
      *   This function is provided for STL compatibility. It is equivalent
      *   to append(@a item).
      *
-     *   Notify observers with ChangedAction::Add action and added item.
+     *   Calls added() virtual method.
      */
     void push_back(const TItem &item);
     /*!
@@ -297,7 +290,7 @@ public:
      *   This function is provided for STL compatibility. It is equivalent
      *   to prepend(@a item).
      *
-     *   Notify observers with ChangedAction::Add action and added item.
+     *   Calls added() virtual method.
      */
     void push_front(const TItem &item);
 
@@ -348,18 +341,25 @@ public:
     template< template <typename> class LessThan>
     void sort(LessThan<TItem> &lessThan);
 
-private:
-    void notifyObservers(Changes<TItem>& changes);
+protected:
+    virtual void added(TItem item) = 0;
+    virtual void removed(TItem item) = 0;
+
 
 private:
     QList<TItem> m_items;
-    mutable QSet<IListObserver<TItem> *> m_observers;
 };
 
 //------------------------------------------------------------------------------
 template <typename TItem>
 ObservableList<TItem>::ObservableList()
-    : m_observers(QSet<IListObserver<TItem> *>())
+{
+}
+
+//------------------------------------------------------------------------------
+template <typename TItem>
+ObservableList<TItem>::ObservableList(const QList<TItem> &items)
+    : m_items(items)
 {
 }
 
@@ -367,22 +367,7 @@ ObservableList<TItem>::ObservableList()
 template <typename TItem>
 ObservableList<TItem>::~ObservableList()
 {
-    m_observers.clear();
     m_items.clear();
-}
-
-//------------------------------------------------------------------------------
-template <typename TItem>
-void ObservableList<TItem>::installObserver(IListObserver<TItem> *observer) const
-{
-    m_observers.insert(observer);
-}
-
-//------------------------------------------------------------------------------
-template <typename TItem>
-bool ObservableList<TItem>::removeObserver(IListObserver<TItem> *observer) const
-{
-    return m_observers.remove(observer);
 }
 
 //------------------------------------------------------------------------------
@@ -390,9 +375,7 @@ template <typename TItem>
 void ObservableList<TItem>::append(const TItem &item)
 {
     m_items.append(item);
-
-    Changes<TItem> changes(Add, item);
-    notifyObservers(changes);
+    added(item);
 }
 
 //------------------------------------------------------------------------------
@@ -400,9 +383,8 @@ template <typename TItem>
 void ObservableList<TItem>::append(const QList<TItem> &items)
 {
     m_items.append(items);
-
-    Changes<TItem> changes(Add, items);
-    notifyObservers(changes);
+    for (TItem item : items)
+        added(item);
 }
 
 //------------------------------------------------------------------------------
@@ -410,9 +392,7 @@ template <typename TItem>
 void ObservableList<TItem>::prepend(const TItem &item)
 {
     m_items.prepend(item);
-
-    Changes<TItem> changes(Add, item);
-    notifyObservers(changes);
+    added(item);
 }
 
 //------------------------------------------------------------------------------
@@ -436,11 +416,11 @@ void ObservableList<TItem>::clear()
     if (m_items.empty())
         return;
 
-    Changes<TItem> changes(Reset, m_items);
-
+    QList<TItem> oldItems = m_items;
     m_items.clear();
 
-    notifyObservers(changes);
+    for (TItem item : oldItems)
+        removed(item);
 }
 
 //------------------------------------------------------------------------------
@@ -498,8 +478,8 @@ int ObservableList<TItem>::removeAll(const TItem &item)
 
     m_items.removeAll(item);
 
-    Changes<TItem> changes(Remove, items);
-    notifyObservers(changes);
+    for (TItem item : items)
+        removed(item);
 
     return items.size();
 }
@@ -512,9 +492,7 @@ bool ObservableList<TItem>::removeOne(const TItem &item)
     if (!result)
         return false;
 
-    Changes<TItem> changes(Remove, item);
-    notifyObservers(changes);
-
+    removed(item);
     return result;
 }
 
@@ -614,9 +592,7 @@ template <typename TItem>
 void ObservableList<TItem>::push_back(const TItem &item)
 {
     m_items.push_back(item);
-
-    Changes<TItem> changes(Add, item);
-    notifyObservers(changes);
+    added(item);
 }
 
 //------------------------------------------------------------------------------
@@ -624,9 +600,7 @@ template <typename TItem>
 void ObservableList<TItem>::push_front(const TItem &item)
 {
     m_items.push_front(item);
-
-    Changes<TItem> changes(Add, item);
-    notifyObservers(changes);
+    added(item);
 }
 
 //------------------------------------------------------------------------------
@@ -662,9 +636,6 @@ template <typename TItem>
 void ObservableList<TItem>::sort()
 {
     qSort(m_items);
-
-    Changes<TItem> changes(Reset, m_items);
-    notifyObservers(changes);
 }
 
 //------------------------------------------------------------------------------
@@ -673,17 +644,6 @@ template <template<typename> class LessThan>
 void ObservableList<TItem>::sort(LessThan<TItem> &lessThan)
 {
     qSort(m_items.begin(), m_items.end(), lessThan);
-
-    Changes<TItem> changes(Reset, m_items);
-    notifyObservers(changes);
-}
-
-//------------------------------------------------------------------------------
-template <typename TItem>
-void ObservableList<TItem>::notifyObservers(Changes<TItem>& changes)
-{
-    for (IListObserver<TItem> *observer : m_observers)
-        observer->onChanged(changes);
 }
 
 //------------------------------------------------------------------------------

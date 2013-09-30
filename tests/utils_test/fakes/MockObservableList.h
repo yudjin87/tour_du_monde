@@ -24,29 +24,23 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef OBSERVABLELISTTEST_H
-#define OBSERVABLELISTTEST_H
+#ifndef MOCKLISTOBSERVER_H
+#define MOCKLISTOBSERVER_H
+
+#include <carousel/utils/ObservableList.h>
 
 #include <QtCore/QObject>
 
-class ObservableListTest: public QObject
+class MockObservableList : public ObservableList<QObject *>
 {
-    Q_OBJECT
 public:
-    ObservableListTest(QObject *parent = 0);
+    MockObservableList();
 
-private Q_SLOTS:
-    void shouldAddItemsCorrectly();
-    void shouldRemoveItemsCorrectly();
-    void shouldGetCorrectElemets();
-    void shouldFindElementsCorrectly();
+    void added(QObject *item) override;
+    void removed(QObject *item) override;
 
-    void shouldNotifyAboutItemsAdding();
-    void shouldNotifyAboutItemsRemoving();
-    void shouldNotifyAboutClearing();
-
-    void shouldSortItems();
-    void shouldSortItemsWithCustomPredicate();
+    bool addedCalled;
+    bool removedCalled;
 };
 
-#endif // OBSERVABLELISTTEST_H
+#endif // MOCKLISTOBSERVER_H

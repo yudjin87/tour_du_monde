@@ -10,6 +10,7 @@ include(cmake/target_utils)
 set(__SOURCES
     ${CRSL_TARGET_SOURCES}/AbsolutePathComponentLocationConstructorDelegate.cpp 
     ${CRSL_TARGET_SOURCES}/BaseComponent.cpp 
+    ${CRSL_TARGET_SOURCES}/ComponentCollection.cpp 
     ${CRSL_TARGET_SOURCES}/ComponentDefinition.cpp 
     ${CRSL_TARGET_SOURCES}/ComponentDependencies.cpp 
     ${CRSL_TARGET_SOURCES}/ComponentInstaller.cpp 
@@ -37,6 +38,7 @@ set(__SOURCES
 set(__HEADERS
     ${CRSL_TARGET_HEADERS}/AbsolutePathComponentLocationConstructorDelegate.h 
     ${CRSL_TARGET_HEADERS}/BaseComponent.h 
+    ${CRSL_TARGET_HEADERS}/ComponentCollection.h 
     ${CRSL_TARGET_HEADERS}/ComponentDefinition.h 
     ${CRSL_TARGET_HEADERS}/ComponentDependencies.h 
     ${CRSL_TARGET_HEADERS}/ComponentExport.h 

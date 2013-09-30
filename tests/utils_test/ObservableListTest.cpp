@@ -26,7 +26,7 @@
 
 #include "ObservableListTest.h"
 
-#include "fakes/MockListObserver.h"
+#include "fakes/MockObservableList.h"
 #include <carousel/utils/ObservableList.h>
 
 #include <QtCore/QtAlgorithms>
@@ -41,7 +41,7 @@ ObservableListTest::ObservableListTest(QObject *parent)
 //------------------------------------------------------------------------------
 void ObservableListTest::shouldAddItemsCorrectly()
 {
-    ObservableList<QObject *> list;
+    MockObservableList list;
     QCOMPARE(list.size(), 0);
     QVERIFY(list.empty());
     QVERIFY(list.isEmpty());
@@ -69,7 +69,7 @@ void ObservableListTest::shouldAddItemsCorrectly()
 //------------------------------------------------------------------------------
 void ObservableListTest::shouldRemoveItemsCorrectly()
 {
-    ObservableList<QObject *> list;
+    MockObservableList list;
     list.push_back(new QObject(this));
     list.push_back(new QObject(this));
     list.push_back(new QObject(this));
@@ -83,7 +83,7 @@ void ObservableListTest::shouldRemoveItemsCorrectly()
     list.removeOne(obj);
     QCOMPARE(list.size(), 3);
 
-    ObservableList<QObject *> list2;
+    MockObservableList list2;
     list2.push_back(obj);
     list2.push_back(new QObject(this));
     list2.push_back(obj);
@@ -99,7 +99,7 @@ void ObservableListTest::shouldRemoveItemsCorrectly()
 //------------------------------------------------------------------------------
 void ObservableListTest::shouldGetCorrectElemets()
 {
-    ObservableList<QObject *> list;
+    MockObservableList list;
     QObject *obj  = new QObject(this); list.push_back(obj);
     QObject *obj1 = new QObject(this); list.push_back(obj1);
     QObject *obj2 = new QObject(this); list.push_back(obj2);
@@ -118,7 +118,7 @@ void ObservableListTest::shouldGetCorrectElemets()
     QVERIFY(list.begin() != list.end());
     QVERIFY(list.constBegin() != list.constEnd());
 
-    ObservableList<QObject *> emptyList;
+    MockObservableList emptyList;
     QCOMPARE(emptyList.begin(), emptyList.end());
     QCOMPARE(emptyList.constBegin(), emptyList.constEnd());
 }
@@ -126,7 +126,7 @@ void ObservableListTest::shouldGetCorrectElemets()
 //------------------------------------------------------------------------------
 void ObservableListTest::shouldFindElementsCorrectly()
 {
-    ObservableList<QObject *> list;
+    MockObservableList list;
     QObject *obj  = new QObject(this); list.push_back(obj);
     QObject *obj1 = new QObject(this); list.push_back(obj1);
     list.push_back(obj1);
@@ -144,64 +144,39 @@ void ObservableListTest::shouldFindElementsCorrectly()
 void ObservableListTest::shouldNotifyAboutItemsAdding()
 {
     {// append
-        MockListObserver<QObject *> observer;
-        ObservableList<QObject *> list; list.installObserver(&observer);
+        MockObservableList list;
 
         QObject *obj1 = new QObject(this);
         list.append(obj1);
 
-        QCOMPARE(observer.changes.affectedItems.size(), 1);
-        QCOMPARE(observer.changes.affectedItems[0], obj1);
-        QCOMPARE(observer.changes.action, Add);
-    }
-
-    {// append collection
-        MockListObserver<QObject *> observer;
-        ObservableList<QObject *> list; list.installObserver(&observer);
-
-        QList<QObject *>objs; objs.push_back(new QObject(this)); objs.push_back(new QObject(this));
-        list.append(objs);
-
-        QCOMPARE(observer.changes.affectedItems.size(), 2);
-        QVERIFY(observer.changes.affectedItems.contains(objs[0]));
-        QVERIFY(observer.changes.affectedItems.contains(objs[1]));
-        QCOMPARE(observer.changes.action, Add);
+        QVERIFY(list.addedCalled);
     }
 
     {// prepend
-        MockListObserver<QObject *> observer;
-        ObservableList<QObject *> list; list.installObserver(&observer);
+        MockObservableList list;
 
         QObject *obj1 = new QObject(this);
         list.prepend(obj1);
 
-        QCOMPARE(observer.changes.affectedItems.size(), 1);
-        QCOMPARE(observer.changes.affectedItems[0], obj1);
-        QCOMPARE(observer.changes.action, Add);
+        QVERIFY(list.addedCalled);
     }
 
     {// push_back
-        MockListObserver<QObject *> observer;
-        ObservableList<QObject *> list; list.installObserver(&observer);
+        MockObservableList list;
 
         QObject *obj1 = new QObject(this);
         list.push_back(obj1);
 
-        QCOMPARE(observer.changes.affectedItems.size(), 1);
-        QCOMPARE(observer.changes.affectedItems[0], obj1);
-        QCOMPARE(observer.changes.action, Add);
+        QVERIFY(list.addedCalled);
     }
 
     {// push_front
-        MockListObserver<QObject *> observer;
-        ObservableList<QObject *> list; list.installObserver(&observer);
+        MockObservableList list;
 
         QObject *obj1 = new QObject(this);
         list.push_front(obj1);
 
-        QCOMPARE(observer.changes.affectedItems.size(), 1);
-        QCOMPARE(observer.changes.affectedItems[0], obj1);
-        QCOMPARE(observer.changes.action, Add);
+        QVERIFY(list.addedCalled);
     }
 }
 
@@ -209,103 +184,47 @@ void ObservableListTest::shouldNotifyAboutItemsAdding()
 void ObservableListTest::shouldNotifyAboutItemsRemoving()
 {
     {// removeOne
-        MockListObserver<QObject *> observer;
         QObject *obj1 = new QObject(this);
-        ObservableList<QObject *> list; list.append(obj1);
-        list.installObserver(&observer);
+        MockObservableList list; list.append(obj1);
 
         list.removeOne(obj1);
 
-        QCOMPARE(observer.changes.affectedItems.size(), 1);
-        QCOMPARE(observer.changes.affectedItems[0], obj1);
-        QCOMPARE(observer.changes.action, Remove);
+        QVERIFY(list.removedCalled);
     }
     {// removeAt
-        MockListObserver<QObject *> observer;
         QObject *obj1 = new QObject(this);
-        ObservableList<QObject *> list; list.append(obj1);
-        list.installObserver(&observer);
+        MockObservableList list; list.append(obj1);
 
         list.removeAt(0);
 
-        QCOMPARE(observer.changes.affectedItems.size(), 1);
-        QCOMPARE(observer.changes.affectedItems[0], obj1);
-        QCOMPARE(observer.changes.action, Remove);
+        QVERIFY(list.removedCalled);
     }
     {// removeAll
-        MockListObserver<QObject *> observer;
-        ObservableList<QObject *> list;
         QObject *obj1 = new QObject(this);
-        list.append(obj1); list.append(obj1); list.append(new QObject(this));
-        list.installObserver(&observer);
+        MockObservableList list; list.append(obj1);
 
         list.removeAll(obj1);
 
-        QCOMPARE(observer.changes.affectedItems.size(), 2);
-        QCOMPARE(observer.changes.affectedItems[0], obj1);
-        QCOMPARE(observer.changes.affectedItems[1], obj1);
-        QCOMPARE(observer.changes.action, Remove);
+        QVERIFY(list.removedCalled);
     }
 }
 
 //------------------------------------------------------------------------------
 void ObservableListTest::shouldNotifyAboutClearing()
 {
-    MockListObserver<QObject *> observer;
-    ObservableList<QObject *> list;
+    MockObservableList list;
     QObject *obj1 = new QObject(this);
     list.append(obj1); list.append(obj1); list.append(obj1);
-    list.installObserver(&observer);
 
     list.clear();
 
-    QCOMPARE(observer.changes.affectedItems.size(), 3);
-    QCOMPARE(observer.changes.action, Reset);
-}
-
-//------------------------------------------------------------------------------
-void ObservableListTest::shouldNotNotifyAboutFailedRemoving()
-{
-    MockListObserver<QObject *> observer;
-    ObservableList<QObject *> list;
-    list.installObserver(&observer);
-
-    list.removeOne(new QObject(this));
-
-    QCOMPARE(observer.onChangedCalled, false);
-}
-
-//------------------------------------------------------------------------------
-void ObservableListTest::shouldNotifyAllObservers()
-{
-    MockListObserver<QObject *> observer; MockListObserver<QObject *> observer2;
-    ObservableList<QObject *> list; list.installObserver(&observer); list.installObserver(&observer2);
-
-    QObject *obj1 = new QObject(this);
-    list.append(obj1);
-
-    QCOMPARE(observer.changes.affectedItems.size(), 1);
-    QCOMPARE(observer2.changes.affectedItems.size(), 1);
-}
-
-//------------------------------------------------------------------------------
-void ObservableListTest::shouldNotNotifyRemovedObservers()
-{
-    MockListObserver<QObject *> observer; MockListObserver<QObject *> observer2;
-    ObservableList<QObject *> list; list.installObserver(&observer); list.installObserver(&observer2);
-    list.removeObserver(&observer);
-
-    QObject *obj1 = new QObject(this);
-    list.append(obj1);
-
-    QCOMPARE(observer.changes.affectedItems.size(), 0);
-    QCOMPARE(observer2.changes.affectedItems.size(), 1);
+    QVERIFY(list.removedCalled);
 }
 
 //------------------------------------------------------------------------------
 void ObservableListTest::shouldSortItems()
 {
-    ObservableList<QObject *> list;
+    MockObservableList list;
     list.push_front(new QObject(this)); list.push_front(new QObject(this)); list.push_front(new QObject(this));
 
     list.sort();
@@ -317,7 +236,7 @@ void ObservableListTest::shouldSortItems()
 //------------------------------------------------------------------------------
 void ObservableListTest::shouldSortItemsWithCustomPredicate()
 {
-    ObservableList<QObject *> list;
+    MockObservableList list;
     list.push_front(new QObject(this)); list.push_front(new QObject(this)); list.push_front(new QObject(this));
 
     auto predicate = qLess<QObject *>();
@@ -325,41 +244,6 @@ void ObservableListTest::shouldSortItemsWithCustomPredicate()
 
     QVERIFY(list[0] < list[1]);
     QVERIFY(list[1] < list[2]);
-}
-
-//------------------------------------------------------------------------------
-void ObservableListTest::shouldNotifyAboutItemsChangedAfterSorting()
-{
-    MockListObserver<QObject *> observer;
-    ObservableList<QObject *> list;
-    list.push_front(new QObject(this)); list.push_front(new QObject(this)); list.push_front(new QObject(this));
-    list.installObserver(&observer);
-
-    list.sort();
-
-    QCOMPARE(observer.changes.affectedItems.size(), list.size());
-    QCOMPARE(observer.changes.affectedItems[0], list[0]);
-    QCOMPARE(observer.changes.affectedItems[1], list[1]);
-    QCOMPARE(observer.changes.affectedItems[2], list[2]);
-    QCOMPARE(observer.changes.action, Reset);
-}
-
-//------------------------------------------------------------------------------
-void ObservableListTest::shouldNotifyAboutItemsChangedAfterSortingWithCustomPredicate()
-{
-    MockListObserver<QObject *> observer;
-    ObservableList<QObject *> list;
-    list.push_front(new QObject(this)); list.push_front(new QObject(this)); list.push_front(new QObject(this));
-    list.installObserver(&observer);
-
-    auto predicate = qLess<QObject *>();
-    list.sort(predicate);
-
-    QCOMPARE(observer.changes.affectedItems.size(), list.size());
-    QCOMPARE(observer.changes.affectedItems[0], list[0]);
-    QCOMPARE(observer.changes.affectedItems[1], list[1]);
-    QCOMPARE(observer.changes.affectedItems[2], list[2]);
-    QCOMPARE(observer.changes.action, Reset);
 }
 
 //------------------------------------------------------------------------------

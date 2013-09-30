@@ -29,23 +29,19 @@
 
 #include <components/componentsystemui/componentsystem_ui_global.h>
 
-#include <carousel/utils/IListObserver.h>
-
 #include <QtCore/QAbstractTableModel>
 #include <QtCore/QList>
 
 class ComponentDefinition;
+class ComponentCollection;
 class IComponent;
 class IServiceLocator;
 
-template <typename TItem>
-class ObservableList;
-
-class COMP_SYSTEM_UI_API ComponentDefinitionsModel : public QAbstractTableModel, public IListObserver<IComponent *>
+class COMP_SYSTEM_UI_API ComponentDefinitionsModel : public QAbstractTableModel
 {
     Q_OBJECT
 public:
-    explicit ComponentDefinitionsModel(const ObservableList<IComponent *> &components, QObject *parent = nullptr);
+    explicit ComponentDefinitionsModel(const ComponentCollection &components, QObject *parent = nullptr);
     ~ComponentDefinitionsModel();
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
@@ -60,8 +56,6 @@ public:
 
     Qt::ItemFlags flags(const QModelIndex &index) const override;
 
-    void onChanged(const Changes<IComponent *> &changes) override;
-
     void injectServiceLocator(IServiceLocator *locator);
 
 public slots:
@@ -69,8 +63,11 @@ public slots:
     void onDescription(const QModelIndex &index);
     void onToogleEnable(const QModelIndex &index);
 
+private slots:
+    void onComponentsChanged(IComponent *);
+
 private:
-    const ObservableList<IComponent *> &m_components;
+    const ComponentCollection &m_components;
     IServiceLocator *m_locator;
 };
 

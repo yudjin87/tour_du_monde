@@ -6,9 +6,7 @@ SOURCES += \
     $$PROJECT_SOURCES/ServiceLocator.cpp \
 
 HEADERS += \
-    $$PROJECT_HEADERS/Changes.h \
     $$PROJECT_HEADERS/FileUtils.h \
-    $$PROJECT_HEADERS/IListObserver.h \
     $$PROJECT_HEADERS/IServiceLocator.h \
     $$PROJECT_HEADERS/ListDictionary.h \
     $$PROJECT_HEADERS/ObservableList.h \

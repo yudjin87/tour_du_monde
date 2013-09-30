@@ -24,27 +24,30 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef MOCKLISTOBSERVER_H
-#define MOCKLISTOBSERVER_H
+#ifndef COMPONENTCOLLECTION_H
+#define COMPONENTCOLLECTION_H
 
+#include <carousel/componentsystem/componentsystem_global.h>
 #include <carousel/utils/ObservableList.h>
 
-template <typename T>
-class MockListObserver : public IListObserver<T>
+#include <QtCore/QObject>
+
+class IComponent;
+
+class COMP_API ComponentCollection : public QObject, public ObservableList<IComponent *>
 {
+    Q_OBJECT
 public:
-    MockListObserver()
-        : onChangedCalled(false)
-    {}
+    explicit ComponentCollection(QObject *parent = nullptr);
+    explicit ComponentCollection(const QList<IComponent *> &components, QObject *parent = nullptr);
 
-    void onChanged(const Changes<T> &changes)
-    {
-        this->changes = changes;
-        onChangedCalled = true;
-    }
+signals:
+    void componentAdded(IComponent *component);
+    void componentRemoved(IComponent *component);
 
-    Changes<T> changes;
-    bool onChangedCalled;
+protected:
+    void added(IComponent *component) override;
+    void removed(IComponent *component) override;
 };
 
-#endif // MOCKLISTOBSERVER_H
+#endif // COMPONENTCOLLECTION_H

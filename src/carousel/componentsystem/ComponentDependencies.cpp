@@ -27,6 +27,7 @@
 #include "ComponentDependencies.h"
 #include "DependencySolver.h"
 #include "IComponent.h"
+#include "ComponentCollection.h"
 #include "ComponentDefinition.h"
 #include "ParentDefinition.h"
 
@@ -41,8 +42,8 @@ static LoggerFacade Log = LoggerFacade::createLogger("ComponentDependencies");
 //------------------------------------------------------------------------------
 ComponentDependencies::ComponentDependencies(QObject *parent)
     : QObject(parent)
+    , m_components(new ComponentCollection(this))
 {
-    m_components.reserve(20);
 }
 
 //------------------------------------------------------------------------------
@@ -63,7 +64,7 @@ bool ComponentDependencies::addComponent(IComponent *component)
         return false;
     }
 
-    m_components.push_back(component);
+    m_components->push_back(component);
     return true;
 }
 
@@ -165,7 +166,7 @@ DependenciesSolvingResult ComponentDependencies::completeListWithParents(const Q
     bool hasCyclic = !solver.solve(ordered, orphans, missing);
     if (hasCyclic) {
         Log.d("At least one cyclic dependency has been found in the component manager. Cycles in the component dependencies must be avoided.");
-        return DependenciesSolvingResult(ordered, orphans, missing, m_components.toList(), hasCyclic);
+        return DependenciesSolvingResult(ordered, orphans, missing, m_components->toList(), hasCyclic);
     }
 
     if (!missing.isEmpty()) {
@@ -173,16 +174,16 @@ DependenciesSolvingResult ComponentDependencies::completeListWithParents(const Q
               .arg(missing.join(", ")).toLatin1());
     }
 
-    return DependenciesSolvingResult(ordered, orphans, missing, m_components.toList(), hasCyclic);
+    return DependenciesSolvingResult(ordered, orphans, missing, m_components->toList(), hasCyclic);
 }
 
 //------------------------------------------------------------------------------
 IComponent *ComponentDependencies::componentByName(const QString &byName) const
 {
-    if (m_components.empty())
+    if (m_components->empty())
         return nullptr;
 
-    for (IComponent *com : m_components) {
+    for (IComponent *com : *m_components) {
         if (com->name() == byName)
             return com;
     }
@@ -191,15 +192,15 @@ IComponent *ComponentDependencies::componentByName(const QString &byName) const
 }
 
 //------------------------------------------------------------------------------
-const ObservableList<IComponent *> &ComponentDependencies::components() const
+const ComponentCollection &ComponentDependencies::components() const
 {
-    return m_components;
+    return *m_components;
 }
 
 //------------------------------------------------------------------------------
 DependenciesSolvingResult ComponentDependencies::orderedComponents() const
 {
-    return completeListWithChildren(components().toList());
+    return completeListWithChildren(m_components->toList());
 }
 
 //------------------------------------------------------------------------------
@@ -221,7 +222,7 @@ DependenciesSolvingResult ComponentDependencies::getChildComponents(const ICompo
 
     QList<IComponent *> components_to_return;
 
-    for (IComponent *com : m_components) {
+    for (IComponent *com : *m_components) {
         const ComponentDefinition *definition = com->definition();
         const ParentDefinitions &parents = definition->parents();
         if (parents.contains(forParent->name()))

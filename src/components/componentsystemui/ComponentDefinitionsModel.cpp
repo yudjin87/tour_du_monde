@@ -29,9 +29,9 @@
 #include "InstallComponentsCommand.h"
 
 #include <carousel/componentsystem/ComponentDefinition.h>
+#include <carousel/componentsystem/ComponentCollection.h>
 #include <carousel/componentsystem/IComponent.h>
 #include <carousel/componentsystem/Version.h>
-#include <carousel/utils/ObservableList.h>
 #include <carousel/utils/IServiceLocator.h>
 
 #include <QtCore/QCoreApplication>
@@ -40,18 +40,18 @@
 #include <QtWidgets/QMainWindow>
 
 //------------------------------------------------------------------------------
-ComponentDefinitionsModel::ComponentDefinitionsModel(const ObservableList<IComponent *> &components, QObject *parent)
+ComponentDefinitionsModel::ComponentDefinitionsModel(const ComponentCollection &components, QObject *parent)
     : QAbstractTableModel(parent)
     , m_components(components)
     , m_locator(nullptr)
 {
-    m_components.installObserver(this);
+    connect(&components, &ComponentCollection::componentAdded, this, &ComponentDefinitionsModel::onComponentsChanged);
+    connect(&components, &ComponentCollection::componentRemoved, this, &ComponentDefinitionsModel::onComponentsChanged);
 }
 
 //------------------------------------------------------------------------------
 ComponentDefinitionsModel::~ComponentDefinitionsModel()
 {
-    m_components.removeObserver(this);
     m_locator = nullptr;
 }
 
@@ -231,11 +231,9 @@ void ComponentDefinitionsModel::onToogleEnable(const QModelIndex &index)
 }
 
 //------------------------------------------------------------------------------
-void ComponentDefinitionsModel::onChanged(const Changes<IComponent *> &changes)
+void ComponentDefinitionsModel::onComponentsChanged(IComponent *)
 {
-    int addedItems = changes.affectedItems.size();
-    int oldSize = m_components.size() - addedItems;
-    beginInsertRows(QModelIndex(), oldSize, oldSize);
+    beginInsertRows(QModelIndex(), m_components.size(), m_components.size());
     endInsertRows();
 }
 

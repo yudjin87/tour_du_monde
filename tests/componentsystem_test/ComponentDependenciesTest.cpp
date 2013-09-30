@@ -32,6 +32,7 @@
 
 #include "Utils.h"
 
+#include <carousel/componentsystem/ComponentCollection.h>
 #include <carousel/componentsystem/ComponentDependencies.h>
 #include <carousel/componentsystem/DependenciesSolvingResult.h>
 

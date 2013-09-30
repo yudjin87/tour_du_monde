@@ -29,10 +29,10 @@
 
 #include <carousel/componentsystem/IComponentDependencies.h>
 
-#include <carousel/utils/ObservableList.h>
-
 #include <QtCore/QObject>
 #include <QtCore/QStringList>
+
+class ComponentCollection;
 
 /*!
  * @brief
@@ -161,7 +161,7 @@ public:
      * @details
      *   Returns a list of added components.
      */
-    const ObservableList<IComponent *> &components() const override;
+    const ComponentCollection &components() const override;
 
     /*!
      * @details
@@ -216,7 +216,7 @@ private:
     void getParentDefinitions(const IComponent *forChild, QList<IComponent *> &found) const;
 
 private:
-    ObservableList<IComponent *> m_components;
+    ComponentCollection *m_components;
 };
 
 

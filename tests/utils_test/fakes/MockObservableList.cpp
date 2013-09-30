@@ -24,29 +24,28 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef OBSERVABLELISTTEST_H
-#define OBSERVABLELISTTEST_H
+#include "MockObservableList.h"
 
-#include <QtCore/QObject>
-
-class ObservableListTest: public QObject
+//------------------------------------------------------------------------------
+MockObservableList::MockObservableList()
+    : addedCalled(false)
+    , removedCalled(false)
 {
-    Q_OBJECT
-public:
-    ObservableListTest(QObject *parent = 0);
 
-private Q_SLOTS:
-    void shouldAddItemsCorrectly();
-    void shouldRemoveItemsCorrectly();
-    void shouldGetCorrectElemets();
-    void shouldFindElementsCorrectly();
+}
 
-    void shouldNotifyAboutItemsAdding();
-    void shouldNotifyAboutItemsRemoving();
-    void shouldNotifyAboutClearing();
+//------------------------------------------------------------------------------
+void MockObservableList::added(QObject *item)
+{
+    Q_UNUSED(item)
+    addedCalled = true;
+}
 
-    void shouldSortItems();
-    void shouldSortItemsWithCustomPredicate();
-};
+//------------------------------------------------------------------------------
+void MockObservableList::removed(QObject *item)
+{
+    Q_UNUSED(item)
+    removedCalled = true;
+}
 
-#endif // OBSERVABLELISTTEST_H
+//------------------------------------------------------------------------------
