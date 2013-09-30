@@ -11,8 +11,8 @@ DEFINES += CARTO_UI_LIB_IMPORT
 DESTDIR = $${DESTDIR}/externalSource
 
 
-LIBS += -L$${CAROUSEL_BIN} -lorg.carousel.Interactivity \
-                           -lComponentSystem \
+LIBS += -L$${CAROUSEL_BIN} -lCarousel \
+                           -lorg.carousel.Interactivity \
 
 LIBS += -L$${DESTDIR} -lorg.carousel.demos.Display \
                       -lorg.carousel.demos.Carto \

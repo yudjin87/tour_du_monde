@@ -6,9 +6,7 @@ TARGET = componentsystemui_test
 
 DESTDIR = $${CAROUSEL_WD}/$${BIN_OUTPUT_PATH}/manual-test
 
-LIBS += -L$${DESTDIR}/../bin -lLogging \
-                             -lUtils \
-                             -lComponentSystem \
+LIBS += -L$${DESTDIR}/../bin -lCarousel \
                              -lorg.carousel.Interactivity \
                              -lorg.carousel.Undo \
                              -lorg.carousel.ComponentSystemUI \

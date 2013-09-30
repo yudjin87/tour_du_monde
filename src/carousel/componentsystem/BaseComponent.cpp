@@ -24,12 +24,12 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "BaseComponent.h"
-#include "ComponentDefinition.h"
-#include "ParentDefinition.h"
+#include "componentsystem/BaseComponent.h"
+#include "componentsystem/ComponentDefinition.h"
+#include "componentsystem/ParentDefinition.h"
 
-#include <carousel/logging/LoggerFacade.h>
-#include <carousel/utils/TypeObjectsMap.h>
+#include "logging/LoggerFacade.h"
+#include "utils/TypeObjectsMap.h"
 
 #include <QtCore/QCoreApplication>
 #include <QtCore/QSettings>

@@ -24,7 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "AbsolutePathComponentLocationConstructorDelegate.h"
+#include "componentsystem/AbsolutePathComponentLocationConstructorDelegate.h"
 
 #include <QtCore/QDir>
 #include <QtCore/QFileInfo>

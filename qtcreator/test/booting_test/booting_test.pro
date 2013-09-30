@@ -5,7 +5,4 @@ QT -= widgets gui
 
 TARGET = booting_test
 
-LIBS += -L$${DESTDIR}/../bin -lBooting \
-                             -lLogging \
-                             -lComponentSystem \
-                             -lUtils \
+LIBS += -L$${DESTDIR}/../bin -lCarousel

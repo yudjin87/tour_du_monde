@@ -24,8 +24,8 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "ParentDefinitions.h"
-#include "ParentDefinition.h"
+#include "componentsystem/ParentDefinitions.h"
+#include "componentsystem/ParentDefinition.h"
 
 #include <QtCore/QtAlgorithms>
 

@@ -24,8 +24,8 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "ComponentCollection.h"
-#include "IComponent.h"
+#include "componentsystem/ComponentCollection.h"
+#include "componentsystem/IComponent.h"
 
 //------------------------------------------------------------------------------
 ComponentCollection::ComponentCollection(QObject *parent)

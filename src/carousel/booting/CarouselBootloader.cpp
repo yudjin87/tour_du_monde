@@ -24,13 +24,13 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "CarouselBootloader.h"
+#include "booting/CarouselBootloader.h"
 
-#include <carousel/componentsystem/ComponentManager.h>
-#include <carousel/componentsystem/IComponent.h>
-#include <carousel/componentsystem/IComponentProvider.h>
-#include <carousel/logging/LoggerFacade.h>
-#include <carousel/utils/IServiceLocator.h>
+#include "componentsystem/ComponentManager.h"
+#include "componentsystem/IComponent.h"
+#include "componentsystem/IComponentProvider.h"
+#include "logging/LoggerFacade.h"
+#include "utils/IServiceLocator.h"
 
 //------------------------------------------------------------------------------
 namespace

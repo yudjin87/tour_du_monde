@@ -10,7 +10,7 @@ DEFINES += NAVIGATIONOPERATIONS_LIB_IMPORT
 
 DESTDIR = $${DESTDIR}/externalSource
 
-LIBS += -L$${CAROUSEL_BIN} -lComponentSystem \
+LIBS += -L$${CAROUSEL_BIN} -lCarousel \
                            -lorg.carousel.Interactivity \
                            -lorg.carousel.Undo \
 

@@ -24,11 +24,11 @@ add_subdirectory(jsscriptingui_test)
 
 ###############################################################################
 # Specify dependencies for correct build order
-add_dependencies(booting_test              Booting)
-add_dependencies(componentsystem_test      ComponentSystem)
+add_dependencies(booting_test              Carousel)
+add_dependencies(componentsystem_test      Carousel)
+add_dependencies(logging_test              Carousel)
+add_dependencies(utils_test                Carousel)
 add_dependencies(interactivity_test        Interactivity)
-add_dependencies(logging_test              Logging)
-add_dependencies(utils_test                Utils)
 add_dependencies(componentsystemUI_test    ComponentSystemUI)
 add_dependencies(jsscripting_test          JsScripting)
 add_dependencies(jsscriptingUI_test        JsScriptingUI)

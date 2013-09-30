@@ -24,14 +24,14 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "ComponentManager.h"
-#include "ComponentDefinition.h"
-#include "ComponentDependencies.h"
-#include "ComponentCollection.h"
-#include "IComponent.h"
+#include "componentsystem/ComponentManager.h"
+#include "componentsystem/ComponentDefinition.h"
+#include "componentsystem/ComponentDependencies.h"
+#include "componentsystem/ComponentCollection.h"
+#include "componentsystem/IComponent.h"
 
-#include <carousel/logging/LoggerFacade.h>
-#include <carousel/utils/IServiceLocator.h>
+#include "logging/LoggerFacade.h"
+#include "utils/IServiceLocator.h"
 
 #include <QtCore/QSet>
 #include <QtCore/QCoreApplication>

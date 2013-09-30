@@ -9,8 +9,7 @@ TARGET = org.carousel.demos.Carto
 
 DEFINES += CARTO_LIB_IMPORT
 
-LIBS += -L$${CAROUSEL_BIN} -lUtils \
-                           -lComponentSystem \
+LIBS += -L$${CAROUSEL_BIN} -lCarousel \
                            -lorg.carousel.JsScripting \
 
 DESTDIR = $${DESTDIR}/externalSource

@@ -11,9 +11,8 @@ DEFINES += ORG_CAROUSEL_UNDO_LIBRARY
 
 INCLUDEPATH += $$HPP_SOURCE_TREE/components/undo
 
-LIBS += -L$${DESTDIR} -lComponentSystem \
+LIBS += -L$${DESTDIR} -lCarousel \
                       -lorg.carousel.Interactivity \
-                      -lLogging \
 
 ###############################################################################
 # Copy definition to the output directory, right near the library

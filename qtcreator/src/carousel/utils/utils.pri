@@ -2,15 +2,15 @@ PROJECT_SOURCES = $$CPP_SOURCE_TREE/carousel/utils
 PROJECT_HEADERS = $$HPP_SOURCE_TREE/carousel/utils
 
 SOURCES += \
-    $$PROJECT_SOURCES/FileUtils.cpp \
-    $$PROJECT_SOURCES/ServiceLocator.cpp \
+    $$PROJECT_SOURCES/utils/FileUtils.cpp \
+    $$PROJECT_SOURCES/utils/ServiceLocator.cpp \
 
 HEADERS += \
-    $$PROJECT_HEADERS/FileUtils.h \
-    $$PROJECT_HEADERS/IServiceLocator.h \
-    $$PROJECT_HEADERS/ListDictionary.h \
-    $$PROJECT_HEADERS/ObservableList.h \
-    $$PROJECT_HEADERS/ServiceLocator.h \
-    $$PROJECT_HEADERS/TypeObjectsMap.h \
-    $$PROJECT_HEADERS/utils_global.h \
+    $$PROJECT_HEADERS/utils/FileUtils.h \
+    $$PROJECT_HEADERS/utils/IServiceLocator.h \
+    $$PROJECT_HEADERS/utils/ListDictionary.h \
+    $$PROJECT_HEADERS/utils/ObservableList.h \
+    $$PROJECT_HEADERS/utils/ServiceLocator.h \
+    $$PROJECT_HEADERS/utils/TypeObjectsMap.h \
+    $$PROJECT_HEADERS/utils/utils_global.h \
 

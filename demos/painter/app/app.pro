@@ -9,10 +9,7 @@ TEMPLATE = app
 
 DESTDIR = $${BIN_OUTPUT_PATH}/bin
 
-LIBS += -L$${CAROUSEL_BIN} -lComponentSystem \
-                           -lBooting \
-                           -lUtils \
-                           -lLogging \
+LIBS += -L$${CAROUSEL_BIN} -lCarousel \
                            -lorg.carousel.Interactivity \
                            -lorg.carousel.JsScripting \
                            -lorg.carousel.JsScriptingUI \

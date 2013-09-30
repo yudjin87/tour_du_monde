@@ -24,7 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "FileUtils.h"
+#include "utils/FileUtils.h"
 
 #include <QtCore/QDir>
 #include <QtCore/QFile>

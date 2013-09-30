@@ -3,4 +3,4 @@ include (utils_test.pri)
 
 TARGET = utils_test
 
-LIBS += -L$${DESTDIR}/../bin -lUtils
+LIBS += -L$${DESTDIR}/../bin -lCarousel

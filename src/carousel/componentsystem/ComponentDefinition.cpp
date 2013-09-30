@@ -24,11 +24,11 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "ComponentDefinition.h"
-#include "IComponent.h"
-#include "Version.h"
-#include "ParentDefinition.h"
-#include "ParentDefinitions.h"
+#include "componentsystem/ComponentDefinition.h"
+#include "componentsystem/IComponent.h"
+#include "componentsystem/Version.h"
+#include "componentsystem/ParentDefinition.h"
+#include "componentsystem/ParentDefinitions.h"
 
 //------------------------------------------------------------------------------
 static const char *DEFAULT_PROVIDER = "Unknown";

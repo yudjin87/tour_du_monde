@@ -24,8 +24,8 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "DependenciesSolvingResult.h"
-#include "IComponent.h"
+#include "componentsystem/DependenciesSolvingResult.h"
+#include "componentsystem/IComponent.h"
 
 #include <algorithm>
 #include <functional>

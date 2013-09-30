@@ -8,10 +8,10 @@ add_subdirectory(jsscriptingui)
 
 ###############################################################################
 # Specify dependencies for correct build order
-add_dependencies(org.carousel.Interactivity     Logging Utils ComponentSystem)
+add_dependencies(org.carousel.Interactivity     Carousel)
 add_dependencies(org.carousel.Undo              org.carousel.Interactivity)
-add_dependencies(org.carousel.ComponentSystemUI ComponentSystem org.carousel.Undo)
-add_dependencies(org.carousel.JsScripting       Logging Utils ComponentSystem)
+add_dependencies(org.carousel.ComponentSystemUI Carousel org.carousel.Undo)
+add_dependencies(org.carousel.JsScripting       Carousel)
 add_dependencies(org.carousel.JsScriptingUI     org.carousel.Interactivity org.carousel.JsScripting)
 
 ###############################################################################

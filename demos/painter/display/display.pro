@@ -10,9 +10,9 @@ DEFINES += DISPLAY_LIB_IMPORT
 
 DESTDIR = $${DESTDIR}/externalSource
 
-LIBS += -L$${CAROUSEL_BIN} -lorg.carousel.Interactivity \
+LIBS += -L$${CAROUSEL_BIN} -lCarousel \
+                           -lorg.carousel.Interactivity \
                            -lorg.carousel.JsScripting \
-                           -lComponentSystem \
 
 LIBS += -L$${DESTDIR} -lorg.carousel.demos.Geometry \
 

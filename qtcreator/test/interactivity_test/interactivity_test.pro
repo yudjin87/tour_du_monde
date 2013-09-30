@@ -5,7 +5,5 @@ QT       += widgets gui
 
 TARGET = interactivity_test
 
-LIBS += -L$${DESTDIR}/../bin -lorg.carousel.Interactivity \
-                             -lComponentSystem \
-                             -lUtils \
-                             -lLogging \
+LIBS += -L$${DESTDIR}/../bin -lCarousel \
+                             -lorg.carousel.Interactivity \

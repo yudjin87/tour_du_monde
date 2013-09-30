@@ -24,7 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "Version.h"
+#include "componentsystem/Version.h"
 
 #include <QtCore/QStringList>
 

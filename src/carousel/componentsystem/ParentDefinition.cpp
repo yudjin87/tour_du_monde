@@ -24,8 +24,8 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "ParentDefinition.h"
-#include "Version.h"
+#include "componentsystem/ParentDefinition.h"
+#include "componentsystem/Version.h"
 
 //------------------------------------------------------------------------------
 ParentDefinition::ParentDefinition(const QString &name, QObject *parent)

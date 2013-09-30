@@ -24,9 +24,9 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "XmlDefinitionParser.h"
+#include "componentsystem/XmlDefinitionParser.h"
 
-#include <carousel/logging/LoggerFacade.h>
+#include "logging/LoggerFacade.h"
 
 #include <QtXml/QDomDocument>
 #include <QtXml/QDomElement>

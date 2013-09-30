@@ -9,8 +9,6 @@ CONFIG += dll
 win32:TARGET_EXT = .dll
 
 # This stuff is needed for the CoomponentSystem static lib
-LIBS += -L$${DESTDIR} -lLogging \
-                      -lComponentSystem \
-                      -lUtils \
+LIBS += -L$${DESTDIR} -lCarousel
 
 DESTDIR = $${CAROUSEL_WD}/$${BIN_OUTPUT_PATH}/unittest/libs

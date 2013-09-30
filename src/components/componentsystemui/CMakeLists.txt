@@ -78,7 +78,7 @@ crsl_setup_output_path(bin)
 
 ######################################################################
 # Add targets to a list of libraries to linking
-target_link_libraries(${CRSL_PROJECT_NAME} ComponentSystem org.carousel.Interactivity org.carousel.Undo)
+target_link_libraries(${CRSL_PROJECT_NAME} Carousel org.carousel.Interactivity org.carousel.Undo)
 
 ###############################################################################
 # Qt dependencies

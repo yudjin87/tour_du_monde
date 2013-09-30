@@ -29,4 +29,4 @@ crsl_setup_output_path(unittest/libs)
 
 ######################################################################
 # Add targets to a list of libraries to linking
-target_link_libraries(${CRSL_PROJECT_NAME} ComponentSystem)
+target_link_libraries(${CRSL_PROJECT_NAME} Carousel)

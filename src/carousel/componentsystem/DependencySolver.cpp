@@ -24,9 +24,9 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "DependencySolver.h"
-#include <carousel/logging/LoggerFacade.h>
-#include <carousel/utils/ListDictionary.h>
+#include "componentsystem/DependencySolver.h"
+#include "logging/LoggerFacade.h"
+#include "utils/ListDictionary.h"
 
 #include <algorithm>
 #include <iterator>

@@ -24,12 +24,12 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "FileComponentProvider.h"
-#include "AbsolutePathComponentLocationConstructorDelegate.h"
-#include "ComponentDefinition.h"
-#include "DefinitionConstuctor.h"
-#include "XmlDefinitionParser.h"
-#include "ProxyComponent.h"
+#include "componentsystem/FileComponentProvider.h"
+#include "componentsystem/AbsolutePathComponentLocationConstructorDelegate.h"
+#include "componentsystem/ComponentDefinition.h"
+#include "componentsystem/DefinitionConstuctor.h"
+#include "componentsystem/XmlDefinitionParser.h"
+#include "componentsystem/ProxyComponent.h"
 
 #include <QtCore/QFile>
 #include <QtCore/QFileInfoList>

@@ -24,9 +24,9 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "LoggerFacade.h"
-#include "ILoggerEngine.h"
-#include "ILoggerEngineCreator.h"
+#include "logging/LoggerFacade.h"
+#include "logging/ILoggerEngine.h"
+#include "logging/ILoggerEngineCreator.h"
 
 //------------------------------------------------------------------------------
 namespace

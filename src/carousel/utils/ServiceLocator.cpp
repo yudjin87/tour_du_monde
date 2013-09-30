@@ -24,8 +24,8 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "ServiceLocator.h"
-#include "TypeObjectsMap.h"
+#include "utils/ServiceLocator.h"
+#include "utils/TypeObjectsMap.h"
 
 #include <QtCore/QStringList>
 

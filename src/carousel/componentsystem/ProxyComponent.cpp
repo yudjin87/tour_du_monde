@@ -24,12 +24,11 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "ProxyComponent.h"
+#include "componentsystem/ProxyComponent.h"
+#include "componentsystem/ComponentDefinition.h"
+#include "componentsystem/ComponentLoader.h"
 
-#include "ComponentDefinition.h"
-#include "ComponentLoader.h"
-
-#include <carousel/logging/LoggerFacade.h>
+#include "logging/LoggerFacade.h"
 
 #include <QtCore/QFileInfo>
 

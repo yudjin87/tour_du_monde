@@ -1,8 +1,13 @@
-TEMPLATE = subdirs
-CONFIG  += ordered
+include (../../carousel_props.pri)
+include (carousel.pri)
 
-SUBDIRS += \
-    utils \
-    logging \
-    componentsystem \    
-    booting \
+QT -= widgets gui
+QT += xml xmlpatterns
+
+TEMPLATE = lib
+
+TARGET = Carousel
+
+DEFINES += CAROUSEL_LIBRARY
+
+INCLUDEPATH += $$HPP_SOURCE_TREE/carousel

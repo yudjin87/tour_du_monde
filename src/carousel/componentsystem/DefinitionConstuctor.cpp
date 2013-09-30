@@ -24,16 +24,16 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "DefinitionConstuctor.h"
+#include "componentsystem/DefinitionConstuctor.h"
 
-#include "ComponentDefinition.h"
-#include "IComponentLocationConstructorDelegate.h"
-#include "IDefinitionParser.h"
-#include "Version.h"
-#include "ParentDefinition.h"
-#include "ParentDefinitions.h"
+#include "componentsystem/ComponentDefinition.h"
+#include "componentsystem/IComponentLocationConstructorDelegate.h"
+#include "componentsystem/IDefinitionParser.h"
+#include "componentsystem/Version.h"
+#include "componentsystem/ParentDefinition.h"
+#include "componentsystem/ParentDefinitions.h"
 
-#include <carousel/logging/LoggerFacade.h>
+#include "logging/LoggerFacade.h"
 
 #include <QtCore/QDir>
 #include <QtCore/QFileInfo>

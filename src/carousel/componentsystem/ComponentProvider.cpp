@@ -24,8 +24,8 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "ComponentProvider.h"
-#include "IComponent.h"
+#include "componentsystem/ComponentProvider.h"
+#include "componentsystem/IComponent.h"
 
 //------------------------------------------------------------------------------
 ComponentProvider::ComponentProvider(QObject *parent /*= nullptr*/)

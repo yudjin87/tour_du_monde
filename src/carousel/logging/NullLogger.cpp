@@ -24,7 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "NullLogger.h"
+#include "logging/NullLogger.h"
 
 //------------------------------------------------------------------------------
 NullLogger::NullLogger()

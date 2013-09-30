@@ -1,3 +1,5 @@
+#! /bin/sh
+
 makeAbsolute() {
     case "$1" in
         /*)
@@ -28,12 +30,12 @@ else
 fi
 
 binDir=`dirname "$me"`
-libDir=`cd "${binDir}/lib" ; pwd`
+binDir=`cd "${binDir}" ; pwd`
 carouselDir=`cd "${binDir}/../../../../../product/%CONFIG%/bin" ; pwd`
 
-LD_LIBRARY_PATH="${libDir}:${installedComponentsDir}:${carouselDir}:${LD_LIBRARY_PATH}"
+LD_LIBRARY_PATH="${installedComponentsDir}:${carouselDir}:${LD_LIBRARY_PATH}"
 export LD_LIBRARY_PATH
-echo "start ${binDir}/painter.bin"
+echo "starting ${binDir}/painter.bin"
 
-exec "${binDir}/painter.bin --start-script ./scripts/startup.js" ${1+"$@"}
+exec "${binDir}/painter.bin" "$@" --start-script ./scripts/startup.js
 

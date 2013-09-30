@@ -24,13 +24,13 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "BootloaderBase.h"
+#include "booting/BootloaderBase.h"
 
-#include <carousel/componentsystem/ComponentDependencies.h>
-#include <carousel/componentsystem/ComponentManager.h>
-#include <carousel/componentsystem/ComponentProvider.h>
-#include <carousel/logging/TextLogger.h>
-#include <carousel/utils/ServiceLocator.h>
+#include "componentsystem/ComponentDependencies.h"
+#include "componentsystem/ComponentManager.h"
+#include "componentsystem/ComponentProvider.h"
+#include "logging/TextLogger.h"
+#include "utils/ServiceLocator.h"
 
 #include <QtCore/QCoreApplication>
 

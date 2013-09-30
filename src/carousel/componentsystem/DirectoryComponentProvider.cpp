@@ -24,11 +24,11 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "DirectoryComponentProvider.h"
-#include "ComponentProvider.h"
-#include "FileComponentProvider.h"
+#include "componentsystem/DirectoryComponentProvider.h"
+#include "componentsystem/ComponentProvider.h"
+#include "componentsystem/FileComponentProvider.h"
 
-#include <carousel/logging/LoggerFacade.h>
+#include "logging/LoggerFacade.h"
 
 #include <QtCore/QCoreApplication>
 #include <QtCore/QFile>

@@ -24,14 +24,14 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "ComponentDependencies.h"
-#include "DependencySolver.h"
-#include "IComponent.h"
-#include "ComponentCollection.h"
-#include "ComponentDefinition.h"
-#include "ParentDefinition.h"
+#include "componentsystem/ComponentDependencies.h"
+#include "componentsystem/DependencySolver.h"
+#include "componentsystem/IComponent.h"
+#include "componentsystem/ComponentCollection.h"
+#include "componentsystem/ComponentDefinition.h"
+#include "componentsystem/ParentDefinition.h"
 
-#include <carousel/logging/LoggerFacade.h>
+#include "logging/LoggerFacade.h"
 
 //------------------------------------------------------------------------------
 namespace

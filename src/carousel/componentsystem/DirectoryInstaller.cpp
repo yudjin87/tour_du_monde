@@ -24,12 +24,12 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "DirectoryInstaller.h"
-#include "DirectoryComponentProvider.h"
+#include "componentsystem/DirectoryInstaller.h"
+#include "componentsystem/DirectoryComponentProvider.h"
 
 #include <QtCore/QScopedPointer>
 
-#include <carousel/logging/LoggerFacade.h>
+#include "logging/LoggerFacade.h"
 
 //------------------------------------------------------------------------------
 namespace

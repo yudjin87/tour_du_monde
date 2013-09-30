@@ -11,8 +11,7 @@ DEFINES += GEOMETRY_LIB_IMPORT
 
 DESTDIR = $${DESTDIR}/externalSource
 
-LIBS += -L$${CAROUSEL_BIN} -lUtils \
-                           -lComponentSystem \
+LIBS += -L$${CAROUSEL_BIN} -lCarousel \
                            -lorg.carousel.JsScripting \
 
 HEADERS += \

@@ -11,8 +11,7 @@ DEFINES += ORG_CAROUSEL_INTERACTIVITY_LIBRARY
 
 INCLUDEPATH += $$HPP_SOURCE_TREE/components/interactivity
 
-LIBS += -L$${DESTDIR} -lComponentSystem \
-                      -lLogging \
+LIBS += -L$${DESTDIR} -lCarousel
 
 ###############################################################################
 # Copy definition to the output directory, right near the library

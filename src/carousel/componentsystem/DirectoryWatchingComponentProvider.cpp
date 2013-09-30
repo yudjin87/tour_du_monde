@@ -24,8 +24,8 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "DirectoryWatchingComponentProvider.h"
-#include "DirectoryComponentProvider.h"
+#include "componentsystem/DirectoryWatchingComponentProvider.h"
+#include "componentsystem/DirectoryComponentProvider.h"
 
 #include <QtCore/QFileSystemWatcher>
 

@@ -24,8 +24,8 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "CompositeComponentProvider.h"
-#include "ComponentProvider.h"
+#include "componentsystem/CompositeComponentProvider.h"
+#include "componentsystem/ComponentProvider.h"
 
 #include <QtCore/QtAlgorithms>
 

@@ -8,10 +8,9 @@ TEMPLATE = lib
 
 DEFINES += NEWCOMPONENTSDIALOG_LIB_IMPORT
 
-LIBS += -L$${CAROUSEL_BIN} -lorg.carousel.Interactivity \
+LIBS += -L$${CAROUSEL_BIN} -lCarousel \
+                           -lorg.carousel.Interactivity \
                            -lorg.carousel.ComponentSystemUI \
-                           -lComponentSystem \
-                           -lUtils \
 
 DESTDIR = $${DESTDIR}/externalSource
 

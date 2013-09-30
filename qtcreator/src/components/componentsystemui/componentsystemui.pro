@@ -11,11 +11,9 @@ DEFINES += ORG_CAROUSEL_COMPONENTSYSTEMUI_LIBRARY
 
 INCLUDEPATH += $$HPP_SOURCE_TREE/components/componentsystemui
 
-LIBS += -L$${DESTDIR} -lComponentSystem \
+LIBS += -L$${DESTDIR} -lCarousel \
                       -lorg.carousel.Interactivity \
                       -lorg.carousel.Undo \
-                      -lUtils \
-                      -lLogging \
 
 ###############################################################################
 # Copy definition to the output directory, right near the library

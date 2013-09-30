@@ -24,7 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "TextLogger.h"
+#include "logging/TextLogger.h"
 
 #include <QtCore/QString>
 #include <QtCore/QDate>
