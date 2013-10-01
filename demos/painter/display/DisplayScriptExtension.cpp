@@ -54,6 +54,7 @@ DisplayScriptExtension::DisplayScriptExtension(QObject *parent)
 //------------------------------------------------------------------------------
 void DisplayScriptExtension::configureEngine(IServiceLocator *locator, QScriptEngine *engine)
 {
+    Q_UNUSED(locator)
     Q_UNUSED(engine);
     REGISTER_METATYPE(FeatureRenderer);
     REGISTER_METATYPE(ISymbol);

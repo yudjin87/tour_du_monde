@@ -75,6 +75,8 @@ GDBScriptExtension::GDBScriptExtension(QObject *parent)
 //------------------------------------------------------------------------------
 void GDBScriptExtension::configureEngine(IServiceLocator *locator, QScriptEngine *engine)
 {
+    Q_UNUSED(locator)
+
     int featureListId = registerFeatureList(engine); Q_UNUSED(featureListId);
     int featureClassListId = registerFeatureClassList(engine); Q_UNUSED(featureClassListId);
 
