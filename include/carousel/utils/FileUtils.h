@@ -27,7 +27,7 @@
 #ifndef FILEUTILS_H
 #define FILEUTILS_H
 
-#include <carousel/utils/utils_global.h>
+#include <carousel/carousel_global.h>
 
 #include <QtCore/QString>
 
@@ -39,7 +39,7 @@ namespace fileUtils
  * @param dirName Path of directory to remove.
  * @return @a true on success; @a false on error.
  */
-UTILS_API bool removeTree(const QString &dirName);
+CAROUSEL_API bool removeTree(const QString &dirName);
 
 } //namespace fileUtils
 

@@ -27,14 +27,14 @@
 #ifndef COMPONENTCOLLECTION_H
 #define COMPONENTCOLLECTION_H
 
-#include <carousel/componentsystem/componentsystem_global.h>
+#include <carousel/carousel_global.h>
 #include <carousel/utils/ObservableList.h>
 
 #include <QtCore/QObject>
 
 class IComponent;
 
-class COMP_API ComponentCollection : public QObject, public ObservableList<IComponent *>
+class CAROUSEL_API ComponentCollection : public QObject, public ObservableList<IComponent *>
 {
     Q_OBJECT
 public:

@@ -27,7 +27,7 @@
 #ifndef DEPENDENCIESSOLVINGRESULT_H
 #define DEPENDENCIESSOLVINGRESULT_H
 
-#include <carousel/componentsystem/componentsystem_global.h>
+#include <carousel/carousel_global.h>
 
 #include <QtCore/QStringList>
 #include <QtCore/QList>
@@ -45,7 +45,7 @@ class IComponent;
  *
  *   The instance of the DependenciesSolvingResult class is read-only value object.
  */
-class COMP_API DependenciesSolvingResult
+class CAROUSEL_API DependenciesSolvingResult
 {
 public:
     //TODO: move constructor for this value object

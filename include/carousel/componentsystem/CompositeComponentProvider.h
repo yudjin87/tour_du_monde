@@ -27,7 +27,7 @@
 #ifndef COMPOSITECOMPONENTPROVIDER_H
 #define COMPOSITECOMPONENTPROVIDER_H
 
-#include <carousel/componentsystem/componentsystem_global.h>
+#include <carousel/carousel_global.h>
 #include <carousel/componentsystem/IComponentProvider.h>
 
 #include <QtCore/QObject>
@@ -64,7 +64,7 @@
  *   The ComponentProvider also serves as a base class for more specialized Providers.
  * @note it takes ownership for added providers, but not for components.
  */
-class COMP_API CompositeComponentProvider : public IComponentProvider
+class CAROUSEL_API CompositeComponentProvider : public IComponentProvider
 {
     Q_OBJECT
 public:

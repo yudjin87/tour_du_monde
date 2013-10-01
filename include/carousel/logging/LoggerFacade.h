@@ -27,7 +27,7 @@
 #ifndef LOGGERFACADE_H
 #define LOGGERFACADE_H
 
-#include <carousel/logging/logging_global.h>
+#include <carousel/carousel_global.h>
 
 #include <QtCore/QString>
 
@@ -59,7 +59,7 @@ class ILoggerEngineCreator;
  *   BootloaderBase::createLoggerEngine() method in your own bootloader, that returns pointer to
  *   the LoggerFacade.
  */
-class LOGGING_API LoggerFacade
+class CAROUSEL_API LoggerFacade
 {
 public:
     /*!

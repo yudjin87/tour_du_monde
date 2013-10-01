@@ -50,7 +50,7 @@ class ComponentCollection;
  *   Then you can get any dependnecies between the components using specified methods.
  * @note it does not take ownership for added components.
  */
-class COMP_API ComponentDependencies : public QObject, public IComponentDependencies
+class CAROUSEL_API ComponentDependencies : public QObject, public IComponentDependencies
 {
     Q_OBJECT
 public:

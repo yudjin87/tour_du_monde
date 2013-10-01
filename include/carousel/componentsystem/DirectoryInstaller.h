@@ -35,7 +35,7 @@ class DirectoryComponentProvider;
  * @brief
  * @details
  */
-class COMP_API DirectoryInstaller : public ComponentInstaller
+class CAROUSEL_API DirectoryInstaller : public ComponentInstaller
 {
 public:
     DirectoryInstaller(const QString &sourceDirectory, const QString &destinationDirectory = ComponentInstaller::defaultInstallDir());

@@ -27,7 +27,7 @@
 #ifndef ICOMPONENTPROVIDER_H
 #define ICOMPONENTPROVIDER_H
 
-#include <carousel/componentsystem/componentsystem_global.h>
+#include <carousel/carousel_global.h>
 
 #include <QtCore/QList>
 #include <QtCore/QObject>
@@ -47,7 +47,7 @@ class IComponent;
  *   You also might to override BootloaderBase::configureComponentProvider() to add compile-time-known components 
  *   statically in code using registerComponent() method.
  */
-class COMP_API IComponentProvider : public QObject
+class CAROUSEL_API IComponentProvider : public QObject
 {
     Q_OBJECT
 public:

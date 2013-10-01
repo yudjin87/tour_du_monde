@@ -27,7 +27,7 @@
 #ifndef ICOMPONENTEXTENSION_H
 #define ICOMPONENTEXTENSION_H
 
-#include <carousel/componentsystem/componentsystem_global.h>
+#include <carousel/carousel_global.h>
 
 class IComponent;
 
@@ -39,7 +39,7 @@ class IComponent;
  *   This class does not give added value, it is only a top class
  *   for all extensions now.
  */
-class COMP_API IComponentExtension
+class CAROUSEL_API IComponentExtension
 {
 public:
     virtual ~IComponentExtension(){}

@@ -27,7 +27,7 @@
 #ifndef DEFINITIONCONSTUCTOR_H
 #define DEFINITIONCONSTUCTOR_H
 
-#include <carousel/componentsystem/componentsystem_global.h>
+#include <carousel/carousel_global.h>
 
 #include <QtCore/QString>
 
@@ -38,7 +38,7 @@ class ComponentDefinition;
 
 class IComponentLocationConstructorDelegate;
 
-class COMP_API DefinitionConstuctor
+class CAROUSEL_API DefinitionConstuctor
 {
 public:
     DefinitionConstuctor();

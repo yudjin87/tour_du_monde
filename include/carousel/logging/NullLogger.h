@@ -37,7 +37,7 @@
  *   You might return this object in the overridden function BootloaderBase::createLogger()
  *   if you don't need any logging and/or you lack resources.
  */
-class LOGGING_API NullLogger : public ILoggerEngine, public ILoggerEngineCreator
+class CAROUSEL_API NullLogger : public ILoggerEngine, public ILoggerEngineCreator
 {
 public:
     /*!

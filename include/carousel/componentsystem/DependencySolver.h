@@ -27,7 +27,7 @@
 #ifndef DEPENDENCYSOLVER_H
 #define DEPENDENCYSOLVER_H
 
-#include <carousel/componentsystem/componentsystem_global.h>
+#include <carousel/carousel_global.h>
 
 #include <QtCore/QStringList>
 
@@ -46,7 +46,7 @@ class ListDictionary;
  *   solver, call solve() to calculate an ordered list according to the defined component dependencies.
  *   Non-dependant components appears at the beginning of the resulting collection.
  */
-class COMP_API DependencySolver
+class CAROUSEL_API DependencySolver
 {
 public:
     DependencySolver();

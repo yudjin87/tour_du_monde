@@ -41,7 +41,7 @@ class TypeObjectsMap;
  *   during the loading sequence, and you should to override this member if you want use your own service 
  *   locator in the application.
  */
-class UTILS_API ServiceLocator : public IServiceLocator
+class CAROUSEL_API ServiceLocator : public IServiceLocator
 {
 public:
     ServiceLocator();

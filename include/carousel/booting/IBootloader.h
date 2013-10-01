@@ -27,7 +27,7 @@
 #ifndef IBOOTLOADER_H
 #define IBOOTLOADER_H
 
-#include <carousel/booting/booting_global.h>
+#include <carousel/carousel_global.h>
 
 #include <QtCore/QObject>
 
@@ -86,7 +86,7 @@
  *   }
  * @endcode
  */
-class BOOTING_API IBootloader : public QObject
+class CAROUSEL_API IBootloader : public QObject
 {
     Q_OBJECT
 public:

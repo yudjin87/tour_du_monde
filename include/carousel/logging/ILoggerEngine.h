@@ -27,10 +27,10 @@
 #ifndef ILOGGERENGINE_H
 #define ILOGGERENGINE_H
 
-#include <carousel/logging/logging_global.h>
+#include <carousel/carousel_global.h>
 #include <QtCore/QString>
 
-class LOGGING_API ILoggerEngine
+class CAROUSEL_API ILoggerEngine
 {
 public:
     /*!

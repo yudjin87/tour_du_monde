@@ -27,7 +27,7 @@
 #ifndef ICOMPONENTINSTALLER_H
 #define ICOMPONENTINSTALLER_H
 
-#include <carousel/componentsystem/componentsystem_global.h>
+#include <carousel/carousel_global.h>
 #include <carousel/componentsystem/DependenciesSolvingResult.h>
 
 #include <QtCore/QList>
@@ -41,7 +41,7 @@ class DependenciesSolvingResult;
  * @brief
  * @details
  */
-class COMP_API IComponentInstaller
+class CAROUSEL_API IComponentInstaller
 {
 public:
     IComponentInstaller(){}

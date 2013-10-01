@@ -27,7 +27,7 @@
 #ifndef ICOMPONENTMANAGER_H
 #define ICOMPONENTMANAGER_H
 
-#include <carousel/componentsystem/componentsystem_global.h>
+#include <carousel/carousel_global.h>
 #include <carousel/componentsystem/DependenciesSolvingResult.h>
 
 #include <QtCore/QObject>
@@ -58,7 +58,7 @@ class ObservableList;
  *
  * @note it takes ownership for added components, and also takes for the IComponentDependencies.
  */
-class COMP_API IComponentManager : public QObject
+class CAROUSEL_API IComponentManager : public QObject
 {
     Q_OBJECT
 

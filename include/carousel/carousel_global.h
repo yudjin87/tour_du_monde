@@ -24,19 +24,19 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef BOOTING_GLOBAL_H
-#define BOOTING_GLOBAL_H
+#ifndef CAROUSEL_GLOBAL_H
+#define CAROUSEL_GLOBAL_H
 
 #include <QtCore/qglobal.h>
 
 #if defined(STATIC_BUILD)
-#   define BOOTING_API
+#   define CAROUSEL_API
 #else
-#   if defined(BOOTING_LIBRARY)
-#       define BOOTING_API Q_DECL_EXPORT
+#   if defined(CAROUSEL_LIBRARY)
+#       define CAROUSEL_API Q_DECL_EXPORT
 #   else
-#       define BOOTING_API Q_DECL_IMPORT
-#   endif //#if defined(BOOTING_LIBRARY)
+#       define CAROUSEL_API Q_DECL_IMPORT
+#   endif //#if defined(CAROUSEL_LIBRARY)
 #endif //#if defined(STATIC_BUILD)
 
-#endif // BOOTING_GLOBAL_H
+#endif // CAROUSEL_GLOBAL_H

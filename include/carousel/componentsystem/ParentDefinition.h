@@ -27,7 +27,7 @@
 #ifndef PARENTCOMPONENT_H
 #define PARENTCOMPONENT_H
 
-#include <carousel/componentsystem/componentsystem_global.h>
+#include <carousel/carousel_global.h>
 
 #include <QtCore/QObject>
 #include <QtCore/QString>
@@ -64,7 +64,7 @@ class Version;
  *
  * @sa ComponentDefinition::parents()
  */
-class COMP_API ParentDefinition : public QObject
+class CAROUSEL_API ParentDefinition : public QObject
 {
     Q_OBJECT
 

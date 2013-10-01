@@ -38,7 +38,7 @@ class ProxyComponent;
  * @brief
  * @details
  */
-class COMP_API FileComponentProvider : public ComponentProvider
+class CAROUSEL_API FileComponentProvider : public ComponentProvider
 {
     Q_OBJECT
 public:

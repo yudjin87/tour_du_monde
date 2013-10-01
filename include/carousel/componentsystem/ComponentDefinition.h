@@ -27,7 +27,7 @@
 #ifndef COMPONENTDEFINITION_H
 #define COMPONENTDEFINITION_H
 
-#include <carousel/componentsystem/componentsystem_global.h>
+#include <carousel/carousel_global.h>
 #include <carousel/componentsystem/ParentDefinitions.h>
 
 #include <QtCore/QObject>
@@ -46,7 +46,7 @@ class Version;
  *   This class also specified that the current component has dependencies
  *   on another ones - on its 'parents'.
  */
-class COMP_API ComponentDefinition
+class CAROUSEL_API ComponentDefinition
 {
 public:
     /*!

@@ -37,7 +37,7 @@ class IComponentDependencies;
  * @brief
  * @details
  */
-class COMP_API ComponentInstaller : public IComponentInstaller
+class CAROUSEL_API ComponentInstaller : public IComponentInstaller
 {
 public:
     ComponentInstaller(const QString &destinationDirectory = ComponentInstaller::defaultInstallDir());

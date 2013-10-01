@@ -27,7 +27,7 @@
 #ifndef ISERVICELOCATOR_H
 #define ISERVICELOCATOR_H
 
-#include <carousel/utils/utils_global.h>
+#include <carousel/carousel_global.h>
 
 #include <QtCore/QObject>
 #include <QtCore/QString>
@@ -135,7 +135,7 @@ typedef std::function<void*(void)> factoryMethod;
  *
  * @note Does not take ownership of the services or of the created by factories types.
  */
-class UTILS_API IServiceLocator
+class CAROUSEL_API IServiceLocator
 {
 public:
     IServiceLocator(){}

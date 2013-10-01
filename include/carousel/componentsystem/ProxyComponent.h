@@ -32,7 +32,7 @@
 class IDefinitionParser;
 class IComponentLoader;
 
-class COMP_API ProxyComponent : public BaseComponent
+class CAROUSEL_API ProxyComponent : public BaseComponent
 {
     Q_OBJECT
 public:

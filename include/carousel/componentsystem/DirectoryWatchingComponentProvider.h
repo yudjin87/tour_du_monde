@@ -27,7 +27,7 @@
 #ifndef DIRECTORYWATCHINGCOMPONENTPROVIDER_H
 #define DIRECTORYWATCHINGCOMPONENTPROVIDER_H
 
-#include <carousel/componentsystem/componentsystem_global.h>
+#include <carousel/carousel_global.h>
 #include <carousel/componentsystem/ComponentProvider.h>
 #include <carousel/componentsystem/IDirectoryComponentProvider.h>
 
@@ -38,7 +38,7 @@ class QFileSystemWatcher;
  * @brief
  * @details
  */
-class COMP_API DirectoryWatchingComponentProvider : public ComponentProvider
+class CAROUSEL_API DirectoryWatchingComponentProvider : public ComponentProvider
 {
     Q_OBJECT
 public:

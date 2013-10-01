@@ -37,7 +37,7 @@
  *   It uses definition's file path as a pivot, and a componen location path
  *   from the definition to format an absolute path.
  */
-class COMP_API AbsolutePathComponentLocationConstructorDelegate : public IComponentLocationConstructorDelegate
+class CAROUSEL_API AbsolutePathComponentLocationConstructorDelegate : public IComponentLocationConstructorDelegate
 {
 public:
     /*!

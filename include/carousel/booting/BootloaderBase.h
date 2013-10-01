@@ -27,7 +27,7 @@
 #ifndef BOOTLOADERBASE_H
 #define BOOTLOADERBASE_H
 
-#include <carousel/booting/booting_global.h>
+#include <carousel/carousel_global.h>
 #include <carousel/booting/IBootloader.h>
 
 class IServiceLocator;
@@ -49,7 +49,7 @@ class IComponentProvider;
  *
  * @sa IBootloader
  */
-class BOOTING_API BootloaderBase : public IBootloader
+class CAROUSEL_API BootloaderBase : public IBootloader
 {
     Q_OBJECT
 public:

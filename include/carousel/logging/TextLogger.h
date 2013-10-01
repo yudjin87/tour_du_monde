@@ -66,7 +66,7 @@
  *
  * @note This class is not thread-safe.
  */
-class LOGGING_API TextLogger : public ILoggerEngine, public ILoggerEngineCreator
+class CAROUSEL_API TextLogger : public ILoggerEngine, public ILoggerEngineCreator
 {
 public:
     /*!

@@ -27,7 +27,7 @@
 #ifndef IDEFINITIONPARSER_H
 #define IDEFINITIONPARSER_H
 
-#include <carousel/componentsystem/componentsystem_global.h>
+#include <carousel/carousel_global.h>
 
 #include <QtCore/QString>
 #include <QtCore/QStringList>
@@ -50,7 +50,7 @@ class QIODevice;
  *
  * @todo write about <>Provider, who instantiates IDefinitionParser using service locator.
  */
-class COMP_API IDefinitionParser
+class CAROUSEL_API IDefinitionParser
 {
 public:
     typedef QMap<QString, QString> ParentsList;

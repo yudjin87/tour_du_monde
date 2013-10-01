@@ -27,7 +27,7 @@
 #ifndef ICOMPONENTLOCATIONCONSTRUCTORDELEGATE_H
 #define ICOMPONENTLOCATIONCONSTRUCTORDELEGATE_H
 
-#include <carousel/componentsystem/componentsystem_global.h>
+#include <carousel/carousel_global.h>
 
 #include <QtCore/QString>
 
@@ -40,7 +40,7 @@
  *   for the DefinitionConstructor. It may be absolute path for file system
  *   or relative path for the web address and so on.
  */
-class COMP_API IComponentLocationConstructorDelegate
+class CAROUSEL_API IComponentLocationConstructorDelegate
 {
 public:
     IComponentLocationConstructorDelegate(){}

@@ -27,7 +27,7 @@
 #ifndef ICOMPONENTDEPENDENCIES_H
 #define ICOMPONENTDEPENDENCIES_H
 
-#include <carousel/componentsystem/componentsystem_global.h>
+#include <carousel/carousel_global.h>
 #include <carousel/componentsystem/DependenciesSolvingResult.h>
 
 #include <QtCore/QList>
@@ -48,7 +48,7 @@ class ComponentCollection;
  *   Then you can get any dependnecies between the components using specified methods.
  * @note it does not take ownership for added components.
  */
-class COMP_API IComponentDependencies
+class CAROUSEL_API IComponentDependencies
 {
 public:
     IComponentDependencies(){}

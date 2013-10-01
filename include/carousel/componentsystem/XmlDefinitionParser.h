@@ -67,7 +67,7 @@ class QDomDocument;
  *   If version was not set, a default one (1.0.0) will be set during a ComponentDefinition
  *   creation.
  */
-class COMP_API XmlDefinitionParser : public QObject, public IDefinitionParser
+class CAROUSEL_API XmlDefinitionParser : public QObject, public IDefinitionParser
 {
     Q_OBJECT
 public:

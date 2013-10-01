@@ -27,7 +27,7 @@
 #ifndef ICOMPONENT_H
 #define ICOMPONENT_H
 
-#include <carousel/componentsystem/componentsystem_global.h>
+#include <carousel/carousel_global.h>
 #include <carousel/componentsystem/IComponentExtension.h>
 
 #include <QtCore/QMetaType>
@@ -58,7 +58,7 @@ class IServiceLocator;
  *
  *   Consider deriving from the BaseComponent class instead of implement this interface directly.
  */
-class COMP_API IComponent : public QObject
+class CAROUSEL_API IComponent : public QObject
 {
     Q_OBJECT
     Q_ENUMS(Availability)

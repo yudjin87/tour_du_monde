@@ -27,7 +27,7 @@
 #ifndef COMPONENTPROVIDER_H
 #define COMPONENTPROVIDER_H
 
-#include <carousel/componentsystem/componentsystem_global.h>
+#include <carousel/carousel_global.h>
 #include <carousel/componentsystem/IComponentProvider.h>
 
 /*!
@@ -54,7 +54,7 @@
  *   The ComponentProvider also serves as a base class for more specialized Providers.
  * @note it does not take ownership for registered components.
  */
-class COMP_API ComponentProvider : public IComponentProvider
+class CAROUSEL_API ComponentProvider : public IComponentProvider
 {
     Q_OBJECT
 public:

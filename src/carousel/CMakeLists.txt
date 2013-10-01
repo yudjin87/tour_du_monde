@@ -42,10 +42,10 @@ set(__SOURCES
 ######################################################################
 # Headers
 set(__HEADERS
-    ${CRSL_TARGET_HEADERS}/booting/booting_global.h 
     ${CRSL_TARGET_HEADERS}/booting/BootloaderBase.h 
     ${CRSL_TARGET_HEADERS}/booting/CarouselBootloader.h 
     ${CRSL_TARGET_HEADERS}/booting/IBootloader.h 
+    ${CRSL_TARGET_HEADERS}/carousel_global.h 
     ${CRSL_TARGET_HEADERS}/componentsystem/AbsolutePathComponentLocationConstructorDelegate.h 
     ${CRSL_TARGET_HEADERS}/componentsystem/BaseComponent.h 
     ${CRSL_TARGET_HEADERS}/componentsystem/ComponentCollection.h 
@@ -57,7 +57,6 @@ set(__HEADERS
     ${CRSL_TARGET_HEADERS}/componentsystem/ComponentLoader.h 
     ${CRSL_TARGET_HEADERS}/componentsystem/ComponentManager.h 
     ${CRSL_TARGET_HEADERS}/componentsystem/ComponentProvider.h 
-    ${CRSL_TARGET_HEADERS}/componentsystem/componentsystem_global.h 
     ${CRSL_TARGET_HEADERS}/componentsystem/CompositeComponentProvider.h 
     ${CRSL_TARGET_HEADERS}/componentsystem/DefinitionConstuctor.h 
     ${CRSL_TARGET_HEADERS}/componentsystem/DependenciesSolvingResult.h 
@@ -85,7 +84,6 @@ set(__HEADERS
     ${CRSL_TARGET_HEADERS}/logging/ILoggerEngine.h 
     ${CRSL_TARGET_HEADERS}/logging/ILoggerEngineCreator.h 
     ${CRSL_TARGET_HEADERS}/logging/LoggerFacade.h 
-    ${CRSL_TARGET_HEADERS}/logging/logging_global.h 
     ${CRSL_TARGET_HEADERS}/logging/NullLogger.h 
     ${CRSL_TARGET_HEADERS}/logging/TextLogger.h 
     ${CRSL_TARGET_HEADERS}/utils/FileUtils.h 
@@ -94,7 +92,6 @@ set(__HEADERS
     ${CRSL_TARGET_HEADERS}/utils/ObservableList.h 
     ${CRSL_TARGET_HEADERS}/utils/ServiceLocator.h 
     ${CRSL_TARGET_HEADERS}/utils/TypeObjectsMap.h 
-    ${CRSL_TARGET_HEADERS}/utils/utils_global.h 
 )
 
 ######################################################################

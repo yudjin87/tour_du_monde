@@ -34,10 +34,10 @@ SOURCES += \
     $$PROJECT_SOURCES/utils/ServiceLocator.cpp \
 
 HEADERS += \
-    $$PROJECT_HEADERS/booting/booting_global.h \
     $$PROJECT_HEADERS/booting/BootloaderBase.h \
     $$PROJECT_HEADERS/booting/CarouselBootloader.h \
     $$PROJECT_HEADERS/booting/IBootloader.h \
+    $$PROJECT_HEADERS/carousel_global.h \
     $$PROJECT_HEADERS/componentsystem/AbsolutePathComponentLocationConstructorDelegate.h \
     $$PROJECT_HEADERS/componentsystem/BaseComponent.h \
     $$PROJECT_HEADERS/componentsystem/ComponentCollection.h \
@@ -49,7 +49,6 @@ HEADERS += \
     $$PROJECT_HEADERS/componentsystem/ComponentLoader.h \
     $$PROJECT_HEADERS/componentsystem/ComponentManager.h \
     $$PROJECT_HEADERS/componentsystem/ComponentProvider.h \
-    $$PROJECT_HEADERS/componentsystem/componentsystem_global.h \
     $$PROJECT_HEADERS/componentsystem/CompositeComponentProvider.h \
     $$PROJECT_HEADERS/componentsystem/DefinitionConstuctor.h \
     $$PROJECT_HEADERS/componentsystem/DependenciesSolvingResult.h \
@@ -77,7 +76,6 @@ HEADERS += \
     $$PROJECT_HEADERS/logging/ILoggerEngine.h \
     $$PROJECT_HEADERS/logging/ILoggerEngineCreator.h \
     $$PROJECT_HEADERS/logging/LoggerFacade.h \
-    $$PROJECT_HEADERS/logging/logging_global.h \
     $$PROJECT_HEADERS/logging/NullLogger.h \
     $$PROJECT_HEADERS/logging/TextLogger.h \
     $$PROJECT_HEADERS/utils/FileUtils.h \
@@ -86,5 +84,4 @@ HEADERS += \
     $$PROJECT_HEADERS/utils/ObservableList.h \
     $$PROJECT_HEADERS/utils/ServiceLocator.h \
     $$PROJECT_HEADERS/utils/TypeObjectsMap.h \
-    $$PROJECT_HEADERS/utils/utils_global.h \
 

@@ -1,7 +1,7 @@
 #ifndef ICOMPONENTLOADER_H
 #define ICOMPONENTLOADER_H
 
-#include <carousel/componentsystem/componentsystem_global.h>
+#include <carousel/carousel_global.h>
 
 #include <QtCore/QLibrary>
 
@@ -36,7 +36,7 @@ class IComponent;
  * @note: IComponentLoader takes ownership for the loaded component instance, and it will be until
  *   IComponentLoader has been destroyed or deleteInstance() is called.
  */
-class COMP_API IComponentLoader
+class CAROUSEL_API IComponentLoader
 {
 public:
     IComponentLoader(){}

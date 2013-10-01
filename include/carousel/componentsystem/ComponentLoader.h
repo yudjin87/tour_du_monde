@@ -36,7 +36,7 @@ class QLibrary;
  * @note: ComponentLoader takes ownership for the loaded component instance, and it will be until
  *   ComponentLoader has been destroyed or deleteInstance() is called.
  */
-class COMP_API ComponentLoader : public QObject, public IComponentLoader
+class CAROUSEL_API ComponentLoader : public QObject, public IComponentLoader
 {
     Q_OBJECT
 public:

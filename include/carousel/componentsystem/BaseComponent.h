@@ -48,7 +48,7 @@ class TypeObjectsMap;
  *   If availability was changed during last application's start, it will be
  *   loaded and ovewrite default value.
  */
-class COMP_API BaseComponent : public IComponent
+class CAROUSEL_API BaseComponent : public IComponent
 {
     Q_OBJECT
 public:

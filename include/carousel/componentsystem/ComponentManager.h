@@ -50,7 +50,7 @@
  *
  * @note it takes ownership for added components, and also takes for the IComponentDependencies.
  */
-class COMP_API ComponentManager : public IComponentManager
+class CAROUSEL_API ComponentManager : public IComponentManager
 {
     Q_OBJECT
 public:

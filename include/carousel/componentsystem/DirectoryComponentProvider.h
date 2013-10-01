@@ -118,7 +118,7 @@ class FileComponentProvider;
  * @note it does not take ownership neither for proxy components that will be @a discovered in
  *   libraries nor for components registered by registerComponent().
  */
-class COMP_API DirectoryComponentProvider : public IDirectoryComponentProvider
+class CAROUSEL_API DirectoryComponentProvider : public IDirectoryComponentProvider
 {
     Q_OBJECT
 public:

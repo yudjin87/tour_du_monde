@@ -27,7 +27,7 @@
 #ifndef IDIRECTORYCOMPONENTPROVIDER_H
 #define IDIRECTORYCOMPONENTPROVIDER_H
 
-#include <carousel/componentsystem/componentsystem_global.h>
+#include <carousel/carousel_global.h>
 #include <carousel/componentsystem/IComponentProvider.h>
 
 #include <QtCore/QDir>
@@ -118,7 +118,7 @@
  * @note it does not take ownership neither for proxy components that will be @a discovered in
  *   libraries nor for components registered by registerComponent().
  */
-class COMP_API IDirectoryComponentProvider : public IComponentProvider
+class CAROUSEL_API IDirectoryComponentProvider : public IComponentProvider
 {
     Q_OBJECT
 public:

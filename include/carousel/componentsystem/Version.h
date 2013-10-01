@@ -27,7 +27,7 @@
 #ifndef VERSION_H
 #define VERSION_H
 
-#include <carousel/componentsystem/componentsystem_global.h>
+#include <carousel/carousel_global.h>
 
 #include <QtCore/QObject>
 
@@ -40,7 +40,7 @@
  *
  *   It derives from the QObject just for being enable from the scripting.
  */
-class COMP_API Version : public QObject
+class CAROUSEL_API Version : public QObject
 {
     Q_OBJECT
 public:

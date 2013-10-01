@@ -38,7 +38,7 @@
  *
  * @sa IBootloader
  */
-class BOOTING_API CarouselBootloader : public BootloaderBase
+class CAROUSEL_API CarouselBootloader : public BootloaderBase
 {
     Q_OBJECT
 public:
