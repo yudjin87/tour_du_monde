@@ -76,7 +76,7 @@ public slots:
     void configureDefaults(QScriptEngine *engine, IOutputHandler *output = nullptr) override;
 
 protected:
-    virtual void configureExtension(QScriptEngine *engine, IScriptExtension *extension);
+    virtual void configureExtension(IServiceLocator *locator, QScriptEngine *engine, IScriptExtension *extension);
     virtual void configureServiceLocator(QScriptEngine *engine, IServiceLocator *locator);
 
     virtual void registerPrintFunc(QScriptEngine *engine, IOutputHandler *output);

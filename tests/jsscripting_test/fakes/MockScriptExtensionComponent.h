@@ -60,7 +60,7 @@ public:
     {
     }
 
-    void configureEngine(QScriptEngine *)
+    void configureEngine(IServiceLocator *, QScriptEngine *)
     {
         m_configureCalled = true;
     }

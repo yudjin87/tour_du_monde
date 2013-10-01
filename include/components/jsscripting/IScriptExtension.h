@@ -30,6 +30,7 @@
 #include <carousel/componentsystem/IComponentExtension.h>
 #include <components/jsscripting/jsscripting_global.h>
 
+class IServiceLocator;
 class QScriptEngine;
 
 /*!
@@ -65,9 +66,11 @@ public:
      *   Implement this method to extend an @a engine with additional functions, classes or
      *   wrappers for your types.
      *
+     *   You can use @a locator to obtain some services and register them in the @a engine.
+     *
      * @sa REGISTER_METATYPE
      */
-    virtual void configureEngine(QScriptEngine *engine) = 0;
+    virtual void configureEngine(IServiceLocator *locator, QScriptEngine *engine) = 0;
 
 private:
     Q_DISABLE_COPY(IScriptExtension)

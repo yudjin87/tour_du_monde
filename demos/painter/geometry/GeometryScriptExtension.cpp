@@ -72,7 +72,7 @@ GeometryScriptExtension::GeometryScriptExtension(QObject *parent)
 }
 
 //------------------------------------------------------------------------------
-void GeometryScriptExtension::configureEngine(QScriptEngine *engine)
+void GeometryScriptExtension::configureEngine(IServiceLocator *locator, QScriptEngine *engine)
 {
     int ringListId = registerRingList(engine); Q_UNUSED(ringListId);
     int segmentListId = registerSegmentList(engine); Q_UNUSED(segmentListId);

@@ -52,7 +52,7 @@ DisplayScriptExtension::DisplayScriptExtension(QObject *parent)
 }
 
 //------------------------------------------------------------------------------
-void DisplayScriptExtension::configureEngine(QScriptEngine *engine)
+void DisplayScriptExtension::configureEngine(IServiceLocator *locator, QScriptEngine *engine)
 {
     Q_UNUSED(engine);
     REGISTER_METATYPE(FeatureRenderer);

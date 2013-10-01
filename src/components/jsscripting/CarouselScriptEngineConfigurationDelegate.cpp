@@ -131,7 +131,7 @@ void CarouselScriptEngineConfigurationDelegate::configureFromComponent(IComponen
         return;
     }
 
-    configureExtension(engine, scriptExtension);
+    configureExtension(m_locator, engine, scriptExtension);
 }
 
 //------------------------------------------------------------------------------
@@ -149,9 +149,9 @@ void CarouselScriptEngineConfigurationDelegate::configureDefaults(QScriptEngine 
 }
 
 //------------------------------------------------------------------------------
-void CarouselScriptEngineConfigurationDelegate::configureExtension(QScriptEngine *engine, IScriptExtension *extension)
+void CarouselScriptEngineConfigurationDelegate::configureExtension(IServiceLocator *locator, QScriptEngine *engine, IScriptExtension *extension)
 {
-    extension->configureEngine(engine);
+    extension->configureEngine(locator, engine);
 }
 
 //------------------------------------------------------------------------------

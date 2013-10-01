@@ -62,7 +62,7 @@ CartoScriptExtension::CartoScriptExtension(QObject *parent)
 }
 
 //------------------------------------------------------------------------------
-void CartoScriptExtension::configureEngine(QScriptEngine *engine)
+void CartoScriptExtension::configureEngine(IServiceLocator *locator, QScriptEngine *engine)
 {
     int cartoTypeIds = registerScriptMetaTypes(engine);
     Q_UNUSED(cartoTypeIds);

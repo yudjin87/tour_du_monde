@@ -37,7 +37,7 @@ class GeometryScriptExtension : public QObject, public IScriptExtension
 public:
     explicit GeometryScriptExtension(QObject *parent = nullptr);
 
-    void configureEngine(QScriptEngine *engine) override;
+    void configureEngine(IServiceLocator *locator, QScriptEngine *engine) override;
 };
 
 #endif // GEOMETRYSCRIPTEXTENSION_H
