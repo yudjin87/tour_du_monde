@@ -37,6 +37,7 @@
 template<typename TKey, typename TValue>
 class ListDictionary : public QMap <TKey, QList<TValue> *>
 {
+public:
     typedef QList<TValue> Container;
 public:
     ~ListDictionary();
