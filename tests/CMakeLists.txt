@@ -17,6 +17,7 @@ add_subdirectory(interactivity_test)
 add_subdirectory(logging_test)
 add_subdirectory(utils_test)  
 add_subdirectory(jsscripting_test)
+add_subdirectory(persistence_test)
 
 # Manual tests
 add_subdirectory(componentsystemui_test)
@@ -32,6 +33,7 @@ add_dependencies(interactivity_test        Interactivity)
 add_dependencies(componentsystemUI_test    ComponentSystemUI)
 add_dependencies(jsscripting_test          JsScripting)
 add_dependencies(jsscriptingUI_test        JsScriptingUI)
+add_dependencies(persistence_test          Persistence)
 
 ###############################################################################
 # Organize projects into folders/filters (for MSVC, xCode)
@@ -43,3 +45,5 @@ set_property(TARGET utils_test PROPERTY FOLDER "tests")
 set_property(TARGET componentsystemUI_test PROPERTY FOLDER "tests")
 set_property(TARGET jsscripting_test PROPERTY FOLDER "tests")
 set_property(TARGET jsscriptingUI_test PROPERTY FOLDER "tests")
+set_property(TARGET persistence_test PROPERTY FOLDER "tests")
+

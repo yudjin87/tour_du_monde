@@ -11,3 +11,5 @@ SUBDIRS += \
     utils_test \
     jsscripting_test \
     jsscriptingui_test \
+    persistence_test \
+

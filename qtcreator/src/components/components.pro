@@ -7,3 +7,4 @@ SUBDIRS += \
     componentsystemui \
     jsscripting \
     jsscriptingui \
+    persistence \
