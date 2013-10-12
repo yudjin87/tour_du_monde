@@ -24,36 +24,22 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef IPERSISTENCEDELEGATE_H
-#define IPERSISTENCEDELEGATE_H
+#ifndef MOCKPERSISTEXTENSION_H
+#define MOCKPERSISTEXTENSION_H
 
-#include <components/persistence/persistence_global.h>
-
+#include <components/persistence/IPersistExtension.h>
 #include <QtCore/QObject>
-#include <QtCore/QList>
 
-class IComponent;
-class IServiceLocator;
-class QByteArray;
-
-/*!
- * @brief
- */
-class PERSISTENCE_API IPersistenceDelegate : public QObject
+class MockPersistExtension : public QObject, public IPersistExtension
 {
-    Q_OBJECT
 public:
-    /*!
-     * @details
-     * @constructor{IPersistenceDelegate}.
-     */
-    IPersistenceDelegate(){}
+    MockPersistExtension(QObject *parent = nullptr);
+    void save(IServiceLocator *locator, QJsonObject &obj);
+    void load(IServiceLocator *locator, const QJsonObject &obj);
 
-    virtual void save(IServiceLocator *locator, const QList<IComponent *> &components, QByteArray &saveStream) = 0;
-    virtual void load(IServiceLocator *locator, const QList<IComponent *> &components,  const QByteArray &loadStream) = 0;
-
-private:
-    Q_DISABLE_COPY(IPersistenceDelegate)
+public:
+    bool saveCalled;
+    bool loadCalled;
 };
 
-#endif // IPERSISTENCEDELEGATE_H
+#endif // MOCKPERSISTEXTENSION_H

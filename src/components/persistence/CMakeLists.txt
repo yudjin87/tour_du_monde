@@ -8,12 +8,17 @@ include(cmake/target_utils)
 ######################################################################
 # Sources
 set(__SOURCES
+    ${CRSL_TARGET_SOURCES}/CarouselPersistenceDelegate.cpp 
     ${CRSL_TARGET_SOURCES}/PersistenceComponent.cpp 
 )
 	
 ######################################################################
 # Headers
 set(__HEADERS
+    ${CRSL_TARGET_HEADERS}/CarouselPersistenceDelegate.h 
+    ${CRSL_TARGET_HEADERS}/IPersistenceDelegate.h 
+    ${CRSL_TARGET_HEADERS}/IPersistenceService.h 
+    ${CRSL_TARGET_HEADERS}/IPersistExtension.h 
     ${CRSL_TARGET_HEADERS}/persistence_global.h 
     ${CRSL_TARGET_HEADERS}/PersistenceComponent.h 
 )

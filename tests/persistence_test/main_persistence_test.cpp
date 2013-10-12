@@ -1,3 +1,5 @@
+#include "CarouselPersistenceDelegateTest.h"
+
 #include <carousel/logging/LoggerFacade.h>
 #include <carousel/logging/NullLogger.h>
 
@@ -11,6 +13,9 @@ int main(int argc, char *argv[])
 
     NullLogger log;
     LoggerFacade::installLoggerEngineCreator(&log);
+
+    CarouselPersistenceDelegateTest carouselPersistenceDelegateTest;
+    QTest::qExec(&carouselPersistenceDelegateTest, argc, argv);
 
     return 0;
 }

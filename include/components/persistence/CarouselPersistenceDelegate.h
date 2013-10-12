@@ -24,36 +24,36 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef IPERSISTENCEDELEGATE_H
-#define IPERSISTENCEDELEGATE_H
+#ifndef CAROUSELPERSISTENCEDELEGATE_H
+#define CAROUSELPERSISTENCEDELEGATE_H
 
-#include <components/persistence/persistence_global.h>
+#include <components/persistence/IPersistenceDelegate.h>
 
-#include <QtCore/QObject>
-#include <QtCore/QList>
-
-class IComponent;
-class IServiceLocator;
-class QByteArray;
+class IPersistExtension;
 
 /*!
  * @brief
  */
-class PERSISTENCE_API IPersistenceDelegate : public QObject
+class PERSISTENCE_API CarouselPersistenceDelegate : public IPersistenceDelegate
 {
     Q_OBJECT
 public:
     /*!
      * @details
-     * @constructor{IPersistenceDelegate}.
+     * @constructor{CarouselPersistenceDelegate}.
      */
-    IPersistenceDelegate(){}
+    explicit CarouselPersistenceDelegate(QObject *parent = nullptr);
 
-    virtual void save(IServiceLocator *locator, const QList<IComponent *> &components, QByteArray &saveStream) = 0;
-    virtual void load(IServiceLocator *locator, const QList<IComponent *> &components,  const QByteArray &loadStream) = 0;
+    void save(IServiceLocator *locator, const QList<IComponent *> &components, QByteArray &saveStream) override;
+    void load(IServiceLocator *locator, const QList<IComponent *> &components,  const QByteArray &loadStream) override;
+
+protected:
+    static IPersistExtension *extensionByName(const QList<IComponent *> &components, const QString &compName);
+    virtual void saveExtension(IServiceLocator *locator, IPersistExtension *extension, QJsonObject &toWrite);
+    virtual void loadExtension(IServiceLocator *locator, IPersistExtension *extension, const QJsonObject &json);
 
 private:
-    Q_DISABLE_COPY(IPersistenceDelegate)
+    Q_DISABLE_COPY(CarouselPersistenceDelegate)
 };
 
-#endif // IPERSISTENCEDELEGATE_H
+#endif // CAROUSELPERSISTENCEDELEGATE_H
