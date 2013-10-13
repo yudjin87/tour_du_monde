@@ -53,8 +53,8 @@ void CarouselPersistenceDelegateTest::save_shouldCallSaveForPersistComponents()
     JustComponent comp2; components.append(&comp2);
     PersistComponent comp3; components.append(&comp3);
 
-    CarouselPersistenceDelegate delegate;
-    delegate.save(&locator, components, stream);
+    CarouselPersistenceDelegate delegate(&locator);
+    delegate.save(components, stream);
 
     QVERIFY(comp1.persistExtension->saveCalled);
     QVERIFY(comp3.persistExtension->saveCalled);
@@ -69,8 +69,8 @@ void CarouselPersistenceDelegateTest::save_shouldCreateJsonDocument()
     JustComponent comp2; components.append(&comp2);
     PersistComponent comp3; components.append(&comp3);
 
-    CarouselPersistenceDelegate delegate;
-    delegate.save(&locator, components, stream);
+    CarouselPersistenceDelegate delegate(&locator);
+    delegate.save(components, stream);
 
     QJsonParseError error;
     QJsonDocument doc = QJsonDocument::fromJson(stream, &error);
@@ -87,8 +87,8 @@ void CarouselPersistenceDelegateTest::save_shouldAddObjectsToDocument()
     JustComponent comp2; components.append(&comp2);
     PersistComponent comp3("PersistComponent3"); components.append(&comp3);
 
-    CarouselPersistenceDelegate delegate;
-    delegate.save(&locator, components, stream);
+    CarouselPersistenceDelegate delegate(&locator);
+    delegate.save(components, stream);
 
     QJsonParseError error;
     QJsonDocument doc = QJsonDocument::fromJson(stream, &error);
@@ -115,11 +115,11 @@ void CarouselPersistenceDelegateTest::load_shouldCallLoadForSpecificComponents()
     JustComponent comp2; components.append(&comp2);
     PersistComponent comp3("PersistComponent3"); components.append(&comp3);
 
-    CarouselPersistenceDelegate delegate;
-    delegate.save(&locator, components, stream);
+    CarouselPersistenceDelegate delegate(&locator);
+    delegate.save(components, stream);
 
     PersistComponent comp4("PersistComponent4"); components.append(&comp4);
-    delegate.load(&locator, components, stream);
+    delegate.load(components, stream);
 
     QVERIFY(comp1.persistExtension->loadCalled);
     QVERIFY(comp3.persistExtension->loadCalled);

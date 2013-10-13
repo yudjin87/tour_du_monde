@@ -44,14 +44,15 @@ static LoggerFacade Log = LoggerFacade::createLogger("CarouselPersistenceDelegat
 }
 
 //------------------------------------------------------------------------------
-CarouselPersistenceDelegate::CarouselPersistenceDelegate(QObject *parent)
+CarouselPersistenceDelegate::CarouselPersistenceDelegate(IServiceLocator *locator, QObject *parent)
     : IPersistenceDelegate()
+    , m_locator(locator)
 {
     setParent(parent);
 }
 
 //------------------------------------------------------------------------------
-void CarouselPersistenceDelegate::save(IServiceLocator *locator, const QList<IComponent *> &components, QByteArray &saveStream)
+bool CarouselPersistenceDelegate::save(const QList<IComponent *> &components, QByteArray &saveStream)
 {
     QJsonDocument document;
     QJsonObject root;
@@ -66,7 +67,13 @@ void CarouselPersistenceDelegate::save(IServiceLocator *locator, const QList<ICo
         QJsonObject componentJson;
         componentJson.insert("name", component->name());
         QJsonObject data;
-        saveExtension(locator, extension, data);
+
+        bool result = saveExtension(extension, data);
+        Log.d(QString("Saving \"%1\" component... %2").arg(component->name()).arg(result ? "Success" : "Fail"));
+
+        if (!result)
+            return false;
+
         componentJson.insert("data", data);
         componentsJson.append(componentJson);
     }
@@ -74,16 +81,18 @@ void CarouselPersistenceDelegate::save(IServiceLocator *locator, const QList<ICo
     root.insert("components", componentsJson);
     document.setObject(root);
     saveStream = document.toJson();
+
+    return true;
 }
 
 //------------------------------------------------------------------------------
-void CarouselPersistenceDelegate::load(IServiceLocator *locator, const QList<IComponent *> &components, const QByteArray &loadStream)
+bool CarouselPersistenceDelegate::load(const QList<IComponent *> &components, const QByteArray &loadStream)
 {
     QJsonParseError error;
     QJsonDocument doc = QJsonDocument::fromJson(loadStream, &error);
     if (error.error != QJsonParseError::NoError) {
         Log.e(error.errorString());
-        return;
+        return false;
     }
 
     QJsonObject root = doc.object();
@@ -93,21 +102,39 @@ void CarouselPersistenceDelegate::load(IServiceLocator *locator, const QList<ICo
         QJsonObject compJson = componentsJson.at(i).toObject();
         QString compName = compJson.value("name").toString();
         IPersistExtension *extension = extensionByName(components, compName);
-        if (extension != nullptr)
-            loadExtension(locator, extension, compJson.value("data").toObject());
+        if (extension == nullptr)
+            continue;
+
+        bool result = loadExtension(extension, compJson.value("data").toObject());
+        Log.d(QString("Loading \"%1\" component... %2").arg(compName).arg(result ? "Success" : "Fail"));
+
+        if (!result)
+            return false;
     }
+
+    return true;
 }
 
 //------------------------------------------------------------------------------
-void CarouselPersistenceDelegate::saveExtension(IServiceLocator *locator, IPersistExtension *extension, QJsonObject &toWrite)
+bool CarouselPersistenceDelegate::saveExtension(IPersistExtension *extension, QJsonObject &toWrite)
 {
-    extension->save(locator, toWrite);
+    QString error;
+    if (extension->save(m_locator, toWrite, &error))
+        return true;
+
+    Log.e(QString("Failed to load component: %1").arg(error));
+    return false;
 }
 
 //------------------------------------------------------------------------------
-void CarouselPersistenceDelegate::loadExtension(IServiceLocator *locator, IPersistExtension *extension, const QJsonObject &json)
+bool CarouselPersistenceDelegate::loadExtension(IPersistExtension *extension, const QJsonObject &json)
 {
-    extension->load(locator, json);
+    QString error;
+    if (extension->load(m_locator, json, &error))
+        return true;
+
+    Log.e(QString("Failed to load component: %1").arg(error));
+    return false;
 }
 
 //------------------------------------------------------------------------------
@@ -116,6 +143,14 @@ IPersistExtension *CarouselPersistenceDelegate::extensionByName(const QList<ICom
     for (IComponent *component : components)
         if (component->name() == compName)
             return component->extension<IPersistExtension>();
+
+    return nullptr;
+}
+
+//------------------------------------------------------------------------------
+IServiceLocator *CarouselPersistenceDelegate::locator()
+{
+    return m_locator;
 }
 
 //------------------------------------------------------------------------------

@@ -33,7 +33,6 @@
 #include <QtCore/QList>
 
 class IComponent;
-class IServiceLocator;
 class QByteArray;
 
 /*!
@@ -49,8 +48,8 @@ public:
      */
     IPersistenceDelegate(){}
 
-    virtual void save(IServiceLocator *locator, const QList<IComponent *> &components, QByteArray &saveStream) = 0;
-    virtual void load(IServiceLocator *locator, const QList<IComponent *> &components,  const QByteArray &loadStream) = 0;
+    virtual bool save(const QList<IComponent *> &components, QByteArray &saveStream) = 0;
+    virtual bool load(const QList<IComponent *> &components,  const QByteArray &loadStream) = 0;
 
 private:
     Q_DISABLE_COPY(IPersistenceDelegate)

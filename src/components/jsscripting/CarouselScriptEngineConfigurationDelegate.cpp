@@ -60,7 +60,7 @@ Q_DECLARE_METATYPE(QList<IScriptUnit *>)
 //------------------------------------------------------------------------------
 namespace
 {
-static LoggerFacade Log = LoggerFacade::createLogger("CarouselScriptEngineConfigurationDelegate");
+static LoggerFacade Log = LoggerFacade::createLogger("...ScriptConfigurationDelegate");
 
 #ifdef Q_COMPILER_INITIALIZER_LISTS // MSVC does not support it yet
 static QList<QString> qobjectProperties = {

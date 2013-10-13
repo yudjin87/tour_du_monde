@@ -47,8 +47,8 @@ public:
      */
     IPersistExtension(){}
 
-    virtual void save(IServiceLocator *locator, QJsonObject &obj) = 0;
-    virtual void load(IServiceLocator *locator, const QJsonObject &obj) = 0;
+    virtual bool save(IServiceLocator *locator, QJsonObject &obj, QString *error = nullptr) = 0;
+    virtual bool load(IServiceLocator *locator, const QJsonObject &obj, QString *error = nullptr) = 0;
 
 private:
     Q_DISABLE_COPY(IPersistExtension)
