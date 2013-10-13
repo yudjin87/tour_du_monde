@@ -47,7 +47,7 @@ static LoggerFacade Log = LoggerFacade::createLogger("ScriptUnit");
 ScriptUnit::ScriptUnit(IScriptEngineFactory *factory, QObject *parent)
     : IScriptUnit()
     , m_isLoaded(false)
-    , m_fileName("")
+    , m_filePath("")
     , m_factory(factory)
     , m_script(new QTextDocument(this))
     , m_engine(nullptr)
@@ -59,7 +59,7 @@ ScriptUnit::ScriptUnit(IScriptEngineFactory *factory, QObject *parent)
 ScriptUnit::ScriptUnit(const QString &filePath, IScriptEngineFactory *factory, QObject *parent)
     : IScriptUnit()
     , m_isLoaded(false)
-    , m_fileName(absolutePath(filePath))
+    , m_filePath(absolutePath(filePath))
     , m_factory(factory)
     , m_script(new QTextDocument(this))
     , m_engine(nullptr)
@@ -90,7 +90,7 @@ bool ScriptUnit::isLoaded() const
 //------------------------------------------------------------------------------
 QString ScriptUnit::fileName() const
 {
-    QFileInfo file(m_fileName);
+    QFileInfo file(m_filePath);
     return file.fileName();
 }
 
@@ -109,7 +109,7 @@ void ScriptUnit::setScriptText(const QString &plainText)
 //------------------------------------------------------------------------------
 QString ScriptUnit::absoluteFilePath() const
 {
-    return m_fileName;
+    return m_filePath;
 }
 
 //------------------------------------------------------------------------------
@@ -136,14 +136,14 @@ bool ScriptUnit::load()
     if (m_isLoaded)
         return true;
 
-    if (m_fileName.isEmpty()) {
+    if (m_filePath.isEmpty()) {
         Log.w("No file name specified");
         return false;
     }
 
-    QFile scriptFile(m_fileName);
+    QFile scriptFile(m_filePath);
     if (!scriptFile.open(QIODevice::ReadOnly)) {
-        QString error = QString("Selected file %1 could not be opened!").arg(m_fileName);
+        QString error = QString("Selected file %1 could not be opened!").arg(m_filePath);
         Log.w(error);
         return false;
     }
@@ -158,7 +158,7 @@ bool ScriptUnit::load()
 //------------------------------------------------------------------------------
 bool ScriptUnit::load(const QString &filePath)
 {
-    m_fileName = absolutePath(filePath);
+    m_filePath = absolutePath(filePath);
     emit fileNameChanged();
     return load();
 }
@@ -172,22 +172,22 @@ void ScriptUnit::clear()
 //------------------------------------------------------------------------------
 bool ScriptUnit::save()
 {
-    return saveAs(m_fileName);
+    return saveAs(m_filePath);
 }
 
 //------------------------------------------------------------------------------
-bool ScriptUnit::saveAs(const QString &fileName)
+bool ScriptUnit::saveAs(const QString &filePath)
 {
-    if (fileName.isEmpty())
+    if (filePath.isEmpty())
         return false;
 
     if (!m_script->isModified())
         return true;
 
-    if (!saveToFile(fileName))
+    if (!saveToFile(filePath))
         return false;
 
-    m_fileName = fileName;
+    m_filePath = filePath;
     emit fileNameChanged();
 
     m_script->setModified(false);
@@ -246,7 +246,7 @@ bool ScriptUnit::saveToFile(const QString &filePath)
 {
     QFile scriptFile(filePath);
     if (!scriptFile.open(QIODevice::WriteOnly)) {
-        QString error = QString("Selected file %1 could not be opened!").arg(m_fileName);
+        QString error = QString("Selected file %1 could not be opened!").arg(m_filePath);
         Log.w(error);
         return false;
     }

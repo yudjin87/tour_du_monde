@@ -92,7 +92,7 @@ public:
      * @details
      *   Gets the file name from wich script was loaded (if it was loaded).
      *
-     * @sa QFileInfo::fileName, absoluteFilePath
+     * @sa QFileInfo::fileName
      */
     QString fileName() const override;
 
@@ -139,7 +139,7 @@ public slots:
 
     /*!
      * @details
-     *   Tries to load script from the fileName().
+     *   Tries to load script from the filePath().
      *   Returns @a true, if loading was successful.
      */
     bool load() override;
@@ -162,7 +162,7 @@ public slots:
 
     /*!
      * @details
-     *   Tries to save script to the fileName().
+     *   Tries to save script to the filePath().
      *   Returns @a true, if saving was successful.
      */
     bool save() override;
@@ -179,7 +179,7 @@ public slots:
 
     /*!
      * @details
-     *   Tries to save script to the fileName(). All print() functions called from the script
+     *   Tries to save script to the filePath(). All print() functions called from the script
      *   will be emitted as printed() signal.
      *   Returns @a true, if script was evaluated without errors. Otherwise, returns false and
      *   emits the error() signal.
@@ -203,7 +203,7 @@ private:
 
 private:
     bool m_isLoaded;
-    QString m_fileName;
+    QString m_filePath;
     IScriptEngineFactory *m_factory;
     QTextDocument *m_script;
     QScriptEnginePtr m_engine;

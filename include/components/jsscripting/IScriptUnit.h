@@ -57,7 +57,7 @@ class JSSCRIPTING_API IScriptUnit : public QObject, public IOutputHandler
     Q_PROPERTY(bool isLoaded READ isLoaded)
     Q_PROPERTY(bool isRunning READ isRunning)
     Q_PROPERTY(QString absoluteFilePath READ absoluteFilePath)
-    Q_PROPERTY(QString fileName READ fileName)
+    Q_PROPERTY(QString fileName READ fileName NOTIFY fileNameChanged)
     Q_PROPERTY(QString scriptText READ scriptText WRITE setScriptText)
     Q_PROPERTY(QTextDocument *script READ script)
 public:
