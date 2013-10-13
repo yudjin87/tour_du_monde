@@ -25,6 +25,7 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "PersistenceComponent.h"
+#include "PersistenceService.h"
 
 #include <carousel/componentsystem/ComponentDefinition.h>
 #include <carousel/componentsystem/ComponentExport.h>
@@ -61,14 +62,16 @@ PersistenceComponent::~PersistenceComponent()
 //------------------------------------------------------------------------------
 void PersistenceComponent::onShutdown(IServiceLocator *serviceLocator)
 {
-    Q_UNUSED(serviceLocator);
+    IPersistenceService *service = serviceLocator->unregisterInstance<IPersistenceService>();
+    delete service;
 }
 
 //------------------------------------------------------------------------------
 bool PersistenceComponent::onStartup(IServiceLocator *serviceLocator)
 {
     IComponentManager *manager = serviceLocator->locate<IComponentManager>();
-    Q_UNUSED(manager);
+    IPersistenceService *service = new PersistenceService(serviceLocator, manager);
+    serviceLocator->registerInstance<IPersistenceService>(service);
 
     return true;
 }

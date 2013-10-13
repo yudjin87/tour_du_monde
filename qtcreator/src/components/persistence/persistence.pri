@@ -8,10 +8,12 @@ HEADERS += \
     $$PROJECT_HEADERS/IPersistExtension.h \
     $$PROJECT_HEADERS/persistence_global.h \
     $$PROJECT_HEADERS/PersistenceComponent.h \
+    $$PROJECT_HEADERS/PersistenceService.h \
 
 SOURCES += \
     $$PROJECT_SOURCES/CarouselPersistenceDelegate.cpp \
     $$PROJECT_SOURCES/PersistenceComponent.cpp \
+    $$PROJECT_SOURCES/PersistenceService.cpp \
 
 OTHER_FILES += \
     $$PROJECT_SOURCES/org.carousel.Persistence.definition \

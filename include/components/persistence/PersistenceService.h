@@ -24,48 +24,55 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef IPERSISTENCESERVICE_H
-#define IPERSISTENCESERVICE_H
+#ifndef PERSISTENCESERVICE_H
+#define PERSISTENCESERVICE_H
 
-#include <components/persistence/persistence_global.h>
+#include <components/persistence/IPersistenceService.h>
 
-#include <QtCore/QObject>
-
-class IPersistenceDelegate;
+class IServiceLocator;
+class IComponentManager;
 
 /*!
  * @brief
  */
-class PERSISTENCE_API IPersistenceService : public QObject
+class PERSISTENCE_API PersistenceService : public IPersistenceService
 {
     Q_OBJECT
-    Q_PROPERTY(QString fileName READ fileName NOTIFY fileNameChanged)
-    Q_PROPERTY(QString absoluteFilePath READ absoluteFilePath NOTIFY fileNameChanged)
 public:
     /*!
      * @details
-     * @constructor{IPersistenceService}.
+     * @constructor{PersistenceService} using specified @a locator. This locator is used only
+     *   to create default IPersistenceDelegate.
      */
-    IPersistenceService(){}
+    PersistenceService(IServiceLocator *locator, IComponentManager *manager, QObject *parent = nullptr);
+
+    /*!
+     * @details
+     * @constructor{PersistenceService} using specified @a delegate.
+     *
+     *   Note, that it takes ownership for the @a delegate.
+     */
+    PersistenceService(IPersistenceDelegate *delegate, IComponentManager *manager, QObject *parent = nullptr);
+    ~PersistenceService();
 
 public:
-    virtual IPersistenceDelegate *delegate() = 0;
-    virtual const IPersistenceDelegate *delegate() const = 0;
-    virtual void setDelegate(IPersistenceDelegate *delegate) = 0;
+    IPersistenceDelegate *delegate() override;
+    const IPersistenceDelegate *delegate() const override;
+    void setDelegate(IPersistenceDelegate *delegate) override;
 
     /*!
      * @details
      *   Gets the absolute path to the file from wich document was loaded.
      */
-    virtual QString absoluteFilePath() const = 0;
+    QString absoluteFilePath() const override;
 
     /*!
      * @details
-     *   Gets the fileName name from wich document was loaded.
+     *   Gets the file name from wich document was loaded.
      *
      * @sa QFileInfo::fileName, absoluteFilePath
      */
-    virtual QString fileName() const = 0;
+    QString fileName() const override;
 
 public slots:
     /*!
@@ -73,7 +80,7 @@ public slots:
      *   Tries to save document to the filePath().
      *   Returns @a true, if saving was successful.
      */
-    virtual bool save() = 0;
+    bool save() override;
 
     /*!
      * @details
@@ -83,14 +90,14 @@ public slots:
      *   Since after successful saving file name is changed, the fileNameChanged() signal is
      *   emitted.
      */
-    virtual bool saveAs(const QString &filePath) = 0;
+    bool saveAs(const QString &filePath) override;
 
     /*!
      * @details
      *   Tries to load document from the filePath().
      *   Returns @a true, if loading was successful.
      */
-    virtual bool load() = 0;
+    bool load() override;
 
     /*!
      * @details
@@ -100,20 +107,19 @@ public slots:
      *   Since after successful loading file name is changed, the fileNameChanged() signal is
      *   emitted.
      */
-    virtual bool load(const QString &filePath) = 0;
+    bool load(const QString &filePath) override;
 
-signals:
-    /*!
-     * @details
-     *   This signal is emitted when document's file name is changed. It could happen
-     *   on loading a new file or saving as a new file.
-     *
-     * @sa load(), saveAs()
-     */
-    void fileNameChanged();
+protected:
+    virtual bool saveToFile(const QString &filePath);
 
 private:
-    Q_DISABLE_COPY(IPersistenceService)
+    Q_DISABLE_COPY(PersistenceService)
+    static QString absolutePath(const QString &filePath);
+
+private:
+    IPersistenceDelegate *m_delegate;
+    IComponentManager *m_manager;
+    QString m_filePath;
 };
 
-#endif // IPERSISTENCESERVICE_H
+#endif // PERSISTENCESERVICE_H
