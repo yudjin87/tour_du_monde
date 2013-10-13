@@ -184,10 +184,11 @@ bool ScriptUnit::saveAs(const QString &filePath)
     if (!m_script->isModified())
         return true;
 
-    if (!saveToFile(filePath))
+    QString fPath = absolutePath(filePath);
+    if (!saveToFile(fPath))
         return false;
 
-    m_filePath = filePath;
+    m_filePath = fPath;
     emit fileNameChanged();
 
     m_script->setModified(false);

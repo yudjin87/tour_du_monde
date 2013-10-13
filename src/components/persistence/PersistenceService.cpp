@@ -117,10 +117,11 @@ bool PersistenceService::saveAs(const QString &filePath)
         return false;
     }
 
-    if (!saveToFile(filePath))
+    QString fPath = absolutePath(filePath);
+    if (!saveToFile(fPath))
         return false;
 
-    m_filePath = filePath;
+    m_filePath = fPath;
     emit fileNameChanged();
 
     return true;
