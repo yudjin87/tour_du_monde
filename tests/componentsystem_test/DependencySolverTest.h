@@ -20,6 +20,9 @@ private Q_SLOTS:
     void failsWithComplexCycle();
     void shouldFillMissingComponents();
     void shouldFillOrphanComponents();
+
+    // regressions
+    void iterationWithReferenceLeadsToBug();
 };
 
 #endif // DEPENDENCYSOLVERTEST_H

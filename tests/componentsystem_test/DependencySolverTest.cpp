@@ -183,4 +183,31 @@ void DependencySolverTest::shouldFillOrphanComponents()
 }
 
 //------------------------------------------------------------------------------
+void DependencySolverTest::iterationWithReferenceLeadsToBug()
+{
+    DependencySolver solver;
+    solver.addComponent("GameUi");
+    solver.addComponent("Game");
+    solver.addComponent("Automation");
+    solver.addDependency("Actions", "Game");
+    solver.addDependency("Automation", "Game");
+    solver.addDependency("Automation", "Actions");
+    solver.addDependency("GameUi", "Game");
+
+    QStringList ordered; QStringList orphans; QStringList missing;
+
+    // Because in for-loop a const QString & (reference) had been used, the following bug (based on invalid
+    // iterator after removing from container) was present:
+    // 1. A reference for unknown component name (Actions) is taken;
+    // 2. This element is removed from the ordered lists;
+    // 2.5. Due to reference the value of component name is changed (now it is "Game");
+    // 3. Orphan components are removed from the ordered list, but wrong parent is used (Game instead of Actions)
+    QVERIFY(solver.solve(ordered, orphans, missing));
+
+    QCOMPARE(ordered.size(), 2);
+    QCOMPARE(missing.size(), 1);
+    QCOMPARE(orphans.size(), 1);
+}
+
+//------------------------------------------------------------------------------
 
