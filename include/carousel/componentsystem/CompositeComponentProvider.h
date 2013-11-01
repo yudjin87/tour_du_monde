@@ -62,7 +62,8 @@
  *   };
  * @endcode
  *   The ComponentProvider also serves as a base class for more specialized Providers.
- * @note it takes ownership for added providers, but not for components.
+ *   Note, that it takes ownership for added providers, but not for components.
+ *   Components' ownership is moved to the IComponentManager during boot loading sequence.
  */
 class CAROUSEL_API CompositeComponentProvider : public IComponentProvider
 {

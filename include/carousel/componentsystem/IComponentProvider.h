@@ -46,6 +46,9 @@ class IComponent;
  *
  *   You also might to override BootloaderBase::configureComponentProvider() to add compile-time-known components 
  *   statically in code using registerComponent() method.
+ *
+ *   Note, that providers do not takes ownership for components - it is moved to the IComponentManager during
+ *   boot loading sequence.
  */
 class CAROUSEL_API IComponentProvider : public QObject
 {

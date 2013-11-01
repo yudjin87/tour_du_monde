@@ -115,8 +115,10 @@ class FileComponentProvider;
  *   During boot loading sequence DirectoryComponentProvider will find all component
  *   definitions in the @a plugins/ directory and instantiate proxy components for them,
  *   which creates real components by demand.
- * @note it does not take ownership neither for proxy components that will be @a discovered in
- *   libraries nor for components registered by registerComponent().
+ *
+ *   Note, that it does not take ownership neither for proxy components that will be @a discovered in
+ *   libraries nor for components registered by registerComponent(). Ownerhip is moved to the
+ *   IComponentManager during boot loading sequence.
  */
 class CAROUSEL_API DirectoryComponentProvider : public IDirectoryComponentProvider
 {

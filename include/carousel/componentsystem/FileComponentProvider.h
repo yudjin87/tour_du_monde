@@ -37,6 +37,8 @@ class ProxyComponent;
 /*!
  * @brief
  * @details
+ *   Note, that providers do not takes ownership for components - it is moved to the IComponentManager during
+ *   boot loading sequence.
  */
 class CAROUSEL_API FileComponentProvider : public ComponentProvider
 {
