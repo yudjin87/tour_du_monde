@@ -9,7 +9,7 @@ What is a composite application?
 
 @subsection Content
 <ol>
-<li>@ref PartitionOfAnApplication Partition of an application into components;</li>
+<li>@ref PartitionOfAnApplication "Partition of an application into components";</li>
 <li>@ref ComponentManagement "Component management": registering, discovering, loading and starting components;</li>
 <li>@ref CommunicationBetweenTheComponents "Communication between the components";</li>
 <li>@ref ManagingDependenciesBetweenTheComponents "Managing dependencies between the components" (object factories);</li>
@@ -88,13 +88,14 @@ It creates and registers service locator itself and widely spread services, like
 To start new application you also should to override createComponentProvider() or configureComponentProvider() method to determine way in which your application will be populated by the components. For example, here is a component provider which will load components from the "./components" directory at the start-time and which also has four built-in components, configured statically at the compile-time:
 
 @code
-IComponentProvider *MyBootloader:: createComponentProvider ()
+IComponentProvider *MyBootloader:: createComponentProvider()
 {
     CompositeComponentProvider *provider = new CompositeComponentProvider();
     provider->addProvider(new DirectoryComponentProvider("./components"));
     provider->registerComponent(new InteractionServiceComponent());
     provider->registerComponent(new ComponentSystemUIComponent());
     provider->registerComponent(new UndoComponent());
+    return provider;
 }
 @endcode
 
@@ -103,22 +104,26 @@ IComponentProvider *MyBootloader:: createComponentProvider ()
 After registration all basic shared services and components are ready to start. They are started on the configuration phase. Here is a simple example of configuration phase:
 
 <ol>
-<li>The Component manager begins the components startup process, and loads and initializes the Interactivity component;</li>
-<li>In the startup of the Interactivity component, it registers the IDialogService with the locator;</li>
-<li>The Component manager then starts the CS management UI component (the order of component starting is based on the component dependencies);</li>
-<li>The CS management UI component registers the ComponentsDialog widget for the ComponentDefinitionsModel in the IDialogService, so then client code can visualize ComponentDefinitionsModel without knowing of concrete widget (the widget could be changed by other component in run-time).</li>
+<li>The Component manager begins the components startup process, and loads and initializes the InteractionServiceComponent;</li>
+<li>In the startup of the InteractionServiceComponent, it registers the IDialogService with the locator;</li>
+<li>The Component manager then starts the ComponentSystemUIComponent (the order of component starting is based on the component dependencies);</li>
+<li>The ComponentSystemUIComponent registers the ComponentsDialog widget for the ComponentDefinitionsModel in the IDialogService, so then client code can visualize
+    ComponentDefinitionsModel without knowing of concrete widget (the widget could be changed by other component in run-time). Also ComponentSystemUIComponent
+    registers EnableComponentCommand and InstallComponentsCommand in the service locator;</li>
 </ol>
 
 @image html ConfigurationPhase.png
 
-Then you can use Show components Operation right from scripting or as a response on the user interaction (as were said later, presentation layer could has a dependency from the service locator to use registered factories). Moreover, someone could re-register Show components Operation to show new dialog.
+Then you can use, e.g. InstallComponentsCommand, right from scripting or as a response on the user interaction (as were said later, presentation
+layer could has a dependency from the service locator to use registered factories). Moreover, someone could re-register ComponentsDialog to show new dialog without
+any cahnges in the old code.
 
 @subsection PresentationAndModelResponsibilities Presentation and model responsibilities and organization 
 
 Every component could extend UI with widgets, dialogs and operations (QAction like – menu items, toolbar buttons), so one common approach is needed to control all that stuff. 
 
 Dialogs creating.
-Dialog service is responsible for modal dialog showing: it can create and show dialog for registered Model type. The specified model will be passed to the dialog, so client code just has to instantiate Model object, without any knowing about concrete type about dialog widget:
+IDialogService is responsible for (non-)modal dialog showing: it can create and show dialog for registered @a Model type. The specified model will be passed to the dialog, so client code just has to instantiate Model object, without any knowing about concrete type about dialog widget:
 
 @code
 void ShowComponentsOperation::execute()
@@ -147,7 +152,10 @@ Interaction approach (menu items and tool handlers):
 </ol>
 
 @subsection JsScripting JavaScript support
-TODO
+Since all important services are registered in the IServiceLocator, it is possible to get reference to the specific servce from the JavaScript, using
+JsScriptingComponent. Also you can use JsScriptingUIComponent, if you need ScriptConsoleView or simple script IDE.
+
+@todo continue, + examples
 
 @subsection UnitTesting Unit testing
 
@@ -165,6 +173,8 @@ TODO
 <li>New dialog: <a href="https://github.com/yudjin87/carousel/blob/master/src/components/componentsystemui/ComponentSystemUIComponent.cpp">src/components/componentsystemui/ComponentSystemUIComponent.cpp</a>;</li>
 <li>New widget: <a href="https://github.com/yudjin87/carousel/blob/master/demos/painter/cartoUI/CartoUIInteractiveExtension.cpp">demos/painter/cartoUI/CartoUIInteractiveExtension.cpp</a>;</li>
 <li>New tools and operations: <a href="https://github.com/yudjin87/carousel/blob/master/demos/painter/navigationOperations/NavigationOperationsInteractiveExtension.cpp">demos/painter/navigationOperations/NavigationOperationsInteractiveExtension.cpp</a>;</li>
+<li>Scripting (Carousel API): <a href="https://github.com/yudjin87/carousel/blob/master/demos/painter/app/scripts/components.js">demos/painter/app/scripts/components.js</a>;</li>
+<li>Scripting (Painter API): <a href="https://github.com/yudjin87/carousel/blob/master/demos/painter/app/scripts/loadLayer.js">demos/painter/app/scripts/loadLayer.js</a>;</li>
 </ol>
 
 */

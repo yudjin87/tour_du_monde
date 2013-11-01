@@ -9,18 +9,25 @@ Note, that it is still in development!
 
 Source code: https://github.com/yudjin87/carousel
 
-@ref CompositeAppOverview "Composite application overview"
+@ref CompositeAppOverview Composite application overview
 
-Carousel is a managed component library for desktop applications that helps to extending core functionality of the application by external or internal components. An extension (component) can provide a toolbar with new tools, menus,  commands or dock widgets, listen for and respond to events, perform feature validation, and so on. 
+Carousel is a managed component library for desktop applications that helps to extending core functionality of the application by external or internal components.
+An extension (component) can provide a toolbar with new tools, menus,  commands or dock widgets, listen for and respond to events, perform feature validation, and so on.
 
-There are Carousel's basic concepts: @ref Components "Components", **Providers**, **Installers**, @ref Bootloaders "Bootloaders" and **Service Locator**.
+There are Carousel's basic concepts: @ref Components Components, @ref Providers Providers, **Installers**, @ref Bootloaders Bootloaders and **Service Locator**.
 
 @subsection Components Components
 
-An IComponent is a base unit of the Carousel, that can contain UI and/or logic features, provides or exposes some services for the other components. The instances of the IComponent class could
+An IComponent in Carousel is an abstract container for a set of functionality. The way you partition your sets of functionality into components is completely arbitrary,
+but common lines of separation are to put individual feature sets that you want to be able to turn on or off as a whole in the application into separate components.
+Another common approach is to separate components based on team composition and which team will be working on which set of functionality. See also @ref PartitionOfAnApplication
+"Partition of an application into components".
+So, component can contain UI and/or logic features, provides or exposes some services for the other components. The instances of the IComponent class could
 be registered statically in code or discovered by other ways - e.g., loaded from the specified paths at start-time or by demand.
 
-Components are integrated in the application by the **Providers**. Different providers specify different component configuring and loading time - the simplest **ComponentProvider** means **compile-time** components populating:
+@subsection Providers Providers
+Components are integrated in the application by the @a Providers. Different providers specify different component configuring and loading time - the simplest ComponentProvider means
+@a compile-time components populating:
 
 @code 
 IComponentProvider *Bootloader::createComponentProvider()
@@ -33,23 +40,20 @@ IComponentProvider *Bootloader::createComponentProvider()
 }
 @endcode
 
-DirectoryComponentProvider can discover and load componentson **run-time**. It uses to load custom components (which may appear as custom installed plugins) from the specified library path. For example, this directory provider will discover and load (if it is possible) all components from the **./components** directory at the **startup-time**:
+DirectoryComponentProvider can discover and load componentson @a run-time. It uses to load custom components (which may appear as custom installed plugins) from the specified
+library path. For example, this directory provider will discover and load (if it is possible) all components from the @a ./components directory at the @a startup-time:
 
 @code 
 IComponentProvider *Bootloader::createComponentProvider()
 {
     DirectoryComponentProvider *directoryProvider = new DirectoryComponentProvider("./components");
-
     return directoryProvider;
 }
 @endcode
 
-You also can use FileComponentProvider to load component by demand (e.g., user wants to load just-downloaded component) on **run-time**.
-
+You also can use FileComponentProvider to load component by demand (e.g., user wants to load just-downloaded component) on @a run-time.
 External components can be loaded in right order (if they have a dependencies) from the defining paths or can be configured statically in the code (internal components).
-
-
-@subsection Providers Providers 
+Consider CompositeComponentProvider provider for combining different providers, e.g. discovering components from different paths.
 
 @subsection Installers Installers 
 
@@ -62,7 +66,7 @@ It creates and registers an IServiceLocator itself and common services, like Log
 IComponentManager.
 
 Usually an IBootloader is implemented (in BootloaderBase or in more specific CarouselBootloader
-class) as a sequence of pairs **create<smth>() - configure<smth>()** methods, and each of them
+class) as a sequence of pairs @a create<smth>() - @a configure<smth>() methods, and each of them
 could be overridden to replace default instantiation or default configuration.
 For example, to use your own logger system it is just needed to override BootloaderBase::createLoggerEngine()
 method.
@@ -75,8 +79,8 @@ services and your components' services.
 To start new application you also should to override BootloaderBase::createComponentProvider() or
 BootloaderBase::configureComponentProvider() method to determine way in which your application will
 be populated by the components. For example, here is a component **provider** which will load components
-from the **"./components"** directory at the **start-time** and which also has four built-in components,
-configured statically at the **compile-time**:
+from the @a "./components" directory at the @a start-time and which also has four built-in components,
+configured statically at the @a compile-time:
 
 @code
 IComponentProvider *MyBootloader::createComponentProvider()
