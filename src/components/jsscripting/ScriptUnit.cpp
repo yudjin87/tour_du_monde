@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- 
+
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -227,10 +227,11 @@ bool ScriptUnit::run()
     if (!result.isError())
         return true;
 
-    QString scriptError = QString("Script error:\"%1\"").arg(result.toString());
+    int line = result.property("lineNumber").toInt32();
+    QString scriptError = QString("line %1: \"%2\"").arg(line).arg(result.toString());
     Log.w(scriptError);
 
-    emit error(result.toString());
+    emit error(scriptError);
 
     return false;
 }
