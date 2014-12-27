@@ -75,7 +75,7 @@ set(CMAKE_CONFIGURATION_TYPES ${CRSL_CONFIGS} CACHE INTERNAL "")
 # Abort generation in case of configurations does not have
 # passed build type.
 if(NOT (CMAKE_CONFIGURATION_TYPES MATCHES ${CMAKE_BUILD_TYPE}))
-  message(FATAL_ERROR "Unknown build type: "${CMAKE_BUILD_TYPE})
+  message(FATAL_ERROR "Unknown build type: " ${CMAKE_BUILD_TYPE})
 endif()
 
 option(CRSL_TEST "Create testing project" ON)
