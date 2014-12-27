@@ -8,8 +8,8 @@
 
 #------------------------------------------------------------------------------
 # Paths to the Qt, where directories bin, lib, include, plugins and other are
-# set(QT_ROOT_LOCATION_MSVC11-X64 "D:/Qt/msvc-x64-5.1.1/5.1.1/msvc2012_64")
-# set(QT_ROOT_LOCATION_MSVC11-X32 "D:/Qt/msvc-x32-5.1.1/5.1.1/msvc2012")
+# set(QT_ROOT_LOCATION_MSVC-X64 "D:/Qt/msvc-x64-5.1.1/5.1.1/msvc2012_64")
+# set(QT_ROOT_LOCATION_MSVC-X32 "D:/Qt/msvc-x32-5.1.1/5.1.1/msvc2012")
 # set(QT_ROOT_LOCATION_GNU-X64 "D:/devevl/Qt/5.1.1/Output/MINGW-x64")     # For MinGW
 # set(QT_ROOT_LOCATION_GNU-X32 "D:/devevl/Qt/5.0.1/Output/MINGW-x32")     # For MinGW
 #

@@ -55,8 +55,8 @@
  because cmake will generate Unix makefiles by default on MacOS.
  More generators:
 
-   cmake .. [params] -G "Visual Studio 11"
-   cmake .. [params] -G "Visual Studio 11 Win64"
+   cmake .. [params] -G "Visual Studio 12"
+   cmake .. [params] -G "Visual Studio 12 Win64"
 
   
 ##############################################################################  
