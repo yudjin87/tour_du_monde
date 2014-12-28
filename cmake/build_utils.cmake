@@ -7,7 +7,7 @@
 # __NATIVE_PARAMS   - pass remaining options to the native tool.
 # __PATH_TO_CMAKE_LISTS - path where CmakeLists.txt root config is;
 # Example:
-# crsl_build("debug;release" "Visual Studio 11" "../MSVC-x32" "-j4" ..)
+# crsl_build("debug;release" "Visual Studio 12" "../MSVC-x32" "-j4" ..)
 function(crsl_build __CONFIGURATIONS __GENERATOR_NAME __BUILD_TREE_PATH __NATIVE_PARAMS __PATH_TO_CMAKE_LISTS)
   file(MAKE_DIRECTORY ${__BUILD_TREE_PATH})
 
@@ -48,7 +48,7 @@ function(crsl_generate_project __GENERATOR_NAME __PATH_TO_CMAKE_LISTS __BUILD_TY
   set(BUILD_RESULT 0)
 
   message(STATUS "Building system: " ${__GENERATOR_NAME})
-  message(STATUS "Buil tree path1: " ${__BUILD_TREE_PATH})
+  message(STATUS "Buil tree path: " ${__BUILD_TREE_PATH})
   message(STATUS "Configuration: " ${__BUILD_TYPE})
   message(STATUS "Path to root CmakeLists.txt: " ${__PATH_TO_CMAKE_LISTS})
   

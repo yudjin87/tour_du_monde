@@ -12,8 +12,8 @@
 #              +/intermediate      <= Intermediate files
 #              +/unittest          <= Unittest applications
 #           +/mingw-x64-release
-#           +/msvc11-x32-debug-static
-#           +/msvc11-x64-release-static
+#           +/msvc-x32-debug-static
+#           +/msvc-x64-release-static
 #           +/...
 #       +/msvc                     <= Source tree for the MSVC
 #       +/qtcreator                <= IDE_SOURCE_TREE
@@ -50,9 +50,7 @@ INCLUDEPATH += $$HPP_SOURCE_TREE
 
 # Format binary output path:
 win32-g*:BUILD_CONFIG=mingw
-win32-msvc2008:BUILD_CONFIG=msvc09
-win32-msvc2010:BUILD_CONFIG=msvc10
-win32-msvc2012:BUILD_CONFIG=msvc11
+win32-msvc*:BUILD_CONFIG=msvc
 macx:BUILD_CONFIG=clang
 unix:BUILD_CONFIG=gnu
 

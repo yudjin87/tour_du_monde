@@ -60,10 +60,12 @@ function(crsl_get_compiler __RESULT)
     endif()
 
     set(__SUFIX "")
-    # Unfortunately, I couldnot use \\d or even {0,2} to get NNN.NNN pattern
+    # Unfortunately, I could not use \\d or even {0,2} to get NNN.NNN pattern
     # string(REGEX MATCH "(([0-9]+)\\.*)(([0-9]+))" __VERSION ${CMAKE_CXX_COMPILER_VERSION})
     string(REGEX MATCH "([0-9]+)" __VERSION ${CMAKE_CXX_COMPILER_VERSION})
-    if(${__VERSION} EQUAL 17)
+    if(${__VERSION} EQUAL 18)
+      set(__SUFIX "12")
+    elseif(${__VERSION} EQUAL 17)
       set(__SUFIX "11")
     elseif(${__VERSION} EQUAL 16)
       set(__SUFIX "10")
@@ -72,7 +74,9 @@ function(crsl_get_compiler __RESULT)
     endif()
   endif()
 
-  set(${__RESULT} "${__CMPLR}${__SUFIX}" PARENT_SCOPE)
+  # TODO: modify build_all to be able to use it. Also demo/shared.pri and carousel_props.pri should be modified
+  # __SUFIX is skipped, milptiple studios are not supported for now
+  set(${__RESULT} "${__CMPLR}" PARENT_SCOPE)
 endfunction(crsl_get_compiler)
 
 ###############################################################################
@@ -155,6 +159,15 @@ endfunction(crsl_copy_extra_files)
 ###############################################################################
 # Adds test in the static configuration
 function(crsl_add_test __TARGET)
+  if(WIN32)
+      add_custom_command(
+        TARGET ${__TARGET}
+        POST_BUILD
+        COMMAND "${__QT_ROOT_DIR}/bin/windeployqt.exe" "$<TARGET_FILE:${__TARGET}>"
+        COMMENT "${__QT_ROOT_DIR}/bin/windeployqt.exe" "$<TARGET_FILE:${__TARGET}>"
+      )
+  endif(WIN32)
+
   if(CMAKE_BUILD_TYPE MATCHES "static")
     add_test(NAME "${__TARGET}" COMMAND $<TARGET_FILE:${__TARGET}>)
     set_tests_properties(${__TARGET} PROPERTIES FAIL_REGULAR_EXPRESSION "[^a-z]FAIL!")

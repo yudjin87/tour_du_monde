@@ -17,9 +17,9 @@ Supported compilers (tested ones):
 ==================================
 <ol>
 <li>
-msvc11 x32 </li>
+msvc13 x32 </li>
 <li>
-msvc11 x64 </li>
+msvc13 x64 </li>
 <li>
 mingw4.7 x32 </li>
 <li>

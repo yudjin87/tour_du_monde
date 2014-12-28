@@ -18,9 +18,7 @@ CONFIG += plugin
 
 # Format binary output path:
 win32-g*:BUILD_CONFIG=mingw
-win32-msvc2008:BUILD_CONFIG=msvc09
-win32-msvc2010:BUILD_CONFIG=msvc10
-win32-msvc2012:BUILD_CONFIG=msvc11
+win32-msvc*:BUILD_CONFIG=msvc
 macx:BUILD_CONFIG=clang
 unix:BUILD_CONFIG=gnu
 
