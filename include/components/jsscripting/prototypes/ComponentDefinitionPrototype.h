@@ -48,7 +48,6 @@ class ComponentDefinitionPrototype : public QObject, public QScriptable
     Q_PROPERTY(QString description READ description)
     Q_PROPERTY(QString productName READ productName)
     Q_PROPERTY(QString provider READ provider)
-    Q_PROPERTY(QString description READ description)
     Q_PROPERTY(QString error READ error)
 public:
     /*!
