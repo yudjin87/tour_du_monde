@@ -71,7 +71,7 @@ protected:
      *   to register common services in the locator.
      *
      */
-    BootloaderBase();
+    BootloaderBase(const QString& mainThreadName = "[MainThrd]");
 
     /*!
      * @details

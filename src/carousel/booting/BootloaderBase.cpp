@@ -33,15 +33,20 @@
 #include "utils/ServiceLocator.h"
 
 #include <QtCore/QCoreApplication>
+#include <QtCore/QThread>
 
 //------------------------------------------------------------------------------
-BootloaderBase::BootloaderBase()
+BootloaderBase::BootloaderBase(const QString &mainThreadName)
     : m_componentManager(nullptr)
     , m_componentProvider(nullptr)
     , m_logger(nullptr)
     , m_serviceLocator(nullptr)
     , m_alreadyRunned(false)
 {
+    if (!mainThreadName.isEmpty())
+    {
+        QThread::currentThread()->setObjectName(mainThreadName);
+    }
 }
 
 //------------------------------------------------------------------------------

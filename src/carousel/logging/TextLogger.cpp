@@ -28,6 +28,7 @@
 
 #include <QtCore/QString>
 #include <QtCore/QDate>
+#include <QtCore/QThread>
 
 //------------------------------------------------------------------------------
 TextLogger::TextLogger(QTextStream &output)
@@ -96,11 +97,12 @@ void TextLogger::w(const QString &message)
 //------------------------------------------------------------------------------
 void TextLogger::log(const QString &message, const QString &category)
 {
-    static const QString messagePattern = "[%1][%2] %3: %4";
+    static const QString messagePattern = "[%1]%2[%3] %4: %5";
     static const QString dateFormat = "dd MMM, hh:mm:ss.zzz";
 
     QString formatedMessage = messagePattern
             .arg(QDateTime::currentDateTime().toString(dateFormat))
+            .arg(QThread::currentThread()->objectName())
             .arg(name())
             .arg(category)
             .arg(message);
