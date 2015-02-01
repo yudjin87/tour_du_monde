@@ -128,6 +128,7 @@ IFeatureClass *ShapeFileFeatureDataset::classByName(const QString &className)
         reader->readShapeRecord(record);
 
         AbstractGeometry *geometry = geometryFactory->createGeometry(record.contentLength, record.shapeBlob);
+        geometry->setId(record.recordNumber);
         IFeature *feature = featureClass->createFeature();
         feature->setGeometry(geometry);
 
