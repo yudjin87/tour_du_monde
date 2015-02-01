@@ -37,6 +37,7 @@ SHAPES += buckinghamshire/landuse.shp
 SHAPES += buckinghamshire/natural.shp
 SHAPES += buckinghamshire/railways.shp
 SHAPES += buckinghamshire/waterways.shp
+SHAPES += buckinghamshire/world.shp
 
 START_UP = painter.sh
 
