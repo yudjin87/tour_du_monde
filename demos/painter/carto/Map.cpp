@@ -51,8 +51,32 @@ Map::~Map()
 //------------------------------------------------------------------------------
 void Map::addLayer(AbstractLayer *layer)
 {
+    const bool firstLayer = m_layers.empty();
+
     m_layers.push_back(layer);
-    m_display->transformation()->setBounds(layer->extent());
+    const QRectF layerExt = layer->extent();
+    if (firstLayer)
+    {
+        m_display->transformation()->setBounds(layerExt);
+    }
+    else
+    {
+        const QRectF current = m_display->transformation()->bounds();
+
+        const qreal newLeft = std::min(layerExt.left(), current.left());
+        const qreal newRight = std::max(layerExt.right(), current.right());
+        const qreal newTop = std::min(layerExt.top(), current.top());
+        const qreal newBottom = std::max(layerExt.bottom(), current.bottom());
+
+        QRectF newExt;
+        newExt.setLeft(newLeft);
+        newExt.setRight(newRight);
+        newExt.setTop(newTop);
+        newExt.setBottom(newBottom);
+
+        m_display->transformation()->setBounds(newExt);
+    }
+
     emit layerAdded(layer);
 }
 
