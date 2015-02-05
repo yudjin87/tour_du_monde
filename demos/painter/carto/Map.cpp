@@ -35,7 +35,7 @@ Map::Map(IPainterDocument *parentDocument, IDisplay *display)
     : m_parentDocument(parentDocument)
     , m_display(display)
 {
-    connect(m_display, &IDisplay::visibleBoundsUpdated, this, &Map::onVisibleBoundsChanged);
+    //connect(m_display, &IDisplay::visibleBoundsUpdated, this, &Map::onVisibleBoundsChanged);
 }
 
 //------------------------------------------------------------------------------
@@ -116,8 +116,8 @@ void Map::refresh()
 //------------------------------------------------------------------------------
 void Map::onVisibleBoundsChanged(DisplayTransformation *transform)
 {
-    Q_UNUSED(transform)
-    refresh();
+//    Q_UNUSED(transform)
+//    refresh();
 }
 
 //------------------------------------------------------------------------------

@@ -20,12 +20,10 @@ FeatureLayerDrawingTask::FeatureLayerDrawingTask(IFeatureClass::FeatureList &&fe
     , m_features(std::move(features))
     , m_renderer(renderer)
 {
-    Log.d(QString("Drawing task [0x%1] created").arg((qlonglong)this, 0, 16));
 }
 
 FeatureLayerDrawingTask::~FeatureLayerDrawingTask()
 {
-    Log.d(QString("Drawing task [0x%1] deleted").arg((qlonglong)this, 0, 16));
 }
 
 void FeatureLayerDrawingTask::draw(IDisplay &display)

@@ -92,20 +92,9 @@ void FeatureLayer::draw(IDisplay *display)
     filter.setGeometry(&extent);
 
     IFeatureClass::FeatureList features = m_featureClass->search(filter);
-    //qDebug(QString("draw %1 features").arg(features.size()).toLatin1());
 
     FeatureLayerDrawingTask* task = new FeatureLayerDrawingTask(std::move(features), m_featureRenderer);
     display->postDrawingTask(IDrawingTaskPtr(task));
-    //task->draw(*display);
-//    DisplayTransformation* transform = display->transformation();
-//    const QTransform &viewport = transform->transform();
-
-//    QPixmap* pixmap = display->startDrawing();
-//    QPainter painter(pixmap);
-//    painter.setTransform(viewport, false);
-
-//    m_featureRenderer->draw(features, &painter);
-//    display->finishDrawing(pixmap);
 }
 
 //------------------------------------------------------------------------------

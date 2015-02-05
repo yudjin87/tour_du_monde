@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- 
+
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -24,40 +24,24 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef MULTITHREADDISPLAY_H
-#define MULTITHREADDISPLAY_H
+#ifndef UPDATETASK_H
+#define UPDATETASK_H
 
-#include <display/SimpleDisplay.h>
+#include <display/IDrawingTask.h>
+#include <QtCore/QObject>
 
-#include <QtCore/QMutex>
+class MultithreadDisplay;
 
-class RenderThread;
-
-class MultithreadDisplay : public SimpleDisplay
+class UpdateTask : public QObject, public IDrawingTask
 {
     Q_OBJECT
 public:
-    MultithreadDisplay(QWidget *parent = nullptr);
-    ~MultithreadDisplay();
+    UpdateTask(QWidget* widget, QObject *parent = nullptr);
 
-    void startDrawing() override;
-    void finishDrawing() override;
+    void draw(IDisplay&) override;
 
-    QPixmap *lockPixmap() override;
-    void unlockPixmap() override;
-
-    void postDrawingTask(IDrawingTaskPtr task) override;
-
-private:
-    Q_DISABLE_COPY(MultithreadDisplay)
-    friend class StartDrawingTask;
-
-    void callCreatePixmap();
-
-private:
-    DrawingTaskQueue m_taskQueue;
-    RenderThread* m_renderer;
-    QMutex m_mutex;
+signals:
+    void callUpdate();
 };
 
-#endif // MULTITHREADDISPLAY_H
+#endif // UPDATETASK_H

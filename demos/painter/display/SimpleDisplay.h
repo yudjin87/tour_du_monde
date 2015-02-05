@@ -60,6 +60,9 @@ protected:
 
     void scrollContentsBy(int dx, int dy) override;
 
+    QPixmap *createPixmap();
+    void setPixmap(QPixmap *pixmap);
+
 signals:
     void needChange();
 

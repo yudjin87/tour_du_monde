@@ -37,6 +37,8 @@ HEADERS += \
     IDrawingTask.h \
     RenderThread.h \
     MultithreadDisplay.h \
+    StartDrawingTask.h \
+    UpdateTask.h
 
 SOURCES += \
     DisplayComponent.cpp \
@@ -55,6 +57,8 @@ SOURCES += \
     ThreadSafeQueue.cpp \
     RenderThread.cpp \
     MultithreadDisplay.cpp \
+    StartDrawingTask.cpp \
+    UpdateTask.cpp
 
 FORMS +=
 

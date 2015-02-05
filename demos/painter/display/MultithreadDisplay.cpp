@@ -25,7 +25,17 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include <display/MultithreadDisplay.h>
+#include <display/StartDrawingTask.h>
+#include <display/UpdateTask.h>
 #include <display/RenderThread.h>
+#include <carousel/logging/LoggerFacade.h>
+
+#include <QtCore/QMutexLocker>
+
+namespace
+{
+static LoggerFacade Log = LoggerFacade::createLogger("MT Display");
+}
 
 //------------------------------------------------------------------------------
 static const int flipY = -1;
@@ -49,6 +59,20 @@ MultithreadDisplay::~MultithreadDisplay()
 }
 
 //------------------------------------------------------------------------------
+void MultithreadDisplay::startDrawing()
+{
+    Log.d("Start drawing: create StartDrawingTask");
+    m_taskQueue.push(IDrawingTaskPtr(new StartDrawingTask(this)));
+}
+
+//------------------------------------------------------------------------------
+void MultithreadDisplay::finishDrawing()
+{
+    Log.d("Finish drawing: create UpdateTask");
+    m_taskQueue.push(IDrawingTaskPtr(new UpdateTask(viewport())));
+}
+
+//------------------------------------------------------------------------------
 QPixmap *MultithreadDisplay::lockPixmap()
 {
     m_mutex.lock();
@@ -66,6 +90,13 @@ void MultithreadDisplay::postDrawingTask(IDrawingTaskPtr task)
 {
     Q_ASSERT(task != nullptr && "Null pointer is not allowed");
     m_taskQueue.push(std::move(task));
+}
+
+//------------------------------------------------------------------------------
+void MultithreadDisplay::callCreatePixmap()
+{
+    QMutexLocker guard(&m_mutex);
+    setPixmap(createPixmap());
 }
 
 //------------------------------------------------------------------------------

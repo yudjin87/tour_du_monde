@@ -4,6 +4,9 @@
 
 #include <display/IDisplay.h>
 #include <display/DisplayTransformation.h>
+#include <carto/IMap.h>
+#include <carto/IPainterDocument.h>
+#include <carto/IPainterDocumentController.h>
 
 #include <QtGui/QMouseEvent>
 
@@ -67,6 +70,11 @@ void PanTool::onMouseUp(QMouseEvent *event)
     IDisplay *display = m_serviceLocator->locate<IDisplay>();
     display->panStop();
     display->setCursor(Qt::OpenHandCursor);
+
+    IPainterDocumentController* docController = m_serviceLocator->locate<IPainterDocumentController>();
+    IPainterDocument *doc = docController->document();
+    IMap *map = doc->map();
+    map->refresh();
 }
 
 //------------------------------------------------------------------------------

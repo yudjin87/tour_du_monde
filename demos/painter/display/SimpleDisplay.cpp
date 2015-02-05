@@ -27,13 +27,19 @@
 #include <display/SimpleDisplay.h>
 #include <display/DisplayTransformation.h>
 #include <display/Throttle.h>
+#include <carousel/logging/LoggerFacade.h>
 
 #include <QtGui/QShowEvent>
 #include <QtGui/QPaintDevice>
-#include <QtGui/QPixmap>
 #include <QtGui/QPainter>
 
 #include <QtWidgets/QScrollBar>
+
+
+namespace
+{
+static LoggerFacade Log = LoggerFacade::createLogger("SimpleDisplay");
+}
 
 //------------------------------------------------------------------------------
 static const int flipY = -1;
@@ -66,21 +72,32 @@ SimpleDisplay::SimpleDisplay(QWidget *parent)
 //------------------------------------------------------------------------------
 SimpleDisplay::~SimpleDisplay()
 {
-    delete m_pixmap;
-    m_pixmap = nullptr; // TODO
-    //Q_ASSERT(m_pixmap == nullptr && "Illegal state!");
+}
+
+//------------------------------------------------------------------------------
+void SimpleDisplay::paintEvent(QPaintEvent *event)
+{
+    Q_UNUSED(event)
+    if (m_pixmap == nullptr)
+        return;
+
+    lockPixmap(); // TODO: use guard
+
+    //Log.d("Updating view ..................................................");
+    QPainter painter(viewport());
+    painter.drawPixmap(m_offset.x(), m_offset.y(), m_pixmap->width(), m_pixmap->height(), *m_pixmap);
+
+    unlockPixmap();
 }
 
 //------------------------------------------------------------------------------
 void SimpleDisplay::startDrawing()
 {
-    //Q_ASSERT(m_pixmap != nullptr && "Illegal state during the starting drawing!");
-
+    // TODO: override in MT environment
     delete m_pixmap;
     m_pixmap = nullptr;
 
-    m_pixmap = new QPixmap(this->width(), this->height());
-    m_pixmap->fill(Qt::white);
+    m_pixmap = createPixmap();
 
     /*
 #ifndef NDEBUG
@@ -110,13 +127,13 @@ void SimpleDisplay::startDrawing()
 void SimpleDisplay::finishDrawing()
 {
     Q_ASSERT(m_pixmap != nullptr && "Illegal state during the finishing drawing!");
-
+    viewport()->update();
 //    delete m_pixmap;
 //    m_pixmap = nullptr;
 }
 
 //------------------------------------------------------------------------------
-QPixmap *SimpleDisplay::lockPixmap()
+QPixmap* SimpleDisplay::lockPixmap()
 {
     return m_pixmap;
 }
@@ -148,7 +165,7 @@ const DisplayTransformation *SimpleDisplay::transformation() const
 void SimpleDisplay::panMoveTo(const QPoint &screenPoint)
 {
     m_offset = (screenPoint - m_startPan);
-    qDebug("panMoveTo: x: %f, y:%f", m_offset.x(), m_offset.y());
+    //qDebug("panMoveTo: x: %f, y:%f", m_offset.x(), m_offset.y());
     viewport()->update();
 }
 
@@ -156,7 +173,7 @@ void SimpleDisplay::panMoveTo(const QPoint &screenPoint)
 void SimpleDisplay::panStart(const QPoint &screenPoint)
 {
     m_startPan = screenPoint;
-    qDebug("panStart: x: %d, y:%d", screenPoint.x(), screenPoint.y());
+    //qDebug("panStart: x: %d, y:%d", screenPoint.x(), screenPoint.y());
 }
 
 //------------------------------------------------------------------------------
@@ -194,6 +211,21 @@ void SimpleDisplay::scrollContentsBy(int dx, int dy)
 }
 
 //------------------------------------------------------------------------------
+QPixmap *SimpleDisplay::createPixmap()
+{
+    QPixmap* pixmap = new QPixmap(this->width(), this->height());
+    pixmap->fill(Qt::white);
+    return pixmap;
+}
+
+//------------------------------------------------------------------------------
+void SimpleDisplay::setPixmap(QPixmap *pixmap)
+{
+    delete m_pixmap;
+    m_pixmap = pixmap;
+}
+
+//------------------------------------------------------------------------------
 void SimpleDisplay::mouseMoveEvent(QMouseEvent *event)
 {
     Q_UNUSED(event)
@@ -201,21 +233,6 @@ void SimpleDisplay::mouseMoveEvent(QMouseEvent *event)
 
     // QPointF mapPoint = transformation()->toMapPoint(point.x(), point.y());
     // qDebug("x:%f; y:%f", mapPoint.x(), mapPoint.y());
-}
-
-//------------------------------------------------------------------------------
-void SimpleDisplay::paintEvent(QPaintEvent *event)
-{
-    Q_UNUSED(event)
-    if (m_pixmap == nullptr)
-        return;
-
-    lockPixmap(); // TODO: use guard
-
-    QPainter painter(viewport());
-    painter.drawPixmap(m_offset.x(), m_offset.y(), m_pixmap->width(), m_pixmap->height(), *m_pixmap);
-
-    unlockPixmap();
 }
 
 //------------------------------------------------------------------------------
