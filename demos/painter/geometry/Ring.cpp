@@ -42,21 +42,12 @@ Ring::Ring(const QRectF &extent, QObject *parent)
 }
 
 //------------------------------------------------------------------------------
-#ifdef Q_COMPILER_INITIALIZER_LISTS
 Ring::Ring(std::initializer_list<QPointF> points, QObject *parent)
     : AbstractGeometry(parent)
     , m_segments()
 {
     m_segments.append(new Segment(points));
 }
-#else
-Ring::Ring(QVector<QPointF> points, QObject *parent)
-    : AbstractGeometry(parent)
-    , m_segments()
-{
-    m_segments.append(new Segment(points));
-}
-#endif // #ifdef Q_COMPILER_INITIALIZER_LISTS
 
 //------------------------------------------------------------------------------
 Ring::~Ring()

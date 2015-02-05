@@ -35,12 +35,7 @@ class GEOMETRY_API Polyline : public Polycurve
 public:
     explicit Polyline(QObject *parent = nullptr);
     explicit Polyline(const QRectF &extent, QObject *parent = nullptr);
-
-#ifdef Q_COMPILER_INITIALIZER_LISTS
     explicit Polyline(std::initializer_list<QPointF> points, QObject *parent = nullptr);
-#else
-    explicit Polyline(QVector<QPointF> points, QObject *parent = nullptr);
-#endif // #ifdef Q_COMPILER_INITIALIZER_LISTS
 
     ~Polyline();
     GeometryType type() const override;

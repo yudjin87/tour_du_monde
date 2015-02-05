@@ -28,12 +28,8 @@
 #define POLYCURVE_H
 
 #include "AbstractGeometry.h"
-
 #include <QtCore/QVector>
-
-#ifdef Q_COMPILER_INITIALIZER_LISTS // MSVC does not support it yet
 #include <initializer_list>
-#endif // #ifdef Q_COMPILER_INITIALIZER_LISTS
 
 class Ring;
 typedef QVector<Ring *> RingList;
@@ -45,11 +41,7 @@ class GEOMETRY_API Polycurve : public AbstractGeometry
 public:
     explicit Polycurve(QObject *parent = nullptr);
     explicit Polycurve(const QRectF &extent, QObject *parent = nullptr);
-#ifdef Q_COMPILER_INITIALIZER_LISTS
     explicit Polycurve(std::initializer_list<QPointF> points, QObject *parent = nullptr);
-#else
-    explicit Polycurve(QVector<QPointF> points, QObject *parent = nullptr);
-#endif // #ifdef Q_COMPILER_INITIALIZER_LISTS
 
     ~Polycurve();
 

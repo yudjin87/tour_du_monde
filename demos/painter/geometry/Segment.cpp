@@ -41,19 +41,14 @@ Segment::Segment(const QRectF &extent, QObject *parent)
 }
 
 //------------------------------------------------------------------------------
-#ifdef Q_COMPILER_INITIALIZER_LISTS
 Segment::Segment(std::initializer_list<QPointF> points, QObject *parent)
     : AbstractGeometry(parent)
-    , m_value(points)
+    , m_value()
 {
+    for (const QPointF& p : points) { // TODO: when Qt will be supported initializer list
+        m_value.append(p);
+    }
 }
-#else
-Segment::Segment(QVector<QPointF> points, QObject *parent)
-    : AbstractGeometry(parent)
-    , m_value(points)
-{
-}
-#endif // #ifdef Q_COMPILER_INITIALIZER_LISTS
 
 //------------------------------------------------------------------------------
 QPolygonF &Segment::curve()

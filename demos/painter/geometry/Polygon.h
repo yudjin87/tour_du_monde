@@ -35,11 +35,7 @@ class GEOMETRY_API Polygon : public Polycurve
 public:
     explicit Polygon(QObject *parent = nullptr);
     explicit Polygon(const QRectF &extent, QObject *parent = nullptr);
-#ifdef Q_COMPILER_INITIALIZER_LISTS
     explicit Polygon(std::initializer_list<QPointF> points, QObject *parent = nullptr);
-#else
-    explicit Polygon(QVector<QPointF> points, QObject *parent = nullptr);
-#endif // #ifdef Q_COMPILER_INITIALIZER_LISTS
 
     ~Polygon();
 
