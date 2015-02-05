@@ -29,8 +29,6 @@
 
 #include "IDisplay.h"
 
-class QPixmap;
-
 class SimpleDisplay :  public IDisplay
 {
     Q_OBJECT
@@ -38,10 +36,8 @@ public:
     SimpleDisplay(QWidget *parent = nullptr);
     ~SimpleDisplay();
 
-    QPainter *painter() override;
-
-    QPainter *startDrawing() override;
-    void finishDrawing(QPainter *painter) override;
+    QPixmap *startDrawing() override;
+    void finishDrawing(QPixmap *pixmap) override;
 
     DisplayTransformation *transformation() override;
     const DisplayTransformation *transformation() const override;
@@ -79,7 +75,6 @@ private:
     QPointF m_offset;
     QPoint m_startPan;
     QPixmap *m_pixmap;
-    QPainter *m_currentPainter;
     DisplayTransformation *m_transform;
 };
 #endif // DISPLAY_H

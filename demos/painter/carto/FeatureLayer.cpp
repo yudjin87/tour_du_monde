@@ -38,6 +38,8 @@
 #include <geodatabase/SpatialFilter.h>
 #include <geometry/Polygon.h>
 
+#include <QtGui/QPainter>
+#include <QtGui/QPixmap>
 #include <QtCore/QFileInfo>
 
 //------------------------------------------------------------------------------
@@ -86,7 +88,16 @@ void FeatureLayer::draw(IDisplay *display)
 
     IFeatureClass::FeatureList features = m_featureClass->search(filter);
     //qDebug(QString("draw %1 features").arg(features.size()).toLatin1());
-    m_featureRenderer->draw(features, display);
+
+    DisplayTransformation* transform = display->transformation();
+    const QTransform &viewport = transform->transform();
+
+    QPixmap* pixmap = display->startDrawing();
+    QPainter painter(pixmap);
+    painter.setTransform(viewport, false);
+
+    m_featureRenderer->draw(features, &painter);
+    display->finishDrawing(pixmap);
 }
 
 //------------------------------------------------------------------------------

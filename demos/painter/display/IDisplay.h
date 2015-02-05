@@ -33,7 +33,7 @@
 
 class DisplayTransformation;
 
-class QPainter;
+class QPixmap;
 
 class DISPLAY_API IDisplay : public QAbstractScrollArea
 {
@@ -43,10 +43,8 @@ public:
     IDisplay(){}
     virtual ~IDisplay(){}
 
-    virtual QPainter *painter() = 0;
-
-    virtual QPainter *startDrawing() = 0;
-    virtual void finishDrawing(QPainter *painter) = 0;
+    virtual QPixmap *startDrawing() = 0;
+    virtual void finishDrawing(QPixmap *pixmap) = 0;
 
     virtual DisplayTransformation *transformation() = 0;
     virtual const DisplayTransformation *transformation() const = 0;

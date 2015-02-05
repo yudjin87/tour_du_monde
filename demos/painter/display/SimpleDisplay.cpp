@@ -31,8 +31,8 @@
 
 #include <QtGui/QShowEvent>
 #include <QtGui/QPaintDevice>
-#include <QtGui/QPainter>
 #include <QtGui/QPixmap>
+#include <QtGui/QPainter>
 
 #include <QtWidgets/QScrollBar>
 
@@ -46,7 +46,6 @@ SimpleDisplay::SimpleDisplay(QWidget *parent)
     , m_offset(0, 0)
     , m_startPan(0, 0)
     , m_pixmap(nullptr)
-    , m_currentPainter(nullptr)
     , m_transform(new DisplayTransformation())
 {
     setMouseTracking(true);
@@ -70,19 +69,10 @@ SimpleDisplay::~SimpleDisplay()
 {
     delete m_pixmap;
     m_pixmap = nullptr;
-
-    delete m_currentPainter;
-    m_currentPainter = nullptr;
 }
 
 //------------------------------------------------------------------------------
-QPainter *SimpleDisplay::painter()
-{
-    return m_currentPainter;
-}
-
-//------------------------------------------------------------------------------
-QPainter *SimpleDisplay::startDrawing()
+QPixmap *SimpleDisplay::startDrawing()
 {
     if (m_pixmap != nullptr) {
         delete m_pixmap;
@@ -90,7 +80,9 @@ QPainter *SimpleDisplay::startDrawing()
     }
     m_pixmap = new QPixmap(this->width(), this->height());
     m_pixmap->fill(Qt::white);
+    return m_pixmap;
 
+    /*
     m_currentPainter = new QPainter(m_pixmap);
 
     const QTransform &viewport = m_transform->transform();
@@ -116,15 +108,16 @@ QPainter *SimpleDisplay::startDrawing()
 #endif
 
     return m_currentPainter;
+    */
 }
 
 //------------------------------------------------------------------------------
-void SimpleDisplay::finishDrawing(QPainter *painter)
+void SimpleDisplay::finishDrawing(QPixmap *pixmap)
 {
-    Q_UNUSED(painter)
+    Q_UNUSED(pixmap)
 
-    delete m_currentPainter;
-    m_currentPainter = nullptr;
+//    delete m_currentPainter;
+//    m_currentPainter = nullptr;
 }
 
 //------------------------------------------------------------------------------
@@ -297,3 +290,4 @@ int SimpleDisplay::getDx(double scale)
 }
 
 //------------------------------------------------------------------------------
+

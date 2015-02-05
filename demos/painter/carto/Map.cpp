@@ -104,11 +104,11 @@ void Map::refresh()
     if (m_layers.isEmpty())
         return;
 
-    QPainter *painter = m_display->startDrawing();
+    //QPainter *painter = m_display->startDrawing();
     for (AbstractLayer *layer : m_layers)
         layer->draw(m_display);
 
-    m_display->finishDrawing(painter);
+    //m_display->finishDrawing(painter);
     m_display->updateWindow();
     emit refreshed();
 }

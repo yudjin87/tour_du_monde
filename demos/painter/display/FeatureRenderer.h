@@ -32,9 +32,9 @@
 #include <QtCore/QVector>
 #include <QtCore/QObject>
 
-class IDisplay;
 class IFeature;
 class ISymbol;
+class QPainter;
 
 class DISPLAY_API FeatureRenderer : public QObject
 {
@@ -65,7 +65,7 @@ public:
      *   This method typically iterates through all the features and renders each
      *   feature with an appropriate symbol.
      */
-    void draw(const QVector<IFeature *> &features, IDisplay *display);
+    void draw(const QVector<IFeature *> &features, QPainter *painter);
 
     ISymbol *symbol();
     const ISymbol *symbol() const;

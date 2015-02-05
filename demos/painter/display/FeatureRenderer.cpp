@@ -26,9 +26,10 @@
 
 #include "FeatureRenderer.h"
 
-#include <display/IDisplay.h>
 #include <display/ISymbol.h>
 #include <geodatabase/IFeature.h>
+
+#include <QtGui/QPainter>
 
 //------------------------------------------------------------------------------
 FeatureRenderer::FeatureRenderer(QObject *parent)
@@ -43,9 +44,9 @@ FeatureRenderer::~FeatureRenderer()
 }
 
 //------------------------------------------------------------------------------
-void FeatureRenderer::draw(const QVector<IFeature *> &features, IDisplay *display)
+void FeatureRenderer::draw(const QVector<IFeature *> &features, QPainter *painter)
 {
-    m_symbol->setupPainter(display->painter());
+    m_symbol->setupPainter(painter);
     for (const IFeature *feature : features) {
         m_symbol->draw(feature->geometry());
     }
