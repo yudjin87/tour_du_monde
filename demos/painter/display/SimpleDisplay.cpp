@@ -221,6 +221,7 @@ QPixmap *SimpleDisplay::createPixmap()
 //------------------------------------------------------------------------------
 void SimpleDisplay::setPixmap(QPixmap *pixmap)
 {
+    Log.d("                     Changing pixmap");
     delete m_pixmap;
     m_pixmap = pixmap;
 }

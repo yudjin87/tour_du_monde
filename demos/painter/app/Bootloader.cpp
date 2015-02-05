@@ -74,8 +74,8 @@ void Bootloader::onLoadingSequenceFinised()
 //------------------------------------------------------------------------------
 ILoggerEngineCreator *Bootloader::createLoggerEngine()
 {
-    //return CarouselBootloader::createLoggerEngine();
-    return new LoggerEngineCreator();
+    return CarouselBootloader::createLoggerEngine();
+    //return new LoggerEngineCreator();
 }
 
 //------------------------------------------------------------------------------
