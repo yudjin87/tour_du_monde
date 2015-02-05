@@ -47,7 +47,8 @@ Bootloader::Bootloader()
 void Bootloader::configureComponentProvider()
 {
     CompositeComponentProvider *provider = static_cast<CompositeComponentProvider *>(m_componentProvider);
-    provider->addProvider(new DirectoryComponentProvider("./installedComponents"));
+    //provider->addProvider(new DirectoryComponentProvider("./installedComponents"));
+    provider->addProvider(new DirectoryComponentProvider("./externalSource"));
     provider->registerComponent(new ComponentSystemUIComponent());
     provider->registerComponent(new InteractionServiceComponent());
     provider->registerComponent(new JsScriptingComponent());
