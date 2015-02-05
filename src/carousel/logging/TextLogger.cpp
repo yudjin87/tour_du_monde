@@ -30,6 +30,11 @@
 #include <QtCore/QDate>
 #include <QtCore/QThread>
 
+#include <QtCore/QMutex>
+#include <QtCore/QMutexLocker>
+
+static QMutex mutex;
+
 //------------------------------------------------------------------------------
 TextLogger::TextLogger(QTextStream &output)
     : ILoggerEngine()
@@ -51,6 +56,7 @@ TextLogger::TextLogger(QTextStream &output, const QString &name)
 //------------------------------------------------------------------------------
 ILoggerEngine *TextLogger::getLogger(const QString &name)
 {
+    QMutexLocker locker(&mutex);
     return new TextLogger(m_outputStream, name);
 }
 
@@ -107,6 +113,7 @@ void TextLogger::log(const QString &message, const QString &category)
             .arg(category)
             .arg(message);
 
+    QMutexLocker locker(&mutex);
     m_outputStream << formatedMessage << endl;
 }
 
