@@ -26,6 +26,7 @@
 
 #include "CartoUIInteractiveExtension.h"
 #include "LayersTreeModel.h"
+#include "FeatureLayerDelegate.h"
 
 #include <carto/IPainterDocument.h>
 #include <carto/IPainterDocumentController.h>
@@ -54,9 +55,10 @@ void CartoUIInteractiveExtension::configureGui(ICatalogs &inCatalogs, IServiceLo
     IPainterDocument *doc = docController->document();
 
     IDockWidgetCatalog &catalog = inCatalogs.dockWidgetCatalog();
-    QListView *view = new QListView();
-    view->setModel(new LayersTreeModel(doc->map(), view));
-    QDockWidget *layersDock = catalog.addDockWidget(view, "Layers tree");
+    QListView *layersTree = new QListView();
+    layersTree->setModel(new LayersTreeModel(doc->map(), layersTree));
+    layersTree->setItemDelegate(new FeatureLayerDelegate(layersTree));
+    QDockWidget *layersDock = catalog.addDockWidget(layersTree, "Layers tree");
 
     Operation *toogleTree = new ToggleActionWrapper(layersDock->toggleViewAction(), QIcon(":/cartoUI/images/layerTree.png"));
     inCatalogs.operationCatalog().add(toogleTree);

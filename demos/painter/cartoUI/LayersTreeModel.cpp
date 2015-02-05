@@ -50,6 +50,31 @@ LayersTreeModel::LayersTreeModel(IMap *map, QObject *parent)
 }
 
 //------------------------------------------------------------------------------
+Qt::ItemFlags LayersTreeModel::flags(const QModelIndex &index) const
+{
+    if (!index.isValid())
+        return Qt::ItemIsEnabled;
+
+    return QAbstractItemModel::flags(index) | Qt::ItemIsEditable;
+}
+
+//------------------------------------------------------------------------------
+bool LayersTreeModel::setData(const QModelIndex &index, const QVariant &value, int role)
+{
+    if (!index.isValid())
+        return false;
+
+    if (role != Qt::EditRole)
+        return false;
+
+    FeatureLayer *layer = static_cast<FeatureLayer *>(m_map->layers().at(index.row()));
+    layer->setName(value.toString());
+    emit dataChanged(index, index);
+
+    return true;
+}
+
+//------------------------------------------------------------------------------
 int LayersTreeModel::rowCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent)
@@ -59,10 +84,14 @@ int LayersTreeModel::rowCount(const QModelIndex &parent) const
 //------------------------------------------------------------------------------
 QVariant LayersTreeModel::data(const QModelIndex &index, int role) const
 {
+    if (!index.isValid())
+        return QVariant();
+
     const FeatureLayer *layer = static_cast<FeatureLayer *>(m_map->layers().at(index.row()));
 
     switch (role) {
     case Qt::DisplayRole:
+    case Qt::EditRole:
         return layer->name();
 
     case Qt::DecorationRole:
@@ -110,17 +139,8 @@ QMap<GeometryType, AbstractGeometry *> fillThumbnails()
     QMap<GeometryType, AbstractGeometry *> map;
     map.insert(GeometryPoint, new Point(8, 8));
 
-#ifdef Q_COMPILER_INITIALIZER_LISTS
-    map.insert(GeometryPolyline, new Polyline({QPointF(2, 8), QPointF(14, 8)}));
-    map.insert(GeometryPolygon, new Polygon({QPointF(2, 2), QPointF(14, 2), QPointF(14, 14), QPointF(2, 14)}));
-#else
-    QVector<QPointF> polyline; polyline.append(QPointF(2, 8)); polyline.append(QPointF(14, 8));
-    map.insert(GeometryPolyline, new Polyline(polyline));
-
-    QVector<QPointF> polygone; polygone.append(QPointF( 2,  2)); polygone.append(QPointF(14,  2));
-                               polygone.append(QPointF(14, 14)); polygone.append(QPointF( 2, 14));
-    map.insert(GeometryPolygon, new Polygon(polygone));
-#endif // #ifdef Q_COMPILER_INITIALIZER_LISTS
+    map.insert(GeometryPolyline, new Polyline{QPointF(2, 8), QPointF(14, 8)});
+    map.insert(GeometryPolygon, new Polygon{QPointF(2, 2), QPointF(14, 2), QPointF(14, 14), QPointF(2, 14)});
 
     return map;
 }

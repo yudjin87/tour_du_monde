@@ -1,6 +1,6 @@
 include(../shared.pri)
 
-QT       += core widgets
+QT       += core widgets gui
 
 TARGET = org.carousel.demos.CartoUI
 
@@ -24,11 +24,13 @@ HEADERS += \
     CartoUIComponent.h \
     CartoUIInteractiveExtension.h \
     LayersTreeModel.h \
+    FeatureLayerDelegate.h \
 
 SOURCES += \
     CartoUIComponent.cpp \
     CartoUIInteractiveExtension.cpp \
-    LayersTreeModel.cpp
+    LayersTreeModel.cpp \
+    FeatureLayerDelegate.cpp
 
 OTHER_FILES += \
     org.carousel.demos.CartoUI.definition
