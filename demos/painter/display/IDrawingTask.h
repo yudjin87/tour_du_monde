@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- 
+
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -24,51 +24,28 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef IDISPLAY_H
-#define IDISPLAY_H
+#ifndef IDRAWINGTASK
+#define IDRAWINGTASK
 
 #include <display/display_api.h>
-#include <display/IDrawingTask.h>
-#include <display/ThreadSafeQueue.h>
 
 #include <QtWidgets/QAbstractScrollArea>
+#include <memory>
 
-class DisplayTransformation;
+class IDisplay;
 
-class QPixmap;
-
-class DISPLAY_API IDisplay : public QAbstractScrollArea
+class DISPLAY_API IDrawingTask
 {
-    Q_OBJECT
-    Q_PROPERTY(DisplayTransformation *transformation READ transformation)
 public:
-    IDisplay(){}
-    virtual ~IDisplay(){}
-
-    virtual void startDrawing() = 0;
-    virtual void finishDrawing() = 0;
-
-    virtual QPixmap *lockPixmap() = 0;
-    virtual void unlockPixmap() = 0;
-
-    virtual DisplayTransformation *transformation() = 0;
-    virtual const DisplayTransformation *transformation() const = 0;
-
-    virtual void postDrawingTask(IDrawingTaskPtr task) = 0;
-
-public slots:
-    virtual void panMoveTo(const QPoint &screenPoint) = 0;
-    virtual void panStart(const QPoint &screenPoint) = 0;
-    virtual QRectF panStop() = 0;
-    virtual void updateWindow() = 0;
-
-signals:
-    void visibleBoundsUpdated(DisplayTransformation *transform);
+    IDrawingTask(){}
+    virtual ~IDrawingTask(){}
+    virtual void draw(IDisplay& display) = 0;
 
 private:
-    Q_DISABLE_COPY(IDisplay)
+    Q_DISABLE_COPY(IDrawingTask)
 };
 
-typedef ThreadSafeQueue<IDrawingTaskPtr> DrawingTaskQueue;
+typedef std::unique_ptr<IDrawingTask> IDrawingTaskPtr;
 
-#endif // IDISPLAY_H
+#endif // IDRAWINGTASK
+

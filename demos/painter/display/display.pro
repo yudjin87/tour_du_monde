@@ -32,7 +32,11 @@ HEADERS += \
     FillSymbol.h \
     SimpleFillSymbol.h \
     DisplayTransformation.h \
-    DisplayScriptExtension.h
+    DisplayScriptExtension.h \
+    ThreadSafeQueue.h \
+    IDrawingTask.h \
+    RenderThread.h \
+    MultithreadDisplay.h \
 
 SOURCES += \
     DisplayComponent.cpp \
@@ -47,7 +51,10 @@ SOURCES += \
     FillSymbol.cpp \
     SimpleFillSymbol.cpp \
     DisplayTransformation.cpp \
-    DisplayScriptExtension.cpp
+    DisplayScriptExtension.cpp \
+    ThreadSafeQueue.cpp \
+    RenderThread.cpp \
+    MultithreadDisplay.cpp \
 
 FORMS +=
 

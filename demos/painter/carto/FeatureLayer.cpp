@@ -24,7 +24,8 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "FeatureLayer.h"
+#include <carto/FeatureLayer.h>
+#include <carto/FeatureLayerDrawingTask.h>
 
 #include <display/FeatureRenderer.h>
 #include <display/IDisplay.h>
@@ -37,10 +38,14 @@
 #include <geodatabase/IFeatureClass.h>
 #include <geodatabase/SpatialFilter.h>
 #include <geometry/Polygon.h>
+#include <carousel/logging/LoggerFacade.h>
 
-#include <QtGui/QPainter>
-#include <QtGui/QPixmap>
 #include <QtCore/QFileInfo>
+
+namespace
+{
+static LoggerFacade Log = LoggerFacade::createLogger("FeatureLayer");
+}
 
 //------------------------------------------------------------------------------
 FeatureLayer::FeatureLayer(QObject *parent)
@@ -89,15 +94,18 @@ void FeatureLayer::draw(IDisplay *display)
     IFeatureClass::FeatureList features = m_featureClass->search(filter);
     //qDebug(QString("draw %1 features").arg(features.size()).toLatin1());
 
-    DisplayTransformation* transform = display->transformation();
-    const QTransform &viewport = transform->transform();
+    FeatureLayerDrawingTask* task = new FeatureLayerDrawingTask(std::move(features), m_featureRenderer);
+    display->postDrawingTask(IDrawingTaskPtr(task));
+    //task->draw(*display);
+//    DisplayTransformation* transform = display->transformation();
+//    const QTransform &viewport = transform->transform();
 
-    QPixmap* pixmap = display->startDrawing();
-    QPainter painter(pixmap);
-    painter.setTransform(viewport, false);
+//    QPixmap* pixmap = display->startDrawing();
+//    QPainter painter(pixmap);
+//    painter.setTransform(viewport, false);
 
-    m_featureRenderer->draw(features, &painter);
-    display->finishDrawing(pixmap);
+//    m_featureRenderer->draw(features, &painter);
+//    display->finishDrawing(pixmap);
 }
 
 //------------------------------------------------------------------------------

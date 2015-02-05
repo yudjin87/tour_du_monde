@@ -39,7 +39,6 @@ public:
     Map(IPainterDocument *parentDocument, IDisplay *display);
     ~Map();
 
-
     QList<AbstractLayer *> layers() const override;
 
     IPainterDocument *document() override;

@@ -64,24 +64,25 @@ void AddShapesCommand::addShapeFiles(const QStringList &files)
 //------------------------------------------------------------------------------
 void AddShapesCommand::redo()
 {
+    IPainterDocumentController* docController = m_locator->locate<IPainterDocumentController>();
+    IPainterDocument *doc = docController->document();
+    IShapeFileWorkspaceFactoryPtr factory(m_locator->buildInstance<IShapeFileWorkspaceFactory>());
+
     for (const QString &fileName : m_files) {
         QFileInfo shapeFile(fileName);
         const QString &workingDirectory = shapeFile.absolutePath();
 
-        IPainterDocumentController* docController = m_locator->locate<IPainterDocumentController>();
-        IPainterDocument *doc = docController->document();
-
-        IShapeFileWorkspaceFactoryPtr factory(m_locator->buildInstance<IShapeFileWorkspaceFactory>());
         IFeatureWorkspace *workspace = (IFeatureWorkspace *)factory->openFromFile(workingDirectory);
 
         IFeatureClass *railwaysClass = workspace->openFeatureClass(fileName);
         FeatureLayer *railwaysLayer = new FeatureLayer();
         railwaysLayer->setFeatureClass(railwaysClass);
         doc->map()->addLayer(railwaysLayer);
-        doc->map()->refresh();
 
         delete workspace;
     }
+
+    doc->map()->refresh();
 }
 
 //------------------------------------------------------------------------------

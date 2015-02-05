@@ -24,10 +24,9 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "SimpleDisplay.h"
-#include "DisplayTransformation.h"
-
-#include "Throttle.h"
+#include <display/SimpleDisplay.h>
+#include <display/DisplayTransformation.h>
+#include <display/Throttle.h>
 
 #include <QtGui/QShowEvent>
 #include <QtGui/QPaintDevice>
@@ -68,29 +67,25 @@ SimpleDisplay::SimpleDisplay(QWidget *parent)
 SimpleDisplay::~SimpleDisplay()
 {
     delete m_pixmap;
-    m_pixmap = nullptr;
+    m_pixmap = nullptr; // TODO
+    //Q_ASSERT(m_pixmap == nullptr && "Illegal state!");
 }
 
 //------------------------------------------------------------------------------
-QPixmap *SimpleDisplay::startDrawing()
+void SimpleDisplay::startDrawing()
 {
-    if (m_pixmap != nullptr) {
-        delete m_pixmap;
-        m_pixmap = nullptr;
-    }
+    //Q_ASSERT(m_pixmap != nullptr && "Illegal state during the starting drawing!");
+
+    delete m_pixmap;
+    m_pixmap = nullptr;
+
     m_pixmap = new QPixmap(this->width(), this->height());
     m_pixmap->fill(Qt::white);
-    return m_pixmap;
 
     /*
-    m_currentPainter = new QPainter(m_pixmap);
-
-    const QTransform &viewport = m_transform->transform();
-    m_currentPainter->setTransform(viewport, false);
-
 #ifndef NDEBUG
-    double scale = m_transform->scale();
-    QRectF r = m_transform->visibleBounds().adjusted(3 / scale, 20 / scale, -20 / scale, -3 / scale);
+    double scale = transformation()->scale();
+    QRectF r = transformation()->visibleBounds().adjusted(3 / scale, 20 / scale, -20 / scale, -3 / scale);
 
     QPen pen;
     pen.setWidth(1);
@@ -103,7 +98,7 @@ QPixmap *SimpleDisplay::startDrawing()
     pen.setWidth(3);
     pen.setColor(Qt::red);
     m_currentPainter->setPen(pen);
-    r = m_transform->bounds().adjusted(3 / scale, 20 / scale, -20 / scale, -3 / scale);
+    r = transformation()->bounds().adjusted(3 / scale, 20 / scale, -20 / scale, -3 / scale);
     m_currentPainter->drawRect(r);
 #endif
 
@@ -112,24 +107,41 @@ QPixmap *SimpleDisplay::startDrawing()
 }
 
 //------------------------------------------------------------------------------
-void SimpleDisplay::finishDrawing(QPixmap *pixmap)
+void SimpleDisplay::finishDrawing()
 {
-    Q_UNUSED(pixmap)
+    Q_ASSERT(m_pixmap != nullptr && "Illegal state during the finishing drawing!");
 
-//    delete m_currentPainter;
-//    m_currentPainter = nullptr;
+//    delete m_pixmap;
+//    m_pixmap = nullptr;
+}
+
+//------------------------------------------------------------------------------
+QPixmap *SimpleDisplay::lockPixmap()
+{
+    return m_pixmap;
+}
+
+//------------------------------------------------------------------------------
+void SimpleDisplay::unlockPixmap()
+{
 }
 
 //------------------------------------------------------------------------------
 DisplayTransformation *SimpleDisplay::transformation()
 {
-    return m_transform;
+    lockPixmap(); // TODO
+    DisplayTransformation * tmp = m_transform;
+    unlockPixmap();
+    return tmp;
 }
 
 //------------------------------------------------------------------------------
 const DisplayTransformation *SimpleDisplay::transformation() const
 {
-    return m_transform;
+    //lockPixmap();
+    //const DisplayTransformation * tmp = transformation();
+    //unlockPixmap();
+    return nullptr;
 }
 
 //------------------------------------------------------------------------------
@@ -161,7 +173,14 @@ QRectF SimpleDisplay::panStop()
 //------------------------------------------------------------------------------
 void SimpleDisplay::updateWindow()
 {
-    viewport()->update();
+   viewport()->update();
+}
+
+//------------------------------------------------------------------------------
+void SimpleDisplay::postDrawingTask(IDrawingTaskPtr task)
+{
+    Q_ASSERT(task != nullptr && "Null pointer is not allowed");
+    task->draw(*this);
 }
 
 //------------------------------------------------------------------------------
@@ -180,7 +199,7 @@ void SimpleDisplay::mouseMoveEvent(QMouseEvent *event)
     Q_UNUSED(event)
     //QPoint point = event->pos();
 
-    // QPointF mapPoint = m_transform->toMapPoint(point.x(), point.y());
+    // QPointF mapPoint = transformation()->toMapPoint(point.x(), point.y());
     // qDebug("x:%f; y:%f", mapPoint.x(), mapPoint.y());
 }
 
@@ -191,8 +210,12 @@ void SimpleDisplay::paintEvent(QPaintEvent *event)
     if (m_pixmap == nullptr)
         return;
 
+    lockPixmap(); // TODO: use guard
+
     QPainter painter(viewport());
     painter.drawPixmap(m_offset.x(), m_offset.y(), m_pixmap->width(), m_pixmap->height(), *m_pixmap);
+
+    unlockPixmap();
 }
 
 //------------------------------------------------------------------------------
@@ -206,15 +229,15 @@ void SimpleDisplay::showEvent(QShowEvent *event)
 void SimpleDisplay::resizeEvent(QResizeEvent *event)
 {
     Q_UNUSED(event)
-    m_transform->setDeviceFrame(QRectF(0, 0, width(), height()));
-    m_transform->setVisibleBounds(m_transform->visibleBounds());
+    transformation()->setDeviceFrame(QRectF(0, 0, width(), height()));
+    transformation()->setVisibleBounds(transformation()->visibleBounds());
 }
 
 //------------------------------------------------------------------------------
 void SimpleDisplay::emitChanged()
 {
     m_offset = QPointF(0, 0);
-    emit visibleBoundsUpdated(m_transform);
+    emit visibleBoundsUpdated(transformation());
     viewport()->update();
 }
 
@@ -229,12 +252,12 @@ void SimpleDisplay::onVisibleBoundChanged(const QRectF &visibleBounds)
 //------------------------------------------------------------------------------
 void SimpleDisplay::adjustScrollBars()
 {
-    double scale = m_transform->scale();
+    double scale = transformation()->scale();
     int dx = getDx(scale);
     int dy = getDy(scale);
 
-    QRectF visibleBounds = m_transform->visibleBounds();
-    QRectF bounds = m_transform->bounds();
+    QRectF visibleBounds = transformation()->visibleBounds();
+    QRectF bounds = transformation()->bounds();
 
     qreal verticalRelative = (visibleBounds.bottom() * flipY - bounds.bottom() * flipY) * scale; // top for flipping
     qreal horizontalRelative = (visibleBounds.left() - bounds.left()) * scale;
@@ -259,12 +282,12 @@ void SimpleDisplay::moveVisibleBounds(int dx, int dy)
 
     QObject::disconnect(m_conn);
 
-    double scale = m_transform->scale();
-    QRectF visibleBounds = m_transform->visibleBounds();
+    double scale = transformation()->scale();
+    QRectF visibleBounds = transformation()->visibleBounds();
     visibleBounds.moveTopLeft(QPointF(visibleBounds.left() - dx / scale, visibleBounds.top() - dy / scale * flipY));
-    m_transform->setVisibleBounds(visibleBounds);
+    transformation()->setVisibleBounds(visibleBounds);
 
-    m_conn = connect(m_transform, &DisplayTransformation::visibleBoundsChanged, this, &SimpleDisplay::onVisibleBoundChanged);
+    m_conn = connect(transformation(), &DisplayTransformation::visibleBoundsChanged, this, &SimpleDisplay::onVisibleBoundChanged);
 }
 
 //------------------------------------------------------------------------------
@@ -274,7 +297,7 @@ int SimpleDisplay::getDy(double scale)
     // instead of those max/min calculations
     // int min_y = std::min(m_extent.top(), m_visibleExtent.top());
     // int max_y = std::max(m_extent.bottom(), m_visibleExtent.bottom());
-    int dy = m_transform->bounds().height() * scale;
+    int dy = transformation()->bounds().height() * scale;
     dy = std::max(dy, height());
     dy -= height();
     return dy;
@@ -283,7 +306,7 @@ int SimpleDisplay::getDy(double scale)
 //------------------------------------------------------------------------------
 int SimpleDisplay::getDx(double scale)
 {
-    int dx = (m_transform->bounds().width() * scale);
+    int dx = (transformation()->bounds().width() * scale);
     dx = std::max(dx, width());
     dx -= width();
     return dx;

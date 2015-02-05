@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- 
+
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -24,81 +24,48 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "FeatureClass.h"
-#include "Feature.h"
-#include "ISpatialFilter.h"
+#include <display/MultithreadDisplay.h>
+#include <display/RenderThread.h>
 
-#include <geometry/AbstractGeometry.h>
+//------------------------------------------------------------------------------
+static const int flipY = -1;
+static const size_t QUEUE_LIMIT = 100;
 
-#include <carousel/logging/LoggerFacade.h>
-
-namespace
+//------------------------------------------------------------------------------
+MultithreadDisplay::MultithreadDisplay(QWidget *parent)
+    : SimpleDisplay(parent)
+    , m_taskQueue(QUEUE_LIMIT)
+    , m_renderer(new RenderThread(*this, m_taskQueue, this))
+    , m_mutex(QMutex::Recursive) // TODO
 {
-static LoggerFacade Log = LoggerFacade::createLogger("FeatureClass");
+    m_renderer->start();
 }
 
 //------------------------------------------------------------------------------
-FeatureClass::FeatureClass(GeometryType shapeType, const QRectF &extent, QString source)
-    : m_type(shapeType)
-    , m_features()
-    , m_extent(extent)
-    , m_source(source)
+MultithreadDisplay::~MultithreadDisplay()
 {
+    m_taskQueue.push(IDrawingTaskPtr(nullptr));
+    m_renderer->wait(); // join
 }
 
 //------------------------------------------------------------------------------
-FeatureClass::~FeatureClass()
+QPixmap *MultithreadDisplay::lockPixmap()
 {
-    for (IFeature *feature : m_features)
-        delete feature;
+    m_mutex.lock();
+    return SimpleDisplay::lockPixmap();
 }
 
 //------------------------------------------------------------------------------
-QRectF FeatureClass::extent() const
+void MultithreadDisplay::unlockPixmap()
 {
-    return m_extent;
+    m_mutex.unlock();
 }
 
 //------------------------------------------------------------------------------
-GeometryType FeatureClass::shapeType() const
+void MultithreadDisplay::postDrawingTask(IDrawingTaskPtr task)
 {
-    return m_type;
-}
-
-//------------------------------------------------------------------------------
-IFeature *FeatureClass::createFeature()
-{
-    Feature *newFeature = new Feature(m_type);
-    m_features.push_back(newFeature);
-
-    return newFeature;
-}
-
-//------------------------------------------------------------------------------
-const IFeatureClass::FeatureList &FeatureClass::features() const
-{
-    return m_features;
-}
-
-//------------------------------------------------------------------------------
-IFeatureClass::FeatureList FeatureClass::search(const ISpatialFilter &filter) const
-{
-    const AbstractGeometry *geometry = filter.geometry();
-    const QRectF &extent = geometry->extent();
-    FeatureList toReturn;
-    for(int i = 0, end = m_features.size(); i != end; ++i) {
-        IFeature *feature = m_features[i];
-        if (extent.intersects(feature->geometry()->extent()))
-            toReturn.push_back(feature);
-    }
-
-    return toReturn;
-}
-
-//------------------------------------------------------------------------------
-const QString &FeatureClass::source() const
-{
-    return m_source;
+    Q_ASSERT(task != nullptr && "Null pointer is not allowed");
+    m_taskQueue.push(std::move(task));
 }
 
 //------------------------------------------------------------------------------

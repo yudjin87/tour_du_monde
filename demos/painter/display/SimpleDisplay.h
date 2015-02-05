@@ -27,7 +27,7 @@
 #ifndef DISPLAY_H
 #define DISPLAY_H
 
-#include "IDisplay.h"
+#include <display/IDisplay.h>
 
 class SimpleDisplay :  public IDisplay
 {
@@ -36,8 +36,11 @@ public:
     SimpleDisplay(QWidget *parent = nullptr);
     ~SimpleDisplay();
 
-    QPixmap *startDrawing() override;
-    void finishDrawing(QPixmap *pixmap) override;
+    void startDrawing() override;
+    void finishDrawing() override;
+
+    QPixmap *lockPixmap() override;
+    void unlockPixmap() override;
 
     DisplayTransformation *transformation() override;
     const DisplayTransformation *transformation() const override;
@@ -46,6 +49,8 @@ public:
     void panStart(const QPoint &screenPoint) override;
     QRectF panStop() override;
     void updateWindow() override;
+
+    void postDrawingTask(IDrawingTaskPtr task) override;
 
 protected:
     void mouseMoveEvent(QMouseEvent *event) override;

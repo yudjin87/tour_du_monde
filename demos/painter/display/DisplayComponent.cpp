@@ -24,9 +24,10 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "DisplayComponent.h"
-#include "SimpleDisplay.h"
-#include "DisplayScriptExtension.h"
+#include <display/DisplayComponent.h>
+#include <display/SimpleDisplay.h>
+#include <display/DisplayScriptExtension.h>
+#include <display/MultithreadDisplay.h>
 
 #include <carousel/componentsystem/ComponentDefinition.h>
 #include <carousel/componentsystem/ComponentExport.h>
@@ -75,7 +76,8 @@ bool DisplayComponent::onStartup(IServiceLocator *serviceLocator)
 {
     QMainWindow *mainWindow = serviceLocator->locate<QMainWindow>();
 
-    SimpleDisplay *display = new SimpleDisplay(mainWindow);
+    IDisplay *display = new SimpleDisplay(mainWindow);
+    //IDisplay *display = new MultithreadDisplay(mainWindow);
     mainWindow->setCentralWidget(display);
     serviceLocator->registerInstance<IDisplay>(display);
 
