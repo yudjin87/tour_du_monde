@@ -30,6 +30,9 @@
 
 #include <display/IDisplay.h>
 #include <display/DisplayTransformation.h>
+#include <carto/IMap.h>
+#include <carto/IPainterDocument.h>
+#include <carto/IPainterDocumentController.h>
 
 //------------------------------------------------------------------------------
 ZoomAllOperation::ZoomAllOperation()
@@ -45,6 +48,11 @@ void ZoomAllOperation::execute()
 {
     IDisplay *display = m_serviceLocator->locate<IDisplay>();
     display->transformation()->setVisibleBounds(display->transformation()->bounds());
+
+    IPainterDocumentController* docController = m_serviceLocator->locate<IPainterDocumentController>();
+    IPainterDocument *doc = docController->document();
+    IMap *map = doc->map();
+    map->refresh();
 }
 
 //------------------------------------------------------------------------------

@@ -30,6 +30,9 @@
 
 #include <display/IDisplay.h>
 #include <display/DisplayTransformation.h>
+#include <carto/IMap.h>
+#include <carto/IPainterDocument.h>
+#include <carto/IPainterDocumentController.h>
 
 //------------------------------------------------------------------------------
 ZoomOutOperation::ZoomOutOperation()
@@ -44,7 +47,12 @@ ZoomOutOperation::ZoomOutOperation()
 void ZoomOutOperation::execute()
 {
     IDisplay *display = m_serviceLocator->locate<IDisplay>();
-    display->transformation()->setScale(display->transformation()->scale() / 1.1);
+    display->transformation()->setScale(display->transformation()->scale() / 1.3);
+
+    IPainterDocumentController* docController = m_serviceLocator->locate<IPainterDocumentController>();
+    IPainterDocument *doc = docController->document();
+    IMap *map = doc->map();
+    map->refresh();
 }
 
 //------------------------------------------------------------------------------
