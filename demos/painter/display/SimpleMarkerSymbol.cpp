@@ -40,6 +40,7 @@ SimpleMarkerSymbol::SimpleMarkerSymbol(QObject *parent)
     , m_width(0)
     , m_height(0)
     , m_outlinePen(QColor(rand() % 255, rand() % 255, rand() % 255), m_outlineSize)
+    , m_oldPen()
 {
 }
 
@@ -84,12 +85,12 @@ void SimpleMarkerSymbol::setupPainter(QPainter *painter)
 {
     MarkerSymbol::setupPainter(painter);
 
-    painter->setBrush(m_brush);
-
     double scale = painter->transform().m11();
 
     m_width = size() / scale / 2;
     m_height = size() / scale / 2;
+
+    m_oldPen = painter->pen();
 
     if (isOutline()) {
         m_outlinePen.setWidthF(m_outlineSize / scale);
@@ -97,6 +98,13 @@ void SimpleMarkerSymbol::setupPainter(QPainter *painter)
     } else {
         painter->setPen(Qt::NoPen);
     }
+}
+
+//------------------------------------------------------------------------------
+void SimpleMarkerSymbol::resetPainter(QPainter *painter)
+{
+    MarkerSymbol::resetPainter(painter);
+    painter->setPen(m_oldPen);
 }
 
 //------------------------------------------------------------------------------

@@ -123,12 +123,11 @@ QPixmap LayersTreeModel::drawThumbnail(ISymbol *forSymbol, GeometryType type)
     pixmap.fill(Qt::white);
     QPainter painter(&pixmap);
 
-    forSymbol->setupPainter(&painter);
-
     AbstractGeometry *geometry = thumbnails[type];
 
-    forSymbol->draw(geometry);
-    forSymbol->resetPainter();
+    forSymbol->setupPainter(&painter);
+    forSymbol->draw(geometry, &painter);
+    forSymbol->resetPainter(&painter);
 
     return pixmap;
 }

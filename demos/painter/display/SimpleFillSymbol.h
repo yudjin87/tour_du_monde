@@ -48,6 +48,7 @@ public:
      *   Prepares the display for drawing the symbol by setting brush.
      */
     void setupPainter(QPainter *painter) override;
+    void resetPainter(QPainter *painter) override;
 
     Qt::BrushStyle style() const;
     void setStyle(Qt::BrushStyle style);
@@ -57,6 +58,7 @@ protected:
 
 private:
     QBrush m_brush;
+    QBrush m_oldBrush;
 };
 
 #endif // SIMPLEFILLSYMBOL_H

@@ -46,8 +46,13 @@ FillSymbol::~FillSymbol()
 //------------------------------------------------------------------------------
 void FillSymbol::setupPainter(QPainter *painter)
 {
-    SymbolBase::setupPainter(painter);
     m_outline->setupPainter(painter);
+}
+
+//------------------------------------------------------------------------------
+void FillSymbol::resetPainter(QPainter *painter)
+{
+    m_outline->resetPainter(painter);
 }
 
 //------------------------------------------------------------------------------

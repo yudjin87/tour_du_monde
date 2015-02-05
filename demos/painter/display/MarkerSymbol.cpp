@@ -27,11 +27,13 @@
 #include "MarkerSymbol.h"
 
 #include <stdlib.h>
+#include <QtGui/QPainter>
 
 //------------------------------------------------------------------------------
 MarkerSymbol::MarkerSymbol(QObject *parent)
     : SymbolBase(parent)
     , m_brush(QColor(rand() % 255, rand() % 255, rand() % 255))
+    , m_oldBrush()
     , m_angle(0)
     , m_size(10)
 {
@@ -71,6 +73,19 @@ const QColor &MarkerSymbol::color() const
 void MarkerSymbol::setColor(const QColor &color)
 {
     m_brush.setColor(color);
+}
+
+//------------------------------------------------------------------------------
+void MarkerSymbol::setupPainter(QPainter *painter)
+{
+    m_oldBrush = painter->brush();
+    painter->setBrush(m_brush);
+}
+
+//------------------------------------------------------------------------------
+void MarkerSymbol::resetPainter(QPainter *painter)
+{
+    painter->setBrush(m_oldBrush);
 }
 
 //------------------------------------------------------------------------------

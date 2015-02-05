@@ -60,6 +60,7 @@ public:
     void setOutline(LineSymbol *outline);
 
     void setupPainter(QPainter *painter) override;
+    void resetPainter(QPainter *painter) override;
 
 public slots:
     void setColor(int r, int g, int b, int a = 255);

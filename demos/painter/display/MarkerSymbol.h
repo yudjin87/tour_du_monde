@@ -67,16 +67,19 @@ public:
     const QColor &color() const;
     void setColor(const QColor &color);
 
+    void setupPainter(QPainter *painter) override;
+    void resetPainter(QPainter *painter) override;
+
 public slots:
     void setColor(int r, int g, int b, int a = 255);
 
 protected:
     explicit MarkerSymbol(QObject *parent = 0);
 
-protected:
-    QBrush m_brush;
-
 private:
+    QBrush m_brush;
+    QBrush m_oldBrush;
+
     double m_angle;
     double m_size;
 };

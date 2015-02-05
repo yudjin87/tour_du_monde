@@ -35,7 +35,6 @@
 //------------------------------------------------------------------------------
 SymbolBase::SymbolBase(QObject *parent)
     : ISymbol()
-    , m_painter(nullptr)
 {
     setParent(parent);
 }
@@ -46,40 +45,28 @@ SymbolBase::~SymbolBase()
 }
 
 //------------------------------------------------------------------------------
-void SymbolBase::draw(const AbstractGeometry *geometry)
+void SymbolBase::draw(const AbstractGeometry *geometry, QPainter *painter)
 {
     switch (geometry->type())
     {
     case GeometryPoint: {
         const Point *point = static_cast<const Point *>(geometry);
-        drawPoint(*point, *m_painter);
+        drawPoint(*point, *painter);
         break;
     }
     case GeometryPolygon: {
         const Polygon *polygon = static_cast<const Polygon *>(geometry);
-        drawPolygon(*polygon, *m_painter);
+        drawPolygon(*polygon, *painter);
         break;
     }
     case GeometryPolyline: {
         const Polyline *polyline = static_cast<const Polyline *>(geometry);
-        drawPolyline(*polyline, *m_painter);
+        drawPolyline(*polyline, *painter);
         break;
     }
     default:
         break;
     }
-}
-
-//------------------------------------------------------------------------------
-void SymbolBase::setupPainter(QPainter *painter)
-{
-    m_painter = painter;
-}
-
-//------------------------------------------------------------------------------
-void SymbolBase::resetPainter()
-{
-    m_painter = nullptr;
 }
 
 //------------------------------------------------------------------------------

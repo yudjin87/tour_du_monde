@@ -71,6 +71,7 @@ public:
      *   Prepares the display for drawing the symbol by setting pen and brush.
      */
     void setupPainter(QPainter *painter) override;
+    void resetPainter(QPainter *painter) override;
 
 protected:
     void drawPoint(const Point &point, QPainter &painter) override;
@@ -81,6 +82,7 @@ private:
     qreal m_width;
     qreal m_height;
     QPen m_outlinePen;
+    QPen m_oldPen;
 };
 
 

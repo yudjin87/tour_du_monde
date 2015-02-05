@@ -48,6 +48,7 @@ public:
      *   Prepares the display for drawing the symbol by setting pen.
      */
     void setupPainter(QPainter *painter) override;
+    void resetPainter(QPainter *painter) override;
 
     Qt::PenStyle style() const;
     void setStyle(Qt::PenStyle style);
@@ -57,6 +58,7 @@ protected:
 
 private:
     QPen m_pen;
+    QPen m_oldPen;
 };
 
 #endif // SIMPLELINESYMBOL_H

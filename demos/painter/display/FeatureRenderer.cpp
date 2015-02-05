@@ -48,10 +48,10 @@ void FeatureRenderer::draw(const QVector<IFeature *> &features, QPainter *painte
 {
     m_symbol->setupPainter(painter);
     for (const IFeature *feature : features) {
-        m_symbol->draw(feature->geometry());
+        m_symbol->draw(feature->geometry(), painter);
     }
 
-    m_symbol->resetPainter();
+    m_symbol->resetPainter(painter);
 }
 
 //------------------------------------------------------------------------------

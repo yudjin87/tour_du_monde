@@ -35,6 +35,8 @@
 //------------------------------------------------------------------------------
 SimpleFillSymbol::SimpleFillSymbol(QObject *parent)
     : FillSymbol(parent)
+    , m_brush()
+    , m_oldBrush()
 {
     m_brush.setStyle(Qt::SolidPattern);
 }
@@ -45,7 +47,16 @@ void SimpleFillSymbol::setupPainter(QPainter *painter)
     FillSymbol::setupPainter(painter);
 
     m_brush.setColor(color());
+
+    m_oldBrush = painter->brush();
     painter->setBrush(m_brush);
+}
+
+//------------------------------------------------------------------------------
+void SimpleFillSymbol::resetPainter(QPainter *painter)
+{
+    FillSymbol::resetPainter(painter);
+    painter->setBrush(m_oldBrush);
 }
 
 //------------------------------------------------------------------------------

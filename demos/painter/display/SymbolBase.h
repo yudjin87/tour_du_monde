@@ -44,19 +44,7 @@ public slots:
      * @details
      *   Draws the specified shape.
      */
-    void draw(const AbstractGeometry *geometry) override;
-
-    /*!
-     * @details
-     *   Prepares the painter for drawing the symbol.
-     */
-    void setupPainter(QPainter *painter) override;
-
-    /*!
-     * @details
-     *   Restores painter to original state.
-     */
-    void resetPainter() override;
+    void draw(const AbstractGeometry *geometry, QPainter *painter) override;
 
 protected:
     explicit SymbolBase(QObject *parent = 0);
@@ -64,9 +52,6 @@ protected:
     virtual void drawPoint(const Point &point, QPainter &painter);
     virtual void drawPolygon(const Polygon &polygon, QPainter &painter);
     virtual void drawPolyline(const Polyline &polyline, QPainter &painter);
-
-private:
-    QPainter *m_painter;
 };
 
 #endif // SYMBOLBASE_H

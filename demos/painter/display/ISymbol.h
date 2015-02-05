@@ -41,9 +41,10 @@ public:
 
     /*!
      * @details
-     *   Draws the specified shape.
+     *   Draws the specified shape, using prepared the painter.
+     *   Use setupPainter() before, and resetPainter() after this method
      */
-    virtual void draw(const AbstractGeometry *geometry) = 0;
+    virtual void draw(const AbstractGeometry *geometry, QPainter *painter) = 0;
 
     /*!
      * @details
@@ -55,7 +56,7 @@ public:
      * @details
      *   Restores painter to original state.
      */
-    virtual void resetPainter() = 0;
+    virtual void resetPainter(QPainter *painter) = 0;
 
 private:
     Q_DISABLE_COPY(ISymbol)

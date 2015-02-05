@@ -36,6 +36,7 @@
 SimpleLineSymbol::SimpleLineSymbol(QObject *parent)
     : LineSymbol(parent)
     , m_pen()
+    , m_oldPen()
 {
     m_pen.setCosmetic(true);
 }
@@ -43,11 +44,16 @@ SimpleLineSymbol::SimpleLineSymbol(QObject *parent)
 //------------------------------------------------------------------------------
 void SimpleLineSymbol::setupPainter(QPainter *painter)
 {
-    LineSymbol::setupPainter(painter);
-
     m_pen.setColor(color());
 
+    m_oldPen = painter->pen();
     painter->setPen(m_pen);
+}
+
+//------------------------------------------------------------------------------
+void SimpleLineSymbol::resetPainter(QPainter *painter)
+{
+    painter->setPen(m_oldPen);
 }
 
 //------------------------------------------------------------------------------
