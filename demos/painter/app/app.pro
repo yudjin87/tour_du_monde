@@ -20,12 +20,14 @@ SOURCES += \
     main.cpp\
     MainWindow.cpp \
     Bootloader.cpp \
-    PainterApplication.cpp
+    PainterApplication.cpp \
+    LoggerEngine.cpp \
 
 HEADERS  += \
     MainWindow.h \
     Bootloader.h \
-    PainterApplication.h
+    PainterApplication.h \
+    LoggerEngine.h \
 
 FORMS += \
     MainWindow.ui

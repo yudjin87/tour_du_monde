@@ -25,12 +25,15 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "Bootloader.h"
+#include "LoggerEngine.h"
 
 #include <carousel/componentsystem/CompositeComponentProvider.h>
 #include <carousel/componentsystem/DirectoryComponentProvider.h>
 #include <carousel/componentsystem/IComponentManager.h>
 #include <carousel/componentsystem/IComponent.h>
 #include <carousel/utils/IServiceLocator.h>
+#include <carousel/logging/ILoggerEngineCreator.h>
+
 #include <components/componentsystemui/ComponentSystemUIComponent.h>
 #include <components/jsscripting/JsScriptingComponent.h>
 #include <components/jsscriptingui/JsScriptingUIComponent.h>
@@ -66,6 +69,13 @@ IComponentProvider *Bootloader::createComponentProvider()
 void Bootloader::onLoadingSequenceFinised()
 {
     m_mainWindow.show();
+}
+
+//------------------------------------------------------------------------------
+ILoggerEngineCreator *Bootloader::createLoggerEngine()
+{
+    //return CarouselBootloader::createLoggerEngine();
+    return new LoggerEngineCreator();
 }
 
 //------------------------------------------------------------------------------

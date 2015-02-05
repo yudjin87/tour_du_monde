@@ -43,6 +43,8 @@ protected:
     void onLoadingSequenceStarting();
     void onLoadingSequenceFinised() override;
 
+    ILoggerEngineCreator *createLoggerEngine() override;
+
 private:
     MainWindow m_mainWindow;
 };

@@ -78,12 +78,14 @@ SimpleDisplay::~SimpleDisplay()
 void SimpleDisplay::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event)
-    if (m_pixmap == nullptr)
+    if (m_pixmap == nullptr) {
+        Log.d("********************** NULL PIXMAP ************************");
         return;
+    }
 
     lockPixmap(); // TODO: use guard
 
-    //Log.d("Updating view ..................................................");
+    Log.d("Updating view ..................................................");
     QPainter painter(viewport());
     painter.drawPixmap(m_offset.x(), m_offset.y(), m_pixmap->width(), m_pixmap->height(), *m_pixmap);
 
@@ -93,11 +95,8 @@ void SimpleDisplay::paintEvent(QPaintEvent *event)
 //------------------------------------------------------------------------------
 void SimpleDisplay::startDrawing()
 {
-    // TODO: override in MT environment
-    delete m_pixmap;
-    m_pixmap = nullptr;
-
-    m_pixmap = createPixmap();
+   QPixmap *pixmap = createPixmap();
+   setPixmap(pixmap);
 
     /*
 #ifndef NDEBUG
@@ -155,6 +154,7 @@ DisplayTransformation *SimpleDisplay::transformation()
 //------------------------------------------------------------------------------
 const DisplayTransformation *SimpleDisplay::transformation() const
 {
+    throw "Not implemented!";
     //lockPixmap();
     //const DisplayTransformation * tmp = transformation();
     //unlockPixmap();
@@ -190,7 +190,7 @@ QRectF SimpleDisplay::panStop()
 //------------------------------------------------------------------------------
 void SimpleDisplay::updateWindow()
 {
-   viewport()->update();
+   //viewport()->update();
 }
 
 //------------------------------------------------------------------------------

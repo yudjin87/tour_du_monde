@@ -109,8 +109,8 @@ void Map::refresh()
         layer->draw(m_display);
 
     m_display->finishDrawing();
-    m_display->updateWindow();
-    emit refreshed();
+
+    emit refreshed(); // TODO? what for?
 }
 
 //------------------------------------------------------------------------------

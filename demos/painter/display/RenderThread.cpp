@@ -22,10 +22,7 @@ RenderThread::~RenderThread()
 void RenderThread::run()
 {
     while (true) {
-        Log.d("Waiting for rendering tasks");
         IDrawingTaskPtr task = m_queue.pop();
-        Log.d("New task is comming...");
-
         if (task == nullptr) {
             Log.d("Empty task - exit thread");
             return;
