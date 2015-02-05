@@ -26,9 +26,15 @@
 
 #include "DisplayTransformation.h"
 
+#include <carousel/logging/LoggerFacade.h>
 #include <QtGui/QTransform>
 
 #include <limits>
+
+namespace
+{
+static LoggerFacade Log = LoggerFacade::createLogger("DispTransform");
+}
 
 //------------------------------------------------------------------------------
 static const int flipY = -1;
@@ -59,6 +65,12 @@ void DisplayTransformation::setBounds(const QRectF &bounds)
 {
     if (m_bounds == bounds)
         return;
+
+    Log.d(QString("New bounds: l: %1, r: %2, t: %3, b: %4")
+          .arg(bounds.left())
+          .arg(bounds.right())
+          .arg(bounds.top())
+          .arg(bounds.bottom()));
 
     m_bounds = bounds;
     emit boundsChanged(m_bounds);
