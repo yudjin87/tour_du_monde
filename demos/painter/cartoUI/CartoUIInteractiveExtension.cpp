@@ -58,6 +58,11 @@ void CartoUIInteractiveExtension::configureGui(ICatalogs &inCatalogs, IServiceLo
     QListView *layersTree = new QListView();
     layersTree->setModel(new LayersTreeModel(doc->map(), layersTree));
     layersTree->setItemDelegate(new FeatureLayerDelegate(layersTree));
+    layersTree->setSelectionMode(QAbstractItemView::ExtendedSelection);
+    layersTree->setDragEnabled(true);
+    layersTree->setAcceptDrops(true);
+    layersTree->setDropIndicatorShown(true);
+
     QDockWidget *layersDock = catalog.addDockWidget(layersTree, "Layers tree");
 
     Operation *toogleTree = new ToggleActionWrapper(layersDock->toggleViewAction(), QIcon(":/cartoUI/images/layerTree.png"));

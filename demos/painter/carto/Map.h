@@ -47,6 +47,11 @@ public:
 public slots:
     void refresh() override;
     void addLayer(AbstractLayer *layer) override;
+    void moveLayer(AbstractLayer *layer, const int index) override;
+    AbstractLayer *getLayer(const int index) override;
+    const AbstractLayer *getLayer(const int index) const override;
+    AbstractLayer *getLayer(const QString& name) override;
+    const AbstractLayer *getLayer(const QString& name) const override;
 
 private slots:
     void onVisibleBoundsChanged(DisplayTransformation *transform);

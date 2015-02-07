@@ -28,13 +28,22 @@
 
 #include <carto/IMap.h>
 #include <carto/FeatureLayer.h>
+#include <carousel/logging/LoggerFacade.h>
 #include <display/FeatureRenderer.h>
 #include <display/ISymbol.h>
 #include <geometry/Point.h>
 #include <geometry/Polygon.h>
 #include <geometry/Polyline.h>
 
+#include <QtCore/QMimeData>
 #include <QtGui/QPainter>
+
+//------------------------------------------------------------------------------
+namespace
+{
+static const char* LAYER_NAME_MIME = "application/layer.name.list"; // TODO: constexpr, when MSVC will support it
+static LoggerFacade Log = LoggerFacade::createLogger("LayersTreeModel");
+}
 
 //------------------------------------------------------------------------------
 QMap<GeometryType, AbstractGeometry *> fillThumbnails();
@@ -52,10 +61,100 @@ LayersTreeModel::LayersTreeModel(IMap *map, QObject *parent)
 //------------------------------------------------------------------------------
 Qt::ItemFlags LayersTreeModel::flags(const QModelIndex &index) const
 {
-    if (!index.isValid())
-        return Qt::ItemIsEnabled;
+    Qt::ItemFlags defaultFlags = QAbstractItemModel::flags(index);
 
-    return QAbstractItemModel::flags(index) | Qt::ItemIsEditable;
+    if (index.isValid())
+        return Qt::ItemIsDragEnabled | Qt::ItemIsDropEnabled | Qt::ItemIsEditable | defaultFlags;
+
+    return Qt::ItemIsDropEnabled | defaultFlags;
+}
+
+//------------------------------------------------------------------------------
+QStringList LayersTreeModel::mimeTypes() const
+{
+    QStringList types;
+    types << LAYER_NAME_MIME;
+    return types;
+}
+
+//------------------------------------------------------------------------------
+QMimeData *LayersTreeModel::mimeData(const QModelIndexList &indexes) const
+{
+    QMimeData *mimeData = new QMimeData();
+    QByteArray encodedData;
+
+    QDataStream stream(&encodedData, QIODevice::WriteOnly);
+
+    foreach (const QModelIndex &index, indexes) {
+        if (index.isValid()) {
+            QString text = data(index, Qt::DisplayRole).toString();
+            stream << text;
+        }
+    }
+
+    mimeData->setData(LAYER_NAME_MIME, encodedData);
+    return mimeData;
+}
+
+//------------------------------------------------------------------------------
+bool LayersTreeModel::canDropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent) const
+{
+    Q_UNUSED(action);
+    Q_UNUSED(row);
+    Q_UNUSED(parent);
+
+    if (!data->hasFormat(LAYER_NAME_MIME))
+        return false;
+
+    if (column > 0)
+        return false;
+
+    return true;
+}
+
+//------------------------------------------------------------------------------
+bool LayersTreeModel::dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent)
+{
+    if (!canDropMimeData(data, action, row, column, parent))
+        return false;
+
+    if (action == Qt::IgnoreAction)
+        return true;
+
+    int beginRow = 0;
+
+    if (row != -1)
+        beginRow = row;
+    else if (parent.isValid())
+        beginRow = parent.row();
+    else
+        beginRow = rowCount(QModelIndex());
+
+    QByteArray encodedData = data->data(LAYER_NAME_MIME);
+    QDataStream stream(&encodedData, QIODevice::ReadOnly);
+    int rows = 0;
+
+    int nextMoveIndex = row;
+    while (!stream.atEnd()) {
+        QString name;
+        stream >> name;
+        AbstractLayer* movedLayer = m_map->getLayer(name);
+        Q_ASSERT(movedLayer != nullptr && "Invalid layer name during Drag&Drop");
+
+        m_map->moveLayer(movedLayer, nextMoveIndex);
+        ++nextMoveIndex;
+        ++rows;
+    }
+
+//    insertRows(beginRow, rows, QModelIndex());
+//    foreach (const QString &text, newItems) {
+//        QModelIndex idx = index(beginRow, 0, QModelIndex());
+//        setData(idx, text);
+//        beginRow++;
+//    }
+
+    m_map->refresh();
+    return true;
 }
 
 //------------------------------------------------------------------------------
