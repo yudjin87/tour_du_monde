@@ -51,8 +51,9 @@ SimpleDisplay::SimpleDisplay(QWidget *parent)
     , m_offset(0, 0)
     , m_startPan(0, 0)
     , m_pixmap(nullptr)
+    , m_workingPixmap(nullptr)
     , m_transform(new DisplayTransformation())
-{
+{    
     setMouseTracking(true);
     setParent(parent);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
@@ -67,6 +68,7 @@ SimpleDisplay::SimpleDisplay(QWidget *parent)
     m_conn = connect(m_transform, &DisplayTransformation::visibleBoundsChanged, this, &SimpleDisplay::onVisibleBoundChanged);
 
     m_transform->setDeviceFrame(QRectF(0, 0, width(), height()));
+    m_pixmap = createPixmap();
 }
 
 //------------------------------------------------------------------------------
@@ -78,18 +80,30 @@ SimpleDisplay::~SimpleDisplay()
 void SimpleDisplay::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event)
-    if (m_pixmap == nullptr) {
-        Log.d("********************** NULL PIXMAP ************************");
-        return;
-    }
+//    if (m_pixmap == nullptr) {
+//        Log.d("********************** NULL PIXMAP ************************");
+//        m_pixmap = createPixmap();
+//        return;
+//    }
 
     lockPixmap(); // TODO: use guard
 
-    Log.d("Updating view ..................................................");
+    Log.d(QString("Updating view .................................................. x: %1, y:%2")
+          .arg(m_offset.x())
+          .arg(m_offset.y()));
     QPainter painter(viewport());
     painter.drawPixmap(m_offset.x(), m_offset.y(), m_pixmap->width(), m_pixmap->height(), *m_pixmap);
 
     unlockPixmap();
+}
+
+//------------------------------------------------------------------------------
+void SimpleDisplay::copyWorked()
+{
+    m_offset = QPointF(0, 0);
+    Log.d("...... Copying");
+    QPainter painter(m_pixmap);
+    painter.drawPixmap(0, 0, *m_workingPixmap);
 }
 
 //------------------------------------------------------------------------------
@@ -125,16 +139,14 @@ void SimpleDisplay::startDrawing()
 //------------------------------------------------------------------------------
 void SimpleDisplay::finishDrawing()
 {
-    Q_ASSERT(m_pixmap != nullptr && "Illegal state during the finishing drawing!");
+    Q_ASSERT(m_workingPixmap != nullptr && "Illegal state during the finishing drawing!");
     viewport()->update();
-//    delete m_pixmap;
-//    m_pixmap = nullptr;
 }
 
 //------------------------------------------------------------------------------
 QPixmap* SimpleDisplay::lockPixmap()
 {
-    return m_pixmap;
+    return m_workingPixmap;
 }
 
 //------------------------------------------------------------------------------
@@ -182,7 +194,7 @@ QRectF SimpleDisplay::panStop()
     moveVisibleBounds(m_offset.x(), m_offset.y());
     adjustScrollBars();
     viewport()->update();
-    m_offset = QPointF(0, 0);
+    //m_offset = QPointF(0, 0);
     emit needChange();
     return QRectF();
 }
@@ -211,7 +223,7 @@ void SimpleDisplay::scrollContentsBy(int dx, int dy)
 }
 
 //------------------------------------------------------------------------------
-QPixmap *SimpleDisplay::createPixmap()
+QPixmap *SimpleDisplay::createPixmap() const
 {
     QPixmap* pixmap = new QPixmap(this->width(), this->height());
     pixmap->fill(Qt::white);
@@ -222,8 +234,8 @@ QPixmap *SimpleDisplay::createPixmap()
 void SimpleDisplay::setPixmap(QPixmap *pixmap)
 {
     Log.d("                     Changing pixmap");
-    delete m_pixmap;
-    m_pixmap = pixmap;
+    delete m_workingPixmap;
+    m_workingPixmap = pixmap;
 }
 
 //------------------------------------------------------------------------------
@@ -249,12 +261,14 @@ void SimpleDisplay::resizeEvent(QResizeEvent *event)
     Q_UNUSED(event)
     transformation()->setDeviceFrame(QRectF(0, 0, width(), height()));
     transformation()->setVisibleBounds(transformation()->visibleBounds());
+    m_pixmap = createPixmap();
+    // todo: map refresh
 }
 
 //------------------------------------------------------------------------------
 void SimpleDisplay::emitChanged()
 {
-    m_offset = QPointF(0, 0);
+    //m_offset = QPointF(0, 0);
     emit visibleBoundsUpdated(transformation());
     viewport()->update();
 }

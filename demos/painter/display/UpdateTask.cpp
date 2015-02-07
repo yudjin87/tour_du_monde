@@ -1,4 +1,5 @@
 #include <display/UpdateTask.h>
+#include <display/MultithreadDisplay.h>
 
 #include <carousel/logging/LoggerFacade.h>
 
@@ -8,17 +9,19 @@ static LoggerFacade Log = LoggerFacade::createLogger("UpdateTask");
 }
 
 //------------------------------------------------------------------------------
-UpdateTask::UpdateTask(QWidget* widget, QObject *parent)
+UpdateTask::UpdateTask(MultithreadDisplay* display, QObject *parent)
     : QObject(parent)
+    , m_display(display)
 {
-    QObject::connect(this, SIGNAL(callUpdate()), widget, SLOT(update()));
+    //QObject::connect(this, SIGNAL(callUpdate()), widget, SLOT(update()));
 }
 
 //------------------------------------------------------------------------------
 void UpdateTask::draw(IDisplay &)
 {
     Log.d("Emit update needed");
-    emit callUpdate();
+    //emit callUpdate();
+    m_display->callCopyAndUpdate();
 }
 
 //------------------------------------------------------------------------------

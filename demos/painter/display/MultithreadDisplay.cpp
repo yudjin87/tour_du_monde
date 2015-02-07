@@ -69,7 +69,7 @@ void MultithreadDisplay::startDrawing()
 void MultithreadDisplay::finishDrawing()
 {
     Log.d("Finish drawing: create UpdateTask");
-    m_taskQueue.push(IDrawingTaskPtr(new UpdateTask(viewport())));
+    m_taskQueue.push(IDrawingTaskPtr(new UpdateTask(this)));
 }
 
 //------------------------------------------------------------------------------
@@ -97,6 +97,14 @@ void MultithreadDisplay::callCreatePixmap()
 {
     QMutexLocker guard(&m_mutex);
     setPixmap(createPixmap());
+}
+
+//------------------------------------------------------------------------------
+void MultithreadDisplay::callCopyAndUpdate()
+{
+    QMutexLocker guard(&m_mutex);
+    copyWorked();
+    viewport()->update();
 }
 
 //------------------------------------------------------------------------------

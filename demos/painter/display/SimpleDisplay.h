@@ -51,6 +51,7 @@ public:
     void updateWindow() override;
 
     void postDrawingTask(IDrawingTaskPtr task) override;
+    QPixmap *createPixmap() const override;
 
 protected:
     void mouseMoveEvent(QMouseEvent *event) override;
@@ -60,8 +61,8 @@ protected:
 
     void scrollContentsBy(int dx, int dy) override;
 
-    QPixmap *createPixmap();
     void setPixmap(QPixmap *pixmap);
+    void copyWorked();
 
 signals:
     void needChange();
@@ -83,6 +84,7 @@ private:
     QPointF m_offset;
     QPoint m_startPan;
     QPixmap *m_pixmap;
+    QPixmap *m_workingPixmap;
     DisplayTransformation *m_transform;
 };
 #endif // DISPLAY_H

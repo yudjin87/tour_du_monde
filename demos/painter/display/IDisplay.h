@@ -56,6 +56,8 @@ public:
 
     virtual void postDrawingTask(IDrawingTaskPtr task) = 0;
 
+    virtual QPixmap *createPixmap() const = 0;
+
 public slots:
     virtual void panMoveTo(const QPoint &screenPoint) = 0;
     virtual void panStart(const QPoint &screenPoint) = 0;

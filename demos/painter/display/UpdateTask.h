@@ -36,12 +36,15 @@ class UpdateTask : public QObject, public IDrawingTask
 {
     Q_OBJECT
 public:
-    UpdateTask(QWidget* widget, QObject *parent = nullptr);
+    UpdateTask(MultithreadDisplay* m_display, QObject *parent = nullptr);
 
     void draw(IDisplay&) override;
 
 signals:
     void callUpdate();
+
+private:
+    MultithreadDisplay* m_display;
 };
 
 #endif // UPDATETASK_H

@@ -51,8 +51,10 @@ public:
 private:
     Q_DISABLE_COPY(MultithreadDisplay)
     friend class StartDrawingTask;
+    friend class UpdateTask;
 
     void callCreatePixmap();
+    void callCopyAndUpdate();
 
 private:
     DrawingTaskQueue m_taskQueue;
@@ -61,3 +63,4 @@ private:
 };
 
 #endif // MULTITHREADDISPLAY_H
+

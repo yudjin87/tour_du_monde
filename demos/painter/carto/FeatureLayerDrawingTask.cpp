@@ -4,6 +4,7 @@
 #include <display/DisplayTransformation.h>
 #include <carousel/logging/LoggerFacade.h>
 
+#include <QtCore/QThread>
 #include <QtGui/QPainter>
 #include <QtGui/QPixmap>
 
@@ -33,15 +34,20 @@ void FeatureLayerDrawingTask::draw(IDisplay &display)
 
     const Clock::time_point started = Clock::now();
 
+    QPixmap* tmp = display.createPixmap();
+    {
+        DisplayTransformation* transform = display.transformation();
+        const QTransform &viewport = transform->transform();
+
+        QPainter painter(tmp);
+        painter.setTransform(viewport, false);
+        //QThread::msleep(3000);
+        m_renderer->draw(m_features, &painter);
+    }
+
     QPixmap* pixmap = display.lockPixmap();
-
-    DisplayTransformation* transform = display.transformation();
-    const QTransform &viewport = transform->transform();
-
     QPainter painter(pixmap);
-    painter.setTransform(viewport, false);
-
-    m_renderer->draw(m_features, &painter);
+    painter.drawPixmap(0, 0, *tmp);
     display.unlockPixmap();
 
     Clock::time_point finished = Clock::now();
