@@ -47,6 +47,7 @@ public:
     void unlockPixmap() override;
 
     void postDrawingTask(IDrawingTaskPtr task) override;
+    DisplayTransformation *transformation() override;
 
 private:
     Q_DISABLE_COPY(MultithreadDisplay)

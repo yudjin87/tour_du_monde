@@ -52,6 +52,13 @@ MultithreadDisplay::MultithreadDisplay(QWidget *parent)
 }
 
 //------------------------------------------------------------------------------
+DisplayTransformation *MultithreadDisplay::transformation()
+{
+    QMutexLocker guard(&m_mutex);
+    return SimpleDisplay::transformation();
+}
+
+//------------------------------------------------------------------------------
 MultithreadDisplay::~MultithreadDisplay()
 {
     m_taskQueue.push(IDrawingTaskPtr(nullptr));
@@ -82,6 +89,7 @@ QPixmap *MultithreadDisplay::lockPixmap()
 //------------------------------------------------------------------------------
 void MultithreadDisplay::unlockPixmap()
 {
+    copyWorked();
     m_mutex.unlock();
 }
 
@@ -96,15 +104,17 @@ void MultithreadDisplay::postDrawingTask(IDrawingTaskPtr task)
 void MultithreadDisplay::callCreatePixmap()
 {
     QMutexLocker guard(&m_mutex);
-    setPixmap(createPixmap());
+    //setPixmap(createPixmap());
+    SimpleDisplay::startDrawing();
 }
 
 //------------------------------------------------------------------------------
 void MultithreadDisplay::callCopyAndUpdate()
 {
     QMutexLocker guard(&m_mutex);
-    copyWorked();
-    viewport()->update();
+    //copyWorked();
+    SimpleDisplay::finishDrawing();
+    //viewport()->update();
 }
 
 //------------------------------------------------------------------------------

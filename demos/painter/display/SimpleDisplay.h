@@ -28,6 +28,8 @@
 #define DISPLAY_H
 
 #include <display/IDisplay.h>
+#include <QtCore/QMutex>
+
 
 class SimpleDisplay :  public IDisplay
 {
@@ -86,5 +88,7 @@ private:
     QPixmap *m_pixmap;
     QPixmap *m_workingPixmap;
     DisplayTransformation *m_transform;
+
+    QMutex m_pixmapMutex;
 };
 #endif // DISPLAY_H
