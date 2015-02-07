@@ -51,7 +51,7 @@ SimpleDisplay::SimpleDisplay(QWidget *parent)
     , m_offset(0, 0)
     , m_startPan(0, 0)
     , m_pixmap(createPixmap())
-    , m_workingPixmap(nullptr)
+    , m_draftPixmap(nullptr)
     , m_transform(new DisplayTransformation())
 {    
     setMouseTracking(true);
@@ -90,9 +90,9 @@ void SimpleDisplay::paintEvent(QPaintEvent *event)
 }
 
 //------------------------------------------------------------------------------
-void SimpleDisplay::copyWorked()
+void SimpleDisplay::dumpDraft()
 {
-    if (m_workingPixmap == nullptr) {
+    if (m_draftPixmap == nullptr) {
         return;
     }
 
@@ -100,7 +100,7 @@ void SimpleDisplay::copyWorked()
 
     m_pixmapMutex.lock();
     QPainter painter(m_pixmap.get());
-    painter.drawPixmap(0, 0, *m_workingPixmap);
+    painter.drawPixmap(0, 0, *m_draftPixmap);
 
     m_pixmapMutex.unlock();
     viewport()->update();
@@ -109,7 +109,7 @@ void SimpleDisplay::copyWorked()
 //------------------------------------------------------------------------------
 void SimpleDisplay::startDrawing()
 {
-   m_workingPixmap = createPixmap(Qt::white);
+   m_draftPixmap = createPixmap(Qt::white);
 
     /*
 #ifndef NDEBUG
@@ -138,7 +138,7 @@ void SimpleDisplay::startDrawing()
 //------------------------------------------------------------------------------
 void SimpleDisplay::finishDrawing()
 {
-    Q_ASSERT(m_workingPixmap != nullptr && "Illegal state during the finishing drawing!");
+    Q_ASSERT(m_draftPixmap != nullptr && "Illegal state during the finishing drawing!");
     Log.d("...... finishDrawing");
     m_offset = QPointF(0, 0);
 }
@@ -146,13 +146,13 @@ void SimpleDisplay::finishDrawing()
 //------------------------------------------------------------------------------
 QPixmap& SimpleDisplay::lockPixmap()
 {
-    return *m_workingPixmap;
+    return *m_draftPixmap;
 }
 
 //------------------------------------------------------------------------------
 void SimpleDisplay::unlockPixmap()
 {
-    copyWorked();
+    dumpDraft();
 }
 
 //------------------------------------------------------------------------------

@@ -63,7 +63,7 @@ protected:
 
     void scrollContentsBy(int dx, int dy) override;
 
-    void copyWorked();
+    void dumpDraft();
 
 signals:
     void needChange();
@@ -85,7 +85,7 @@ private:
     QPointF m_offset;
     QPoint m_startPan;
     QPixmapPtr m_pixmap;
-    QPixmapPtr m_workingPixmap;
+    QPixmapPtr m_draftPixmap;
     DisplayTransformation *m_transform;
 
     QMutex m_pixmapMutex;

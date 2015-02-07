@@ -97,7 +97,7 @@ QPixmap &MultithreadDisplay::lockPixmap()
 //------------------------------------------------------------------------------
 void MultithreadDisplay::unlockPixmap()
 {
-    copyWorked();
+    dumpDraft();
     m_mutex.unlock();
 }
 
