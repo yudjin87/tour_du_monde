@@ -50,7 +50,7 @@ SimpleDisplay::SimpleDisplay(QWidget *parent)
     , m_conn()
     , m_offset(0, 0)
     , m_startPan(0, 0)
-    , m_pixmap(nullptr)
+    , m_pixmap(createPixmap())
     , m_workingPixmap(nullptr)
     , m_transform(new DisplayTransformation())
 {    
@@ -68,7 +68,6 @@ SimpleDisplay::SimpleDisplay(QWidget *parent)
     m_conn = connect(m_transform, &DisplayTransformation::visibleBoundsChanged, this, &SimpleDisplay::onVisibleBoundChanged);
 
     m_transform->setDeviceFrame(QRectF(0, 0, width(), height()));
-    m_pixmap = std::move(createPixmap());
 }
 
 //------------------------------------------------------------------------------
@@ -203,7 +202,7 @@ void SimpleDisplay::emitChanged()
 //------------------------------------------------------------------------------
 void SimpleDisplay::updateWindow()
 {
-   //viewport()->update();
+   viewport()->update();
 }
 
 //------------------------------------------------------------------------------
