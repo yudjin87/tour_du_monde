@@ -68,7 +68,7 @@ SimpleDisplay::SimpleDisplay(QWidget *parent)
     m_conn = connect(m_transform, &DisplayTransformation::visibleBoundsChanged, this, &SimpleDisplay::onVisibleBoundChanged);
 
     m_transform->setDeviceFrame(QRectF(0, 0, width(), height()));
-    m_pixmap = createPixmap();
+    m_pixmap = std::move(createPixmap());
 }
 
 //------------------------------------------------------------------------------
@@ -80,24 +80,14 @@ SimpleDisplay::~SimpleDisplay()
 void SimpleDisplay::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event)
-//    if (m_pixmap == nullptr) {
-//        Log.d("********************** NULL PIXMAP ************************");
-//        m_pixmap = createPixmap();
-//        return;
-//    }
+//    Log.d(QString("Updating view .................................................. x: %1, y:%2")
+//          .arg(m_offset.x())
+//          .arg(m_offset.y()));
 
-    //lockPixmap(); // TODO: use guard
-
-    Log.d(QString("Updating view .................................................. x: %1, y:%2")
-          .arg(m_offset.x())
-          .arg(m_offset.y()));
     QPainter painter(viewport());
 
-    m_pixmapMutex.lock();
+    QMutexLocker guard(&m_pixmapMutex);
     painter.drawPixmap(m_offset.x(), m_offset.y(), m_pixmap->width(), m_pixmap->height(), *m_pixmap);
-    m_pixmapMutex.unlock();
-
-    //unlockPixmap();
 }
 
 //------------------------------------------------------------------------------
@@ -108,10 +98,9 @@ void SimpleDisplay::copyWorked()
     }
 
     m_offset = QPointF(0, 0);
-    Log.d("...... Copying");
 
     m_pixmapMutex.lock();
-    QPainter painter(m_pixmap);
+    QPainter painter(m_pixmap.get());
     painter.drawPixmap(0, 0, *m_workingPixmap);
 
     m_pixmapMutex.unlock();
@@ -121,9 +110,7 @@ void SimpleDisplay::copyWorked()
 //------------------------------------------------------------------------------
 void SimpleDisplay::startDrawing()
 {
-   QPixmap *pixmap = createPixmap();
-   pixmap->fill(Qt::white);
-   setPixmap(pixmap);
+   m_workingPixmap = createPixmap(Qt::white);
 
     /*
 #ifndef NDEBUG
@@ -155,15 +142,12 @@ void SimpleDisplay::finishDrawing()
     Q_ASSERT(m_workingPixmap != nullptr && "Illegal state during the finishing drawing!");
     Log.d("...... finishDrawing");
     m_offset = QPointF(0, 0);
-//    QPainter painter(m_pixmap);
-//    painter.drawPixmap(0, 0, *m_workingPixmap);
-//    viewport()->update();
 }
 
 //------------------------------------------------------------------------------
-QPixmap* SimpleDisplay::lockPixmap()
+QPixmap& SimpleDisplay::lockPixmap()
 {
-    return m_workingPixmap;
+    return *m_workingPixmap;
 }
 
 //------------------------------------------------------------------------------
@@ -181,18 +165,13 @@ DisplayTransformation *SimpleDisplay::transformation()
 //------------------------------------------------------------------------------
 const DisplayTransformation *SimpleDisplay::transformation() const
 {
-    throw "Not implemented!";
-    //lockPixmap();
-    //const DisplayTransformation * tmp = transformation();
-    //unlockPixmap();
-    return nullptr;
+    return m_transform;
 }
 
 //------------------------------------------------------------------------------
 void SimpleDisplay::panMoveTo(const QPoint &screenPoint)
 {
     m_offset = (screenPoint - m_startPan);
-    //qDebug("panMoveTo: x: %f, y:%f", m_offset.x(), m_offset.y());
     viewport()->update();
 }
 
@@ -200,7 +179,6 @@ void SimpleDisplay::panMoveTo(const QPoint &screenPoint)
 void SimpleDisplay::panStart(const QPoint &screenPoint)
 {
     m_startPan = screenPoint;
-    //qDebug("panStart: x: %d, y:%d", screenPoint.x(), screenPoint.y());
 }
 
 //------------------------------------------------------------------------------
@@ -246,19 +224,11 @@ void SimpleDisplay::scrollContentsBy(int dx, int dy)
 }
 
 //------------------------------------------------------------------------------
-QPixmap *SimpleDisplay::createPixmap() const
+QPixmapPtr SimpleDisplay::createPixmap(const QColor &fillColor) const
 {
-    QPixmap* pixmap = new QPixmap(this->width(), this->height());
-    pixmap->fill(Qt::transparent);
+    QPixmapPtr pixmap(new QPixmap(this->width(), this->height()));
+    pixmap->fill(fillColor);
     return pixmap;
-}
-
-//------------------------------------------------------------------------------
-void SimpleDisplay::setPixmap(QPixmap *pixmap)
-{
-    Log.d("                     Changing pixmap");
-    delete m_workingPixmap;
-    m_workingPixmap = pixmap;
 }
 
 //------------------------------------------------------------------------------

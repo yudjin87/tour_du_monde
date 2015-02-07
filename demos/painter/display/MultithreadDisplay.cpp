@@ -59,6 +59,13 @@ DisplayTransformation *MultithreadDisplay::transformation()
 }
 
 //------------------------------------------------------------------------------
+const DisplayTransformation *MultithreadDisplay::transformation() const
+{
+    QMutexLocker guard(&m_mutex);
+    return SimpleDisplay::transformation();
+}
+
+//------------------------------------------------------------------------------
 MultithreadDisplay::~MultithreadDisplay()
 {
     m_taskQueue.push(IDrawingTaskPtr(nullptr));
@@ -68,19 +75,20 @@ MultithreadDisplay::~MultithreadDisplay()
 //------------------------------------------------------------------------------
 void MultithreadDisplay::startDrawing()
 {
+    // TODO: abort drawings and crear queue, when new "startDrawing" is called before finishing
     Log.d("Start drawing: create StartDrawingTask");
     m_taskQueue.push(IDrawingTaskPtr(new StartDrawingTask(this)));
 }
 
 //------------------------------------------------------------------------------
 void MultithreadDisplay::finishDrawing()
-{
+{    
     Log.d("Finish drawing: create UpdateTask");
     m_taskQueue.push(IDrawingTaskPtr(new UpdateTask(this)));
 }
 
 //------------------------------------------------------------------------------
-QPixmap *MultithreadDisplay::lockPixmap()
+QPixmap &MultithreadDisplay::lockPixmap()
 {
     m_mutex.lock();
     return SimpleDisplay::lockPixmap();
@@ -104,7 +112,6 @@ void MultithreadDisplay::postDrawingTask(IDrawingTaskPtr task)
 void MultithreadDisplay::callCreatePixmap()
 {
     QMutexLocker guard(&m_mutex);
-    //setPixmap(createPixmap());
     SimpleDisplay::startDrawing();
 }
 
@@ -112,9 +119,7 @@ void MultithreadDisplay::callCreatePixmap()
 void MultithreadDisplay::callCopyAndUpdate()
 {
     QMutexLocker guard(&m_mutex);
-    //copyWorked();
     SimpleDisplay::finishDrawing();
-    //viewport()->update();
 }
 
 //------------------------------------------------------------------------------

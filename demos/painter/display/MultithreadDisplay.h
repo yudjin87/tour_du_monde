@@ -43,11 +43,12 @@ public:
     void startDrawing() override;
     void finishDrawing() override;
 
-    QPixmap *lockPixmap() override;
+    QPixmap &lockPixmap() override;
     void unlockPixmap() override;
 
     void postDrawingTask(IDrawingTaskPtr task) override;
     DisplayTransformation *transformation() override;
+    const DisplayTransformation *transformation() const override;
 
 private:
     Q_DISABLE_COPY(MultithreadDisplay)
@@ -60,7 +61,7 @@ private:
 private:
     DrawingTaskQueue m_taskQueue;
     RenderThread* m_renderer;
-    QMutex m_mutex;
+    mutable QMutex m_mutex;
 };
 
 #endif // MULTITHREADDISPLAY_H

@@ -34,12 +34,12 @@ void FeatureLayerDrawingTask::draw(IDisplay &display)
 
     const Clock::time_point started = Clock::now();
 
-    QPixmap* tmp = display.createPixmap(); // TODO: memory leak
+    QPixmapPtr tmp = display.createPixmap();
     {
-        DisplayTransformation* transform = display.transformation();
+        const DisplayTransformation* transform = display.transformation();
         const QTransform &viewport = transform->transform();
 
-        QPainter painter(tmp);
+        QPainter painter(tmp.get());
         painter.setTransform(viewport, false);
         //QThread::msleep(1500);
         m_renderer->draw(m_features, &painter);
@@ -47,8 +47,8 @@ void FeatureLayerDrawingTask::draw(IDisplay &display)
     Clock::time_point finishedDrawOnly = Clock::now();
     milliseconds msOnly = std::chrono::duration_cast<milliseconds>(finishedDrawOnly - started);
 
-    QPixmap* pixmap = display.lockPixmap();
-    QPainter painter(pixmap);
+    QPixmap& pixmap = display.lockPixmap();
+    QPainter painter(&pixmap);
     painter.drawPixmap(0, 0, *tmp);
     display.unlockPixmap();
 

@@ -41,7 +41,7 @@ public:
     void startDrawing() override;
     void finishDrawing() override;
 
-    QPixmap *lockPixmap() override;
+    QPixmap &lockPixmap() override;
     void unlockPixmap() override;
 
     DisplayTransformation *transformation() override;
@@ -53,7 +53,7 @@ public:
     void updateWindow() override;
 
     void postDrawingTask(IDrawingTaskPtr task) override;
-    QPixmap *createPixmap() const override;
+    QPixmapPtr createPixmap(const QColor &fillColor = Qt::transparent) const override;
 
 protected:
     void mouseMoveEvent(QMouseEvent *event) override;
@@ -63,7 +63,6 @@ protected:
 
     void scrollContentsBy(int dx, int dy) override;
 
-    void setPixmap(QPixmap *pixmap);
     void copyWorked();
 
 signals:
@@ -85,8 +84,8 @@ private:
     QMetaObject::Connection m_conn;
     QPointF m_offset;
     QPoint m_startPan;
-    QPixmap *m_pixmap;
-    QPixmap *m_workingPixmap;
+    QPixmapPtr m_pixmap;
+    QPixmapPtr m_workingPixmap;
     DisplayTransformation *m_transform;
 
     QMutex m_pixmapMutex;

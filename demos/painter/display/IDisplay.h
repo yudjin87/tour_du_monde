@@ -31,11 +31,12 @@
 #include <display/IDrawingTask.h>
 #include <display/ThreadSafeQueue.h>
 
+#include <QtGui/QPixmap>
 #include <QtWidgets/QAbstractScrollArea>
 
 class DisplayTransformation;
 
-class QPixmap;
+typedef std::unique_ptr<QPixmap> QPixmapPtr;
 
 class DISPLAY_API IDisplay : public QAbstractScrollArea
 {
@@ -48,7 +49,7 @@ public:
     virtual void startDrawing() = 0;
     virtual void finishDrawing() = 0;
 
-    virtual QPixmap *lockPixmap() = 0;
+    virtual QPixmap &lockPixmap() = 0;
     virtual void unlockPixmap() = 0;
 
     virtual DisplayTransformation *transformation() = 0;
@@ -56,7 +57,7 @@ public:
 
     virtual void postDrawingTask(IDrawingTaskPtr task) = 0;
 
-    virtual QPixmap *createPixmap() const = 0;
+    virtual QPixmapPtr createPixmap(const QColor &fillColor = Qt::transparent) const = 0;
 
 public slots:
     virtual void panMoveTo(const QPoint &screenPoint) = 0;
