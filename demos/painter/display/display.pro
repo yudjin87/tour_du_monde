@@ -19,6 +19,7 @@ LIBS += -L$${DESTDIR} -lorg.carousel.demos.Geometry \
 HEADERS += \
     display_api.h \
     DisplayComponent.h \
+    RectRubberBand.h \
     IDisplay.h \
     SimpleDisplay.h \
     Throttle.h \
@@ -41,6 +42,7 @@ HEADERS += \
     UpdateTask.h
 
 SOURCES += \
+    RectRubberBand.cpp \
     DisplayComponent.cpp \
     SimpleDisplay.cpp \
     Throttle.cpp \

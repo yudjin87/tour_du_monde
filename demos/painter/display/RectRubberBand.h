@@ -27,38 +27,46 @@
 #ifndef RECTRUBBERBAND_H
 #define RECTRUBBERBAND_H
 
+#include <display/display_api.h>
+#include <components/interactivity/InputDispatcher.h>
 #include <components/interactivity/IInputReceiver.h>
 
 #include <QtCore/QObject>
+#include <QtCore/QEventLoop>
 #include <QtCore/QRect>
 
-class QGraphicsView;
+#include <memory>
 
-class RectRubberBand : public QObject, public IInputReceiver
+class IDisplay;
+
+class DISPLAY_API RectRubberBand : public QObject, public IInputReceiver
 {
     Q_OBJECT
 public:
     explicit RectRubberBand(QObject *parent = nullptr);
 
-    QRect newRect(QGraphicsView *fromSender);
+    QRect newRect(IDisplay *display, const QPoint& start);
 
-    bool onContextMenu(QContextMenuEvent *ip_event);
+    bool onContextMenu(QContextMenuEvent *event);
 
-    void onDoubleClick(QMouseEvent *ip_event);
+    void onDoubleClick(QMouseEvent *event);
 
-    void onKeyDown(QKeyEvent *ip_event);
+    void onKeyDown(QKeyEvent *event);
 
-    void onKeyUp(QKeyEvent *ip_event);
+    void onKeyUp(QKeyEvent *event);
 
-    void onMouseDown(QMouseEvent *ip_event);
+    void onMouseDown(QMouseEvent *event);
 
-    void onMouseMove(QMouseEvent *ip_event);
+    void onMouseMove(QMouseEvent *event);
 
-    void onMouseUp(QMouseEvent *ip_event);
+    void onMouseUp(QMouseEvent *event);
 
 private:
    QPoint m_start;
-   QGraphicsView *view;
+   QRect m_result;
+   QEventLoop m_eventLoop;
+   IDisplay *m_display;
+   std::unique_ptr<InputDispatcher> m_dispatcher;
 };
 
 #endif // RECTRUBBERBAND_H

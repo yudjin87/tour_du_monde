@@ -24,74 +24,96 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "RectRubberBand.h"
+#include <display/RectRubberBand.h>
+#include <display/IDisplay.h>
 
-#include <components/interactivity/InputDispatcher.h>
-
-#include <QtDebug>
-
+#include <QtCore/QtDebug>
 #include <QtGui/QMouseEvent>
-#include <QtWidgets/QGraphicsView>
+#include <QtGui/QPainter>
+#include <QtGui/QPixmap>
+#include <QtGui/QPen> // TODO: use ISymbol
 
 //------------------------------------------------------------------------------
 RectRubberBand::RectRubberBand(QObject *parent)
     : QObject(parent)
+    , m_result()
+    , m_display(nullptr)
 {
     setObjectName("RectRubberBand");
 }
 
 //------------------------------------------------------------------------------
-QRect RectRubberBand::newRect(QGraphicsView *fromSender)
+QRect RectRubberBand::newRect(IDisplay *display, const QPoint &start)
 {
-    view = fromSender;
-    InputDispatcher *dispatcher = new InputDispatcher(this);
-    dispatcher->setReceiver(this);
-    dispatcher->setSender(fromSender->viewport());
-    dispatcher->activate();
-    return QRect();
+    Q_ASSERT(m_dispatcher == nullptr && "Illegal state");
+
+    m_start = start;
+    m_display = display;
+    m_dispatcher.reset(new InputDispatcher(this));
+    m_dispatcher->setReceiver(this);
+    m_dispatcher->setSender(m_display->viewport());
+    m_dispatcher->activate();
+
+    m_eventLoop.exec();
+
+    return m_result;
 }
 
 //------------------------------------------------------------------------------
-bool RectRubberBand::onContextMenu(QContextMenuEvent *ip_event)
+bool RectRubberBand::onContextMenu(QContextMenuEvent *event)
 {
-    Q_UNUSED(ip_event)
+    Q_UNUSED(event)
     return false;
 }
 
 //------------------------------------------------------------------------------
-void RectRubberBand::onDoubleClick(QMouseEvent *ip_event)
+void RectRubberBand::onDoubleClick(QMouseEvent *event)
 {
-    Q_UNUSED(ip_event)
+    Q_UNUSED(event)
 }
 
 //------------------------------------------------------------------------------
-void RectRubberBand::onKeyDown(QKeyEvent *ip_event)
+void RectRubberBand::onKeyDown(QKeyEvent *event)
 {
-    Q_UNUSED(ip_event)
+    Q_UNUSED(event)
 }
 
 //------------------------------------------------------------------------------
-void RectRubberBand::onKeyUp(QKeyEvent *ip_event)
+void RectRubberBand::onKeyUp(QKeyEvent *event)
 {
-    Q_UNUSED(ip_event)
+    Q_UNUSED(event)
 }
 
 //------------------------------------------------------------------------------
-void RectRubberBand::onMouseDown(QMouseEvent *ip_event)
+void RectRubberBand::onMouseDown(QMouseEvent *event)
 {
-    m_start = ip_event->pos();
+    Q_UNUSED(event)
 }
 
 //------------------------------------------------------------------------------
-void RectRubberBand::onMouseMove(QMouseEvent *ip_event)
+void RectRubberBand::onMouseMove(QMouseEvent *event)
 {
-    qDebug() << ip_event->x() << ip_event->y();
+    QPixmap& screen = m_display->lockPixmap();
+    QPainter painter(&screen);
+
+    QPen b(Qt::SolidLine);
+    b.setColor(Qt::red);
+
+    painter.setPen(b);
+
+    painter.drawRect(QRect(m_start, event->pos()));
+
+    m_display->unlockPixmap();
 }
 
 //------------------------------------------------------------------------------
-void RectRubberBand::onMouseUp(QMouseEvent *ip_event)
+void RectRubberBand::onMouseUp(QMouseEvent *event)
 {
-    Q_UNUSED(ip_event)
+    m_result.setTopLeft(m_start);
+    m_result.setBottomRight(event->pos());
+    m_eventLoop.exit();
+    m_display = nullptr;
+    m_dispatcher.reset();
 }
 
 //------------------------------------------------------------------------------

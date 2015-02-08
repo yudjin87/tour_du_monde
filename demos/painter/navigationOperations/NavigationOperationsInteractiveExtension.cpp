@@ -27,7 +27,7 @@
 #include "NavigationOperationsInteractiveExtension.h"
 #include "PanTool.h"
 #include "ZoomAllOperation.h"
-#include "ZoomInOperation.h"
+#include "ZoomInTool.h"
 #include "ZoomOutOperation.h"
 
 #include <components/interactivity/ICatalogs.h>
@@ -51,7 +51,7 @@ void NavigationOperationsInteractiveExtension::configureGui(ICatalogs &inCatalog
 
     IOperationCatalog &operationCatalog = inCatalogs.operationCatalog();
     Operation *zoomAll = operationCatalog.add(new ZoomAllOperation());
-    Operation *zoomIn = operationCatalog.add(new ZoomInOperation());
+    Operation *zoomIn = operationCatalog.add(new ZoomInTool());
     Operation *zoomOut = operationCatalog.add(new ZoomOutOperation());
     Operation *pan = operationCatalog.add(new PanTool());
 

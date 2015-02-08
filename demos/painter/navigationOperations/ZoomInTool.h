@@ -24,21 +24,24 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef ZOOMINOPERATION_H
-#define ZOOMINOPERATION_H
+#ifndef ZOOMINTOOL_H
+#define ZOOMINTOOL_H
 
-#include <components/interactivity/Operation.h>
+#include <components/interactivity/ToolBase.h>
 
-class ZoomInOperation : public Operation
+class ZoomInTool : public ToolBase
 {
 public:
-    ZoomInOperation();
+    ZoomInTool();
 
     void execute() override;
     void initialize(IServiceLocator *serviceLocator) override;
+    void onMouseDown(QMouseEvent *event) override;
+    void onMouseUp(QMouseEvent *event) override;
+    //void stopExecuting() override;
 
 private:
     IServiceLocator *m_serviceLocator;
 };
 
-#endif // ZOOMINOPERATION_H
+#endif // ZOOMINTOOL_H

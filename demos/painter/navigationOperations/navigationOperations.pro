@@ -24,19 +24,17 @@ HEADERS += \
     navigationOperations_api.h \
     ZoomAllOperation.h \
     NavigationOperationsInteractiveExtension.h \
-    ZoomInOperation.h \
     ZoomOutOperation.h \
-    RectRubberBand.h \
-    PanTool.h
+    PanTool.h \
+    ZoomInTool.h
 
 SOURCES += \
     NavigationOperationsComponent.cpp \
     ZoomAllOperation.cpp \
     NavigationOperationsInteractiveExtension.cpp \
-    ZoomInOperation.cpp \
     ZoomOutOperation.cpp \
-    RectRubberBand.cpp \
-    PanTool.cpp
+    PanTool.cpp \
+    ZoomInTool.cpp
 
 RESOURCES += \
     navigation.qrc
