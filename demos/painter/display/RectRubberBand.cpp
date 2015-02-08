@@ -57,7 +57,7 @@ bool RectRubberBand::newRect(IDisplay *display, const QPoint &start, QRect *out)
 
     m_eventLoop.exec();
 
-    *out = m_result;
+    *out = m_result.normalized();
     return true;
 }
 
@@ -95,7 +95,9 @@ void RectRubberBand::onMouseDown(QMouseEvent *event)
 //------------------------------------------------------------------------------
 void RectRubberBand::onMouseMove(QMouseEvent *event)
 {
+    m_display->startDrawing(DispayCache::Annotations);
     QPixmap& screen = m_display->lockPixmap(DispayCache::Annotations);
+
     QPainter painter(&screen);
 
     QPen b(Qt::SolidLine);
@@ -105,12 +107,18 @@ void RectRubberBand::onMouseMove(QMouseEvent *event)
 
     painter.drawRect(QRect(m_start, event->pos()));
 
-    m_display->unlockPixmap();
+    m_display->unlockPixmap(DispayCache::Annotations);
+    m_display->finishDrawing(DispayCache::Annotations);
 }
 
 //------------------------------------------------------------------------------
 void RectRubberBand::onMouseUp(QMouseEvent *event)
 {
+    m_display->startDrawing(DispayCache::Annotations);
+    m_display->lockPixmap(DispayCache::Annotations);
+    m_display->unlockPixmap(DispayCache::Annotations);
+    m_display->finishDrawing(DispayCache::Annotations);
+
     m_result.setTopLeft(m_start);
     m_result.setBottomRight(event->pos());
     m_eventLoop.exit();

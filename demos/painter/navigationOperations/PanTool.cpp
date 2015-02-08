@@ -12,7 +12,7 @@
 
 //------------------------------------------------------------------------------
 PanTool::PanTool()
-    : ToolBase("Pan")
+    : CartoBaseTool("Pan")
     , m_serviceLocator(nullptr)
     , m_tracked(false)
 {
@@ -23,7 +23,7 @@ PanTool::PanTool()
 //------------------------------------------------------------------------------
 void PanTool::execute()
 {
-    ToolBase::execute();
+    CartoBaseTool::execute();
     IDisplay *display = m_serviceLocator->locate<IDisplay>();
 
     // TODO: move cursors to base class
@@ -33,7 +33,7 @@ void PanTool::execute()
 //------------------------------------------------------------------------------
 void PanTool::initialize(IServiceLocator *serviceLocator)
 {
-    ToolBase::initialize(serviceLocator);
+    CartoBaseTool::initialize(serviceLocator);
     m_serviceLocator = serviceLocator;
 }
 
@@ -52,6 +52,7 @@ void PanTool::onMouseDown(QMouseEvent *event)
 //------------------------------------------------------------------------------
 void PanTool::onMouseMove(QMouseEvent *event)
 {
+    CartoBaseTool::onMouseMove(event);
     // TODO: move tracking to base class
     if (!m_tracked)
         return;
@@ -80,7 +81,7 @@ void PanTool::onMouseUp(QMouseEvent *event)
 //------------------------------------------------------------------------------
 void PanTool::stopExecuting()
 {
-    ToolBase::stopExecuting();
+    CartoBaseTool::stopExecuting();
 
     IDisplay *display = m_serviceLocator->locate<IDisplay>();
     display->unsetCursor();

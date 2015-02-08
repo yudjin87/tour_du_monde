@@ -86,10 +86,15 @@ void MultithreadDisplay::startDrawing(const DispayCache inCache)
 }
 
 //------------------------------------------------------------------------------
-void MultithreadDisplay::finishDrawing()
+void MultithreadDisplay::finishDrawing(const DispayCache inCache)
 {    
-    Log.d("Finish drawing: create UpdateTask");
-    m_taskQueue.push(IDrawingTaskPtr(new UpdateTask(this)));
+    if (inCache == DispayCache::Geometry) {
+        Log.d("Finish drawing: create UpdateTask");
+        m_taskQueue.push(IDrawingTaskPtr(new UpdateTask(this)));
+        return;
+    }
+
+    SimpleDisplay::finishDrawing(inCache);
 }
 
 //------------------------------------------------------------------------------
@@ -104,10 +109,15 @@ QPixmap &MultithreadDisplay::lockPixmap(const DispayCache inCache)
 }
 
 //------------------------------------------------------------------------------
-void MultithreadDisplay::unlockPixmap()
+void MultithreadDisplay::unlockPixmap(const DispayCache inCache)
 {
-    dumpDraft();
-    m_mutex.unlock();
+    if (inCache == DispayCache::Geometry) {
+        m_mutex.unlock();
+        SimpleDisplay::unlockPixmap(inCache);
+        return;
+    }
+
+    SimpleDisplay::unlockPixmap(inCache);
 }
 
 //------------------------------------------------------------------------------
@@ -128,7 +138,7 @@ void MultithreadDisplay::callCreatePixmap() // TODO: rename
 void MultithreadDisplay::callCopyAndUpdate() // TODO: rename
 {
     QMutexLocker guard(&m_mutex);
-    SimpleDisplay::finishDrawing();
+    SimpleDisplay::finishDrawing(DispayCache::Geometry);
 }
 
 //------------------------------------------------------------------------------

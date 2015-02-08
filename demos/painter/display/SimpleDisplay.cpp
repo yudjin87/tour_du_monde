@@ -51,7 +51,7 @@ SimpleDisplay::SimpleDisplay(QWidget *parent)
     , m_offset(0, 0)
     , m_startPan(0, 0)
     , m_pixmap(createPixmap())
-    , m_draftPixmap(nullptr)
+    , m_draftPixmaps(3)
     , m_transform(new DisplayTransformation())
 {    
     setMouseTracking(true);
@@ -90,17 +90,23 @@ void SimpleDisplay::paintEvent(QPaintEvent *event)
 }
 
 //------------------------------------------------------------------------------
-void SimpleDisplay::dumpDraft()
+void SimpleDisplay::dumpDraft(const DispayCache inCache)
 {
-    if (m_draftPixmap == nullptr) {
-        return;
-    }
+//    if (m_draftPixmap == nullptr) {
+//        return;
+//    }
 
     m_offset = QPointF(0, 0);
 
     m_pixmapMutex.lock();
-    QPainter painter(m_pixmap.get());
-    painter.drawPixmap(0, 0, *m_draftPixmap);
+    QPainter painter(m_pixmap);
+
+   // Log.d(QString("dumpDraft: %1").arg((int)inCache));
+
+    for (QPixmapPtr& pixmap : m_draftPixmaps) {
+        if (pixmap != nullptr)
+            painter.drawPixmap(0, 0, *pixmap);
+    }
 
     m_pixmapMutex.unlock();
     viewport()->update();
@@ -109,7 +115,15 @@ void SimpleDisplay::dumpDraft()
 //------------------------------------------------------------------------------
 void SimpleDisplay::startDrawing(const DispayCache inCache)
 {
-   m_draftPixmap = createPixmap(Qt::white);
+    delete m_draftPixmaps[(int)inCache];
+    m_draftPixmaps[(int)inCache] = nullptr;
+
+    //delete m_draftPixmaps[(int)inCache];
+    if (inCache == DispayCache::Geometry) {
+        m_draftPixmaps[(int)inCache] = createPixmap(Qt::white);
+    } else {
+        m_draftPixmaps[(int)inCache] = createPixmap(Qt::transparent);
+    }
 
     /*
 #ifndef NDEBUG
@@ -136,23 +150,26 @@ void SimpleDisplay::startDrawing(const DispayCache inCache)
 }
 
 //------------------------------------------------------------------------------
-void SimpleDisplay::finishDrawing()
+void SimpleDisplay::finishDrawing(const DispayCache inCache)
 {
-    Q_ASSERT(m_draftPixmap != nullptr && "Illegal state during the finishing drawing!");
-    Log.d("...... finishDrawing");
+    //Q_ASSERT(m_draftPixmap != nullptr && "Illegal state during the finishing drawing!");
+    //Log.d("...... finishDrawing");
     m_offset = QPointF(0, 0);
+//    delete m_draftPixmaps[(int)inCache];
+//    m_draftPixmaps[(int)inCache] = nullptr;
 }
 
 //------------------------------------------------------------------------------
 QPixmap& SimpleDisplay::lockPixmap(const DispayCache inCache)
 {
-    return *m_draftPixmap;
+    QPixmapPtr& pixmap = m_draftPixmaps[(int)inCache];
+    return *pixmap;
 }
 
 //------------------------------------------------------------------------------
-void SimpleDisplay::unlockPixmap()
+void SimpleDisplay::unlockPixmap(const DispayCache inCache)
 {
-    dumpDraft();
+    dumpDraft(inCache);
 }
 
 //------------------------------------------------------------------------------

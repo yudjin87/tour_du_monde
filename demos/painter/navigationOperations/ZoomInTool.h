@@ -27,9 +27,9 @@
 #ifndef ZOOMINTOOL_H
 #define ZOOMINTOOL_H
 
-#include <components/interactivity/ToolBase.h>
+#include <display/CartoBaseTool.h>
 
-class ZoomInTool : public ToolBase
+class ZoomInTool : public CartoBaseTool
 {
 public:
     ZoomInTool();

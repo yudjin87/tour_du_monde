@@ -36,7 +36,8 @@
 
 class DisplayTransformation;
 
-typedef std::unique_ptr<QPixmap> QPixmapPtr;
+//typedef std::unique_ptr<QPixmap> QPixmapPtr;
+typedef QPixmap* QPixmapPtr;
 
 enum class DispayCache
 {
@@ -54,10 +55,10 @@ public:
     virtual ~IDisplay(){}
 
     virtual void startDrawing(const DispayCache inCache) = 0;
-    virtual void finishDrawing() = 0;
+    virtual void finishDrawing(const DispayCache inCache) = 0;
 
     virtual QPixmap &lockPixmap(const DispayCache inCache) = 0;
-    virtual void unlockPixmap() = 0;
+    virtual void unlockPixmap(const DispayCache inCache) = 0;
 
     virtual DisplayTransformation *transformation() = 0;
     virtual const DisplayTransformation *transformation() const = 0;

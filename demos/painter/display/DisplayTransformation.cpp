@@ -66,10 +66,10 @@ void DisplayTransformation::setBounds(const QRectF &bounds)
     if (m_bounds == bounds)
         return;
 
-    Log.d(QString("New bounds: l: %1, r: %2, t: %3, b: %4")
+    Log.d(QString("New bounds: (%1;%2) (%3;%4)")
           .arg(bounds.left())
-          .arg(bounds.right())
           .arg(bounds.top())
+          .arg(bounds.right())
           .arg(bounds.bottom()));
 
     m_bounds = bounds;
@@ -162,13 +162,21 @@ QPointF DisplayTransformation::toMapPoint(int x, int y) const
     qreal outX;
     qreal outY;
     transform().inverted().map(qreal(x), qreal(y), &outX, &outY);
-    return QPointF(outX, outY);
+    return QPointF(outX, outY * flipY);
 }
 
 //------------------------------------------------------------------------------
 QPointF DisplayTransformation::toMapPoint(const QPoint &position) const
 {
     return toMapPoint(position.x(), position.y());
+}
+
+//------------------------------------------------------------------------------
+QRectF DisplayTransformation::toMapRect(const QRect &deviceRect) const
+{
+    QPointF topLeft = toMapPoint(deviceRect.topLeft());
+    QPointF bottomRight = toMapPoint(deviceRect.bottomRight());
+    return QRectF(topLeft, bottomRight);
 }
 
 //------------------------------------------------------------------------------

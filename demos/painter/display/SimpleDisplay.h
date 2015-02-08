@@ -29,7 +29,7 @@
 
 #include <display/IDisplay.h>
 #include <QtCore/QMutex>
-#include <QtCore/QMap>
+#include <QtCore/QVector>
 
 class SimpleDisplay :  public IDisplay
 {
@@ -39,10 +39,10 @@ public:
     ~SimpleDisplay();
 
     void startDrawing(const DispayCache inCache) override;
-    void finishDrawing() override;
+    void finishDrawing(const DispayCache inCache) override;
 
     QPixmap &lockPixmap(const DispayCache inCache) override;
-    void unlockPixmap() override;
+    void unlockPixmap(const DispayCache inCache) override;
 
     DisplayTransformation *transformation() override;
     const DisplayTransformation *transformation() const override;
@@ -63,8 +63,6 @@ protected:
 
     void scrollContentsBy(int dx, int dy) override;
 
-    void dumpDraft();
-
 signals:
     void needChange();
 
@@ -74,6 +72,7 @@ private slots:
 
 private:
     Q_DISABLE_COPY(SimpleDisplay)
+    void dumpDraft(const DispayCache inCache);
     void moveVisibleBounds(int dx, int dy);
     int getDy(double scale);
     int getDx(double scale);
@@ -85,8 +84,7 @@ private:
     QPointF m_offset;
     QPoint m_startPan;
     QPixmapPtr m_pixmap;
-    QPixmapPtr m_draftPixmap;
-    QMap<DispayCache, QPixmapPtr> m_draftPixmaps;
+    QVector<QPixmapPtr> m_draftPixmaps;
     DisplayTransformation *m_transform;
 
     QMutex m_pixmapMutex;

@@ -39,7 +39,7 @@ void FeatureLayerDrawingTask::draw(IDisplay &display)
         const DisplayTransformation* transform = display.transformation();
         const QTransform &viewport = transform->transform();
 
-        QPainter painter(tmp.get());
+        QPainter painter(tmp);
         painter.setTransform(viewport, false);
         //QThread::msleep(1500);
         m_renderer->draw(m_features, &painter);
@@ -50,10 +50,12 @@ void FeatureLayerDrawingTask::draw(IDisplay &display)
     QPixmap& pixmap = display.lockPixmap(DispayCache::Geometry);
     QPainter painter(&pixmap);
     painter.drawPixmap(0, 0, *tmp);
-    display.unlockPixmap();
+    display.unlockPixmap(DispayCache::Geometry);
 
     Clock::time_point finished = Clock::now();
     milliseconds ms = std::chrono::duration_cast<milliseconds>(finished - started);
+
+    delete tmp;
 
     Log.d(QString("Drawing task (%1 features): Full %2, raw drawing: %3 ms").arg(m_features.size()).arg(ms.count()).arg(msOnly.count()));
 }

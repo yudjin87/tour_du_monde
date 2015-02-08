@@ -178,7 +178,7 @@ void Map::refresh()
     for (AbstractLayer *layer : m_layers)
         layer->draw(m_display);
 
-    m_display->finishDrawing();
+    m_display->finishDrawing(DispayCache::Geometry);
 
     emit refreshed(); // TODO? what for?
 }

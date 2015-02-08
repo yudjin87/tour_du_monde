@@ -39,7 +39,8 @@ HEADERS += \
     RenderThread.h \
     MultithreadDisplay.h \
     StartDrawingTask.h \
-    UpdateTask.h
+    UpdateTask.h \
+    CartoBaseTool.h
 
 SOURCES += \
     RectRubberBand.cpp \
@@ -60,7 +61,8 @@ SOURCES += \
     RenderThread.cpp \
     MultithreadDisplay.cpp \
     StartDrawingTask.cpp \
-    UpdateTask.cpp
+    UpdateTask.cpp \
+    CartoBaseTool.cpp
 
 FORMS +=
 

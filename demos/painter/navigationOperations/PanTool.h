@@ -1,9 +1,9 @@
-#ifndef PANOPERATION_H
-#define PANOPERATION_H
+#ifndef PANTOOL_H
+#define PANTOOL_H
 
-#include <components/interactivity/ToolBase.h>
+#include <display/CartoBaseTool.h>
 
-class PanTool : public ToolBase
+class PanTool : public CartoBaseTool
 {
 public:
     PanTool();
@@ -19,4 +19,4 @@ private:
     IServiceLocator *m_serviceLocator;
     bool m_tracked;
 };
-#endif // PANOPERATION_H
+#endif // PANTOOL_H

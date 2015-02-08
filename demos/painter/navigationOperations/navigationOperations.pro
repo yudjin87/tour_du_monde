@@ -26,7 +26,7 @@ HEADERS += \
     NavigationOperationsInteractiveExtension.h \
     ZoomOutOperation.h \
     PanTool.h \
-    ZoomInTool.h
+    ZoomInTool.h \
 
 SOURCES += \
     NavigationOperationsComponent.cpp \
@@ -34,7 +34,7 @@ SOURCES += \
     NavigationOperationsInteractiveExtension.cpp \
     ZoomOutOperation.cpp \
     PanTool.cpp \
-    ZoomInTool.cpp
+    ZoomInTool.cpp \
 
 RESOURCES += \
     navigation.qrc

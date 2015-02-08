@@ -46,7 +46,7 @@ static LoggerFacade Log = LoggerFacade::createLogger("ZoomInTool");
 
 //------------------------------------------------------------------------------
 ZoomInTool::ZoomInTool()
-    : ToolBase("Zoom in")
+    : CartoBaseTool("Zoom in")
     , m_serviceLocator(nullptr)
 {
     setIcon(QIcon(":/navigation/images/zoom_in.png"));
@@ -56,13 +56,13 @@ ZoomInTool::ZoomInTool()
 //------------------------------------------------------------------------------
 void ZoomInTool::execute()
 {
-    ToolBase::execute();
+    CartoBaseTool::execute();
 }
 
 //------------------------------------------------------------------------------
 void ZoomInTool::initialize(IServiceLocator *serviceLocator)
 {
-    ToolBase::initialize(serviceLocator);
+    CartoBaseTool::initialize(serviceLocator);
 
     m_serviceLocator = serviceLocator;
 }
@@ -89,7 +89,18 @@ void ZoomInTool::onMouseDown(QMouseEvent *event)
         return;
     }
 
+    DisplayTransformation* transform = display->transformation();
+    QRectF bounds = transform->toMapRect(band);
+
     Log.d(QString("New band: (%1;%2) (%3;%4)").arg(band.left()).arg(band.top()).arg(band.right()).arg(band.bottom()));
+    Log.d(QString("New bandF: (%1;%2) (%3;%4)").arg(bounds.left()).arg(bounds.top()).arg(bounds.right()).arg(bounds.bottom()));
+
+    transform->setVisibleBounds(bounds);
+
+    IPainterDocumentController* docController = m_serviceLocator->locate<IPainterDocumentController>();
+    IPainterDocument *doc = docController->document();
+    IMap *map = doc->map();
+    map->refresh();
 }
 
 //------------------------------------------------------------------------------

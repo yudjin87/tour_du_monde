@@ -145,7 +145,7 @@ public slots:
      *   Converts a device rectangle @a deviceRect in device coordinates to real
      *   world coordinates.
      */
-    //QRectF toMapRectangle(const QRect &deviceRect) const;
+    QRectF toMapRect(const QRect &deviceRect) const;
 
 signals:
     void boundsChanged(const QRectF &bounds);

@@ -41,10 +41,10 @@ public:
     ~MultithreadDisplay();
 
     void startDrawing(const DispayCache inCache) override;
-    void finishDrawing() override;
+    void finishDrawing(const DispayCache inCache) override;
 
     QPixmap &lockPixmap(const DispayCache inCache) override;
-    void unlockPixmap() override;
+    void unlockPixmap(const DispayCache inCache) override;
 
     void postDrawingTask(IDrawingTaskPtr task) override;
     DisplayTransformation *transformation() override;
