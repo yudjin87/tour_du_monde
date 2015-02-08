@@ -12,7 +12,7 @@
 
 //------------------------------------------------------------------------------
 PanTool::PanTool()
-    : CartoBaseTool("Pan")
+    : ToolBase("Pan")
     , m_serviceLocator(nullptr)
     , m_tracked(false)
 {
@@ -23,7 +23,7 @@ PanTool::PanTool()
 //------------------------------------------------------------------------------
 void PanTool::execute()
 {
-    CartoBaseTool::execute();
+    ToolBase::execute();
     IDisplay *display = m_serviceLocator->locate<IDisplay>();
 
     // TODO: move cursors to base class
@@ -33,39 +33,44 @@ void PanTool::execute()
 //------------------------------------------------------------------------------
 void PanTool::initialize(IServiceLocator *serviceLocator)
 {
-    CartoBaseTool::initialize(serviceLocator);
+    ToolBase::initialize(serviceLocator);
     m_serviceLocator = serviceLocator;
 }
 
 //------------------------------------------------------------------------------
-void PanTool::onMouseDown(QMouseEvent *event)
+bool PanTool::onMouseDown(QMouseEvent *event)
 {
     if (event->button() != Qt::LeftButton)
-        return;
+        return false;
 
     m_tracked = true;
     IDisplay *display = m_serviceLocator->locate<IDisplay>();
     display->panStart(event->pos());
     display->setCursor(Qt::ClosedHandCursor);
+
+    return true;
 }
 
 //------------------------------------------------------------------------------
-void PanTool::onMouseMove(QMouseEvent *event)
+bool PanTool::onMouseMove(QMouseEvent *event)
 {
-    CartoBaseTool::onMouseMove(event);
+    ToolBase::onMouseMove(event);
     // TODO: move tracking to base class
     if (!m_tracked)
-        return;
+        return false;
 
     IDisplay *display = m_serviceLocator->locate<IDisplay>();
     display->panMoveTo(event->pos());
+
+    // let's other objects to continue with this event
+    return false;
 }
 
 //------------------------------------------------------------------------------
-void PanTool::onMouseUp(QMouseEvent *event)
+bool PanTool::onMouseUp(QMouseEvent *event)
 {
     if (event->button() != Qt::LeftButton)
-        return;
+        return false;
 
     m_tracked = false;
     IDisplay *display = m_serviceLocator->locate<IDisplay>();
@@ -76,12 +81,14 @@ void PanTool::onMouseUp(QMouseEvent *event)
     IPainterDocument *doc = docController->document();
     IMap *map = doc->map();
     map->refresh();
+
+    return true;
 }
 
 //------------------------------------------------------------------------------
 void PanTool::stopExecuting()
 {
-    CartoBaseTool::stopExecuting();
+    ToolBase::stopExecuting();
 
     IDisplay *display = m_serviceLocator->locate<IDisplay>();
     display->unsetCursor();

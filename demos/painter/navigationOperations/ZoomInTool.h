@@ -27,17 +27,17 @@
 #ifndef ZOOMINTOOL_H
 #define ZOOMINTOOL_H
 
-#include <display/CartoBaseTool.h>
+#include <components/interactivity/ToolBase.h>
 
-class ZoomInTool : public CartoBaseTool
+class ZoomInTool : public ToolBase
 {
 public:
     ZoomInTool();
 
     void execute() override;
     void initialize(IServiceLocator *serviceLocator) override;
-    void onMouseDown(QMouseEvent *event) override;
-    void onMouseUp(QMouseEvent *event) override;
+    bool onMouseDown(QMouseEvent *event) override;
+    bool onMouseUp(QMouseEvent *event) override;
     //void stopExecuting() override;
 
 private:

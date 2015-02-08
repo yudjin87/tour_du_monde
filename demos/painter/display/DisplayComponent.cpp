@@ -28,6 +28,7 @@
 #include <display/SimpleDisplay.h>
 #include <display/DisplayScriptExtension.h>
 #include <display/MultithreadDisplay.h>
+#include <display/CoordsTracker.h>
 
 #include <carousel/componentsystem/ComponentDefinition.h>
 #include <carousel/componentsystem/ComponentExport.h>
@@ -85,6 +86,9 @@ bool DisplayComponent::onStartup(IServiceLocator *serviceLocator)
     interactionService->setDispatcher(new InputDispatcher());
     interactionService->dispatcher()->setSender(display->viewport());
     interactionService->dispatcher()->activate();
+
+    CoordsTracker* tracker = new CoordsTracker(display, mainWindow->statusBar(), this);
+    Q_UNUSED(tracker)
 
     return true;
 }

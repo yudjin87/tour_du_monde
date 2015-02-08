@@ -1,19 +1,25 @@
-#ifndef CARTOBASETOOL_H
-#define CARTOBASETOOL_H
+#ifndef COORDSTRACKER_H
+#define COORDSTRACKER_H
 
 #include <display/display_api.h>
-#include <components/interactivity/ToolBase.h>
+#include <components/interactivity/BaseInputReceiver.h>
+#include <components/interactivity/IInputDispatcher.h>
+#include <QtCore/QObject>
 
-class DISPLAY_API CartoBaseTool : public ToolBase
+#include <memory>
+
+class QStatusBar;
+class IDisplay;
+
+class CoordsTracker : public QObject, public BaseInputReceiver
 {
 public:
-    CartoBaseTool(const QString &text, QActionGroup *actionGroup = nullptr);
-    CartoBaseTool(const QIcon &icon, const QString &text, QActionGroup *actionGroup = nullptr);
-
-    void initialize(IServiceLocator *serviceLocator) override;
-    void onMouseMove(QMouseEvent *event) override;
+    CoordsTracker(const IDisplay *display, QStatusBar* statusBar, QObject *parent);
+    bool onMouseMove(QMouseEvent *event) override;
 
 private:
-    IServiceLocator *m_serviceLocator;
+    const IDisplay *m_display;
+    QStatusBar *m_statusBar;
+    std::unique_ptr<IInputDispatcher> m_dispatcher;
 };
-#endif // CARTOBASETOOL_H
+#endif // COORDSTRACKER_H

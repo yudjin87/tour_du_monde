@@ -29,7 +29,7 @@
 
 #include <display/display_api.h>
 #include <components/interactivity/InputDispatcher.h>
-#include <components/interactivity/IInputReceiver.h>
+#include <components/interactivity/BaseInputReceiver.h>
 
 #include <QtCore/QObject>
 #include <QtCore/QEventLoop>
@@ -39,7 +39,7 @@
 
 class IDisplay;
 
-class DISPLAY_API RectRubberBand : public QObject, public IInputReceiver
+class DISPLAY_API RectRubberBand : public QObject, public BaseInputReceiver
 {
     Q_OBJECT
 public:
@@ -47,19 +47,10 @@ public:
 
     bool newRect(IDisplay *display, const QPoint& start, QRect* out);
 
-    bool onContextMenu(QContextMenuEvent *event);
+    // TODO: handle Escape key
+    bool onMouseMove(QMouseEvent *event) override;
 
-    void onDoubleClick(QMouseEvent *event);
-
-    void onKeyDown(QKeyEvent *event);
-
-    void onKeyUp(QKeyEvent *event);
-
-    void onMouseDown(QMouseEvent *event);
-
-    void onMouseMove(QMouseEvent *event);
-
-    void onMouseUp(QMouseEvent *event);
+    bool onMouseUp(QMouseEvent *event) override;
 
 private:
    QPoint m_start;

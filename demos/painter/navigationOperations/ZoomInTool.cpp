@@ -46,7 +46,7 @@ static LoggerFacade Log = LoggerFacade::createLogger("ZoomInTool");
 
 //------------------------------------------------------------------------------
 ZoomInTool::ZoomInTool()
-    : CartoBaseTool("Zoom in")
+    : ToolBase("Zoom in")
     , m_serviceLocator(nullptr)
 {
     setIcon(QIcon(":/navigation/images/zoom_in.png"));
@@ -56,22 +56,22 @@ ZoomInTool::ZoomInTool()
 //------------------------------------------------------------------------------
 void ZoomInTool::execute()
 {
-    CartoBaseTool::execute();
+    ToolBase::execute();
 }
 
 //------------------------------------------------------------------------------
 void ZoomInTool::initialize(IServiceLocator *serviceLocator)
 {
-    CartoBaseTool::initialize(serviceLocator);
+    ToolBase::initialize(serviceLocator);
 
     m_serviceLocator = serviceLocator;
 }
 
 //------------------------------------------------------------------------------
-void ZoomInTool::onMouseDown(QMouseEvent *event)
+bool ZoomInTool::onMouseDown(QMouseEvent *event)
 {
     if (event->button() != Qt::LeftButton)
-        return;
+        return false;
 
     IDisplay *display = m_serviceLocator->locate<IDisplay>();
 
@@ -80,13 +80,13 @@ void ZoomInTool::onMouseDown(QMouseEvent *event)
     RectRubberBand rb;
     QRect band;
     if (!rb.newRect(display, event->pos(), &band)) {
-        return;
+        return false;
     }
 
     const bool singleClick = (band.width() <= 1) && (band.height() <= 1);
     if (singleClick) {
         changeToFixedScale();
-        return;
+        return false;
     }
 
     DisplayTransformation* transform = display->transformation();
@@ -101,13 +101,15 @@ void ZoomInTool::onMouseDown(QMouseEvent *event)
     IPainterDocument *doc = docController->document();
     IMap *map = doc->map();
     map->refresh();
+
+    return true;
 }
 
 //------------------------------------------------------------------------------
-void ZoomInTool::onMouseUp(QMouseEvent *event)
+bool ZoomInTool::onMouseUp(QMouseEvent *event)
 {
     if (event->button() != Qt::LeftButton)
-        return;
+        return false;
 
     Log.d("onMouseUp");
 
@@ -115,6 +117,8 @@ void ZoomInTool::onMouseUp(QMouseEvent *event)
 //    IPainterDocument *doc = docController->document();
 //    IMap *map = doc->map();
     //    map->refresh();
+
+    return true;
 }
 
 //------------------------------------------------------------------------------

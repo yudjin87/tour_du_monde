@@ -62,38 +62,7 @@ bool RectRubberBand::newRect(IDisplay *display, const QPoint &start, QRect *out)
 }
 
 //------------------------------------------------------------------------------
-bool RectRubberBand::onContextMenu(QContextMenuEvent *event)
-{
-    Q_UNUSED(event)
-    return false;
-}
-
-//------------------------------------------------------------------------------
-void RectRubberBand::onDoubleClick(QMouseEvent *event)
-{
-    Q_UNUSED(event)
-}
-
-//------------------------------------------------------------------------------
-void RectRubberBand::onKeyDown(QKeyEvent *event)
-{
-    Q_UNUSED(event)
-}
-
-//------------------------------------------------------------------------------
-void RectRubberBand::onKeyUp(QKeyEvent *event)
-{
-    Q_UNUSED(event)
-}
-
-//------------------------------------------------------------------------------
-void RectRubberBand::onMouseDown(QMouseEvent *event)
-{
-    Q_UNUSED(event)
-}
-
-//------------------------------------------------------------------------------
-void RectRubberBand::onMouseMove(QMouseEvent *event)
+bool RectRubberBand::onMouseMove(QMouseEvent *event)
 {
     m_display->startDrawing(DispayCache::Annotations);
     QPixmap& screen = m_display->lockPixmap(DispayCache::Annotations);
@@ -109,10 +78,13 @@ void RectRubberBand::onMouseMove(QMouseEvent *event)
 
     m_display->unlockPixmap(DispayCache::Annotations);
     m_display->finishDrawing(DispayCache::Annotations);
+
+    // let's other objects to continue with this event
+    return false;
 }
 
 //------------------------------------------------------------------------------
-void RectRubberBand::onMouseUp(QMouseEvent *event)
+bool RectRubberBand::onMouseUp(QMouseEvent *event)
 {
     m_display->startDrawing(DispayCache::Annotations);
     m_display->lockPixmap(DispayCache::Annotations);
@@ -124,6 +96,8 @@ void RectRubberBand::onMouseUp(QMouseEvent *event)
     m_eventLoop.exit();
     m_display = nullptr;
     m_dispatcher.reset();
+
+    return true;
 }
 
 //------------------------------------------------------------------------------

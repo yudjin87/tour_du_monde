@@ -40,7 +40,7 @@ HEADERS += \
     MultithreadDisplay.h \
     StartDrawingTask.h \
     UpdateTask.h \
-    CartoBaseTool.h
+    CoordsTracker.h
 
 SOURCES += \
     RectRubberBand.cpp \
@@ -62,7 +62,7 @@ SOURCES += \
     MultithreadDisplay.cpp \
     StartDrawingTask.cpp \
     UpdateTask.cpp \
-    CartoBaseTool.cpp
+    CoordsTracker.cpp
 
 FORMS +=
 

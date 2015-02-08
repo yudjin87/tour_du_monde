@@ -1,47 +1,37 @@
-#include "CartoBaseTool.h"
-
+#include <display/CoordsTracker.h>
 #include <display/IDisplay.h>
 #include <display/DisplayTransformation.h>
-#include <carousel/utils/IServiceLocator.h>
-#include <carousel/logging/LoggerFacade.h>
+#include <components/interactivity/InputDispatcher.h>
 
 #include <QtGui/QMouseEvent>
+#include <QtWidgets/QStatusBar>
 
-namespace
+//------------------------------------------------------------------------------
+CoordsTracker::CoordsTracker(const IDisplay *display, QStatusBar *statusBar, QObject *parent)
+    : QObject(parent)
+    , BaseInputReceiver()
+    , m_display(display)
+    , m_statusBar(statusBar)
+    , m_dispatcher(new InputDispatcher())
 {
-static LoggerFacade Log = LoggerFacade::createLogger("CartoBaseTool");
+    m_dispatcher->setReceiver(this);
+    m_dispatcher->setSender(m_display->viewport());
+    m_dispatcher->activate();
 }
 
 //------------------------------------------------------------------------------
-CartoBaseTool::CartoBaseTool(const QString &text, QActionGroup *actionGroup)
-    : ToolBase(text, actionGroup)
-    , m_serviceLocator(nullptr)
+bool CoordsTracker::onMouseMove(QMouseEvent *event)
 {
-}
-
-//------------------------------------------------------------------------------
-CartoBaseTool::CartoBaseTool(const QIcon &icon, const QString &text, QActionGroup *actionGroup)
-    : ToolBase(icon, text, actionGroup)
-    , m_serviceLocator(nullptr)
-{
-
-}
-
-//------------------------------------------------------------------------------
-void CartoBaseTool::initialize(IServiceLocator *serviceLocator)
-{
-    ToolBase::initialize(serviceLocator);
-    m_serviceLocator = serviceLocator;
-}
-
-//------------------------------------------------------------------------------
-void CartoBaseTool::onMouseMove(QMouseEvent *event)
-{
-    IDisplay *display = m_serviceLocator->locate<IDisplay>();
-    DisplayTransformation* transform = display->transformation();
+    const DisplayTransformation* transform = m_display->transformation();
     QPointF mapPoint = transform->toMapPoint(event->pos());
 
-    Log.d(QString("x: %1, y: %2").arg(mapPoint.x()).arg(mapPoint.y()));
+    m_statusBar->showMessage(QString("x: %1, y: %2").arg(mapPoint.x()).arg(mapPoint.y()), 2000);
+
+    // let's other objects to continue with this event
+    return false;
 }
 
 //------------------------------------------------------------------------------
+
+
+

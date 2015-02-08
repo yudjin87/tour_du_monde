@@ -1,18 +1,18 @@
 #ifndef PANTOOL_H
 #define PANTOOL_H
 
-#include <display/CartoBaseTool.h>
+#include <components/interactivity/ToolBase.h>
 
-class PanTool : public CartoBaseTool
+class PanTool : public ToolBase
 {
 public:
     PanTool();
 
     void execute() override;
     void initialize(IServiceLocator *serviceLocator) override;
-    void onMouseDown(QMouseEvent *event) override;
-    void onMouseMove(QMouseEvent *event) override;
-    void onMouseUp(QMouseEvent *event) override;
+    bool onMouseDown(QMouseEvent *event) override;
+    bool onMouseMove(QMouseEvent *event) override;
+    bool onMouseUp(QMouseEvent *event) override;
     void stopExecuting() override;
 
 private:
