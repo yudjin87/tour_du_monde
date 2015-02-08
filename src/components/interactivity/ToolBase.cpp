@@ -69,12 +69,14 @@ ToolBase::~ToolBase()
 void ToolBase::execute()
 {
     m_interactionService->setActiveTool(this);
+    setChecked(true);
 }
 
 //------------------------------------------------------------------------------
 void ToolBase::stopExecuting()
 {
     Operation::stopExecuting();
+    setChecked(false);
 }
 
 //------------------------------------------------------------------------------
