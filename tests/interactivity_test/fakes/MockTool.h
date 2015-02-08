@@ -20,12 +20,12 @@ public:
 
     // ITool:
     bool onContextMenu(QContextMenuEvent *event);
-    void onDoubleClick(QMouseEvent *event);
-    void onKeyDown(QKeyEvent *event);
-    void onKeyUp(QKeyEvent *event);
-    void onMouseDown(QMouseEvent *event);
-    void onMouseMove(QMouseEvent *event);
-    void onMouseUp(QMouseEvent *event);
+    bool onDoubleClick(QMouseEvent *event);
+    bool onKeyDown(QKeyEvent *event);
+    bool onKeyUp(QKeyEvent *event);
+    bool onMouseDown(QMouseEvent *event);
+    bool onMouseMove(QMouseEvent *event);
+    bool onMouseUp(QMouseEvent *event);
 
 signals:
     void executingStopped();

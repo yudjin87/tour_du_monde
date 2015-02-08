@@ -90,39 +90,52 @@ void ToolBase::initialize(IServiceLocator *serviceLocator)
 }
 
 //------------------------------------------------------------------------------
-bool ToolBase::onContextMenu(QContextMenuEvent * /*event*/)
+bool ToolBase::onContextMenu(QContextMenuEvent *event)
 {
+    Q_UNUSED(event)
     return false;
 }
 
 //------------------------------------------------------------------------------
-void ToolBase::onDoubleClick(QMouseEvent * /*event*/)
+bool ToolBase::onDoubleClick(QMouseEvent *event)
 {
+    Q_UNUSED(event)
+    return false;
 }
 
 //------------------------------------------------------------------------------
-void ToolBase::onKeyDown(QKeyEvent * /*event*/)
+bool ToolBase::onKeyDown(QKeyEvent *event)
 {
+    Q_UNUSED(event)
+    return false;
 }
 
 //------------------------------------------------------------------------------
-void ToolBase::onKeyUp(QKeyEvent * /*event*/)
+bool ToolBase::onKeyUp(QKeyEvent *event)
 {
+    Q_UNUSED(event)
+    return false;
 }
 
 //------------------------------------------------------------------------------
-void ToolBase::onMouseDown(QMouseEvent * /*event*/)
+bool ToolBase::onMouseDown(QMouseEvent *event)
 {
+    Q_UNUSED(event)
+    return false;
 }
 
 //------------------------------------------------------------------------------
-void ToolBase::onMouseMove(QMouseEvent * /*event*/)
+bool ToolBase::onMouseMove(QMouseEvent *event)
 {
+    Q_UNUSED(event)
+    return false;
 }
 
 //------------------------------------------------------------------------------
-void ToolBase::onMouseUp(QMouseEvent * /*event*/)
+bool ToolBase::onMouseUp(QMouseEvent *event)
 {
+    Q_UNUSED(event)
+    return false;
 }
 
 //------------------------------------------------------------------------------

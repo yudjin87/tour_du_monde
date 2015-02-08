@@ -2,6 +2,7 @@ PROJECT_SOURCES = $$CPP_SOURCE_TREE/components/interactivity
 PROJECT_HEADERS = $$HPP_SOURCE_TREE/components/interactivity
 
 SOURCES += \
+    $$PROJECT_SOURCES/BaseInputReceiver.cpp \
     $$PROJECT_SOURCES/CarouselComponentConfigurationDelegate.cpp \
     $$PROJECT_SOURCES/CarouselInteractionService.cpp \
     $$PROJECT_SOURCES/Catalogs.cpp \
@@ -19,6 +20,7 @@ SOURCES += \
     $$PROJECT_SOURCES/ToolBase.cpp \
 
 HEADERS += \
+    $$PROJECT_HEADERS/BaseInputReceiver.h \
     $$PROJECT_HEADERS/CarouselComponentConfigurationDelegate.h \
     $$PROJECT_HEADERS/CarouselInteractionService.h \
     $$PROJECT_HEADERS/Catalogs.h \

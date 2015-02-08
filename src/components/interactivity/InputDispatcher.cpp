@@ -111,41 +111,45 @@ IInputReceiver *InputDispatcher::receiver() const
 bool InputDispatcher::eventFilter(QObject *sender, QEvent *event)
 {
     Q_UNUSED(sender)
+    bool result = false;
     switch (event->type())
     {
     case QEvent::KeyRelease:
-        m_receiver->onKeyUp(static_cast<QKeyEvent *>(event));
-        return true;
+        result = m_receiver->onKeyUp(static_cast<QKeyEvent *>(event));
+        break;
 
     case QEvent::KeyPress:
-        m_receiver->onKeyDown(static_cast<QKeyEvent *>(event));
-        return true;
+        result = m_receiver->onKeyDown(static_cast<QKeyEvent *>(event));
+        break;
 
     case QEvent::ContextMenu:
-        return m_receiver->onContextMenu(static_cast<QContextMenuEvent *>(event));
+        result = m_receiver->onContextMenu(static_cast<QContextMenuEvent *>(event));
+        break;
 
     case QEvent::MouseMove:
-        m_receiver->onMouseMove(static_cast<QMouseEvent *>(event));
-        return true;
+        result = m_receiver->onMouseMove(static_cast<QMouseEvent *>(event));
+        break;
 
     case QEvent::MouseButtonPress:
-        m_receiver->onMouseDown(static_cast<QMouseEvent *>(event));
-        return true;
+        result = m_receiver->onMouseDown(static_cast<QMouseEvent *>(event));
+        break;
 
     case QEvent::MouseButtonRelease:
-        m_receiver->onMouseUp(static_cast<QMouseEvent *>(event));
-        return true;
+        result = m_receiver->onMouseUp(static_cast<QMouseEvent *>(event));
+        break;
 
     case QEvent::MouseButtonDblClick:
-        m_receiver->onDoubleClick(static_cast<QMouseEvent *>(event));
-        return true;
+        result = m_receiver->onDoubleClick(static_cast<QMouseEvent *>(event));
+        break;
 
     default:
         break;
     }
 
-    // standard event processing
-    return QObject::eventFilter(sender, event);
+    if (!result)
+        return QObject::eventFilter(sender, event);
+
+    return true;
 }
 
 //------------------------------------------------------------------------------

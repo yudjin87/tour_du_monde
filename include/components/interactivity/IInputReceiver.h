@@ -66,37 +66,37 @@ public:
      * @details
      *   Occurs when a mouse button is double clicked.
      */
-    virtual void onDoubleClick(QMouseEvent *event) = 0;
+    virtual bool onDoubleClick(QMouseEvent *event) = 0;
 
     /*!
      * @details
      *   Occurs when a key on the keyboard is pressed.
      */
-    virtual void onKeyDown(QKeyEvent *event) = 0;
+    virtual bool onKeyDown(QKeyEvent *event) = 0;
 
     /*!
      * @details
      *   Occurs when a key on the keyboard is released.
      */
-    virtual void onKeyUp(QKeyEvent *event) = 0;
+    virtual bool onKeyUp(QKeyEvent *event) = 0;
 
     /*!
      * @details
      *   Occurs when a mouse button is pressed.
      */
-    virtual void onMouseDown(QMouseEvent *event) = 0;
+    virtual bool onMouseDown(QMouseEvent *event) = 0;
 
     /*!
      * @details
      *   Occurs when the mouse is moved.
      */
-    virtual void onMouseMove(QMouseEvent *event) = 0;
+    virtual bool onMouseMove(QMouseEvent *event) = 0;
 
     /*!
      * @details
      *   Occurs when a mouse button is released.
      */
-    virtual void onMouseUp(QMouseEvent *event) = 0;
+    virtual bool onMouseUp(QMouseEvent *event) = 0;
 };
 
 #endif // IINPUTRECEIVER_H

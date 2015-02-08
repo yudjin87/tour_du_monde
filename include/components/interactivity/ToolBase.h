@@ -127,37 +127,37 @@ public:
      * @details
      *   Occurs when a mouse button is double clicked when this tool is active.
      */
-    void onDoubleClick(QMouseEvent *event) override;
+    bool onDoubleClick(QMouseEvent *event) override;
 
     /*!
      * @details
      *   Occurs when a key on the keyboard is pressed when this tool is active.
      */
-    void onKeyDown(QKeyEvent *event) override;
+    bool onKeyDown(QKeyEvent *event) override;
 
     /*!
      * @details
      *   Occurs when a key on the keyboard is released when this tool is active.
      */
-    void onKeyUp(QKeyEvent *event) override;
+    bool onKeyUp(QKeyEvent *event) override;
 
     /*!
      * @details
      *   Occurs when a mouse button is pressed when this tool is active.
      */
-    void onMouseDown(QMouseEvent *event) override;
+    bool onMouseDown(QMouseEvent *event) override;
 
     /*!
      * @details
      *   Occurs when the mouse is moved when this tool is active.
      */
-    void onMouseMove(QMouseEvent *event) override;
+    bool onMouseMove(QMouseEvent *event) override;
 
     /*!
      * @details
      *   Occurs when a mouse button is released when this tool is active.
      */
-    void onMouseUp(QMouseEvent *event) override;
+    bool onMouseUp(QMouseEvent *event) override;
 
 private:
     IServiceLocator *m_serviceLocator;

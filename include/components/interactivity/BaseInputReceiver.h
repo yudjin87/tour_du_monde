@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
-
+ 
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -24,27 +24,28 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef ITOOL_H
-#define ITOOL_H
+#ifndef BASEINPUTRECEIVER_H
+#define BASEINPUTRECEIVER_H
 
-#include "IOperation.h"
-#include "IInputReceiver.h"
+#include <components/interactivity/IInputReceiver.h>
 
 /*!
  * @brief
- *   It is an extended version of the IOperation with IInputReceiver aggregation.
- * @details
- *   Tools are similar to operations but they also require interaction with the application's
- *   workplace widget.
- *
- *   Note, that when implement the ITool you should set QAction::checkable() property
- *   to the @a true.
+ *   Base class, which returns false in all handlers
  */
-class INTERACTIVITY_API ITool : virtual public IOperation, virtual public IInputReceiver
+class INTERACTIVITY_API BaseInputReceiver : public IInputReceiver
 {
 public:
-    ITool(){}
-    ~ITool(){}
+    BaseInputReceiver(){}
+    ~BaseInputReceiver(){}
+
+    bool onContextMenu(QContextMenuEvent *event) override;
+    bool onDoubleClick(QMouseEvent *event) override;
+    bool onKeyDown(QKeyEvent *event) override;
+    bool onKeyUp(QKeyEvent *event) override;
+    bool onMouseDown(QMouseEvent *event) override;
+    bool onMouseMove(QMouseEvent *event) override;
+    bool onMouseUp(QMouseEvent *event) override;
 };
 
-#endif // ITOOL_H
+#endif // BASEINPUTRECEIVER_H

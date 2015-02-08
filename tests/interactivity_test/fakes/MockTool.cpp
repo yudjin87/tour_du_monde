@@ -57,39 +57,45 @@ bool MockTool::onContextMenu(QContextMenuEvent *)
 }
 
 //------------------------------------------------------------------------------
-void MockTool::onDoubleClick(QMouseEvent *)
+bool MockTool::onDoubleClick(QMouseEvent *)
 {
     doubleClickCalled = true;
+    return true;
 }
 
 //------------------------------------------------------------------------------
-void MockTool::onKeyDown(QKeyEvent *)
+bool MockTool::onKeyDown(QKeyEvent *)
 {
     keyDownCalled = true;
+    return true;
 }
 
 //------------------------------------------------------------------------------
-void MockTool::onKeyUp(QKeyEvent *)
+bool MockTool::onKeyUp(QKeyEvent *)
 {
     keyUpCalled = true;
+    return true;
 }
 
 //------------------------------------------------------------------------------
-void MockTool::onMouseDown(QMouseEvent *)
+bool MockTool::onMouseDown(QMouseEvent *)
 {
     mouseDownCalled = true;
+    return true;
 }
 
 //------------------------------------------------------------------------------
-void MockTool::onMouseMove(QMouseEvent *)
+bool MockTool::onMouseMove(QMouseEvent *)
 {
     mouseMoveCalled = true;
+    return true;
 }
 
 //------------------------------------------------------------------------------
-void MockTool::onMouseUp(QMouseEvent *)
+bool MockTool::onMouseUp(QMouseEvent *)
 {
     mouseUpCalled = true;
+    return true;
 }
 
 //------------------------------------------------------------------------------
