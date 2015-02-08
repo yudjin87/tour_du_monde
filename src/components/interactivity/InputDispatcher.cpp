@@ -115,30 +115,30 @@ bool InputDispatcher::eventFilter(QObject *sender, QEvent *event)
     {
     case QEvent::KeyRelease:
         m_receiver->onKeyUp(static_cast<QKeyEvent *>(event));
-        break;
+        return true;
 
     case QEvent::KeyPress:
         m_receiver->onKeyDown(static_cast<QKeyEvent *>(event));
-        break;
+        return true;
 
     case QEvent::ContextMenu:
         return m_receiver->onContextMenu(static_cast<QContextMenuEvent *>(event));
 
     case QEvent::MouseMove:
         m_receiver->onMouseMove(static_cast<QMouseEvent *>(event));
-        break;
+        return true;
 
     case QEvent::MouseButtonPress:
         m_receiver->onMouseDown(static_cast<QMouseEvent *>(event));
-        break;
+        return true;
 
     case QEvent::MouseButtonRelease:
         m_receiver->onMouseUp(static_cast<QMouseEvent *>(event));
-        break;
+        return true;
 
     case QEvent::MouseButtonDblClick:
         m_receiver->onDoubleClick(static_cast<QMouseEvent *>(event));
-        break;
+        return true;
 
     default:
         break;
