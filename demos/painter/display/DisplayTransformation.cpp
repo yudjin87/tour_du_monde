@@ -153,7 +153,7 @@ QTransform DisplayTransformation::transform() const
     double _scale = scale();
 
     qreal dx = m_visibleBounds.left();
-    qreal dy = m_visibleBounds.top(); // top for flipping
+    qreal dy = m_visibleBounds.bottom(); // top for flipping
 
     QTransform viewport;
     viewport.scale(_scale, _scale * flipY);
@@ -168,7 +168,7 @@ QPointF DisplayTransformation::toMapPoint(int x, int y) const
     qreal outX;
     qreal outY;
     transform().inverted().map(qreal(x), qreal(y), &outX, &outY);
-    return QPointF(outX, outY * flipY);
+    return QPointF(outX, outY);
 }
 
 //------------------------------------------------------------------------------
@@ -180,8 +180,16 @@ QPointF DisplayTransformation::toMapPoint(const QPoint &position) const
 //------------------------------------------------------------------------------
 QRectF DisplayTransformation::toMapRect(const QRect &deviceRect) const
 {
-    QPointF topLeft = toMapPoint(deviceRect.topLeft());
-    QPointF bottomRight = toMapPoint(deviceRect.bottomRight());
+//    +------------------------------------+
+//    | \                                  |
+//    |  left;bottom                       |
+//    |                                    |
+//    |                                    |
+//    |                                    |
+//    |                                    |
+//    +------------------------------------+
+    QPointF topLeft = toMapPoint(deviceRect.bottomLeft());   // top for flipping
+    QPointF bottomRight = toMapPoint(deviceRect.topRight()); // bottom for flipping
     return QRectF(topLeft, bottomRight);
 }
 
