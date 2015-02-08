@@ -47,7 +47,7 @@ void FeatureLayerDrawingTask::draw(IDisplay &display)
     Clock::time_point finishedDrawOnly = Clock::now();
     milliseconds msOnly = std::chrono::duration_cast<milliseconds>(finishedDrawOnly - started);
 
-    QPixmap& pixmap = display.lockPixmap();
+    QPixmap& pixmap = display.lockPixmap(DispayCache::Geometry);
     QPainter painter(&pixmap);
     painter.drawPixmap(0, 0, *tmp);
     display.unlockPixmap();

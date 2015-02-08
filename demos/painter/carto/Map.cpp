@@ -174,7 +174,7 @@ void Map::refresh()
     if (m_layers.isEmpty())
         return;
 
-    m_display->startDrawing();
+    m_display->startDrawing(DispayCache::Geometry);
     for (AbstractLayer *layer : m_layers)
         layer->draw(m_display);
 

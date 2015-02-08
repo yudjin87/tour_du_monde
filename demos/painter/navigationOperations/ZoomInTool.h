@@ -41,6 +41,8 @@ public:
     //void stopExecuting() override;
 
 private:
+    void changeToFixedScale();
+private:
     IServiceLocator *m_serviceLocator;
 };
 

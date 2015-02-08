@@ -38,6 +38,13 @@ class DisplayTransformation;
 
 typedef std::unique_ptr<QPixmap> QPixmapPtr;
 
+enum class DispayCache
+{
+    Geometry = 0,
+    Selection = 1,
+    Annotations = 2
+};
+
 class DISPLAY_API IDisplay : public QAbstractScrollArea
 {
     Q_OBJECT
@@ -46,10 +53,10 @@ public:
     IDisplay(){}
     virtual ~IDisplay(){}
 
-    virtual void startDrawing() = 0;
+    virtual void startDrawing(const DispayCache inCache) = 0;
     virtual void finishDrawing() = 0;
 
-    virtual QPixmap &lockPixmap() = 0;
+    virtual QPixmap &lockPixmap(const DispayCache inCache) = 0;
     virtual void unlockPixmap() = 0;
 
     virtual DisplayTransformation *transformation() = 0;

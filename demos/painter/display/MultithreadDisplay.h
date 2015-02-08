@@ -40,10 +40,10 @@ public:
     MultithreadDisplay(QWidget *parent = nullptr);
     ~MultithreadDisplay();
 
-    void startDrawing() override;
+    void startDrawing(const DispayCache inCache) override;
     void finishDrawing() override;
 
-    QPixmap &lockPixmap() override;
+    QPixmap &lockPixmap(const DispayCache inCache) override;
     void unlockPixmap() override;
 
     void postDrawingTask(IDrawingTaskPtr task) override;

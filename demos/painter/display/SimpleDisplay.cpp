@@ -107,7 +107,7 @@ void SimpleDisplay::dumpDraft()
 }
 
 //------------------------------------------------------------------------------
-void SimpleDisplay::startDrawing()
+void SimpleDisplay::startDrawing(const DispayCache inCache)
 {
    m_draftPixmap = createPixmap(Qt::white);
 
@@ -144,7 +144,7 @@ void SimpleDisplay::finishDrawing()
 }
 
 //------------------------------------------------------------------------------
-QPixmap& SimpleDisplay::lockPixmap()
+QPixmap& SimpleDisplay::lockPixmap(const DispayCache inCache)
 {
     return *m_draftPixmap;
 }

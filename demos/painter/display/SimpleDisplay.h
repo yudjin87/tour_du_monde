@@ -29,7 +29,7 @@
 
 #include <display/IDisplay.h>
 #include <QtCore/QMutex>
-
+#include <QtCore/QMap>
 
 class SimpleDisplay :  public IDisplay
 {
@@ -38,10 +38,10 @@ public:
     SimpleDisplay(QWidget *parent = nullptr);
     ~SimpleDisplay();
 
-    void startDrawing() override;
+    void startDrawing(const DispayCache inCache) override;
     void finishDrawing() override;
 
-    QPixmap &lockPixmap() override;
+    QPixmap &lockPixmap(const DispayCache inCache) override;
     void unlockPixmap() override;
 
     DisplayTransformation *transformation() override;
@@ -86,6 +86,7 @@ private:
     QPoint m_startPan;
     QPixmapPtr m_pixmap;
     QPixmapPtr m_draftPixmap;
+    QMap<DispayCache, QPixmapPtr> m_draftPixmaps;
     DisplayTransformation *m_transform;
 
     QMutex m_pixmapMutex;

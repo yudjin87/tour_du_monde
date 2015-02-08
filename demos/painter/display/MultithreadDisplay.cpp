@@ -73,11 +73,16 @@ MultithreadDisplay::~MultithreadDisplay()
 }
 
 //------------------------------------------------------------------------------
-void MultithreadDisplay::startDrawing()
+void MultithreadDisplay::startDrawing(const DispayCache inCache)
 {
-    // TODO: abort drawings and crear queue, when new "startDrawing" is called before finishing
-    Log.d("Start drawing: create StartDrawingTask");
-    m_taskQueue.push(IDrawingTaskPtr(new StartDrawingTask(this)));
+    if (inCache == DispayCache::Geometry) {
+        // TODO: abort drawings and crear queue, when new "startDrawing" is called before finishing
+        Log.d("Start drawing: create StartDrawingTask");
+        m_taskQueue.push(IDrawingTaskPtr(new StartDrawingTask(this)));
+        return;
+    }
+
+    SimpleDisplay::startDrawing(inCache);
 }
 
 //------------------------------------------------------------------------------
@@ -88,10 +93,14 @@ void MultithreadDisplay::finishDrawing()
 }
 
 //------------------------------------------------------------------------------
-QPixmap &MultithreadDisplay::lockPixmap()
+QPixmap &MultithreadDisplay::lockPixmap(const DispayCache inCache)
 {
-    m_mutex.lock();
-    return SimpleDisplay::lockPixmap();
+    if (inCache == DispayCache::Geometry) {
+        m_mutex.lock();
+        return SimpleDisplay::lockPixmap(inCache);
+    }
+
+    return SimpleDisplay::lockPixmap(inCache);
 }
 
 //------------------------------------------------------------------------------
@@ -109,14 +118,14 @@ void MultithreadDisplay::postDrawingTask(IDrawingTaskPtr task)
 }
 
 //------------------------------------------------------------------------------
-void MultithreadDisplay::callCreatePixmap()
+void MultithreadDisplay::callCreatePixmap() // TODO: rename
 {
     QMutexLocker guard(&m_mutex);
-    SimpleDisplay::startDrawing();
+    SimpleDisplay::startDrawing(DispayCache::Geometry);
 }
 
 //------------------------------------------------------------------------------
-void MultithreadDisplay::callCopyAndUpdate()
+void MultithreadDisplay::callCopyAndUpdate() // TODO: rename
 {
     QMutexLocker guard(&m_mutex);
     SimpleDisplay::finishDrawing();

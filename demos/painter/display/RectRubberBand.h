@@ -45,7 +45,7 @@ class DISPLAY_API RectRubberBand : public QObject, public IInputReceiver
 public:
     explicit RectRubberBand(QObject *parent = nullptr);
 
-    QRect newRect(IDisplay *display, const QPoint& start);
+    bool newRect(IDisplay *display, const QPoint& start, QRect* out);
 
     bool onContextMenu(QContextMenuEvent *event);
 

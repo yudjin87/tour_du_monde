@@ -57,14 +57,6 @@ ZoomInTool::ZoomInTool()
 void ZoomInTool::execute()
 {
     ToolBase::execute();
-
-//    IDisplay *display = m_serviceLocator->locate<IDisplay>();
-//    display->transformation()->setScale(display->transformation()->scale() * 1.3);
-
-//    IPainterDocumentController* docController = m_serviceLocator->locate<IPainterDocumentController>();
-//    IPainterDocument *doc = docController->document();
-//    IMap *map = doc->map();
-//    map->refresh();
 }
 
 //------------------------------------------------------------------------------
@@ -86,7 +78,17 @@ void ZoomInTool::onMouseDown(QMouseEvent *event)
     Log.d("onMouseDown");
 
     RectRubberBand rb;
-    QRect band = rb.newRect(display, event->pos());
+    QRect band;
+    if (!rb.newRect(display, event->pos(), &band)) {
+        return;
+    }
+
+    const bool singleClick = (band.width() <= 1) && (band.height() <= 1);
+    if (singleClick) {
+        changeToFixedScale();
+        return;
+    }
+
     Log.d(QString("New band: (%1;%2) (%3;%4)").arg(band.left()).arg(band.top()).arg(band.right()).arg(band.bottom()));
 }
 
@@ -101,7 +103,19 @@ void ZoomInTool::onMouseUp(QMouseEvent *event)
 //    IPainterDocumentController* docController = m_serviceLocator->locate<IPainterDocumentController>();
 //    IPainterDocument *doc = docController->document();
 //    IMap *map = doc->map();
-//    map->refresh();
+    //    map->refresh();
+}
+
+//------------------------------------------------------------------------------
+void ZoomInTool::changeToFixedScale()
+{
+    IDisplay *display = m_serviceLocator->locate<IDisplay>();
+    display->transformation()->setScale(display->transformation()->scale() * 1.3);
+
+    IPainterDocumentController* docController = m_serviceLocator->locate<IPainterDocumentController>();
+    IPainterDocument *doc = docController->document();
+    IMap *map = doc->map();
+    map->refresh();
 }
 
 //------------------------------------------------------------------------------

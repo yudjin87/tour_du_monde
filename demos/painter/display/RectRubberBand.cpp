@@ -43,9 +43,10 @@ RectRubberBand::RectRubberBand(QObject *parent)
 }
 
 //------------------------------------------------------------------------------
-QRect RectRubberBand::newRect(IDisplay *display, const QPoint &start)
+bool RectRubberBand::newRect(IDisplay *display, const QPoint &start, QRect *out)
 {
     Q_ASSERT(m_dispatcher == nullptr && "Illegal state");
+    Q_ASSERT(out != nullptr && "Null pointer is not allowed");
 
     m_start = start;
     m_display = display;
@@ -56,7 +57,8 @@ QRect RectRubberBand::newRect(IDisplay *display, const QPoint &start)
 
     m_eventLoop.exec();
 
-    return m_result;
+    *out = m_result;
+    return true;
 }
 
 //------------------------------------------------------------------------------
@@ -93,7 +95,7 @@ void RectRubberBand::onMouseDown(QMouseEvent *event)
 //------------------------------------------------------------------------------
 void RectRubberBand::onMouseMove(QMouseEvent *event)
 {
-    QPixmap& screen = m_display->lockPixmap();
+    QPixmap& screen = m_display->lockPixmap(DispayCache::Annotations);
     QPainter painter(&screen);
 
     QPen b(Qt::SolidLine);
