@@ -124,7 +124,13 @@ void DisplayTransformation::setVisibleBounds(const QRectF &visibleBounds)
     if (m_visibleBounds == visibleBounds)
         return;
 
-    // Use fitted bounds (e.g. adjusted(-20, -20, 20, 20))
+    Log.d(QString("New V. bounds: (%1;%2) (%3;%4)")
+          .arg(visibleBounds.left())
+          .arg(visibleBounds.top())
+          .arg(visibleBounds.right())
+          .arg(visibleBounds.bottom()));
+
+    // TODO: Use fitted bounds (e.g. adjusted(-20, -20, 20, 20))
     m_visibleBounds = visibleBounds;
 
     double relY = m_deviceFrame.height() / visibleBounds.height();
@@ -147,7 +153,7 @@ QTransform DisplayTransformation::transform() const
     double _scale = scale();
 
     qreal dx = m_visibleBounds.left();
-    qreal dy = m_visibleBounds.bottom(); // top for flipping
+    qreal dy = m_visibleBounds.top(); // top for flipping
 
     QTransform viewport;
     viewport.scale(_scale, _scale * flipY);
