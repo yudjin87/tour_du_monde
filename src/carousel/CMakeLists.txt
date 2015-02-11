@@ -46,6 +46,8 @@ set(__HEADERS
     ${CRSL_TARGET_HEADERS}/booting/CarouselBootloader.h 
     ${CRSL_TARGET_HEADERS}/booting/IBootloader.h 
     ${CRSL_TARGET_HEADERS}/carousel_global.h 
+    ${CRSL_TARGET_HEADERS}/commands/IUndoableCommand.h 
+    ${CRSL_TARGET_HEADERS}/commands/IUndoStack.h 
     ${CRSL_TARGET_HEADERS}/componentsystem/AbsolutePathComponentLocationConstructorDelegate.h 
     ${CRSL_TARGET_HEADERS}/componentsystem/BaseComponent.h 
     ${CRSL_TARGET_HEADERS}/componentsystem/ComponentCollection.h 

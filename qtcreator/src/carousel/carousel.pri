@@ -38,6 +38,8 @@ HEADERS += \
     $$PROJECT_HEADERS/booting/CarouselBootloader.h \
     $$PROJECT_HEADERS/booting/IBootloader.h \
     $$PROJECT_HEADERS/carousel_global.h \
+    $$PROJECT_HEADERS/commands/IUndoableCommand.h \
+    $$PROJECT_HEADERS/commands/IUndoStack.h \
     $$PROJECT_HEADERS/componentsystem/AbsolutePathComponentLocationConstructorDelegate.h \
     $$PROJECT_HEADERS/componentsystem/BaseComponent.h \
     $$PROJECT_HEADERS/componentsystem/ComponentCollection.h \

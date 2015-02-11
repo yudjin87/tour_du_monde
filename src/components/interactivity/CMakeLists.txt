@@ -8,7 +8,7 @@ include(cmake/target_utils)
 ######################################################################
 # Sources
 set(__SOURCES
-    ${CRSL_TARGET_SOURCES}/BaseInputReceiver.cpp
+    ${CRSL_TARGET_SOURCES}/BaseInputReceiver.cpp 
     ${CRSL_TARGET_SOURCES}/CarouselComponentConfigurationDelegate.cpp 
     ${CRSL_TARGET_SOURCES}/CarouselInteractionService.cpp 
     ${CRSL_TARGET_SOURCES}/Catalogs.cpp 
@@ -29,7 +29,7 @@ set(__SOURCES
 ######################################################################
 # Headers
 set(__HEADERS
-    ${CRSL_TARGET_HEADERS}/BaseInputReceiver.h
+    ${CRSL_TARGET_HEADERS}/BaseInputReceiver.h 
     ${CRSL_TARGET_HEADERS}/CarouselComponentConfigurationDelegate.h 
     ${CRSL_TARGET_HEADERS}/CarouselInteractionService.h 
     ${CRSL_TARGET_HEADERS}/Catalogs.h 
