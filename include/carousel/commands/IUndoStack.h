@@ -28,7 +28,7 @@
 #define IUNDOSTACK_H
 
 #include <carousel/carousel_global.h>
-#include <QtCore/QString>
+#include <QtCore/QObject>
 
 class IUndoableCommand;
 
@@ -36,9 +36,12 @@ class IUndoableCommand;
  * @details
  *   An interface for Undo Stack, compatible with QUndoStack.
  */
-class CAROUSEL_API IUndoStack
+class CAROUSEL_API IUndoStack : public QObject
 {
+    Q_OBJECT
 public:
+    IUndoStack(QObject* parent = nullptr) : QObject(parent){}
+
     virtual void clear() = 0;
 
     virtual void push(IUndoableCommand *cmd) = 0;

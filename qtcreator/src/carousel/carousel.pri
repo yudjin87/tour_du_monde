@@ -4,6 +4,7 @@ PROJECT_HEADERS = $$HPP_SOURCE_TREE/carousel
 SOURCES += \
     $$PROJECT_SOURCES/booting/BootloaderBase.cpp \
     $$PROJECT_SOURCES/booting/CarouselBootloader.cpp \
+    $$PROJECT_SOURCES/commands/BaseUndoableCommand.cpp \
     $$PROJECT_SOURCES/componentsystem/AbsolutePathComponentLocationConstructorDelegate.cpp \
     $$PROJECT_SOURCES/componentsystem/BaseComponent.cpp \
     $$PROJECT_SOURCES/componentsystem/ComponentCollection.cpp \
@@ -38,6 +39,7 @@ HEADERS += \
     $$PROJECT_HEADERS/booting/CarouselBootloader.h \
     $$PROJECT_HEADERS/booting/IBootloader.h \
     $$PROJECT_HEADERS/carousel_global.h \
+    $$PROJECT_HEADERS/commands/BaseUndoableCommand.h \
     $$PROJECT_HEADERS/commands/IUndoableCommand.h \
     $$PROJECT_HEADERS/commands/IUndoStack.h \
     $$PROJECT_HEADERS/componentsystem/AbsolutePathComponentLocationConstructorDelegate.h \

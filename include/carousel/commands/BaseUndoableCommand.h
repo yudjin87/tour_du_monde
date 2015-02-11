@@ -24,38 +24,23 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef IUNDOABLECOMMAND_H
-#define IUNDOABLECOMMAND_H
+#ifndef BASEUNDOABLECOMMAND_H
+#define BASEUNDOABLECOMMAND_H
 
-#include <carousel/carousel_global.h>
-#include <QtCore/QObject>
+#include <carousel/commands/IUndoableCommand.h>
 
-/*!
- * @details
- *   An interface for Undoable command, which supposed to change model, compatible with QUndoCommand.
- */
-class CAROUSEL_API IUndoableCommand : public QObject
+class IUndoStack;
+
+class CAROUSEL_API BaseUndoableCommand : public IUndoableCommand
 {
-    Q_OBJECT
 public:
-    IUndoableCommand(QObject* parent = nullptr) : QObject(parent){}
-    virtual ~IUndoableCommand(){}
+    BaseUndoableCommand(IUndoStack* undoStack = nullptr);
+    virtual ~BaseUndoableCommand();
 
-public slots:
-    virtual void pushToStack() = 0;
+     void pushToStack() override;
 
-    virtual void undo() = 0;
-    virtual void redo() = 0;
-
-    virtual QString text() const = 0;
-    virtual QString actionText() const = 0;
-    virtual void setText(const QString &text) = 0;
-
-    virtual int id() const = 0;
-    virtual bool mergeWith(const IUndoableCommand *other) = 0;
-
-    virtual int childCount() const = 0;
-    virtual const IUndoableCommand *child(int index) const = 0;
+private:
+    IUndoStack *m_undoStack;
 };
 
-#endif // IUNDOABLECOMMAND_H
+#endif // BASEUNDOABLECOMMAND_H
