@@ -27,6 +27,7 @@
 #include "CartoUIInteractiveExtension.h"
 #include "LayersTreeModel.h"
 #include "FeatureLayerDelegate.h"
+#include "AddShapeOperation.h"
 
 #include <carto/IPainterDocument.h>
 #include <carto/IPainterDocumentController.h>
@@ -35,12 +36,14 @@
 #include <components/interactivity/IDockWidgetCatalog.h>
 #include <components/interactivity/IMenuCatalog.h>
 #include <components/interactivity/IOperationCatalog.h>
+#include <components/interactivity/IToolBarCatalog.h>
 #include <components/interactivity/ToggleActionWrapper.h>
 #include <carousel/utils/IServiceLocator.h>
 
 #include <QtWidgets/QDockWidget>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QListView>
+#include <QtWidgets/QToolBar>
 
 //------------------------------------------------------------------------------
 CartoUIInteractiveExtension::CartoUIInteractiveExtension(QObject *parent /*= nullptr*/)
@@ -70,6 +73,18 @@ void CartoUIInteractiveExtension::configureGui(ICatalogs &inCatalogs, IServiceLo
 
     QMenu *viewMenu = inCatalogs.menuCatalog().addMenu("View");
     viewMenu->addAction(toogleTree);
+
+    //
+    IOperationCatalog &operationCatalog = inCatalogs.operationCatalog();
+    Operation *addShape = operationCatalog.add(new AddShapeOperation());
+
+    IToolBarCatalog &toolbarCatalog = inCatalogs.toolBarCatalog();
+    QToolBar *toolBar = toolbarCatalog.add("Shapes");
+    toolBar->addAction(addShape);
+
+    IMenuCatalog &menuCatalog = inCatalogs.menuCatalog();
+    QMenu *toolMenu = menuCatalog.addMenu("Tools");
+    toolMenu->addAction(addShape);
 }
 
 //------------------------------------------------------------------------------

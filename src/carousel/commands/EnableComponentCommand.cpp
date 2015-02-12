@@ -24,15 +24,14 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "EnableComponentCommand.h"
-
+#include <carousel/commands/EnableComponentCommand.h>
 #include <carousel/componentsystem/DependenciesSolvingResult.h>
 #include <carousel/componentsystem/IComponent.h>
 #include <carousel/componentsystem/IComponentManager.h>
 
 //------------------------------------------------------------------------------
-EnableComponentCommand::EnableComponentCommand(QUndoStack *stack, IComponentManager *manager, QUndoCommand* parent)
-    : AbstractUndoCommand(stack, parent)
+EnableComponentCommand::EnableComponentCommand(IUndoStack *stack, IComponentManager *manager, QObject* parent)
+    : BaseUndoableCommand(stack, parent)
     , m_manager(manager)
 {
     setText("enabling components");

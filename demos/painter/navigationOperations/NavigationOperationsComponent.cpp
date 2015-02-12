@@ -43,7 +43,6 @@ NavigationOperationsComponent::NavigationOperationsComponent(QObject *parent /*=
     addParent("org.carousel.demos.Geodatabase", 1, 0);
     addParent("org.carousel.demos.Display", 1, 0);
     addParent("org.carousel.demos.Carto", 1, 0);
-    addParent("org.carousel.demos.AddShapeOperation", 1, 0);
     setShortName("Navigation Operations");
     setProductName(productName);
     setProvider("Carousel");

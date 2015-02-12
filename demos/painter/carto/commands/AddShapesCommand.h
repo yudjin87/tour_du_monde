@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- 
+
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -24,40 +24,31 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef ENABLECOMPONENTCOMMAND_H
-#define ENABLECOMPONENTCOMMAND_H
+#ifndef ADDSHAPESCOMMAND_H
+#define ADDSHAPESCOMMAND_H
 
-#include <components/componentsystemui/componentsystem_ui_global.h>
-#include <components/undo/AbstractUndoCommand.h>
+#include <carto/carto_api.h>
+#include <carousel/commands/BaseUndoableCommand.h>
 
-#include <QtCore/QList>
-#include <QtCore/QSet>
+#include <QtCore/QStringList>
 
-class IComponent;
-class IComponentManager;
+class IServiceLocator;
 
-class COMP_SYSTEM_UI_API EnableComponentCommand : public AbstractUndoCommand
+class CARTO_API AddShapesCommand : public BaseUndoableCommand
 {
     Q_OBJECT
 public:
-    EnableComponentCommand(QUndoStack *stack, IComponentManager *manager, QUndoCommand* parent = nullptr);
-    ~EnableComponentCommand();
+    AddShapesCommand(IUndoStack *stack, IServiceLocator *locator, QObject* parent = nullptr);
+    ~AddShapesCommand();
 
-    void addComponentToDisable(IComponent *component);
-    void addComponentToEnable(IComponent *component);
-
-    void addComponentToSwitchState(IComponent *component);
-
-    QList<IComponent *> componentsToDisable() const;
-    QList<IComponent *> componentsToEnable() const;
+    void addShapeFiles(const QStringList &files);
 
     void redo() override;
     void undo() override;
 
 private:
-    IComponentManager *m_manager;
-    QSet<IComponent *> m_componentsToDisable;
-    QSet<IComponent *> m_componentsToEnable;
+    IServiceLocator *m_locator;
+    QStringList m_files;
 };
 
-#endif // ENABLECOMPONENTCOMMAND_H
+#endif // ADDSHAPESCOMMAND_H

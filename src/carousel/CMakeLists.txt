@@ -10,6 +10,8 @@ set(__SOURCES
     ${CRSL_TARGET_SOURCES}/booting/BootloaderBase.cpp 
     ${CRSL_TARGET_SOURCES}/booting/CarouselBootloader.cpp 
     ${CRSL_TARGET_SOURCES}/commands/BaseUndoableCommand.cpp 
+    ${CRSL_TARGET_SOURCES}/commands/EnableComponentCommand.cpp 
+    ${CRSL_TARGET_SOURCES}/commands/InstallComponentsCommand.cpp 
     ${CRSL_TARGET_SOURCES}/componentsystem/AbsolutePathComponentLocationConstructorDelegate.cpp 
     ${CRSL_TARGET_SOURCES}/componentsystem/BaseComponent.cpp 
     ${CRSL_TARGET_SOURCES}/componentsystem/ComponentCollection.cpp 
@@ -48,6 +50,8 @@ set(__HEADERS
     ${CRSL_TARGET_HEADERS}/booting/IBootloader.h 
     ${CRSL_TARGET_HEADERS}/carousel_global.h 
     ${CRSL_TARGET_HEADERS}/commands/BaseUndoableCommand.h 
+    ${CRSL_TARGET_HEADERS}/commands/EnableComponentCommand.h 
+    ${CRSL_TARGET_HEADERS}/commands/InstallComponentsCommand.h 
     ${CRSL_TARGET_HEADERS}/commands/IUndoableCommand.h 
     ${CRSL_TARGET_HEADERS}/commands/IUndoStack.h 
     ${CRSL_TARGET_HEADERS}/componentsystem/AbsolutePathComponentLocationConstructorDelegate.h 

@@ -26,7 +26,7 @@
 
 #include "InstallComponentsOperation.h"
 
-#include <components/componentsystemui/InstallComponentsCommand.h>
+#include <carousel/commands/InstallComponentsCommand.h>
 #include <carousel/utils/IServiceLocator.h>
 
 #include <QtCore/QCoreApplication>

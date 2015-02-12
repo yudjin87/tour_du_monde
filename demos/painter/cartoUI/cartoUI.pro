@@ -25,12 +25,14 @@ HEADERS += \
     CartoUIInteractiveExtension.h \
     LayersTreeModel.h \
     FeatureLayerDelegate.h \
+    AddShapeOperation.h \
 
 SOURCES += \
     CartoUIComponent.cpp \
     CartoUIInteractiveExtension.cpp \
     LayersTreeModel.cpp \
-    FeatureLayerDelegate.cpp
+    FeatureLayerDelegate.cpp \
+    AddShapeOperation.cpp
 
 OTHER_FILES += \
     org.carousel.demos.CartoUI.definition

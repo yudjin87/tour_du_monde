@@ -13,7 +13,6 @@ INCLUDEPATH += $$HPP_SOURCE_TREE/components/componentsystemui
 
 LIBS += -L$${DESTDIR} -lCarousel \
                       -lorg.carousel.Interactivity \
-                      -lorg.carousel.Undo \
 
 ###############################################################################
 # Copy definition to the output directory, right near the library

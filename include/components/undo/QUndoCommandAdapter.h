@@ -24,31 +24,31 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "AbstractUndoCommand.h"
+#ifndef QUNDOCOMMANDADAPTER_H
+#define QUNDOCOMMANDADAPTER_H
 
-#include <carousel/logging/LoggerFacade.h>
-#include <carousel/utils/IServiceLocator.h>
+#include <components/undo/undo_global.h>
+#include <QtWidgets/QUndoCommand>
 
-#include <QtWidgets/QUndoStack>
+class IUndoableCommand;
 
-//------------------------------------------------------------------------------
-namespace
+class UNDO_API QUndoCommandAdapter : public QObject, public QUndoCommand
 {
-static LoggerFacade Log = LoggerFacade::createLogger("AbstractUndoCommand");
-}
+    Q_OBJECT
+public:
+    QUndoCommandAdapter(IUndoableCommand* wrappedCmd, QObject* parent = nullptr);
+    ~QUndoCommandAdapter();
 
-//------------------------------------------------------------------------------
-AbstractUndoCommand::AbstractUndoCommand(QUndoStack *stack, QUndoCommand *parent)
-    : QObject(nullptr)
-    , QUndoCommand(parent)
-    , m_stack(stack)
-{
-}
+    const IUndoableCommand* wrapped() const;
+    void undo() override;
+    void redo() override;
 
-//------------------------------------------------------------------------------
-void AbstractUndoCommand::pushToStack()
-{
-    m_stack->push(this);
-}
+    int id() const override;
+    bool mergeWith(const QUndoCommand *other) override;
 
-//------------------------------------------------------------------------------
+private:
+    IUndoableCommand *m_wrappedCmd;
+};
+
+#endif // QUNDOCOMMANDADAPTER_H
+

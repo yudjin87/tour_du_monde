@@ -9,6 +9,7 @@ mingw*/
 gnu*/
 make*/
 nmake*/
+build*/
 
 # back-up files
 *~

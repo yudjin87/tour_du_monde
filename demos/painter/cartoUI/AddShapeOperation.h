@@ -24,28 +24,21 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef ABSTRACTUNDOCOMMAND_H
-#define ABSTRACTUNDOCOMMAND_H
+#ifndef ADDSHAPEOPERATION_H
+#define ADDSHAPEOPERATION_H
 
-#include <components/undo/undo_global.h>
+#include <components/interactivity/Operation.h>
 
-#include <QtCore/QObject>
-#include <QtWidgets/QUndoCommand>
-
-class QUndoStack;
-
-class UNDO_API AbstractUndoCommand : public QObject, public QUndoCommand
+class AddShapeOperation : public Operation
 {
-    Q_OBJECT
-public slots:
-    void pushToStack();
+public:
+    AddShapeOperation();
 
-protected:
-    AbstractUndoCommand(QUndoStack *stack, QUndoCommand* parent = nullptr);
+    void execute() override;
+    void initialize(IServiceLocator *serviceLocator) override;
 
 private:
-    QUndoStack *m_stack;
+    IServiceLocator *m_serviceLocator;
 };
 
-#endif // ABSTRACTUNDOCOMMAND_H
-
+#endif // ADDSHAPEOPERATION_H

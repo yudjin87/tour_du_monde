@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
-
+ 
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -24,33 +24,40 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef IUNDOABLECOMMAND_H
-#define IUNDOABLECOMMAND_H
+#ifndef ENABLECOMPONENTCOMMAND_H
+#define ENABLECOMPONENTCOMMAND_H
 
 #include <carousel/carousel_global.h>
-#include <QtCore/QObject>
+#include <carousel/commands/BaseUndoableCommand.h>
 
-/*!
- * @details
- *   An interface for Undoable command, which supposed to change model, compatible with QUndoCommand.
- */
-class CAROUSEL_API IUndoableCommand : public QObject
+#include <QtCore/QList>
+#include <QtCore/QSet>
+
+class IComponent;
+class IComponentManager;
+
+class CAROUSEL_API EnableComponentCommand : public BaseUndoableCommand
 {
     Q_OBJECT
 public:
-    IUndoableCommand(QObject* parent = nullptr) : QObject(parent){}
-    virtual ~IUndoableCommand(){}
+    EnableComponentCommand(IUndoStack *stack, IComponentManager *manager, QObject* parent = nullptr);
+    ~EnableComponentCommand();
 
-public slots:
-    virtual void pushToStack() = 0;
+    void addComponentToDisable(IComponent *component);
+    void addComponentToEnable(IComponent *component);
 
-    virtual void undo() = 0;
-    virtual void redo() = 0;
+    void addComponentToSwitchState(IComponent *component);
 
-    virtual QString text() const = 0;
+    QList<IComponent *> componentsToDisable() const;
+    QList<IComponent *> componentsToEnable() const;
 
-    virtual int id() const = 0;
-    virtual bool mergeWith(const IUndoableCommand *other) = 0;
+    void redo() override;
+    void undo() override;
+
+private:
+    IComponentManager *m_manager;
+    QSet<IComponent *> m_componentsToDisable;
+    QSet<IComponent *> m_componentsToEnable;
 };
 
-#endif // IUNDOABLECOMMAND_H
+#endif // ENABLECOMPONENTCOMMAND_H

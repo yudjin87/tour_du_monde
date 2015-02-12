@@ -63,7 +63,7 @@ void NavigationOperationsInteractiveExtension::configureGui(ICatalogs &inCatalog
     toolBar->addAction(pan);
 
     IMenuCatalog &menuCatalog = inCatalogs.menuCatalog();
-    QMenu *tools = menuCatalog.findMenu("Tools");
+    QMenu *tools = menuCatalog.addMenu("Tools");
     QMenu *menu = tools->addMenu("Navigation");
     menu->addAction(zoomAll);
     menu->addAction(zoomIn);

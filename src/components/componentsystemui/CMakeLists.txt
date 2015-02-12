@@ -12,8 +12,6 @@ set(__SOURCES
     ${CRSL_TARGET_SOURCES}/ComponentManagementInteractiveExtension.cpp 
     ${CRSL_TARGET_SOURCES}/ComponentsDialog.cpp 
     ${CRSL_TARGET_SOURCES}/ComponentSystemUIComponent.cpp 
-    ${CRSL_TARGET_SOURCES}/EnableComponentCommand.cpp 
-    ${CRSL_TARGET_SOURCES}/InstallComponentsCommand.cpp 
     ${CRSL_TARGET_SOURCES}/InstallComponentsOperation.cpp 
     ${CRSL_TARGET_SOURCES}/ShowComponentsOperation.cpp 
 )
@@ -26,8 +24,6 @@ set(__HEADERS
     ${CRSL_TARGET_HEADERS}/ComponentsDialog.h 
     ${CRSL_TARGET_HEADERS}/componentsystem_ui_global.h 
     ${CRSL_TARGET_HEADERS}/ComponentSystemUIComponent.h 
-    ${CRSL_TARGET_HEADERS}/EnableComponentCommand.h 
-    ${CRSL_TARGET_HEADERS}/InstallComponentsCommand.h 
     ${CRSL_TARGET_HEADERS}/InstallComponentsOperation.h 
     ${CRSL_TARGET_HEADERS}/ShowComponentsOperation.h 
 )
@@ -78,7 +74,7 @@ crsl_setup_output_path(bin)
 
 ######################################################################
 # Add targets to a list of libraries to linking
-target_link_libraries(${CRSL_PROJECT_NAME} Carousel org.carousel.Interactivity org.carousel.Undo)
+target_link_libraries(${CRSL_PROJECT_NAME} Carousel org.carousel.Interactivity)
 
 ###############################################################################
 # Qt dependencies

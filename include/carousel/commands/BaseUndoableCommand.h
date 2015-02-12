@@ -34,13 +34,21 @@ class IUndoStack;
 class CAROUSEL_API BaseUndoableCommand : public IUndoableCommand
 {
 public:
-    BaseUndoableCommand(IUndoStack* undoStack = nullptr);
+    BaseUndoableCommand(IUndoStack* undoStack, QObject* parent = nullptr);
     virtual ~BaseUndoableCommand();
 
-     void pushToStack() override;
+    void pushToStack() override;
+
+    QString text() const override;
+    int id() const override;
+    bool mergeWith(const IUndoableCommand *other) override;
+
+protected:
+    void setText(const QString& text);
 
 private:
     IUndoStack *m_undoStack;
+    QString m_text;
 };
 
 #endif // BASEUNDOABLECOMMAND_H

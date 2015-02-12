@@ -24,15 +24,48 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef ADDSHAPEOPERATION_API_H
-#define ADDSHAPEOPERATION_API_H
+#include <components/undo/QUndoCommandAdapter.h>
+#include <carousel/commands/IUndoableCommand.h>
 
-#include <QtCore/qglobal.h>
+QUndoCommandAdapter::QUndoCommandAdapter(IUndoableCommand *wrappedCmd, QObject *parent)
+    : QObject(parent)
+    , QUndoCommand(wrappedCmd->text())
+    , m_wrappedCmd(wrappedCmd)
+{
+}
 
-#if defined(ADDSHAPEOPERATION_LIB_IMPORT)
-#  define ADDSHAPEOPERATION_API Q_DECL_EXPORT
-#else
-#  define ADDSHAPEOPERATION_API Q_DECL_IMPORT
-#endif
+QUndoCommandAdapter::~QUndoCommandAdapter()
+{
+    delete m_wrappedCmd;
+    m_wrappedCmd = nullptr;
+}
 
-#endif // ADDSHAPEOPERATION_API_H
+const IUndoableCommand *QUndoCommandAdapter::wrapped() const
+{
+    return m_wrappedCmd;
+}
+
+void QUndoCommandAdapter::undo()
+{
+    m_wrappedCmd->undo();
+}
+
+void QUndoCommandAdapter::redo()
+{
+    m_wrappedCmd->redo();
+}
+
+int QUndoCommandAdapter::id() const
+{
+    return m_wrappedCmd->id();
+}
+
+bool QUndoCommandAdapter::mergeWith(const QUndoCommand *other)
+{
+    const QUndoCommandAdapter* adapter = dynamic_cast<const QUndoCommandAdapter*>(other);
+    if (adapter == nullptr) {
+        return false;
+    }
+
+    return m_wrappedCmd->mergeWith(adapter->wrapped());
+}

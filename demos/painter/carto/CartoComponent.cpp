@@ -25,12 +25,14 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "CartoComponent.h"
+#include "commands/AddShapesCommand.h"
 #include "PainterDocumentController.h"
 #include "CartoScriptExtension.h"
 #include "FeatureLayer.h"
 
 #include <display/IDisplay.h>
 
+#include <carousel/commands/IUndoStack.h>
 #include <carousel/componentsystem/ComponentDefinition.h>
 #include <carousel/componentsystem/ComponentExport.h>
 #include <carousel/utils/IServiceLocator.h>
@@ -70,6 +72,10 @@ void CartoComponent::onShutdown(IServiceLocator *serviceLocator)
 //------------------------------------------------------------------------------
 bool CartoComponent::onStartup(IServiceLocator *serviceLocator)
 {
+    IUndoStack *stack = serviceLocator->locate<IUndoStack>();
+    auto addShapeslCreator = [stack, serviceLocator](){return new AddShapesCommand(stack, serviceLocator);};
+    serviceLocator->registerType<AddShapesCommand>(addShapeslCreator);
+
     IDisplay *display = serviceLocator->locate<IDisplay>();
     IPainterDocumentController *controller = new PainterDocumentController(display);
     serviceLocator->registerInstance<IPainterDocumentController>(controller);

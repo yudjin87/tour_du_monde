@@ -27,19 +27,19 @@
 #ifndef INSTALLCOMPONENTSCOMMAND_H
 #define INSTALLCOMPONENTSCOMMAND_H
 
-#include <components/componentsystemui/componentsystem_ui_global.h>
-#include <components/undo/AbstractUndoCommand.h>
+#include <carousel/carousel_global.h>
+#include <carousel/commands/BaseUndoableCommand.h>
 
 #include <QtCore/QStringList>
 
 class IComponent;
 class IComponentManager;
 
-class COMP_SYSTEM_UI_API InstallComponentsCommand : public AbstractUndoCommand
+class CAROUSEL_API InstallComponentsCommand : public BaseUndoableCommand
 {
     Q_OBJECT
 public:
-    InstallComponentsCommand(QUndoStack *stack, IComponentManager *manager, QUndoCommand* parent = nullptr);
+    InstallComponentsCommand(IUndoStack *stack, IComponentManager *manager, QObject* parent = nullptr);
     ~InstallComponentsCommand();
 
     void redo() override;

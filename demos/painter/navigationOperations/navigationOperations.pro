@@ -12,7 +12,6 @@ DESTDIR = $${DESTDIR}/externalSource
 
 LIBS += -L$${CAROUSEL_BIN} -lCarousel \
                            -lorg.carousel.Interactivity \
-                           -lorg.carousel.Undo \
 
 LIBS += -L$${DESTDIR} -lorg.carousel.demos.Display \
                       -lorg.carousel.demos.Carto \

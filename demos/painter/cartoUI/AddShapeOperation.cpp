@@ -24,39 +24,43 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "AddShapeOperationInteractiveExtension.h"
 #include "AddShapeOperation.h"
+#include <carto/commands/AddShapesCommand.h>
 
-#include <components/interactivity/ICatalogs.h>
-#include <components/interactivity/IOperationCatalog.h>
-#include <components/interactivity/IMenuCatalog.h>
-#include <components/interactivity/IToolBarCatalog.h>
+#include <carousel/utils/IServiceLocator.h>
 
-#include <QtWidgets/QMenu>
-#include <QtWidgets/QToolBar>
+#include <QtCore/QCoreApplication>
+#include <QtWidgets/QFileDialog>
+#include <QtWidgets/QMainWindow>
 
 //------------------------------------------------------------------------------
-AddShapeOperationInteractiveExtension::AddShapeOperationInteractiveExtension(QObject *parent /*= nullptr*/)
-    : QObject(parent)
+AddShapeOperation::AddShapeOperation()
+    : Operation("Open shape")
+    , m_serviceLocator(nullptr)
 {
+    setIcon(QIcon(":/cartoUI/images/add.png"));
+    setIconVisibleInMenu(true);
 }
 
 //------------------------------------------------------------------------------
-void AddShapeOperationInteractiveExtension::configureGui(ICatalogs &inCatalogs, IServiceLocator *serviceLocator)
+void AddShapeOperation::execute()
 {
-    Q_UNUSED(serviceLocator);
+    QFileDialog fileDialog(m_serviceLocator->locate<QMainWindow>(), "Open shape");
+    fileDialog.setNameFilter("Shape Files (*.shp)");
+    fileDialog.setFileMode(QFileDialog::ExistingFiles);
+    fileDialog.setDirectory(QCoreApplication::applicationDirPath() + "/data");  // TODO: get last selected directory from settings
+    if (!fileDialog.exec())
+        return;
 
-    IOperationCatalog &operationCatalog = inCatalogs.operationCatalog();
-    Operation *addShape = operationCatalog.add(new AddShapeOperation());
-
-    IToolBarCatalog &toolbarCatalog = inCatalogs.toolBarCatalog();
-    QToolBar *toolBar = toolbarCatalog.add("Shapes");
-    toolBar->addAction(addShape);
-
-    IMenuCatalog &menuCatalog = inCatalogs.menuCatalog();
-    QMenu *menu = menuCatalog.addMenu("Tools");
-    menu->addAction(addShape);
+    AddShapesCommand *addShapesCommand = m_serviceLocator->buildInstance<AddShapesCommand>();
+    addShapesCommand->addShapeFiles(fileDialog.selectedFiles());
+    addShapesCommand->pushToStack();
 }
 
 //------------------------------------------------------------------------------
+void AddShapeOperation::initialize(IServiceLocator *serviceLocator)
+{
+    m_serviceLocator = serviceLocator;
+}
 
+//------------------------------------------------------------------------------

@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/cartoUI">
         <file>images/layerTree.png</file>
+        <file>images/add.png</file>
     </qresource>
 </RCC>

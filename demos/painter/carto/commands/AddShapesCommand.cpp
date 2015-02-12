@@ -24,8 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "AddShapesCommand.h"
-
+#include <carto/commands/AddShapesCommand.h>
 #include <carto/IMap.h>
 #include <carto/FeatureLayer.h>
 #include <carto/IPainterDocument.h>
@@ -43,8 +42,8 @@
 typedef QScopedPointer<IShapeFileWorkspaceFactory> IShapeFileWorkspaceFactoryPtr;
 
 //------------------------------------------------------------------------------
-AddShapesCommand::AddShapesCommand(QUndoStack *stack, IServiceLocator *locator, QUndoCommand *parent)
-    : AbstractUndoCommand(stack, parent)
+AddShapesCommand::AddShapesCommand(IUndoStack *stack, IServiceLocator *locator, QObject *parent)
+    : BaseUndoableCommand(stack, parent)
     , m_locator(locator)
 {
     setText("adding shape layer(s)");

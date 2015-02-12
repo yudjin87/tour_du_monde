@@ -31,7 +31,8 @@ HEADERS += \
     CartoComponent.h \
     IMap.h \
     CartoScriptExtension.h \
-    FeatureLayerDrawingTask.h
+    FeatureLayerDrawingTask.h \
+    commands/AddShapesCommand.h \
 
 SOURCES += \
     AbstractLayer.cpp \
@@ -41,7 +42,8 @@ SOURCES += \
     PainterDocumentController.cpp \
     PainterDocument.cpp \
     CartoScriptExtension.cpp \
-    FeatureLayerDrawingTask.cpp
+    FeatureLayerDrawingTask.cpp \
+    commands/AddShapesCommand.cpp \
 
 OTHER_FILES += org.carousel.demos.Carto.definition
 

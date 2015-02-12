@@ -11,7 +11,6 @@ SUBDIRS += \
     cartoUI \
     #geodatabase_test \
     #geometry_test
-    addShapeOperation \
     navigationOperations \
     newComponentsDialog \
 

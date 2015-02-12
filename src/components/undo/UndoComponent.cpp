@@ -25,13 +25,12 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include <components/undo/UndoComponent.h>
+#include <components/undo/QUndoStackAdapter.h>
 #include <components/undo/UndoInteractiveExtension.h>
 
 #include <carousel/componentsystem/ComponentExport.h>
 #include <carousel/logging/LoggerFacade.h>
 #include <carousel/utils/IServiceLocator.h>
-
-#include <QtWidgets/QUndoStack>
 
 //------------------------------------------------------------------------------
 namespace
@@ -69,16 +68,15 @@ UndoComponent::~UndoComponent()
 //------------------------------------------------------------------------------
 void UndoComponent::onShutdown(IServiceLocator *serviceLocator)
 {
-    QUndoStack *undoStack = serviceLocator->unregisterInstance<QUndoStack>();
+    QUndoStackAdapter *undoStack = serviceLocator->unregisterInstance<QUndoStackAdapter>();
     delete undoStack;
 }
 
 //------------------------------------------------------------------------------
 bool UndoComponent::onStartup(IServiceLocator *serviceLocator)
 {
-    // QUndoStack registration
-    QUndoStack *undoStack = new QUndoStack();
-    serviceLocator->registerInstance<QUndoStack>(undoStack);
+    QUndoStackAdapter *undoStack = new QUndoStackAdapter();
+    serviceLocator->registerInstance<QUndoStackAdapter>(undoStack);
 
     return true;
 }

@@ -28,9 +28,10 @@
 #include "ComponentDefinitionsModel.h"
 #include "ComponentsDialog.h"
 #include "ComponentManagementInteractiveExtension.h"
-#include "EnableComponentCommand.h"
-#include "InstallComponentsCommand.h"
 
+#include <carousel/commands/IUndoStack.h>
+#include <carousel/commands/EnableComponentCommand.h>
+#include <carousel/commands/InstallComponentsCommand.h>
 #include <carousel/componentsystem/ComponentExport.h>
 #include <carousel/componentsystem/ComponentDependencies.h>
 #include <carousel/componentsystem/IComponentManager.h>
@@ -38,8 +39,6 @@
 #include <carousel/utils/IServiceLocator.h>
 
 #include <components/interactivity/IDialogService.h>
-
-#include <QtWidgets/QUndoStack>
 
 //------------------------------------------------------------------------------
 namespace
@@ -64,7 +63,6 @@ ComponentSystemUIComponent::ComponentSystemUIComponent(QObject *parent)
     setProvider("Carousel");
     setVersion(1, 0);
     addParent("org.carousel.Interactivity", 1, 0);
-    addParent("org.carousel.Undo", 1, 0);
 }
 
 //------------------------------------------------------------------------------
@@ -84,8 +82,9 @@ void ComponentSystemUIComponent::onShutdown(IServiceLocator *serviceLocator)
 //------------------------------------------------------------------------------
 bool ComponentSystemUIComponent::onStartup(IServiceLocator *serviceLocator)
 {
+    // TODO: use templated "Finder"
     IComponentManager *manager = serviceLocator->locate<IComponentManager>();
-    QUndoStack *stack = serviceLocator->locate<QUndoStack>();
+    IUndoStack *stack = serviceLocator->locate<IUndoStack>();
 
     // Commands
     auto enableCreator = [stack, manager](){return new EnableComponentCommand(stack, manager);};

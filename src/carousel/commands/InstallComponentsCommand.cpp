@@ -24,8 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "InstallComponentsCommand.h"
-
+#include <carousel/commands/InstallComponentsCommand.h>
 #include <carousel/componentsystem/ComponentDefinition.h>
 #include <carousel/componentsystem/DirectoryInstaller.h>
 #include <carousel/componentsystem/FileComponentProvider.h>
@@ -39,8 +38,8 @@
 #include <QtCore/QFileInfo>
 
 //------------------------------------------------------------------------------
-InstallComponentsCommand::InstallComponentsCommand(QUndoStack *stack, IComponentManager *manager, QUndoCommand *parent)
-    : AbstractUndoCommand(stack, parent)
+InstallComponentsCommand::InstallComponentsCommand(IUndoStack *stack, IComponentManager *manager, QObject* parent)
+    : BaseUndoableCommand(stack, parent)
     , m_manager(manager)
     , m_sourceDirectoryPath("")
     , m_installPath("./installedComponents") // TODO: should be obtained from the app settings

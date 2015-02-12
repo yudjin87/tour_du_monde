@@ -58,6 +58,7 @@ public:
     virtual bool isActive() const = 0;
     virtual bool isClean() const = 0;
     virtual int cleanIndex() const = 0;
+    virtual void setClean() = 0;
 
     virtual void beginMacro(const QString &text) = 0;
     virtual void endMacro() = 0;

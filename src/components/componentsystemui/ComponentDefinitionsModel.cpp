@@ -25,9 +25,9 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "ComponentDefinitionsModel.h"
-#include "EnableComponentCommand.h"
-#include "InstallComponentsCommand.h"
 
+#include <carousel/commands/EnableComponentCommand.h>
+#include <carousel/commands/InstallComponentsCommand.h>
 #include <carousel/componentsystem/ComponentDefinition.h>
 #include <carousel/componentsystem/ComponentCollection.h>
 #include <carousel/componentsystem/IComponent.h>

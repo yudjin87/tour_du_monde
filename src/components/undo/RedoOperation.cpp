@@ -26,6 +26,7 @@
 
 #include "RedoOperation.h"
 
+#include <components/undo/QUndoStackAdapter.h>
 #include <carousel/utils/IServiceLocator.h>
 
 #include <QtWidgets/QUndoStack>
@@ -49,7 +50,8 @@ void RedoOperation::execute()
 //------------------------------------------------------------------------------
 void RedoOperation::initialize(IServiceLocator *serviceLocator)
 {
-    QUndoStack *stack = serviceLocator->locate<QUndoStack>();
+    QUndoStackAdapter* adapter = serviceLocator->locate<QUndoStackAdapter>();
+    QUndoStack *stack = adapter->wrappedStack();
 
     m_action = stack->createRedoAction(this);
     setEnabled(m_action->isEnabled());

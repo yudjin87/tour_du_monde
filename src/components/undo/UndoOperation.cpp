@@ -25,7 +25,7 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include <components/undo/UndoOperation.h>
-
+#include <components/undo/QUndoStackAdapter.h>
 #include <carousel/utils/IServiceLocator.h>
 
 #include <QtWidgets/QUndoStack>
@@ -49,7 +49,8 @@ void UndoOperation::execute()
 //------------------------------------------------------------------------------
 void UndoOperation::initialize(IServiceLocator *serviceLocator)
 {
-    QUndoStack *stack = serviceLocator->locate<QUndoStack>();
+    QUndoStackAdapter* adapter = serviceLocator->locate<QUndoStackAdapter>();
+    QUndoStack *stack = adapter->wrappedStack();
 
     m_action = stack->createUndoAction(this);
     setEnabled(m_action->isEnabled());
