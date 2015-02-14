@@ -391,8 +391,8 @@ void ComponentManager::shutdownCheckedComponent(IComponent *component)
         return;
 
     component->setAvailability(IComponent::Disabled);
-    component->setState(IComponent::Stopped);
     component->shutdown(m_serviceLocator);
+    component->setState(IComponent::Stopped);
 }
 
 //------------------------------------------------------------------------------

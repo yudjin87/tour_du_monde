@@ -469,6 +469,7 @@ void ComponentManagerTest::shutdownComponents_shouldSetStoppedStateForComponent(
     manager.startup();
     manager.shutdownComponent(componentA);
 
+    QVERIFY(componentA->m_onShutdownCalled);
     QCOMPARE(componentA->state(), IComponent::Stopped);
 }
 
