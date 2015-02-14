@@ -79,6 +79,27 @@ void ComponentSystemUIComponent::onShutdown(IServiceLocator *serviceLocator)
     dialogService->unregisterDialogForModel<ComponentDefinitionsModel>();
 }
 
+template<typename TToCreate, typename TReq1, typename TReq2>
+class Creator
+{
+public:
+    Creator(IServiceLocator *serviceLocator)
+        : m_serviceLocator(serviceLocator)
+    {
+    }
+
+    void* operator()()
+    {
+        TReq1* req1 = m_serviceLocator->locate<TReq1>();
+        TReq2* req2 = m_serviceLocator->locate<TReq2>();
+        TToCreate* result = new TToCreate(req1, req2);
+        return result;
+    }
+
+private:
+    IServiceLocator *m_serviceLocator;
+};
+
 //------------------------------------------------------------------------------
 bool ComponentSystemUIComponent::onStartup(IServiceLocator *serviceLocator)
 {
@@ -86,9 +107,10 @@ bool ComponentSystemUIComponent::onStartup(IServiceLocator *serviceLocator)
     IComponentManager *manager = serviceLocator->locate<IComponentManager>();
     IUndoStack *stack = serviceLocator->locate<IUndoStack>();
 
+    Creator<EnableComponentCommand, IUndoStack, IComponentManager> c{serviceLocator};
     // Commands
     auto enableCreator = [stack, manager](){return new EnableComponentCommand(stack, manager);};
-    serviceLocator->registerType<EnableComponentCommand>(enableCreator);
+    serviceLocator->registerType<EnableComponentCommand>(c);
 
     auto installCreator = [stack, manager](){return new InstallComponentsCommand(stack, manager);};
     serviceLocator->registerType<InstallComponentsCommand>(installCreator);

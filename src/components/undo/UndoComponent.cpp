@@ -77,6 +77,7 @@ bool UndoComponent::onStartup(IServiceLocator *serviceLocator)
 {
     QUndoStackAdapter *undoStack = new QUndoStackAdapter();
     serviceLocator->registerInstance<QUndoStackAdapter>(undoStack);
+    serviceLocator->registerInstance<IUndoStack>(undoStack);
 
     return true;
 }

@@ -178,10 +178,16 @@ QVariant ComponentDefinitionsModel::data(const QModelIndex &index, int role) con
 //------------------------------------------------------------------------------
 bool ComponentDefinitionsModel::setData(const QModelIndex &index, const QVariant &, int role)
 {
-    if (!index.isValid()
-            || index.column() != 0
-            || (index.row() > m_components.size())
-            || role != Qt::CheckStateRole)
+    if (!index.isValid())
+        return false;
+
+    if (index.column() != 1) //TODO: use constants
+        return false;
+
+    if (index.row() > m_components.size())
+        return false;
+
+    if (role != Qt::CheckStateRole)
         return false;
 
     onToogleEnable(index);
