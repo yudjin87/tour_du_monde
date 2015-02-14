@@ -162,12 +162,18 @@ QVariant ComponentDefinitionsModel::data(const QModelIndex &index, int role) con
 
     case Qt::DecorationRole:
         if (index.column() == 0) {
-            if ((int)comp->state() <= (int)IComponent::Initialized)
-                return QIcon(":/componentSystemUi/images/error.png");
-            if (comp->state() == IComponent::Running || comp->state() == IComponent::Stopped)
-                return QIcon(":/componentSystemUi/images/ok.png");
-            if (comp->state() == IComponent::Orphan)
-                return QIcon(":/componentSystemUi/images/notloaded.png");
+            switch (comp->state()) {
+                case IComponent::Invalid:
+                case IComponent::Discovered:
+                case IComponent::Parsed:
+                    return QIcon(":/componentSystemUi/images/error.png");
+                case IComponent::Initialized:
+                case IComponent::Running:
+                case IComponent::Stopped:
+                    return QIcon(":/componentSystemUi/images/ok.png");
+                case IComponent::Orphan:
+                    return QIcon(":/componentSystemUi/images/notloaded.png");
+            }
         }
         break;
     }

@@ -54,6 +54,22 @@ public:
 
     /*!
      * @details
+     *   Gets the value specified whether this component is enabled, disabled, or unavailable.
+     *   When the availability is enabled, the component is checked in the Components dialog.
+     * @sa setAvailability
+     */
+    Availability availability() const override;
+
+    /*!
+     * @details
+     *   Gets the state in which the component currently is. See the description of the
+     *   IComponent::State enum for details.
+     * @sa setState
+     */
+    State state() const override;
+
+    /*!
+     * @details
      *   Finds extension's pointer associated with it type id
      *   in inner objects dictionary.
      * @return The raw pointer corresponded with specified type id if such found. Null pointer otherwise.
@@ -71,6 +87,24 @@ public:
      *   @a parser should already read properties.
      */
     virtual bool initialize(QString *error = nullptr);
+
+    /*!
+     * @details
+     *   Sets the value specified whether this component is enabled or disabled.
+     *   The checked state of the component is saved in the user settings.
+     * @sa availability
+     */
+    void setAvailability(Availability newMode) override;
+
+    /*!
+     * @details
+     *   Sets the value specified the component current state.
+     *
+     * @note You should not use this method directly, it is for internal goals only.
+     *
+     * @sa state
+     */
+    void setState(State newState) override;
 
 protected:
     /*!

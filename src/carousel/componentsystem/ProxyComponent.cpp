@@ -77,6 +77,22 @@ ProxyComponent::~ProxyComponent()
 }
 
 //------------------------------------------------------------------------------
+IComponent::Availability ProxyComponent::availability() const
+{
+    return (m_component == nullptr)
+            ? BaseComponent::availability()
+            : m_component->availability();
+}
+
+//------------------------------------------------------------------------------
+IComponent::State ProxyComponent::state() const
+{
+    return (m_component == nullptr)
+            ? BaseComponent::state()
+            : m_component->state();
+}
+
+//------------------------------------------------------------------------------
 bool ProxyComponent::initialize(QString *error)
 {
     if (m_initialized)
@@ -116,6 +132,22 @@ bool ProxyComponent::initialize(QString *error)
     m_initialized = true;
 
     return true;
+}
+
+//------------------------------------------------------------------------------
+void ProxyComponent::setAvailability(IComponent::Availability newMode)
+{
+    BaseComponent::setAvailability(newMode);
+    if (m_component != nullptr)
+        m_component->setAvailability(newMode);
+}
+
+//------------------------------------------------------------------------------
+void ProxyComponent::setState(IComponent::State newState)
+{
+    BaseComponent::setState(newState);
+    if (m_component != nullptr)
+        m_component->setState(newState);
 }
 
 //------------------------------------------------------------------------------
@@ -161,6 +193,9 @@ bool ProxyComponent::onStartup(IServiceLocator *serviceLocator)
         setError(m_loader->errorString());
         return false;
     }
+
+    m_component->setState(BaseComponent::state());
+    m_component->setAvailability(BaseComponent::availability());
 
     Log.d("Start up loaded component.");
     return m_component->startup(serviceLocator);

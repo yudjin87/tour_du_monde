@@ -285,7 +285,6 @@ DependenciesSolvingResult ComponentManager::startupComponents(QList<IComponent *
             continue;
 
         if (tryToStartComponent(comp)) {
-            Log.i(QString("\"%1\" component is started.").arg(comp->name()));
             onComponentStarted(comp);
             reallyStartedComponents.push_back(comp);
         } else {
