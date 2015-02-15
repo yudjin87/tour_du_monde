@@ -77,7 +77,7 @@ bool DisplayComponent::onStartup(IServiceLocator *serviceLocator)
 {
     QMainWindow *mainWindow = serviceLocator->locate<QMainWindow>();
 
-    //IDisplay *display = new SimpleDisplay(mainWindow);
+    //IDisplay *display = new SimpleDisplay(mainWindow); // TODO: settings
     IDisplay *display = new MultithreadDisplay(mainWindow);
     mainWindow->setCentralWidget(display);
     serviceLocator->registerInstance<IDisplay>(display);

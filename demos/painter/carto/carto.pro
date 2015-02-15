@@ -1,6 +1,6 @@
 include(../shared.pri)
 
-QT       += gui
+QT       += widgets
 QT       += script
 
 TEMPLATE = lib
@@ -11,6 +11,7 @@ DEFINES += CARTO_LIB_IMPORT
 
 LIBS += -L$${CAROUSEL_BIN} -lCarousel \
                            -lorg.carousel.JsScripting \
+                           -lorg.carousel.Interactivity \
 
 DESTDIR = $${DESTDIR}/externalSource
 
@@ -32,6 +33,7 @@ HEADERS += \
     IMap.h \
     CartoScriptExtension.h \
     FeatureLayerDrawingTask.h \
+    DefaultNavigationHandler.h \
     commands/AddShapesCommand.h \
     commands/RenameLayerCommand.h \
 
@@ -44,6 +46,7 @@ SOURCES += \
     PainterDocument.cpp \
     CartoScriptExtension.cpp \
     FeatureLayerDrawingTask.cpp \
+    DefaultNavigationHandler.cpp \
     commands/AddShapesCommand.cpp \
     commands/RenameLayerCommand.cpp \
 

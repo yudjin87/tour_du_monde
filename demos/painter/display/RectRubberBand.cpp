@@ -86,6 +86,9 @@ bool RectRubberBand::onMouseMove(QMouseEvent *event)
 //------------------------------------------------------------------------------
 bool RectRubberBand::onMouseUp(QMouseEvent *event)
 {
+    if (event->button() != Qt::LeftButton)
+        return false;
+
     m_display->startDrawing(DispayCache::Annotations);
     m_display->lockPixmap(DispayCache::Annotations);
     m_display->unlockPixmap(DispayCache::Annotations);

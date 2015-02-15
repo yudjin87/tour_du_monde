@@ -24,28 +24,31 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef COORDSTRACKER_H
-#define COORDSTRACKER_H
+#ifndef DEFAULTNAVIGATIONHANDLER_H
+#define DEFAULTNAVIGATIONHANDLER_H
 
-#include <display/display_api.h>
 #include <components/interactivity/BaseInputReceiver.h>
 #include <components/interactivity/IInputDispatcher.h>
 #include <QtCore/QObject>
 
 #include <memory>
 
-class QStatusBar;
 class IDisplay;
+class IPainterDocumentController;
 
-class CoordsTracker : public QObject, public BaseInputReceiver
+class DefaultNavigationHandler : public QObject, public BaseInputReceiver
 {
 public:
-    CoordsTracker(const IDisplay *display, QStatusBar* statusBar, QObject *parent);
+    DefaultNavigationHandler(IDisplay *display, IPainterDocumentController* docCtrl, QObject *parent);
     bool onMouseMove(QMouseEvent *event) override;
+    bool onMouseDown(QMouseEvent *event) override;
+    bool onMouseUp(QMouseEvent *event) override;
 
 private:
-    const IDisplay *m_display;
-    QStatusBar *m_statusBar;
+    IDisplay *m_display;
+    IPainterDocumentController *m_docCtrl;
     std::unique_ptr<IInputDispatcher> m_dispatcher;
+    bool m_tracked;
 };
-#endif // COORDSTRACKER_H
+
+#endif // DEFAULTNAVIGATIONHANDLER_H

@@ -32,6 +32,7 @@
 #include "FeatureLayer.h"
 
 #include <geodatabase/IShapeFileWorkspaceFactory.h>
+#include <carto/DefaultNavigationHandler.h>
 #include <display/IDisplay.h>
 
 #include <carousel/commands/IUndoStack.h>
@@ -87,6 +88,9 @@ bool CartoComponent::onStartup(IServiceLocator *serviceLocator)
 
     // For creating from scripting
     serviceLocator->bindType<FeatureLayer, FeatureLayer>();
+
+    DefaultNavigationHandler* defaultNavigationHandler = new DefaultNavigationHandler(display, controller, this);
+    Q_UNUSED(defaultNavigationHandler)
 
     return true;
 }
