@@ -31,7 +31,6 @@
 #include <carto/IPainterDocumentController.h>
 
 #include <geodatabase/IFeatureWorkspace.h>
-#include <geodatabase/IShapeFileWorkspaceFactory.h>
 #include <geodatabase/IFeatureClass.h>
 #include <carousel/utils/IServiceLocator.h>
 
@@ -39,12 +38,11 @@
 #include <QtCore/QFileInfo>
 
 //------------------------------------------------------------------------------
-typedef QScopedPointer<IShapeFileWorkspaceFactory> IShapeFileWorkspaceFactoryPtr;
-
-//------------------------------------------------------------------------------
-AddShapesCommand::AddShapesCommand(IUndoStack *stack, IServiceLocator *locator, QObject *parent)
+AddShapesCommand::AddShapesCommand(IUndoStack *stack, IPainterDocumentController *docContr, IShapeFileWorkspaceFactory *factory, QObject *parent)
     : BaseUndoableCommand(stack, parent)
-    , m_locator(locator)
+    , m_docContr(docContr)
+    , m_factory(factory)
+    , m_addedLayers()
 {
     setText("adding shape layer(s)");
 }
@@ -63,31 +61,35 @@ void AddShapesCommand::addShapeFiles(const QStringList &files)
 //------------------------------------------------------------------------------
 void AddShapesCommand::redo()
 {
-    IPainterDocumentController* docController = m_locator->locate<IPainterDocumentController>();
-    IPainterDocument *doc = docController->document();
-    IShapeFileWorkspaceFactoryPtr factory(m_locator->buildInstance<IShapeFileWorkspaceFactory>());
+    IPainterDocument *doc = m_docContr->document();
+    IMap* map = doc->map();
 
     for (const QString &fileName : m_files) {
         QFileInfo shapeFile(fileName);
         const QString &workingDirectory = shapeFile.absolutePath();
 
-        IFeatureWorkspace *workspace = (IFeatureWorkspace *)factory->openFromFile(workingDirectory);
+        std::unique_ptr<IFeatureWorkspace> workspace((IFeatureWorkspace *)m_factory->openFromFile(workingDirectory));
 
         IFeatureClass *railwaysClass = workspace->openFeatureClass(fileName);
         FeatureLayer *railwaysLayer = new FeatureLayer();
         railwaysLayer->setFeatureClass(railwaysClass);
-        doc->map()->addLayer(railwaysLayer);
+        map->addLayer(railwaysLayer);
 
-        delete workspace;
+        m_addedLayers.push_back(railwaysLayer);
     }
 
-    doc->map()->refresh();
+    map->refresh();
 }
 
 //------------------------------------------------------------------------------
 void AddShapesCommand::undo()
 {
-
+    IPainterDocument *doc = m_docContr->document();
+    IMap* map = doc->map();
+    for (AbstractLayer* layer : m_addedLayers) {
+        map->removeLayer(layer);
+    }
+    map->refresh();
 }
 
 //------------------------------------------------------------------------------

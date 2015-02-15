@@ -50,6 +50,7 @@ public:
 
 public slots:
     virtual void addLayer(AbstractLayer *layer) = 0;
+    virtual int removeLayer(AbstractLayer *layer) = 0;
     virtual AbstractLayer *getLayer(const int index) = 0;
     virtual const AbstractLayer *getLayer(const int index) const = 0;
     virtual AbstractLayer *getLayer(const QString& name) = 0;

@@ -47,6 +47,7 @@ public:
 public slots:
     void refresh() override;
     void addLayer(AbstractLayer *layer) override;
+    int removeLayer(AbstractLayer *layer) override;
     void moveLayer(AbstractLayer *layer, const int index) override;
     AbstractLayer *getLayer(const int index) override;
     const AbstractLayer *getLayer(const int index) const override;

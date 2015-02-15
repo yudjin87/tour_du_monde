@@ -90,6 +90,26 @@ void Map::addLayer(AbstractLayer *layer)
 }
 
 //------------------------------------------------------------------------------
+int Map::removeLayer(AbstractLayer *layer)
+{
+    if (layer == nullptr)
+        return -1;
+
+    const auto it = std::find(std::begin(m_layers), std::end(m_layers), layer);
+    if (it == std::end(m_layers)) {
+        Log.d(QString("Layer \"%1\" wasn't found").arg(layer->name()));
+        return -1;
+    }
+
+    const size_t layerIndex = std::distance(std::begin(m_layers), it);
+
+    Log.d(QString("Removing layer \"%1\" from position %2").arg(layer->name()).arg(layerIndex));
+
+    m_layers.erase(it);
+    return layerIndex;
+}
+
+//------------------------------------------------------------------------------
 void Map::moveLayer(AbstractLayer *layer, const int index)
 {
     if (layer == nullptr)

@@ -30,12 +30,14 @@
 #include "CartoScriptExtension.h"
 #include "FeatureLayer.h"
 
+#include <geodatabase/IShapeFileWorkspaceFactory.h>
 #include <display/IDisplay.h>
 
 #include <carousel/commands/IUndoStack.h>
 #include <carousel/componentsystem/ComponentDefinition.h>
 #include <carousel/componentsystem/ComponentExport.h>
 #include <carousel/utils/IServiceLocator.h>
+#include <carousel/utils/TypeCreators.h>
 
 //------------------------------------------------------------------------------
 static const QByteArray productName("Carto");
@@ -72,8 +74,7 @@ void CartoComponent::onShutdown(IServiceLocator *serviceLocator)
 //------------------------------------------------------------------------------
 bool CartoComponent::onStartup(IServiceLocator *serviceLocator)
 {
-    IUndoStack *stack = serviceLocator->locate<IUndoStack>();
-    auto addShapeslCreator = [stack, serviceLocator](){return new AddShapesCommand(stack, serviceLocator);};
+    TypeCreator<AddShapesCommand, TypeLocator<IUndoStack>, TypeLocator<IPainterDocumentController>, TypeBuilder<IShapeFileWorkspaceFactory>> addShapeslCreator{serviceLocator};
     serviceLocator->registerType<AddShapesCommand>(addShapeslCreator);
 
     IDisplay *display = serviceLocator->locate<IDisplay>();

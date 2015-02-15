@@ -28,17 +28,20 @@
 #define ADDSHAPESCOMMAND_H
 
 #include <carto/carto_api.h>
+#include <geodatabase/IShapeFileWorkspaceFactory.h>
 #include <carousel/commands/BaseUndoableCommand.h>
 
 #include <QtCore/QStringList>
+#include <memory>
 
-class IServiceLocator;
+class IPainterDocumentController;
+class AbstractLayer;
 
 class CARTO_API AddShapesCommand : public BaseUndoableCommand
 {
     Q_OBJECT
 public:
-    AddShapesCommand(IUndoStack *stack, IServiceLocator *locator, QObject* parent = nullptr);
+    AddShapesCommand(IUndoStack *stack, IPainterDocumentController *docContr, IShapeFileWorkspaceFactory* factory, QObject* parent = nullptr);
     ~AddShapesCommand();
 
     void addShapeFiles(const QStringList &files);
@@ -47,8 +50,10 @@ public:
     void undo() override;
 
 private:
-    IServiceLocator *m_locator;
+    IPainterDocumentController *m_docContr;
+    std::unique_ptr<IShapeFileWorkspaceFactory> m_factory;
     QStringList m_files;
+    QList<AbstractLayer*> m_addedLayers;
 };
 
 #endif // ADDSHAPESCOMMAND_H
