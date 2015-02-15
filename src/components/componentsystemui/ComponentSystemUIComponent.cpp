@@ -79,38 +79,16 @@ void ComponentSystemUIComponent::onShutdown(IServiceLocator *serviceLocator)
     dialogService->unregisterDialogForModel<ComponentDefinitionsModel>();
 }
 
-// TODO: use templated "Finder", make common
-template<typename TToCreate, typename TReq1, typename TReq2>
-class Creator
-{
-public:
-    Creator(IServiceLocator *serviceLocator)
-        : m_serviceLocator(serviceLocator)
-    {
-    }
-
-    void* operator()()
-    {
-        TReq1* req1 = m_serviceLocator->locate<TReq1>();
-        TReq2* req2 = m_serviceLocator->locate<TReq2>();
-        TToCreate* result = new TToCreate(req1, req2);
-        return result;
-    }
-
-private:
-    IServiceLocator *m_serviceLocator;
-};
-
 //------------------------------------------------------------------------------
 bool ComponentSystemUIComponent::onStartup(IServiceLocator *serviceLocator)
 {
     IComponentManager *manager = serviceLocator->locate<IComponentManager>();
 
     // Commands
-    Creator<EnableComponentCommand, IUndoStack, IComponentManager> enableCreator{serviceLocator};
+    TypeCreator<EnableComponentCommand, IUndoStack, IComponentManager> enableCreator{serviceLocator};
     serviceLocator->registerType<EnableComponentCommand>(enableCreator);
 
-    Creator<InstallComponentsCommand, IUndoStack, IComponentManager> installCreator{serviceLocator};
+    TypeCreator<InstallComponentsCommand, IUndoStack, IComponentManager> installCreator{serviceLocator};
     serviceLocator->registerType<InstallComponentsCommand>(installCreator);
 
     // Services

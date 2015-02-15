@@ -36,6 +36,49 @@
 
 typedef std::function<void*(void)> factoryMethod;
 
+// TODO: use variadic templates
+// TODO: documentation
+template<typename TToCreate, typename TReq1>
+class TypeCreator
+{
+public:
+    TypeCreator(IServiceLocator *serviceLocator)
+        : m_serviceLocator(serviceLocator)
+    {
+    }
+
+    void* operator()()
+    {
+        TReq1* req1 = m_serviceLocator->locate<TReq1>();
+        TToCreate* result = new TToCreate(req1);
+        return result;
+    }
+
+private:
+    IServiceLocator *m_serviceLocator;
+};
+
+template<typename TToCreate, typename TReq1, typename TReq2>
+class TypeCreator
+{
+public:
+    TypeCreator(IServiceLocator *serviceLocator)
+        : m_serviceLocator(serviceLocator)
+    {
+    }
+
+    void* operator()()
+    {
+        TReq1* req1 = m_serviceLocator->locate<TReq1>();
+        TReq2* req2 = m_serviceLocator->locate<TReq2>();
+        TToCreate* result = new TToCreate(req1, req2);
+        return result;
+    }
+
+private:
+    IServiceLocator *m_serviceLocator;
+};
+
 /*!
  * @brief
  *   The abstract IServiceLocator class provides central registry of the types and instances.
@@ -102,7 +145,7 @@ typedef std::function<void*(void)> factoryMethod;
  *     };
  * @endcode
  *
- *   Register type dependencies:
+ *   Register type dependencies with lambdas:
  * @code
  *   IServiceLocator *locator = new ServiceLocator();
  *   locator->bindType<IA, A>();
@@ -121,6 +164,18 @@ typedef std::function<void*(void)> factoryMethod;
  *     IC* c = new C(b, a);
  *     return c;
  *     });
+ * @endcode
+ *
+ * or with templated TypeCreator:
+ *
+ * @code
+ *   IServiceLocator *locator = new ServiceLocator();
+ *   locator->registerInstance<IA, a>();
+ *   locator->registerInstance<IB, b>();
+ *
+ *   TypeCreator<IC, IA, IB> icCreator{locator};
+ *
+ *   locator->registerType<IC>(icCreator);
  * @endcode
  *
  *   Usage:
