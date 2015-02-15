@@ -63,10 +63,10 @@ public:
     void setMaximumScale(double maximumScale);
 
 signals:
-    void nameChanged(const QString &newName);
-    void visibilityChanged(bool visible);
-    void minimumScaleChanged(double minimumScale);
-    void maximumScaleChanged(double maximumScale);
+    void nameChanged(AbstractLayer* sender, const QString &newName);
+    void visibilityChanged(AbstractLayer* sender, bool visible);
+    void minimumScaleChanged(AbstractLayer* sender, double minimumScale);
+    void maximumScaleChanged(AbstractLayer* sender, double maximumScale);
 
 protected:
     virtual void hide() = 0;

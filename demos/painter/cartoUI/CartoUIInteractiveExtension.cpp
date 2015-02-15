@@ -59,7 +59,7 @@ void CartoUIInteractiveExtension::configureGui(ICatalogs &inCatalogs, IServiceLo
 
     IDockWidgetCatalog &catalog = inCatalogs.dockWidgetCatalog();
     QListView *layersTree = new QListView();
-    layersTree->setModel(new LayersTreeModel(doc->map(), layersTree));
+    layersTree->setModel(new LayersTreeModel(doc->map(), serviceLocator, layersTree));
     layersTree->setItemDelegate(new FeatureLayerDelegate(layersTree));
     layersTree->setSelectionMode(QAbstractItemView::ExtendedSelection);
     layersTree->setDragEnabled(true);

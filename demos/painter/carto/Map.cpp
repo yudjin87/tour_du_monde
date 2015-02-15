@@ -106,6 +106,8 @@ int Map::removeLayer(AbstractLayer *layer)
     Log.d(QString("Removing layer \"%1\" from position %2").arg(layer->name()).arg(layerIndex));
 
     m_layers.erase(it);
+    emit layerRemoved(layer);
+    delete layer;  // TODO: use smart ptr
     return layerIndex;
 }
 
@@ -145,7 +147,7 @@ AbstractLayer *Map::getLayer(const int index)
 //------------------------------------------------------------------------------
 const AbstractLayer *Map::getLayer(const int index) const
 {
-    if (index < m_layers.size())
+    if (m_layers.size() <= index)
         return nullptr;
 
     return m_layers.at(index);

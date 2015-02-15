@@ -33,6 +33,7 @@ HEADERS += \
     CartoScriptExtension.h \
     FeatureLayerDrawingTask.h \
     commands/AddShapesCommand.h \
+    commands/RenameLayerCommand.h \
 
 SOURCES += \
     AbstractLayer.cpp \
@@ -44,6 +45,7 @@ SOURCES += \
     CartoScriptExtension.cpp \
     FeatureLayerDrawingTask.cpp \
     commands/AddShapesCommand.cpp \
+    commands/RenameLayerCommand.cpp \
 
 OTHER_FILES += org.carousel.demos.Carto.definition
 

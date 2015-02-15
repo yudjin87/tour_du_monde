@@ -24,71 +24,66 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include <carto/commands/AddShapesCommand.h>
+#include <carto/commands/RenameLayerCommand.h>
 #include <carto/IMap.h>
-#include <carto/FeatureLayer.h>
+#include <carto/AbstractLayer.h>
 #include <carto/IPainterDocument.h>
 #include <carto/IPainterDocumentController.h>
 
-#include <geodatabase/IFeatureWorkspace.h>
-#include <geodatabase/IFeatureClass.h>
-
-#include <QtCore/QFileInfo>
-
 //------------------------------------------------------------------------------
-AddShapesCommand::AddShapesCommand(IUndoStack *stack, IPainterDocumentController *docContr, IShapeFileWorkspaceFactory *factory, QObject *parent)
+RenameLayerCommand::RenameLayerCommand(IUndoStack *stack, IPainterDocumentController *docContr, QObject *parent)
     : BaseUndoableCommand(stack, parent)
     , m_docContr(docContr)
-    , m_factory(factory)
-    , m_addedLayers()
+    , m_layerIndexToRename(-1)
+    , m_newName()
+    , m_oldName()
 {
-    setText("adding shape layer(s)");
+    setText("layer renaming");
 }
 
 //------------------------------------------------------------------------------
-AddShapesCommand::~AddShapesCommand()
+RenameLayerCommand::~RenameLayerCommand()
 {
 }
 
 //------------------------------------------------------------------------------
-void AddShapesCommand::addShapeFiles(const QStringList &files)
+void RenameLayerCommand::setLayerIndex(const int layerToRename)
 {
-    m_files = files;
+    m_layerIndexToRename = layerToRename;
 }
 
 //------------------------------------------------------------------------------
-void AddShapesCommand::redo()
+void RenameLayerCommand::setNewName(const QString &newName)
+{
+    m_newName = newName;
+}
+
+//------------------------------------------------------------------------------
+void RenameLayerCommand::redo()
 {
     IPainterDocument *doc = m_docContr->document();
     IMap* map = doc->map();
-
-    for (const QString &fileName : m_files) {
-        QFileInfo shapeFile(fileName);
-        const QString &workingDirectory = shapeFile.absolutePath();
-
-        std::unique_ptr<IFeatureWorkspace> workspace((IFeatureWorkspace *)m_factory->openFromFile(workingDirectory));
-
-        IFeatureClass *railwaysClass = workspace->openFeatureClass(fileName);
-        FeatureLayer *railwaysLayer = new FeatureLayer();
-        railwaysLayer->setFeatureClass(railwaysClass);
-        map->addLayer(railwaysLayer);
-
-        m_addedLayers.push_back(railwaysLayer);
+    AbstractLayer* layerToRename = map->getLayer(m_layerIndexToRename);
+    if (layerToRename == nullptr) {
+        return;
     }
 
-    map->refresh();
+    m_oldName = layerToRename->name();
+    layerToRename->setName(m_newName);
 }
 
 //------------------------------------------------------------------------------
-void AddShapesCommand::undo()
+void RenameLayerCommand::undo()
 {
     IPainterDocument *doc = m_docContr->document();
     IMap* map = doc->map();
-    for (AbstractLayer* layer : m_addedLayers) {
-        map->removeLayer(layer);
+    AbstractLayer* layerToRename = map->getLayer(m_layerIndexToRename);
+    if (layerToRename == nullptr) {
+        return;
     }
-    m_addedLayers.clear();
-    map->refresh();
+
+    m_newName = layerToRename->name();
+    layerToRename->setName(m_oldName);
 }
 
 //------------------------------------------------------------------------------

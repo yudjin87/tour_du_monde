@@ -33,14 +33,15 @@
 #include <QtGui/QPixmap>
 
 class AbstractLayer;
-class ISymbol;
 class IMap;
+class ISymbol;
+class IServiceLocator;
 
 class LayersTreeModel : public QAbstractListModel
 {
     Q_OBJECT
 public:
-    explicit LayersTreeModel(IMap *map, QObject *parent = nullptr);
+    explicit LayersTreeModel(IMap *map, IServiceLocator *serviceLocator, QObject *parent = nullptr);
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
@@ -55,13 +56,17 @@ public:
 
 private slots:
     void onLayerAdded(AbstractLayer *layer);
+    void onLayerRemoved(AbstractLayer *layer);
     void onMapRefreshed();
+
+    void onNameChanged(AbstractLayer* sender, const QString &newName);
 
 private:
     static QPixmap drawThumbnail(ISymbol *forSymbol, GeometryType type);
 
 private:
     IMap *m_map;
+    IServiceLocator *m_serviceLocator;
 };
 
 #endif // LAYERSTREEMODEL_H

@@ -61,6 +61,7 @@ public slots:
 
 signals:
     void layerAdded(AbstractLayer *layer);
+    void layerRemoved(AbstractLayer *layer);
     void refreshed();
 
 private:

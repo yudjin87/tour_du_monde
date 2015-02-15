@@ -51,7 +51,7 @@ void AbstractLayer::setName(const QString &name)
         return;
 
     m_name = name;
-    emit nameChanged(name);
+    emit nameChanged(this, name);
 }
 
 //------------------------------------------------------------------------------
@@ -72,7 +72,7 @@ void AbstractLayer::setVisible(bool visible)
     else
         hide();
 
-    emit visibilityChanged(m_isVisible);
+    emit visibilityChanged(this, m_isVisible);
 }
 
 //------------------------------------------------------------------------------
@@ -91,14 +91,14 @@ double AbstractLayer::maximumScale() const
 void AbstractLayer::setMinimumScale(double minimumScale)
 {
     m_minimumScale = minimumScale;
-    emit minimumScaleChanged(minimumScale);
+    emit minimumScaleChanged(this, minimumScale);
 }
 
 //------------------------------------------------------------------------------
 void AbstractLayer::setMaximumScale(double maximumScale)
 {
     m_maximumScale = maximumScale;
-    emit maximumScaleChanged(maximumScale);
+    emit maximumScaleChanged(this, maximumScale);
 }
 
 //------------------------------------------------------------------------------

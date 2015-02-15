@@ -26,6 +26,7 @@
 
 #include "CartoComponent.h"
 #include "commands/AddShapesCommand.h"
+#include "commands/RenameLayerCommand.h"
 #include "PainterDocumentController.h"
 #include "CartoScriptExtension.h"
 #include "FeatureLayer.h"
@@ -74,8 +75,11 @@ void CartoComponent::onShutdown(IServiceLocator *serviceLocator)
 //------------------------------------------------------------------------------
 bool CartoComponent::onStartup(IServiceLocator *serviceLocator)
 {
-    TypeCreator<AddShapesCommand, TypeLocator<IUndoStack>, TypeLocator<IPainterDocumentController>, TypeBuilder<IShapeFileWorkspaceFactory>> addShapeslCreator{serviceLocator};
-    serviceLocator->registerType<AddShapesCommand>(addShapeslCreator);
+    TypeCreator<AddShapesCommand, TypeLocator<IUndoStack>, TypeLocator<IPainterDocumentController>, TypeBuilder<IShapeFileWorkspaceFactory>> addShapesCreator{serviceLocator};
+    serviceLocator->registerType<AddShapesCommand>(addShapesCreator);
+
+    TypeCreator<RenameLayerCommand, TypeLocator<IUndoStack>, TypeLocator<IPainterDocumentController>> renameLayerCreator{serviceLocator};
+    serviceLocator->registerType<RenameLayerCommand>(renameLayerCreator);
 
     IDisplay *display = serviceLocator->locate<IDisplay>();
     IPainterDocumentController *controller = new PainterDocumentController(display);

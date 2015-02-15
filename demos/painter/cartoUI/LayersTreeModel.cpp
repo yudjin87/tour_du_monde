@@ -28,12 +28,14 @@
 
 #include <carto/IMap.h>
 #include <carto/FeatureLayer.h>
-#include <carousel/logging/LoggerFacade.h>
+#include <carto/commands/RenameLayerCommand.h>
 #include <display/FeatureRenderer.h>
 #include <display/ISymbol.h>
 #include <geometry/Point.h>
 #include <geometry/Polygon.h>
 #include <geometry/Polyline.h>
+#include <carousel/logging/LoggerFacade.h>
+#include <carousel/utils/IServiceLocator.h>
 
 #include <QtCore/QMimeData>
 #include <QtGui/QPainter>
@@ -50,11 +52,17 @@ QMap<GeometryType, AbstractGeometry *> fillThumbnails();
 static const QMap<GeometryType, AbstractGeometry *> thumbnails = fillThumbnails();
 
 //------------------------------------------------------------------------------
-LayersTreeModel::LayersTreeModel(IMap *map, QObject *parent)
+LayersTreeModel::LayersTreeModel(IMap *map, IServiceLocator *serviceLocator, QObject *parent)
     : QAbstractListModel(parent)
     , m_map(map)
+    , m_serviceLocator(serviceLocator)
 {
+    for (AbstractLayer* layer : m_map->layers()) {
+        connect(layer, &AbstractLayer::nameChanged, this, &LayersTreeModel::onNameChanged);
+    }
+
     connect(map, &IMap::layerAdded, this, &LayersTreeModel::onLayerAdded);
+    connect(map, &IMap::layerRemoved, this, &LayersTreeModel::onLayerRemoved);
     connect(map, &IMap::refreshed, this, &LayersTreeModel::onMapRefreshed);
 }
 
@@ -166,9 +174,10 @@ bool LayersTreeModel::setData(const QModelIndex &index, const QVariant &value, i
     if (role != Qt::EditRole)
         return false;
 
-    FeatureLayer *layer = static_cast<FeatureLayer *>(m_map->layers().at(index.row()));
-    layer->setName(value.toString());
-    emit dataChanged(index, index);
+    RenameLayerCommand *renameCommand = m_serviceLocator->buildInstance<RenameLayerCommand>();
+    renameCommand->setLayerIndex(index.row());
+    renameCommand->setNewName(value.toString());
+    renameCommand->pushToStack();
 
     return true;
 }
@@ -204,14 +213,34 @@ QVariant LayersTreeModel::data(const QModelIndex &index, int role) const
 //------------------------------------------------------------------------------
 void LayersTreeModel::onLayerAdded(AbstractLayer *layer)
 {
-    Q_UNUSED(layer);
+    connect(layer, &AbstractLayer::nameChanged, this, &LayersTreeModel::onNameChanged);
+
+    // TODO: selection lost here
     beginInsertRows(QModelIndex(), 0, m_map->layers().size());
     endInsertRows();
 }
 
 //------------------------------------------------------------------------------
+void LayersTreeModel::onLayerRemoved(AbstractLayer *layer)
+{
+    disconnect(layer, &AbstractLayer::nameChanged, this, &LayersTreeModel::onNameChanged);
+
+    // TODO: selection lost here
+    beginRemoveRows(QModelIndex(), 0, m_map->layers().size());
+    endRemoveRows();
+}
+
+//------------------------------------------------------------------------------
 void LayersTreeModel::onMapRefreshed()
 {
+    emit dataChanged(QModelIndex(), QModelIndex());
+}
+
+//------------------------------------------------------------------------------
+void LayersTreeModel::onNameChanged(AbstractLayer *sender, const QString &newName)
+{
+    Q_UNUSED(sender)
+    Q_UNUSED(newName)
     emit dataChanged(QModelIndex(), QModelIndex());
 }
 
