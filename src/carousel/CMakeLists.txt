@@ -99,6 +99,7 @@ set(__HEADERS
     ${CRSL_TARGET_HEADERS}/utils/ListDictionary.h 
     ${CRSL_TARGET_HEADERS}/utils/ObservableList.h 
     ${CRSL_TARGET_HEADERS}/utils/ServiceLocator.h 
+    ${CRSL_TARGET_HEADERS}/utils/TypeCreators.h 
     ${CRSL_TARGET_HEADERS}/utils/TypeObjectsMap.h 
 )
 

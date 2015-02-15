@@ -91,5 +91,6 @@ HEADERS += \
     $$PROJECT_HEADERS/utils/ListDictionary.h \
     $$PROJECT_HEADERS/utils/ObservableList.h \
     $$PROJECT_HEADERS/utils/ServiceLocator.h \
+    $$PROJECT_HEADERS/utils/TypeCreators.h \
     $$PROJECT_HEADERS/utils/TypeObjectsMap.h \
 

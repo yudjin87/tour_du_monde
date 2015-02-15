@@ -36,49 +36,6 @@
 
 typedef std::function<void*(void)> factoryMethod;
 
-// TODO: use variadic templates
-// TODO: documentation
-template<typename TToCreate, typename TReq1>
-class TypeCreator
-{
-public:
-    TypeCreator(IServiceLocator *serviceLocator)
-        : m_serviceLocator(serviceLocator)
-    {
-    }
-
-    void* operator()()
-    {
-        TReq1* req1 = m_serviceLocator->locate<TReq1>();
-        TToCreate* result = new TToCreate(req1);
-        return result;
-    }
-
-private:
-    IServiceLocator *m_serviceLocator;
-};
-
-template<typename TToCreate, typename TReq1, typename TReq2>
-class TypeCreator
-{
-public:
-    TypeCreator(IServiceLocator *serviceLocator)
-        : m_serviceLocator(serviceLocator)
-    {
-    }
-
-    void* operator()()
-    {
-        TReq1* req1 = m_serviceLocator->locate<TReq1>();
-        TReq2* req2 = m_serviceLocator->locate<TReq2>();
-        TToCreate* result = new TToCreate(req1, req2);
-        return result;
-    }
-
-private:
-    IServiceLocator *m_serviceLocator;
-};
-
 /*!
  * @brief
  *   The abstract IServiceLocator class provides central registry of the types and instances.
@@ -231,7 +188,9 @@ public:
     /*!
      * @details
      *   Creates and returns a @a TInterface pointer using specified tag and registered
-     *   factory method, if any. Returns nullptr otherwise.
+     *   factory method (based on type), if any. First, type must be registered, using registerType().
+     *   Returns nullptr otherwise.
+     * @sa registerType()
      * @note Does not take ownership of the created pointer.
      */
     template<typename TInterface>
@@ -239,10 +198,9 @@ public:
 
     /*!
      * @details
-     *   Creates and returns a @a className pointer using empty tag and registered
-     *   factory method, if any. Returns nullptr otherwise.
-     *   This may be usefull for scpipting, where no templates.
-     * @return the corresponding service if such found. Null pointer otherwise.
+     *   This is overload method.
+     *   Creates and returns a @a className pointer using empty tag.
+     * @sa registerType(), buildInstance()
      * @note Does not take ownership of the created pointer.
      */
     virtual QObject *buildObject(const QString &className) = 0;
@@ -250,9 +208,10 @@ public:
     /*!
      * @details
      *   Creates and returns a @a className pointer using specified tag and registered
-     *   factory method, if any. Returns nullptr otherwise.
-     *   This may be usefull for scpipting, where no templates.
+     *   factory method, if any. First, type must be registered, using registerType().
+     *   Returns nullptr otherwise. This may be usefull for scpipting, where no templates are supported.
      * @return the corresponding service if such found. Null pointer otherwise.
+     * @sa registerType(), buildInstance()
      * @note Does not take ownership of the created pointer.
      */
     virtual QObject *buildObject(const QString &className, const QString &tag) = 0;
@@ -306,7 +265,7 @@ public:
      *   This is overload method.
      *   Registers a service instance with empty tag with the locator.
      *
-     * @sa unregisterInstance()
+     * @sa unregisterInstance(), locate()
      */
     template<typename TService>
     void registerInstance(TService *instance);
@@ -335,7 +294,7 @@ public:
      * @tparam TService
      *   The type which type name @a instance should be associated while registered in locator with.
      *
-     * @sa unregisterInstance()
+     * @sa unregisterInstance(), locate()
      */
     template<typename TService>
     void registerInstance(TService *instance, const QString &tag);
@@ -344,6 +303,8 @@ public:
      * @details
      *   This is overload method.
      *   Registers a type with factory method and empty tag with the locator.
+     *
+     * @sa buildInstance(), buildObject()
      */
     template<typename TInterface>
     void registerType(factoryMethod method);
@@ -351,7 +312,10 @@ public:
     /*!
      * @details
      *   Registers a type with factory method and specified tag with the locator.
-     *   The @a method should return new instance of the @a TInterface type.
+     *   The @a method should return new instance of the @a TInterface type. Further, this type can be created by using
+     *   buildInstance() or buildObject() method.
+     *
+     * @sa buildInstance(), buildObject()
      */
     template<typename TInterface>
     void registerType(factoryMethod method, const QString &tag);

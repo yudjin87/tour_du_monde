@@ -37,6 +37,7 @@
 #include <carousel/componentsystem/IComponentManager.h>
 #include <carousel/logging/LoggerFacade.h>
 #include <carousel/utils/IServiceLocator.h>
+#include <carousel/utils/TypeCreators.h>
 
 #include <components/interactivity/IDialogService.h>
 
@@ -85,10 +86,10 @@ bool ComponentSystemUIComponent::onStartup(IServiceLocator *serviceLocator)
     IComponentManager *manager = serviceLocator->locate<IComponentManager>();
 
     // Commands
-    TypeCreator<EnableComponentCommand, IUndoStack, IComponentManager> enableCreator{serviceLocator};
+    TypeCreator<EnableComponentCommand, TypeLocator<IUndoStack>, TypeLocator<IComponentManager>> enableCreator{serviceLocator};
     serviceLocator->registerType<EnableComponentCommand>(enableCreator);
 
-    TypeCreator<InstallComponentsCommand, IUndoStack, IComponentManager> installCreator{serviceLocator};
+    TypeCreator<InstallComponentsCommand, TypeLocator<IUndoStack>, TypeLocator<IComponentManager>> installCreator{serviceLocator};
     serviceLocator->registerType<InstallComponentsCommand>(installCreator);
 
     // Services
