@@ -60,6 +60,8 @@ public:
 
     void setFeatureClass(IFeatureClass *featureClass);
 
+    void accept(ILayerVisitor& visitor) override;
+
 protected:
     void show() override;
     void hide() override;

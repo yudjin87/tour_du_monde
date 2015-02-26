@@ -31,6 +31,7 @@ HEADERS += \
     Map.h \
     CartoComponent.h \
     IMap.h \
+    ILayerVisitor.h \
     CartoScriptExtension.h \
     FeatureLayerDrawingTask.h \
     DefaultNavigationHandler.h \

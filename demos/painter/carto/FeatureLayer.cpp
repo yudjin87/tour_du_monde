@@ -26,6 +26,7 @@
 
 #include <carto/FeatureLayer.h>
 #include <carto/FeatureLayerDrawingTask.h>
+#include <carto/ILayerVisitor.h>
 
 #include <display/FeatureRenderer.h>
 #include <display/IDisplay.h>
@@ -145,6 +146,12 @@ void FeatureLayer::setFeatureClass(IFeatureClass *featureClass)
     }
 
     m_featureRenderer->setSymbol(m_symbol);
+}
+
+//------------------------------------------------------------------------------
+void FeatureLayer::accept(ILayerVisitor &visitor)
+{
+    visitor.visit(*this);
 }
 
 //------------------------------------------------------------------------------

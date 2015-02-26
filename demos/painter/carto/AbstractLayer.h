@@ -34,6 +34,7 @@
 #include <QtCore/QRectF>
 
 class IDisplay;
+class ILayerVisitor;
 
 class CARTO_API AbstractLayer : public QObject
 {
@@ -61,6 +62,8 @@ public:
 
     void setMinimumScale(double minimumScale);
     void setMaximumScale(double maximumScale);
+
+    virtual void accept(ILayerVisitor& visitor) = 0;
 
 signals:
     void nameChanged(AbstractLayer* sender, const QString &newName);
