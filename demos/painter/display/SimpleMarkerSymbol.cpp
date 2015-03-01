@@ -25,6 +25,7 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "SimpleMarkerSymbol.h"
+#include "display/ISymbolVisitor.h"
 
 #include <geometry/Point.h>
 
@@ -42,6 +43,11 @@ SimpleMarkerSymbol::SimpleMarkerSymbol(QObject *parent)
     , m_outlinePen(QColor(rand() % 255, rand() % 255, rand() % 255), m_outlineSize)
     , m_oldPen()
 {
+}
+
+void SimpleMarkerSymbol::accept(ISymbolVisitor &visitor)
+{
+    visitor.visit(*this);
 }
 
 //------------------------------------------------------------------------------

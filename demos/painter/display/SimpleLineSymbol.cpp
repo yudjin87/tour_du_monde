@@ -25,6 +25,7 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "SimpleLineSymbol.h"
+#include "display/ISymbolVisitor.h"
 
 #include <geometry/Polyline.h>
 #include <geometry/Segment.h>
@@ -41,6 +42,10 @@ SimpleLineSymbol::SimpleLineSymbol(QObject *parent)
     m_pen.setCosmetic(true);
 }
 
+void SimpleLineSymbol::accept(ISymbolVisitor &visitor)
+{
+    visitor.visit(*this);
+}
 
 //------------------------------------------------------------------------------
 SimpleLineSymbol::SimpleLineSymbol(const SimpleLineSymbol &o, QObject *parent)

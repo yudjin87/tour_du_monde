@@ -25,6 +25,7 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "SimpleFillSymbol.h"
+#include "display/ISymbolVisitor.h"
 
 #include <geometry/Polygon.h>
 #include <geometry/Segment.h>
@@ -47,6 +48,11 @@ SimpleFillSymbol::SimpleFillSymbol(const SimpleFillSymbol &o, QObject *parent)
     , m_brush(o.m_brush)
     , m_oldBrush(o.m_oldBrush)
 {
+}
+
+void SimpleFillSymbol::accept(ISymbolVisitor &visitor)
+{
+    visitor.visit(*this);
 }
 
 //------------------------------------------------------------------------------

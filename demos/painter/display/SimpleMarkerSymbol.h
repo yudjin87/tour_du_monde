@@ -57,6 +57,8 @@ class DISPLAY_API SimpleMarkerSymbol : public MarkerSymbol
 public:
     explicit SimpleMarkerSymbol(QObject *parent = 0);
     
+    void accept(ISymbolVisitor& visitor) override;
+
     ISymbol* clone(QObject* parent = nullptr) const override;
 
     bool isOutline() const;

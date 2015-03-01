@@ -3,7 +3,7 @@
  *
  * Carousel - Qt-based managed component library.
  *
- * Copyright: 2011-2013 Carousel team
+ * Copyright: 2011-2015 Carousel team
  * Authors:
  *   Eugene Chuguy <eugene.chuguy@gmail.com>
  *
@@ -24,46 +24,24 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef ISYMBOL_H
-#define ISYMBOL_H
+#ifndef ISYMBOLVISITOR
+#define ISYMBOLVISITOR
 
 #include "display/display_api.h"
 
-#include <QtCore/QObject>
+class SimpleFillSymbol;
+class SimpleLineSymbol;
+class SimpleMarkerSymbol;
 
-class AbstractGeometry;
-class ISymbolVisitor;
-class QPainter;
-
-class DISPLAY_API ISymbol : public QObject
+class DISPLAY_API ISymbolVisitor
 {
 public:
-    ISymbol(){}
+    virtual ~ISymbolVisitor(){}
 
-    virtual void accept(ISymbolVisitor& visitor) = 0;
-
-    /*!
-     * @details
-     *   Draws the specified shape, using prepared the painter.
-     *   Use setupPainter() before, and resetPainter() after this method
-     */
-    virtual void draw(const AbstractGeometry *geometry, QPainter *painter) = 0;
-
-    virtual ISymbol* clone(QObject* parent = nullptr) const = 0;
-    /*!
-     * @details
-     *   Prepares the painter for drawing the symbol.
-     */
-    virtual void setupPainter(QPainter *painter) = 0;
-
-    /*!
-     * @details
-     *   Restores painter to original state.
-     */
-    virtual void resetPainter(QPainter *painter) = 0;
-
-private:
-    Q_DISABLE_COPY(ISymbol)
+    virtual void visit(SimpleFillSymbol& symbol) = 0;
+    virtual void visit(SimpleLineSymbol& symbol) = 0;
+    virtual void visit(SimpleMarkerSymbol& symbol) = 0;
 };
 
-#endif // ISYMBOL_H
+#endif // ISYMBOLVISITOR
+
