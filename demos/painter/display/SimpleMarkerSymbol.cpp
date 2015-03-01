@@ -45,6 +45,24 @@ SimpleMarkerSymbol::SimpleMarkerSymbol(QObject *parent)
 }
 
 //------------------------------------------------------------------------------
+SimpleMarkerSymbol::SimpleMarkerSymbol(const SimpleMarkerSymbol &o, QObject *parent)
+    : MarkerSymbol(o, parent)
+    , m_outline(o.m_outline)
+    , m_outlineSize(o.m_outlineSize)
+    , m_width(o.m_width)
+    , m_height(o.m_height)
+    , m_outlinePen(o.m_outlinePen)
+    , m_oldPen(o.m_oldPen)
+{
+}
+
+//------------------------------------------------------------------------------
+ISymbol* SimpleMarkerSymbol::clone(QObject* parent) const
+{
+    return new SimpleMarkerSymbol(*this, parent);
+}
+
+//------------------------------------------------------------------------------
 bool SimpleMarkerSymbol::isOutline() const
 {
     return m_outline;

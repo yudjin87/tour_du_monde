@@ -75,6 +75,7 @@ public slots:
 
 protected:
     explicit MarkerSymbol(QObject *parent = 0);
+    MarkerSymbol(const MarkerSymbol& o, QObject *parent = nullptr);
 
 private:
     QBrush m_brush;

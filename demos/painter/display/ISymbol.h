@@ -46,6 +46,7 @@ public:
      */
     virtual void draw(const AbstractGeometry *geometry, QPainter *painter) = 0;
 
+    virtual ISymbol* clone(QObject* parent = nullptr) const = 0;
     /*!
      * @details
      *   Prepares the painter for drawing the symbol.

@@ -40,6 +40,16 @@ MarkerSymbol::MarkerSymbol(QObject *parent)
 }
 
 //------------------------------------------------------------------------------
+MarkerSymbol::MarkerSymbol(const MarkerSymbol &o, QObject *parent)
+    : m_brush(o.m_brush)
+    , m_oldBrush(o.m_oldBrush)
+    , m_angle(o.m_angle)
+    , m_size(o.m_size)
+{
+    setParent(parent);
+}
+
+//------------------------------------------------------------------------------
 double MarkerSymbol::angle() const
 {
     return m_angle;

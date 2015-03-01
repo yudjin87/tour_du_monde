@@ -57,6 +57,8 @@ class DISPLAY_API SimpleMarkerSymbol : public MarkerSymbol
 public:
     explicit SimpleMarkerSymbol(QObject *parent = 0);
     
+    ISymbol* clone(QObject* parent = nullptr) const override;
+
     bool isOutline() const;
     void setOutline(bool outline);
 
@@ -74,6 +76,7 @@ public:
     void resetPainter(QPainter *painter) override;
 
 protected:
+    SimpleMarkerSymbol(const SimpleMarkerSymbol& o, QObject *parent = nullptr);
     void drawPoint(const Point &point, QPainter &painter) override;
 
 private:

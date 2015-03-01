@@ -43,6 +43,8 @@ class DISPLAY_API SimpleLineSymbol : public LineSymbol
 public:
     explicit SimpleLineSymbol(QObject *parent = 0);
 
+    ISymbol* clone(QObject* parent = nullptr) const override;
+
     /*!
      * @details
      *   Prepares the display for drawing the symbol by setting pen.
@@ -54,6 +56,7 @@ public:
     void setStyle(Qt::PenStyle style);
 
 protected:
+    SimpleLineSymbol(const SimpleLineSymbol& o, QObject *parent = nullptr);
     void drawPolyline(const Polyline &polyline, QPainter &painter) override;
 
 private:

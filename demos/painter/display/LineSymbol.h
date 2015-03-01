@@ -57,6 +57,7 @@ public slots:
 
 protected:
     explicit LineSymbol(QObject *parent = 0);
+    LineSymbol(const LineSymbol& o, QObject *parent = nullptr);
 
 private:
     qreal m_width;

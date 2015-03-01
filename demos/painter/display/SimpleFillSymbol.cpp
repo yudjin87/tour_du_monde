@@ -42,6 +42,20 @@ SimpleFillSymbol::SimpleFillSymbol(QObject *parent)
 }
 
 //------------------------------------------------------------------------------
+SimpleFillSymbol::SimpleFillSymbol(const SimpleFillSymbol &o, QObject *parent)
+    : FillSymbol(o, parent)
+    , m_brush(o.m_brush)
+    , m_oldBrush(o.m_oldBrush)
+{
+}
+
+//------------------------------------------------------------------------------
+ISymbol* SimpleFillSymbol::clone(QObject* parent) const
+{
+    return new SimpleFillSymbol(*this, parent);
+}
+
+//------------------------------------------------------------------------------
 void SimpleFillSymbol::setupPainter(QPainter *painter)
 {
     FillSymbol::setupPainter(painter);

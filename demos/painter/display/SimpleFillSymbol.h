@@ -43,6 +43,8 @@ class DISPLAY_API SimpleFillSymbol : public FillSymbol
 public:
     explicit SimpleFillSymbol(QObject *parent = 0);
 
+    ISymbol* clone(QObject* parent = nullptr) const override;
+
     /*!
      * @details
      *   Prepares the display for drawing the symbol by setting brush.
@@ -54,6 +56,7 @@ public:
     void setStyle(Qt::BrushStyle style);
 
 protected:
+    SimpleFillSymbol(const SimpleFillSymbol& o, QObject *parent = nullptr);
     void drawPolygon(const Polygon &polygon, QPainter &painter) override;
 
 private:

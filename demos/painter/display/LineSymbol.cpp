@@ -35,6 +35,14 @@ LineSymbol::LineSymbol(QObject *parent)
 }
 
 //------------------------------------------------------------------------------
+LineSymbol::LineSymbol(const LineSymbol &o, QObject *parent)
+    : m_width(o.m_width)
+    , m_color(o.m_color)
+{
+    setParent(parent);
+}
+
+//------------------------------------------------------------------------------
 QColor LineSymbol::color() const
 {
     return m_color;

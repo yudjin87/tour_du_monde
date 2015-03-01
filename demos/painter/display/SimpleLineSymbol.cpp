@@ -41,6 +41,22 @@ SimpleLineSymbol::SimpleLineSymbol(QObject *parent)
     m_pen.setCosmetic(true);
 }
 
+
+//------------------------------------------------------------------------------
+SimpleLineSymbol::SimpleLineSymbol(const SimpleLineSymbol &o, QObject *parent)
+    : LineSymbol(o, parent)
+    , m_pen(o.m_pen)
+    , m_oldPen(o.m_oldPen)
+{
+    m_pen.setCosmetic(true);
+}
+
+//------------------------------------------------------------------------------
+ISymbol* SimpleLineSymbol::clone(QObject* parent) const
+{
+    return new SimpleLineSymbol(*this, parent);
+}
+
 //------------------------------------------------------------------------------
 void SimpleLineSymbol::setupPainter(QPainter *painter)
 {

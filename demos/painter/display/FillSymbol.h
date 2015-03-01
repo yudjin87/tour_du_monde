@@ -67,6 +67,7 @@ public slots:
 
 protected:
     explicit FillSymbol(QObject *parent = 0);
+    FillSymbol(const FillSymbol& o, QObject *parent = nullptr);
 
 private:
     LineSymbol *m_outline;
