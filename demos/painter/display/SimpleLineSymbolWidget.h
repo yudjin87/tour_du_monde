@@ -27,9 +27,8 @@
 #ifndef SIMPLELINESYMBOLWIDGET_H
 #define SIMPLELINESYMBOLWIDGET_H
 
-#include <display/SymbolBase.h>
+#include <display/SymbolWidget.h>
 #include <QtCore/QStringListModel>
-#include <QtWidgets/QWidget>
 
 namespace Ui
 {
@@ -38,13 +37,16 @@ class SimpleLineSymbolWidget;
 
 class SimpleLineSymbol;
 
-class DISPLAY_API SimpleLineSymbolWidget : public QWidget
+class DISPLAY_API SimpleLineSymbolWidget : public SymbolWidget
 {
     Q_OBJECT
 
 public:
     explicit SimpleLineSymbolWidget(const SimpleLineSymbol* symbol, QWidget *parent = nullptr);
     ~SimpleLineSymbolWidget();
+
+    const ISymbol *symbol() const override;
+    bool wasChanged() const override;
 
 private slots:
     void onColorChanged(const QColor& newColor);
@@ -58,6 +60,7 @@ private:
     Ui::SimpleLineSymbolWidget *m_ui;
     SimpleLineSymbol* m_symbol;
     QStringListModel m_lineStyles;
+    bool m_wasChanged;
 
 };
 

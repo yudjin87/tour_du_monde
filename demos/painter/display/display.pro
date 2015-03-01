@@ -45,7 +45,8 @@ HEADERS += \
     SimpleLineSymbolWidget.h \
     ISymbolVisitor.h \
     SymbolWidgetCreator.h \
-    ColorPickerButtont.h
+    ColorPickerButtont.h \
+    SymbolWidget.h
 
 SOURCES += \
     RectRubberBand.cpp \
@@ -71,7 +72,8 @@ SOURCES += \
     SymbolThumbnail.cpp \
     SimpleLineSymbolWidget.cpp \
     SymbolWidgetCreator.cpp \
-    ColorPickerButtont.cpp
+    ColorPickerButtont.cpp \
+    SymbolWidget.cpp
 
 FORMS += \
     SimpleLineSymbolWidget.ui

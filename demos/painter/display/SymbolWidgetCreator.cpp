@@ -46,11 +46,11 @@ SymbolWidgetCreator::~SymbolWidgetCreator()
     m_widget = nullptr;
 }
 
-QWidget *SymbolWidgetCreator::createWidget(ISymbol *forSymbol, QWidget *parent)
+SymbolWidget *SymbolWidgetCreator::createWidget(ISymbol *forSymbol, QWidget *parent)
 {
     forSymbol->accept(*this);
     m_widget->setParent(parent);
-    QWidget *tmp = m_widget;
+    SymbolWidget *tmp = m_widget;
     m_widget = nullptr;
     return tmp;
 }

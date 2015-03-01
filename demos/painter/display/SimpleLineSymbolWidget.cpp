@@ -37,10 +37,11 @@
 
 
 SimpleLineSymbolWidget::SimpleLineSymbolWidget(const SimpleLineSymbol *symbol, QWidget *parent)
-    : QWidget(parent)
+    : SymbolWidget(parent)
     , m_ui(new Ui::SimpleLineSymbolWidget)
     , m_symbol(static_cast<SimpleLineSymbol*>(symbol->clone(this)))
     , m_lineStyles(QStringList{"No pen", "Solid line", "Dash line", "Dot line", "Dash dot line", "Dash dot dot line"})
+    , m_wasChanged(false)
 {
     m_ui->setupUi(this);
     m_ui->lineStyles->setModel(&m_lineStyles);
@@ -104,9 +105,22 @@ void SimpleLineSymbolWidget::onLineStyleChanged(const int index)
 
 void SimpleLineSymbolWidget::updateSample()
 {
+    m_wasChanged = true;
+
     SymbolThumbnail thumbnailCreator(60, 4);
     thumbnailCreator.setBackground(Qt::white);
     QPixmap sample = thumbnailCreator.createSymbolThumbnail(m_symbol, GeometryPolyline);
     m_ui->sample->setPixmap(sample);
     m_ui->sample->setMinimumSize(sample.rect().size());
+}
+
+
+const ISymbol *SimpleLineSymbolWidget::symbol() const
+{
+    return m_symbol;
+}
+
+bool SimpleLineSymbolWidget::wasChanged() const
+{
+    return m_wasChanged;
 }

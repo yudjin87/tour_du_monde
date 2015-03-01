@@ -24,30 +24,22 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SYMBOLWIDGETCREATOR_H
-#define SYMBOLWIDGETCREATOR_H
+#ifndef SYMBOLWIDGET_H
+#define SYMBOLWIDGET_H
 
-#include "display/ISymbolVisitor.h"
+#include <display/display_api.h>
+#include <QtWidgets/QWidget>
 
 class ISymbol;
-class SymbolWidget;
-class QWidget;
 
-class DISPLAY_API SymbolWidgetCreator : private ISymbolVisitor
+class DISPLAY_API SymbolWidget : public QWidget
 {
 public:
-    SymbolWidgetCreator();
-    ~SymbolWidgetCreator();
+    SymbolWidget(QWidget *parent = nullptr);
+    ~SymbolWidget();
 
-    SymbolWidget* createWidget(ISymbol* forSymbol, QWidget* parent);
-
-private:
-    void visit(SimpleFillSymbol& symbol) override;
-    void visit(SimpleLineSymbol& symbol) override;
-    void visit(SimpleMarkerSymbol& symbol) override;
-
-private:
-    SymbolWidget* m_widget;
+    virtual const ISymbol* symbol() const = 0;
+    virtual bool wasChanged() const = 0;
 };
 
-#endif // SYMBOLWIDGETCREATOR_H
+#endif // SYMBOLWIDGET_H
