@@ -66,6 +66,7 @@ ISymbol* SimpleLineSymbol::clone(QObject* parent) const
 void SimpleLineSymbol::setupPainter(QPainter *painter)
 {
     m_pen.setColor(color());
+    m_pen.setWidthF(width());
 
     m_oldPen = painter->pen();
     painter->setPen(m_pen);

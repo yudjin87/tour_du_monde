@@ -41,6 +41,11 @@ HEADERS += \
     StartDrawingTask.h \
     UpdateTask.h \
     CoordsTracker.h \
+    SymbolThumbnail.h \
+    SimpleLineSymbolWidget.h \
+    ISymbolVisitor.h \
+    SymbolWidgetCreator.h \
+    ColorPickerButtont.h
 
 SOURCES += \
     RectRubberBand.cpp \
@@ -63,8 +68,13 @@ SOURCES += \
     StartDrawingTask.cpp \
     UpdateTask.cpp \
     CoordsTracker.cpp \
+    SymbolThumbnail.cpp \
+    SimpleLineSymbolWidget.cpp \
+    SymbolWidgetCreator.cpp \
+    ColorPickerButtont.cpp
 
-FORMS +=
+FORMS += \
+    SimpleLineSymbolWidget.ui
 
 OTHER_FILES += org.carousel.demos.Display.definition
 
