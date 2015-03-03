@@ -57,6 +57,15 @@ public:
     DialogService(QWidget *mainWindow, IServiceLocator *locator);
     ~DialogService();
 
+    /*!
+     * @details
+     *   Creates and returns a new instance of the dialog, setting @a mainWidget to its layout.
+     *
+     *   Note, that created dialog will be set with Qt::WA_DeleteOnClose flag;
+     *   Created dialog will take ownership for @a mainWidget
+     */
+    PropertiesDialog* createPropertyDialog(PropertiesWidget* mainWidget, QWidget *parentWindow = nullptr) const override;
+
 protected:
     /*!
      * @details

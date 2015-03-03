@@ -25,6 +25,8 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "DialogService.h"
+#include "components/interactivity/PropertiesDialog.h"
+#include "components/interactivity/PropertiesWidget.h"
 
 #include <QtCore/QDebug>
 #include <QtWidgets/QDialog>
@@ -51,6 +53,16 @@ DialogService::~DialogService()
         delete it.value();
 
     m_dialogMap.clear();
+}
+
+PropertiesDialog *DialogService::createPropertyDialog(PropertiesWidget *mainWidget, QWidget* parentWindow) const
+{
+    PropertiesDialog* dialog = new PropertiesDialog(m_locator, parentWindow);
+    dialog->installCentralWidget(mainWidget);
+    dialog->setAttribute(Qt::WA_DeleteOnClose);
+    dialog->setModal(true);
+
+    return dialog;
 }
 
 //------------------------------------------------------------------------------

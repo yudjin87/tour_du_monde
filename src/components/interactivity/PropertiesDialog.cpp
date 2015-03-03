@@ -28,14 +28,16 @@
 #include "components/interactivity/PropertiesWidget.h"
 #include "ui_PropertiesDialog.h"
 
-PropertiesDialog::PropertiesDialog(QWidget *parent, Qt::WindowFlags f)
+#include <QtWidgets/QPushButton>
+
+PropertiesDialog::PropertiesDialog(IServiceLocator *serviceLocator, QWidget *parent, Qt::WindowFlags f)
     : QDialog(parent, f)
+    , m_serviceLocator(serviceLocator)
     , m_ui(new Ui::PropertiesDialog())
     , m_propertiesWidget(nullptr)
 {
     m_ui->setupUi(this);
-    this->setModal(true);
-    this->setAttribute(Qt::WA_DeleteOnClose);
+    m_ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
 }
 
 PropertiesDialog::~PropertiesDialog()
@@ -46,7 +48,27 @@ PropertiesDialog::~PropertiesDialog()
 
 void PropertiesDialog::installCentralWidget(PropertiesWidget *propertiesWidget)
 {
+    Q_ASSERT(propertiesWidget != nullptr);
+
     propertiesWidget->setParent(this);
     m_propertiesWidget = propertiesWidget;
     m_ui->widgetPlaceholder->addWidget(propertiesWidget);
+
+    connect(m_propertiesWidget, &PropertiesWidget::propertyChanged, this, &PropertiesDialog::onPropertyChanged);
+}
+
+void PropertiesDialog::accept()
+{
+    m_propertiesWidget->applyChanges(m_serviceLocator);
+    QDialog::accept();
+}
+
+void PropertiesDialog::reject()
+{
+    QDialog::reject();
+}
+
+void PropertiesDialog::onPropertyChanged()
+{
+    m_ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
 }

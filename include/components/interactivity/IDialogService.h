@@ -38,6 +38,8 @@
 class QWidget;
 struct IDialogConstructor;
 class IServiceLocator;
+class PropertiesDialog;
+class PropertiesWidget;
 
 /*!
  * @brief
@@ -68,6 +70,15 @@ public:
      */
     template<typename TDialogModel>
     QDialog *createDialog(TDialogModel *dlgModel) const;
+
+    /*!
+     * @details
+     *   Creates and returns a new instance of the dialog, setting @a mainWidget to its layout.
+     *
+     *   Note, that created dialog will be set with Qt::WA_DeleteOnClose flag;
+     *   Created dialog will take ownership for @a mainWidget
+     */
+    virtual PropertiesDialog* createPropertyDialog(PropertiesWidget* mainWidget, QWidget* parentWindow = nullptr) const = 0;
 
     /*!
      * @details
