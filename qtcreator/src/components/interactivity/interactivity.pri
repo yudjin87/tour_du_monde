@@ -14,6 +14,8 @@ SOURCES += \
     $$PROJECT_SOURCES/MenuCatalog.cpp \
     $$PROJECT_SOURCES/Operation.cpp \
     $$PROJECT_SOURCES/OperationCatalog.cpp \
+    $$PROJECT_SOURCES/PropertiesDialog.cpp \
+    $$PROJECT_SOURCES/PropertiesWidget.cpp \
     $$PROJECT_SOURCES/ToggleActionWrapper.cpp \
     $$PROJECT_SOURCES/ToogleDialogOperation.cpp \
     $$PROJECT_SOURCES/ToolBarCatalog.cpp \
@@ -46,11 +48,17 @@ HEADERS += \
     $$PROJECT_HEADERS/MenuCatalog.h \
     $$PROJECT_HEADERS/Operation.h \
     $$PROJECT_HEADERS/OperationCatalog.h \
+    $$PROJECT_HEADERS/PropertiesDialog.h \
+    $$PROJECT_HEADERS/PropertiesWidget.h \
     $$PROJECT_HEADERS/ToggleActionWrapper.h \
     $$PROJECT_HEADERS/ToogleDialogOperation.h \
     $$PROJECT_HEADERS/ToolBarCatalog.h \
     $$PROJECT_HEADERS/ToolBase.h \
 
+FORMS += \
+    $$PROJECT_SOURCES/PropertiesDialog.ui \
+
 OTHER_FILES += \
     $$PROJECT_SOURCES/org.carousel.Interactivity.definition \
+
 

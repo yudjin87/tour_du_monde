@@ -20,6 +20,8 @@ set(__SOURCES
     ${CRSL_TARGET_SOURCES}/MenuCatalog.cpp 
     ${CRSL_TARGET_SOURCES}/Operation.cpp 
     ${CRSL_TARGET_SOURCES}/OperationCatalog.cpp 
+    ${CRSL_TARGET_SOURCES}/PropertiesDialog.cpp 
+    ${CRSL_TARGET_SOURCES}/PropertiesWidget.cpp 
     ${CRSL_TARGET_SOURCES}/ToggleActionWrapper.cpp 
     ${CRSL_TARGET_SOURCES}/ToogleDialogOperation.cpp 
     ${CRSL_TARGET_SOURCES}/ToolBarCatalog.cpp 
@@ -55,10 +57,18 @@ set(__HEADERS
     ${CRSL_TARGET_HEADERS}/MenuCatalog.h 
     ${CRSL_TARGET_HEADERS}/Operation.h 
     ${CRSL_TARGET_HEADERS}/OperationCatalog.h 
+    ${CRSL_TARGET_HEADERS}/PropertiesDialog.h 
+    ${CRSL_TARGET_HEADERS}/PropertiesWidget.h 
     ${CRSL_TARGET_HEADERS}/ToggleActionWrapper.h 
     ${CRSL_TARGET_HEADERS}/ToogleDialogOperation.h 
     ${CRSL_TARGET_HEADERS}/ToolBarCatalog.h 
     ${CRSL_TARGET_HEADERS}/ToolBase.h 
+)
+
+######################################################################
+# Forms
+set(__FORMS
+    ${CRSL_TARGET_SOURCES}/PropertiesDialog.ui 
 )
 
 ######################################################################
@@ -70,15 +80,22 @@ set(__OTHER_FILES
 ######################################################################
 # Qt generated files
 qt5_wrap_cpp(__HEADERS_MOC ${__HEADERS})
+qt5_wrap_ui(__UI_HEADERS ${__FORMS})
+
+# As moc files are generated in the binary dir, tell CMake
+# to always look for includes there:
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 ######################################################################
 # Group sources into IDE's filters
 source_group("src" FILES ${__SOURCES} ${__HEADERS} ${__OTHER_FILES})
 source_group("moc" FILES ${__HEADERS_MOC})
+source_group("forms" FILES ${__UI_HEADERS} ${__FORMS})
 
 ######################################################################
 # Create target 'CRSL_PROJECT_NAME' from specified source files
-add_library(${CRSL_PROJECT_NAME} ${CRSL_LIB_TYPE} ${__SOURCES} ${__HEADERS} ${__HEADERS_MOC} ${__OTHER_FILES})
+add_library(${CRSL_PROJECT_NAME} ${CRSL_LIB_TYPE} ${__SOURCES} ${__HEADERS} ${__HEADERS_MOC} ${__FORMS} ${__UI_HEADERS} ${__OTHER_FILES})
 
 ######################################################################
 # Setup output path
