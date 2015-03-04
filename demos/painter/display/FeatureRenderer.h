@@ -27,13 +27,13 @@
 #ifndef FEATURERENDERER_H
 #define FEATURERENDERER_H
 
-#include "display_api.h"
+#include "display/display_api.h"
+#include "display/ISymbol.h"
 
 #include <QtCore/QVector>
 #include <QtCore/QObject>
 
 class IFeature;
-class ISymbol;
 class QPainter;
 
 class DISPLAY_API FeatureRenderer : public QObject
@@ -50,7 +50,7 @@ class DISPLAY_API FeatureRenderer : public QObject
      *
      * @note that renderer does not take ownership for the symbol.
      */
-    Q_PROPERTY(ISymbol *symbol READ symbol WRITE setSymbol)
+    Q_PROPERTY(ISymbol *symbol READ symbol WRITE setSymbol NOTIFY symbolChanged)
 
 public:
     FeatureRenderer(QObject *parent = nullptr);
@@ -71,8 +71,11 @@ public:
     const ISymbol *symbol() const;
     void setSymbol(ISymbol *symbol);
 
+signals:
+    void symbolChanged(const ISymbol* newSymbol);
+
 private:
-    ISymbol *m_symbol;
+    ISymbolUPtr m_symbol;
 };
 
 #endif // FEATURERENDERER_H

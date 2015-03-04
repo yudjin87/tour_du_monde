@@ -30,6 +30,7 @@
 #include "display/display_api.h"
 
 #include <QtCore/QObject>
+#include <memory>
 
 class AbstractGeometry;
 class ISymbolVisitor;
@@ -65,5 +66,7 @@ public:
 private:
     Q_DISABLE_COPY(ISymbol)
 };
+
+typedef std::unique_ptr<ISymbol> ISymbolUPtr;
 
 #endif // ISYMBOL_H

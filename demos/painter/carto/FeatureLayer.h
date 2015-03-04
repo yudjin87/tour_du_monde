@@ -35,7 +35,6 @@
 
 class FeatureRenderer;
 class IFeatureClass;
-class ISymbol;
 
 class CARTO_API FeatureLayer : public AbstractLayer
 {
@@ -69,7 +68,6 @@ protected:
 private:
     IFeatureClass *m_featureClass;
     FeatureRenderer *m_featureRenderer;
-    ISymbol *m_symbol;
 };
 
 #endif // FEATURELAYER_H

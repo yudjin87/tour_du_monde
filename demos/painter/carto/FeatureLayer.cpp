@@ -53,7 +53,6 @@ FeatureLayer::FeatureLayer(QObject *parent)
     : AbstractLayer(parent)
     , m_featureClass(nullptr)
     , m_featureRenderer(new FeatureRenderer())
-    , m_symbol(nullptr)
 {
 }
 
@@ -65,9 +64,6 @@ FeatureLayer::~FeatureLayer()
 
     delete m_featureRenderer;
     m_featureRenderer = nullptr;
-
-    delete m_symbol;
-    m_symbol = nullptr;
 }
 
 //------------------------------------------------------------------------------
@@ -125,27 +121,26 @@ void FeatureLayer::setFeatureClass(IFeatureClass *featureClass)
     QFileInfo fileName(featureClass->source());
     setName(fileName.baseName());
 
-    delete m_symbol;
-
+    ISymbol* defaultSymbol = nullptr;
     switch (m_featureClass->shapeType())
     {
     case GeometryPoint:
-        m_symbol = new SimpleMarkerSymbol();
+        defaultSymbol = new SimpleMarkerSymbol();
         break;
 
     case GeometryPolyline:
-        m_symbol = new SimpleLineSymbol();
+        defaultSymbol = new SimpleLineSymbol();
         break;
 
     case GeometryPolygon:
-        m_symbol = new SimpleFillSymbol();
+        defaultSymbol = new SimpleFillSymbol();
         break;
 
     default:
         break;
     }
 
-    m_featureRenderer->setSymbol(m_symbol);
+    m_featureRenderer->setSymbol(defaultSymbol);
 }
 
 //------------------------------------------------------------------------------

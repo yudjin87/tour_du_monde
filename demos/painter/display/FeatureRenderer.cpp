@@ -57,19 +57,20 @@ void FeatureRenderer::draw(const QVector<IFeature *> &features, QPainter *painte
 //------------------------------------------------------------------------------
 ISymbol *FeatureRenderer::symbol()
 {
-    return m_symbol;
+    return m_symbol.get();
 }
 
 //------------------------------------------------------------------------------
 const ISymbol *FeatureRenderer::symbol() const
 {
-    return m_symbol;
+    return m_symbol.get();
 }
 
 //------------------------------------------------------------------------------
 void FeatureRenderer::setSymbol(ISymbol *symbol)
 {
-    m_symbol = symbol;
+    m_symbol.reset(symbol);
+    emit symbolChanged(symbol);
 }
 
 //------------------------------------------------------------------------------
