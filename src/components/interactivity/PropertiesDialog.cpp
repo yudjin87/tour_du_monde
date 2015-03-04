@@ -28,16 +28,29 @@
 #include "components/interactivity/PropertiesWidget.h"
 #include "ui_PropertiesDialog.h"
 
+#include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QPushButton>
 
 PropertiesDialog::PropertiesDialog(IServiceLocator *serviceLocator, QWidget *parent, Qt::WindowFlags f)
     : QDialog(parent, f)
-    , m_serviceLocator(serviceLocator)
     , m_ui(new Ui::PropertiesDialog())
+    , m_buttonBox(new QDialogButtonBox(this))
+    , m_serviceLocator(serviceLocator)
     , m_propertiesWidget(nullptr)
 {
     m_ui->setupUi(this);
-    m_ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
+
+    m_buttonBox->setOrientation(Qt::Horizontal);
+    m_buttonBox->setStandardButtons(QDialogButtonBox::Apply|QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+
+    m_ui->verticalLayout->addWidget(m_buttonBox);
+
+    connect(m_buttonBox, &QDialogButtonBox::accepted, this, &PropertiesDialog::accept);
+    connect(m_buttonBox, &QDialogButtonBox::rejected, this, &PropertiesDialog::reject);
+
+    QPushButton* applyButton = m_buttonBox->button(QDialogButtonBox::Apply);
+    connect(applyButton, &QPushButton::clicked, this, &PropertiesDialog::apply);
+    applyButton->setEnabled(false);
 }
 
 PropertiesDialog::~PropertiesDialog()
@@ -59,7 +72,7 @@ void PropertiesDialog::installCentralWidget(PropertiesWidget *propertiesWidget)
 
 void PropertiesDialog::accept()
 {
-    m_propertiesWidget->applyChanges(m_serviceLocator);
+    apply();
     QDialog::accept();
 }
 
@@ -68,7 +81,12 @@ void PropertiesDialog::reject()
     QDialog::reject();
 }
 
+void PropertiesDialog::apply()
+{
+    m_propertiesWidget->applyChanges(m_serviceLocator);
+}
+
 void PropertiesDialog::onPropertyChanged()
 {
-    m_ui->buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
+    m_buttonBox->button(QDialogButtonBox::Apply)->setEnabled(true);
 }

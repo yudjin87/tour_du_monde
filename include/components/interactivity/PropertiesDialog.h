@@ -37,6 +37,7 @@ class PropertiesDialog;
 
 class PropertiesWidget;
 class IServiceLocator;
+class QDialogButtonBox;
 
 // TODO: register in dialog service?
 class INTERACTIVITY_API PropertiesDialog : public QDialog
@@ -48,14 +49,17 @@ public:
 
     void installCentralWidget(PropertiesWidget *propertiesWidget);
 
+public slots:
     void accept() override;
     void reject() override;
+    void apply();
 
 private slots:
     void onPropertyChanged();
 
 private:
     Ui::PropertiesDialog* m_ui;
+    QDialogButtonBox *m_buttonBox;
     IServiceLocator *m_serviceLocator;
     PropertiesWidget *m_propertiesWidget;
 };
