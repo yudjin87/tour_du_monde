@@ -29,6 +29,15 @@
 
 #include <QtCore/QStringList>
 
+#include <carousel/logging/LoggerFacade.h>
+#include <algorithm>
+
+//------------------------------------------------------------------------------
+namespace
+{
+static LoggerFacade Log = LoggerFacade::createLogger("ServiceLocator");
+}
+
 //------------------------------------------------------------------------------
 ServiceLocator::ServiceLocator()
     : m_objects(new TypeObjectsMap<void *>())
@@ -55,7 +64,14 @@ QObject *ServiceLocator::buildObject(const QString &className)
 //------------------------------------------------------------------------------
 QObject *ServiceLocator::buildObject(const QString &className, const QString &tag)
 {
-    const factoryMethod &creator = m_creators->getInstance(className, tag);
+    bool success = false;
+    const factoryMethod &creator = m_creators->getInstance(className, tag, &success);
+    if (!success)
+    {
+        Log.e(QString("Failed to build %1 instance - creator wasn't registered").arg(className));
+        return nullptr;
+    }
+
     void *data = creator();
     QObject *object = reinterpret_cast<QObject *>(data);
     return object;
@@ -90,6 +106,11 @@ QStringList ServiceLocator::services(const QString &tag) const
 //------------------------------------------------------------------------------
 void ServiceLocator::registerTypeImpl(const QString &className, factoryMethod method, const QString &tag)
 {
+    if (tag.isEmpty())
+        Log.i(QString("Registering factory method for %1").arg(className));
+    else
+        Log.i(QString("Registering factory method for %1 with tag %2").arg(className).arg(tag));
+
     m_creators->registerInstance(method, className, tag);
 }
 
@@ -103,7 +124,14 @@ void *ServiceLocator::unregisterInstanceImpl(const QString &className, const QSt
 //------------------------------------------------------------------------------
 void *ServiceLocator::buildInstanceImpl(const QString &className, const QString &tag)
 {
-    const factoryMethod &creator = m_creators->getInstance(className, tag);
+    bool success = false;
+    const factoryMethod &creator = m_creators->getInstance(className, tag, &success);
+    if (!success)
+    {
+        Log.e(QString("Failed to build %1 instance - creator wasn't registered").arg(className));
+        return nullptr;
+    }
+
     void *data = creator();
     return data;
 }
@@ -111,12 +139,25 @@ void *ServiceLocator::buildInstanceImpl(const QString &className, const QString 
 //------------------------------------------------------------------------------
 void *ServiceLocator::getService(const QString &className, const QString &tag)
 {
-    return m_objects->getInstance(className, tag);
+    bool success = false;
+    void *tmp = m_objects->getInstance(className, tag, &success);
+    if (!success)
+    {
+        Log.e(QString("Failed to find registered service %1").arg(className));
+        return nullptr;
+    }
+
+    return tmp;
 }
 
 //------------------------------------------------------------------------------
 void ServiceLocator::registerInstanceImpl(void *instance, const QString &className, const QString &tag)
 {
+    if (tag.isEmpty())
+        Log.i(QString("Registering %1 instance").arg(className));
+    else
+        Log.i(QString("Registering %1 instance with tag %2").arg(className).arg(tag));
+
     m_objects->registerInstance(instance, className, tag);
 }
 

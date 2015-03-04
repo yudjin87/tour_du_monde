@@ -85,7 +85,12 @@ BaseComponent::BaseComponent(ComponentDefinition *definition, QObject *parent)
 //------------------------------------------------------------------------------
 void *BaseComponent::getExtension(const QString &byTypeId) const
 {
-    return m_typeObjectsMap->getInstance(byTypeId);
+    bool success = false;
+    void* tmp = m_typeObjectsMap->getInstance(byTypeId, &success);
+    if (success)
+        return tmp;
+
+    return nullptr;
 }
 
 //------------------------------------------------------------------------------

@@ -58,7 +58,7 @@ public:
      *   in inner objects dictionary.
      * @return The value corresponded with specified @a key if such found. Null pointer otherwise.
      */
-    TValue getInstance(const QString &key) const;
+    TValue getInstance(const QString &key, bool* success) const;
 
     /*!
      * @details
@@ -66,7 +66,7 @@ public:
      *   in inner objects dictionary.
      * @return The value corresponded with specified @a key if such found. Null pointer otherwise.
      */
-    TValue getInstance(const QString &key, const QString &tag) const;
+    TValue getInstance(const QString &key, const QString &tag, bool* success) const;
 
     /*!
      * @details
@@ -147,19 +147,23 @@ TypeObjectsMap<TValue>::~TypeObjectsMap()
 
 //------------------------------------------------------------------------------
 template<typename TValue>
-TValue TypeObjectsMap<TValue>::getInstance(const QString &key) const
+TValue TypeObjectsMap<TValue>::getInstance(const QString &key, bool *success) const
 {
-    return getInstance(key, "");
+    return getInstance(key, "", success);
 }
 
 //------------------------------------------------------------------------------
 template<typename TValue>
-TValue TypeObjectsMap<TValue>::getInstance(const QString &key, const QString &tag) const
+TValue TypeObjectsMap<TValue>::getInstance(const QString &key, const QString &tag, bool* success) const
 {
     InstanceObject<TValue> *foundObject = findInstance(key, tag);
     if (foundObject == nullptr)
+    {
+        if (success != nullptr) *success = false;
         return TValue();
+    }
 
+    if (success != nullptr) *success = true;
     return foundObject->instance;
 }
 
