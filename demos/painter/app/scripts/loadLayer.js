@@ -16,8 +16,8 @@ function loadLayer(workspacePath, name) {
     map.refresh();
 }
 
+loadLayer("./data", "landuse");
+loadLayer("./data", "natural");
+loadLayer("./data", "buildings");
 loadLayer("./data", "waterways");
 loadLayer("./data", "railways");
-loadLayer("./data", "natural");
-loadLayer("./data", "landuse");
-loadLayer("./data", "buildings");
