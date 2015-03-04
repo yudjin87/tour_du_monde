@@ -45,11 +45,9 @@ public:
     int childCount () const override;
 
     QString text() const override;
+    void setText(const QString& text) override;
     int id() const override;
     bool mergeWith(const IUndoableCommand *other) override;
-
-protected:
-    void setText(const QString& text);
 
 private:
     IUndoStack *m_undoStack;

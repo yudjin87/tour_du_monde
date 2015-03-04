@@ -46,8 +46,6 @@ public:
     int childCount () const override;
 
 private:
-    IUndoStack *m_undoStack;
-    QString m_text;
     QList<IUndoableCommand*> m_children;
 };
 

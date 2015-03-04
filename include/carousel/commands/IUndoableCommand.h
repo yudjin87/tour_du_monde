@@ -52,6 +52,7 @@ public slots:
     virtual void redo() = 0;
 
     virtual QString text() const = 0;
+    virtual void setText(const QString& text) = 0;
 
     virtual int id() const = 0;
     virtual bool mergeWith(const IUndoableCommand *other) = 0;
