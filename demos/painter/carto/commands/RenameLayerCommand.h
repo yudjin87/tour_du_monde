@@ -40,6 +40,7 @@ public:
     RenameLayerCommand(IUndoStack *stack, IPainterDocumentController *docContr, QObject* parent = nullptr);
     ~RenameLayerCommand();
 
+    void setLayer(AbstractLayer* layer); // or
     void setLayerIndex(const int layerToRename);
     void setNewName(const QString& newName);
 
@@ -48,6 +49,7 @@ public:
 
 private:
     IPainterDocumentController* m_docContr;
+    AbstractLayer* m_layer;
     int m_layerIndexToRename;
     QString m_newName;
     QString m_oldName;

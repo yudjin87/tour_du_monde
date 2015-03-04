@@ -34,6 +34,7 @@
 RenameLayerCommand::RenameLayerCommand(IUndoStack *stack, IPainterDocumentController *docContr, QObject *parent)
     : BaseUndoableCommand(stack, parent)
     , m_docContr(docContr)
+    , m_layer(nullptr)
     , m_layerIndexToRename(-1)
     , m_newName()
     , m_oldName()
@@ -44,6 +45,12 @@ RenameLayerCommand::RenameLayerCommand(IUndoStack *stack, IPainterDocumentContro
 //------------------------------------------------------------------------------
 RenameLayerCommand::~RenameLayerCommand()
 {
+}
+
+//------------------------------------------------------------------------------
+void RenameLayerCommand::setLayer(AbstractLayer *layer)
+{
+    m_layer = layer;
 }
 
 //------------------------------------------------------------------------------
@@ -63,8 +70,9 @@ void RenameLayerCommand::redo()
 {
     IPainterDocument *doc = m_docContr->document();
     IMap* map = doc->map();
-    AbstractLayer* layerToRename = map->getLayer(m_layerIndexToRename);
-    if (layerToRename == nullptr) {
+    AbstractLayer* layerToRename = (m_layer != nullptr) ? m_layer : map->getLayer(m_layerIndexToRename);
+    if (layerToRename == nullptr)
+    {
         return;
     }
 
@@ -77,8 +85,9 @@ void RenameLayerCommand::undo()
 {
     IPainterDocument *doc = m_docContr->document();
     IMap* map = doc->map();
-    AbstractLayer* layerToRename = map->getLayer(m_layerIndexToRename);
-    if (layerToRename == nullptr) {
+    AbstractLayer* layerToRename = (m_layer != nullptr) ? m_layer : map->getLayer(m_layerIndexToRename);
+    if (layerToRename == nullptr)
+    {
         return;
     }
 
