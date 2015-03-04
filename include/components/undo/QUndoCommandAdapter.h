@@ -32,11 +32,11 @@
 
 class IUndoableCommand;
 
-class UNDO_API QUndoCommandAdapter : public QObject, public QUndoCommand
+class UNDO_API QUndoCommandAdapter : public QUndoCommand
 {
-    Q_OBJECT
 public:
-    QUndoCommandAdapter(IUndoableCommand* wrappedCmd, QObject* parent = nullptr);
+    QUndoCommandAdapter(const QString& groupCmdText, QUndoCommand* parent = nullptr);
+    QUndoCommandAdapter(IUndoableCommand* wrappedCmd, QUndoCommand* parent = nullptr);
     ~QUndoCommandAdapter();
 
     const IUndoableCommand* wrapped() const;

@@ -27,9 +27,14 @@
 #include <components/undo/QUndoCommandAdapter.h>
 #include <carousel/commands/IUndoableCommand.h>
 
-QUndoCommandAdapter::QUndoCommandAdapter(IUndoableCommand *wrappedCmd, QObject *parent)
-    : QObject(parent)
-    , QUndoCommand(wrappedCmd->text())
+QUndoCommandAdapter::QUndoCommandAdapter(const QString& groupCmdText, QUndoCommand *parent)
+    : QUndoCommand(groupCmdText, parent)
+    , m_wrappedCmd(nullptr)
+{
+}
+
+QUndoCommandAdapter::QUndoCommandAdapter(IUndoableCommand *wrappedCmd, QUndoCommand *parent)
+    : QUndoCommand(wrappedCmd->text(), parent)
     , m_wrappedCmd(wrappedCmd)
 {
 }

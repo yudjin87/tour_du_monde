@@ -26,9 +26,17 @@
 
 #include <components/undo/QUndoStackAdapter.h>
 #include <components/undo/QUndoCommandAdapter.h>
+#include <carousel/commands/IUndoableCommand.h>
 #include <carousel/utils/IServiceLocator.h>
 
 #include <QtWidgets/QUndoStack>
+
+#include <carousel/logging/LoggerFacade.h>
+
+namespace
+{
+static LoggerFacade Log = LoggerFacade::createLogger("UndoStackAdapter");
+}
 
 QUndoStackAdapter::QUndoStackAdapter(QObject *parent)
     : IUndoStack(parent)
@@ -53,8 +61,25 @@ void QUndoStackAdapter::clear()
 
 void QUndoStackAdapter::push(IUndoableCommand *cmd)
 {
-    QUndoCommandAdapter* adapter = new QUndoCommandAdapter(cmd);
-    m_stack->push(adapter);
+    if (cmd->childCount() == 0)
+    {
+        Log.d("Executing simple operation");
+        QUndoCommandAdapter* adapter = new QUndoCommandAdapter(cmd);
+        m_stack->push(adapter);
+        return;
+    }
+
+    // prepare grouped operation
+    QUndoCommand* groupOperation = new QUndoCommand(cmd->text());
+    Log.d(QString("Executing group operation (%1)").arg(cmd->childCount()));
+    for (int i = 0; i < cmd->childCount(); ++i)
+    {
+        IUndoableCommand *child = cmd->child(i);
+        QUndoCommandAdapter* childAdapter = new QUndoCommandAdapter(child, groupOperation);
+        Q_UNUSED(childAdapter);
+    }
+
+    m_stack->push(groupOperation);
 }
 
 bool QUndoStackAdapter::canUndo() const

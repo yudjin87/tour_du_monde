@@ -23,6 +23,21 @@ void BaseUndoableCommand::pushToStack()
     deleteLater();
 }
 
+IUndoableCommand *BaseUndoableCommand::child(int)
+{
+    return nullptr;
+}
+
+const IUndoableCommand *BaseUndoableCommand::child(int) const
+{
+    return nullptr;
+}
+
+int BaseUndoableCommand::childCount() const
+{
+    return 0;
+}
+
 QString BaseUndoableCommand::text() const
 {
     return m_text;

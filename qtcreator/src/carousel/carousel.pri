@@ -6,6 +6,7 @@ SOURCES += \
     $$PROJECT_SOURCES/booting/CarouselBootloader.cpp \
     $$PROJECT_SOURCES/commands/BaseUndoableCommand.cpp \
     $$PROJECT_SOURCES/commands/EnableComponentCommand.cpp \
+    $$PROJECT_SOURCES/commands/GroupUndoableCommand.cpp \
     $$PROJECT_SOURCES/commands/InstallComponentsCommand.cpp \
     $$PROJECT_SOURCES/componentsystem/AbsolutePathComponentLocationConstructorDelegate.cpp \
     $$PROJECT_SOURCES/componentsystem/BaseComponent.cpp \
@@ -43,6 +44,7 @@ HEADERS += \
     $$PROJECT_HEADERS/carousel_global.h \
     $$PROJECT_HEADERS/commands/BaseUndoableCommand.h \
     $$PROJECT_HEADERS/commands/EnableComponentCommand.h \
+    $$PROJECT_HEADERS/commands/GroupUndoableCommand.h \
     $$PROJECT_HEADERS/commands/InstallComponentsCommand.h \
     $$PROJECT_HEADERS/commands/IUndoableCommand.h \
     $$PROJECT_HEADERS/commands/IUndoStack.h \
