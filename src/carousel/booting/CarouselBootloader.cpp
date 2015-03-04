@@ -26,11 +26,17 @@
 
 #include "booting/CarouselBootloader.h"
 
+#include "commands/IUndoStack.h"
+#include "commands/EnableComponentCommand.h"
+#include "commands/InstallComponentsCommand.h"
+#include "commands/GroupUndoableCommand.h"
 #include "componentsystem/ComponentManager.h"
 #include "componentsystem/IComponent.h"
 #include "componentsystem/IComponentProvider.h"
+
 #include "logging/LoggerFacade.h"
 #include "utils/IServiceLocator.h"
+#include "utils/TypeCreators.h"
 
 //------------------------------------------------------------------------------
 namespace
@@ -65,6 +71,16 @@ void CarouselBootloader::configureComponentManager()
 //------------------------------------------------------------------------------
 void CarouselBootloader::configureServiceLocator()
 {
+    // Commands
+    TypeCreator<GroupUndoableCommand, TypeLocator<IUndoStack>> groupCreator{m_serviceLocator};
+    m_serviceLocator->registerType<GroupUndoableCommand>(groupCreator);
+
+    TypeCreator<EnableComponentCommand, TypeLocator<IUndoStack>, TypeLocator<IComponentManager>> enableCreator{m_serviceLocator};
+    m_serviceLocator->registerType<EnableComponentCommand>(enableCreator);
+
+    TypeCreator<InstallComponentsCommand, TypeLocator<IUndoStack>, TypeLocator<IComponentManager>> installCreator{m_serviceLocator};
+    m_serviceLocator->registerType<InstallComponentsCommand>(installCreator);
+
     // TODO: give a chanse to avoid default registration
     m_serviceLocator->registerInstance<IComponentProvider>(m_componentProvider);
     m_serviceLocator->registerInstance<IComponentManager>(m_componentManager);
