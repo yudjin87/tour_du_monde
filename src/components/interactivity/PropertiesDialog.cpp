@@ -33,6 +33,7 @@
 
 PropertiesDialog::PropertiesDialog(IServiceLocator *serviceLocator, QWidget *parent, Qt::WindowFlags f)
     : QDialog(parent, f)
+    , m_isDirty(false)
     , m_ui(new Ui::PropertiesDialog())
     , m_buttonBox(new QDialogButtonBox(this))
     , m_serviceLocator(serviceLocator)
@@ -83,10 +84,16 @@ void PropertiesDialog::reject()
 
 void PropertiesDialog::apply()
 {
-    m_propertiesWidget->applyChanges(m_serviceLocator);
+    if (m_isDirty)
+    {
+        m_propertiesWidget->applyChanges(m_serviceLocator);
+        m_isDirty = false;
+        m_buttonBox->button(QDialogButtonBox::Apply)->setEnabled(false);
+    }
 }
 
 void PropertiesDialog::onPropertyChanged()
 {
+    m_isDirty = true;
     m_buttonBox->button(QDialogButtonBox::Apply)->setEnabled(true);
 }

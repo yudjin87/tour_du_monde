@@ -58,6 +58,7 @@ private slots:
     void onPropertyChanged();
 
 private:
+    bool m_isDirty;
     Ui::PropertiesDialog* m_ui;
     QDialogButtonBox *m_buttonBox;
     IServiceLocator *m_serviceLocator;
