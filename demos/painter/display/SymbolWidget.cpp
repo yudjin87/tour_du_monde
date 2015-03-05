@@ -25,13 +25,48 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "SymbolWidget.h"
+#include "display/SymbolThumbnail.h"
+#include "display/ISymbol.h"
 
-SymbolWidget::SymbolWidget(QWidget *parent)
+#include <QtWidgets/QLabel>
+
+SymbolWidget::SymbolWidget(const GeometryType type, QWidget *parent)
     : QWidget(parent)
+    , m_type(type)
+    , m_sample(nullptr)
 {
+    connect(this, &SymbolWidget::symbolChanged, this, &SymbolWidget::onSymbolChanged);
 }
 
 SymbolWidget::~SymbolWidget()
 {
+}
+
+void SymbolWidget::initializeSample()
+{
+    m_sample = new QLabel(this);
+    insertSampleWidget(m_sample);
+    updateSample();
+}
+
+void SymbolWidget::onSymbolChanged(const ISymbol *newSymbol)
+{
+    Q_UNUSED(newSymbol);
+
+    if (m_sample == nullptr)
+    {
+        return;
+    }
+
+    updateSample();
+}
+
+void SymbolWidget::updateSample()
+{
+    SymbolThumbnail thumbnailCreator(60, 4);
+    thumbnailCreator.setBackground(Qt::white);
+    QPixmap sample = thumbnailCreator.createSymbolThumbnail(symbol(), m_type);
+    m_sample->setPixmap(sample);
+    m_sample->setMinimumSize(sample.rect().size());
 }
 

@@ -30,11 +30,9 @@
 #include <geometry/GeometryType.h>
 
 #include <QtCore/QAbstractListModel>
-#include <QtGui/QPixmap>
 
 class AbstractLayer;
 class IMap;
-class ISymbol;
 class IServiceLocator;
 
 class LayersTreeModel : public QAbstractListModel
@@ -54,15 +52,14 @@ public:
     bool canDropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent) const override;
     bool dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent) override;
 
+    void showPropertyDialog(const QModelIndex &index);
+
 private slots:
     void onLayerAdded(AbstractLayer *layer);
     void onLayerRemoved(AbstractLayer *layer);
     void onMapRefreshed();
 
     void onNameChanged(AbstractLayer* sender, const QString &newName);
-
-private:
-    static QPixmap drawThumbnail(ISymbol *forSymbol, GeometryType type);
 
 private:
     IMap *m_map;

@@ -26,7 +26,7 @@
 
 #include "CartoUIInteractiveExtension.h"
 #include "LayersTreeModel.h"
-#include "FeatureLayerDelegate.h"
+#include "LayersListView.h"
 #include "AddShapeOperation.h"
 
 #include <carto/IPainterDocument.h>
@@ -58,13 +58,7 @@ void CartoUIInteractiveExtension::configureGui(ICatalogs &inCatalogs, IServiceLo
     IPainterDocument *doc = docController->document();
 
     IDockWidgetCatalog &catalog = inCatalogs.dockWidgetCatalog();
-    QListView *layersTree = new QListView();
-    layersTree->setModel(new LayersTreeModel(doc->map(), serviceLocator, layersTree));
-    layersTree->setItemDelegate(new FeatureLayerDelegate(layersTree));
-    layersTree->setSelectionMode(QAbstractItemView::ExtendedSelection);
-    layersTree->setDragEnabled(true);
-    layersTree->setAcceptDrops(true);
-    layersTree->setDropIndicatorShown(true);
+    QListView *layersTree = new LayersListView(new LayersTreeModel(doc->map(), serviceLocator));
 
     QDockWidget *layersDock = catalog.addDockWidget(layersTree, "Layers tree");
 

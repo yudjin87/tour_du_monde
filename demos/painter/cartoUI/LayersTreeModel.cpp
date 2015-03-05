@@ -25,20 +25,20 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "LayersTreeModel.h"
+#include "cartoUI/LayerPropertyWidgetCreator.h"
 
+#include <display/SymbolThumbnail.h>
 #include <carto/IMap.h>
 #include <carto/FeatureLayer.h>
 #include <carto/commands/RenameLayerCommand.h>
 #include <display/FeatureRenderer.h>
-#include <display/ISymbol.h>
-#include <geometry/Point.h>
-#include <geometry/Polygon.h>
-#include <geometry/Polyline.h>
 #include <carousel/logging/LoggerFacade.h>
 #include <carousel/utils/IServiceLocator.h>
+#include <components/interactivity/IDialogService.h>
+#include <components/interactivity/PropertiesDialog.h>
+#include <components/interactivity/PropertiesWidget.h>
 
 #include <QtCore/QMimeData>
-#include <QtGui/QPainter>
 
 //------------------------------------------------------------------------------
 namespace
@@ -46,10 +46,6 @@ namespace
 static const char* LAYER_NAME_MIME = "application/layer.name.list"; // TODO: constexpr, when MSVC will support it
 static LoggerFacade Log = LoggerFacade::createLogger("LayersTreeModel");
 }
-
-//------------------------------------------------------------------------------
-QMap<GeometryType, AbstractGeometry *> fillThumbnails();
-static const QMap<GeometryType, AbstractGeometry *> thumbnails = fillThumbnails();
 
 //------------------------------------------------------------------------------
 LayersTreeModel::LayersTreeModel(IMap *map, IServiceLocator *serviceLocator, QObject *parent)
@@ -165,6 +161,29 @@ bool LayersTreeModel::dropMimeData(const QMimeData *data, Qt::DropAction action,
     return true;
 }
 
+// TODO:
+#include <QtWidgets/QDialog>
+
+//------------------------------------------------------------------------------
+void LayersTreeModel::showPropertyDialog(const QModelIndex &index)
+{
+    if (!index.isValid())
+        return;
+
+    const QList<AbstractLayer *>& layers = m_map->layers();
+    if (layers.size() <= index.row())
+    {
+        Log.e(QString("Invalid index %1").arg(index.row()));
+        return;
+    }
+    AbstractLayer *layer = layers.at(index.row());
+
+    LayerPropertyWidgetCreator widgetCreator;
+    IDialogService *dialogService = m_serviceLocator->locate<IDialogService>();
+    PropertiesDialog* dlg = dialogService->createPropertyDialog(widgetCreator.createLayerPropertiesWidget(layer));
+    dlg->show();
+}
+
 //------------------------------------------------------------------------------
 bool LayersTreeModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
@@ -204,7 +223,10 @@ QVariant LayersTreeModel::data(const QModelIndex &index, int role) const
 
     case Qt::DecorationRole:
         FeatureRenderer *renderer = layer->renderer();
-        return drawThumbnail(renderer->symbol(), layer->shapeType());
+        SymbolThumbnail thumbnailCreator(16, 2);
+        thumbnailCreator.setBackground(Qt::white);
+        QPixmap symbol = thumbnailCreator.createSymbolThumbnail(renderer->symbol(), layer->shapeType());
+        return symbol;
     }
 
     return QVariant();
@@ -242,34 +264,6 @@ void LayersTreeModel::onNameChanged(AbstractLayer *sender, const QString &newNam
     Q_UNUSED(sender)
     Q_UNUSED(newName)
     emit dataChanged(QModelIndex(), QModelIndex());
-}
-
-//------------------------------------------------------------------------------
-QPixmap LayersTreeModel::drawThumbnail(ISymbol *forSymbol, GeometryType type)
-{
-    QPixmap pixmap(16, 16);
-    pixmap.fill(Qt::white);
-    QPainter painter(&pixmap);
-
-    AbstractGeometry *geometry = thumbnails[type];
-
-    forSymbol->setupPainter(&painter);
-    forSymbol->draw(geometry, &painter);
-    forSymbol->resetPainter(&painter);
-
-    return pixmap;
-}
-
-//------------------------------------------------------------------------------
-QMap<GeometryType, AbstractGeometry *> fillThumbnails()
-{
-    QMap<GeometryType, AbstractGeometry *> map;
-    map.insert(GeometryPoint, new Point(8, 8));
-
-    map.insert(GeometryPolyline, new Polyline{QPointF(2, 8), QPointF(14, 8)});
-    map.insert(GeometryPolygon, new Polygon{QPointF(2, 2), QPointF(14, 2), QPointF(14, 14), QPointF(2, 14)});
-
-    return map;
 }
 
 //------------------------------------------------------------------------------

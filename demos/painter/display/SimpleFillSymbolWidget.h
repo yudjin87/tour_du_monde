@@ -24,8 +24,8 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SIMPLELINESYMBOLWIDGET_H
-#define SIMPLELINESYMBOLWIDGET_H
+#ifndef SIMPLEFILLSYMBOLWIDGET_H
+#define SIMPLEFILLSYMBOLWIDGET_H
 
 #include <display/SymbolWidget.h>
 #include <QtCore/QStringListModel>
@@ -33,21 +33,20 @@
 
 namespace Ui
 {
-class SimpleLineSymbolWidget;
+class SimpleFillSymbolWidget;
 }
 
-class SimpleLineSymbol;
+class SimpleFillSymbol;
 
-class DISPLAY_API SimpleLineSymbolWidget : public SymbolWidget
+class DISPLAY_API SimpleFillSymbolWidget : public SymbolWidget
 {
     Q_OBJECT
 
 public:
-    explicit SimpleLineSymbolWidget(const SimpleLineSymbol* symbol, QWidget *parent = nullptr);
-    ~SimpleLineSymbolWidget();
+    explicit SimpleFillSymbolWidget(const SimpleFillSymbol* symbol, SymbolWidget* lineWidget, QWidget *parent = nullptr);
+    ~SimpleFillSymbolWidget();
 
     void prepareForEmbedding() override;
-
     const ISymbol *symbol() const override;
     bool wasChanged() const override;
 
@@ -57,18 +56,18 @@ protected:
 
 private slots:
     void onColorChanged(const QColor& newColor);
-    void onWidthEditingFinished();
-    void onLineStyleChanged(const int index);
+    void onPattertStyleChanged(const int index);
+    void onOutlineSymbolChanged(const ISymbol* newSymbol);
 
 private:
     void notifySymbolChanged();
 
 private:
-    Ui::SimpleLineSymbolWidget *m_ui;
-    std::unique_ptr<SimpleLineSymbol> m_symbol;
-    QStringListModel m_lineStyles;
+    Ui::SimpleFillSymbolWidget *m_ui;
+    SymbolWidget* m_lineWidget;
+    std::unique_ptr<SimpleFillSymbol> m_symbol;
+    QStringListModel m_patternStyles;
     bool m_wasChanged;
 
 };
-
-#endif // SIMPLELINESYMBOLWIDGET_H
+#endif // SIMPLEFILLSYMBOLWIDGET_H

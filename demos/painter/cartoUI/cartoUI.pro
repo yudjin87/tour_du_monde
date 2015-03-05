@@ -26,13 +26,22 @@ HEADERS += \
     LayersTreeModel.h \
     FeatureLayerDelegate.h \
     AddShapeOperation.h \
+    FeatureLayerPropertiesWidget.h \
+    LayersListView.h \
+    LayerPropertyWidgetCreator.h
 
 SOURCES += \
     CartoUIComponent.cpp \
     CartoUIInteractiveExtension.cpp \
     LayersTreeModel.cpp \
     FeatureLayerDelegate.cpp \
-    AddShapeOperation.cpp
+    AddShapeOperation.cpp \
+    FeatureLayerPropertiesWidget.cpp \
+    LayersListView.cpp \
+    LayerPropertyWidgetCreator.cpp
+
+FORMS += \
+    FeatureLayerPropertiesWidget.ui
 
 OTHER_FILES += \
     org.carousel.demos.CartoUI.definition
@@ -41,7 +50,6 @@ OTHER_FILES += \
 # Copy definition to the output directory, right near the library
 copyExtraFiles($$OTHER_FILES, $$DESTDIR)
 
-FORMS +=
 
 RESOURCES += \
     cartoUI.qrc

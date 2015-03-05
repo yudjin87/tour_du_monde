@@ -66,6 +66,7 @@ void SimpleFillSymbol::setupPainter(QPainter *painter)
 {
     FillSymbol::setupPainter(painter);
 
+    m_brush.setMatrix(painter->matrix().inverted()); // like setCosmetic
     m_brush.setColor(color());
 
     m_oldBrush = painter->brush();

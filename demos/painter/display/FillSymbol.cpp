@@ -38,7 +38,7 @@ FillSymbol::FillSymbol(QObject *parent)
 
 //------------------------------------------------------------------------------
 FillSymbol::FillSymbol(const FillSymbol &o, QObject *parent)
-    : m_outline(static_cast<LineSymbol*>(o.m_outline->clone(), parent))
+    : m_outline(static_cast<LineSymbol*>(o.m_outline->clone(parent)))
     , m_color(o.m_color)
 
 {

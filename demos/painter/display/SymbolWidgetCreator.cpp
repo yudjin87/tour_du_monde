@@ -29,7 +29,7 @@
 #include "display/SimpleLineSymbol.h"
 #include "display/SimpleMarkerSymbol.h"
 
-//#include "display/SimpleFillSymbolWidget.h"
+#include "display/SimpleFillSymbolWidget.h"
 #include "display/SimpleLineSymbolWidget.h"
 //#include "display/SimpleMarkerSymbolWidget.h"
 
@@ -57,7 +57,12 @@ SymbolWidget *SymbolWidgetCreator::createWidget(ISymbol *forSymbol, QWidget *par
 
 void SymbolWidgetCreator::visit(SimpleFillSymbol &symbol)
 {
+    delete m_widget;
+    SymbolWidgetCreator lineWidgetCreator;
+    SymbolWidget *lineWidget = lineWidgetCreator.createWidget(symbol.outline(), nullptr);
+    lineWidget->prepareForEmbedding();
 
+    m_widget = new SimpleFillSymbolWidget(&symbol, lineWidget);
 }
 
 void SymbolWidgetCreator::visit(SimpleLineSymbol &symbol)

@@ -26,36 +26,32 @@
 
 #include "SimpleLineSymbolWidget.h"
 #include "ui_SimpleLineSymbolWidget.h"
-
 #include "display/SimpleLineSymbol.h"
-#include "display/SymbolThumbnail.h"
-#include <geometry/GeometryType.h>
 
 #include <QtGui/QPixmap>
 #include <QtGui/QIcon>
-
-
+#include <QtGui/QDoubleValidator>
 
 SimpleLineSymbolWidget::SimpleLineSymbolWidget(const SimpleLineSymbol *symbol, QWidget *parent)
-    : SymbolWidget(parent)
+    : SymbolWidget(GeometryPolyline, parent)
     , m_ui(new Ui::SimpleLineSymbolWidget)
-    , m_symbol(static_cast<SimpleLineSymbol*>(symbol->clone(this)))
+    , m_symbol(static_cast<SimpleLineSymbol*>(symbol->clone()))
     , m_lineStyles(QStringList{"No pen", "Solid line", "Dash line", "Dot line", "Dash dot line", "Dash dot dot line"})
     , m_wasChanged(false)
 {
     m_ui->setupUi(this);
+    m_ui->gridLayout->setColumnMinimumWidth(0, LABEL_COLUMN_WIDHT);
+
     m_ui->lineStyles->setModel(&m_lineStyles);
     m_ui->lineStyles->setCurrentIndex(m_symbol->style());
-    //connect(m_ui->lineStyles, &QComboBox::currentIndexChanged, this, &SimpleLineSymbolWidget::onLineStyleChanged);
     connect(m_ui->lineStyles, SIGNAL(currentIndexChanged(int)),this, SLOT(onLineStyleChanged(int)));
 
     m_ui->lineWidth->setText(QString::number(m_symbol->width()));
+    m_ui->lineWidth->setValidator(new QDoubleValidator(0, 99, 1, this));
     connect(m_ui->lineWidth, &QLineEdit::editingFinished, this, &SimpleLineSymbolWidget::onWidthEditingFinished);
 
     m_ui->colorBtn->setColor(m_symbol->color());
     connect(m_ui->colorBtn, &ColorPickerButtont::colorChanged, this, &SimpleLineSymbolWidget::onColorChanged);
-
-    updateSample();
 }
 
 SimpleLineSymbolWidget::~SimpleLineSymbolWidget()
@@ -63,29 +59,50 @@ SimpleLineSymbolWidget::~SimpleLineSymbolWidget()
     delete m_ui;
 }
 
+void SimpleLineSymbolWidget::prepareForEmbedding()
+{
+    m_ui->gridLayout->setContentsMargins(0, 0, 0, 0);
+    this->setContentsMargins(0, 0, 0, 0);
+}
+
 void SimpleLineSymbolWidget::onColorChanged(const QColor &newColor)
 {
+    if (newColor == m_symbol->color())
+    {
+        return;
+    }
+
     m_symbol->setColor(newColor);
-    updateSample();
+    notifySymbolChanged();
 }
 
 void SimpleLineSymbolWidget::onWidthEditingFinished()
 {
     bool ok = false;
     const QString text = m_ui->lineWidth->text();
-    double result = text.toDouble(&ok);
+    double newWidth = text.toDouble(&ok);
     if (!ok)
     {
         return;
     }
 
-    m_symbol->setWidth(result);
-    updateSample();
+    if (newWidth == m_symbol->width())
+    {
+        return;
+    }
+
+    m_symbol->setWidth(newWidth);
+    notifySymbolChanged();
 }
 
 void SimpleLineSymbolWidget::onLineStyleChanged(const int index)
 {
     const Qt::PenStyle newStyle = static_cast<Qt::PenStyle>(index);
+    if (newStyle == m_symbol->style())
+    {
+        return;
+    }
+
     switch (newStyle)
     {
     case Qt::NoPen:
@@ -95,7 +112,7 @@ void SimpleLineSymbolWidget::onLineStyleChanged(const int index)
     case Qt::DashDotLine:
     case Qt::DashDotDotLine:
         m_symbol->setStyle(newStyle);
-        updateSample();
+        notifySymbolChanged();
         break;
     case Qt::CustomDashLine:
     case Qt::MPenStyle:
@@ -103,24 +120,33 @@ void SimpleLineSymbolWidget::onLineStyleChanged(const int index)
     }
 }
 
-void SimpleLineSymbolWidget::updateSample()
+void SimpleLineSymbolWidget::notifySymbolChanged()
 {
     m_wasChanged = true;
-
-    SymbolThumbnail thumbnailCreator(60, 4);
-    thumbnailCreator.setBackground(Qt::white);
-    QPixmap sample = thumbnailCreator.createSymbolThumbnail(m_symbol, GeometryPolyline);
-    m_ui->sample->setPixmap(sample);
-    m_ui->sample->setMinimumSize(sample.rect().size());
+    emit symbolChanged(m_symbol.get());
 }
 
 
+ISymbol *SimpleLineSymbolWidget::symbol()
+{
+    return m_symbol.get();
+}
+
 const ISymbol *SimpleLineSymbolWidget::symbol() const
 {
-    return m_symbol;
+    return m_symbol.get();
 }
 
 bool SimpleLineSymbolWidget::wasChanged() const
 {
     return m_wasChanged;
+}
+
+void SimpleLineSymbolWidget::insertSampleWidget(QWidget *sample)
+{
+    const int SAMPLE_ROW = 3;
+    QLabel* label = new QLabel(this);
+    label->setText("Sample");
+    m_ui->gridLayout->addWidget(label, SAMPLE_ROW, 0);
+    m_ui->gridLayout->addWidget(sample, SAMPLE_ROW, 1);
 }

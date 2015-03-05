@@ -24,47 +24,31 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SYMBOLWIDGET_H
-#define SYMBOLWIDGET_H
+#ifndef LAYERSLISTVIEW_H
+#define LAYERSLISTVIEW_H
 
-#include <display/display_api.h>
-#include <geometry/GeometryType.h>
+#include <QtWidgets/QListView>
 
-#include <QtWidgets/QWidget>
+class QMenu;
+class LayersTreeModel;
 
-class ISymbol;
-class QLabel;
-
-class DISPLAY_API SymbolWidget : public QWidget
+class LayersListView : public QListView
 {
     Q_OBJECT
 public:
-    SymbolWidget(const GeometryType type, QWidget *parent = nullptr);
-    ~SymbolWidget();
-
-    virtual const ISymbol* symbol() const = 0;
-    virtual bool wasChanged() const = 0;
-    void initializeSample();
-
-    virtual void prepareForEmbedding() = 0;
-
-signals:
-    void symbolChanged(const ISymbol* newSymbol);
+    explicit LayersListView(LayersTreeModel* model, QWidget *parent = nullptr);
+    ~LayersListView();
 
 protected:
-    virtual void insertSampleWidget(QWidget* sample) = 0;
-    virtual ISymbol* symbol() = 0;
+    void contextMenuEvent(QContextMenuEvent *event);
 
 private slots:
-    void onSymbolChanged(const ISymbol* newSymbol);
-    void updateSample();
-
-protected:
-    const int LABEL_COLUMN_WIDHT = 50; // have to synchronoze embedded widgets, because of 1st column width may be different
+    void onPropertyDialog();
 
 private:
-    const GeometryType m_type;
-    QLabel* m_sample;
+    QMenu* m_menu;
+    LayersTreeModel *m_model;
+    QModelIndex m_contexMenuItemIndex;
 };
 
-#endif // SYMBOLWIDGET_H
+#endif // LAYERSLISTVIEW_H

@@ -46,7 +46,8 @@ HEADERS += \
     ISymbolVisitor.h \
     SymbolWidgetCreator.h \
     ColorPickerButtont.h \
-    SymbolWidget.h
+    SymbolWidget.h \
+    SimpleFillSymbolWidget.h
 
 SOURCES += \
     RectRubberBand.cpp \
@@ -73,10 +74,12 @@ SOURCES += \
     SimpleLineSymbolWidget.cpp \
     SymbolWidgetCreator.cpp \
     ColorPickerButtont.cpp \
-    SymbolWidget.cpp
+    SymbolWidget.cpp \
+    SimpleFillSymbolWidget.cpp
 
 FORMS += \
-    SimpleLineSymbolWidget.ui
+    SimpleLineSymbolWidget.ui \
+    SimpleFillSymbolWidget.ui
 
 OTHER_FILES += org.carousel.demos.Display.definition
 

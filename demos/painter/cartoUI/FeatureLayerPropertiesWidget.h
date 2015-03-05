@@ -3,7 +3,7 @@
  *
  * Carousel - Qt-based managed component library.
  *
- * Copyright: 2011-2015 Carousel team
+ * Copyright: 2011-2013 Carousel team
  * Authors:
  *   Eugene Chuguy <eugene.chuguy@gmail.com>
  *
@@ -24,47 +24,39 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SYMBOLWIDGET_H
-#define SYMBOLWIDGET_H
+#ifndef FEATURELAYERPROPERTIESWIDGET_H
+#define FEATURELAYERPROPERTIESWIDGET_H
 
-#include <display/display_api.h>
+#include <components/interactivity/PropertiesWidget.h>
 #include <geometry/GeometryType.h>
+#include <display/ISymbol.h>
 
-#include <QtWidgets/QWidget>
+namespace Ui
+{
+class FeatureLayerPropertiesWidget;
+}
 
+class FeatureLayer;
 class ISymbol;
-class QLabel;
 
-class DISPLAY_API SymbolWidget : public QWidget
+class FeatureLayerPropertiesWidget : public PropertiesWidget
 {
     Q_OBJECT
 public:
-    SymbolWidget(const GeometryType type, QWidget *parent = nullptr);
-    ~SymbolWidget();
+    explicit FeatureLayerPropertiesWidget(FeatureLayer *layer, QWidget *parent = nullptr);
+    ~FeatureLayerPropertiesWidget();
 
-    virtual const ISymbol* symbol() const = 0;
-    virtual bool wasChanged() const = 0;
-    void initializeSample();
-
-    virtual void prepareForEmbedding() = 0;
-
-signals:
-    void symbolChanged(const ISymbol* newSymbol);
-
-protected:
-    virtual void insertSampleWidget(QWidget* sample) = 0;
-    virtual ISymbol* symbol() = 0;
+    void applyChanges(IServiceLocator *serviceLocator) override;
 
 private slots:
     void onSymbolChanged(const ISymbol* newSymbol);
-    void updateSample();
-
-protected:
-    const int LABEL_COLUMN_WIDHT = 50; // have to synchronoze embedded widgets, because of 1st column width may be different
+    void onLayerNameEditingFinished();
 
 private:
-    const GeometryType m_type;
-    QLabel* m_sample;
+    Ui::FeatureLayerPropertiesWidget *m_ui;
+    FeatureLayer *m_layer;
+    ISymbolUPtr m_newSymbol;
+    QString m_newName;
 };
 
-#endif // SYMBOLWIDGET_H
+#endif // FEATURELAYERPROPERTIESWIDGET_H

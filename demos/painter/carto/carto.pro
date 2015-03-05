@@ -37,6 +37,7 @@ HEADERS += \
     DefaultNavigationHandler.h \
     commands/AddShapesCommand.h \
     commands/RenameLayerCommand.h \
+    commands/ChangeLayerSymbolCommand.h
 
 SOURCES += \
     AbstractLayer.cpp \
@@ -50,6 +51,7 @@ SOURCES += \
     DefaultNavigationHandler.cpp \
     commands/AddShapesCommand.cpp \
     commands/RenameLayerCommand.cpp \
+    commands/ChangeLayerSymbolCommand.cpp
 
 OTHER_FILES += org.carousel.demos.Carto.definition
 

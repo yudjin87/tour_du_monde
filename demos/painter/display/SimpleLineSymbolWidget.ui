@@ -6,23 +6,29 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>224</width>
-    <height>200</height>
+    <width>182</width>
+    <height>93</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>182</width>
+    <height>0</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QFormLayout" name="formLayout_2">
-   <property name="fieldGrowthPolicy">
-    <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
-   </property>
+  <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
     <widget class="QLabel" name="label">
      <property name="text">
       <string>Line width</string>
      </property>
     </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QLineEdit" name="lineWidth"/>
    </item>
    <item row="1" column="0">
     <widget class="QLabel" name="label_2">
@@ -31,35 +37,18 @@
      </property>
     </widget>
    </item>
-   <item row="0" column="1">
-    <widget class="QLineEdit" name="lineWidth"/>
-   </item>
    <item row="1" column="1">
     <widget class="QComboBox" name="lineStyles"/>
    </item>
    <item row="2" column="0">
     <widget class="QLabel" name="label_3">
      <property name="text">
-      <string>Color</string>
+      <string>Line color</string>
      </property>
     </widget>
    </item>
    <item row="2" column="1">
     <widget class="ColorPickerButtont" name="colorBtn">
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="0">
-    <widget class="QLabel" name="label_4">
-     <property name="text">
-      <string>Sample</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="1">
-    <widget class="QLabel" name="sample">
      <property name="text">
       <string/>
      </property>
