@@ -34,6 +34,7 @@ class GEOMETRY_API Polygon : public Polycurve
     Q_OBJECT
 public:
     explicit Polygon(QObject *parent = nullptr);
+    explicit Polygon(int size, QObject *parent = nullptr);
     explicit Polygon(const QRectF &extent, QObject *parent = nullptr);
     explicit Polygon(std::initializer_list<QPointF> points, QObject *parent = nullptr);
 

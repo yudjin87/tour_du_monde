@@ -40,6 +40,7 @@ class GEOMETRY_API Polycurve : public AbstractGeometry
     Q_PROPERTY(QVector<Ring *> rings READ rings)
 public:
     explicit Polycurve(QObject *parent = nullptr);
+    explicit Polycurve(int size, QObject *parent = nullptr);
     explicit Polycurve(const QRectF &extent, QObject *parent = nullptr);
     explicit Polycurve(std::initializer_list<QPointF> points, QObject *parent = nullptr);
 

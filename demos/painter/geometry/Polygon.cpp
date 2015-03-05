@@ -32,6 +32,12 @@ Polygon::Polygon(QObject *parent)
 {
 }
 
+Polygon::Polygon(int size, QObject *parent)
+    : Polycurve(size, parent)
+{
+
+}
+
 //------------------------------------------------------------------------------
 Polygon::Polygon(const QRectF &extent, QObject *parent)
     : Polycurve(extent, parent)

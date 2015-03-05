@@ -157,7 +157,7 @@ void GeometryFactory::createPoly(QDataStream &stream, Polycurve *polycurve)
             int start = parts[partN];
             int end = ((partN + 1) == numParts) ? numPoints : parts[partN + 1];
 
-            QPolygonF polygon;
+            QPolygonF polygon;//(end - start);
             for (int i = start; i < end; ++i) {
                 double x, y;
                 stream.readRawData(reinterpret_cast<char *>(&x), sizeof(double));

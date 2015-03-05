@@ -34,6 +34,7 @@ class GEOMETRY_API Polyline : public Polycurve
     Q_OBJECT
 public:
     explicit Polyline(QObject *parent = nullptr);
+    explicit Polyline(int size, QObject *parent = nullptr);
     explicit Polyline(const QRectF &extent, QObject *parent = nullptr);
     explicit Polyline(std::initializer_list<QPointF> points, QObject *parent = nullptr);
 

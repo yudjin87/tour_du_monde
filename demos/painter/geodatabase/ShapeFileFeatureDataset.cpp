@@ -34,11 +34,20 @@
 #include <geometry/IGeometryFactory.h>
 
 #include <carousel/utils/IServiceLocator.h>
+#include <carousel/logging/LoggerFacade.h>
 
 #include <QtCore/QDir>
 #include <QtCore/QFile>
 #include <QtCore/QFileInfo>
 #include <QtCore/QScopedPointer>
+
+#include <chrono>
+
+//------------------------------------------------------------------------------
+namespace
+{
+static LoggerFacade Log = LoggerFacade::createLogger("FeatureDataset");
+}
 
 typedef QScopedPointer<IShapeFileReader> ReaderPtr;
 typedef QScopedPointer<IGeometryFactory> GeometryFactoryPtr;
@@ -112,6 +121,11 @@ IFeatureClass *ShapeFileFeatureDataset::classByName(const QString &className)
     if (!prepareToReading(clName))
         return nullptr;
 
+    typedef std::chrono::system_clock Clock;
+    typedef std::chrono::milliseconds milliseconds;
+
+    const Clock::time_point started = Clock::now();
+
     ReaderPtr reader(m_locator->buildInstance<IShapeFileReader>());
     reader->setInputDevice(m_file);
 
@@ -137,6 +151,11 @@ IFeatureClass *ShapeFileFeatureDataset::classByName(const QString &className)
 
 
     finishReading();
+
+    Clock::time_point finished = Clock::now();
+    milliseconds ms = std::chrono::duration_cast<milliseconds>(finished - started);
+
+    Log.d(QString("Reading %1 file: %2 ms").arg(className).arg(ms.count()));
 
     return featureClass;
 }

@@ -32,6 +32,12 @@ Polyline::Polyline(QObject *parent)
 {
 }
 
+Polyline::Polyline(int size, QObject *parent)
+    : Polycurve(size, parent)
+{
+
+}
+
 //------------------------------------------------------------------------------
 Polyline::Polyline(const QRectF &extent, QObject *parent)
     : Polycurve(extent, parent)

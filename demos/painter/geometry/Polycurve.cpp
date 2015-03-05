@@ -34,6 +34,13 @@ Polycurve::Polycurve(QObject *parent)
 {
 }
 
+Polycurve::Polycurve(int size, QObject *parent)
+    : AbstractGeometry(parent)
+    , m_rings(size)
+{
+
+}
+
 //------------------------------------------------------------------------------
 Polycurve::Polycurve(const QRectF &extent, QObject *parent)
     : AbstractGeometry(extent, parent)
@@ -46,7 +53,7 @@ Polycurve::Polycurve(std::initializer_list<QPointF> points, QObject *parent)
     : AbstractGeometry(parent)
     , m_rings()
 {
-    m_rings.append(new Ring(points));
+    m_rings.push_back(new Ring(points));
 }
 
 //------------------------------------------------------------------------------

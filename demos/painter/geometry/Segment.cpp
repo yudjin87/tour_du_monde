@@ -33,6 +33,13 @@ Segment::Segment(QObject *parent)
 {
 }
 
+Segment::Segment(int size, QObject *parent)
+    : AbstractGeometry(parent)
+    , m_value(size)
+{
+
+}
+
 //------------------------------------------------------------------------------
 Segment::Segment(const QRectF &extent, QObject *parent)
     : AbstractGeometry(extent, parent)

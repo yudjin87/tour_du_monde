@@ -34,6 +34,13 @@ Ring::Ring(QObject *parent)
 {
 }
 
+Ring::Ring(int size, QObject *parent)
+    : AbstractGeometry(parent)
+    , m_segments(size)
+{
+
+}
+
 //------------------------------------------------------------------------------
 Ring::Ring(const QRectF &extent, QObject *parent)
     : AbstractGeometry(extent, parent)
@@ -46,7 +53,7 @@ Ring::Ring(std::initializer_list<QPointF> points, QObject *parent)
     : AbstractGeometry(parent)
     , m_segments()
 {
-    m_segments.append(new Segment(points));
+    m_segments.push_back(new Segment(points));
 }
 
 //------------------------------------------------------------------------------

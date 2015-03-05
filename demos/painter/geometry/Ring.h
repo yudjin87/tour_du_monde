@@ -29,20 +29,21 @@
 
 #include "AbstractGeometry.h"
 
-#include <QtCore/QList>
+#include <QtCore/QVector>
 
 #include <initializer_list>
 
 class Segment;
 
-typedef QList<Segment *> SegmentList;
+typedef QVector<Segment *> SegmentList;
 
 class GEOMETRY_API Ring : public AbstractGeometry
 {
     Q_OBJECT
-    Q_PROPERTY(QList<Segment *> segments READ segments)
+    Q_PROPERTY(QVector<Segment *> segments READ segments)
 public:
     explicit Ring(QObject *parent = nullptr);
+    explicit Ring(int size, QObject *parent = nullptr);
     explicit Ring(const QRectF &extent, QObject *parent = nullptr);
     explicit Ring(std::initializer_list<QPointF> points, QObject *parent = nullptr);
     ~Ring();
