@@ -24,19 +24,18 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef FEATURERENDERER_H
-#define FEATURERENDERER_H
+#ifndef IFEATURERENDERER_H
+#define IFEATURERENDERER_H
 
 #include "display/display_api.h"
-#include "display/ISymbol.h"
 
-#include <QtCore/QVector>
 #include <QtCore/QObject>
 
 class IFeature;
+class ISymbol;
 class QPainter;
 
-class DISPLAY_API FeatureRenderer : public QObject
+class DISPLAY_API IFeatureRenderer : public QObject
 {
     Q_OBJECT
 
@@ -53,8 +52,8 @@ class DISPLAY_API FeatureRenderer : public QObject
     Q_PROPERTY(ISymbol *symbol READ symbol WRITE setSymbol NOTIFY symbolChanged)
 
 public:
-    FeatureRenderer(QObject *parent = nullptr);
-    ~FeatureRenderer();
+    IFeatureRenderer(QObject *parent = nullptr) : QObject(parent){}
+    virtual ~IFeatureRenderer(){}
 
     /*!
      * @details
@@ -65,18 +64,15 @@ public:
      *   This method typically iterates through all the features and renders each
      *   feature with an appropriate symbol.
      */
-    void draw(const QVector<IFeature *> &features, QPainter *painter);
+    virtual void draw(const QVector<IFeature *> &features, QPainter *painter) = 0;
 
-    ISymbol *symbol();
-    const ISymbol *symbol() const;
-    void setSymbol(ISymbol *symbol);
+    virtual ISymbol *symbol() = 0;
+    virtual const ISymbol *symbol() const = 0;
+    virtual void setSymbol(ISymbol *symbol) = 0;
 
 signals:
     void symbolChanged(const ISymbol* newSymbol);
-
-private:
-    ISymbolUPtr m_symbol;
 };
 
-#endif // FEATURERENDERER_H
+#endif // IFEATURERENDERER_H
 

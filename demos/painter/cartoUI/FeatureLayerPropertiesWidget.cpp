@@ -33,7 +33,7 @@
 #include <carto/FeatureLayer.h>
 #include <carousel/utils/IServiceLocator.h>
 
-#include <display/FeatureRenderer.h>
+#include <display/IFeatureRenderer.h>
 #include <display/SymbolWidgetCreator.h>
 #include <display/SymbolWidget.h>
 
@@ -50,7 +50,7 @@ FeatureLayerPropertiesWidget::FeatureLayerPropertiesWidget(FeatureLayer *layer, 
     m_ui->layerName->setText(m_newName);
     connect(m_ui->layerName, &QLineEdit::editingFinished, this, &FeatureLayerPropertiesWidget::onLayerNameEditingFinished);
 
-    FeatureRenderer *renderer = m_layer->renderer();
+    IFeatureRenderer *renderer = m_layer->renderer();
     SymbolWidgetCreator symbolWidgetCreator;
     SymbolWidget* symbolWidget = symbolWidgetCreator.createWidget(renderer->symbol(), this);
     symbolWidget->initializeSample();

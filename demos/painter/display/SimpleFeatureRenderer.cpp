@@ -24,7 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "FeatureRenderer.h"
+#include "SimpleFeatureRenderer.h"
 
 #include <display/ISymbol.h>
 #include <geodatabase/IFeature.h>
@@ -32,19 +32,19 @@
 #include <QtGui/QPainter>
 
 //------------------------------------------------------------------------------
-FeatureRenderer::FeatureRenderer(QObject *parent)
-    : QObject(parent)
+SimpleFeatureRenderer::SimpleFeatureRenderer(QObject *parent)
+    : IFeatureRenderer(parent)
     , m_symbol(nullptr)
 {
 }
 
 //------------------------------------------------------------------------------
-FeatureRenderer::~FeatureRenderer()
+SimpleFeatureRenderer::~SimpleFeatureRenderer()
 {
 }
 
 //------------------------------------------------------------------------------
-void FeatureRenderer::draw(const QVector<IFeature *> &features, QPainter *painter)
+void SimpleFeatureRenderer::draw(const QVector<IFeature *> &features, QPainter *painter)
 {
     m_symbol->setupPainter(painter);
     for (const IFeature *feature : features) {
@@ -55,19 +55,19 @@ void FeatureRenderer::draw(const QVector<IFeature *> &features, QPainter *painte
 }
 
 //------------------------------------------------------------------------------
-ISymbol *FeatureRenderer::symbol()
+ISymbol *SimpleFeatureRenderer::symbol()
 {
     return m_symbol.get();
 }
 
 //------------------------------------------------------------------------------
-const ISymbol *FeatureRenderer::symbol() const
+const ISymbol *SimpleFeatureRenderer::symbol() const
 {
     return m_symbol.get();
 }
 
 //------------------------------------------------------------------------------
-void FeatureRenderer::setSymbol(ISymbol *symbol)
+void SimpleFeatureRenderer::setSymbol(ISymbol *symbol)
 {
     m_symbol.reset(symbol);
     emit symbolChanged(symbol);

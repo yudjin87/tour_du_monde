@@ -31,7 +31,7 @@
 #include <carto/IMap.h>
 #include <carto/FeatureLayer.h>
 #include <carto/commands/RenameLayerCommand.h>
-#include <display/FeatureRenderer.h>
+#include <display/IFeatureRenderer.h>
 #include <carousel/logging/LoggerFacade.h>
 #include <carousel/utils/IServiceLocator.h>
 #include <components/interactivity/IDialogService.h>
@@ -222,7 +222,7 @@ QVariant LayersTreeModel::data(const QModelIndex &index, int role) const
         return layer->name();
 
     case Qt::DecorationRole:
-        FeatureRenderer *renderer = layer->renderer();
+        IFeatureRenderer *renderer = layer->renderer();
         SymbolThumbnail thumbnailCreator(16, 2);
         thumbnailCreator.setBackground(Qt::white);
         QPixmap symbol = thumbnailCreator.createSymbolThumbnail(renderer->symbol(), layer->shapeType());

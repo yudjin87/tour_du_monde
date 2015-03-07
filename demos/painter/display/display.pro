@@ -23,7 +23,6 @@ HEADERS += \
     IDisplay.h \
     SimpleDisplay.h \
     Throttle.h \
-    FeatureRenderer.h \
     ISymbol.h \
     SymbolBase.h \
     MarkerSymbol.h \
@@ -47,14 +46,15 @@ HEADERS += \
     SymbolWidgetCreator.h \
     ColorPickerButtont.h \
     SymbolWidget.h \
-    SimpleFillSymbolWidget.h
+    SimpleFillSymbolWidget.h \
+    IFeatureRenderer.h \
+    SimpleFeatureRenderer.h
 
 SOURCES += \
     RectRubberBand.cpp \
     DisplayComponent.cpp \
     SimpleDisplay.cpp \
     Throttle.cpp \
-    FeatureRenderer.cpp \
     SymbolBase.cpp \
     MarkerSymbol.cpp \
     SimpleMarkerSymbol.cpp \
@@ -75,7 +75,8 @@ SOURCES += \
     SymbolWidgetCreator.cpp \
     ColorPickerButtont.cpp \
     SymbolWidget.cpp \
-    SimpleFillSymbolWidget.cpp
+    SimpleFillSymbolWidget.cpp \
+    SimpleFeatureRenderer.cpp
 
 FORMS += \
     SimpleLineSymbolWidget.ui \

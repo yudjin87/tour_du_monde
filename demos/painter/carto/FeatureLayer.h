@@ -33,7 +33,7 @@
 
 #include <QtCore/QList>
 
-class FeatureRenderer;
+class IFeatureRenderer;
 class IFeatureClass;
 
 class CARTO_API FeatureLayer : public AbstractLayer
@@ -41,14 +41,15 @@ class CARTO_API FeatureLayer : public AbstractLayer
     Q_OBJECT
     Q_PROPERTY(int shapeType READ shapeType)
     Q_PROPERTY(IFeatureClass *featureClass READ featureClass WRITE setFeatureClass)
-    Q_PROPERTY(FeatureRenderer *renderer READ renderer)
+    Q_PROPERTY(IFeatureRenderer *renderer READ renderer)
 public:
     FeatureLayer(QObject *parent = nullptr);
     ~FeatureLayer();
 
     GeometryType shapeType() const;
 
-    FeatureRenderer *renderer() const;
+    IFeatureRenderer *renderer() const;
+    void setRenderer(IFeatureRenderer *newRenderer);
 
     void draw(IDisplay *display) override;
 
@@ -67,7 +68,7 @@ protected:
 
 private:
     IFeatureClass *m_featureClass;
-    FeatureRenderer *m_featureRenderer;
+    IFeatureRenderer *m_featureRenderer;
 };
 
 #endif // FEATURELAYER_H

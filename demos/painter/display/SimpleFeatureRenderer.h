@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
-
+ 
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -24,28 +24,30 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef FEATURELAYERDRAWINGTASK_H
-#define FEATURELAYERDRAWINGTASK_H
+#ifndef FEATURERENDERER_H
+#define FEATURERENDERER_H
 
-#include <display/IDrawingTask.h>
-#include <geodatabase/IFeatureClass.h>
-#include <QtCore/QObject>
+#include "display/IFeatureRenderer.h"
+#include "display/ISymbol.h"
 
-class IFeatureRenderer;
+#include <QtCore/QVector>
 
-class FeatureLayerDrawingTask : public QObject, public IDrawingTask
+class DISPLAY_API SimpleFeatureRenderer : public IFeatureRenderer
 {
     Q_OBJECT
 public:
-    FeatureLayerDrawingTask(IFeatureClass::FeatureList &&features, IFeatureRenderer* renderer, QObject* parent = nullptr);
-    ~FeatureLayerDrawingTask();
+    SimpleFeatureRenderer(QObject *parent = nullptr);
+    ~SimpleFeatureRenderer();
 
-    void draw(IDisplay &display) override;
+    void draw(const QVector<IFeature *> &features, QPainter *painter) override;
+
+    ISymbol *symbol() override;
+    const ISymbol *symbol() const override;
+    void setSymbol(ISymbol *symbol) override;
 
 private:
-    const IFeatureClass::FeatureList m_features;
-    IFeatureRenderer* m_renderer;
+    ISymbolUPtr m_symbol;
 };
 
-#endif // FEATURELAYERDRAWINGTASK_H
+#endif // FEATURERENDERER_H
 

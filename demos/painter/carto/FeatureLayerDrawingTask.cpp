@@ -1,5 +1,5 @@
 #include <carto/FeatureLayerDrawingTask.h>
-#include <display/FeatureRenderer.h>
+#include <display/IFeatureRenderer.h>
 #include <display/IDisplay.h>
 #include <display/DisplayTransformation.h>
 #include <carousel/logging/LoggerFacade.h>
@@ -15,7 +15,7 @@ namespace
 static LoggerFacade Log = LoggerFacade::createLogger("FLDrawTask");
 }
 
-FeatureLayerDrawingTask::FeatureLayerDrawingTask(IFeatureClass::FeatureList &&features, FeatureRenderer *renderer, QObject *parent)
+FeatureLayerDrawingTask::FeatureLayerDrawingTask(IFeatureClass::FeatureList &&features, IFeatureRenderer *renderer, QObject *parent)
     : QObject(parent)
     , IDrawingTask()
     , m_features(std::move(features))

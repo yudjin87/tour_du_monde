@@ -27,7 +27,7 @@
 #include "DisplayScriptExtension.h"
 
 #include "DisplayTransformation.h"
-#include "FeatureRenderer.h"
+#include "IFeatureRenderer.h"
 #include "IDisplay.h"
 #include "ISymbol.h"
 
@@ -39,7 +39,7 @@
 #include <QtScript/QScriptValueIterator>
 
 //------------------------------------------------------------------------------
-Q_DECLARE_METATYPE(FeatureRenderer *)
+Q_DECLARE_METATYPE(IFeatureRenderer *)
 Q_DECLARE_METATYPE(ISymbol *)
 Q_DECLARE_METATYPE(DisplayTransformation *)
 Q_DECLARE_METATYPE(IDisplay *)
@@ -56,7 +56,7 @@ void DisplayScriptExtension::configureEngine(IServiceLocator *locator, QScriptEn
 {
     Q_UNUSED(locator)
     Q_UNUSED(engine);
-    REGISTER_METATYPE(FeatureRenderer);
+    REGISTER_METATYPE(IFeatureRenderer);
     REGISTER_METATYPE(ISymbol);
     REGISTER_METATYPE(DisplayTransformation);
     REGISTER_METATYPE(IDisplay);

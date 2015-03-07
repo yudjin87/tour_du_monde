@@ -28,7 +28,7 @@
 #include <carto/FeatureLayerDrawingTask.h>
 #include <carto/ILayerVisitor.h>
 
-#include <display/FeatureRenderer.h>
+#include <display/SimpleFeatureRenderer.h>
 #include <display/IDisplay.h>
 #include <display/DisplayTransformation.h>
 #include <display/SimpleFillSymbol.h>
@@ -52,7 +52,7 @@ static LoggerFacade Log = LoggerFacade::createLogger("FeatureLayer");
 FeatureLayer::FeatureLayer(QObject *parent)
     : AbstractLayer(parent)
     , m_featureClass(nullptr)
-    , m_featureRenderer(new FeatureRenderer())
+    , m_featureRenderer(new SimpleFeatureRenderer())
 {
 }
 
@@ -73,9 +73,17 @@ GeometryType FeatureLayer::shapeType() const
 }
 
 //------------------------------------------------------------------------------
-FeatureRenderer *FeatureLayer::renderer() const
+IFeatureRenderer *FeatureLayer::renderer() const
 {
     return m_featureRenderer;
+}
+
+void FeatureLayer::setRenderer(IFeatureRenderer *newRenderer)
+{
+    Q_ASSERT(newRenderer != nullptr);
+
+    delete m_featureRenderer;
+    m_featureRenderer = newRenderer;
 }
 
 //------------------------------------------------------------------------------

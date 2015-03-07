@@ -29,7 +29,7 @@
 #include <carto/FeatureLayer.h>
 #include <carto/IPainterDocument.h>
 #include <carto/IPainterDocumentController.h>
-#include <display/FeatureRenderer.h>
+#include <display/IFeatureRenderer.h>
 
 //------------------------------------------------------------------------------
 ChangeLayerSymbolCommand::ChangeLayerSymbolCommand(IUndoStack *stack, IPainterDocumentController *docContr, QObject *parent)
