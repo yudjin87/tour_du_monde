@@ -24,20 +24,19 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef LAYERSLISTVIEW_H
-#define LAYERSLISTVIEW_H
+#ifndef LAYERTREEVIEW_H
+#define LAYERTREEVIEW_H
 
-#include <QtWidgets/QListView>
+#include <QtWidgets/QTreeView>
 
-class QMenu;
-class LayersTreeModel;
+class LayerTreeModel;
 
-class LayersListView : public QListView
+class LayerTreeView : public QTreeView
 {
     Q_OBJECT
 public:
-    explicit LayersListView(LayersTreeModel* model, QWidget *parent = nullptr);
-    ~LayersListView();
+    explicit LayerTreeView(LayerTreeModel* model, QWidget *parent = nullptr);
+    ~LayerTreeView();
 
 protected:
     void contextMenuEvent(QContextMenuEvent *event);
@@ -47,8 +46,8 @@ private slots:
 
 private:
     QMenu* m_menu;
-    LayersTreeModel *m_model;
+    LayerTreeModel *m_model;
     QModelIndex m_contexMenuItemIndex;
 };
 
-#endif // LAYERSLISTVIEW_H
+#endif // LAYERTREEVIEW_H

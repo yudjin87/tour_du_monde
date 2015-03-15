@@ -25,8 +25,8 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "CartoUIInteractiveExtension.h"
-#include "LayersTreeModel.h"
-#include "LayersListView.h"
+#include "LayerTreeModel.h"
+#include "LayerTreeView.h"
 #include "AddShapeOperation.h"
 
 #include <carto/IPainterDocument.h>
@@ -43,6 +43,7 @@
 #include <QtWidgets/QDockWidget>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QListView>
+#include <QtWidgets/QTreeView>
 #include <QtWidgets/QToolBar>
 
 //------------------------------------------------------------------------------
@@ -58,7 +59,7 @@ void CartoUIInteractiveExtension::configureGui(ICatalogs &inCatalogs, IServiceLo
     IPainterDocument *doc = docController->document();
 
     IDockWidgetCatalog &catalog = inCatalogs.dockWidgetCatalog();
-    QListView *layersTree = new LayersListView(new LayersTreeModel(doc->map(), serviceLocator));
+    QTreeView *layersTree = new LayerTreeView(new LayerTreeModel(doc->map(), serviceLocator));
 
     QDockWidget *layersDock = catalog.addDockWidget(layersTree, "Layers tree");
 

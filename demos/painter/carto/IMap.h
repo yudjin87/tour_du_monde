@@ -50,7 +50,9 @@ public:
 
 public slots:
     virtual void addLayer(AbstractLayer *layer) = 0;
+    virtual void insertLayer(const int index, AbstractLayer *layer) = 0;
     virtual int removeLayer(AbstractLayer *layer) = 0;
+    virtual AbstractLayer *takeLayer(const int index) = 0; // removes layer without deleting it
     virtual AbstractLayer *getLayer(const int index) = 0;
     virtual const AbstractLayer *getLayer(const int index) const = 0;
     virtual AbstractLayer *getLayer(const QString& name) = 0;
@@ -60,8 +62,8 @@ public slots:
     virtual void refresh() = 0;
 
 signals:
-    void layerAdded(AbstractLayer *layer);
-    void layerRemoved(AbstractLayer *layer);
+    void layerAdded(AbstractLayer *layer, const int index);
+    void layerRemoved(AbstractLayer *layer, const int index);
     void refreshed();
 
 private:

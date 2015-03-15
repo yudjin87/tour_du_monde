@@ -60,9 +60,15 @@ Map::~Map()
 //------------------------------------------------------------------------------
 void Map::addLayer(AbstractLayer *layer)
 {
+    insertLayer(m_layers.size(), layer);
+}
+
+//------------------------------------------------------------------------------
+void Map::insertLayer(const int index, AbstractLayer *layer)
+{
     const bool firstLayer = m_layers.empty();
 
-    m_layers.push_back(layer);
+    m_layers.insert(index, layer);
     const QRectF layerExt = layer->extent();
     if (firstLayer)
     {
@@ -86,7 +92,18 @@ void Map::addLayer(AbstractLayer *layer)
         m_display->transformation()->setBounds(newExt);
     }
 
-    emit layerAdded(layer);
+    emit layerAdded(layer, index);
+}
+
+//------------------------------------------------------------------------------
+AbstractLayer *Map::takeLayer(const int index)
+{
+    AbstractLayer *layer = getLayer(index);
+    m_layers.removeAt(index);
+
+    emit layerRemoved(layer, index);
+
+    return layer;
 }
 
 //------------------------------------------------------------------------------
@@ -105,8 +122,9 @@ int Map::removeLayer(AbstractLayer *layer)
 
     Log.d(QString("Removing layer \"%1\" from position %2").arg(layer->name()).arg(layerIndex));
 
-    m_layers.erase(it);
-    emit layerRemoved(layer);
+    AbstractLayer *foundLayer = takeLayer(layerIndex);
+    Q_ASSERT(foundLayer == layer);
+
     delete layer;  // TODO: use smart ptr
     return layerIndex;
 }
@@ -129,13 +147,15 @@ void Map::moveLayer(AbstractLayer *layer, const int index)
         return;
     }
 
-    const int finalIndex = ((0 < index) && (index < m_layers.size()))
+    const int layerIndex = ((0 < index) && (index < m_layers.size()))
             ? index
             : 0;
-    Log.d(QString("Moving layer \"%1\" to position %2").arg(layer->name()).arg(finalIndex));
 
-    m_layers.erase(it);
-    m_layers.insert(index, layer);
+    Log.d(QString("Moving layer \"%1\" to position %2").arg(layer->name()).arg(layerIndex));
+
+    AbstractLayer *foundLayer = takeLayer(oldIndex);
+    Q_ASSERT(foundLayer == layer);
+    insertLayer(layerIndex, layer);
 }
 
 //------------------------------------------------------------------------------

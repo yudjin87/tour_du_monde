@@ -24,7 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "LayersTreeModel.h"
+#include "LayerTreeModel.h"
 #include "cartoUI/LayerPropertyWidgetCreator.h"
 
 #include <display/SymbolThumbnail.h>
@@ -44,26 +44,26 @@
 namespace
 {
 static const char* LAYER_NAME_MIME = "application/layer.name.list"; // TODO: constexpr, when MSVC will support it
-static LoggerFacade Log = LoggerFacade::createLogger("LayersTreeModel");
+static LoggerFacade Log = LoggerFacade::createLogger("LayerTreeModel");
 }
 
 //------------------------------------------------------------------------------
-LayersTreeModel::LayersTreeModel(IMap *map, IServiceLocator *serviceLocator, QObject *parent)
-    : QAbstractListModel(parent)
+LayerTreeModel::LayerTreeModel(IMap *map, IServiceLocator *serviceLocator, QObject *parent)
+    : QAbstractItemModel(parent)
     , m_map(map)
     , m_serviceLocator(serviceLocator)
 {
     for (AbstractLayer* layer : m_map->layers()) {
-        connect(layer, &AbstractLayer::nameChanged, this, &LayersTreeModel::onNameChanged);
+        connect(layer, &AbstractLayer::nameChanged, this, &LayerTreeModel::onNameChanged);
     }
 
-    connect(map, &IMap::layerAdded, this, &LayersTreeModel::onLayerAdded);
-    connect(map, &IMap::layerRemoved, this, &LayersTreeModel::onLayerRemoved);
-    connect(map, &IMap::refreshed, this, &LayersTreeModel::onMapRefreshed);
+    connect(map, &IMap::layerAdded, this, &LayerTreeModel::onLayerAdded);
+    connect(map, &IMap::layerRemoved, this, &LayerTreeModel::onLayerRemoved);
+    connect(map, &IMap::refreshed, this, &LayerTreeModel::onMapRefreshed);
 }
 
 //------------------------------------------------------------------------------
-Qt::ItemFlags LayersTreeModel::flags(const QModelIndex &index) const
+Qt::ItemFlags LayerTreeModel::flags(const QModelIndex &index) const
 {
     Qt::ItemFlags defaultFlags = QAbstractItemModel::flags(index);
 
@@ -74,7 +74,7 @@ Qt::ItemFlags LayersTreeModel::flags(const QModelIndex &index) const
 }
 
 //------------------------------------------------------------------------------
-QStringList LayersTreeModel::mimeTypes() const
+QStringList LayerTreeModel::mimeTypes() const
 {
     QStringList types;
     types << LAYER_NAME_MIME;
@@ -82,7 +82,7 @@ QStringList LayersTreeModel::mimeTypes() const
 }
 
 //------------------------------------------------------------------------------
-QMimeData *LayersTreeModel::mimeData(const QModelIndexList &indexes) const
+QMimeData *LayerTreeModel::mimeData(const QModelIndexList &indexes) const
 {
     QMimeData *mimeData = new QMimeData();
     QByteArray encodedData;
@@ -101,7 +101,7 @@ QMimeData *LayersTreeModel::mimeData(const QModelIndexList &indexes) const
 }
 
 //------------------------------------------------------------------------------
-bool LayersTreeModel::canDropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent) const
+bool LayerTreeModel::canDropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent) const
 {
     Q_UNUSED(action);
     Q_UNUSED(row);
@@ -117,7 +117,7 @@ bool LayersTreeModel::canDropMimeData(const QMimeData *data, Qt::DropAction acti
 }
 
 //------------------------------------------------------------------------------
-bool LayersTreeModel::dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent)
+bool LayerTreeModel::dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent)
 {
     if (!canDropMimeData(data, action, row, column, parent))
         return false;
@@ -150,12 +150,12 @@ bool LayersTreeModel::dropMimeData(const QMimeData *data, Qt::DropAction action,
         ++rows;
     }
 
-//    insertRows(beginRow, rows, QModelIndex());
-//    foreach (const QString &text, newItems) {
-//        QModelIndex idx = index(beginRow, 0, QModelIndex());
-//        setData(idx, text);
-//        beginRow++;
-//    }
+    //    insertRows(beginRow, rows, QModelIndex());
+    //    foreach (const QString &text, newItems) {
+    //        QModelIndex idx = index(beginRow, 0, QModelIndex());
+    //        setData(idx, text);
+    //        beginRow++;
+    //    }
 
     m_map->refresh();
     return true;
@@ -165,7 +165,7 @@ bool LayersTreeModel::dropMimeData(const QMimeData *data, Qt::DropAction action,
 #include <QtWidgets/QDialog>
 
 //------------------------------------------------------------------------------
-void LayersTreeModel::showPropertyDialog(const QModelIndex &index)
+void LayerTreeModel::showPropertyDialog(const QModelIndex &index)
 {
     if (!index.isValid())
         return;
@@ -185,7 +185,7 @@ void LayersTreeModel::showPropertyDialog(const QModelIndex &index)
 }
 
 //------------------------------------------------------------------------------
-bool LayersTreeModel::setData(const QModelIndex &index, const QVariant &value, int role)
+bool LayerTreeModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
     if (!index.isValid())
         return false;
@@ -202,14 +202,23 @@ bool LayersTreeModel::setData(const QModelIndex &index, const QVariant &value, i
 }
 
 //------------------------------------------------------------------------------
-int LayersTreeModel::rowCount(const QModelIndex &parent) const
+int LayerTreeModel::rowCount(const QModelIndex &parent) const
 {
-    Q_UNUSED(parent)
-    return m_map->layers().size();
+    if (!parent.isValid())
+        return m_map->layers().size();
+
+    return 1;
 }
 
 //------------------------------------------------------------------------------
-QVariant LayersTreeModel::data(const QModelIndex &index, int role) const
+int LayerTreeModel::columnCount(const QModelIndex &parent) const
+{
+    Q_UNUSED(parent)
+    return 1;
+}
+
+//------------------------------------------------------------------------------
+QVariant LayerTreeModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid())
         return QVariant();
@@ -232,10 +241,59 @@ QVariant LayersTreeModel::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
-//------------------------------------------------------------------------------
-void LayersTreeModel::onLayerAdded(AbstractLayer *layer)
+QVariant LayerTreeModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
-    connect(layer, &AbstractLayer::nameChanged, this, &LayersTreeModel::onNameChanged);
+    if (section != 0 || role != Qt::DisplayRole || orientation != Qt::Horizontal)
+        return QVariant();
+
+    return "Layers";
+}
+
+QModelIndex LayerTreeModel::index(int row, int column, const QModelIndex &parent) const
+{
+    if (parent.isValid() && parent.column() != 0)
+        return QModelIndex();
+
+    // only return model indexes for child items if the parent index is invalid
+    // (corresponding to the root item) or if it has a zero column number.
+
+    const QList<AbstractLayer *>& layers = m_map->layers();
+    if (layers.size() <= row)
+    {
+        return QModelIndex();
+    }
+
+    FeatureLayer *layer = static_cast<FeatureLayer *>(layers.at(row));
+    return createIndex(row, column, layer);
+}
+
+QModelIndex LayerTreeModel::parent(const QModelIndex &index) const
+{
+    if (!index.isValid())
+        return QModelIndex();
+
+    //return QModelIndex();
+
+//    if (!index.parent().isValid())
+//        return QModelIndex();
+
+    const QList<AbstractLayer *>& layers = m_map->layers();
+//    const int row = index.parent().row();
+//    if (layers.size() <= row)
+//    {
+//        return QModelIndex();
+//    }
+
+    FeatureLayer *layer = static_cast<FeatureLayer *>(layers.at(0));
+
+    int numberOfLabels = 1;
+    return createIndex(numberOfLabels, 0, layer);
+}
+
+//------------------------------------------------------------------------------
+void LayerTreeModel::onLayerAdded(AbstractLayer *layer)
+{
+    connect(layer, &AbstractLayer::nameChanged, this, &LayerTreeModel::onNameChanged);
 
     // TODO: selection lost here
     beginInsertRows(QModelIndex(), 0, m_map->layers().size());
@@ -243,9 +301,9 @@ void LayersTreeModel::onLayerAdded(AbstractLayer *layer)
 }
 
 //------------------------------------------------------------------------------
-void LayersTreeModel::onLayerRemoved(AbstractLayer *layer)
+void LayerTreeModel::onLayerRemoved(AbstractLayer *layer)
 {
-    disconnect(layer, &AbstractLayer::nameChanged, this, &LayersTreeModel::onNameChanged);
+    disconnect(layer, &AbstractLayer::nameChanged, this, &LayerTreeModel::onNameChanged);
 
     // TODO: selection lost here
     beginRemoveRows(QModelIndex(), 0, m_map->layers().size());
@@ -253,13 +311,13 @@ void LayersTreeModel::onLayerRemoved(AbstractLayer *layer)
 }
 
 //------------------------------------------------------------------------------
-void LayersTreeModel::onMapRefreshed()
+void LayerTreeModel::onMapRefreshed()
 {
     emit dataChanged(QModelIndex(), QModelIndex());
 }
 
 //------------------------------------------------------------------------------
-void LayersTreeModel::onNameChanged(AbstractLayer *sender, const QString &newName)
+void LayerTreeModel::onNameChanged(AbstractLayer *sender, const QString &newName)
 {
     Q_UNUSED(sender)
     Q_UNUSED(newName)

@@ -23,22 +23,28 @@ HEADERS += \
     cartoUI_api.h \
     CartoUIComponent.h \
     CartoUIInteractiveExtension.h \
-    LayersTreeModel.h \
     FeatureLayerDelegate.h \
     AddShapeOperation.h \
     FeatureLayerPropertiesWidget.h \
-    LayersListView.h \
-    LayerPropertyWidgetCreator.h
+    LayerPropertyWidgetCreator.h \
+    LayerTreeModel.h \
+    FeatureLayerItem.h \
+    SymbolItem.h \
+    LayerItemCreator.h \
+    LayerTreeView.h
 
 SOURCES += \
     CartoUIComponent.cpp \
     CartoUIInteractiveExtension.cpp \
-    LayersTreeModel.cpp \
     FeatureLayerDelegate.cpp \
     AddShapeOperation.cpp \
     FeatureLayerPropertiesWidget.cpp \
-    LayersListView.cpp \
-    LayerPropertyWidgetCreator.cpp
+    LayerPropertyWidgetCreator.cpp \
+    LayerTreeModel.cpp \
+    FeatureLayerItem.cpp \
+    SymbolItem.cpp \
+    LayerItemCreator.cpp \
+    LayerTreeView.cpp
 
 FORMS += \
     FeatureLayerPropertiesWidget.ui

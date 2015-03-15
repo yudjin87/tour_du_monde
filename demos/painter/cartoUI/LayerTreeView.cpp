@@ -24,39 +24,39 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "LayersListView.h"
-#include "LayersTreeModel.h"
+#include "LayerTreeView.h"
+#include "LayerTreeModel.h"
 #include "FeatureLayerDelegate.h"
 
 #include <QtGui/QContextMenuEvent>
 #include <QtWidgets/QMenu>
 
-LayersListView::LayersListView(LayersTreeModel *model, QWidget *parent)
-    : QListView(parent)
-    , m_menu(new QMenu(this))
-    , m_model(model)
-    , m_contexMenuItemIndex()
+LayerTreeView::LayerTreeView(LayerTreeModel* model, QWidget *parent)
+  : QTreeView(parent)
+  , m_menu(new QMenu(this))
+  , m_model(model)
+  , m_contexMenuItemIndex()
 {
     m_model->setParent(this);
     setModel(m_model);
-    setItemDelegate(new FeatureLayerDelegate(this));
+    //setItemDelegate(new FeatureLayerDelegate(this));
     setSelectionMode(QAbstractItemView::ExtendedSelection);
     setDragEnabled(true);
     setAcceptDrops(true);
     setDropIndicatorShown(true);
+    setAnimated(true);
 
     QAction* propertiesAction = new QAction("Properties", m_menu);
-    connect(propertiesAction, &QAction::triggered, this, &LayersListView::onPropertyDialog);
+    connect(propertiesAction, &QAction::triggered, this, &LayerTreeView::onPropertyDialog);
 
     m_menu->addAction(propertiesAction);
 }
 
-LayersListView::~LayersListView()
+LayerTreeView::~LayerTreeView()
 {
-
 }
 
-void LayersListView::contextMenuEvent(QContextMenuEvent *event)
+void LayerTreeView::contextMenuEvent(QContextMenuEvent *event)
 {
     m_contexMenuItemIndex = indexAt(event->pos());
     if (!m_contexMenuItemIndex.isValid())
@@ -64,11 +64,18 @@ void LayersListView::contextMenuEvent(QContextMenuEvent *event)
         return;
     }
 
+    QModelIndex child = m_contexMenuItemIndex.child(0, 0);
+    if (!child.isValid())
+    {
+        return; // show menu only for layers, assuming that most nested child is a symbol item
+    }
+
     m_menu->popup(viewport()->mapToGlobal(event->pos()));
 }
 
-void LayersListView::onPropertyDialog()
+void LayerTreeView::onPropertyDialog()
 {
     m_model->showPropertyDialog(m_contexMenuItemIndex);
     m_contexMenuItemIndex = QModelIndex();
 }
+
