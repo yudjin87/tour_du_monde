@@ -8,16 +8,18 @@ function loadLayer(workspacePath, name) {
     var featureLayer = serviceLocator.build("FeatureLayer");
     featureLayer.featureClass = featureClass;
 
-    var scriptService = serviceLocator.locate("IScriptingService");
-    var docController = serviceLocator.locate("IPainterDocumentController");
-    var doc = docController.document;
-    var map = doc.map;
-    map.addLayer(featureLayer);
-    map.refresh();
+    return featureLayer;
 }
 
-loadLayer("./data", "landuse");
-loadLayer("./data", "natural");
-loadLayer("./data", "buildings");
-loadLayer("./data", "waterways");
-loadLayer("./data", "railways");
+var scriptService = serviceLocator.locate("IScriptingService");
+var docController = serviceLocator.locate("IPainterDocumentController");
+var doc = docController.document;
+var map = doc.map;
+
+map.addLayer(loadLayer("./data", "landuse"))
+map.addLayer(loadLayer("./data", "natural"))
+map.addLayer(loadLayer("./data", "buildings"))
+map.addLayer(loadLayer("./data", "waterways"))
+map.addLayer(loadLayer("./data", "railways"))
+
+map.refresh();
