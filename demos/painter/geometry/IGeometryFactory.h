@@ -32,6 +32,8 @@
 
 #include <QtCore/QObject>
 
+#include <memory>
+
 class AbstractGeometry;
 
 class GEOMETRY_API IGeometryFactory : public QObject
@@ -45,5 +47,7 @@ public slots:
     virtual GeometryType geometryTypeFromShapeType(int shapeType) const = 0;
     virtual AbstractGeometry *createGeometry(int bytesCount, const char *geometryBlob) const = 0;
 };
+
+typedef std::unique_ptr<IGeometryFactory> IGeometryFactoryUPtr;
 
 #endif // IGEOMETRYFACTORY_H

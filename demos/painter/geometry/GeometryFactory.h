@@ -36,7 +36,7 @@ class Polycurve;
 class QDataStream;
 class QRectF;
 
-class GeometryFactory : public IGeometryFactory
+class GEOMETRY_API GeometryFactory : public IGeometryFactory
 {
     Q_OBJECT
 public:

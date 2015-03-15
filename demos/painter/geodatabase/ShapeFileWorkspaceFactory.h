@@ -35,7 +35,7 @@ class ShapeFileWorkspaceFactory : public IShapeFileWorkspaceFactory
 {
     Q_OBJECT
 public:
-    ShapeFileWorkspaceFactory(IServiceLocator *locator);
+    ShapeFileWorkspaceFactory();
     ~ShapeFileWorkspaceFactory();
 
     IWorkspace* openFromFile(const QString &workspacePath) override;

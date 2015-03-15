@@ -30,8 +30,8 @@
 #include "FeatureClass.h"
 #include "ShapeFileFeatureWorkspace.h"
 
-ShapeFileWorkspaceFactory::ShapeFileWorkspaceFactory(IServiceLocator *locator)
-    : m_locator(locator)
+ShapeFileWorkspaceFactory::ShapeFileWorkspaceFactory()
+    : IShapeFileWorkspaceFactory()
 {
     setObjectName("ShapeFileWorkspaceFactory");
 }
@@ -43,6 +43,6 @@ ShapeFileWorkspaceFactory::~ShapeFileWorkspaceFactory()
 
 IWorkspace *ShapeFileWorkspaceFactory::openFromFile(const QString &workspacePath)
 {
-    return new ShapeFileFeatureWorkspace(workspacePath, m_locator);
+    return new ShapeFileFeatureWorkspace(workspacePath);
 }
 

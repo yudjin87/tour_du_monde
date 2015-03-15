@@ -25,7 +25,6 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "GeometryComponent.h"
-#include "GeometryFactory.h"
 #include "GeometryScriptExtension.h"
 
 #include <carousel/componentsystem/ComponentExport.h>
@@ -52,8 +51,7 @@ GeometryComponent::~GeometryComponent()
 
 bool GeometryComponent::onStartup(IServiceLocator *serviceLocator)
 {
-    serviceLocator->bindType<IGeometryFactory, GeometryFactory>();
-
+    Q_UNUSED(serviceLocator)
     return true;
 }
 

@@ -30,9 +30,9 @@
 #include "geodatabase_api.h"
 
 #include <QtCore/QObject>
-#include <QtCore/QVector>
-#include <QtCore/QPointF>
 #include <QtCore/QRectF>
+
+#include <memory>
 
 class QIODevice;
 
@@ -57,6 +57,8 @@ public:
 private:
     Q_DISABLE_COPY(IShapeFileReader)
 };
+
+typedef std::unique_ptr<IShapeFileReader> IShapeFileReaderUPtr;
 
 struct ShapeFileHeader
 {

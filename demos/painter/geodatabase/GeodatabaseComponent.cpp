@@ -27,7 +27,6 @@
 #include "GeodatabaseComponent.h"
 #include "GDBScriptExtension.h"
 #include "ShapeFileWorkspaceFactory.h"
-#include "ShapeFileReader.h"
 
 #include <carousel/componentsystem/ComponentDefinition.h>
 #include <carousel/componentsystem/ComponentExport.h>
@@ -55,10 +54,7 @@ GeodatabaseComponent::~GeodatabaseComponent()
 
 bool GeodatabaseComponent::onStartup(IServiceLocator *serviceLocator)
 {
-    auto creator = [serviceLocator](){return new ShapeFileWorkspaceFactory(serviceLocator);};
-    serviceLocator->registerType<IShapeFileWorkspaceFactory>(creator);
-    serviceLocator->bindType<IShapeFileReader, ShapeFileReader>();
-
+    serviceLocator->bindType<IShapeFileWorkspaceFactory, ShapeFileWorkspaceFactory>();
     return true;
 }
 

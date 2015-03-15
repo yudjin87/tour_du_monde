@@ -29,17 +29,16 @@
 #include "IShapeFileReader.h"
 #include "IWorkspace.h"
 #include "FeatureClass.h"
+#include "ShapeFileReader.h"
 
 #include <geometry/AbstractGeometry.h>
-#include <geometry/IGeometryFactory.h>
+#include <geometry/GeometryFactory.h>
 
-#include <carousel/utils/IServiceLocator.h>
 #include <carousel/logging/LoggerFacade.h>
 
 #include <QtCore/QDir>
 #include <QtCore/QFile>
 #include <QtCore/QFileInfo>
-#include <QtCore/QScopedPointer>
 
 #include <chrono>
 
@@ -48,14 +47,13 @@ namespace
 static LoggerFacade Log = LoggerFacade::createLogger("FeatureDataset");
 }
 
-typedef QScopedPointer<IShapeFileReader> ReaderPtr;
-typedef QScopedPointer<IGeometryFactory> GeometryFactoryPtr;
 const QString ShapeFileFeatureDataset::m_shapeFileExt = ".shp";
 
-ShapeFileFeatureDataset::ShapeFileFeatureDataset(IWorkspace &workspace, const QString &name, IServiceLocator *locator)
+ShapeFileFeatureDataset::ShapeFileFeatureDataset(IWorkspace &workspace, const QString &name)
     : m_workspace(workspace)
+    , m_fileReader(new ShapeFileReader())
+    , m_factory(new GeometryFactory())
     , m_name(name)
-    , m_locator(locator)
     , m_file(nullptr)
     , m_isOpen(false)
 {
@@ -79,15 +77,11 @@ IWorkspace *ShapeFileFeatureDataset::workspace() const
 
 QRectF ShapeFileFeatureDataset::extent()
 {
-    QRectF rect;
     if (!prepareToReading(name()))
-        return rect;
-
-    ReaderPtr reader(m_locator->buildInstance<IShapeFileReader>());
-    reader->setInputDevice(m_file);
+        return QRectF();
 
     ShapeFileHeader header;
-    reader->readHeader(header);
+    m_fileReader->readHeader(header);
 
     finishReading();
 
@@ -117,22 +111,18 @@ IFeatureClass *ShapeFileFeatureDataset::classByName(const QString &className)
 
     const Clock::time_point started = Clock::now();
 
-    ReaderPtr reader(m_locator->buildInstance<IShapeFileReader>());
-    reader->setInputDevice(m_file);
-
     ShapeFileHeader header;
-    reader->readHeader(header);
+    m_fileReader->readHeader(header);
 
-    GeometryFactoryPtr geometryFactory(m_locator->buildInstance<IGeometryFactory>());
-    GeometryType type = geometryFactory->geometryTypeFromShapeType(header.shapeType);
+    GeometryType type = m_factory->geometryTypeFromShapeType(header.shapeType);
     IFeatureClass *featureClass = createFeatureClass(type, header.bBox, absoluteFilePath(className));
 
     while (!m_file->atEnd()) {
         Record record;
         memset(reinterpret_cast<char *>(&record), 0, sizeof(Record));
-        reader->readShapeRecord(record);
+        m_fileReader->readShapeRecord(record);
 
-        AbstractGeometry *geometry = geometryFactory->createGeometry(record.contentLength, record.shapeBlob);
+        AbstractGeometry *geometry = m_factory->createGeometry(record.contentLength, record.shapeBlob);
         geometry->setId(record.recordNumber);
         IFeature *feature = featureClass->createFeature();
         feature->setGeometry(geometry);
@@ -164,17 +154,12 @@ GeometryType ShapeFileFeatureDataset::geometryType()
     if (!prepareToReading(name()))
         return type;
 
-    ReaderPtr reader(m_locator->buildInstance<IShapeFileReader>());
-    reader->setInputDevice(m_file);
-
     ShapeFileHeader header;
-    reader->readHeader(header);
+    m_fileReader->readHeader(header);
 
     finishReading();
 
-    GeometryFactoryPtr geometryFactory(m_locator->buildInstance<IGeometryFactory>());
-
-    return geometryFactory->geometryTypeFromShapeType(header.shapeType);
+    return m_factory->geometryTypeFromShapeType(header.shapeType);
 }
 
 IFeatureClass *ShapeFileFeatureDataset::createFeatureClass(GeometryType geometryType, const QRectF &extent, const QString &source)
@@ -197,6 +182,7 @@ bool ShapeFileFeatureDataset::prepareToReading(const QString &name)
 
     m_file = new QFile(fileInfo.absoluteFilePath());
     m_file->open(QIODevice::ReadOnly);
+    m_fileReader->setInputDevice(m_file);
 
     m_isOpen = true;
 

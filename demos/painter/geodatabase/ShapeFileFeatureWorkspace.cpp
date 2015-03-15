@@ -27,9 +27,8 @@
 #include "ShapeFileFeatureWorkspace.h"
 #include "ShapeFileFeatureDataset.h"
 
-ShapeFileFeatureWorkspace::ShapeFileFeatureWorkspace(const QString &workspacePath, IServiceLocator *locator)
+ShapeFileFeatureWorkspace::ShapeFileFeatureWorkspace(const QString &workspacePath)
     : m_workspacePath(workspacePath)
-    , m_locator(locator)
 {
 }
 
@@ -50,7 +49,7 @@ QString ShapeFileFeatureWorkspace::pathName() const
 
 IFeatureClass *ShapeFileFeatureWorkspace::openFeatureClass(const QString &name)
 {
-    ShapeFileFeatureDataset dataset(*this, name, m_locator);
+    ShapeFileFeatureDataset dataset(*this, name);
     return dataset.classByName(name);
 }
 

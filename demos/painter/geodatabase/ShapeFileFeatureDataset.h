@@ -27,9 +27,10 @@
 #ifndef SHAPEFILEFEATUREDATASET_H
 #define SHAPEFILEFEATUREDATASET_H
 
-#include "IFeatureDataset.h"
+#include "IFeatureDataset.h".
+#include "geodatabase/IShapeFileReader.h"
+#include "geometry/IGeometryFactory.h"
 
-class IServiceLocator;
 class IWorkspace;
 class QFile;
 
@@ -38,7 +39,7 @@ class ShapeFileFeatureDataset : public IFeatureDataset
 {
     Q_OBJECT
 public:
-    ShapeFileFeatureDataset(IWorkspace &workspace, const QString &name, IServiceLocator *locator);
+    ShapeFileFeatureDataset(IWorkspace &workspace, const QString &name);
     ~ShapeFileFeatureDataset();
 
     GeometryType geometryType() override;
@@ -63,8 +64,9 @@ private:
 private:
     static const QString m_shapeFileExt;
     IWorkspace &m_workspace;
+    IShapeFileReaderUPtr m_fileReader;
+    IGeometryFactoryUPtr m_factory;
     QString m_name;
-    IServiceLocator *m_locator;
     QFile *m_file;
     bool m_isOpen;
 };

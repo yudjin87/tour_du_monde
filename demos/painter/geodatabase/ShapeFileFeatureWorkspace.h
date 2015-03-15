@@ -30,13 +30,11 @@
 #include "geodatabase_api.h"
 #include "IFeatureWorkspace.h"
 
-class IServiceLocator;
-
 class GEODATABASE_API ShapeFileFeatureWorkspace : public IFeatureWorkspace
 {
     Q_OBJECT
 public:
-    ShapeFileFeatureWorkspace(const QString &workspacePath, IServiceLocator *locator);
+    ShapeFileFeatureWorkspace(const QString &workspacePath);
     ~ShapeFileFeatureWorkspace();
 
     OwnedList<IDataset *> *datasets(esriDatasetType byType) override;
@@ -47,7 +45,6 @@ public:
 
 private:
     QString m_workspacePath;
-    IServiceLocator *m_locator;
 };
 
 #endif // SHAPEFILEFEATUREWORKSPACE_H
