@@ -32,19 +32,16 @@
 
 #include <QtGui/QPainter>
 
-//------------------------------------------------------------------------------
 SymbolBase::SymbolBase(QObject *parent)
     : ISymbol()
 {
     setParent(parent);
 }
 
-//------------------------------------------------------------------------------
 SymbolBase::~SymbolBase()
 {
 }
 
-//------------------------------------------------------------------------------
 void SymbolBase::draw(const AbstractGeometry *geometry, QPainter *painter)
 {
     switch (geometry->type())
@@ -69,25 +66,21 @@ void SymbolBase::draw(const AbstractGeometry *geometry, QPainter *painter)
     }
 }
 
-//------------------------------------------------------------------------------
 void SymbolBase::drawPoint(const Point &point, QPainter &painter)
 {
     Q_UNUSED(point)
     Q_UNUSED(painter)
 }
 
-//------------------------------------------------------------------------------
 void SymbolBase::drawPolygon(const Polygon &polygon, QPainter &painter)
 {
     Q_UNUSED(polygon)
     Q_UNUSED(painter)
 }
 
-//------------------------------------------------------------------------------
 void SymbolBase::drawPolyline(const Polyline &polyline, QPainter &painter)
 {
     Q_UNUSED(polyline)
     Q_UNUSED(painter)
 }
 
-//------------------------------------------------------------------------------

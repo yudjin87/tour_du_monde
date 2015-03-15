@@ -27,7 +27,6 @@
 #include "componentsystem/ParentDefinition.h"
 #include "componentsystem/Version.h"
 
-//------------------------------------------------------------------------------
 ParentDefinition::ParentDefinition(const QString &name, QObject *parent)
     : QObject(parent)
     , m_name(name)
@@ -35,7 +34,6 @@ ParentDefinition::ParentDefinition(const QString &name, QObject *parent)
 {
 }
 
-//------------------------------------------------------------------------------
 ParentDefinition::ParentDefinition(const QString &name, Version *version, QObject *parent)
     : QObject(parent)
     , m_name(name)
@@ -43,7 +41,6 @@ ParentDefinition::ParentDefinition(const QString &name, Version *version, QObjec
 {
 }
 
-//------------------------------------------------------------------------------
 ParentDefinition::ParentDefinition(const QString &name, int major_version, int minor_version, QObject *parent)
     : QObject(parent)
     , m_name(name)
@@ -51,7 +48,6 @@ ParentDefinition::ParentDefinition(const QString &name, int major_version, int m
 {
 }
 
-//------------------------------------------------------------------------------
 ParentDefinition::ParentDefinition(const QString &name, int major_version, int minor_version, int build_version, QObject *parent)
     : QObject(parent)
     , m_name(name)
@@ -59,7 +55,6 @@ ParentDefinition::ParentDefinition(const QString &name, int major_version, int m
 {
 }
 
-//------------------------------------------------------------------------------
 ParentDefinition::ParentDefinition(const QString &name, int major_version, int minor_version, int build_version, int revision_version, QObject *parent)
     : QObject(parent)
     , m_name(name)
@@ -67,20 +62,17 @@ ParentDefinition::ParentDefinition(const QString &name, int major_version, int m
 {
 }
 
-//------------------------------------------------------------------------------
 ParentDefinition::~ParentDefinition()
 {
     delete m_version;
     m_version = nullptr;
 }
 
-//------------------------------------------------------------------------------
 const QString &ParentDefinition::name() const
 {
     return m_name;
 }
 
-//------------------------------------------------------------------------------
 const Version *ParentDefinition::version() const
 {
     return m_version;

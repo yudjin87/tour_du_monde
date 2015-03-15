@@ -48,7 +48,6 @@ namespace
 static LoggerFacade Log = LoggerFacade::createLogger("FeatureLayer");
 }
 
-//------------------------------------------------------------------------------
 FeatureLayer::FeatureLayer(QObject *parent)
     : AbstractLayer(parent)
     , m_featureClass(nullptr)
@@ -56,7 +55,6 @@ FeatureLayer::FeatureLayer(QObject *parent)
 {
 }
 
-//------------------------------------------------------------------------------
 FeatureLayer::~FeatureLayer()
 {
     delete m_featureClass;
@@ -66,13 +64,11 @@ FeatureLayer::~FeatureLayer()
     m_featureRenderer = nullptr;
 }
 
-//------------------------------------------------------------------------------
 GeometryType FeatureLayer::shapeType() const
 {
     return m_featureClass->shapeType();
 }
 
-//------------------------------------------------------------------------------
 IFeatureRenderer *FeatureLayer::renderer() const
 {
     return m_featureRenderer;
@@ -86,7 +82,6 @@ void FeatureLayer::setRenderer(IFeatureRenderer *newRenderer)
     m_featureRenderer = newRenderer;
 }
 
-//------------------------------------------------------------------------------
 void FeatureLayer::draw(IDisplay *display)
 {
     if (m_featureClass == nullptr)
@@ -102,25 +97,21 @@ void FeatureLayer::draw(IDisplay *display)
     display->postDrawingTask(IDrawingTaskPtr(task));
 }
 
-//------------------------------------------------------------------------------
 QRectF FeatureLayer::extent() const
 {
     return m_featureClass->extent();
 }
 
-//------------------------------------------------------------------------------
 IFeatureClass *FeatureLayer::featureClass()
 {
     return m_featureClass;
 }
 
-//------------------------------------------------------------------------------
 const IFeatureClass *FeatureLayer::featureClass() const
 {
     return m_featureClass;
 }
 
-//------------------------------------------------------------------------------
 void FeatureLayer::setFeatureClass(IFeatureClass *featureClass)
 {
     delete m_featureClass;
@@ -151,20 +142,16 @@ void FeatureLayer::setFeatureClass(IFeatureClass *featureClass)
     m_featureRenderer->setSymbol(defaultSymbol);
 }
 
-//------------------------------------------------------------------------------
 void FeatureLayer::accept(ILayerVisitor &visitor)
 {
     visitor.visit(*this);
 }
 
-//------------------------------------------------------------------------------
 void FeatureLayer::show()
 {
 }
 
-//------------------------------------------------------------------------------
 void FeatureLayer::hide()
 {
 }
 
-//------------------------------------------------------------------------------

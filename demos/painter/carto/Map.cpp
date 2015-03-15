@@ -33,13 +33,11 @@
 
 #include <algorithm>
 
-//------------------------------------------------------------------------------
 namespace
 {
 static LoggerFacade Log = LoggerFacade::createLogger("Map");
 }
 
-//------------------------------------------------------------------------------
 Map::Map(IPainterDocument *parentDocument, IDisplay *display)
     : m_parentDocument(parentDocument)
     , m_display(display)
@@ -47,7 +45,6 @@ Map::Map(IPainterDocument *parentDocument, IDisplay *display)
     connect(m_display, &IDisplay::deviceFrameChanged, this, &Map::onDeviceFrameChanged);
 }
 
-//------------------------------------------------------------------------------
 Map::~Map()
 {
     for (AbstractLayer *layer : m_layers)
@@ -57,13 +54,11 @@ Map::~Map()
 
 }
 
-//------------------------------------------------------------------------------
 void Map::addLayer(AbstractLayer *layer)
 {
     insertLayer(m_layers.size(), layer);
 }
 
-//------------------------------------------------------------------------------
 void Map::insertLayer(const int index, AbstractLayer *layer)
 {
     const bool firstLayer = m_layers.empty();
@@ -95,7 +90,6 @@ void Map::insertLayer(const int index, AbstractLayer *layer)
     emit layerAdded(layer, index);
 }
 
-//------------------------------------------------------------------------------
 AbstractLayer *Map::takeLayer(const int index)
 {
     AbstractLayer *layer = getLayer(index);
@@ -106,7 +100,6 @@ AbstractLayer *Map::takeLayer(const int index)
     return layer;
 }
 
-//------------------------------------------------------------------------------
 int Map::removeLayer(AbstractLayer *layer)
 {
     if (layer == nullptr)
@@ -129,7 +122,6 @@ int Map::removeLayer(AbstractLayer *layer)
     return layerIndex;
 }
 
-//------------------------------------------------------------------------------
 void Map::moveLayer(AbstractLayer *layer, const int index)
 {
     if (layer == nullptr)
@@ -158,13 +150,11 @@ void Map::moveLayer(AbstractLayer *layer, const int index)
     insertLayer(layerIndex, layer);
 }
 
-//------------------------------------------------------------------------------
 AbstractLayer *Map::getLayer(const int index)
 {
     return const_cast<AbstractLayer *>(const_cast<const Map*>(this)->getLayer(index));
 }
 
-//------------------------------------------------------------------------------
 const AbstractLayer *Map::getLayer(const int index) const
 {
     if (m_layers.size() <= index)
@@ -173,13 +163,11 @@ const AbstractLayer *Map::getLayer(const int index) const
     return m_layers.at(index);
 }
 
-//------------------------------------------------------------------------------
 AbstractLayer *Map::getLayer(const QString &name)
 {
     return const_cast<AbstractLayer *>(const_cast<const Map*>(this)->getLayer(name));
 }
 
-//------------------------------------------------------------------------------
 const AbstractLayer *Map::getLayer(const QString &name) const
 {
     const auto byName = [name](const AbstractLayer *l){ return l->name() == name;};
@@ -192,25 +180,21 @@ const AbstractLayer *Map::getLayer(const QString &name) const
     return *it;
 }
 
-//------------------------------------------------------------------------------
 QList<AbstractLayer *> Map::layers() const
 {
     return m_layers;
 }
 
-//------------------------------------------------------------------------------
 IPainterDocument *Map::document()
 {
     return m_parentDocument;
 }
 
-//------------------------------------------------------------------------------
 const IPainterDocument *Map::document() const
 {
     return m_parentDocument;
 }
 
-//------------------------------------------------------------------------------
 void Map::refresh()
 {
     if (m_layers.isEmpty())
@@ -228,4 +212,3 @@ void Map::onDeviceFrameChanged(const QRectF &)
     refresh();
 }
 
-//------------------------------------------------------------------------------

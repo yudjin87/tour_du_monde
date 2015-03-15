@@ -35,17 +35,14 @@
 #include <QtTest/QTest>
 #include <QtTest/QSignalSpy>
 
-//------------------------------------------------------------------------------
 typedef AutoComponentProvider<FileComponentProvider> AutoFileComponentProvider;
 
-//------------------------------------------------------------------------------
 FileComponentProviderTest::FileComponentProviderTest(QObject *parent)
     : QObject(parent)
     , definitionPath(pathToComponentDefinition("TestComponent2"))
 {
 }
 
-//------------------------------------------------------------------------------
 void FileComponentProviderTest::shouldSetupFileName()
 {
     AutoFileComponentProvider provider(definitionPath);
@@ -53,7 +50,6 @@ void FileComponentProviderTest::shouldSetupFileName()
     QCOMPARE(provider.path(), definitionPath);
 }
 
-//------------------------------------------------------------------------------
 void FileComponentProviderTest::shouldNotSetupUnexistingFileName()
 {
     AutoFileComponentProvider provider("/path/to/Nowhere.definition");
@@ -61,7 +57,6 @@ void FileComponentProviderTest::shouldNotSetupUnexistingFileName()
     QVERIFY(provider.path().isEmpty());
 }
 
-//------------------------------------------------------------------------------
 void FileComponentProviderTest::initialize_shouldReturnTrue()
 {
     MockFileComponentProvider provider(definitionPath);
@@ -72,7 +67,6 @@ void FileComponentProviderTest::initialize_shouldReturnTrue()
     QCOMPARE(provider.isInitialized(), true);
 }
 
-//------------------------------------------------------------------------------
 void FileComponentProviderTest::initialize_shouldReturnFalseIfLoadingReturnsNull()
 {
     AutoFileComponentProvider provider("/path/to/Nowhere.definition");
@@ -82,7 +76,6 @@ void FileComponentProviderTest::initialize_shouldReturnFalseIfLoadingReturnsNull
     QCOMPARE(provider.isInitialized(), false);
 }
 
-//------------------------------------------------------------------------------
 void FileComponentProviderTest::initialize_shouldCallLoadComponent()
 {
     MockFileComponentProvider provider;
@@ -92,7 +85,6 @@ void FileComponentProviderTest::initialize_shouldCallLoadComponent()
     QCOMPARE(provider.loadCalled, 1);
 }
 
-//------------------------------------------------------------------------------
 void FileComponentProviderTest::loadComponent_shouldSetInvalidStateIfPathIsEmpty()
 {
     AutoFileComponentProvider provider;
@@ -101,7 +93,6 @@ void FileComponentProviderTest::loadComponent_shouldSetInvalidStateIfPathIsEmpty
     QCOMPARE(result->state(), IComponent::Invalid);
 }
 
-//------------------------------------------------------------------------------
 void FileComponentProviderTest::loadComponent_shouldSetDiscoveredStateIfParserReturnFalse()
 {
     MockFileComponentProvider provider(definitionPath, new FakeDefinitionParser());
@@ -111,7 +102,6 @@ void FileComponentProviderTest::loadComponent_shouldSetDiscoveredStateIfParserRe
     QCOMPARE(result->state(), IComponent::Discovered);
 }
 
-//------------------------------------------------------------------------------
 void FileComponentProviderTest::loadComponent_shouldSetDiscoveredStateIfConstructorReturnFalse()
 {
     MockFileComponentProvider provider(definitionPath);
@@ -122,7 +112,6 @@ void FileComponentProviderTest::loadComponent_shouldSetDiscoveredStateIfConstruc
     QCOMPARE(result->state(), IComponent::Discovered);
 }
 
-//------------------------------------------------------------------------------
 void FileComponentProviderTest::loadComponent_shouldLoadComponent()
 {
     MockFileComponentProvider provider(definitionPath);
@@ -133,7 +122,6 @@ void FileComponentProviderTest::loadComponent_shouldLoadComponent()
     QCOMPARE(result->state(), IComponent::Initialized);
 }
 
-//------------------------------------------------------------------------------
 void FileComponentProviderTest::loadComponent_shouldCallReadOnParser()
 {
     MockFileComponentProvider provider(definitionPath, new FakeDefinitionParser());
@@ -144,7 +132,6 @@ void FileComponentProviderTest::loadComponent_shouldCallReadOnParser()
     QCOMPARE(spy.size(), 1);
 }
 
-//------------------------------------------------------------------------------
 void FileComponentProviderTest::loadComponent_shouldCallConstructOnConstructor()
 {
     MockFileComponentProvider provider(definitionPath);
@@ -156,7 +143,6 @@ void FileComponentProviderTest::loadComponent_shouldCallConstructOnConstructor()
     QCOMPARE(spy.size(), 1);
 }
 
-//------------------------------------------------------------------------------
 void FileComponentProviderTest::loadComponent_shouldPopulateWithComponent()
 {
     MockFileComponentProvider provider(definitionPath);
@@ -167,7 +153,6 @@ void FileComponentProviderTest::loadComponent_shouldPopulateWithComponent()
     QCOMPARE(provider.components().size(), 1);
 }
 
-//------------------------------------------------------------------------------
 void FileComponentProviderTest::loadComponent_shouldNotPopulateComponentIfItsInitializationFault()
 {
     MockFileComponentProvider provider(definitionPath);
@@ -179,7 +164,6 @@ void FileComponentProviderTest::loadComponent_shouldNotPopulateComponentIfItsIni
     QCOMPARE(provider.components().size(), 0);
 }
 
-//------------------------------------------------------------------------------
 void FileComponentProviderTest::loadComponent_shouldSetParsedStateIfConstructorReturnTrueButInitializationFailed()
 {
     MockFileComponentProvider provider(definitionPath);
@@ -191,4 +175,3 @@ void FileComponentProviderTest::loadComponent_shouldSetParsedStateIfConstructorR
     QCOMPARE(result->state(), IComponent::Parsed);
 }
 
-//------------------------------------------------------------------------------

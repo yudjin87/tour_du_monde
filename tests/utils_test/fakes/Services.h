@@ -3,7 +3,6 @@
 
 #include "IService.h"
 
-//------------------------------------------------------------------------------
 class Service1 : public IService
 {
     Q_OBJECT
@@ -14,6 +13,5 @@ public:
     static int instancesCount;
 };
 
-//------------------------------------------------------------------------------
 
 #endif // SERVICE1_H

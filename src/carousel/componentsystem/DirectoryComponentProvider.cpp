@@ -35,16 +35,13 @@
 #include <QtCore/QFileInfoList>
 #include <QtCore/QScopedPointer>
 
-//------------------------------------------------------------------------------
 namespace
 {
 static LoggerFacade Log = LoggerFacade::createLogger("DirectoryComponentProvider");
 }
 
-//------------------------------------------------------------------------------
 typedef QScopedPointer<FileComponentProvider> FileComponentProviderPtr;
 
-//------------------------------------------------------------------------------
 DirectoryComponentProvider::DirectoryComponentProvider(QObject *parent)
     : m_path("")
     , m_definitionExtension("*.definition")
@@ -56,7 +53,6 @@ DirectoryComponentProvider::DirectoryComponentProvider(QObject *parent)
     setParent(parent);
 }
 
-//------------------------------------------------------------------------------
 DirectoryComponentProvider::DirectoryComponentProvider(const QString &path, QObject *parent)
     : m_path("")
     , m_definitionExtension("*.definition")
@@ -69,7 +65,6 @@ DirectoryComponentProvider::DirectoryComponentProvider(const QString &path, QObj
     setPath(path);
 }
 
-//------------------------------------------------------------------------------
 DirectoryComponentProvider::DirectoryComponentProvider(const QString &path, const QString &definitionExtension, QObject *parent)
     : m_path("")
     , m_definitionExtension(definitionExtension)
@@ -82,20 +77,17 @@ DirectoryComponentProvider::DirectoryComponentProvider(const QString &path, cons
     setPath(path);
 }
 
-//------------------------------------------------------------------------------
 DirectoryComponentProvider::~DirectoryComponentProvider()
 {
     delete m_provider;
     m_provider = nullptr;
 }
 
-//------------------------------------------------------------------------------
 QList<IComponent *> DirectoryComponentProvider::components() const
 {
     return m_provider->components();
 }
 
-//------------------------------------------------------------------------------
 bool DirectoryComponentProvider::initialize()
 {
     if (m_alreadyInit)
@@ -106,19 +98,16 @@ bool DirectoryComponentProvider::initialize()
     return m_alreadyInit;
 }
 
-//------------------------------------------------------------------------------
 bool DirectoryComponentProvider::isInitialized() const
 {
     return m_alreadyInit;
 }
 
-//------------------------------------------------------------------------------
 void DirectoryComponentProvider::registerComponent(IComponent *component)
 {
     m_provider->registerComponent(component);
 }
 
-//------------------------------------------------------------------------------
 void DirectoryComponentProvider::setPath(const QString &path)
 {
     QDir libDir;
@@ -136,43 +125,36 @@ void DirectoryComponentProvider::setPath(const QString &path)
     m_path = getCheckedDirectoryPath(libDir.absolutePath());
 }
 
-//------------------------------------------------------------------------------
 void DirectoryComponentProvider::setExtension(const QString &definitionExtension)
 {
     m_definitionExtension = definitionExtension;
 }
 
-//------------------------------------------------------------------------------
 void DirectoryComponentProvider::setFilters(QDir::Filters filters)
 {
     m_filters = filters;
 }
 
-//------------------------------------------------------------------------------
 void DirectoryComponentProvider::setFlags(QDirIterator::IteratorFlags flags)
 {
     m_flags = flags;
 }
 
-//------------------------------------------------------------------------------
 const QString &DirectoryComponentProvider::path() const
 {
     return m_path;
 }
 
-//------------------------------------------------------------------------------
 const QString &DirectoryComponentProvider::extension() const
 {
     return m_definitionExtension;
 }
 
-//------------------------------------------------------------------------------
 QDirIterator::IteratorFlags DirectoryComponentProvider::flags() const
 {
     return m_flags;
 }
 
-//------------------------------------------------------------------------------
 QList<IComponent *> DirectoryComponentProvider::update()
 {
     if (m_path.isEmpty()) {
@@ -208,26 +190,22 @@ QList<IComponent *> DirectoryComponentProvider::update()
     return discoveredComponents;
 }
 
-//------------------------------------------------------------------------------
 QDir::Filters DirectoryComponentProvider::filters() const
 {
     return m_filters;
 }
 
-//------------------------------------------------------------------------------
 bool DirectoryComponentProvider::onInitialize()
 {
     QList<IComponent *> discoveredComponents = update();
     return !discoveredComponents.empty();
 }
 
-//------------------------------------------------------------------------------
 FileComponentProvider *DirectoryComponentProvider::createFileComponentProvider(const QString &definitionPath)
 {
     return new FileComponentProvider(definitionPath);
 }
 
-//------------------------------------------------------------------------------
 QString DirectoryComponentProvider::getCheckedDirectoryPath(const QString &path)
 {
     QFileInfo directoryToComponents(path);
@@ -239,4 +217,3 @@ QString DirectoryComponentProvider::getCheckedDirectoryPath(const QString &path)
     return directoryToComponents.canonicalFilePath();
 }
 
-//------------------------------------------------------------------------------

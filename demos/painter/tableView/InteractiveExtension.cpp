@@ -37,13 +37,11 @@
 
 #include <QtGui/QDockWidget>
 
-//------------------------------------------------------------------------------
 InteractiveExtension::InteractiveExtension(QObject *parent /*= nullptr*/)
 {
     setParent(parent);
 }
 
-//------------------------------------------------------------------------------
 void InteractiveExtension::configureGui(ICatalogs &i_inCatalogs, AbstractApplication &i_application)
 {
     IPainterDocumentController* docController = i_application.serviceLocator().locate<IPainterDocumentController>();
@@ -52,4 +50,3 @@ void InteractiveExtension::configureGui(ICatalogs &i_inCatalogs, AbstractApplica
     //i_inCatalogs.dockWidgetCatalog().addDockWidget(new ShapesWidget(new ShapesModel(doc->shapes().shapes())), "Shapes widget");
 }
 
-//------------------------------------------------------------------------------

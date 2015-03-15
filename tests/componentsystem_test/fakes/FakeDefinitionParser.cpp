@@ -5,7 +5,6 @@
 #include <QtCore/QCoreApplication>
 #include <QtCore/QDir>
 
-//------------------------------------------------------------------------------
 FakeDefinitionParser::FakeDefinitionParser()
     : QObject()
     , m_componentName("TestComponent2")
@@ -23,13 +22,11 @@ FakeDefinitionParser::FakeDefinitionParser()
     m_componentLocation = absolutePath.relativeFilePath(pathToComponent("TestComponent2", false));
 }
 
-//------------------------------------------------------------------------------
 const QString &FakeDefinitionParser::error() const
 {
     return m_error;
 }
 
-//------------------------------------------------------------------------------
 bool FakeDefinitionParser::read(const QString &text)
 {
     Q_UNUSED(text)
@@ -37,7 +34,6 @@ bool FakeDefinitionParser::read(const QString &text)
     return m_readResult;
 }
 
-//------------------------------------------------------------------------------
 bool FakeDefinitionParser::read(const QByteArray &text)
 {
     Q_UNUSED(text)
@@ -45,7 +41,6 @@ bool FakeDefinitionParser::read(const QByteArray &text)
     return m_readResult;
 }
 
-//------------------------------------------------------------------------------
 bool FakeDefinitionParser::read(QIODevice *dev)
 {
     Q_UNUSED(dev)
@@ -53,52 +48,43 @@ bool FakeDefinitionParser::read(QIODevice *dev)
     return m_readResult;
 }
 
-//------------------------------------------------------------------------------
 const QString &FakeDefinitionParser::componentName() const
 {
     return m_componentName;
 }
 
-//------------------------------------------------------------------------------
 const QString &FakeDefinitionParser::componentShortName() const
 {
     return m_shortName;
 }
 
-//------------------------------------------------------------------------------
 const QString &FakeDefinitionParser::componentLocation() const
 {
     return m_componentLocation;
 }
 
-//------------------------------------------------------------------------------
 const QString &FakeDefinitionParser::description() const
 {
     return m_description;
 }
 
-//------------------------------------------------------------------------------
 const IDefinitionParser::ParentsList &FakeDefinitionParser::parents() const
 {
     return m_parents;
 }
 
-//------------------------------------------------------------------------------
 const QString &FakeDefinitionParser::productName() const
 {
     return m_productName;
 }
 
-//------------------------------------------------------------------------------
 const QString &FakeDefinitionParser::provider() const
 {
     return m_provider;
 }
 
-//------------------------------------------------------------------------------
 const QString &FakeDefinitionParser::version() const
 {
     return m_version;
 }
 
-//------------------------------------------------------------------------------

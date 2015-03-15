@@ -41,14 +41,12 @@
 
 #include <QtCore/QMimeData>
 
-//------------------------------------------------------------------------------
 namespace
 {
 static const char* LAYER_NAME_MIME = "application/layer.name.list"; // TODO: constexpr, when MSVC will support it
 static LoggerFacade Log = LoggerFacade::createLogger("LayerTreeModel");
 }
 
-//------------------------------------------------------------------------------
 LayerTreeModel::LayerTreeModel(IMap *map, IServiceLocator *serviceLocator, QObject *parent)
     : QStandardItemModel(parent)
     , m_map(map)
@@ -62,7 +60,6 @@ LayerTreeModel::LayerTreeModel(IMap *map, IServiceLocator *serviceLocator, QObje
     connect(map, &IMap::layerRemoved, this, &LayerTreeModel::onLayerRemoved);
 }
 
-//------------------------------------------------------------------------------
 void LayerTreeModel::showPropertyDialog(const QModelIndex &index)
 {
     if (!index.isValid())
@@ -83,7 +80,6 @@ void LayerTreeModel::showPropertyDialog(const QModelIndex &index)
     dlg->show();
 }
 
-//------------------------------------------------------------------------------
 Qt::ItemFlags LayerTreeModel::flags(const QModelIndex &index) const
 {
     Qt::ItemFlags defaultFlags = QStandardItemModel::flags(index);
@@ -94,7 +90,6 @@ Qt::ItemFlags LayerTreeModel::flags(const QModelIndex &index) const
     return Qt::ItemIsDropEnabled | defaultFlags;
 }
 
-//------------------------------------------------------------------------------
 QStringList LayerTreeModel::mimeTypes() const
 {
     QStringList types;
@@ -107,7 +102,6 @@ struct IndexMimeData : public QMimeData
     QModelIndexList indexes;
 };
 
-//------------------------------------------------------------------------------
 QMimeData *LayerTreeModel::mimeData(const QModelIndexList &indexes) const
 {
     IndexMimeData *mimeData = new IndexMimeData();
@@ -135,7 +129,6 @@ QMimeData *LayerTreeModel::mimeData(const QModelIndexList &indexes) const
     return mimeData;
 }
 
-//------------------------------------------------------------------------------
 bool LayerTreeModel::canDropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent) const
 {
     Q_UNUSED(action);
@@ -156,7 +149,6 @@ bool LayerTreeModel::canDropMimeData(const QMimeData *data, Qt::DropAction actio
     return true;
 }
 
-//------------------------------------------------------------------------------
 bool LayerTreeModel::dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent)
 {
     if (!canDropMimeData(data, action, row, column, parent))
@@ -248,7 +240,6 @@ bool LayerTreeModel::dropMimeData(const QMimeData *data, Qt::DropAction action, 
 //    return "Layers";
 //}
 
-//------------------------------------------------------------------------------
 void LayerTreeModel::onLayerAdded(AbstractLayer *layer, const int index)
 {
     LayerItemCreator itemCreator;
@@ -256,16 +247,13 @@ void LayerTreeModel::onLayerAdded(AbstractLayer *layer, const int index)
     insertRow(index, layerItem);
 }
 
-//------------------------------------------------------------------------------
 void LayerTreeModel::onLayerRemoved(AbstractLayer *, const int index)
 {
     removeRow(index);
 }
 
-//------------------------------------------------------------------------------
 void LayerTreeModel::onMapRefreshed()
 {
     emit dataChanged(QModelIndex(), QModelIndex());
 }
 
-//------------------------------------------------------------------------------

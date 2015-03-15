@@ -19,7 +19,6 @@ private:
     bool m_initialiseCalled;
 };
 
-//------------------------------------------------------------------------------
 class CarouselBootloaderProviderMock : public CarouselBootloader
 {
 public:

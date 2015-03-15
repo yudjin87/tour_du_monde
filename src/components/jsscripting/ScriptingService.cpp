@@ -40,13 +40,11 @@
 #include <QtWidgets/QMainWindow>
 #include <QtScript/QScriptEngine>
 
-//------------------------------------------------------------------------------
 namespace
 {
 static LoggerFacade Log = LoggerFacade::createLogger("ScriptingService");
 }
 
-//------------------------------------------------------------------------------
 ScriptingService::ScriptingService(IServiceLocator *locator, IComponentManager *manager, QObject *parent)
     : m_componentManager(manager)
     , m_scriptExtensionConfigurationDelegate(new CarouselScriptEngineConfigurationDelegate(locator, this))
@@ -58,7 +56,6 @@ ScriptingService::ScriptingService(IServiceLocator *locator, IComponentManager *
     connect(m_componentManager, &IComponentManager::startedUp, this, &ScriptingService::onComponentManagerStartedUp);
 }
 
-//------------------------------------------------------------------------------
 ScriptingService::ScriptingService(IServiceLocator *locator, IComponentManager *manager, const QString &startScript, QObject *parent)
     : m_componentManager(manager)
     , m_scriptExtensionConfigurationDelegate(new CarouselScriptEngineConfigurationDelegate(locator, this))
@@ -71,24 +68,20 @@ ScriptingService::ScriptingService(IServiceLocator *locator, IComponentManager *
     connect(m_componentManager, &IComponentManager::startedUp, this, &ScriptingService::runStartScript, Qt::QueuedConnection);
 }
 
-//------------------------------------------------------------------------------
 ScriptingService::~ScriptingService()
 {
 }
 
-//------------------------------------------------------------------------------
 IScriptConsole *ScriptingService::console()
 {
     return m_console;
 }
 
-//------------------------------------------------------------------------------
 IScriptCollection *ScriptingService::scripts()
 {
     return m_scripts;
 }
 
-//------------------------------------------------------------------------------
 QScriptEngine *ScriptingService::createEngine(IOutputHandler *output, QObject *parent)
 {
     Log.d("Creating new script engine.");
@@ -98,19 +91,16 @@ QScriptEngine *ScriptingService::createEngine(IOutputHandler *output, QObject *p
     return engine;
 }
 
-//------------------------------------------------------------------------------
 IScriptEngineConfigurationDelegate *ScriptingService::delegate()
 {
     return m_scriptExtensionConfigurationDelegate;
 }
 
-//------------------------------------------------------------------------------
 const IScriptEngineConfigurationDelegate *ScriptingService::delegate() const
 {
     return m_scriptExtensionConfigurationDelegate;
 }
 
-//------------------------------------------------------------------------------
 void ScriptingService::setDelegate(IScriptEngineConfigurationDelegate *delegate)
 {
     delete m_scriptExtensionConfigurationDelegate;
@@ -122,7 +112,6 @@ void ScriptingService::setDelegate(IScriptEngineConfigurationDelegate *delegate)
     setUpEngine(m_console->engine(), m_console);
 }
 
-//------------------------------------------------------------------------------
 void ScriptingService::onComponentManagerStartedUp()
 {
     setUpEngine(m_console->engine(), m_console);
@@ -130,7 +119,6 @@ void ScriptingService::onComponentManagerStartedUp()
     connect(m_componentManager, &IComponentManager::componentStarted, this, &ScriptingService::onComponentStartedUp);
 }
 
-//------------------------------------------------------------------------------
 void ScriptingService::onComponentStartedUp(IComponent *component)
 {
     if (m_scriptExtensionConfigurationDelegate == nullptr)
@@ -139,7 +127,6 @@ void ScriptingService::onComponentStartedUp(IComponent *component)
     m_scriptExtensionConfigurationDelegate->configureFromComponent(component, m_console->engine());
 }
 
-//------------------------------------------------------------------------------
 void ScriptingService::setUpEngine(QScriptEngine *engine, IOutputHandler *output)
 {
     if (m_scriptExtensionConfigurationDelegate == nullptr) {
@@ -154,7 +141,6 @@ void ScriptingService::setUpEngine(QScriptEngine *engine, IOutputHandler *output
     }
 }
 
-//------------------------------------------------------------------------------
 void ScriptingService::runStartScript()
 {
     if (m_startScript.isEmpty())
@@ -169,4 +155,3 @@ void ScriptingService::runStartScript()
     }
 }
 
-//------------------------------------------------------------------------------

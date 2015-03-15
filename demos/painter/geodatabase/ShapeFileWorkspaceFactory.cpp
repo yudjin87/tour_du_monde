@@ -30,23 +30,19 @@
 #include "FeatureClass.h"
 #include "ShapeFileFeatureWorkspace.h"
 
-//------------------------------------------------------------------------------
 ShapeFileWorkspaceFactory::ShapeFileWorkspaceFactory(IServiceLocator *locator)
     : m_locator(locator)
 {
     setObjectName("ShapeFileWorkspaceFactory");
 }
 
-//------------------------------------------------------------------------------
 ShapeFileWorkspaceFactory::~ShapeFileWorkspaceFactory()
 {
     m_locator = nullptr;
 }
 
-//------------------------------------------------------------------------------
 IWorkspace *ShapeFileWorkspaceFactory::openFromFile(const QString &workspacePath)
 {
     return new ShapeFileFeatureWorkspace(workspacePath, m_locator);
 }
 
-//------------------------------------------------------------------------------

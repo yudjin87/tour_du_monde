@@ -43,20 +43,17 @@
 
 #include <QtCore/QSettings>
 
-//------------------------------------------------------------------------------
 namespace
 {
 static LoggerFacade Log = LoggerFacade::createLogger("CarouselComponentConfigurationDelegate");
 }
 
-//------------------------------------------------------------------------------
 CarouselComponentConfigurationDelegate::CarouselComponentConfigurationDelegate(IServiceLocator *serviceLocator)
     : m_changes()
     , m_serviceLocator(serviceLocator)
 {
 }
 
-//------------------------------------------------------------------------------
 CarouselComponentConfigurationDelegate::~CarouselComponentConfigurationDelegate()
 {
     for (auto it = m_changes.begin(); it != m_changes.end(); ++it) {
@@ -67,7 +64,6 @@ CarouselComponentConfigurationDelegate::~CarouselComponentConfigurationDelegate(
     m_changes.clear();
 }
 
-//------------------------------------------------------------------------------
 void CarouselComponentConfigurationDelegate::configure(IComponent *component, ICatalogs &catalogs)
 {
     // TODO: move it to the generic delegate (see CarouselScriptEngineConfigurationDelegate)
@@ -122,7 +118,6 @@ void CarouselComponentConfigurationDelegate::configure(IComponent *component, IC
           .arg(changes->removedMenus().size()));
 }
 
-//------------------------------------------------------------------------------
 void CarouselComponentConfigurationDelegate::deconfigure(IComponent *component, ICatalogs &catalogs)
 {
     IInteractiveExtension *interactiveExtension = component->extension<IInteractiveExtension>();
@@ -160,10 +155,8 @@ void CarouselComponentConfigurationDelegate::deconfigure(IComponent *component, 
 
 }
 
-//------------------------------------------------------------------------------
 const ConfigurationChanges *CarouselComponentConfigurationDelegate::changesByComponent(IComponent *component) const
 {
     return m_changes[component];
 }
 
-//------------------------------------------------------------------------------

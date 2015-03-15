@@ -37,18 +37,15 @@
 #include <QtCore/QScopedPointer>
 #include <QtCore/QtAlgorithms>
 
-//------------------------------------------------------------------------------
 namespace
 {
 static LoggerFacade Log = LoggerFacade::createLogger("ComponentInstaller");
 }
 
-//------------------------------------------------------------------------------
 static const char *DEFAULT_DIRECTORY = "./components";
 
 typedef QScopedPointer<IComponentDependencies> IComponentDependenciesPtr;
 
-//------------------------------------------------------------------------------
 ComponentInstaller::ComponentInstaller(const QString &destinationDirectory)
     : m_destinationDirectory(destinationDirectory)
 #ifdef Q_OS_WIN32
@@ -59,31 +56,26 @@ ComponentInstaller::ComponentInstaller(const QString &destinationDirectory)
 {
 }
 
-//------------------------------------------------------------------------------
 ComponentInstaller::~ComponentInstaller()
 {
     deleteComponents();
 }
 
-//------------------------------------------------------------------------------
 QString ComponentInstaller::defaultInstallDir()
 {
     return DEFAULT_DIRECTORY;
 }
 
-//------------------------------------------------------------------------------
 bool ComponentInstaller::installComponentInSeparateDir() const
 {
     return m_separateDirForComponent;
 }
 
-//------------------------------------------------------------------------------
 void ComponentInstaller::setInstallComponentInSeparateDir(bool separate)
 {
     m_separateDirForComponent = separate;
 }
 
-//------------------------------------------------------------------------------
 void ComponentInstaller::addExistedComponent(IComponent *component)
 {
     if (component == nullptr)
@@ -92,25 +84,21 @@ void ComponentInstaller::addExistedComponent(IComponent *component)
     m_existedComponents.push_back(component);
 }
 
-//------------------------------------------------------------------------------
 QList<IComponent *> ComponentInstaller::existedComponents() const
 {
     return m_existedComponents;
 }
 
-//------------------------------------------------------------------------------
 const QString &ComponentInstaller::installDirectory() const
 {
     return m_destinationDirectory;
 }
 
-//------------------------------------------------------------------------------
 void ComponentInstaller::setInstallDirectory(const QString &destinationDirectory)
 {
     m_destinationDirectory = destinationDirectory;
 }
 
-//------------------------------------------------------------------------------
 DependenciesSolvingResult ComponentInstaller::tryToInstall(const QStringList &componentNames)
 {
     deleteComponents();
@@ -157,7 +145,6 @@ DependenciesSolvingResult ComponentInstaller::tryToInstall(const QStringList &co
     return DependenciesSolvingResult(m_componentsToInstall);
 }
 
-//------------------------------------------------------------------------------
 QStringList ComponentInstaller::install()
 {
     if (m_componentsToInstall.isEmpty()) {
@@ -192,13 +179,11 @@ QStringList ComponentInstaller::install()
     return copiedDefinitions;
 }
 
-//------------------------------------------------------------------------------
 IComponentDependencies *ComponentInstaller::createDependencies()
 {
     return new ComponentDependencies();
 }
 
-//------------------------------------------------------------------------------
 QString ComponentInstaller::createComponentDirectory(const QString &componentName)
 {
     QString componentDirectoryPath = m_destinationDirectory + QDir::separator();
@@ -213,11 +198,9 @@ QString ComponentInstaller::createComponentDirectory(const QString &componentNam
     return componentDirectoryPath;
 }
 
-//------------------------------------------------------------------------------
 void ComponentInstaller::deleteComponents()
 {
     qDeleteAll(m_componentsToInstall);
     m_componentsToInstall.clear();
 }
 
-//------------------------------------------------------------------------------

@@ -37,7 +37,6 @@
 #include <QtGui/QTextDocument>
 #include <QtTest/QtTest>
 
-//------------------------------------------------------------------------------
 ScriptUnitTest::ScriptUnitTest(QObject *parent)
     : QObject(parent)
     , m_testScriptPath(QCoreApplication::applicationDirPath() + "/scripts/TestScript.js")
@@ -45,7 +44,6 @@ ScriptUnitTest::ScriptUnitTest(QObject *parent)
 {
 }
 
-//------------------------------------------------------------------------------
 void ScriptUnitTest::shouldReturnAbsoluteFilePath()
 {
     ScriptUnit unit("scripts/TestScript.js", nullptr);
@@ -58,7 +56,6 @@ void ScriptUnitTest::shouldReturnAbsoluteFilePath()
 
 }
 
-//------------------------------------------------------------------------------
 void ScriptUnitTest::load_shouldLoadScript()
 {
     ScriptUnit unit(m_testScriptPath, nullptr);
@@ -69,14 +66,12 @@ void ScriptUnitTest::load_shouldLoadScript()
     QVERIFY(unit.isLoaded());
 }
 
-//------------------------------------------------------------------------------
 void ScriptUnitTest::load_shouldNotLoadScriptWithIncorrectFileName()
 {
     ScriptUnit unit("/nowhere/TestScript.js", nullptr);
     QVERIFY(!unit.load());
 }
 
-//------------------------------------------------------------------------------
 void ScriptUnitTest::load_shouldNotChangeDocumentModifiedFlag()
 {
     ScriptUnit unit(m_testScriptPath, nullptr);
@@ -85,7 +80,6 @@ void ScriptUnitTest::load_shouldNotChangeDocumentModifiedFlag()
     QVERIFY(!unit.script()->isModified());
 }
 
-//------------------------------------------------------------------------------
 void ScriptUnitTest::save_shouldResetDocumentModifiedFlag()
 {
     ScriptUnit unit(m_testScriptPath, nullptr);
@@ -96,7 +90,6 @@ void ScriptUnitTest::save_shouldResetDocumentModifiedFlag()
     QVERIFY(!unit.script()->isModified());
 }
 
-//------------------------------------------------------------------------------
 void ScriptUnitTest::save_shouldNotResetDocumentModifiedFlagIfSavingFailed()
 {
     FakeScriptUnit unit(m_testScriptPath);
@@ -107,7 +100,6 @@ void ScriptUnitTest::save_shouldNotResetDocumentModifiedFlagIfSavingFailed()
     QVERIFY(unit.script()->isModified());
 }
 
-//------------------------------------------------------------------------------
 void ScriptUnitTest::saveAs_shouldChangeFileName()
 {
     FakeScriptUnit unit(m_testScriptPath); unit.saveToFileResult = true;
@@ -117,7 +109,6 @@ void ScriptUnitTest::saveAs_shouldChangeFileName()
     QVERIFY(unit.absoluteFilePath() == "/new/file.name");
 }
 
-//------------------------------------------------------------------------------
 void ScriptUnitTest::saveAs_shouldNotChangeFileNameIfSavingFailed()
 {
     FakeScriptUnit unit(m_testScriptPath);
@@ -131,7 +122,6 @@ void ScriptUnitTest::saveAs_shouldNotChangeFileNameIfSavingFailed()
 #endif // Q_WS_WIN
 }
 
-//------------------------------------------------------------------------------
 QScriptEngine *ScriptUnitTest::createEngine(IOutputHandler *output, QObject *parent)
 {
     QScriptEngine *engine = new QScriptEngine(parent);
@@ -141,14 +131,12 @@ QScriptEngine *ScriptUnitTest::createEngine(IOutputHandler *output, QObject *par
     return engine;
 }
 
-//------------------------------------------------------------------------------
 void ScriptUnitTest::onTimer_isRunningShouldReturnTrue()
 {
     QTest::qVerify(m_unit != nullptr, "m_unit != nullptr", "", __FILE__, __LINE__);
     QTest::qVerify(m_unit->isRunning(), "m_unit->isRunning()", "", __FILE__, __LINE__);
 }
 
-//------------------------------------------------------------------------------
 void ScriptUnitTest::isRunning_shouldReturnTrueForEvaluatedScript()
 {
     ScriptUnit unit(this); m_unit = &unit;
@@ -163,7 +151,6 @@ void ScriptUnitTest::isRunning_shouldReturnTrueForEvaluatedScript()
     m_unit = nullptr;
 }
 
-//------------------------------------------------------------------------------
 void ScriptUnitTest::onTimer_abort_shouldAbortCurrentScript()
 {
     m_unit->abort();
@@ -173,7 +160,6 @@ void ScriptUnitTest::onTimer_abort_shouldAbortCurrentScript()
     // QTest::qVerify(!m_unit->isRunning(), "!m_unit->isRunning()", "", __FILE__, __LINE__);
 }
 
-//------------------------------------------------------------------------------
 void ScriptUnitTest::abort_shouldAbortCurrentScript()
 {
     ScriptUnit unit(this); m_unit = &unit;
@@ -186,4 +172,3 @@ void ScriptUnitTest::abort_shouldAbortCurrentScript()
     m_unit = nullptr;
 }
 
-//------------------------------------------------------------------------------

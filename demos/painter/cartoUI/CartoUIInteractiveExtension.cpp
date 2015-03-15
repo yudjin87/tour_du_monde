@@ -46,13 +46,11 @@
 #include <QtWidgets/QTreeView>
 #include <QtWidgets/QToolBar>
 
-//------------------------------------------------------------------------------
 CartoUIInteractiveExtension::CartoUIInteractiveExtension(QObject *parent /*= nullptr*/)
 {
     setParent(parent);
 }
 
-//------------------------------------------------------------------------------
 void CartoUIInteractiveExtension::configureGui(ICatalogs &inCatalogs, IServiceLocator *serviceLocator)
 {
     IPainterDocumentController* docController = serviceLocator->locate<IPainterDocumentController>();
@@ -82,4 +80,3 @@ void CartoUIInteractiveExtension::configureGui(ICatalogs &inCatalogs, IServiceLo
     toolMenu->addAction(addShape);
 }
 
-//------------------------------------------------------------------------------

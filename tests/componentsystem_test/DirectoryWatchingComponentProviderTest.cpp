@@ -36,16 +36,13 @@
 #include <QtTest/QTest>
 #include <QtTest/QSignalSpy>
 
-//------------------------------------------------------------------------------
 typedef AutoComponentProvider<MockDirectoryWatchingComponentProvider> AutoDirectoryWatchingComponentProvider;
 
-//------------------------------------------------------------------------------
 DirectoryWatchingComponentProviderTest::DirectoryWatchingComponentProviderTest(QObject *parent)
     : QObject(parent)
 {
 }
 
-//------------------------------------------------------------------------------
 void DirectoryWatchingComponentProviderTest::initialize_shouldCallProviderInitialize()
 {
     MockDirectoryComponentProvider *mock = new MockDirectoryComponentProvider();
@@ -55,7 +52,6 @@ void DirectoryWatchingComponentProviderTest::initialize_shouldCallProviderInitia
     QVERIFY(mock->initializeCalled);
 }
 
-//------------------------------------------------------------------------------
 void DirectoryWatchingComponentProviderTest::initialize_shouldCreateWatcher()
 {
     MockDirectoryComponentProvider *mock = new MockDirectoryComponentProvider();
@@ -65,7 +61,6 @@ void DirectoryWatchingComponentProviderTest::initialize_shouldCreateWatcher()
     QVERIFY(provider.mockWatcher != nullptr);
 }
 
-//------------------------------------------------------------------------------
 void DirectoryWatchingComponentProviderTest::initialize_shouldCreateWatcherIfInternalProviderInitializationFault()
 {
     MockDirectoryComponentProvider *mock = new MockDirectoryComponentProvider();
@@ -79,7 +74,6 @@ void DirectoryWatchingComponentProviderTest::initialize_shouldCreateWatcherIfInt
     QVERIFY(provider.mockWatcher != nullptr);
 }
 
-//------------------------------------------------------------------------------
 void DirectoryWatchingComponentProviderTest::initialize_shouldSetupPathToTheWatcher()
 {
     MockDirectoryComponentProvider *mock = new MockDirectoryComponentProvider(QCoreApplication::applicationDirPath());
@@ -92,7 +86,6 @@ void DirectoryWatchingComponentProviderTest::initialize_shouldSetupPathToTheWatc
     QCOMPARE(watcher->directories()[0], QCoreApplication::applicationDirPath());
 }
 
-//------------------------------------------------------------------------------
 void DirectoryWatchingComponentProviderTest::shouldCallUpdateAfter_directoryChanged_signal()
 {
 	// Cannot emit private signal! (since Qt5)
@@ -107,7 +100,6 @@ void DirectoryWatchingComponentProviderTest::shouldCallUpdateAfter_directoryChan
     //QCOMPARE(mock->updateCalled, 2);
 }
 
-//------------------------------------------------------------------------------
 void DirectoryWatchingComponentProviderTest::shouldEmitChangesAfter_directoryChanged_signal()
 {
 	// Cannot emit private signal! (since Qt5)
@@ -124,4 +116,3 @@ void DirectoryWatchingComponentProviderTest::shouldEmitChangesAfter_directoryCha
     //QCOMPARE(spy.size(), 1);
 }
 
-//------------------------------------------------------------------------------

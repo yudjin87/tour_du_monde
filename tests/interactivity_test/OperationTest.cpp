@@ -31,13 +31,11 @@
 #include <QtWidgets/QWidget>
 #include <QtTest/QtTest>
 
-//------------------------------------------------------------------------------
 OperationTest::OperationTest(QObject *parent)
     : QObject(parent)
 {
 }
 
-//------------------------------------------------------------------------------
 void OperationTest::shouldCallExecuteWhenActionTriggered()
 {
     MockOperation operation;
@@ -46,7 +44,6 @@ void OperationTest::shouldCallExecuteWhenActionTriggered()
     QVERIFY(operation.executeCalled);
 }
 
-//------------------------------------------------------------------------------
 void OperationTest::shouldNotCallStopExecuteIfIsNotCheckable()
 {
     MockOperation operation;
@@ -64,7 +61,6 @@ void OperationTest::shouldNotCallStopExecuteIfIsNotCheckable()
     QVERIFY(operation.executeCalled);
 }
 
-//------------------------------------------------------------------------------
 void OperationTest::shouldCallExecuteWhenActionTriggeredIfCheckable()
 {
     MockOperation operation;
@@ -74,7 +70,6 @@ void OperationTest::shouldCallExecuteWhenActionTriggeredIfCheckable()
     QVERIFY(operation.executeCalled);
 }
 
-//------------------------------------------------------------------------------
 void OperationTest::shouldCallStopExecuteIfCheckableAndActivatedSecondTime()
 {
     MockOperation operation;
@@ -91,4 +86,3 @@ void OperationTest::shouldCallStopExecuteIfCheckableAndActivatedSecondTime()
     QVERIFY(!operation.executeCalled);
 }
 
-//------------------------------------------------------------------------------

@@ -32,7 +32,6 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QPushButton>
 
-//------------------------------------------------------------------------------
 NewDialog::NewDialog(ComponentDefinitionsModel *model, QWidget *parent)
     : ComponentsDialog(model, parent)
 {
@@ -46,11 +45,9 @@ NewDialog::NewDialog(ComponentDefinitionsModel *model, QWidget *parent)
     connect(installButton, &QPushButton::clicked, this, &NewDialog::onOpenComponentsDirectory);
 }
 
-//------------------------------------------------------------------------------
 void NewDialog::onOpenComponentsDirectory(bool) const
 {
     // TODO: should be obtained from the app settings
     QDesktopServices::openUrl(QUrl::fromLocalFile(QApplication::applicationDirPath() + "/installedComponents"));
 }
 
-//------------------------------------------------------------------------------

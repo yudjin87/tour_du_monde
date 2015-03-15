@@ -13,20 +13,17 @@
 #include <QtWidgets/QMainWindow>
 #include <QtTest/QtTest>
 
-//------------------------------------------------------------------------------
 CarouselBootloaderTest::CarouselBootloaderTest(QObject *parent)
     : QObject(parent)
 {
 }
 
-//------------------------------------------------------------------------------
 void CarouselBootloaderTest::canRunLoading()
 {
     CarouselBootloader carouselBootloader;
     carouselBootloader.run();
 }
 
-//------------------------------------------------------------------------------
 void CarouselBootloaderTest::shouldCallCreateLoggerEngineOnRun()
 {
     CarouselBootloaderMock mockLoader;
@@ -35,7 +32,6 @@ void CarouselBootloaderTest::shouldCallCreateLoggerEngineOnRun()
     QVERIFY(mockLoader.createLoggerCalled());
 }
 
-//------------------------------------------------------------------------------
 void CarouselBootloaderTest::shouldInstallCreatedLoggerEngineOnRun()
 {
     CarouselBootloader carouselBootloader;
@@ -47,7 +43,6 @@ void CarouselBootloaderTest::shouldInstallCreatedLoggerEngineOnRun()
     QVERIFY(LoggerFacade::loggerEngine() != nullptr);
 }
 
-//------------------------------------------------------------------------------
 void CarouselBootloaderTest::shouldCallCreateComponentProviderOnRun()
 {
     CarouselBootloaderMock mockLoader;
@@ -56,7 +51,6 @@ void CarouselBootloaderTest::shouldCallCreateComponentProviderOnRun()
     QVERIFY(mockLoader.createComponentProviderCalled());
 }
 
-//------------------------------------------------------------------------------
 void CarouselBootloaderTest::shouldCallCreateComponentManagerOnRun()
 {
     CarouselBootloaderMock mockLoader;
@@ -65,7 +59,6 @@ void CarouselBootloaderTest::shouldCallCreateComponentManagerOnRun()
     QVERIFY(mockLoader.createComponentManagerCalled());
 }
 
-//------------------------------------------------------------------------------
 void CarouselBootloaderTest::shouldCallCreateServiceLocatorOnRun()
 {
     CarouselBootloaderMock mockLoader;
@@ -74,7 +67,6 @@ void CarouselBootloaderTest::shouldCallCreateServiceLocatorOnRun()
     QVERIFY(mockLoader.createServiceLocatorCalled());
 }
 
-//------------------------------------------------------------------------------
 void CarouselBootloaderTest::shouldCallConfigureComponentProviderOnRun()
 {
     CarouselBootloaderMock mockLoader;
@@ -83,7 +75,6 @@ void CarouselBootloaderTest::shouldCallConfigureComponentProviderOnRun()
     QVERIFY(mockLoader.configureComponentProviderCalled());
 }
 
-//------------------------------------------------------------------------------
 void CarouselBootloaderTest::shouldCallConfigureComponentManagerOnRun()
 {
     CarouselBootloaderMock mockLoader;
@@ -92,7 +83,6 @@ void CarouselBootloaderTest::shouldCallConfigureComponentManagerOnRun()
     QVERIFY(mockLoader.configureComponentManagerCalled());
 }
 
-//------------------------------------------------------------------------------
 void CarouselBootloaderTest::shouldCallConfigureServiceLocatorOnRun()
 {
     CarouselBootloaderMock mockLoader;
@@ -101,7 +91,6 @@ void CarouselBootloaderTest::shouldCallConfigureServiceLocatorOnRun()
     QVERIFY(mockLoader.configureServiceLocatorCalled());
 }
 
-//------------------------------------------------------------------------------
 void CarouselBootloaderTest::shouldCallInitialiseComponentProviderOnRun()
 {
     CarouselBootloaderMock mockLoader;
@@ -110,7 +99,6 @@ void CarouselBootloaderTest::shouldCallInitialiseComponentProviderOnRun()
     QVERIFY(mockLoader.initialiseComponentProviderCalled());
 }
 
-//------------------------------------------------------------------------------
 void CarouselBootloaderTest::shouldCallRunSequenceInOrderOnRun()
 {
     CarouselBootloaderMock mockLoader;
@@ -131,7 +119,6 @@ void CarouselBootloaderTest::shouldCallRunSequenceInOrderOnRun()
     QCOMPARE(methodCalls[10], QString("onLoadingSequenceFinised"));
 }
 
-//------------------------------------------------------------------------------
 void CarouselBootloaderTest::shouldInitialiseComponentProviderOnRun()
 {
     CarouselBootloaderProviderMock mockLoader;
@@ -141,7 +128,6 @@ void CarouselBootloaderTest::shouldInitialiseComponentProviderOnRun()
     QVERIFY(initialiseCalled);
 }
 
-//------------------------------------------------------------------------------
 void CarouselBootloaderTest::configuringComponentManagerShouldAddComponentsToIt()
 {
     CarouselBootloader_ComponentManagerFixture fixture;
@@ -152,7 +138,6 @@ void CarouselBootloaderTest::configuringComponentManagerShouldAddComponentsToIt(
     QCOMPARE(manager.components().count(), 2);
 }
 
-//------------------------------------------------------------------------------
 void CarouselBootloaderTest::configuringServiceLocatorShouldAddComponentProviderToServices()
 {
     CarouselBootloaderMock carouselBootloader;
@@ -166,7 +151,6 @@ void CarouselBootloaderTest::configuringServiceLocatorShouldAddComponentProvider
     QVERIFY(dynamic_cast<ComponentProvider *>(provider) != nullptr);
 }
 
-//------------------------------------------------------------------------------
 void CarouselBootloaderTest::configuringServiceLocatorShouldAddComponentManagerToServices()
 {
     CarouselBootloaderMock carouselBootloader;
@@ -180,7 +164,6 @@ void CarouselBootloaderTest::configuringServiceLocatorShouldAddComponentManagerT
     QVERIFY(componentManager != nullptr);
 }
 
-//------------------------------------------------------------------------------
 void CarouselBootloaderTest::shouldInstallNullLoggerEngineInDestructor()
 {
     {
@@ -196,4 +179,3 @@ void CarouselBootloaderTest::shouldInstallNullLoggerEngineInDestructor()
     QVERIFY(LoggerFacade::loggerEngine() == nullptr);
 }
 
-//------------------------------------------------------------------------------

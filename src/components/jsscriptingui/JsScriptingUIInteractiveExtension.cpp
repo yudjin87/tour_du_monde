@@ -43,13 +43,11 @@
 #include <QtWidgets/QDockWidget>
 #include <QtWidgets/QMenu>
 
-//------------------------------------------------------------------------------
 JsScriptingUIInteractiveExtension::JsScriptingUIInteractiveExtension(QObject *parent /*= nullptr*/)
     : QObject(parent)
 {
 }
 
-//------------------------------------------------------------------------------
 void JsScriptingUIInteractiveExtension::configureGui(ICatalogs &inCatalogs, IServiceLocator *serviceLocator)
 {
     IScriptingService *service = serviceLocator->locate<IScriptingService>();
@@ -73,4 +71,3 @@ void JsScriptingUIInteractiveExtension::configureGui(ICatalogs &inCatalogs, ISer
     viewMenu->addAction(scriptManager);
 }
 
-//------------------------------------------------------------------------------

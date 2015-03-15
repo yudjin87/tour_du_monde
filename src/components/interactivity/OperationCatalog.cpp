@@ -29,19 +29,16 @@
 #include "Operation.h"
 
 #include <QtCore/QtAlgorithms>
-//------------------------------------------------------------------------------
 OperationCatalog::OperationCatalog()
     : m_serviceLocator(nullptr)
 {
 }
 
-//------------------------------------------------------------------------------
 OperationCatalog::~OperationCatalog()
 {
     qDeleteAll(m_operations);
 }
 
-//------------------------------------------------------------------------------
 Operation *OperationCatalog::add(Operation *newOperation)
 {
     m_operations.push_back(newOperation);
@@ -52,13 +49,11 @@ Operation *OperationCatalog::add(Operation *newOperation)
     return newOperation;
 }
 
-//------------------------------------------------------------------------------
 QList<Operation *> OperationCatalog::operations() const
 {
     return m_operations;
 }
 
-//------------------------------------------------------------------------------
 QList<Operation *> OperationCatalog::operations(const QString &byCategory) const
 {
     QList<Operation *> operations;
@@ -69,27 +64,23 @@ QList<Operation *> OperationCatalog::operations(const QString &byCategory) const
     return operations;
 }
 
-//------------------------------------------------------------------------------
 void OperationCatalog::deleteOperation(const QString &name)
 {
     Operation *operation = find(name);
     deleteOperation(operation);
 }
 
-//------------------------------------------------------------------------------
 void OperationCatalog::deleteOperation(Operation *operation)
 {
     if(m_operations.removeOne(operation))
         delete operation;
 }
 
-//------------------------------------------------------------------------------
 Operation *OperationCatalog::find(const QString &name)
 {
     return const_cast<Operation *>(static_cast<const OperationCatalog &>(*this).find(name));
 }
 
-//------------------------------------------------------------------------------
 const Operation *OperationCatalog::find(const QString &name) const
 {
     for (Operation *operation : m_operations)
@@ -99,17 +90,14 @@ const Operation *OperationCatalog::find(const QString &name) const
     return nullptr;
 }
 
-//------------------------------------------------------------------------------
 void OperationCatalog::setStartupData(IServiceLocator *serviceLocator)
 {
     m_serviceLocator = serviceLocator;
 }
 
-//------------------------------------------------------------------------------
 void OperationCatalog::onOperationAdded(Operation *operation)
 {
     emit operationAdded(operation);
 }
 
-//------------------------------------------------------------------------------
 

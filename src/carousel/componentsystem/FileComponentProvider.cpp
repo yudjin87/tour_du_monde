@@ -35,11 +35,9 @@
 #include <QtCore/QFileInfoList>
 #include <QtCore/QScopedPointer>
 
-//------------------------------------------------------------------------------
 typedef QScopedPointer<IDefinitionParser> IDefinitionParserPtr;
 typedef QScopedPointer<DefinitionConstuctor> DefinitionConstuctorPtr;
 
-//------------------------------------------------------------------------------
 FileComponentProvider::FileComponentProvider(QObject *parent)
     : ComponentProvider(parent)
     , m_path("")
@@ -47,7 +45,6 @@ FileComponentProvider::FileComponentProvider(QObject *parent)
 {
 }
 
-//------------------------------------------------------------------------------
 FileComponentProvider::FileComponentProvider(const QString &path, QObject *parent)
     : ComponentProvider(parent)
     , m_path("")
@@ -56,12 +53,10 @@ FileComponentProvider::FileComponentProvider(const QString &path, QObject *paren
     setPath(path);
 }
 
-//------------------------------------------------------------------------------
 FileComponentProvider::~FileComponentProvider()
 {
 }
 
-//------------------------------------------------------------------------------
 void FileComponentProvider::setPath(const QString &path)
 {
     QFileInfo directoryToComponents(path);
@@ -71,19 +66,16 @@ void FileComponentProvider::setPath(const QString &path)
     m_path = path;
 }
 
-//------------------------------------------------------------------------------
 const QString &FileComponentProvider::path() const
 {
     return m_path;
 }
 
-//------------------------------------------------------------------------------
 IComponent *FileComponentProvider::lastLoadedComponent() const
 {
     return m_lastLoadedComponent;
 }
 
-//------------------------------------------------------------------------------
 IComponent *FileComponentProvider::loadComponent()
 {
     ComponentDefinition *definition = createDefintion();
@@ -129,35 +121,29 @@ IComponent *FileComponentProvider::loadComponent()
     return proxy;
 }
 
-//------------------------------------------------------------------------------
 bool FileComponentProvider::onInitialize()
 {
     IComponent *loadedComponent = loadComponent();
 	return loadedComponent->state() == IComponent::Initialized;
 }
 
-//------------------------------------------------------------------------------
 IDefinitionParser *FileComponentProvider::createParser()
 {
     return new XmlDefinitionParser();
 }
 
-//------------------------------------------------------------------------------
 ProxyComponent *FileComponentProvider::createProxy(ComponentDefinition *definition)
 {
     return new ProxyComponent(definition);
 }
 
-//------------------------------------------------------------------------------
 ComponentDefinition *FileComponentProvider::createDefintion()
 {
     return new ComponentDefinition();
 }
 
-//------------------------------------------------------------------------------
 DefinitionConstuctor *FileComponentProvider::createDefinitionConstuctor()
 {
     return new DefinitionConstuctor();
 }
 
-//------------------------------------------------------------------------------

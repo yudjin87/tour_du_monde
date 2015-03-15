@@ -32,7 +32,6 @@
 
 #include <QtWidgets/QMainWindow>
 
-//------------------------------------------------------------------------------
 ShowScriptsOperation::ShowScriptsOperation()
     : Operation("Scripts")
     , m_serviceLocator(nullptr)
@@ -42,7 +41,6 @@ ShowScriptsOperation::ShowScriptsOperation()
     setIconVisibleInMenu(true);
 }
 
-//------------------------------------------------------------------------------
 void ShowScriptsOperation::execute()
 {
     if (m_scriptsDialog == nullptr) {
@@ -58,10 +56,8 @@ void ShowScriptsOperation::execute()
         m_scriptsDialog->show();
 }
 
-//------------------------------------------------------------------------------
 void ShowScriptsOperation::initialize(IServiceLocator *serviceLocator)
 {
     m_serviceLocator = serviceLocator;
 }
 
-//------------------------------------------------------------------------------

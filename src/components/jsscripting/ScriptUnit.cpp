@@ -37,13 +37,11 @@
 #include <QtGui/QTextDocument>
 #include <QtScript/QScriptEngine>
 
-//------------------------------------------------------------------------------
 namespace
 {
 static LoggerFacade Log = LoggerFacade::createLogger("ScriptUnit");
 }
 
-//------------------------------------------------------------------------------
 ScriptUnit::ScriptUnit(IScriptEngineFactory *factory, QObject *parent)
     : IScriptUnit()
     , m_isLoaded(false)
@@ -55,7 +53,6 @@ ScriptUnit::ScriptUnit(IScriptEngineFactory *factory, QObject *parent)
     setParent(parent);
 }
 
-//------------------------------------------------------------------------------
 ScriptUnit::ScriptUnit(const QString &filePath, IScriptEngineFactory *factory, QObject *parent)
     : IScriptUnit()
     , m_isLoaded(false)
@@ -67,12 +64,10 @@ ScriptUnit::ScriptUnit(const QString &filePath, IScriptEngineFactory *factory, Q
     setParent(parent);
 }
 
-//------------------------------------------------------------------------------
 ScriptUnit::~ScriptUnit()
 {
 }
 
-//------------------------------------------------------------------------------
 bool ScriptUnit::isRunning() const
 {
     if (m_engine == nullptr)
@@ -81,56 +76,47 @@ bool ScriptUnit::isRunning() const
     return m_engine->isEvaluating();
 }
 
-//------------------------------------------------------------------------------
 bool ScriptUnit::isLoaded() const
 {
     return m_isLoaded;
 }
 
-//------------------------------------------------------------------------------
 QString ScriptUnit::fileName() const
 {
     QFileInfo file(m_filePath);
     return file.fileName();
 }
 
-//------------------------------------------------------------------------------
 QString ScriptUnit::scriptText() const
 {
     return m_script->toPlainText();
 }
 
-//------------------------------------------------------------------------------
 void ScriptUnit::setScriptText(const QString &plainText)
 {
     m_script->setPlainText(plainText);
 }
 
-//------------------------------------------------------------------------------
 QString ScriptUnit::absoluteFilePath() const
 {
     return m_filePath;
 }
 
-//------------------------------------------------------------------------------
 QTextDocument *ScriptUnit::script()
 {
     return m_script;
 }
 
-//------------------------------------------------------------------------------
 const QTextDocument *ScriptUnit::script() const
 {
     return m_script;
 }
 
-//------------------------------------------------------------------------------
 void ScriptUnit::print(const QString &message)
 {
     emit printed(message);
 }
 
-//------------------------------------------------------------------------------
 bool ScriptUnit::load()
 {
     if (m_isLoaded)
@@ -155,7 +141,6 @@ bool ScriptUnit::load()
     return m_isLoaded;
 }
 
-//------------------------------------------------------------------------------
 bool ScriptUnit::load(const QString &filePath)
 {
     m_filePath = absolutePath(filePath);
@@ -163,19 +148,16 @@ bool ScriptUnit::load(const QString &filePath)
     return load();
 }
 
-//------------------------------------------------------------------------------
 void ScriptUnit::clear()
 {
     m_script->clear();
 }
 
-//------------------------------------------------------------------------------
 bool ScriptUnit::save()
 {
     return saveAs(m_filePath);
 }
 
-//------------------------------------------------------------------------------
 bool ScriptUnit::saveAs(const QString &filePath)
 {
     if (filePath.isEmpty())
@@ -195,7 +177,6 @@ bool ScriptUnit::saveAs(const QString &filePath)
     return true;
 }
 
-//------------------------------------------------------------------------------
 void ScriptUnit::abort()
 {
     if (m_engine == nullptr)
@@ -208,7 +189,6 @@ void ScriptUnit::abort()
     emit aborted();
 }
 
-//------------------------------------------------------------------------------
 bool ScriptUnit::run()
 {
     const QString &script = scriptText();
@@ -236,14 +216,12 @@ bool ScriptUnit::run()
     return false;
 }
 
-//------------------------------------------------------------------------------
 QString ScriptUnit::absolutePath(const QString &filePath)
 {
     QDir dir(QCoreApplication::applicationDirPath());
     return QDir::cleanPath(dir.absoluteFilePath(filePath));
 }
 
-//------------------------------------------------------------------------------
 bool ScriptUnit::saveToFile(const QString &filePath)
 {
     QFile scriptFile(filePath);
@@ -258,4 +236,3 @@ bool ScriptUnit::saveToFile(const QString &filePath)
     return true;
 }
 
-//------------------------------------------------------------------------------

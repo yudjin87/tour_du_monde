@@ -26,10 +26,8 @@
 
 #include "JustComponent.h"
 
-//------------------------------------------------------------------------------
 JustComponent::JustComponent(QObject *parent)
     : BaseComponent("JustComponent", parent)
 {
 }
 
-//------------------------------------------------------------------------------

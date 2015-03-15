@@ -8,12 +8,10 @@
 #include <QtTest/QTest>
 #include <QtTest/QSignalSpy>
 
-//------------------------------------------------------------------------------
 static QString componentPath;
 static QString exportCreateFuncOnly;
 static QString exportDelFuncOnly;
 
-//------------------------------------------------------------------------------
 ComponentLoaderTest::ComponentLoaderTest(QObject *parent)
     : QObject(parent)
 {
@@ -22,7 +20,6 @@ ComponentLoaderTest::ComponentLoaderTest(QObject *parent)
     exportDelFuncOnly = pathToLib("exportDelFuncOnly");
 }
 
-//------------------------------------------------------------------------------
 void ComponentLoaderTest::shouldSetupFile()
 {
     ComponentLoader loader(componentPath);
@@ -30,7 +27,6 @@ void ComponentLoaderTest::shouldSetupFile()
     QCOMPARE(loader.fileName(), componentPath);
 }
 
-//------------------------------------------------------------------------------
 void ComponentLoaderTest::shouldNotSetupFileNameIfFileDoesNotExist()
 {
     ComponentLoader loader("/d/to/nowhere.ext");
@@ -38,7 +34,6 @@ void ComponentLoaderTest::shouldNotSetupFileNameIfFileDoesNotExist()
     QVERIFY(loader.fileName().isEmpty());
 }
 
-//------------------------------------------------------------------------------
 void ComponentLoaderTest::instanceShouldCallLoad()
 {
     MockComponentLoader loader(componentPath);
@@ -47,7 +42,6 @@ void ComponentLoaderTest::instanceShouldCallLoad()
     QCOMPARE(loader.loadCalled, 1);
 }
 
-//------------------------------------------------------------------------------
 void ComponentLoaderTest::instanceShouldNotCallLoadIfAlreadyDid()
 {
     MockComponentLoader loader(componentPath);
@@ -57,7 +51,6 @@ void ComponentLoaderTest::instanceShouldNotCallLoadIfAlreadyDid()
     QCOMPARE(loader.loadCalled, 1);
 }
 
-//------------------------------------------------------------------------------
 void ComponentLoaderTest::instanceShouldReturnIComponentPointer()
 {
     MockComponentLoader loader(componentPath);
@@ -66,7 +59,6 @@ void ComponentLoaderTest::instanceShouldReturnIComponentPointer()
     QVERIFY(component != nullptr);
 }
 
-//------------------------------------------------------------------------------
 void ComponentLoaderTest::loadShouldLoadAndCreateComponent()
 {
     MockComponentLoader loader(componentPath);
@@ -77,7 +69,6 @@ void ComponentLoaderTest::loadShouldLoadAndCreateComponent()
     QVERIFY(loader.getInstance() != nullptr);
 }
 
-//------------------------------------------------------------------------------
 void ComponentLoaderTest::loadShouldReturnTrue()
 {
     MockComponentLoader loader(componentPath);
@@ -86,7 +77,6 @@ void ComponentLoaderTest::loadShouldReturnTrue()
     QVERIFY(result);
 }
 
-//------------------------------------------------------------------------------
 void ComponentLoaderTest::loadShouldNotCreateComponentIfAlreadyDid()
 {
     MockComponentLoader loader(componentPath);
@@ -97,7 +87,6 @@ void ComponentLoaderTest::loadShouldNotCreateComponentIfAlreadyDid()
     QCOMPARE(loader.getInstance(), component);
 }
 
-//------------------------------------------------------------------------------
 void ComponentLoaderTest::loadShouldReturnTrueIfLoadedSecondTime()
 {
     MockComponentLoader loader(componentPath);
@@ -107,7 +96,6 @@ void ComponentLoaderTest::loadShouldReturnTrueIfLoadedSecondTime()
     QVERIFY(result);
 }
 
-//------------------------------------------------------------------------------
 void ComponentLoaderTest::loadShouldReturnFalseIfFileNameDoesNotSet()
 {
     MockComponentLoader loader;
@@ -116,7 +104,6 @@ void ComponentLoaderTest::loadShouldReturnFalseIfFileNameDoesNotSet()
     QVERIFY(!result);
 }
 
-//------------------------------------------------------------------------------
 void ComponentLoaderTest::loadShouldReturnFalseIfCreateFunctionDoesNotExistInLib()
 {
     MockComponentLoader loader(exportDelFuncOnly);
@@ -125,7 +112,6 @@ void ComponentLoaderTest::loadShouldReturnFalseIfCreateFunctionDoesNotExistInLib
     QVERIFY(!result);
 }
 
-//------------------------------------------------------------------------------
 void ComponentLoaderTest::loadShouldReturnFalseIfReleaseFunctionDoesNotExistInLib()
 {
     MockComponentLoader loader(exportCreateFuncOnly);
@@ -134,7 +120,6 @@ void ComponentLoaderTest::loadShouldReturnFalseIfReleaseFunctionDoesNotExistInLi
     QVERIFY(!result);
 }
 
-//------------------------------------------------------------------------------
 void ComponentLoaderTest::loadShouldSetupIsLoadFlag()
 {
     MockComponentLoader loader(componentPath);
@@ -145,7 +130,6 @@ void ComponentLoaderTest::loadShouldSetupIsLoadFlag()
     QVERIFY(loader.isLoaded());
 }
 
-//------------------------------------------------------------------------------
 void ComponentLoaderTest::deleteInstanceShouldDeleteComponent()
 {
     MockComponentLoader loader(componentPath);
@@ -158,7 +142,6 @@ void ComponentLoaderTest::deleteInstanceShouldDeleteComponent()
     QVERIFY(loader.getInstance() == nullptr);
 }
 
-//------------------------------------------------------------------------------
 void ComponentLoaderTest::unloadShouldReturnFalseIfWasNotLoad()
 {
     MockComponentLoader loader(componentPath);
@@ -166,7 +149,6 @@ void ComponentLoaderTest::unloadShouldReturnFalseIfWasNotLoad()
     QVERIFY(!loader.deleteInstance());
 }
 
-//------------------------------------------------------------------------------
 void ComponentLoaderTest::unloadShouldSetupIsLoadFlag()
 {
     MockComponentLoader loader(componentPath);
@@ -175,7 +157,6 @@ void ComponentLoaderTest::unloadShouldSetupIsLoadFlag()
     QVERIFY(!loader.isLoaded());
 }
 
-//------------------------------------------------------------------------------
 void ComponentLoaderTest::unloadShouldReturnTrueIfCan()
 {
     MockComponentLoader loader(componentPath);
@@ -183,7 +164,6 @@ void ComponentLoaderTest::unloadShouldReturnTrueIfCan()
     QVERIFY(loader.deleteInstance());
 }
 
-//------------------------------------------------------------------------------
 void ComponentLoaderTest::destructorShouldUnloadComponent()
 {
     MockComponentLoader *loader = new MockComponentLoader(componentPath);
@@ -195,7 +175,6 @@ void ComponentLoaderTest::destructorShouldUnloadComponent()
     QCOMPARE(spy.size(), 1);
 }
 
-//------------------------------------------------------------------------------
 void ComponentLoaderTest::shouldNotSetFileUntilUnload()
 {
     MockComponentLoader loader(componentPath);
@@ -205,4 +184,3 @@ void ComponentLoaderTest::shouldNotSetFileUntilUnload()
     QCOMPARE(loader.fileName(), componentPath);
 }
 
-//------------------------------------------------------------------------------

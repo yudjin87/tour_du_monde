@@ -30,7 +30,6 @@
 #include <QtCore/QEvent>
 #include <QtCore/QtAlgorithms>
 
-//------------------------------------------------------------------------------
 MenuCatalog::MenuCatalog(QMenuBar &menuBar)
     : m_menuBar(menuBar)
 {
@@ -39,7 +38,6 @@ MenuCatalog::MenuCatalog(QMenuBar &menuBar)
         installEventFilterForSubMenus(action->menu());
 }
 
-//------------------------------------------------------------------------------
 MenuCatalog::~MenuCatalog()
 {
     qDeleteAll(m_removedMenus);
@@ -49,7 +47,6 @@ MenuCatalog::~MenuCatalog()
     m_popupMenus.clear();
 }
 
-//------------------------------------------------------------------------------
 QMenu *MenuCatalog::addMenu(const QString &title)
 {
     QMenu *menu = findMenuEverywhere(title);
@@ -62,7 +59,6 @@ QMenu *MenuCatalog::addMenu(const QString &title)
     return menu;
 }
 
-//------------------------------------------------------------------------------
 QMenu *MenuCatalog::addMenu(const QIcon &icon, const QString &title)
 {
     QMenu *menu = findMenuEverywhere(title);
@@ -75,7 +71,6 @@ QMenu *MenuCatalog::addMenu(const QIcon &icon, const QString &title)
     return menu;
 }
 
-//------------------------------------------------------------------------------
 QMenu *MenuCatalog::addPopup(const QString &title)
 {
     QMenu *menu = new QMenu(title);
@@ -85,7 +80,6 @@ QMenu *MenuCatalog::addPopup(const QString &title)
     return menu;
 }
 
-//------------------------------------------------------------------------------
 QMenu *MenuCatalog::addPopup(const QIcon &icon, const QString &title)
 {
     QMenu *menu = new QMenu(title);
@@ -96,14 +90,12 @@ QMenu *MenuCatalog::addPopup(const QIcon &icon, const QString &title)
     return menu;
 }
 
-//------------------------------------------------------------------------------
 void MenuCatalog::deleteMenu(const QString &title)
 {
     QMenu *menu = findMenuEverywhere(title);
     deleteMenu(menu);
 }
 
-//------------------------------------------------------------------------------
 void MenuCatalog::deleteMenu(QMenu *menu)
 {
     if (menu == nullptr)
@@ -122,13 +114,11 @@ void MenuCatalog::deleteMenu(QMenu *menu)
     delete foundMenu;
 }
 
-//------------------------------------------------------------------------------
 QMenu *MenuCatalog::findMenu(const QString &title)
 {
     return const_cast<QMenu *>(static_cast<const MenuCatalog &>(*this).findMenu(title));
 }
 
-//------------------------------------------------------------------------------
 const QMenu *MenuCatalog::findMenu(const QString &title) const
 {
     QList<QAction *> actions = m_menuBar.actions();
@@ -145,13 +135,11 @@ const QMenu *MenuCatalog::findMenu(const QString &title) const
     return nullptr;
 }
 
-//------------------------------------------------------------------------------
 QMenu *MenuCatalog::findMenuEverywhere(const QString &title)
 {
     return const_cast<QMenu *>(static_cast<const MenuCatalog &>(*this).findMenuEverywhere(title));
 }
 
-//------------------------------------------------------------------------------
 const QMenu *MenuCatalog::findMenuEverywhere(const QString &title) const
 {
     const QList<QMenu *> &allMenus = menus();
@@ -164,13 +152,11 @@ const QMenu *MenuCatalog::findMenuEverywhere(const QString &title) const
     return nullptr;
 }
 
-//------------------------------------------------------------------------------
 QMenu *MenuCatalog::findPopup(const QString &title)
 {
     return const_cast<QMenu *>(static_cast<const MenuCatalog &>(*this).findPopup(title));
 }
 
-//------------------------------------------------------------------------------
 const QMenu *MenuCatalog::findPopup(const QString &title) const
 {
     for (QMenu *menu : m_popupMenus) {
@@ -185,7 +171,6 @@ const QMenu *MenuCatalog::findPopup(const QString &title) const
     return nullptr;
 }
 
-//------------------------------------------------------------------------------
 QList<QMenu *> MenuCatalog::menus() const
 {
     QList<QMenu *> menuBarMenus;
@@ -209,7 +194,6 @@ QList<QMenu *> MenuCatalog::menus() const
     return menusToReturn;
 }
 
-//------------------------------------------------------------------------------
 void MenuCatalog::removeMenu(const QString &title)
 {
     QList<QAction *> actions = m_menuBar.actions();
@@ -225,13 +209,11 @@ void MenuCatalog::removeMenu(const QString &title)
     }
 }
 
-//------------------------------------------------------------------------------
 QList<QMenu *> MenuCatalog::popups() const
 {
     return m_popupMenus;
 }
 
-//------------------------------------------------------------------------------
 QMenu *MenuCatalog::findMenu(const QString &title, QMenu *inMenu) const
 {
     if (inMenu == nullptr)
@@ -251,7 +233,6 @@ QMenu *MenuCatalog::findMenu(const QString &title, QMenu *inMenu) const
     return nullptr;
 }
 
-//------------------------------------------------------------------------------
 bool MenuCatalog::eventFilter(QObject *obj, QEvent *event)
 {
     QMenu *menu = static_cast<QMenu *>(obj);
@@ -274,31 +255,26 @@ bool MenuCatalog::eventFilter(QObject *obj, QEvent *event)
     return QObject::eventFilter(obj, event);
 }
 
-//------------------------------------------------------------------------------
 void MenuCatalog::onMenuAdded(QMenu *menu)
 {
     emit menuAdded(menu);
 }
 
-//------------------------------------------------------------------------------
 void MenuCatalog::onMenuRemoved(QMenu *menu)
 {
     emit menuRemoved(menu);
 }
 
-//------------------------------------------------------------------------------
 void MenuCatalog::onSubMenuAdded(QMenu *newMenu)
 {
     emit subMenuAdded(newMenu);
 }
 
-//------------------------------------------------------------------------------
 void MenuCatalog::onSubMenuRemoved(QMenu *menu)
 {
     emit subMenuRemoved(menu);
 }
 
-//------------------------------------------------------------------------------
 QList<QMenu *> MenuCatalog::extractChildMenus(QMenu *parentMenu)
 {
     if (parentMenu == nullptr)
@@ -313,7 +289,6 @@ QList<QMenu *> MenuCatalog::extractChildMenus(QMenu *parentMenu)
     return QList<QMenu *>();
 }
 
-//------------------------------------------------------------------------------
 void MenuCatalog::installEventFilterForSubMenus(QMenu *menu)
 {
     menu->installEventFilter(this);
@@ -323,4 +298,3 @@ void MenuCatalog::installEventFilterForSubMenus(QMenu *menu)
     }
 }
 
-//------------------------------------------------------------------------------

@@ -38,10 +38,8 @@
 
 #include <QtWidgets/QMainWindow>
 
-//------------------------------------------------------------------------------
 static const QByteArray productName("Display");
 
-//------------------------------------------------------------------------------
 DisplayComponent::DisplayComponent(QObject *parent)
     : BaseComponent("org.carousel.demos.Display", parent)
 {
@@ -57,12 +55,10 @@ DisplayComponent::DisplayComponent(QObject *parent)
     setVersion(1, 0);
 }
 
-//------------------------------------------------------------------------------
 DisplayComponent::~DisplayComponent()
 {
 }
 
-//------------------------------------------------------------------------------
 void DisplayComponent::onShutdown(IServiceLocator *serviceLocator)
 {
     IDisplay *display = serviceLocator->unregisterInstance<IDisplay>();
@@ -72,7 +68,6 @@ void DisplayComponent::onShutdown(IServiceLocator *serviceLocator)
     interactionService->setDispatcher(nullptr);
 }
 
-//------------------------------------------------------------------------------
 bool DisplayComponent::onStartup(IServiceLocator *serviceLocator)
 {
     QMainWindow *mainWindow = serviceLocator->locate<QMainWindow>();
@@ -93,7 +88,5 @@ bool DisplayComponent::onStartup(IServiceLocator *serviceLocator)
     return true;
 }
 
-//------------------------------------------------------------------------------
 EXPORT_COMPONENT(DisplayComponent)
 
-//------------------------------------------------------------------------------

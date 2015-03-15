@@ -28,7 +28,6 @@
 #include "ShapesModel.h"
 #include "ui_ShapesWidget.h"
 
-//------------------------------------------------------------------------------
 ShapesWidget::ShapesWidget(ShapesModel *model, QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::ShapesWidget)
@@ -41,11 +40,9 @@ ShapesWidget::ShapesWidget(ShapesModel *model, QWidget *parent)
     ui->tableView->setSortingEnabled(true);
 }
 
-//------------------------------------------------------------------------------
 ShapesWidget::~ShapesWidget()
 {
     delete ui;
     delete mp_model;
 }
 
-//------------------------------------------------------------------------------

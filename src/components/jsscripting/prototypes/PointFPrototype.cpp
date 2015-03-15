@@ -28,14 +28,12 @@
 
 #include <QtScript/QScriptEngine>
 
-//------------------------------------------------------------------------------
 PointFPrototype::PointFPrototype(QObject *parent)
     : QObject(parent)
 {
 
 }
 
-//------------------------------------------------------------------------------
 qreal PointFPrototype::x() const
 {
     QPointF *point = qscriptvalue_cast<QPointF *>(thisObject());
@@ -45,7 +43,6 @@ qreal PointFPrototype::x() const
     return point->x();
 }
 
-//------------------------------------------------------------------------------
 void PointFPrototype::setX(qreal x)
 {
     QPointF *point = qscriptvalue_cast<QPointF*>(thisObject());
@@ -55,7 +52,6 @@ void PointFPrototype::setX(qreal x)
     point->setX(x);
 }
 
-//------------------------------------------------------------------------------
 qreal PointFPrototype::y() const
 {
     QPointF *point = qscriptvalue_cast<QPointF*>(thisObject());
@@ -65,7 +61,6 @@ qreal PointFPrototype::y() const
     return point->y();
 }
 
-//------------------------------------------------------------------------------
 void PointFPrototype::setY(qreal y)
 {
     QPointF *point = qscriptvalue_cast<QPointF*>(thisObject());
@@ -75,7 +70,6 @@ void PointFPrototype::setY(qreal y)
     point->setY(y);
 }
 
-//------------------------------------------------------------------------------
 QString PointFPrototype::toString()
 {
     static QString pattern = "QPointF(x: %1, y: %2)";
@@ -84,5 +78,4 @@ QString PointFPrototype::toString()
             .arg(y());
 }
 
-//------------------------------------------------------------------------------
 

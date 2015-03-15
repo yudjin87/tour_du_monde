@@ -41,7 +41,6 @@
 #include <QtTest/QTest>
 #include <QtTest/QSignalSpy>
 
-//------------------------------------------------------------------------------
 ProxyComponentTest::ProxyComponentTest(QObject *parent)
     : QObject(parent)
     , definitionLocation(pathToComponentDefinition("TestComponent2"))
@@ -53,14 +52,12 @@ ProxyComponentTest::ProxyComponentTest(QObject *parent)
     QSettings::setPath(QSettings::NativeFormat, QSettings::UserScope, ".");
 }
 
-//------------------------------------------------------------------------------
 void ProxyComponentTest::shouldReturnSpecifiedNameUntilComponentLoaded()
 {
     ProxyComponent component(new ComponentDefinition());
     QCOMPARE(component.name(), QString("Undefined_ProxyComponent"));
 }
 
-//------------------------------------------------------------------------------
 void ProxyComponentTest::initializeCallShouldSetupLibraryFileNameToLoader()
 {
     ComponentDefinition *def = new ComponentDefinition();
@@ -77,7 +74,6 @@ void ProxyComponentTest::initializeCallShouldSetupLibraryFileNameToLoader()
 #endif // Q_WS_WIN
 }
 
-//------------------------------------------------------------------------------
 void ProxyComponentTest::initializeCallShouldInvokeLoadAvailability()
 {
     ComponentDefinition *def = new ComponentDefinition();
@@ -99,7 +95,6 @@ void ProxyComponentTest::initializeCallShouldInvokeLoadAvailability()
     settings.clear();
 }
 
-//------------------------------------------------------------------------------
 void ProxyComponentTest::initializeCallShouldReturnTrue()
 {
     ComponentDefinition *def = new ComponentDefinition();
@@ -110,7 +105,6 @@ void ProxyComponentTest::initializeCallShouldReturnTrue()
     QVERIFY(component.initialize());
 }
 
-//------------------------------------------------------------------------------
 void ProxyComponentTest::initializeCallShouldReturnFalseIfLibraryFileDoesNotExist()
 {
     ComponentDefinition *def = new ComponentDefinition();
@@ -121,7 +115,6 @@ void ProxyComponentTest::initializeCallShouldReturnFalseIfLibraryFileDoesNotExis
     QVERIFY(!component.initialize());
 }
 
-//------------------------------------------------------------------------------
 void ProxyComponentTest::extensionShouldReturnRealComponentExtension()
 {
     FakeComponentLoader *loader = new FakeComponentLoader(new ComponentWithExtensions());
@@ -137,7 +130,6 @@ void ProxyComponentTest::extensionShouldReturnRealComponentExtension()
     QVERIFY(loadedComponentExtension != nullptr);
 }
 
-//------------------------------------------------------------------------------
 void ProxyComponentTest::extensionShouldReturnNullUntilRealComponentIsCreated()
 {
     ProxyComponent component(new ComponentDefinition());
@@ -147,7 +139,6 @@ void ProxyComponentTest::extensionShouldReturnNullUntilRealComponentIsCreated()
     component.extension<IComponentExtension1>();
 }
 
-//------------------------------------------------------------------------------
 void ProxyComponentTest::startupShouldLoadComponent()
 {
     FakeComponentLoader *loader = new FakeComponentLoader();
@@ -161,7 +152,6 @@ void ProxyComponentTest::startupShouldLoadComponent()
     QCOMPARE(loader->loadCalled, 1);
 }
 
-//------------------------------------------------------------------------------
 void ProxyComponentTest::startupShouldReturnFalseIfInitialzeWasNotCalled()
 {
     ProxyComponent component(new ComponentDefinition());
@@ -171,7 +161,6 @@ void ProxyComponentTest::startupShouldReturnFalseIfInitialzeWasNotCalled()
     QCOMPARE(result, false);
 }
 
-//------------------------------------------------------------------------------
 void ProxyComponentTest::startupShouldReturnFalseIfLoadFailed()
 {
     FakeComponentLoader *loader = new FakeComponentLoader();
@@ -184,7 +173,6 @@ void ProxyComponentTest::startupShouldReturnFalseIfLoadFailed()
     QCOMPARE(result, false);
 }
 
-//------------------------------------------------------------------------------
 void ProxyComponentTest::startupShouldCallStartupOnTheLoadedComponent()
 {
     FakeComponentLoader *loader = new FakeComponentLoader();
@@ -199,7 +187,6 @@ void ProxyComponentTest::startupShouldCallStartupOnTheLoadedComponent()
     QVERIFY((dynamic_cast<MockComponent *>(loader->mockComponent))->m_onStartupCalled);
 }
 
-//------------------------------------------------------------------------------
 void ProxyComponentTest::startupShouldReturnResultOfTheLoadedComponentStartup()
 {
     FakeComponentLoader *loader = new FakeComponentLoader();
@@ -214,7 +201,6 @@ void ProxyComponentTest::startupShouldReturnResultOfTheLoadedComponentStartup()
     QCOMPARE(result, true);
 }
 
-//------------------------------------------------------------------------------
 void ProxyComponentTest::shutdownShouldUnloadComponent()
 {
     FakeComponentLoader *loader = new FakeComponentLoader();
@@ -231,7 +217,6 @@ void ProxyComponentTest::shutdownShouldUnloadComponent()
     QCOMPARE(loader->unloadCalled, 1);
 }
 
-//------------------------------------------------------------------------------
 void ProxyComponentTest::shutdownShouldShutdownLoadedComponent()
 {
     FakeComponentLoader *loader = new FakeComponentLoader();
@@ -249,4 +234,3 @@ void ProxyComponentTest::shutdownShouldShutdownLoadedComponent()
     QVERIFY((dynamic_cast<MockComponent *>(loader->mockComponent))->m_onShutdownCalled);
 }
 
-//------------------------------------------------------------------------------

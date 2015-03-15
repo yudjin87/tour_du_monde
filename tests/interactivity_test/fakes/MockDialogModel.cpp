@@ -26,23 +26,19 @@
 
 #include "MockDialogModel.h"
 
-//------------------------------------------------------------------------------
 MockDialogModel::MockDialogModel(QObject *parent)
     : QObject(parent)
     , injectedLocator(0)
 {
 }
 
-//------------------------------------------------------------------------------
 MockDialogModel::~MockDialogModel()
 {
   injectedLocator = 0;
 }
 
-//------------------------------------------------------------------------------
 void MockDialogModel::injectServiceLocator(IServiceLocator *locator)
 {
     injectedLocator = locator;
 }
 
-//------------------------------------------------------------------------------

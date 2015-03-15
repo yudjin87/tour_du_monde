@@ -26,10 +26,8 @@
 
 #include "MockNonInteractiveExtension.h"
 
-//------------------------------------------------------------------------------
 MockNonInteractiveExtension::MockNonInteractiveExtension()
     : BaseComponent("MockNonInteractiveExtension")
 {
 }
 
-//------------------------------------------------------------------------------

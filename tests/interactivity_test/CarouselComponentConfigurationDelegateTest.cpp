@@ -42,16 +42,13 @@
 #include <QtWidgets/QMainWindow>
 #include <QtTest/QtTest>
 
-//------------------------------------------------------------------------------
 void configureCatalogs(ICatalogs &catalogs);
 
-//------------------------------------------------------------------------------
 CarouselComponentConfigurationDelegateTest::CarouselComponentConfigurationDelegateTest(QObject *parent)
     : QObject(parent)
 {
 }
 
-//------------------------------------------------------------------------------
 void CarouselComponentConfigurationDelegateTest::shouldCallConfigureGuiIfComponentHasInteractiveExtension()
 {
     CarouselComponentConfigurationDelegate delegate(&m_locator);
@@ -64,7 +61,6 @@ void CarouselComponentConfigurationDelegateTest::shouldCallConfigureGuiIfCompone
     QVERIFY(component.m_interactiveExtension->m_configureCalled);
 }
 
-//------------------------------------------------------------------------------
 void CarouselComponentConfigurationDelegateTest::shouldNotCallConfigureIfComponentWasNotStarted()
 {
     CarouselComponentConfigurationDelegate delegate(&m_locator);
@@ -76,7 +72,6 @@ void CarouselComponentConfigurationDelegateTest::shouldNotCallConfigureIfCompone
     QVERIFY(!component.m_interactiveExtension->m_configureCalled);
 }
 
-//------------------------------------------------------------------------------
 void CarouselComponentConfigurationDelegateTest::shouldNotThrowIfComponentHasNoInteractiveExtension()
 {
     CarouselComponentConfigurationDelegate delegate(&m_locator);
@@ -88,7 +83,6 @@ void CarouselComponentConfigurationDelegateTest::shouldNotThrowIfComponentHasNoI
     QVERIFY(true);
 }
 
-//------------------------------------------------------------------------------
 void CarouselComponentConfigurationDelegateTest::shouldRegisterChangesForComponent()
 {
     CarouselComponentConfigurationDelegate delegate(&m_locator);
@@ -106,7 +100,6 @@ void CarouselComponentConfigurationDelegateTest::shouldRegisterChangesForCompone
     QCOMPARE(changes.addedMenus()[0], ctlgs.menuCatalog().menus()[0]);
 }
 
-//------------------------------------------------------------------------------
 void CarouselComponentConfigurationDelegateTest::shouldReturnNullForUnconfiguredComponent()
 {
     CarouselComponentConfigurationDelegate delegate(&m_locator);
@@ -121,7 +114,6 @@ void CarouselComponentConfigurationDelegateTest::shouldReturnNullForUnconfigured
     QVERIFY(changes == nullptr);
 }
 
-//------------------------------------------------------------------------------
 void CarouselComponentConfigurationDelegateTest::shouldNotRegisterChangesAfterConfiguring()
 {
     CarouselComponentConfigurationDelegate delegate(&m_locator);
@@ -140,7 +132,6 @@ void CarouselComponentConfigurationDelegateTest::shouldNotRegisterChangesAfterCo
     QCOMPARE(changes.addedMenus().size(), 1);
 }
 
-//------------------------------------------------------------------------------
 void CarouselComponentConfigurationDelegateTest::shouldDeconfigureComponent()
 {
     CarouselComponentConfigurationDelegate delegate(&m_locator);
@@ -163,11 +154,9 @@ void CarouselComponentConfigurationDelegateTest::shouldDeconfigureComponent()
     QCOMPARE(ctlgs.toolBarCatalog().toolbars().size(), 0);
 }
 
-//------------------------------------------------------------------------------
 void configureCatalogs(ICatalogs &catalogs)
 {
     catalogs.operationCatalog().add(new MockOperation());
     catalogs.menuCatalog().addMenu("NewMenu");
 }
 
-//------------------------------------------------------------------------------

@@ -30,13 +30,11 @@
 
 #include <QtScript/QScriptEngine>
 
-//------------------------------------------------------------------------------
 FakeConfigurationDelegate::FakeConfigurationDelegate()
     : configureFromComponentCalled(false)
 {
 }
 
-//------------------------------------------------------------------------------
 void FakeConfigurationDelegate::configureFromComponent(IComponent *component, QScriptEngine *engine)
 {
     Q_UNUSED(component)
@@ -44,7 +42,6 @@ void FakeConfigurationDelegate::configureFromComponent(IComponent *component, QS
     configureFromComponentCalled = true;
 }
 
-//------------------------------------------------------------------------------
 void FakeConfigurationDelegate::configureDefaults(QScriptEngine *engine, IOutputHandler *output)
 {
     Q_UNUSED(output)
@@ -55,4 +52,3 @@ void FakeConfigurationDelegate::configureDefaults(QScriptEngine *engine, IOutput
     engine->globalObject().setProperty("serviceLocator", value);
 }
 
-//------------------------------------------------------------------------------

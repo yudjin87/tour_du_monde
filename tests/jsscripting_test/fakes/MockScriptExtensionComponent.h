@@ -32,14 +32,12 @@
 
 class FakeScriptExtension;
 
-//------------------------------------------------------------------------------
 class MockNoScriptExtensionComponent : public BaseComponent
 {
 public:
     MockNoScriptExtensionComponent();
 };
 
-//------------------------------------------------------------------------------
 class MockScriptExtensionComponent : public BaseComponent
 {
 public:
@@ -51,7 +49,6 @@ public:
     FakeScriptExtension *m_extension;
 };
 
-//------------------------------------------------------------------------------
 class FakeScriptExtension : public IScriptExtension
 {
 public:

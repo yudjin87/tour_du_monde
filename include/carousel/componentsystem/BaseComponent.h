@@ -288,7 +288,6 @@ private:
     TypeObjectsMap<void *> *m_typeObjectsMap;
 };
 
-//------------------------------------------------------------------------------
 template<typename TExtension>
 void BaseComponent::registerExtension(TExtension *instance)
 {
@@ -296,5 +295,4 @@ void BaseComponent::registerExtension(TExtension *instance)
     registerExtensionInstance(reinterpret_cast<void *>(instance), extension_name);
 }
 
-//------------------------------------------------------------------------------
 #endif // BASECOMPONENT_H

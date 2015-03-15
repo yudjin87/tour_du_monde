@@ -29,7 +29,6 @@
 #include <QtCore/QJsonObject>
 #include <QtCore/QJsonValue>
 
-//------------------------------------------------------------------------------
 MockPersistExtension::MockPersistExtension(QObject *parent)
     : QObject(parent)
     , IPersistExtension()
@@ -38,7 +37,6 @@ MockPersistExtension::MockPersistExtension(QObject *parent)
 {
 }
 
-//------------------------------------------------------------------------------
 bool MockPersistExtension::save(IServiceLocator *locator, QJsonObject &obj, QString *error)
 {
     Q_UNUSED(locator)
@@ -48,7 +46,6 @@ bool MockPersistExtension::save(IServiceLocator *locator, QJsonObject &obj, QStr
     return true;
 }
 
-//------------------------------------------------------------------------------
 bool MockPersistExtension::load(IServiceLocator *locator, const QJsonObject &obj, QString *error)
 {
     Q_UNUSED(locator)
@@ -58,4 +55,3 @@ bool MockPersistExtension::load(IServiceLocator *locator, const QJsonObject &obj
     return true;
 }
 
-//------------------------------------------------------------------------------

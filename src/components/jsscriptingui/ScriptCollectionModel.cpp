@@ -37,13 +37,11 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMessageBox>
 
-//------------------------------------------------------------------------------
 namespace
 {
 static LoggerFacade Log = LoggerFacade::createLogger("ScriptCollectionModel");
 }
 
-//------------------------------------------------------------------------------
 ScriptCollectionModel::ScriptCollectionModel(IScriptCollection *data, QObject *parent)
     : QObject(parent)
     , m_data(data)
@@ -53,25 +51,21 @@ ScriptCollectionModel::ScriptCollectionModel(IScriptCollection *data, QObject *p
     connect(m_data, &IScriptCollection::scriptRemoved, this, &ScriptCollectionModel::scriptRemoved);
 }
 
-//------------------------------------------------------------------------------
 ScriptCollectionModel::~ScriptCollectionModel()
 {
     m_locator = nullptr;
 }
 
-//------------------------------------------------------------------------------
 void ScriptCollectionModel::injectServiceLocator(IServiceLocator *locator)
 {
     m_locator = locator;
 }
 
-//------------------------------------------------------------------------------
 IScriptCollection::Scripts ScriptCollectionModel::scripts() const
 {
     return m_data->scripts();
 }
 
-//------------------------------------------------------------------------------
 void ScriptCollectionModel::onLoad()
 {
     QFileDialog fileDialog(m_locator->locate<QMainWindow>(), "Load script");
@@ -95,22 +89,18 @@ void ScriptCollectionModel::onLoad()
     m_data->createFromFile(selectedFile);
 }
 
-//------------------------------------------------------------------------------
 void ScriptCollectionModel::onSaveAll()
 {
 
 }
 
-//------------------------------------------------------------------------------
 void ScriptCollectionModel::onCreateScript()
 {
     m_data->create();
 }
 
-//------------------------------------------------------------------------------
 void ScriptCollectionModel::onScriptRemoved(IScriptUnit *script)
 {
     m_data->remove(script);
 }
 
-//------------------------------------------------------------------------------

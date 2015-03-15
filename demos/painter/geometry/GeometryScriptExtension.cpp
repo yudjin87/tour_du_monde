@@ -42,10 +42,8 @@
 #include <QtScript/QScriptEngine>
 #include <QtScript/QScriptValueIterator>
 
-//------------------------------------------------------------------------------
 Q_DECLARE_METATYPE(GeometryType)
 
-//------------------------------------------------------------------------------
 namespace
 {
 int registerRingList(QScriptEngine *engine)
@@ -64,14 +62,12 @@ int registerSegmentList(QScriptEngine *engine)
 
 } // namespace
 
-//------------------------------------------------------------------------------
 GeometryScriptExtension::GeometryScriptExtension(QObject *parent)
     : QObject(parent)
 {
 
 }
 
-//------------------------------------------------------------------------------
 void GeometryScriptExtension::configureEngine(IServiceLocator *locator, QScriptEngine *engine)
 {
     Q_UNUSED(locator)
@@ -89,4 +85,3 @@ void GeometryScriptExtension::configureEngine(IServiceLocator *locator, QScriptE
     REGISTER_METATYPE(Segment);
 }
 
-//------------------------------------------------------------------------------

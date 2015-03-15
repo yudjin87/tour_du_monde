@@ -38,13 +38,11 @@
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QToolBar>
 
-//------------------------------------------------------------------------------
 NavigationOperationsInteractiveExtension::NavigationOperationsInteractiveExtension(QObject *parent /*= nullptr*/)
     : QObject(parent)
 {
 }
 
-//------------------------------------------------------------------------------
 void NavigationOperationsInteractiveExtension::configureGui(ICatalogs &inCatalogs, IServiceLocator *serviceLocator)
 {
     Q_UNUSED(serviceLocator);
@@ -71,5 +69,4 @@ void NavigationOperationsInteractiveExtension::configureGui(ICatalogs &inCatalog
     menu->addAction(pan);
 }
 
-//------------------------------------------------------------------------------
 

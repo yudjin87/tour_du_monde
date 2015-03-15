@@ -26,21 +26,18 @@
 
 #include "MockComponentDependencies.h"
 
-//------------------------------------------------------------------------------
 MockComponentDependencies::MockComponentDependencies(QObject *parent)
     : ComponentDependencies(parent)
     , completeListWithChildrenCalled(0)
 {
 }
 
-//------------------------------------------------------------------------------
 bool MockComponentDependencies::addComponent(IComponent *component)
 {
     emit onAdded(component);
     return ComponentDependencies::addComponent(component);
 }
 
-//------------------------------------------------------------------------------
 DependenciesSolvingResult MockComponentDependencies::completeListWithChildren(const QList<IComponent *> &forChildren) const
 {
     for (IComponent *comp : forChildren)
@@ -50,4 +47,3 @@ DependenciesSolvingResult MockComponentDependencies::completeListWithChildren(co
     return ComponentDependencies::completeListWithChildren(forChildren);
 }
 
-//------------------------------------------------------------------------------

@@ -33,13 +33,11 @@
 #include <QtScript/QScriptEngine>
 #include <QtTest/QtTest>
 
-//------------------------------------------------------------------------------
 SimpleCompleterTest::SimpleCompleterTest(QObject *parent)
     : QObject(parent)
 {
 }
 
-//------------------------------------------------------------------------------
 void SimpleCompleterTest::completeGlobals_shouldReturnAllObjects()
 {
     SimpleCompleter completer; QScriptEngine eng;
@@ -85,7 +83,6 @@ void SimpleCompleterTest::completeGlobals_shouldReturnAllObjects()
     QVERIFY(globals.contains("version"));
 }
 
-//------------------------------------------------------------------------------
 void SimpleCompleterTest::completeGlobals_shouldReturnNewObjectObject()
 {
     SimpleCompleter completer; QScriptEngine eng;
@@ -99,4 +96,3 @@ void SimpleCompleterTest::completeGlobals_shouldReturnNewObjectObject()
     QVERIFY(globals.contains("serviceLocator"));
 }
 
-//------------------------------------------------------------------------------

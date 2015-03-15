@@ -9,13 +9,11 @@
 
 #include <functional>
 
-//------------------------------------------------------------------------------
 InputDispatcherTest::InputDispatcherTest(QObject *parent)
     : QObject(parent)
 {
 }
 
-//------------------------------------------------------------------------------
 void InputDispatcherTest::shouldStoreSetWidget()
 {
     QWidget widget;
@@ -25,7 +23,6 @@ void InputDispatcherTest::shouldStoreSetWidget()
     QCOMPARE(dispatcher.sender(), &widget);
 }
 
-//------------------------------------------------------------------------------
 void InputDispatcherTest::shouldNotThrowIfWidgetNullWhileDeactivate()
 {
     InputDispatcher dispatcher;
@@ -34,7 +31,6 @@ void InputDispatcherTest::shouldNotThrowIfWidgetNullWhileDeactivate()
     QVERIFY(true);
 }
 
-//------------------------------------------------------------------------------
 void InputDispatcherTest::shouldNotThrowIfWidgetNullWhileActivate()
 {
     InputDispatcher dispatcher;
@@ -43,7 +39,6 @@ void InputDispatcherTest::shouldNotThrowIfWidgetNullWhileActivate()
     QVERIFY(true);
 }
 
-//------------------------------------------------------------------------------
 void InputDispatcherTest::shouldStoreReceivedTool()
 {
     InputDispatcher dispatcher;
@@ -53,7 +48,6 @@ void InputDispatcherTest::shouldStoreReceivedTool()
     QCOMPARE(dispatcher.receiver(), &tool);
 }
 
-//------------------------------------------------------------------------------
 void InputDispatcherTest::shouldReturnNullWidgetByDefault()
 {
     InputDispatcher dispatcher;
@@ -61,7 +55,6 @@ void InputDispatcherTest::shouldReturnNullWidgetByDefault()
     QVERIFY(dispatcher.sender() == nullptr);
 }
 
-//------------------------------------------------------------------------------
 void InputDispatcherTest::shouldReturnNullReceivedToolByDefault()
 {
     InputDispatcher dispatcher;
@@ -69,7 +62,6 @@ void InputDispatcherTest::shouldReturnNullReceivedToolByDefault()
     QVERIFY(dispatcher.receiver() == nullptr);
 }
 
-//------------------------------------------------------------------------------
 void InputDispatcherTest::shouldBeDeactivedByDefault()
 {
     InputDispatcher dispatcher;
@@ -77,7 +69,6 @@ void InputDispatcherTest::shouldBeDeactivedByDefault()
     QCOMPARE(dispatcher.isActive(), false);
 }
 
-//------------------------------------------------------------------------------
 void InputDispatcherTest::shouldBeActiveAfterActivating()
 {
     InputDispatcher dispatcher;
@@ -88,7 +79,6 @@ void InputDispatcherTest::shouldBeActiveAfterActivating()
     QCOMPARE(dispatcher.isActive(), true);
 }
 
-//------------------------------------------------------------------------------
 void InputDispatcherTest::shouldBeWorkingAfterActivatingWithSenderAndReceiver()
 {
     QWidget widget;
@@ -104,7 +94,6 @@ void InputDispatcherTest::shouldBeWorkingAfterActivatingWithSenderAndReceiver()
     QCOMPARE(dispatcher.isWorking(), true);
 }
 
-//------------------------------------------------------------------------------
 void InputDispatcherTest::shouldBeWorkingAfterSettingSenderIfWasActivatedWithNullOne()
 {
     QWidget widget; MockTool tool;
@@ -120,7 +109,6 @@ void InputDispatcherTest::shouldBeWorkingAfterSettingSenderIfWasActivatedWithNul
     QCOMPARE(dispatcher.isWorking(), true);
 }
 
-//------------------------------------------------------------------------------
 void InputDispatcherTest::shouldBeWorkingAfterSettingReceiverIfWasActivatedWithNullOne()
 {
     QWidget widget; MockTool tool;
@@ -136,7 +124,6 @@ void InputDispatcherTest::shouldBeWorkingAfterSettingReceiverIfWasActivatedWithN
     QCOMPARE(dispatcher.isWorking(), true);
 }
 
-//------------------------------------------------------------------------------
 void InputDispatcherTest::shouldNotBeWorkingAfterActivatingWithoutSettingTheSenderAndReceiver()
 {
     QWidget widget;
@@ -160,7 +147,6 @@ void InputDispatcherTest::shouldNotBeWorkingAfterActivatingWithoutSettingTheSend
     QCOMPARE(dispatcher.isWorking(), false);
 }
 
-//------------------------------------------------------------------------------
 void InputDispatcherTest::shouldNotBeActiveAfterActivatingAndDeactivating()
 {
     InputDispatcher dispatcher;
@@ -174,7 +160,6 @@ void InputDispatcherTest::shouldNotBeActiveAfterActivatingAndDeactivating()
     QCOMPARE(dispatcher.isActive(), false);
 }
 
-//------------------------------------------------------------------------------
 void InputDispatcherTest::shouldNotBeWorkingIfNotActive()
 {
     QWidget widget; MockTool tool;
@@ -190,7 +175,6 @@ void InputDispatcherTest::shouldNotBeWorkingIfNotActive()
     QCOMPARE(dispatcher.isWorking(), false);
 }
 
-//------------------------------------------------------------------------------
 void InputDispatcherTest::shouldNotBeInvokeKeyboardHandlerAfterSettingNullSender()
 {
     QWidget widget;
@@ -209,7 +193,6 @@ void InputDispatcherTest::shouldNotBeInvokeKeyboardHandlerAfterSettingNullSender
     QVERIFY(!tool.keyUpCalled);
 }
 
-//------------------------------------------------------------------------------
 void InputDispatcherTest::shouldNotBeInvokeKeyboardHandlerAfterSettingNullReceiver()
 {
     QWidget widget;
@@ -228,7 +211,6 @@ void InputDispatcherTest::shouldNotBeInvokeKeyboardHandlerAfterSettingNullReceiv
     QVERIFY(!tool.keyUpCalled);
 }
 
-//------------------------------------------------------------------------------
 void InputDispatcherTest::shouldNotBeWorkingAfterSenderDeletion()
 {
     MockTool tool;
@@ -247,7 +229,6 @@ void InputDispatcherTest::shouldNotBeWorkingAfterSenderDeletion()
     QVERIFY(dispatcher.sender() == nullptr);
 }
 
-//------------------------------------------------------------------------------
 void InputDispatcherTest::shouldNotBeWorkingAfterReceiverDeletion()
 {
     InputDispatcher dispatcher;
@@ -265,7 +246,6 @@ void InputDispatcherTest::shouldNotBeWorkingAfterReceiverDeletion()
     QVERIFY(dispatcher.receiver() == nullptr);
 }
 
-//------------------------------------------------------------------------------
 void InputDispatcherTest::shouldCallReceiverIfWorking()
 {
     QWidget widget;
@@ -282,7 +262,6 @@ void InputDispatcherTest::shouldCallReceiverIfWorking()
     QVERIFY(tool.keyUpCalled);
 }
 
-//------------------------------------------------------------------------------
 void InputDispatcherTest::shouldNotInvokeKeyboardHandlerIfNotWorking()
 {
     QWidget widget;
@@ -301,7 +280,6 @@ void InputDispatcherTest::shouldNotInvokeKeyboardHandlerIfNotWorking()
     QVERIFY(!tool.keyUpCalled);
 }
 
-//------------------------------------------------------------------------------
 void InputDispatcherTest::shouldInvokeKeyboardHandlerAfterReactivating()
 {
     QWidget widget;
@@ -320,4 +298,3 @@ void InputDispatcherTest::shouldInvokeKeyboardHandlerAfterReactivating()
     QVERIFY(tool.keyUpCalled);
 }
 
-//------------------------------------------------------------------------------

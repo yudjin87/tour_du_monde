@@ -26,17 +26,14 @@
 
 #include "ComponentWithExtensions.h"
 
-//------------------------------------------------------------------------------
 class ComponentExtension1 : public IComponentExtension1
 {
 };
 
-//------------------------------------------------------------------------------
 class ComponentExtension2 : public IComponentExtension2
 {
 };
 
-//------------------------------------------------------------------------------
 ComponentWithExtensions::ComponentWithExtensions()
     : BaseComponent("ComponentWithExtensions")
     , m_extension1(new ComponentExtension1())
@@ -46,7 +43,6 @@ ComponentWithExtensions::ComponentWithExtensions()
     registerExtension<IComponentExtension2>(m_extension2);
 }
 
-//------------------------------------------------------------------------------
 ComponentWithExtensions::~ComponentWithExtensions()
 {
     delete m_extension2;
@@ -55,4 +51,3 @@ ComponentWithExtensions::~ComponentWithExtensions()
     m_extension1 = nullptr;
 }
 
-//------------------------------------------------------------------------------

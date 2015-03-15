@@ -41,10 +41,8 @@ namespace
 static LoggerFacade Log = LoggerFacade::createLogger("SimpleDisplay");
 }
 
-//------------------------------------------------------------------------------
 static const int flipY = -1;
 
-//------------------------------------------------------------------------------
 SimpleDisplay::SimpleDisplay(QWidget *parent)
     : m_moveVisibleBound(true)
     , m_conn()
@@ -75,12 +73,10 @@ SimpleDisplay::SimpleDisplay(QWidget *parent)
     m_transform->setDeviceFrame(QRectF(0, 0, width(), height()));
 }
 
-//------------------------------------------------------------------------------
 SimpleDisplay::~SimpleDisplay()
 {
 }
 
-//------------------------------------------------------------------------------
 void SimpleDisplay::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event)
@@ -94,7 +90,6 @@ void SimpleDisplay::paintEvent(QPaintEvent *event)
     painter.drawPixmap(m_offset.x(), m_offset.y(), m_pixmap->width(), m_pixmap->height(), *m_pixmap);
 }
 
-//------------------------------------------------------------------------------
 void SimpleDisplay::dumpDraft(const DispayCache inCache)
 {
 //    if (m_draftPixmap == nullptr) {
@@ -117,7 +112,6 @@ void SimpleDisplay::dumpDraft(const DispayCache inCache)
     viewport()->update();
 }
 
-//------------------------------------------------------------------------------
 void SimpleDisplay::startDrawing(const DispayCache inCache)
 {
     delete m_draftPixmaps[(int)inCache];
@@ -154,7 +148,6 @@ void SimpleDisplay::startDrawing(const DispayCache inCache)
     */
 }
 
-//------------------------------------------------------------------------------
 void SimpleDisplay::finishDrawing(const DispayCache inCache)
 {
     //Q_ASSERT(m_draftPixmap != nullptr && "Illegal state during the finishing drawing!");
@@ -164,45 +157,38 @@ void SimpleDisplay::finishDrawing(const DispayCache inCache)
 //    m_draftPixmaps[(int)inCache] = nullptr;
 }
 
-//------------------------------------------------------------------------------
 QPixmap& SimpleDisplay::lockPixmap(const DispayCache inCache)
 {
     QPixmapPtr& pixmap = m_draftPixmaps[(int)inCache];
     return *pixmap;
 }
 
-//------------------------------------------------------------------------------
 void SimpleDisplay::unlockPixmap(const DispayCache inCache)
 {
     dumpDraft(inCache);
 }
 
-//------------------------------------------------------------------------------
 DisplayTransformation *SimpleDisplay::transformation()
 {
     return m_transform;
 }
 
-//------------------------------------------------------------------------------
 const DisplayTransformation *SimpleDisplay::transformation() const
 {
     return m_transform;
 }
 
-//------------------------------------------------------------------------------
 void SimpleDisplay::panMoveTo(const QPoint &screenPoint)
 {
     m_offset = (screenPoint - m_startPan);
     viewport()->update();
 }
 
-//------------------------------------------------------------------------------
 void SimpleDisplay::panStart(const QPoint &screenPoint)
 {
     m_startPan = screenPoint;
 }
 
-//------------------------------------------------------------------------------
 QRectF SimpleDisplay::panStop()
 {
     moveVisibleBounds(m_offset.x(), m_offset.y());
@@ -213,27 +199,23 @@ QRectF SimpleDisplay::panStop()
     return QRectF();
 }
 
-//------------------------------------------------------------------------------
 void SimpleDisplay::emitChanged()
 {
     //m_offset = QPointF(0, 0);
     viewport()->update();
 }
 
-//------------------------------------------------------------------------------
 void SimpleDisplay::updateWindow()
 {
    viewport()->update();
 }
 
-//------------------------------------------------------------------------------
 void SimpleDisplay::postDrawingTask(IDrawingTaskPtr task)
 {
     Q_ASSERT(task != nullptr && "Null pointer is not allowed");
     task->draw(*this);
 }
 
-//------------------------------------------------------------------------------
 void SimpleDisplay::scrollContentsBy(int dx, int dy)
 {
     m_offset += QPointF(dx, dy);
@@ -243,7 +225,6 @@ void SimpleDisplay::scrollContentsBy(int dx, int dy)
     emit needChange();
 }
 
-//------------------------------------------------------------------------------
 QPixmapPtr SimpleDisplay::createPixmap(const QColor &fillColor) const
 {
     QPixmapPtr pixmap(new QPixmap(this->width(), this->height()));
@@ -251,7 +232,6 @@ QPixmapPtr SimpleDisplay::createPixmap(const QColor &fillColor) const
     return pixmap;
 }
 
-//------------------------------------------------------------------------------
 void SimpleDisplay::mouseMoveEvent(QMouseEvent *event)
 {
     Q_UNUSED(event)
@@ -261,14 +241,12 @@ void SimpleDisplay::mouseMoveEvent(QMouseEvent *event)
     // qDebug("x:%f; y:%f", mapPoint.x(), mapPoint.y());
 }
 
-//------------------------------------------------------------------------------
 void SimpleDisplay::showEvent(QShowEvent *event)
 {
     Q_UNUSED(event)
     emitChanged();
 }
 
-//------------------------------------------------------------------------------
 void SimpleDisplay::resizeEvent(QResizeEvent *event)
 {
     Q_UNUSED(event)
@@ -278,7 +256,6 @@ void SimpleDisplay::resizeEvent(QResizeEvent *event)
     // todo: map refresh
 }
 
-//------------------------------------------------------------------------------
 void SimpleDisplay::onVisibleBoundChanged(const QRectF &visibleBounds)
 {
     Q_UNUSED(visibleBounds)
@@ -286,7 +263,6 @@ void SimpleDisplay::onVisibleBoundChanged(const QRectF &visibleBounds)
     emit needChange();
 }
 
-//------------------------------------------------------------------------------
 void SimpleDisplay::adjustScrollBars()
 {
 // TODO: in Multiothreading dispay, this method works incorrect, with little movement
@@ -312,7 +288,6 @@ void SimpleDisplay::adjustScrollBars()
 //    m_moveVisibleBound = true;
 }
 
-//------------------------------------------------------------------------------
 void SimpleDisplay::moveVisibleBounds(int dx, int dy)
 {
     if (!m_moveVisibleBound)
@@ -328,7 +303,6 @@ void SimpleDisplay::moveVisibleBounds(int dx, int dy)
     m_conn = connect(transformation(), &DisplayTransformation::visibleBoundsChanged, this, &SimpleDisplay::onVisibleBoundChanged);
 }
 
-//------------------------------------------------------------------------------
 int SimpleDisplay::getDy(double scale)
 {
     // Visible extent could be moved out the extent. We should expand extend
@@ -341,7 +315,6 @@ int SimpleDisplay::getDy(double scale)
     return dy;
 }
 
-//------------------------------------------------------------------------------
 int SimpleDisplay::getDx(double scale)
 {
     int dx = (transformation()->bounds().width() * scale);
@@ -350,5 +323,4 @@ int SimpleDisplay::getDx(double scale)
     return dx;
 }
 
-//------------------------------------------------------------------------------
 

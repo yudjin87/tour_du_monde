@@ -31,12 +31,10 @@
 #include <QtXml/QDomDocument>
 #include <QtXml/QDomElement>
 
-//------------------------------------------------------------------------------
 namespace
 {
 static LoggerFacade Log = LoggerFacade::createLogger("XmlDefinitionParser");
 
-//------------------------------------------------------------------------------
 static const char *COMPONENT_NAME_ATTRIBUTE = "name";
 static const char *COMPONENT_SHORT_NAME_ATTRIBUTE = "shortName";
 static const char *PARENT_COMPONENT_NAME_ATTRIBUTE = "name";
@@ -52,7 +50,6 @@ static const char *PARENT_COMPONENT_TAG = "parentComponent";
 static const char *PARENTS_TAG = "parents";
 }
 
-//------------------------------------------------------------------------------
 XmlDefinitionParser::XmlDefinitionParser(QObject *parent)
     : QObject(parent)
     , m_componentName("")
@@ -67,19 +64,16 @@ XmlDefinitionParser::XmlDefinitionParser(QObject *parent)
 {
 }
 
-//------------------------------------------------------------------------------
 XmlDefinitionParser::~XmlDefinitionParser()
 {
     clear();
 }
 
-//------------------------------------------------------------------------------
 const QString &XmlDefinitionParser::error() const
 {
     return m_error;
 }
 
-//------------------------------------------------------------------------------
 bool XmlDefinitionParser::read(const QString &text)
 {
     clear();
@@ -92,7 +86,6 @@ bool XmlDefinitionParser::read(const QString &text)
     return parseXml(doc);
 }
 
-//------------------------------------------------------------------------------
 bool XmlDefinitionParser::read(const QByteArray &text)
 {
     clear();
@@ -105,7 +98,6 @@ bool XmlDefinitionParser::read(const QByteArray &text)
     return parseXml(doc);
 }
 
-//------------------------------------------------------------------------------
 bool XmlDefinitionParser::read(QIODevice *dev)
 {
     clear();
@@ -118,55 +110,46 @@ bool XmlDefinitionParser::read(QIODevice *dev)
     return parseXml(doc);
 }
 
-//------------------------------------------------------------------------------
 const QString &XmlDefinitionParser::componentShortName() const
 {
     return m_shortName;
 }
 
-//------------------------------------------------------------------------------
 const QString &XmlDefinitionParser::componentName() const
 {
     return m_componentName;
 }
 
-//------------------------------------------------------------------------------
 const QString &XmlDefinitionParser::componentLocation() const
 {
     return m_componentLocation;
 }
 
-//------------------------------------------------------------------------------
 const QString &XmlDefinitionParser::description() const
 {
     return m_description;
 }
 
-//------------------------------------------------------------------------------
 const IDefinitionParser::ParentsList &XmlDefinitionParser::parents() const
 {
     return m_parents;
 }
 
-//------------------------------------------------------------------------------
 const QString &XmlDefinitionParser::productName() const
 {
     return m_productName;
 }
 
-//------------------------------------------------------------------------------
 const QString &XmlDefinitionParser::provider() const
 {
     return m_provider;
 }
 
-//------------------------------------------------------------------------------
 const QString &XmlDefinitionParser::version() const
 {
     return m_version;
 }
 
-//------------------------------------------------------------------------------
 bool XmlDefinitionParser::parseXml(QDomDocument &document)
 {
     QDomElement root = document.documentElement();
@@ -218,7 +201,6 @@ bool XmlDefinitionParser::parseXml(QDomDocument &document)
     return true;
 }
 
-//------------------------------------------------------------------------------
 void XmlDefinitionParser::clear()
 {
     m_componentName = "";
@@ -229,4 +211,3 @@ void XmlDefinitionParser::clear()
     m_parents.clear();
 }
 
-//------------------------------------------------------------------------------

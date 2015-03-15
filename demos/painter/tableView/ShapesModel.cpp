@@ -29,14 +29,12 @@
 
 #include <QtGui/QColor>
 
-//------------------------------------------------------------------------------
 ShapesModel::ShapesModel(const ObservableList<IShape *> &data, QObject *parent)
     : QAbstractListModel(parent)
     , m_data(data)
 {
 }
 
-//------------------------------------------------------------------------------
 QVariant ShapesModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
     if (role == Qt::DisplayRole) {
@@ -59,21 +57,18 @@ QVariant ShapesModel::headerData(int section, Qt::Orientation orientation, int r
     return QVariant::Invalid;
 }
 
-//------------------------------------------------------------------------------
 int ShapesModel::columnCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent)
     return 3;
 }
 
-//------------------------------------------------------------------------------
 int ShapesModel::rowCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent)
     return m_data.size();
 }
 
-//------------------------------------------------------------------------------
 QVariant ShapesModel::data(const QModelIndex &index, int role) const
 {
     if(index.row() >= m_data.size())
@@ -106,4 +101,3 @@ QVariant ShapesModel::data(const QModelIndex &index, int role) const
     return QVariant::Invalid;
 }
 
-//------------------------------------------------------------------------------

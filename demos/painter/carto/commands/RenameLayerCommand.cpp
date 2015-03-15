@@ -30,7 +30,6 @@
 #include <carto/IPainterDocument.h>
 #include <carto/IPainterDocumentController.h>
 
-//------------------------------------------------------------------------------
 RenameLayerCommand::RenameLayerCommand(IUndoStack *stack, IPainterDocumentController *docContr, QObject *parent)
     : BaseUndoableCommand(stack, parent)
     , m_docContr(docContr)
@@ -42,30 +41,25 @@ RenameLayerCommand::RenameLayerCommand(IUndoStack *stack, IPainterDocumentContro
     setText("layer renaming");
 }
 
-//------------------------------------------------------------------------------
 RenameLayerCommand::~RenameLayerCommand()
 {
 }
 
-//------------------------------------------------------------------------------
 void RenameLayerCommand::setLayer(AbstractLayer *layer)
 {
     m_layer = layer;
 }
 
-//------------------------------------------------------------------------------
 void RenameLayerCommand::setLayerIndex(const int layerToRename)
 {
     m_layerIndexToRename = layerToRename;
 }
 
-//------------------------------------------------------------------------------
 void RenameLayerCommand::setNewName(const QString &newName)
 {
     m_newName = newName;
 }
 
-//------------------------------------------------------------------------------
 void RenameLayerCommand::redo()
 {
     IPainterDocument *doc = m_docContr->document();
@@ -80,7 +74,6 @@ void RenameLayerCommand::redo()
     layerToRename->setName(m_newName);
 }
 
-//------------------------------------------------------------------------------
 void RenameLayerCommand::undo()
 {
     IPainterDocument *doc = m_docContr->document();
@@ -95,5 +88,4 @@ void RenameLayerCommand::undo()
     layerToRename->setName(m_oldName);
 }
 
-//------------------------------------------------------------------------------
 

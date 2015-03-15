@@ -32,20 +32,17 @@
 #include <carousel/logging/LoggerFacade.h>
 #include <algorithm>
 
-//------------------------------------------------------------------------------
 namespace
 {
 static LoggerFacade Log = LoggerFacade::createLogger("ServiceLocator");
 }
 
-//------------------------------------------------------------------------------
 ServiceLocator::ServiceLocator()
     : m_objects(new TypeObjectsMap<void *>())
     , m_creators(new TypeObjectsMap<factoryMethod>())
 {
 }
 
-//------------------------------------------------------------------------------
 ServiceLocator::~ServiceLocator()
 {
     delete m_objects;
@@ -55,13 +52,11 @@ ServiceLocator::~ServiceLocator()
     m_creators = nullptr;
 }
 
-//------------------------------------------------------------------------------
 QObject *ServiceLocator::buildObject(const QString &className)
 {
     return buildObject(className, "");
 }
 
-//------------------------------------------------------------------------------
 QObject *ServiceLocator::buildObject(const QString &className, const QString &tag)
 {
     bool success = false;
@@ -77,13 +72,11 @@ QObject *ServiceLocator::buildObject(const QString &className, const QString &ta
     return object;
 }
 
-//------------------------------------------------------------------------------
 QObject *ServiceLocator::locateToObject(const QString &className)
 {
     return locateToObject(className, "");
 }
 
-//------------------------------------------------------------------------------
 QObject *ServiceLocator::locateToObject(const QString &className, const QString &tag)
 {
     void *foundInstance = getService(className, tag);
@@ -91,19 +84,16 @@ QObject *ServiceLocator::locateToObject(const QString &className, const QString 
     return service;
 }
 
-//------------------------------------------------------------------------------
 QStringList ServiceLocator::services() const
 {
     return services("");
 }
 
-//------------------------------------------------------------------------------
 QStringList ServiceLocator::services(const QString &tag) const
 {
     return m_objects->keys(tag);
 }
 
-//------------------------------------------------------------------------------
 void ServiceLocator::registerTypeImpl(const QString &className, factoryMethod method, const QString &tag)
 {
     if (tag.isEmpty())
@@ -114,14 +104,12 @@ void ServiceLocator::registerTypeImpl(const QString &className, factoryMethod me
     m_creators->registerInstance(method, className, tag);
 }
 
-//------------------------------------------------------------------------------
 void *ServiceLocator::unregisterInstanceImpl(const QString &className, const QString &tag)
 {
     void *foundInstance = m_objects->unregisterInstance(className, tag);
     return foundInstance;
 }
 
-//------------------------------------------------------------------------------
 void *ServiceLocator::buildInstanceImpl(const QString &className, const QString &tag)
 {
     bool success = false;
@@ -136,7 +124,6 @@ void *ServiceLocator::buildInstanceImpl(const QString &className, const QString 
     return data;
 }
 
-//------------------------------------------------------------------------------
 void *ServiceLocator::getService(const QString &className, const QString &tag)
 {
     bool success = false;
@@ -150,7 +137,6 @@ void *ServiceLocator::getService(const QString &className, const QString &tag)
     return tmp;
 }
 
-//------------------------------------------------------------------------------
 void ServiceLocator::registerInstanceImpl(void *instance, const QString &className, const QString &tag)
 {
     if (tag.isEmpty())
@@ -161,4 +147,3 @@ void ServiceLocator::registerInstanceImpl(void *instance, const QString &classNa
     m_objects->registerInstance(instance, className, tag);
 }
 
-//------------------------------------------------------------------------------

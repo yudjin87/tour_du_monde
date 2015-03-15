@@ -39,7 +39,6 @@
 #include <QtWidgets/QFileDialog>
 #include <QtWidgets/QMainWindow>
 
-//------------------------------------------------------------------------------
 ComponentDefinitionsModel::ComponentDefinitionsModel(const ComponentCollection &components, QObject *parent)
     : QAbstractTableModel(parent)
     , m_components(components)
@@ -49,19 +48,16 @@ ComponentDefinitionsModel::ComponentDefinitionsModel(const ComponentCollection &
     connect(&components, &ComponentCollection::componentRemoved, this, &ComponentDefinitionsModel::onComponentsChanged);
 }
 
-//------------------------------------------------------------------------------
 ComponentDefinitionsModel::~ComponentDefinitionsModel()
 {
     m_locator = nullptr;
 }
 
-//------------------------------------------------------------------------------
 void ComponentDefinitionsModel::injectServiceLocator(IServiceLocator *locator)
 {
     m_locator = locator;
 }
 
-//------------------------------------------------------------------------------
 Qt::ItemFlags ComponentDefinitionsModel::flags(const QModelIndex &index) const
 {
     Qt::ItemFlags flags = QAbstractItemModel::flags(index);
@@ -77,7 +73,6 @@ Qt::ItemFlags ComponentDefinitionsModel::flags(const QModelIndex &index) const
         return Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable;
 }
 
-//------------------------------------------------------------------------------
 int ComponentDefinitionsModel::rowCount(const QModelIndex &parent) const
 {
     if (parent.column() > 0)
@@ -89,13 +84,11 @@ int ComponentDefinitionsModel::rowCount(const QModelIndex &parent) const
     return m_components.size();
 }
 
-//------------------------------------------------------------------------------
 int ComponentDefinitionsModel::columnCount(const QModelIndex &parent) const
 {
     return (parent.column() > 0) ? 0 : 6;
 }
 
-//------------------------------------------------------------------------------
 QVariant ComponentDefinitionsModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
     if (orientation != Qt::Horizontal || role != Qt::DisplayRole)
@@ -113,7 +106,6 @@ QVariant ComponentDefinitionsModel::headerData(int section, Qt::Orientation orie
     }
 }
 
-//------------------------------------------------------------------------------
 QVariant ComponentDefinitionsModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid() || index.model() != this)
@@ -181,7 +173,6 @@ QVariant ComponentDefinitionsModel::data(const QModelIndex &index, int role) con
     return QVariant();
 }
 
-//------------------------------------------------------------------------------
 bool ComponentDefinitionsModel::setData(const QModelIndex &index, const QVariant &, int role)
 {
     if (!index.isValid())
@@ -203,13 +194,11 @@ bool ComponentDefinitionsModel::setData(const QModelIndex &index, const QVariant
     return true;
 }
 
-//------------------------------------------------------------------------------
 void ComponentDefinitionsModel::onDescription(const QModelIndex &index)
 {
     Q_UNUSED(index)
 }
 
-//------------------------------------------------------------------------------
 void ComponentDefinitionsModel::onInstall()
 {
     QFileDialog fileDialog(m_locator->locate<QMainWindow>(), "Install component");
@@ -230,7 +219,6 @@ void ComponentDefinitionsModel::onInstall()
     command->pushToStack();
 }
 
-//------------------------------------------------------------------------------
 void ComponentDefinitionsModel::onToogleEnable(const QModelIndex &index)
 {
     Q_ASSERT(m_locator != nullptr);
@@ -242,11 +230,9 @@ void ComponentDefinitionsModel::onToogleEnable(const QModelIndex &index)
     command->pushToStack();
 }
 
-//------------------------------------------------------------------------------
 void ComponentDefinitionsModel::onComponentsChanged(IComponent *)
 {
     beginInsertRows(QModelIndex(), m_components.size(), m_components.size());
     endInsertRows();
 }
 
-//------------------------------------------------------------------------------

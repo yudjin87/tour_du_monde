@@ -37,13 +37,11 @@
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QToolBar>
 
-//------------------------------------------------------------------------------
 UndoInteractiveExtension::UndoInteractiveExtension(QObject *parent /*= nullptr*/)
     : QObject(parent)
 {
 }
 
-//------------------------------------------------------------------------------
 void UndoInteractiveExtension::configureGui(ICatalogs &inCatalogs, IServiceLocator *serviceLocator)
 {
     Q_UNUSED(serviceLocator)
@@ -64,6 +62,5 @@ void UndoInteractiveExtension::configureGui(ICatalogs &inCatalogs, IServiceLocat
     menu->addAction(redo);
 }
 
-//------------------------------------------------------------------------------
 
 

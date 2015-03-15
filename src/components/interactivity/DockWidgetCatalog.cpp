@@ -30,25 +30,21 @@
 #include <QtWidgets/QDockWidget>
 #include <QtWidgets/QMainWindow>
 
-//------------------------------------------------------------------------------
 DockWidgetCatalog::DockWidgetCatalog(QMainWindow &mainWindow)
     :m_mainWindow(mainWindow)
 {
 }
 
-//------------------------------------------------------------------------------
 DockWidgetCatalog::~DockWidgetCatalog()
 {
     qDeleteAll(m_widgets);
 }
 
-//------------------------------------------------------------------------------
 QDockWidget *DockWidgetCatalog::addDockWidget(QWidget *widget, const QString &windowTitle)
 {
     return addDockWidget(widget, windowTitle, Qt::LeftDockWidgetArea);
 }
 
-//------------------------------------------------------------------------------
 QDockWidget *DockWidgetCatalog::addDockWidget(QWidget *widget, const QString &windowTitle, Qt::DockWidgetArea area)
 {
     if (widget == nullptr)
@@ -67,23 +63,19 @@ QDockWidget *DockWidgetCatalog::addDockWidget(QWidget *widget, const QString &wi
     return dock;
 }
 
-//------------------------------------------------------------------------------
 void DockWidgetCatalog::deleteDockWidget(QDockWidget *dockWidget)
 {
     if (m_widgets.removeOne(dockWidget))
         delete dockWidget;
 }
 
-//------------------------------------------------------------------------------
 QList<QDockWidget *> DockWidgetCatalog::dockWidgets() const
 {
     return m_widgets;
 }
 
-//------------------------------------------------------------------------------
 void DockWidgetCatalog::onDockWidgetAdded(QDockWidget *widget)
 {
     emit dockWidgetAdded(widget);
 }
 
-//------------------------------------------------------------------------------

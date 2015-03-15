@@ -29,21 +29,18 @@
 
 #include <QtCore/QtAlgorithms>
 
-//------------------------------------------------------------------------------
 ParentDefinitions::ParentDefinitions(QObject *parent)
     : QObject(parent)
     , m_parents(QList<ParentDefinition *>())
 {
 }
 
-//------------------------------------------------------------------------------
 ParentDefinitions::~ParentDefinitions()
 {
     qDeleteAll(m_parents);
     m_parents.clear();
 }
 
-//------------------------------------------------------------------------------
 bool ParentDefinitions::contains(const QString &parentName) const
 {
     for (ParentDefinition *com : m_parents) {
@@ -54,19 +51,16 @@ bool ParentDefinitions::contains(const QString &parentName) const
     return false;
 }
 
-//------------------------------------------------------------------------------
 void ParentDefinitions::append(ParentDefinition *parent)
 {
     m_parents.append(parent);
 }
 
-//------------------------------------------------------------------------------
 int ParentDefinitions::size() const
 {
     return m_parents.size();
 }
 
-//------------------------------------------------------------------------------
 const Version *ParentDefinitions::operator [](const QString &parentName) const
 {
     for (ParentDefinition *com : m_parents) {
@@ -77,34 +71,28 @@ const Version *ParentDefinitions::operator [](const QString &parentName) const
     return nullptr;
 }
 
-//------------------------------------------------------------------------------
 const ParentDefinition *ParentDefinitions::operator [](int index) const
 {
     return m_parents[index];
 }
 
-//------------------------------------------------------------------------------
 QList<ParentDefinition *>::const_iterator ParentDefinitions::begin() const
 {
     return m_parents.begin();
 }
 
-//------------------------------------------------------------------------------
 QList<ParentDefinition *>::const_iterator ParentDefinitions::constEnd() const
 {
     return m_parents.constEnd();
 }
 
-//------------------------------------------------------------------------------
 QList<ParentDefinition *>::const_iterator ParentDefinitions::end() const
 {
     return m_parents.end();
 }
 
-//------------------------------------------------------------------------------
 QList<ParentDefinition *>::const_iterator ParentDefinitions::constBegin() const
 {
     return m_parents.constBegin();
 }
 
-//------------------------------------------------------------------------------

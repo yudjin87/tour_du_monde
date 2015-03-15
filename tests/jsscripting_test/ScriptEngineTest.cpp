@@ -32,14 +32,12 @@
 #include <QtScript/QScriptEngine>
 #include <QtTest/QtTest>
 
-//------------------------------------------------------------------------------
 ScriptEngineTest::ScriptEngineTest(QObject *parent)
     : QObject(parent)
 {
     setObjectName("ScriptEngineTestName");
 }
 
-//------------------------------------------------------------------------------
 void ScriptEngineTest::tryServiceLocatorWrapper()
 {
     ServiceLocator locator; locator.registerInstance<ScriptEngineTest>(this);
@@ -58,9 +56,7 @@ void ScriptEngineTest::tryServiceLocatorWrapper()
     QCOMPARE(nameFromScript, this->objectName());
 }
 
-//------------------------------------------------------------------------------
 const QByteArray ScriptEngineTest::simpleScript(
         "var obj = serviceLocator.locate(\"ScriptEngineTest\");"
         "var name = obj.objectName");
 
-//------------------------------------------------------------------------------

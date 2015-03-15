@@ -32,18 +32,15 @@
 #include <QtTest/QtTest>
 #include <QtTest/QSignalSpy>
 
-//------------------------------------------------------------------------------
 const QByteArray simpleScript(
         "var obj = serviceLocator.locate(\"ScriptEngineTest\");"
         "var name = obj.objectName");
 
-//------------------------------------------------------------------------------
 ScriptConsoleTest::ScriptConsoleTest(QObject *parent)
     : QObject(parent)
 {
 }
 
-//------------------------------------------------------------------------------
 void ScriptConsoleTest::evaluateLine_shouldReturnTrueForCorrectScript()
 {
     ScriptConsole console;
@@ -56,7 +53,6 @@ void ScriptConsoleTest::evaluateLine_shouldReturnTrueForCorrectScript()
     QVERIFY(error.isEmpty());
 }
 
-//------------------------------------------------------------------------------
 void ScriptConsoleTest::evaluateLine_shouldReturnFalseForIncorrectScript()
 {
     ScriptConsole console;    
@@ -68,7 +64,6 @@ void ScriptConsoleTest::evaluateLine_shouldReturnFalseForIncorrectScript()
     QVERIFY(!error.isEmpty());
 }
 
-//------------------------------------------------------------------------------
 void ScriptConsoleTest::evaluateLine_shouldPopulateHistory()
 {
     ScriptConsole console;
@@ -81,7 +76,6 @@ void ScriptConsoleTest::evaluateLine_shouldPopulateHistory()
     QCOMPARE(console.commandHistory().size(), 3);
 }
 
-//------------------------------------------------------------------------------
 void ScriptConsoleTest::evaluateLine_shouldNotPopulateHistoryWithEmptyLine()
 {
     ScriptConsole console;
@@ -95,7 +89,6 @@ void ScriptConsoleTest::evaluateLine_shouldNotPopulateHistoryWithEmptyLine()
     QCOMPARE(console.commandHistory().size(), 2);
 }
 
-//------------------------------------------------------------------------------
 void ScriptConsoleTest::evaluateLine_shouldResetHistoryHead()
 {
     ScriptConsole console;
@@ -115,7 +108,6 @@ void ScriptConsoleTest::evaluateLine_shouldResetHistoryHead()
     QCOMPARE(console.prevCommand(), commandHistory[3]);
 }
 
-//------------------------------------------------------------------------------
 void ScriptConsoleTest::historyPrev_shouldReturnCorrectCommand()
 {
     ScriptConsole console;
@@ -132,7 +124,6 @@ void ScriptConsoleTest::historyPrev_shouldReturnCorrectCommand()
     QCOMPARE(console.prevCommand(), commandHistory[0]); // "oldest" anyway    |
 }
 
-//------------------------------------------------------------------------------
 void ScriptConsoleTest::historyNext_shouldReturnCorrectCommand()
 {
     ScriptConsole console;
@@ -151,7 +142,6 @@ void ScriptConsoleTest::historyNext_shouldReturnCorrectCommand()
     QCOMPARE(console.nextCommand(), QString("")); // "last"   anyway   v
 }
 
-//------------------------------------------------------------------------------
 void ScriptConsoleTest::historyPrevNext_shouldReturnCorrectCommands()
 {
     ScriptConsole console;
@@ -176,8 +166,6 @@ void ScriptConsoleTest::historyPrevNext_shouldReturnCorrectCommands()
     console.nextCommand();
 }
 
-//------------------------------------------------------------------------------
 const QByteArray ScriptConsoleTest::simpleScript("var a = 1 + 1");
 const QByteArray ScriptConsoleTest::wrongScript("var a = b + 1");
 
-//------------------------------------------------------------------------------

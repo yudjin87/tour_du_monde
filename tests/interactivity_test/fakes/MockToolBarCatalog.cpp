@@ -26,16 +26,13 @@
 
 #include "MockToolBarCatalog.h"
 
-//------------------------------------------------------------------------------
 MockToolBarCatalog::MockToolBarCatalog(QMainWindow &shell)
     : ToolBarCatalog(shell)
 {
 }
 
-//------------------------------------------------------------------------------
 QMainWindow &MockToolBarCatalog::getShell()
 {
     return m_mainWindow;
 }
 
-//------------------------------------------------------------------------------

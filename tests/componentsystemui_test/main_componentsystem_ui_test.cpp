@@ -29,10 +29,8 @@
 #include <QtCore/QStringList>
 #include <QtWidgets/QApplication>
 
-//------------------------------------------------------------------------------
 void runGuiManualTests(QStringList arguments);
 
-//------------------------------------------------------------------------------
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
@@ -45,7 +43,6 @@ int main(int argc, char *argv[])
     return 0;
 }
 
-//------------------------------------------------------------------------------
 void runGuiManualTests(QStringList arguments)
 {
     Q_UNUSED(arguments)
@@ -54,4 +51,3 @@ void runGuiManualTests(QStringList arguments)
     componentsDialogTest->test();
 }
 
-//------------------------------------------------------------------------------

@@ -31,28 +31,24 @@
 
 // This header has been written by influence of the similiar QtCore/qplugin.h
 
-//------------------------------------------------------------------------------
 #ifdef __cplusplus
 #  define EXTERN_C extern "C"
 #else
 #  define EXTERN_C extern
 #endif
 
-//------------------------------------------------------------------------------
 #if defined (Q_OS_WIN32) && defined(Q_CC_BOR)
 #   define STANDARD_CALL __stdcall
 #else
 #   define STANDARD_CALL
 #endif
 
-//------------------------------------------------------------------------------
 #define CREATE_INSTANCE createInstance
 #define RELEASE_INSTANCE releaseInstance
 
 #define CREATE_FUNCTION_NAME "createInstance"
 #define RELEASE_FUNCTION_NAME "releaseInstance"
 
-//------------------------------------------------------------------------------
 #define CREATE_INSTANCE_FUNCTION(COMPONENT_CLASS)                                               \
     EXTERN_C Q_DECL_EXPORT void * STANDARD_CALL CREATE_INSTANCE()                               \
     {                                                                                           \
@@ -62,19 +58,16 @@
         return component;                                                                       \
     }                                                                                           \
 
-//------------------------------------------------------------------------------
 #define RELEASE_INSTANCE_FUNCTION(COMPONENT_CLASS)                                              \
     EXTERN_C Q_DECL_EXPORT void STANDARD_CALL RELEASE_INSTANCE(void *component)                 \
     {                                                                                           \
         delete reinterpret_cast<COMPONENT_CLASS *>(component);                                  \
     }                                                                                           \
 
-//------------------------------------------------------------------------------
 #define EXPORT_COMPONENT(COMPONENT_CLASS)                                                       \
     CREATE_INSTANCE_FUNCTION(COMPONENT_CLASS)                                                   \
     RELEASE_INSTANCE_FUNCTION(COMPONENT_CLASS)                                                  \
 
-//------------------------------------------------------------------------------
 
 #endif // COMPONENTEXPORT_H
 

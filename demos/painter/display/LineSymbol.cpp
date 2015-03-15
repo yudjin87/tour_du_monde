@@ -26,7 +26,6 @@
 
 #include "LineSymbol.h"
 
-//------------------------------------------------------------------------------
 LineSymbol::LineSymbol(QObject *parent)
     : SymbolBase(parent)
     , m_width(1)
@@ -34,7 +33,6 @@ LineSymbol::LineSymbol(QObject *parent)
 {
 }
 
-//------------------------------------------------------------------------------
 LineSymbol::LineSymbol(const LineSymbol &o, QObject *parent)
     : m_width(o.m_width)
     , m_color(o.m_color)
@@ -42,34 +40,28 @@ LineSymbol::LineSymbol(const LineSymbol &o, QObject *parent)
     setParent(parent);
 }
 
-//------------------------------------------------------------------------------
 QColor LineSymbol::color() const
 {
     return m_color;
 }
 
-//------------------------------------------------------------------------------
 void LineSymbol::setColor(const QColor &color)
 {
     m_color = color;
 }
 
-//------------------------------------------------------------------------------
 void LineSymbol::setColor(int r, int g, int b, int a)
 {
     setColor(QColor(r, g, b, a));
 }
 
-//------------------------------------------------------------------------------
 qreal LineSymbol::width() const
 {
     return m_width;
 }
 
-//------------------------------------------------------------------------------
 void LineSymbol::setWidth(qreal width)
 {
     m_width = width;
 }
 
-//------------------------------------------------------------------------------

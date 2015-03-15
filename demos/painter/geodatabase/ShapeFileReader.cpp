@@ -28,7 +28,6 @@
 
 #include <QtCore/QIODevice>
 
-//------------------------------------------------------------------------------
 static void swapEndian(int &data)
 {
     int temp;
@@ -41,36 +40,30 @@ static void swapEndian(int &data)
     data = temp;
 }
 
-//------------------------------------------------------------------------------
 const int ShapeFileReader::fileCode = 9994;
 const int ShapeFileReader::fileVersion = 1000;
 
-//------------------------------------------------------------------------------
 ShapeFileReader::ShapeFileReader(QIODevice *inputDevice)
     : m_inputDevice(inputDevice)
 {
     setObjectName("ShapeFileReader");
 }
 
-//------------------------------------------------------------------------------
 ShapeFileReader::~ShapeFileReader()
 {
     m_inputDevice = nullptr;
 }
 
-//------------------------------------------------------------------------------
 QIODevice *ShapeFileReader::inputDevice() const
 {
     return m_inputDevice;
 }
 
-//------------------------------------------------------------------------------
 void ShapeFileReader::setInputDevice(QIODevice *inputDevice)
 {
     m_inputDevice = inputDevice;
 }
 
-//------------------------------------------------------------------------------
 bool ShapeFileReader::readHeader(ShapeFileHeader &outHeader)
 {
     if (m_inputDevice == nullptr)
@@ -104,7 +97,6 @@ bool ShapeFileReader::readHeader(ShapeFileHeader &outHeader)
     return true;
 }
 
-//------------------------------------------------------------------------------
 void ShapeFileReader::readShapeRecord(Record &record)
 {
     // read record number (big indian)
@@ -120,20 +112,17 @@ void ShapeFileReader::readShapeRecord(Record &record)
     m_inputDevice->read(record.shapeBlob, record.contentLength);
 }
 
-//------------------------------------------------------------------------------
 void ShapeFileReader::readFileCode(int &fileCode)
 {
     m_inputDevice->read(reinterpret_cast<char *>(&fileCode), sizeof(fileCode));
     swapEndian(fileCode);
 }
 
-//------------------------------------------------------------------------------
 void ShapeFileReader::readUnusedInts(int &start, int size)
 {
     m_inputDevice->read(reinterpret_cast<char *>(&start), sizeof(start) * size);
 }
 
-//------------------------------------------------------------------------------
 void ShapeFileReader::readFileLength(int &fileLength)
 {
     // read file lenght (big indian). Length is presented in 16-bit words
@@ -142,7 +131,6 @@ void ShapeFileReader::readFileLength(int &fileLength)
     fileLength *= 2;
 }
 
-//------------------------------------------------------------------------------
 void ShapeFileReader::readBoundingBox(QRectF &bBox)
 {
     double xmin;
@@ -157,10 +145,8 @@ void ShapeFileReader::readBoundingBox(QRectF &bBox)
     bBox.setCoords(xmin, ymin, xmax, ymax);
 }
 
-//------------------------------------------------------------------------------
 void ShapeFileReader::readShapeType(int &shapeType)
 {
     m_inputDevice->read(reinterpret_cast<char *>(&shapeType), sizeof(int));
 }
 
-//------------------------------------------------------------------------------

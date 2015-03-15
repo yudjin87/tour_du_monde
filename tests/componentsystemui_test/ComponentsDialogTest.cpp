@@ -37,7 +37,6 @@
 
 #include <QtWidgets/QUndoStack>
 
-//------------------------------------------------------------------------------
 namespace {
 
 ComponentDefinition *createDefinition(QString name, bool builtIn, QString compLocation, QString defLocation, QString description, QString product, QString shortName)
@@ -60,7 +59,6 @@ ComponentDefinition *createDefinition(QString name, bool builtIn, QString compLo
 
 }
 
-//------------------------------------------------------------------------------
 ComponentsDialogTest::ComponentsDialogTest(QObject *parent)
     : QObject(parent)
     , locator(new ServiceLocator())
@@ -86,7 +84,6 @@ ComponentsDialogTest::ComponentsDialogTest(QObject *parent)
     dialog = new ComponentsDialog(model);
 }
 
-//------------------------------------------------------------------------------
 ComponentsDialogTest::~ComponentsDialogTest()
 {
     delete model;
@@ -94,10 +91,8 @@ ComponentsDialogTest::~ComponentsDialogTest()
     delete locator;
 }
 
-//------------------------------------------------------------------------------
 void ComponentsDialogTest::test()
 {
     dialog->show();
 }
 
-//------------------------------------------------------------------------------

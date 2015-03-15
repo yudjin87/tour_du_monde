@@ -38,13 +38,11 @@
 
 #include <QtTest/QtTest>
 
-//------------------------------------------------------------------------------
 ComponentDependenciesTest::ComponentDependenciesTest(QObject *parent)
     : QObject(parent)
 {
 }
 
-//------------------------------------------------------------------------------
 void ComponentDependenciesTest::shouldAddComponent()
 {
     IComponent *componentA = createComponent("A");
@@ -57,7 +55,6 @@ void ComponentDependenciesTest::shouldAddComponent()
     QCOMPARE(dependencies.components().count(), 2);
 }
 
-//------------------------------------------------------------------------------
 void ComponentDependenciesTest::shouldnotAddExistedComponent()
 {
     IComponent *componentA = createComponent("A");
@@ -72,7 +69,6 @@ void ComponentDependenciesTest::shouldnotAddExistedComponent()
     QCOMPARE(dependencies.components().count(), 2);
 }
 
-//------------------------------------------------------------------------------
 void ComponentDependenciesTest::shouldNotAddNullPointer()
 {
     IComponent *componentA = createComponent("A");
@@ -84,7 +80,6 @@ void ComponentDependenciesTest::shouldNotAddNullPointer()
     QCOMPARE(dependencies.components().count(), 1);
 }
 
-//------------------------------------------------------------------------------
 void ComponentDependenciesTest::shouldFindComponentByName()
 {
     IComponent *componentA = createComponent("A");
@@ -98,7 +93,6 @@ void ComponentDependenciesTest::shouldFindComponentByName()
     QCOMPARE(foundCom, componentB);
 }
 
-//------------------------------------------------------------------------------
 void ComponentDependenciesTest::shouldReturnResultWithCiclycFlag()
 {
     // A <- B <- C <- A
@@ -115,7 +109,6 @@ void ComponentDependenciesTest::shouldReturnResultWithCiclycFlag()
     QVERIFY(result.hasCyclicDependencies());
 }
 
-//------------------------------------------------------------------------------
 void ComponentDependenciesTest::shouldGetParentsForComponent()
 {
     // A <- B
@@ -134,7 +127,6 @@ void ComponentDependenciesTest::shouldGetParentsForComponent()
     //QCOMPARE(componentB->name(), components[1]->name());
 }
 
-//------------------------------------------------------------------------------
 void ComponentDependenciesTest::shouldGetDependingsForComponent()
 {
     // A <- B
@@ -153,7 +145,6 @@ void ComponentDependenciesTest::shouldGetDependingsForComponent()
     QVERIFY(!result.hasCyclicDependencies());
 }
 
-//------------------------------------------------------------------------------
 void ComponentDependenciesTest::shouldCompleteListWithChild()
 {
     // A <- B <- C <- D,    C <- E
@@ -186,7 +177,6 @@ void ComponentDependenciesTest::shouldCompleteListWithChild()
     QVERIFY(!result.hasCyclicDependencies());
 }
 
-//------------------------------------------------------------------------------
 void ComponentDependenciesTest::shouldCompleteListWithParentsForOneComponent()
 {
     IComponent *componentA = createComponent("A");
@@ -203,7 +193,6 @@ void ComponentDependenciesTest::shouldCompleteListWithParentsForOneComponent()
     QCOMPARE(childrenAndParent.size(), 1);
 }
 
-//------------------------------------------------------------------------------
 void ComponentDependenciesTest::shouldCompleteListWithTheirChildren()
 {
     // A <- B <- C
@@ -233,7 +222,6 @@ void ComponentDependenciesTest::shouldCompleteListWithTheirChildren()
     QVERIFY(!result.hasCyclicDependencies());
 }
 
-//------------------------------------------------------------------------------
 void ComponentDependenciesTest::shouldCompleteOrderedComponents()
 {
     //      ┌─── E
@@ -271,7 +259,6 @@ void ComponentDependenciesTest::shouldCompleteOrderedComponents()
     QVERIFY(!result.hasCyclicDependencies());
 }
 
-//------------------------------------------------------------------------------
 void ComponentDependenciesTest::shouldCompleteListWithTheirParents()
 {
     // A <- B <- C <- D,    C <- E
@@ -313,7 +300,6 @@ void ComponentDependenciesTest::shouldCompleteListWithTheirParents()
     QVERIFY(!result.hasCyclicDependencies());
 }
 
-//------------------------------------------------------------------------------
 void ComponentDependenciesTest::shouldCompleteListWithFullParents()
 {
     // A <- B <- C <- D,    C <- E
@@ -343,7 +329,6 @@ void ComponentDependenciesTest::shouldCompleteListWithFullParents()
     QVERIFY(!result.hasCyclicDependencies());
 }
 
-//------------------------------------------------------------------------------
 void ComponentDependenciesTest::shouldCompleteListWithParentsTransitively()
 {
     // Zero <- C <- A <- N
@@ -377,7 +362,6 @@ void ComponentDependenciesTest::shouldCompleteListWithParentsTransitively()
     QVERIFY(!result.hasCyclicDependencies());
 }
 
-//------------------------------------------------------------------------------
 void ComponentDependenciesTest::shouldNotAddExtraParentsToCompletedList()
 {
     // The C should not be added when we try to complete with A
@@ -415,7 +399,6 @@ void ComponentDependenciesTest::shouldNotAddExtraParentsToCompletedList()
     QVERIFY(!result.hasCyclicDependencies());
 }
 
-//------------------------------------------------------------------------------
 void ComponentDependenciesTest::shouldCompleteListWithTheirParent()
 {
     // A <- B <- C <- D,    C <- E
@@ -447,7 +430,6 @@ void ComponentDependenciesTest::shouldCompleteListWithTheirParent()
     QVERIFY(!result.hasCyclicDependencies());
 }
 
-//------------------------------------------------------------------------------
 void ComponentDependenciesTest::completeListWithTheirChildren_shouldAddMissedComponentsForIncompatibleOnes()
 {
     // A <- B <- C
@@ -476,7 +458,6 @@ void ComponentDependenciesTest::completeListWithTheirChildren_shouldAddMissedCom
     QVERIFY(!result.hasCyclicDependencies());
 }
 
-//------------------------------------------------------------------------------
 void ComponentDependenciesTest::completeListWithTheirChildren_shouldAddMissedComponentsForTransitiveIncompatibleOnes()
 {
     // A <- B <- C
@@ -503,5 +484,4 @@ void ComponentDependenciesTest::completeListWithTheirChildren_shouldAddMissedCom
     QVERIFY(!result.hasCyclicDependencies());
 }
 
-//------------------------------------------------------------------------------
 

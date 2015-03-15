@@ -13,14 +13,12 @@
 #include <QtCore/QSettings>
 #include <QtTest/QtTest>
 
-//------------------------------------------------------------------------------
 ComponentManagerTest::ComponentManagerTest()
 {
     QSettings settings;
     settings.clear();
 }
 
-//------------------------------------------------------------------------------
 void ComponentManagerTest::addComponent_shouldAddComponentToTheStoppedComponents()
 {
     ComponentManager manager(&m_locator);
@@ -34,7 +32,6 @@ void ComponentManagerTest::addComponent_shouldAddComponentToTheStoppedComponents
     QVERIFY(manager.stoppedComponents().contains(componentB));
 }
 
-//------------------------------------------------------------------------------
 void ComponentManagerTest::addComponent_shouldSetCheckedFlagToFalse()
 {
     IComponent *componentA = createComponent("A");
@@ -48,7 +45,6 @@ void ComponentManagerTest::addComponent_shouldSetCheckedFlagToFalse()
     QCOMPARE(manager.isChecked(), false);
 }
 
-//------------------------------------------------------------------------------
 void ComponentManagerTest::check_shouldCallResolving()
 {
     MockComponentDependencies *dependencies = new MockComponentDependencies();
@@ -59,7 +55,6 @@ void ComponentManagerTest::check_shouldCallResolving()
     QCOMPARE(dependencies->completeListWithChildrenCalled, 1);
 }
 
-//------------------------------------------------------------------------------
 void ComponentManagerTest::check_shouldSetCheckedFlag()
 {
     ComponentManager manager(&m_locator);
@@ -71,7 +66,6 @@ void ComponentManagerTest::check_shouldSetCheckedFlag()
     QVERIFY(manager.isChecked());
 }
 
-//------------------------------------------------------------------------------
 void ComponentManagerTest::check_shouldNotResolveComponentsAgainIfCheckedFlagIsTrue()
 {
     MockComponentDependencies *dependencies = new MockComponentDependencies();
@@ -87,7 +81,6 @@ void ComponentManagerTest::check_shouldNotResolveComponentsAgainIfCheckedFlagIsT
     QCOMPARE(dependencies->completeListWithChildrenCalled, 1);
 }
 
-//------------------------------------------------------------------------------
 void ComponentManagerTest::check_shouldFillMissingComponents()
 {
     // A <- B,  C
@@ -104,7 +97,6 @@ void ComponentManagerTest::check_shouldFillMissingComponents()
     QCOMPARE(manager.missingComponents().first(), QString("A"));
 }
 
-//------------------------------------------------------------------------------
 void ComponentManagerTest::check_shouldFillOrphanComponents()
 {
     // A <- B,  C
@@ -121,7 +113,6 @@ void ComponentManagerTest::check_shouldFillOrphanComponents()
     QCOMPARE(manager.orphanComponents().first(), componentB);
 }
 
-//------------------------------------------------------------------------------
 void ComponentManagerTest::startup_shouldShouldNotCallIfAlreadyDid()
 {
     MockComponent *component = createComponent("A");
@@ -141,7 +132,6 @@ void ComponentManagerTest::startup_shouldShouldNotCallIfAlreadyDid()
     QCOMPARE(spy.count(), 1);
 }
 
-//------------------------------------------------------------------------------
 void ComponentManagerTest::startup_shouldStartComponents()
 {
     TestDescriptionComponent *descriptionComponent = new TestDescriptionComponent();
@@ -155,7 +145,6 @@ void ComponentManagerTest::startup_shouldStartComponents()
     QVERIFY(descriptionComponent->started());
 }
 
-//------------------------------------------------------------------------------
 void ComponentManagerTest::startup_shouldStartComponentsWithCorrectState_data()
 {
     QTest::addColumn<int>("state");
@@ -183,7 +172,6 @@ void ComponentManagerTest::startup_shouldStartComponentsWithCorrectState_data()
     QTest::newRow("Orphan")       << int(IComponent::Orphan)       << true;
 }
 
-//------------------------------------------------------------------------------
 void ComponentManagerTest::startup_shouldStartComponentsWithCorrectState()
 {
     QFETCH(int, state);
@@ -200,7 +188,6 @@ void ComponentManagerTest::startup_shouldStartComponentsWithCorrectState()
     QCOMPARE(comp->started(), result);
 }
 
-//------------------------------------------------------------------------------
 void ComponentManagerTest::startup_shouldSetStateForComponent()
 {
     TestDescriptionComponent *comp = new TestDescriptionComponent();
@@ -214,7 +201,6 @@ void ComponentManagerTest::startup_shouldSetStateForComponent()
     QCOMPARE(comp->state(), IComponent::Running);
 }
 
-//------------------------------------------------------------------------------
 void ComponentManagerTest::startup_shouldNotChangeStateForFailedToStartComponent()
 {
     MockComponent *comp = new MockComponent();
@@ -230,7 +216,6 @@ void ComponentManagerTest::startup_shouldNotChangeStateForFailedToStartComponent
     QCOMPARE(comp->state(), IComponent::Initialized);
 }
 
-//------------------------------------------------------------------------------
 void ComponentManagerTest::startup_shouldNotStartDisabledComponent()
 {
     MockComponent *disabledComponent = createComponent("A");
@@ -245,7 +230,6 @@ void ComponentManagerTest::startup_shouldNotStartDisabledComponent()
     QCOMPARE(spy.count(), 0);
 }
 
-//------------------------------------------------------------------------------
 void ComponentManagerTest::startupAllComponents_shouldCallCheck()
 {
     IComponent *componentA = createComponent("A");
@@ -263,7 +247,6 @@ void ComponentManagerTest::startupAllComponents_shouldCallCheck()
     QVERIFY(manager.isChecked());
 }
 
-//------------------------------------------------------------------------------
 void ComponentManagerTest::startupAllComponents_shouldRemoveThemFromStoppedList()
 {
     ComponentManager manager(&m_locator);
@@ -279,7 +262,6 @@ void ComponentManagerTest::startupAllComponents_shouldRemoveThemFromStoppedList(
     QCOMPARE(manager.stoppedComponents().size(), 0);
 }
 
-//------------------------------------------------------------------------------
 void ComponentManagerTest::startupAllComponents_shouldAddThemToTheStartedList()
 {
     ComponentManager manager(&m_locator);
@@ -297,7 +279,6 @@ void ComponentManagerTest::startupAllComponents_shouldAddThemToTheStartedList()
     QVERIFY(manager.startedComponents().contains(componentB));
 }
 
-//------------------------------------------------------------------------------
 void ComponentManagerTest::startupAllComponents_shouldEmit()
 {
     ComponentManager manager(&m_locator);
@@ -310,7 +291,6 @@ void ComponentManagerTest::startupAllComponents_shouldEmit()
     QCOMPARE(spy.count(), 1);
 }
 
-//------------------------------------------------------------------------------
 void ComponentManagerTest::startupAllComponents_shouldStartComponents()
 {
     TestDescriptionComponent *descriptionComponent = new TestDescriptionComponent();
@@ -324,7 +304,6 @@ void ComponentManagerTest::startupAllComponents_shouldStartComponents()
     QVERIFY(descriptionComponent->started());
 }
 
-//------------------------------------------------------------------------------
 void ComponentManagerTest::shutdownAllComponents_shouldEmit()
 {
     ComponentManager manager(&m_locator);
@@ -338,7 +317,6 @@ void ComponentManagerTest::shutdownAllComponents_shouldEmit()
     QCOMPARE(spy.count(), 1);
 }
 
-//------------------------------------------------------------------------------
 void ComponentManagerTest::shutdownAllComponents_shouldEmitAboutSignal()
 {
     ComponentManager manager(&m_locator);
@@ -352,7 +330,6 @@ void ComponentManagerTest::shutdownAllComponents_shouldEmitAboutSignal()
     QCOMPARE(spy.count(), 1);
 }
 
-//------------------------------------------------------------------------------
 void ComponentManagerTest::shutdownAllComponents_shouldRemoveThemFromStartedList()
 {
     ComponentManager manager(&m_locator);
@@ -371,7 +348,6 @@ void ComponentManagerTest::shutdownAllComponents_shouldRemoveThemFromStartedList
     QVERIFY(manager.stoppedComponents().contains(componentB));
 }
 
-//------------------------------------------------------------------------------
 void ComponentManagerTest::shutdownAllComponents_shouldAddThemToTheStoppedList()
 {
     ComponentManager manager(&m_locator);
@@ -388,7 +364,6 @@ void ComponentManagerTest::shutdownAllComponents_shouldAddThemToTheStoppedList()
     QCOMPARE(manager.startedComponents().size(), 0);
 }
 
-//------------------------------------------------------------------------------
 void ComponentManagerTest::shutdownAllComponents_shouldNotShutdownUnexistingComponent()
 {
     MockComponent *componentA = createComponent("A");
@@ -402,7 +377,6 @@ void ComponentManagerTest::shutdownAllComponents_shouldNotShutdownUnexistingComp
     QCOMPARE(spy.size(), 0);
 }
 
-//------------------------------------------------------------------------------
 void ComponentManagerTest::shutdownAllComponents_shouldNotShutdownBuiltInComponent()
 {
     MockComponent *componentA = new MockComponent("MockComponent", true);
@@ -423,7 +397,6 @@ void ComponentManagerTest::shutdownAllComponents_shouldNotShutdownBuiltInCompone
     QCOMPARE(componentA->started(), true);
 }
 
-//------------------------------------------------------------------------------
 void ComponentManagerTest::shutdownAllComponents_shouldDisableComponent()
 {
     MockComponent *component = createComponent("A");
@@ -437,7 +410,6 @@ void ComponentManagerTest::shutdownAllComponents_shouldDisableComponent()
     QCOMPARE(component->availability(), IComponent::Disabled);
 }
 
-//------------------------------------------------------------------------------
 void ComponentManagerTest::shutdownComponents_shouldReturnJustShutDownComponents()
 {
     MockComponent *componentA = createComponent("A");
@@ -457,7 +429,6 @@ void ComponentManagerTest::shutdownComponents_shouldReturnJustShutDownComponents
     QVERIFY(result.ordered().first()->name() == "A");
 }
 
-//------------------------------------------------------------------------------
 void ComponentManagerTest::shutdownComponents_shouldSetStoppedStateForComponent()
 {
     MockComponent *componentA = createComponent("A");
@@ -473,7 +444,6 @@ void ComponentManagerTest::shutdownComponents_shouldSetStoppedStateForComponent(
     QCOMPARE(componentA->state(), IComponent::Stopped);
 }
 
-//------------------------------------------------------------------------------
 void ComponentManagerTest::shutdown_shouldShutdownAllComponents()
 {
     MockComponent *componentA = createComponent("A");
@@ -489,7 +459,6 @@ void ComponentManagerTest::shutdown_shouldShutdownAllComponents()
     QCOMPARE(spy.size(), 1);
 }
 
-//------------------------------------------------------------------------------
 void ComponentManagerTest::shutdown_shouldShutdownBuiltInComponents()
 {
     MockComponent *componentA = new MockComponent("A", true);
@@ -505,7 +474,6 @@ void ComponentManagerTest::shutdown_shouldShutdownBuiltInComponents()
     QCOMPARE(spy.size(), 1);
 }
 
-//------------------------------------------------------------------------------
 void ComponentManagerTest::shutdown_shouldNotDisableComponent()
 {
     MockComponent *component = createComponent("A");
@@ -519,7 +487,6 @@ void ComponentManagerTest::shutdown_shouldNotDisableComponent()
     QCOMPARE(component->availability(), IComponent::Enabled);
 }
 
-//------------------------------------------------------------------------------
 void ComponentManagerTest::shutdown_shouldEmit()
 {
     ComponentManager manager(&m_locator);
@@ -531,7 +498,6 @@ void ComponentManagerTest::shutdown_shouldEmit()
     QCOMPARE(spy.size(), 1);
 }
 
-//------------------------------------------------------------------------------
 void ComponentManagerTest::startupAllComponents_shouldPassInitDataToComponent()
 {
     MockComponent *mockComponent = new MockComponent();
@@ -544,7 +510,6 @@ void ComponentManagerTest::startupAllComponents_shouldPassInitDataToComponent()
     QCOMPARE(mockComponent->m_serviceLocator, &m_locator);
 }
 
-//------------------------------------------------------------------------------
 void ComponentManagerTest::startupAllComponents_shouldEnableDisabledComponent()
 {
     MockComponent *disabledComponent = createComponent("A");
@@ -560,7 +525,6 @@ void ComponentManagerTest::startupAllComponents_shouldEnableDisabledComponent()
     QCOMPARE(disabledComponent->availability(), IComponent::Enabled);
 }
 
-//------------------------------------------------------------------------------
 void ComponentManagerTest::startupAllComponents_shouldHandleNullComponent()
 {
     ComponentManager manager(&m_locator);
@@ -569,7 +533,6 @@ void ComponentManagerTest::startupAllComponents_shouldHandleNullComponent()
     // just dot't crash
 }
 
-//------------------------------------------------------------------------------
 void ComponentManagerTest::startupAllComponents_shouldPassComponentsInRightOrder()
 {
     // A <- B <- C <- D,    C <- E
@@ -599,7 +562,6 @@ void ComponentManagerTest::startupAllComponents_shouldPassComponentsInRightOrder
     QVERIFY(comps.indexOf(componentC) < comps.indexOf(componentE));
 }
 
-//------------------------------------------------------------------------------
 void ComponentManagerTest::startupAllComponents_shouldPassComponentsInRightOrder_ComplexDependencies()
 {
     //      ┌─── E
@@ -633,7 +595,6 @@ void ComponentManagerTest::startupAllComponents_shouldPassComponentsInRightOrder
     QVERIFY(comps.indexOf(componentC) < comps.indexOf(componentE));
 }
 
-//------------------------------------------------------------------------------
 void ComponentManagerTest::shutdownAllComponents_shouldPassComponentsInRightOrder()
 {
     // A <- B <- C <- D,    C <- E
@@ -662,7 +623,6 @@ void ComponentManagerTest::shutdownAllComponents_shouldPassComponentsInRightOrde
     QVERIFY(comps.indexOf(componentC) > comps.indexOf(componentE));
 }
 
-//------------------------------------------------------------------------------
 void ComponentManagerTest::startupComponent_shouldPassRightComponentsInRightOrder()
 {
     // A <- B <- C <- D,    C <- E
@@ -693,7 +653,6 @@ void ComponentManagerTest::startupComponent_shouldPassRightComponentsInRightOrde
     QCOMPARE(comps.contains(componentE), false);
 }
 
-//------------------------------------------------------------------------------
 void ComponentManagerTest::shutdownComponent_shouldPassComponentsInReverseOrder()
 {
     // A <- B <- C <- D,    C <- E
@@ -726,7 +685,6 @@ void ComponentManagerTest::shutdownComponent_shouldPassComponentsInReverseOrder(
     QCOMPARE(comps.contains(componentB), false);
 }
 
-//------------------------------------------------------------------------------
 void ComponentManagerTest::startupAllComponents_shouldNotStartChildComponentsIfParentCouldNotStart()
 {
     // A <- B <- C
@@ -747,7 +705,6 @@ void ComponentManagerTest::startupAllComponents_shouldNotStartChildComponentsIfP
     QVERIFY(!componentC->started());
 }
 
-//------------------------------------------------------------------------------
 void ComponentManagerTest::startupAllComponents_shouldStartOrphanComponentIfParentAppeared()
 {
     // A <- B,  C
@@ -771,7 +728,6 @@ void ComponentManagerTest::startupAllComponents_shouldStartOrphanComponentIfPare
     QVERIFY(componentB->started());
 }
 
-//------------------------------------------------------------------------------
 void ComponentManagerTest::startupComponents_shouldStartOrphanComponentsWhenParentsAppeared()
 {
     // A <- B,  C
@@ -797,7 +753,6 @@ void ComponentManagerTest::startupComponents_shouldStartOrphanComponentsWhenPare
     QVERIFY(componentB->started());
 }
 
-//------------------------------------------------------------------------------
 void ComponentManagerTest::startupComponents_shouldNotStartOrphanComponentsWhenOtherParentsAppeared()
 {
     // A <- B,  C, D
@@ -824,7 +779,6 @@ void ComponentManagerTest::startupComponents_shouldNotStartOrphanComponentsWhenO
     QVERIFY(!componentB->started());
 }
 
-//------------------------------------------------------------------------------
 void ComponentManagerTest::startupComponents_shouldReturnJustStartedComponents()
 {
     MockComponent *componentA = createComponent("A");
@@ -842,5 +796,4 @@ void ComponentManagerTest::startupComponents_shouldReturnJustStartedComponents()
     QVERIFY(result.ordered().first()->name() == "B");
 }
 
-//------------------------------------------------------------------------------
 

@@ -8,7 +8,6 @@
 
 #include <QtTest/QtTest>
 
-//------------------------------------------------------------------------------
 void CompositeComponentProviderTest::canAddProvider()
 {
     MockCompositeComponentProvider mock;
@@ -19,7 +18,6 @@ void CompositeComponentProviderTest::canAddProvider()
 
 }
 
-//------------------------------------------------------------------------------
 void CompositeComponentProviderTest::shouldInitialiseAllProviders()
 {
     MockComponentProvider *provider1 = new MockComponentProvider();
@@ -35,7 +33,6 @@ void CompositeComponentProviderTest::shouldInitialiseAllProviders()
     QVERIFY(provider2->hasBeenInit());
 }
 
-//------------------------------------------------------------------------------
 void CompositeComponentProviderTest::shouldJoinComponentsFromAllProviders()
 {
     MockComponentProvider *provider1 = new MockComponentProvider();
@@ -56,7 +53,6 @@ void CompositeComponentProviderTest::shouldJoinComponentsFromAllProviders()
     QCOMPARE(components.size(), 3);
 }
 
-//------------------------------------------------------------------------------
 void CompositeComponentProviderTest::shouldMergeComponentsBothFromProvidersAndFromComponentsList()
 {
     MockComponentProvider *provider1 = new MockComponentProvider();
@@ -78,4 +74,3 @@ void CompositeComponentProviderTest::shouldMergeComponentsBothFromProvidersAndFr
     QCOMPARE(components.size(), 3);
 }
 
-//------------------------------------------------------------------------------

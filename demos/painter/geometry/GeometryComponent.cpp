@@ -31,10 +31,8 @@
 #include <carousel/componentsystem/ComponentExport.h>
 #include <carousel/utils/IServiceLocator.h>
 
-//------------------------------------------------------------------------------
 static const QByteArray productName("Geometry");
 
-//------------------------------------------------------------------------------
 GeometryComponent::GeometryComponent()
     : BaseComponent("org.carousel.demos.Geometry")
 {
@@ -48,12 +46,10 @@ GeometryComponent::GeometryComponent()
     setVersion(1, 0);
 }
 
-//------------------------------------------------------------------------------
 GeometryComponent::~GeometryComponent()
 {
 }
 
-//------------------------------------------------------------------------------
 bool GeometryComponent::onStartup(IServiceLocator *serviceLocator)
 {
     serviceLocator->bindType<IGeometryFactory, GeometryFactory>();
@@ -61,7 +57,5 @@ bool GeometryComponent::onStartup(IServiceLocator *serviceLocator)
     return true;
 }
 
-//------------------------------------------------------------------------------
 EXPORT_COMPONENT(GeometryComponent)
 
-//------------------------------------------------------------------------------

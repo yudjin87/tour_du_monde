@@ -60,7 +60,6 @@ private:
     Container* createNewList(const TKey &key);
 };
 
-//------------------------------------------------------------------------------
 template<typename TKey, typename TValue>
 ListDictionary<TKey, TValue>::~ListDictionary()
 {
@@ -70,14 +69,12 @@ ListDictionary<TKey, TValue>::~ListDictionary()
         delete *it;
 }
 
-//------------------------------------------------------------------------------
 template<typename TKey, typename TValue>
 void ListDictionary<TKey, TValue>::add(const TKey &key)
 {
     createNewList(key);
 }
 
-//------------------------------------------------------------------------------
 template<typename TKey, typename TValue>
 void ListDictionary<TKey, TValue>::add(const TKey &key, const TValue &value)
 {
@@ -90,7 +87,6 @@ void ListDictionary<TKey, TValue>::add(const TKey &key, const TValue &value)
     }
 }
 
-//------------------------------------------------------------------------------
 template<typename TKey, typename TValue>
 typename ListDictionary<TKey, TValue>::Container* ListDictionary<TKey, TValue>::createNewList(const TKey &key)
 {
@@ -99,6 +95,5 @@ typename ListDictionary<TKey, TValue>::Container* ListDictionary<TKey, TValue>::
     return values;
 }
 
-//------------------------------------------------------------------------------
 
 #endif // LISTDICTIONARY_H

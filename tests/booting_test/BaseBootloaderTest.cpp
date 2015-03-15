@@ -4,13 +4,11 @@
 #include <carousel/booting/BootloaderBase.h>
 #include <QtTest/QtTest>
 
-//------------------------------------------------------------------------------
 BaseBootloaderTest::BaseBootloaderTest(QObject *parent)
     : QObject(parent)
 {
 }
 
-//------------------------------------------------------------------------------
 void BaseBootloaderTest::shouldCreateDefaultLogger()
 {
     BootloaderMock loader;
@@ -21,7 +19,6 @@ void BaseBootloaderTest::shouldCreateDefaultLogger()
     QVERIFY(defaultLogger != nullptr);
 }
 
-//------------------------------------------------------------------------------
 void BaseBootloaderTest::shouldCreateDefaultComponentProvider()
 {
     BootloaderMock loader;
@@ -32,7 +29,6 @@ void BaseBootloaderTest::shouldCreateDefaultComponentProvider()
     QVERIFY(defaultComponentProvider != nullptr);
 }
 
-//------------------------------------------------------------------------------
 void BaseBootloaderTest::shouldCreateDefaultComponentManager()
 {
     BootloaderMock loader;
@@ -43,7 +39,6 @@ void BaseBootloaderTest::shouldCreateDefaultComponentManager()
     QVERIFY(defaultComponentManager != nullptr);
 }
 
-//------------------------------------------------------------------------------
 void BaseBootloaderTest::shouldCreateDefaultServiceLocator()
 {
     BootloaderMock loader;
@@ -54,7 +49,6 @@ void BaseBootloaderTest::shouldCreateDefaultServiceLocator()
     QVERIFY(defaultServiceLocator != nullptr);
 }
 
-//------------------------------------------------------------------------------
 void BaseBootloaderTest::canRunOnlyOncePerInstance()
 {
     BootloaderMock loader;
@@ -67,4 +61,3 @@ void BaseBootloaderTest::canRunOnlyOncePerInstance()
     QCOMPARE(loader.runAttemptsCount(), 1);
 }
 
-//------------------------------------------------------------------------------

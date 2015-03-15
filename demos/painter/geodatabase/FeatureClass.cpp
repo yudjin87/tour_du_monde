@@ -37,7 +37,6 @@ namespace
 static LoggerFacade Log = LoggerFacade::createLogger("FeatureClass");
 }
 
-//------------------------------------------------------------------------------
 FeatureClass::FeatureClass(GeometryType shapeType, const QRectF &extent, QString source)
     : m_type(shapeType)
     , m_features()
@@ -46,26 +45,22 @@ FeatureClass::FeatureClass(GeometryType shapeType, const QRectF &extent, QString
 {
 }
 
-//------------------------------------------------------------------------------
 FeatureClass::~FeatureClass()
 {
     for (IFeature *feature : m_features)
         delete feature;
 }
 
-//------------------------------------------------------------------------------
 QRectF FeatureClass::extent() const
 {
     return m_extent;
 }
 
-//------------------------------------------------------------------------------
 GeometryType FeatureClass::shapeType() const
 {
     return m_type;
 }
 
-//------------------------------------------------------------------------------
 IFeature *FeatureClass::createFeature()
 {
     Feature *newFeature = new Feature(m_type);
@@ -74,13 +69,11 @@ IFeature *FeatureClass::createFeature()
     return newFeature;
 }
 
-//------------------------------------------------------------------------------
 const IFeatureClass::FeatureList &FeatureClass::features() const
 {
     return m_features;
 }
 
-//------------------------------------------------------------------------------
 IFeatureClass::FeatureList FeatureClass::search(const ISpatialFilter &filter) const
 {
     const AbstractGeometry *geometry = filter.geometry();
@@ -95,11 +88,9 @@ IFeatureClass::FeatureList FeatureClass::search(const ISpatialFilter &filter) co
     return toReturn;
 }
 
-//------------------------------------------------------------------------------
 const QString &FeatureClass::source() const
 {
     return m_source;
 }
 
-//------------------------------------------------------------------------------
 

@@ -36,7 +36,6 @@
 #include <QtCore/QDataStream>
 #include <QtCore/QPointF>
 
-//------------------------------------------------------------------------------
 namespace ShapeType {
     enum ShapeType
     {
@@ -57,22 +56,18 @@ namespace ShapeType {
     };
 }
 
-//------------------------------------------------------------------------------
 const QMap<int, GeometryType> GeometryFactory::m_typesMap = fillTypesMap();
 
-//------------------------------------------------------------------------------
 GeometryFactory::GeometryFactory()
 {
     setObjectName("GeometryFactory");
 }
 
-//------------------------------------------------------------------------------
 GeometryType GeometryFactory::geometryTypeFromShapeType(int shapeType) const
 {
     return m_typesMap.value(shapeType);
 }
 
-//------------------------------------------------------------------------------
 AbstractGeometry *GeometryFactory::createGeometry(int bytesCount, const char *geometryBlob) const
 {
     QDataStream stream(QByteArray(geometryBlob, bytesCount));
@@ -111,7 +106,6 @@ AbstractGeometry *GeometryFactory::createGeometry(int bytesCount, const char *ge
     return nullptr;
 }
 
-//------------------------------------------------------------------------------
 QMap<int, GeometryType> GeometryFactory::fillTypesMap()
 {
     QMap<int, GeometryType> types;
@@ -124,7 +118,6 @@ QMap<int, GeometryType> GeometryFactory::fillTypesMap()
     return types;
 }
 
-//------------------------------------------------------------------------------
 void GeometryFactory::createPoint(QDataStream &stream, Point *point)
 {
     double x;
@@ -134,7 +127,6 @@ void GeometryFactory::createPoint(QDataStream &stream, Point *point)
     point->setPoint(QPointF(x, y));
 }
 
-//------------------------------------------------------------------------------
 void GeometryFactory::createPoly(QDataStream &stream, Polycurve *polycurve)
 {
     int numParts = -1;
@@ -173,7 +165,6 @@ void GeometryFactory::createPoly(QDataStream &stream, Polycurve *polycurve)
     delete[] parts;
 }
 
-//------------------------------------------------------------------------------
 void GeometryFactory::readBoundingBox(QDataStream &stream, QRectF &bBox)
 {
     double xmin, ymin, xmax, ymax;
@@ -185,4 +176,3 @@ void GeometryFactory::readBoundingBox(QDataStream &stream, QRectF &bBox)
     bBox.setCoords(xmin, ymin, xmax, ymax);
 }
 
-//------------------------------------------------------------------------------

@@ -29,13 +29,11 @@
 #include <carousel/componentsystem/IComponent.h>
 #include <carousel/logging/LoggerFacade.h>
 
-//------------------------------------------------------------------------------
 namespace
 {
 static LoggerFacade Log = LoggerFacade::createLogger("Operation");
 }
 
-//------------------------------------------------------------------------------
 Operation::Operation(QActionGroup *actionGroup /*= nullptr*/)
     : QAction(actionGroup)
     , m_category("")
@@ -44,7 +42,6 @@ Operation::Operation(QActionGroup *actionGroup /*= nullptr*/)
     connectToSignals();
 }
 
-//------------------------------------------------------------------------------
 Operation::Operation(const QString &text, QActionGroup *actionGroup /*= nullptr*/)
     : QAction(text, actionGroup)
     , m_category("")
@@ -53,7 +50,6 @@ Operation::Operation(const QString &text, QActionGroup *actionGroup /*= nullptr*
     connectToSignals();
 }
 
-//------------------------------------------------------------------------------
 Operation::Operation(const QIcon &icon, const QString &text, QActionGroup *actionGroup /*= nullptr*/)
     : QAction(icon, text, actionGroup)
     , m_category("")
@@ -62,48 +58,40 @@ Operation::Operation(const QIcon &icon, const QString &text, QActionGroup *actio
     connectToSignals();
 }
 
-//------------------------------------------------------------------------------
 Operation::~Operation()
 {
 }
 
-//------------------------------------------------------------------------------
 QString Operation::category() const
 {
     return m_category;
 }
 
-//------------------------------------------------------------------------------
 void Operation::stopExecuting()
 {
     emit executingStopped();
 }
 
-//------------------------------------------------------------------------------
 void Operation::initialize(IServiceLocator * /*serviceLocator*/)
 {
     //Does nothing by default.
 }
 
-//------------------------------------------------------------------------------
 QString Operation::name() const
 {
     return m_name;
 }
 
-//------------------------------------------------------------------------------
 void Operation::setCategory(const QString &category)
 {
     m_category = category;
 }
 
-//------------------------------------------------------------------------------
 void Operation::setName(const QString &name)
 {
     m_name = name;
 }
 
-//------------------------------------------------------------------------------
 void Operation::onTriggered(bool /*checked*/)
 {
     if (isCheckable())
@@ -112,7 +100,6 @@ void Operation::onTriggered(bool /*checked*/)
     execute();
 }
 
-//------------------------------------------------------------------------------
 void Operation::onToggled(bool checked)
 {
     if (checked)
@@ -121,14 +108,12 @@ void Operation::onToggled(bool checked)
         stopExecuting();
 }
 
-//------------------------------------------------------------------------------
 void Operation::connectToSignals()
 {
     m_triggeredConnection = connect(this, &QAction::triggered, this, &Operation::onTriggered);
     m_toggledConnection = connect(this, &QAction::toggled, this, &Operation::onToggled);
 }
 
-//------------------------------------------------------------------------------
 void Operation::disconectFromSignals()
 {
     if (!QObject::disconnect(m_triggeredConnection))
@@ -138,4 +123,3 @@ void Operation::disconectFromSignals()
         Log.w("Toggled disconnection failed");
 }
 
-//------------------------------------------------------------------------------

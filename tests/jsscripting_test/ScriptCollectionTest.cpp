@@ -36,14 +36,12 @@
 #include <QtGui/QTextDocument>
 #include <QtTest/QtTest>
 
-//------------------------------------------------------------------------------
 ScriptCollectionTest::ScriptCollectionTest(QObject *parent)
     : QObject(parent)
     , m_testScriptPath(QCoreApplication::applicationDirPath() + "/scripts/TestScript.js")
 {
 }
 
-//------------------------------------------------------------------------------
 void ScriptCollectionTest::createFromFile_shouldAddScript()
 {
     ScriptCollection manager(new FakeScriptEngineFactory(this));
@@ -53,7 +51,6 @@ void ScriptCollectionTest::createFromFile_shouldAddScript()
     QCOMPARE(manager.scripts().size(), 1);
 }
 
-//------------------------------------------------------------------------------
 void ScriptCollectionTest::createFromFile_shouldLoadScript()
 {
     ScriptCollection manager(new FakeScriptEngineFactory(this));
@@ -62,7 +59,6 @@ void ScriptCollectionTest::createFromFile_shouldLoadScript()
     QVERIFY(manager.scripts().first()->isLoaded());
 }
 
-//------------------------------------------------------------------------------
 void ScriptCollectionTest::createFromFile_shouldReturnNullIfLoadingFailed()
 {
     FakeScriptCollection manager(new FakeScriptEngineFactory(this));
@@ -73,7 +69,6 @@ void ScriptCollectionTest::createFromFile_shouldReturnNullIfLoadingFailed()
     QVERIFY(manager.scripts().empty());
 }
 
-//------------------------------------------------------------------------------
 void ScriptCollectionTest::createFromFile_shouldReturnExistedScript()
 {
     ScriptCollection manager(new FakeScriptEngineFactory(this));
@@ -83,7 +78,6 @@ void ScriptCollectionTest::createFromFile_shouldReturnExistedScript()
     QCOMPARE(script, sameScript);
 }
 
-//------------------------------------------------------------------------------
 void ScriptCollectionTest::createFromDirectory_shouldAddAllScriptsFromDirectory()
 {
     ScriptCollection manager(new FakeScriptEngineFactory(this));
@@ -92,7 +86,6 @@ void ScriptCollectionTest::createFromDirectory_shouldAddAllScriptsFromDirectory(
     QCOMPARE(manager.scripts().size(), 2);
 }
 
-//------------------------------------------------------------------------------
 void ScriptCollectionTest::create_shouldAddScript()
 {
     ScriptCollection manager(new FakeScriptEngineFactory(this));
@@ -102,7 +95,6 @@ void ScriptCollectionTest::create_shouldAddScript()
     QCOMPARE(manager.scripts().size(), 1);
 }
 
-//------------------------------------------------------------------------------
 void ScriptCollectionTest::remove_shouldRemove()
 {
     ScriptCollection manager(new FakeScriptEngineFactory(this));
@@ -113,7 +105,6 @@ void ScriptCollectionTest::remove_shouldRemove()
     QCOMPARE(manager.scripts().size(), 1);
 }
 
-//------------------------------------------------------------------------------
 void ScriptCollectionTest::scriptByFileName_shouldReturnScript()
 {
     ScriptCollection manager(new FakeScriptEngineFactory(this));
@@ -123,4 +114,3 @@ void ScriptCollectionTest::scriptByFileName_shouldReturnScript()
     QCOMPARE(script, sameScript);
 }
 
-//------------------------------------------------------------------------------

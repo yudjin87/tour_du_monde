@@ -2,12 +2,10 @@
 
 #include <carousel/componentsystem/IComponent.h>
 
-//------------------------------------------------------------------------------
 MockCompositeComponentProvider::MockCompositeComponentProvider()
 {
 }
 
-//------------------------------------------------------------------------------
 MockCompositeComponentProvider::~MockCompositeComponentProvider()
 {
     for (IComponentProvider *provider : m_providers)
@@ -15,10 +13,8 @@ MockCompositeComponentProvider::~MockCompositeComponentProvider()
             delete component;
 }
 
-//------------------------------------------------------------------------------
 size_t MockCompositeComponentProvider::size() const
 {
     return m_providers.size();
 }
 
-//------------------------------------------------------------------------------

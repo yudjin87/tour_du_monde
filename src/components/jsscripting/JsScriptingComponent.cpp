@@ -35,17 +35,14 @@
 
 #include <algorithm>
 
-//------------------------------------------------------------------------------
 namespace
 {
 static LoggerFacade Log = LoggerFacade::createLogger("JsScriptingComponent");
 }
 
-//------------------------------------------------------------------------------
 static const QByteArray description(
         "");
 
-//------------------------------------------------------------------------------
 JsScriptingComponent::JsScriptingComponent(QObject *parent)
     : BaseComponent("org.carousel.JsScripting", parent)
 {
@@ -56,19 +53,16 @@ JsScriptingComponent::JsScriptingComponent(QObject *parent)
     setVersion(1, 0);
 }
 
-//------------------------------------------------------------------------------
 JsScriptingComponent::~JsScriptingComponent()
 {
 }
 
-//------------------------------------------------------------------------------
 void JsScriptingComponent::onShutdown(IServiceLocator *serviceLocator)
 {
     IScriptingService *service = serviceLocator->unregisterInstance<IScriptingService>();
     delete service;
 }
 
-//------------------------------------------------------------------------------
 bool JsScriptingComponent::onStartup(IServiceLocator *serviceLocator)
 {
     IComponentManager *manager = serviceLocator->locate<IComponentManager>();
@@ -78,7 +72,6 @@ bool JsScriptingComponent::onStartup(IServiceLocator *serviceLocator)
     return true;
 }
 
-//------------------------------------------------------------------------------
 QString JsScriptingComponent::getStartedScriptFromAgrs() const
 {
     // TODO: Handle optional argument ... may be it should be one more extension
@@ -96,7 +89,5 @@ QString JsScriptingComponent::getStartedScriptFromAgrs() const
     return *it;
 }
 
-//------------------------------------------------------------------------------
 EXPORT_COMPONENT(JsScriptingComponent)
 
-//------------------------------------------------------------------------------

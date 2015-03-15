@@ -28,7 +28,6 @@
 
 #include <QtGui/QTextCharFormat>
 
-//------------------------------------------------------------------------------
 namespace
 {
 QFont createDefaultFont()
@@ -40,7 +39,6 @@ QFont createDefaultFont()
 }
 } // namespace
 
-//------------------------------------------------------------------------------
 LexemeAppearance::LexemeAppearance(QObject *parent)
     : QObject(parent)
     , m_name("")
@@ -51,7 +49,6 @@ LexemeAppearance::LexemeAppearance(QObject *parent)
     m_format->setFont(createDefaultFont());
 }
 
-//------------------------------------------------------------------------------
 LexemeAppearance::LexemeAppearance(const QString &name, QObject *parent)
     : QObject(parent)
     , m_name(name)
@@ -62,7 +59,6 @@ LexemeAppearance::LexemeAppearance(const QString &name, QObject *parent)
     m_format->setFont(createDefaultFont());
 }
 
-//------------------------------------------------------------------------------
 LexemeAppearance::LexemeAppearance(const QString &name, const QString &pattern, QObject *parent)
     : QObject(parent)
     , m_name(name)
@@ -73,7 +69,6 @@ LexemeAppearance::LexemeAppearance(const QString &name, const QString &pattern, 
     m_format->setFont(createDefaultFont());
 }
 
-//------------------------------------------------------------------------------
 LexemeAppearance::LexemeAppearance(const QString &name, const QString &pattern, int weight, const QColor &foreground, QObject *parent)
     : QObject(parent)
     , m_name(name)
@@ -86,7 +81,6 @@ LexemeAppearance::LexemeAppearance(const QString &name, const QString &pattern, 
     m_format->setFontWeight(weight);
 }
 
-//------------------------------------------------------------------------------
 LexemeAppearance::LexemeAppearance(const QString &name, const QString &pattern, const QString &endPattern, int weight, const QColor &foreground, QObject *parent)
     : QObject(parent)
     , m_name(name)
@@ -99,59 +93,49 @@ LexemeAppearance::LexemeAppearance(const QString &name, const QString &pattern, 
     m_format->setFontWeight(weight);
 }
 
-//------------------------------------------------------------------------------
 LexemeAppearance::~LexemeAppearance()
 {
     delete m_format;
     m_format = nullptr;
 }
 
-//------------------------------------------------------------------------------
 const QRegExp &LexemeAppearance::pattern() const
 {
     return m_pattern;
 }
 
-//------------------------------------------------------------------------------
 void LexemeAppearance::setPattern(const QString &pattern)
 {
     m_pattern.setPattern(pattern);
 }
 
-//------------------------------------------------------------------------------
 const QRegExp &LexemeAppearance::endPattern() const
 {
     return m_endPattern;
 }
 
-//------------------------------------------------------------------------------
 void LexemeAppearance::setEndPattern(const QString &pattern)
 {
     m_endPattern.setPattern(pattern);
 }
 
-//------------------------------------------------------------------------------
 QTextCharFormat *LexemeAppearance::format()
 {
     return m_format;
 }
 
-//------------------------------------------------------------------------------
 const QTextCharFormat *LexemeAppearance::format() const
 {
     return m_format;
 }
 
-//------------------------------------------------------------------------------
 const QString &LexemeAppearance::name() const
 {
     return m_name;
 }
 
-//------------------------------------------------------------------------------
 void LexemeAppearance::setName(const QString &name)
 {
     m_name = name;
 }
 
-//------------------------------------------------------------------------------

@@ -9,17 +9,14 @@
 #include <QtCore/QFile>
 #include <QtTest/QTest>
 
-//------------------------------------------------------------------------------
 typedef AutoComponentProvider<DirectoryComponentProvider> AutoDirectoryComponentProvider;
 
-//------------------------------------------------------------------------------
 DirectoryComponentProviderTest::DirectoryComponentProviderTest(QObject *parent)
     : QObject(parent)
     , definitionsLocation(pathToComponentsDir())
 {
 }
 
-//------------------------------------------------------------------------------
 void DirectoryComponentProviderTest::shouldNotSetupWrongDirectoryPath()
 {
     AutoDirectoryComponentProvider provider("/path/to/nowhere");
@@ -27,7 +24,6 @@ void DirectoryComponentProviderTest::shouldNotSetupWrongDirectoryPath()
     QVERIFY(provider.path().isEmpty());
 }
 
-//------------------------------------------------------------------------------
 void DirectoryComponentProviderTest::shouldSetupPathAccordingToTheApplicationDir()
 {
     QString curDir = QDir::currentPath();
@@ -41,7 +37,6 @@ void DirectoryComponentProviderTest::shouldSetupPathAccordingToTheApplicationDir
     QVERIFY(QDir::setCurrent(curDir));
 }
 
-//------------------------------------------------------------------------------
 void DirectoryComponentProviderTest::shouldCorrectlySetupAbsolutePath()
 {
     AutoDirectoryComponentProvider provider(QCoreApplication::applicationDirPath());
@@ -49,7 +44,6 @@ void DirectoryComponentProviderTest::shouldCorrectlySetupAbsolutePath()
     QVERIFY(provider.path().toLower() == QCoreApplication::applicationDirPath().toLower());
 }
 
-//------------------------------------------------------------------------------
 void DirectoryComponentProviderTest::initialize_shouldReturnTrue()
 {
     AutoDirectoryComponentProvider provider(definitionsLocation);
@@ -59,7 +53,6 @@ void DirectoryComponentProviderTest::initialize_shouldReturnTrue()
     QCOMPARE(provider.isInitialized(), true);
 }
 
-//------------------------------------------------------------------------------
 void DirectoryComponentProviderTest::initialize_shouldCallUpdate()
 {
     MockDirectoryComponentProvider provider;
@@ -69,7 +62,6 @@ void DirectoryComponentProviderTest::initialize_shouldCallUpdate()
     QCOMPARE(provider.updateCalled, 1);
 }
 
-//------------------------------------------------------------------------------
 void DirectoryComponentProviderTest::initialize_shouldReturnFalseIfPathIsEmpty()
 {
     AutoDirectoryComponentProvider provider;
@@ -79,7 +71,6 @@ void DirectoryComponentProviderTest::initialize_shouldReturnFalseIfPathIsEmpty()
     QCOMPARE(provider.isInitialized(), false);
 }
 
-//------------------------------------------------------------------------------
 void DirectoryComponentProviderTest::update_shouldCallReadOnParserForEachDefinition()
 {
     MockDirectoryComponentProvider provider(definitionsLocation);
@@ -88,7 +79,6 @@ void DirectoryComponentProviderTest::update_shouldCallReadOnParserForEachDefinit
     QCOMPARE(provider.providersCreated, 2);
 }
 
-//------------------------------------------------------------------------------
 void DirectoryComponentProviderTest::update_shouldReturnTwoComponents()
 {
     MockDirectoryComponentProvider provider(definitionsLocation);
@@ -97,7 +87,6 @@ void DirectoryComponentProviderTest::update_shouldReturnTwoComponents()
     QCOMPARE(components.size(), 2);
 }
 
-//------------------------------------------------------------------------------
 void DirectoryComponentProviderTest::update_shouldPopulateTwoComponents()
 {
     MockDirectoryComponentProvider provider(definitionsLocation);
@@ -106,7 +95,6 @@ void DirectoryComponentProviderTest::update_shouldPopulateTwoComponents()
     QCOMPARE(provider.components().size(), 2);
 }
 
-//------------------------------------------------------------------------------
 void DirectoryComponentProviderTest::update_shouldPopulateOnlyWithNewComponents()
 {
     AutoDirectoryComponentProvider provider(definitionsLocation);
@@ -127,7 +115,6 @@ void DirectoryComponentProviderTest::update_shouldPopulateOnlyWithNewComponents(
     QCOMPARE(provider.components().size(), 3);
 }
 
-//------------------------------------------------------------------------------
 void DirectoryComponentProviderTest::update_shouldReturnOnlyNewComponents()
 {
     AutoDirectoryComponentProvider provider(definitionsLocation);
@@ -148,7 +135,6 @@ void DirectoryComponentProviderTest::update_shouldReturnOnlyNewComponents()
     QCOMPARE(components.size(), 1);
 }
 
-//------------------------------------------------------------------------------
 void DirectoryComponentProviderTest::update_shouldNotPopulateComponentIfItsInitializationFault()
 {
     MockDirectoryComponentProvider provider(definitionsLocation);
@@ -160,4 +146,3 @@ void DirectoryComponentProviderTest::update_shouldNotPopulateComponentIfItsIniti
     QCOMPARE(provider.components().size(), 0);
 }
 
-//------------------------------------------------------------------------------

@@ -39,14 +39,12 @@
 #include <QtScript/QScriptEngine>
 #include <QtTest/QtTest>
 
-//------------------------------------------------------------------------------
 ScriptingServiceTest::ScriptingServiceTest(QObject *parent)
     : QObject(parent)
 {
     setObjectName("ScriptingServiceTest");
 }
 
-//------------------------------------------------------------------------------
 void ScriptingServiceTest::setDelegate_shouldSetupNull()
 {
     ServiceLocator locator; MockComponentManager cm(&locator);
@@ -63,7 +61,6 @@ void ScriptingServiceTest::setDelegate_shouldSetupNull()
     // TODO: should be uncomment when is implemented
 }
 
-//------------------------------------------------------------------------------
 void ScriptingServiceTest::setDelegate_shouldResetConsoleEngine()
 {
     ServiceLocator locator; MockComponentManager cm(&locator);
@@ -80,7 +77,6 @@ void ScriptingServiceTest::setDelegate_shouldResetConsoleEngine()
     QVERIFY(newWrapper->objectName() == "NewWrapper");
 }
 
-//------------------------------------------------------------------------------
 void ScriptingServiceTest::shouldCallConfigureForConsoleEngineWhenComponentStarted()
 {
     ServiceLocator locator; MockComponentManager manager(&locator);
@@ -95,4 +91,3 @@ void ScriptingServiceTest::shouldCallConfigureForConsoleEngineWhenComponentStart
     QVERIFY(delegate->configureFromComponentCalled);
 }
 
-//------------------------------------------------------------------------------

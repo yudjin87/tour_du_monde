@@ -12,17 +12,14 @@ public:
     }
 };
 
-//------------------------------------------------------------------------------
 IComponentManager &CarouselBootloader_ComponentManagerFixture::componentManager()
 {
     return *m_componentManager;
 }
 
-//------------------------------------------------------------------------------
 void CarouselBootloader_ComponentManagerFixture::configureComponentProvider()
 {
     m_componentProvider->registerComponent(new ComponentStub("ComponentStubA"));
     m_componentProvider->registerComponent(new ComponentStub("ComponentStubB"));
 }
 
-//------------------------------------------------------------------------------

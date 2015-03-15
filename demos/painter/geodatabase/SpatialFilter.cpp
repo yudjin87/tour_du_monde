@@ -26,22 +26,18 @@
 
 #include "SpatialFilter.h"
 
-//------------------------------------------------------------------------------
 SpatialFilter::SpatialFilter()
     : m_geometry(nullptr)
 {
 }
 
-//------------------------------------------------------------------------------
 const AbstractGeometry *SpatialFilter::geometry() const
 {
     return m_geometry;
 }
 
-//------------------------------------------------------------------------------
 void SpatialFilter::setGeometry(const AbstractGeometry *geometry)
 {
     m_geometry = geometry;
 }
 
-//------------------------------------------------------------------------------

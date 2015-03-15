@@ -27,14 +27,12 @@
 #include "FakeFeatureClass.h"
 #include "FakeFeature.h"
 
-//------------------------------------------------------------------------------
 FakeFeatureClass::FakeFeatureClass(GeometryType shapeType, const QRectF &extent)
     : FeatureClass(shapeType, extent)
     , createdFeatures(0)
 {
 }
 
-//------------------------------------------------------------------------------
 IFeature &FakeFeatureClass::createFeature()
 {
     ++createdFeatures;
@@ -42,4 +40,3 @@ IFeature &FakeFeatureClass::createFeature()
     return *features.last();
 }
 
-//------------------------------------------------------------------------------

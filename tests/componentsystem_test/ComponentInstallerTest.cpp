@@ -41,22 +41,18 @@
 #include <QtTest/QTest>
 #include <QtTest/QSignalSpy>
 
-//------------------------------------------------------------------------------
 static const char *DEFAULT_DIRECTORY = "testComponents";
 
-//------------------------------------------------------------------------------
 ComponentInstallerTest::ComponentInstallerTest(QObject *parent)
     : QObject(parent)
     , componentsDir(QCoreApplication::applicationDirPath() + QDir::separator() + DEFAULT_DIRECTORY)
 {
 }
 
-//------------------------------------------------------------------------------
 ComponentInstallerTest::~ComponentInstallerTest()
 {
 }
 
-//------------------------------------------------------------------------------
 void ComponentInstallerTest::shouldSetupInstallDirectoryByDefault()
 {
     FakeComponentInstaller installer;
@@ -64,7 +60,6 @@ void ComponentInstallerTest::shouldSetupInstallDirectoryByDefault()
     QCOMPARE(installer.installDirectory(), defaultDir);
 }
 
-//------------------------------------------------------------------------------
 void ComponentInstallerTest::tryToInstall_shouldCallDiscoverComponents()
 {
     FakeComponentInstaller installer(DEFAULT_DIRECTORY);
@@ -73,7 +68,6 @@ void ComponentInstallerTest::tryToInstall_shouldCallDiscoverComponents()
     QVERIFY(installer.discoverCalled);
 }
 
-//------------------------------------------------------------------------------
 void ComponentInstallerTest::tryToInstall_shouldAddComponentsToInstallToDependencies()
 {
     FakeComponentInstaller installer(DEFAULT_DIRECTORY);
@@ -86,7 +80,6 @@ void ComponentInstallerTest::tryToInstall_shouldAddComponentsToInstallToDependen
     QCOMPARE(spy.size(), 2);
 }
 
-//------------------------------------------------------------------------------
 void ComponentInstallerTest::tryToInstall_shouldResolveWithComponentsToInstall()
 {
     FakeComponentInstaller installer(DEFAULT_DIRECTORY);
@@ -98,7 +91,6 @@ void ComponentInstallerTest::tryToInstall_shouldResolveWithComponentsToInstall()
     QCOMPARE(spy.size(), 1);
 }
 
-//------------------------------------------------------------------------------
 void ComponentInstallerTest::tryToInstall_shouldAddExistedComponentsToDependencies()
 {
     FakeComponentInstaller installer(DEFAULT_DIRECTORY);
@@ -112,7 +104,6 @@ void ComponentInstallerTest::tryToInstall_shouldAddExistedComponentsToDependenci
     QCOMPARE(spy.size(), 1);
 }
 
-//------------------------------------------------------------------------------
 void ComponentInstallerTest::tryToInstall_shouldReturnResolveResult()
 {
     FakeComponentInstaller installer(DEFAULT_DIRECTORY);
@@ -125,7 +116,6 @@ void ComponentInstallerTest::tryToInstall_shouldReturnResolveResult()
     QCOMPARE(result.missing().size(), 0);
 }
 
-//------------------------------------------------------------------------------
 void ComponentInstallerTest::tryToInstall_shouldReturnResolveResultWithAllDiscoveredDependencies()
 {
     FakeComponentInstaller installer(DEFAULT_DIRECTORY);
@@ -141,7 +131,6 @@ void ComponentInstallerTest::tryToInstall_shouldReturnResolveResultWithAllDiscov
     QCOMPARE(result.missing().size(), 0);
 }
 
-//------------------------------------------------------------------------------
 void ComponentInstallerTest::install_shouldCallLoadComponents()
 {
     FakeComponentInstaller installer(DEFAULT_DIRECTORY);
@@ -156,7 +145,6 @@ void ComponentInstallerTest::install_shouldCallLoadComponents()
     removeDir(componentsDir);
 }
 
-//------------------------------------------------------------------------------
 void ComponentInstallerTest::install_shouldNotCallLoadComponentsIfTryWasNotCalled()
 {
     FakeComponentInstaller installer(DEFAULT_DIRECTORY);
@@ -167,7 +155,6 @@ void ComponentInstallerTest::install_shouldNotCallLoadComponentsIfTryWasNotCalle
     removeDir(componentsDir);
 }
 
-//------------------------------------------------------------------------------
 void ComponentInstallerTest::install_shouldNotCallLoadComponentsIfOrphanComponentsWere()
 {
     FakeComponentInstaller installer(DEFAULT_DIRECTORY);
@@ -181,7 +168,6 @@ void ComponentInstallerTest::install_shouldNotCallLoadComponentsIfOrphanComponen
     removeDir(componentsDir);
 }
 
-//------------------------------------------------------------------------------
 void ComponentInstallerTest::install_shouldCreateSubDirectoryForEachComponent()
 {
     FakeComponentInstaller installer(DEFAULT_DIRECTORY);
@@ -214,7 +200,6 @@ void ComponentInstallerTest::install_shouldCreateSubDirectoryForEachComponent()
     removeDir(componentsDir);
 }
 
-//------------------------------------------------------------------------------
 void ComponentInstallerTest::install_shouldReturnPathesToTheCopiedDefinitions()
 {
     FakeComponentInstaller installer(DEFAULT_DIRECTORY);
@@ -244,7 +229,6 @@ void ComponentInstallerTest::install_shouldReturnPathesToTheCopiedDefinitions()
     removeDir(componentsDir);
 }
 
-//------------------------------------------------------------------------------
 void ComponentInstallerTest::install_shouldCopyDefinitionFile()
 {
     FakeComponentInstaller installer(DEFAULT_DIRECTORY);
@@ -270,7 +254,6 @@ void ComponentInstallerTest::install_shouldCopyDefinitionFile()
     removeDir(componentsDir);
 }
 
-//------------------------------------------------------------------------------
 void ComponentInstallerTest::install_shouldCopyLibraryFile()
 {
     FakeComponentInstaller installer(DEFAULT_DIRECTORY);
@@ -296,4 +279,3 @@ void ComponentInstallerTest::install_shouldCopyLibraryFile()
     removeDir(componentsDir);
 }
 
-//------------------------------------------------------------------------------

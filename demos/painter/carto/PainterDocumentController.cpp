@@ -28,7 +28,6 @@
 #include "PainterDocument.h"
 #include "Map.h"
 
-//------------------------------------------------------------------------------
 PainterDocumentController::PainterDocumentController(IDisplay *display)
     : m_document(nullptr)
 {
@@ -36,17 +35,14 @@ PainterDocumentController::PainterDocumentController(IDisplay *display)
     m_document->addMap(new Map(m_document, display));
 }
 
-//------------------------------------------------------------------------------
 PainterDocumentController::~PainterDocumentController()
 {
     delete m_document;
     m_document = nullptr;
 }
 
-//------------------------------------------------------------------------------
 IPainterDocument *PainterDocumentController::document()
 {
     return m_document;
 }
 
-//------------------------------------------------------------------------------

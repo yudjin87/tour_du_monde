@@ -28,7 +28,6 @@
 
 #include <QtGui/QKeyEvent>
 
-//------------------------------------------------------------------------------
 ToogleDialogOperation::ToogleDialogOperation(QWidget *widget)
     : Operation(widget->windowTitle())
     , m_widget(widget)
@@ -37,7 +36,6 @@ ToogleDialogOperation::ToogleDialogOperation(QWidget *widget)
     setIconVisibleInMenu(true);
 }
 
-//------------------------------------------------------------------------------
 ToogleDialogOperation::ToogleDialogOperation(QWidget *widget, const QString &text)
     : Operation(text)
     , m_widget(widget)
@@ -46,7 +44,6 @@ ToogleDialogOperation::ToogleDialogOperation(QWidget *widget, const QString &tex
     setIconVisibleInMenu(true);
 }
 
-//------------------------------------------------------------------------------
 ToogleDialogOperation::ToogleDialogOperation(QWidget *widget, const QIcon &icon)
     : Operation(icon, widget->windowTitle())
     , m_widget(widget)
@@ -55,7 +52,6 @@ ToogleDialogOperation::ToogleDialogOperation(QWidget *widget, const QIcon &icon)
     setIconVisibleInMenu(true);
 }
 
-//------------------------------------------------------------------------------
 ToogleDialogOperation::ToogleDialogOperation(QWidget *widget, const QIcon &icon, const QString &text)
     : Operation(icon, text)
     , m_widget(widget)
@@ -64,21 +60,18 @@ ToogleDialogOperation::ToogleDialogOperation(QWidget *widget, const QIcon &icon,
     setIconVisibleInMenu(true);
 }
 
-//------------------------------------------------------------------------------
 void ToogleDialogOperation::stopExecuting()
 {
     m_widget->removeEventFilter(this);
     m_widget->close();
 }
 
-//------------------------------------------------------------------------------
 void ToogleDialogOperation::execute()
 {
     m_widget->show();
     m_widget->installEventFilter(this);
 }
 
-//------------------------------------------------------------------------------
 bool ToogleDialogOperation::eventFilter(QObject *sender, QEvent *event)
 {
     switch (event->type()) {
@@ -93,4 +86,3 @@ bool ToogleDialogOperation::eventFilter(QObject *sender, QEvent *event)
     return QObject::eventFilter(sender, event);
 }
 
-//------------------------------------------------------------------------------

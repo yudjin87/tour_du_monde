@@ -30,13 +30,11 @@
 
 #include <QtScript/QScriptEngine>
 
-//------------------------------------------------------------------------------
 namespace
 {
 static LoggerFacade Log = LoggerFacade::createLogger("ScriptConsole");
 }
 
-//------------------------------------------------------------------------------
 ScriptConsole::ScriptConsole(QObject *parent)
     : m_engine(nullptr)
     , m_history(QStringList())
@@ -47,7 +45,6 @@ ScriptConsole::ScriptConsole(QObject *parent)
     m_engine = new QScriptEngine(this);
 }
 
-//------------------------------------------------------------------------------
 ScriptConsole::ScriptConsole(QScriptEngine *engine, QObject *parent)
     : m_engine(engine)
     , m_history(QStringList())
@@ -58,13 +55,11 @@ ScriptConsole::ScriptConsole(QScriptEngine *engine, QObject *parent)
     engine->setParent(this);
 }
 
-//------------------------------------------------------------------------------
 QScriptEngine *ScriptConsole::engine()
 {
     return m_engine;
 }
 
-//------------------------------------------------------------------------------
 bool ScriptConsole::execCommand(const QString &command)
 {
     emit aboutToExecute(command);
@@ -82,19 +77,16 @@ bool ScriptConsole::execCommand(const QString &command)
     return false;
 }
 
-//------------------------------------------------------------------------------
 int ScriptConsole::historyCapacity() const
 {
     return m_historyCapacity;
 }
 
-//------------------------------------------------------------------------------
 void ScriptConsole::setHistoryCapacity(int capacity)
 {
     m_historyCapacity = capacity;
 }
 
-//------------------------------------------------------------------------------
 QString ScriptConsole::prevCommand()
 {
     if (m_history.isEmpty())
@@ -106,7 +98,6 @@ QString ScriptConsole::prevCommand()
     return *--m_historyCommand;
 }
 
-//------------------------------------------------------------------------------
 QString ScriptConsole::nextCommand()
 {
     if (m_history.isEmpty())
@@ -124,19 +115,16 @@ QString ScriptConsole::nextCommand()
     return *m_historyCommand;
 }
 
-//------------------------------------------------------------------------------
 const QStringList &ScriptConsole::commandHistory() const
 {
     return m_history;
 }
 
-//------------------------------------------------------------------------------
 void ScriptConsole::print(const QString &message)
 {
     emit printed(message);
 }
 
-//------------------------------------------------------------------------------
 void ScriptConsole::addCommandToHistory(const QString &command)
 {
     if (command.trimmed().isEmpty()) {
@@ -151,4 +139,3 @@ void ScriptConsole::addCommandToHistory(const QString &command)
     m_historyCommand = m_history.constEnd();
 }
 
-//------------------------------------------------------------------------------

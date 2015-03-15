@@ -30,7 +30,6 @@
 #include <algorithm>
 #include <functional>
 
-//------------------------------------------------------------------------------
 DependenciesSolvingResult::DependenciesSolvingResult(const QList<IComponent *> &ordered)
     : m_orderedNames(QStringList())
     , m_orphansNames(QStringList())
@@ -42,7 +41,6 @@ DependenciesSolvingResult::DependenciesSolvingResult(const QList<IComponent *> &
 {
 }
 
-//------------------------------------------------------------------------------
 DependenciesSolvingResult::DependenciesSolvingResult(QStringList &ordered, QStringList &orphans, QStringList &missing, const QList<IComponent *> &components, bool hasCyclic /*= false*/)
     : m_orderedNames(ordered)
     , m_orphansNames(orphans)
@@ -54,7 +52,6 @@ DependenciesSolvingResult::DependenciesSolvingResult(QStringList &ordered, QStri
 {
 }
 
-//------------------------------------------------------------------------------
 DependenciesSolvingResult::DependenciesSolvingResult(const DependenciesSolvingResult &other)
     : m_orderedNames(other.m_orderedNames)
     , m_orphansNames(other.m_orphansNames)
@@ -66,7 +63,6 @@ DependenciesSolvingResult::DependenciesSolvingResult(const DependenciesSolvingRe
 {
 }
 
-//------------------------------------------------------------------------------
 const DependenciesSolvingResult &DependenciesSolvingResult::operator =(const DependenciesSolvingResult &other)
 {
     if (this == &other)
@@ -83,24 +79,20 @@ const DependenciesSolvingResult &DependenciesSolvingResult::operator =(const Dep
     return *this;
 }
 
-//------------------------------------------------------------------------------
 DependenciesSolvingResult::~DependenciesSolvingResult()
 {
 }
 
-//------------------------------------------------------------------------------
 bool DependenciesSolvingResult::hasCyclicDependencies() const
 {
     return m_hasCyclic;
 }
 
-//------------------------------------------------------------------------------
 QStringList DependenciesSolvingResult::missing() const
 {
     return m_missingNames;
 }
 
-//------------------------------------------------------------------------------
 QList<IComponent *> DependenciesSolvingResult::orphans() const
 {
     if (!m_orphans.isEmpty())
@@ -111,7 +103,6 @@ QList<IComponent *> DependenciesSolvingResult::orphans() const
     return m_orphans;
 }
 
-//------------------------------------------------------------------------------
 QList<IComponent *> DependenciesSolvingResult::ordered() const
 {
     if (!m_ordered.isEmpty())
@@ -122,13 +113,11 @@ QList<IComponent *> DependenciesSolvingResult::ordered() const
     return m_ordered;
 }
 
-//------------------------------------------------------------------------------
 bool DependenciesSolvingResult::precidate(IComponent *component, const QString &name)
 {
     return component->name() == name;
 }
 
-//------------------------------------------------------------------------------
 void DependenciesSolvingResult::collectComponents(const QStringList &names, QList<IComponent *> &result) const
 {
     for (const QString &name : names) {
@@ -139,4 +128,3 @@ void DependenciesSolvingResult::collectComponents(const QStringList &names, QLis
     }
 }
 
-//------------------------------------------------------------------------------

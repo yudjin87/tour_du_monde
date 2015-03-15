@@ -27,14 +27,12 @@
 #include "componentsystem/ComponentCollection.h"
 #include "componentsystem/IComponent.h"
 
-//------------------------------------------------------------------------------
 ComponentCollection::ComponentCollection(QObject *parent)
     : QObject(parent)
     , ObservableList<IComponent *>()
 {
 }
 
-//------------------------------------------------------------------------------
 ComponentCollection::ComponentCollection(const QList<IComponent *> &components, QObject *parent)
     : QObject(parent)
     , ObservableList<IComponent *>(components)
@@ -42,16 +40,13 @@ ComponentCollection::ComponentCollection(const QList<IComponent *> &components, 
 
 }
 
-//------------------------------------------------------------------------------
 void ComponentCollection::added(IComponent *component)
 {
     emit componentAdded(component);
 }
 
-//------------------------------------------------------------------------------
 void ComponentCollection::removed(IComponent *component)
 {
     emit componentRemoved(component);
 }
 
-//------------------------------------------------------------------------------

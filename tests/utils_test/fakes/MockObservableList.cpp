@@ -26,7 +26,6 @@
 
 #include "MockObservableList.h"
 
-//------------------------------------------------------------------------------
 MockObservableList::MockObservableList()
     : addedCalled(false)
     , removedCalled(false)
@@ -34,18 +33,15 @@ MockObservableList::MockObservableList()
 
 }
 
-//------------------------------------------------------------------------------
 void MockObservableList::added(QObject *item)
 {
     Q_UNUSED(item)
     addedCalled = true;
 }
 
-//------------------------------------------------------------------------------
 void MockObservableList::removed(QObject *item)
 {
     Q_UNUSED(item)
     removedCalled = true;
 }
 
-//------------------------------------------------------------------------------

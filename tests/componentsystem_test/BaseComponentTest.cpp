@@ -25,21 +25,18 @@ public:
     }
 };
 
-//------------------------------------------------------------------------------
 BaseComponentTest::BaseComponentTest(QObject *parent)
     : QObject(parent)
 {
     QSettings::setPath(QSettings::NativeFormat, QSettings::UserScope, ".");
 }
 
-//------------------------------------------------------------------------------
 void BaseComponentTest::shouldSetAvailabilityEnabledByDefault()
 {
     SimpleComponent component("");
     QCOMPARE(component.availability(), IComponent::Enabled);
 }
 
-//------------------------------------------------------------------------------
 void BaseComponentTest::shouldSetLoadedAvailability()
 {
     QSettings settings;
@@ -53,7 +50,6 @@ void BaseComponentTest::shouldSetLoadedAvailability()
     settings.clear();
 }
 
-//------------------------------------------------------------------------------
 void BaseComponentTest::shouldEmitWhenAvailabilitySet()
 {
     SimpleComponent component("Comp1");
@@ -66,7 +62,6 @@ void BaseComponentTest::shouldEmitWhenAvailabilitySet()
     QCOMPARE(spy.count(), 1);
 }
 
-//------------------------------------------------------------------------------
 void BaseComponentTest::shouldSaveSetAvailabilityInDestructor()
 {
     {
@@ -82,7 +77,6 @@ void BaseComponentTest::shouldSaveSetAvailabilityInDestructor()
     settings.clear();
 }
 
-//------------------------------------------------------------------------------
 void BaseComponentTest::shouldNotSetAvailabilityIfDidNotLoad()
 {
     QSettings settings;
@@ -94,7 +88,6 @@ void BaseComponentTest::shouldNotSetAvailabilityIfDidNotLoad()
     QCOMPARE(component.availability(), IComponent::Enabled);
 }
 
-//------------------------------------------------------------------------------
 void BaseComponentTest::shouldReturnResultOfProtectedMethodOnFirstSuccessfulStartup()
 {
     SimpleComponent mockComponent;
@@ -104,7 +97,6 @@ void BaseComponentTest::shouldReturnResultOfProtectedMethodOnFirstSuccessfulStar
     QVERIFY(!mockComponent2.startup(nullptr));
 }
 
-//------------------------------------------------------------------------------
 void BaseComponentTest::started_shouldReturnCorrectValue()
 {
     SimpleComponent mockComponent;
@@ -118,7 +110,6 @@ void BaseComponentTest::started_shouldReturnCorrectValue()
     QVERIFY(!mockComponent2.started());
 }
 
-//------------------------------------------------------------------------------
 void BaseComponentTest::shouldNotStartupIfAlreadyStarted()
 {
     MockComponent mockComponent;
@@ -133,7 +124,6 @@ void BaseComponentTest::shouldNotStartupIfAlreadyStarted()
     QCOMPARE(mockComponent.started(), true);
 }
 
-//------------------------------------------------------------------------------
 void BaseComponentTest::shouldShutdownIfAlreadyStoped()
 {
     MockComponent mockComponent;
@@ -147,7 +137,6 @@ void BaseComponentTest::shouldShutdownIfAlreadyStoped()
     QCOMPARE(mockComponent.started(), false);
 }
 
-//------------------------------------------------------------------------------
 void BaseComponentTest::shouldReturnRegisteredInDerivedClassesExtensions()
 {
     ComponentWithExtensions componentWithExtensions;
@@ -159,7 +148,6 @@ void BaseComponentTest::shouldReturnRegisteredInDerivedClassesExtensions()
     QCOMPARE(extension1, componentWithExtensions.m_extension1);
 }
 
-//------------------------------------------------------------------------------
 void BaseComponentTest::shouldReturnNullWhenUnregisteredExtensionIsQueried()
 {
     ComponentWithExtensions componentWithExtensions;
@@ -169,7 +157,6 @@ void BaseComponentTest::shouldReturnNullWhenUnregisteredExtensionIsQueried()
     QVERIFY(unregisteredExtension == nullptr);
 }
 
-//------------------------------------------------------------------------------
 void BaseComponentTest::isCompatible_shouldReturnTrue()
 {
     SimpleComponent one; one.setVersion(1, 0, 0, 0);
@@ -179,4 +166,3 @@ void BaseComponentTest::isCompatible_shouldReturnTrue()
     QVERIFY(other.isCompatible(&one));
 }
 
-//------------------------------------------------------------------------------

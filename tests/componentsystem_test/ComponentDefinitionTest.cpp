@@ -33,13 +33,11 @@
 
 #include <QtTest/QTest>
 
-//------------------------------------------------------------------------------
 ComponentDefinitionTest::ComponentDefinitionTest(QObject *parent)
     : QObject(parent)
 {
 }
 
-//------------------------------------------------------------------------------
 void ComponentDefinitionTest::isCompatible_shouldReturnTrue()
 {
     ParentDefinitions definitions;
@@ -55,7 +53,6 @@ void ComponentDefinitionTest::isCompatible_shouldReturnTrue()
     QVERIFY(definition.isCompatible(definitions));
 }
 
-//------------------------------------------------------------------------------
 void ComponentDefinitionTest::isCompatible_shouldReturnTrueForUnknownParent()
 {
     ParentDefinitions definitions;
@@ -68,7 +65,6 @@ void ComponentDefinitionTest::isCompatible_shouldReturnTrueForUnknownParent()
     QVERIFY(definition.isCompatible(definitions));
 }
 
-//------------------------------------------------------------------------------
 void ComponentDefinitionTest::isCompatible_shouldReturnFalseIfAtLeastOneDoesNotMatch()
 {
     ParentDefinitions definitions;
@@ -84,4 +80,3 @@ void ComponentDefinitionTest::isCompatible_shouldReturnFalseIfAtLeastOneDoesNotM
     QVERIFY(!definition.isCompatible(definitions));
 }
 
-//------------------------------------------------------------------------------

@@ -28,13 +28,11 @@
 
 #include <QtScript/QScriptEngine>
 
-//------------------------------------------------------------------------------
 RectFPrototype::RectFPrototype(QObject *parent)
     : QObject(parent)
 {
 }
 
-//------------------------------------------------------------------------------
 qreal RectFPrototype::left() const
 {
     QRectF *rect = qscriptvalue_cast<QRectF *>(thisObject());
@@ -44,7 +42,6 @@ qreal RectFPrototype::left() const
     return rect->left();
 }
 
-//------------------------------------------------------------------------------
 qreal RectFPrototype::top() const
 {
     QRectF *rect = qscriptvalue_cast<QRectF *>(thisObject());
@@ -54,7 +51,6 @@ qreal RectFPrototype::top() const
     return rect->top();
 }
 
-//------------------------------------------------------------------------------
 qreal RectFPrototype::right() const
 {
     QRectF *rect = qscriptvalue_cast<QRectF *>(thisObject());
@@ -64,7 +60,6 @@ qreal RectFPrototype::right() const
     return rect->right();
 }
 
-//------------------------------------------------------------------------------
 qreal RectFPrototype::bottom() const
 {
     QRectF *rect = qscriptvalue_cast<QRectF *>(thisObject());
@@ -74,7 +69,6 @@ qreal RectFPrototype::bottom() const
     return rect->bottom();
 }
 
-//------------------------------------------------------------------------------
 QString RectFPrototype::toString()
 {
     static QString pattern = "QRectF(l: %1, t: %2, r: %3, b: %4)";
@@ -85,4 +79,3 @@ QString RectFPrototype::toString()
             .arg(bottom());
 }
 
-//------------------------------------------------------------------------------

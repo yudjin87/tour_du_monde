@@ -27,25 +27,21 @@
 #include "componentsystem/ComponentProvider.h"
 #include "componentsystem/IComponent.h"
 
-//------------------------------------------------------------------------------
 ComponentProvider::ComponentProvider(QObject *parent /*= nullptr*/)
     : m_alreadyInit(false)
 {
     setParent(parent);
 }
 
-//------------------------------------------------------------------------------
 ComponentProvider::~ComponentProvider()
 {    
 }
 
-//------------------------------------------------------------------------------
 QList<IComponent *> ComponentProvider::components() const
 {
     return m_components;
 }
 
-//------------------------------------------------------------------------------
 bool ComponentProvider::initialize()
 {
     if (m_alreadyInit)
@@ -56,24 +52,20 @@ bool ComponentProvider::initialize()
     return m_alreadyInit;
 }
 
-//------------------------------------------------------------------------------
 bool ComponentProvider::isInitialized() const
 {
     return m_alreadyInit;
 }
 
-//------------------------------------------------------------------------------
 void ComponentProvider::registerComponent(IComponent *component)
 {
     if (component != nullptr)
         m_components.push_back(component);
 }
 
-//------------------------------------------------------------------------------
 bool ComponentProvider::onInitialize()
 {
     //nothing to do by default
     return true;
 }
 
-//------------------------------------------------------------------------------

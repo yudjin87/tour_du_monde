@@ -26,7 +26,6 @@
 
 #include "MockOperation.h"
 
-//------------------------------------------------------------------------------
 MockOperation::MockOperation()
     : executeCalled(false)
     , stopExecuteCalled(false)
@@ -35,7 +34,6 @@ MockOperation::MockOperation()
 {
 }
 
-//------------------------------------------------------------------------------
 void MockOperation::execute()
 {
     executeCalled = true;
@@ -47,22 +45,18 @@ void MockOperation::initialize(IServiceLocator *serviceLocator)
     initializeCalled = true;
 }
 
-//------------------------------------------------------------------------------
 void MockOperation::stopExecuting()
 {
     stopExecuteCalled = true;
 }
 
-//------------------------------------------------------------------------------
 void MockOperation::setCategory(const QString &category)
 {
     Operation::setCategory(category);
 }
 
-//------------------------------------------------------------------------------
 void MockOperation::setName(const QString &name)
 {
     Operation::setName(name);
 }
 
-//------------------------------------------------------------------------------

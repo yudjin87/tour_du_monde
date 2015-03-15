@@ -27,37 +27,31 @@
 #include "ShapeFileFeatureWorkspace.h"
 #include "ShapeFileFeatureDataset.h"
 
-//------------------------------------------------------------------------------
 ShapeFileFeatureWorkspace::ShapeFileFeatureWorkspace(const QString &workspacePath, IServiceLocator *locator)
     : m_workspacePath(workspacePath)
     , m_locator(locator)
 {
 }
 
-//------------------------------------------------------------------------------
 ShapeFileFeatureWorkspace::~ShapeFileFeatureWorkspace()
 {
 }
 
-//------------------------------------------------------------------------------
 OwnedList<IDataset *> *ShapeFileFeatureWorkspace::datasets(IWorkspace::esriDatasetType byType)
 {
     Q_UNUSED(byType)
     return 0;
 }
 
-//------------------------------------------------------------------------------
 QString ShapeFileFeatureWorkspace::pathName() const
 {
     return m_workspacePath;
 }
 
-//------------------------------------------------------------------------------
 IFeatureClass *ShapeFileFeatureWorkspace::openFeatureClass(const QString &name)
 {
     ShapeFileFeatureDataset dataset(*this, name, m_locator);
     return dataset.classByName(name);
 }
 
-//------------------------------------------------------------------------------
 

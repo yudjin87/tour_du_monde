@@ -29,18 +29,15 @@
 #include <QtCore/QDir>
 #include <QtCore/QFileInfo>
 
-//------------------------------------------------------------------------------
 AbsolutePathComponentLocationConstructorDelegate::AbsolutePathComponentLocationConstructorDelegate(const QString &definitionLocation)
     : m_definitionLocation(definitionLocation)
 {
 }
 
-//------------------------------------------------------------------------------
 AbsolutePathComponentLocationConstructorDelegate::~AbsolutePathComponentLocationConstructorDelegate()
 {
 }
 
-//------------------------------------------------------------------------------
 QString AbsolutePathComponentLocationConstructorDelegate::constructLocation(const QString &relativePathToComponent)
 {
     // Get the absolute library file name, using definition's location
@@ -52,4 +49,3 @@ QString AbsolutePathComponentLocationConstructorDelegate::constructLocation(cons
     return cleanPath;
 }
 
-//------------------------------------------------------------------------------

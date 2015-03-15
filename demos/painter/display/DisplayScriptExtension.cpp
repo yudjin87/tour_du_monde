@@ -38,20 +38,17 @@
 #include <QtScript/QScriptEngine>
 #include <QtScript/QScriptValueIterator>
 
-//------------------------------------------------------------------------------
 Q_DECLARE_METATYPE(IFeatureRenderer *)
 Q_DECLARE_METATYPE(ISymbol *)
 Q_DECLARE_METATYPE(DisplayTransformation *)
 Q_DECLARE_METATYPE(IDisplay *)
 
-//------------------------------------------------------------------------------
 DisplayScriptExtension::DisplayScriptExtension(QObject *parent)
     : QObject(parent)
 {
 
 }
 
-//------------------------------------------------------------------------------
 void DisplayScriptExtension::configureEngine(IServiceLocator *locator, QScriptEngine *engine)
 {
     Q_UNUSED(locator)
@@ -62,4 +59,3 @@ void DisplayScriptExtension::configureEngine(IServiceLocator *locator, QScriptEn
     REGISTER_METATYPE(IDisplay);
 }
 
-//------------------------------------------------------------------------------

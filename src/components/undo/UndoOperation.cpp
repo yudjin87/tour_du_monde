@@ -30,7 +30,6 @@
 
 #include <QtWidgets/QUndoStack>
 
-//------------------------------------------------------------------------------
 UndoOperation::UndoOperation()
     : Operation("Undo")
     , m_action(nullptr)
@@ -40,13 +39,11 @@ UndoOperation::UndoOperation()
     setShortcut(QKeySequence("Ctrl+Z"));
 }
 
-//------------------------------------------------------------------------------
 void UndoOperation::execute()
 {
     m_action->trigger();
 }
 
-//------------------------------------------------------------------------------
 void UndoOperation::initialize(IServiceLocator *serviceLocator)
 {
     QUndoStackAdapter* adapter = serviceLocator->locate<QUndoStackAdapter>();
@@ -58,12 +55,10 @@ void UndoOperation::initialize(IServiceLocator *serviceLocator)
     connect(m_action, &QAction::changed, this, &UndoOperation::onActionChanged);
 }
 
-//------------------------------------------------------------------------------
 void UndoOperation::onActionChanged()
 {
     setEnabled(m_action->isEnabled());
     setText(m_action->text());
 }
 
-//------------------------------------------------------------------------------
 

@@ -48,19 +48,16 @@ static FakeGeometryFactory* geometryFactory;
 
 typedef QScopedPointer<IFeatureClass> IFeatureClassPtr;
 
-//------------------------------------------------------------------------------
 void *getReaderInstance()
 {
     return shapeFileReader;
 }
 
-//------------------------------------------------------------------------------
 void *getFactoryInstance()
 {
     return geometryFactory;
 }
 
-//------------------------------------------------------------------------------
 ShapeFileFeatureDatasetTest::ShapeFileFeatureDatasetTest(QObject *parent)
     : QObject(parent)
     , m_testDataDir(qApp->applicationDirPath())
@@ -73,7 +70,6 @@ ShapeFileFeatureDatasetTest::ShapeFileFeatureDatasetTest(QObject *parent)
     mp_locator->registerType<IGeometryFactory>(&getFactoryInstance);
 }
 
-//------------------------------------------------------------------------------
 void ShapeFileFeatureDatasetTest::classByName_shouldSetupFileWithCorrectFileNameToReader()
 {
     FakeWorkspace workspace(m_testDataDir.absolutePath());
@@ -87,7 +83,6 @@ void ShapeFileFeatureDatasetTest::classByName_shouldSetupFileWithCorrectFileName
     QCOMPARE(signal.at(0).toString(), m_testDataDir.absoluteFilePath("points.shp"));
 }
 
-//------------------------------------------------------------------------------
 void ShapeFileFeatureDatasetTest::classByName_shouldReturnNullIfClassNameIsWrong()
 {
     FakeWorkspace workspace(m_testDataDir.absolutePath());
@@ -99,7 +94,6 @@ void ShapeFileFeatureDatasetTest::classByName_shouldReturnNullIfClassNameIsWrong
     QVERIFY(fc == nullptr);
 }
 
-//------------------------------------------------------------------------------
 void ShapeFileFeatureDatasetTest::classByName_shouldReturnNullIfShapeFileDoesNotExist()
 {
     FakeWorkspace workspace(m_testDataDir.absolutePath());
@@ -111,7 +105,6 @@ void ShapeFileFeatureDatasetTest::classByName_shouldReturnNullIfShapeFileDoesNot
     QVERIFY(fc == nullptr);
 }
 
-//------------------------------------------------------------------------------
 void ShapeFileFeatureDatasetTest::classByName_shouldSetupFileWithCorrectFileNameToReaderIfExtensionIsAbsent()
 {
     FakeWorkspace workspace(m_testDataDir.absolutePath());
@@ -125,7 +118,6 @@ void ShapeFileFeatureDatasetTest::classByName_shouldSetupFileWithCorrectFileName
     QCOMPARE(signal.at(0).toString(), m_testDataDir.absoluteFilePath("points.shp"));
 }
 
-//------------------------------------------------------------------------------
 void ShapeFileFeatureDatasetTest::classByName_shouldSetupFileWithCorrectFileNameIfEmptyNameIsPassed()
 {
     FakeWorkspace workspace(m_testDataDir.absolutePath());
@@ -139,7 +131,6 @@ void ShapeFileFeatureDatasetTest::classByName_shouldSetupFileWithCorrectFileName
     QCOMPARE(signal.at(0).toString(), m_testDataDir.absoluteFilePath("points.shp"));
 }
 
-//------------------------------------------------------------------------------
 void ShapeFileFeatureDatasetTest::classByName_shouldSetupFileWithZeroOffset()
 {
     FakeWorkspace workspace(m_testDataDir.absolutePath());
@@ -153,7 +144,6 @@ void ShapeFileFeatureDatasetTest::classByName_shouldSetupFileWithZeroOffset()
     QVERIFY(signal.at(0).toInt() == 0);
 }
 
-//------------------------------------------------------------------------------
 void ShapeFileFeatureDatasetTest::classById_shouldOnlyWorksWithZeroId()
 {
     FakeWorkspace workspace(m_testDataDir.absolutePath());
@@ -172,7 +162,6 @@ void ShapeFileFeatureDatasetTest::classById_shouldOnlyWorksWithZeroId()
     delete fc;
 }
 
-//------------------------------------------------------------------------------
 void ShapeFileFeatureDatasetTest::shouldReturnCorrectExtentFromTheFile()
 {
     FakeWorkspace workspace(m_testDataDir.absolutePath());
@@ -185,7 +174,6 @@ void ShapeFileFeatureDatasetTest::shouldReturnCorrectExtentFromTheFile()
     QCOMPARE(extent, shapeFileReader->header.bBox);
 }
 
-//------------------------------------------------------------------------------
 void ShapeFileFeatureDatasetTest::shouldReturnCorrectGeometryType()
 {
     FakeWorkspace workspace(m_testDataDir.absolutePath());
@@ -198,7 +186,6 @@ void ShapeFileFeatureDatasetTest::shouldReturnCorrectGeometryType()
     QCOMPARE(type, GeometryPolyline);
 }
 
-//------------------------------------------------------------------------------
 void ShapeFileFeatureDatasetTest::classByName_shoudSetupOpenedFileToReader()
 {
     FakeWorkspace workspace(m_testDataDir.absolutePath());
@@ -212,7 +199,6 @@ void ShapeFileFeatureDatasetTest::classByName_shoudSetupOpenedFileToReader()
     QCOMPARE(signal.at(0).toBool(), true);
 }
 
-//------------------------------------------------------------------------------
 void ShapeFileFeatureDatasetTest::shouldCreateFeatureClassWithCorrectParameters()
 {
     FakeWorkspace workspace(m_testDataDir.absolutePath());
@@ -230,7 +216,6 @@ void ShapeFileFeatureDatasetTest::shouldCreateFeatureClassWithCorrectParameters(
     QCOMPARE(dataSet.passedExtent.bottom(), 52.6366724);
 }
 
-//------------------------------------------------------------------------------
 void ShapeFileFeatureDatasetTest::shouldCallReadShapeRecordUntilEndOfFile()
 {
     FakeWorkspace workspace(m_testDataDir.absolutePath());
@@ -244,7 +229,6 @@ void ShapeFileFeatureDatasetTest::shouldCallReadShapeRecordUntilEndOfFile()
     QCOMPARE(shapeFileReader->readRecords, 10);
 }
 
-//------------------------------------------------------------------------------
 void ShapeFileFeatureDatasetTest::shouldCallCreateGeometryFromBlobForEachRecord()
 {
     FakeWorkspace workspace(m_testDataDir.absolutePath());
@@ -258,7 +242,6 @@ void ShapeFileFeatureDatasetTest::shouldCallCreateGeometryFromBlobForEachRecord(
     QCOMPARE(geometryFactory->createdGeometries, 10);
 }
 
-//------------------------------------------------------------------------------
 void ShapeFileFeatureDatasetTest::shouldCallCreateFeatureForEachRecord()
 {
     FakeWorkspace workspace(m_testDataDir.absolutePath());
@@ -272,7 +255,6 @@ void ShapeFileFeatureDatasetTest::shouldCallCreateFeatureForEachRecord()
     QCOMPARE(dataSet.featureClass->createdFeatures, 10);
 }
 
-//------------------------------------------------------------------------------
 void ShapeFileFeatureDatasetTest::shouldSetupGeometryToEveryCreatedFeature()
 {
     FakeWorkspace workspace(m_testDataDir.absolutePath());
@@ -287,4 +269,3 @@ void ShapeFileFeatureDatasetTest::shouldSetupGeometryToEveryCreatedFeature()
         QVERIFY(feature->geometryWasSet);
 }
 
-//------------------------------------------------------------------------------

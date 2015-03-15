@@ -28,38 +28,32 @@
 
 #include <QtScript/QScriptEngine>
 
-//------------------------------------------------------------------------------
 PointPrototype::PointPrototype(QObject *parent)
     : QObject(parent)
 {
 
 }
 
-//------------------------------------------------------------------------------
 int PointPrototype::x() const
 {
     return thisPoint()->x();
 }
 
-//------------------------------------------------------------------------------
 void PointPrototype::setX(int x)
 {
     thisPoint()->setX(x);
 }
 
-//------------------------------------------------------------------------------
 int PointPrototype::y() const
 {
     return thisPoint()->y();
 }
 
-//------------------------------------------------------------------------------
 void PointPrototype::setY(int y)
 {
     thisPoint()->setY(y);
 }
 
-//------------------------------------------------------------------------------
 QString PointPrototype::toString()
 {
     static QString pattern = "QPoint(x: %1, y: %2)";
@@ -68,7 +62,6 @@ QString PointPrototype::toString()
             .arg(y());
 }
 
-//------------------------------------------------------------------------------
 QPoint *PointPrototype::thisPoint() const
 {
     QPoint *point = qscriptvalue_cast<QPoint *>(thisObject().data());
@@ -78,4 +71,3 @@ QPoint *PointPrototype::thisPoint() const
     return point;
 }
 
-//------------------------------------------------------------------------------

@@ -43,7 +43,6 @@
 
 #include <chrono>
 
-//------------------------------------------------------------------------------
 namespace
 {
 static LoggerFacade Log = LoggerFacade::createLogger("FeatureDataset");
@@ -51,10 +50,8 @@ static LoggerFacade Log = LoggerFacade::createLogger("FeatureDataset");
 
 typedef QScopedPointer<IShapeFileReader> ReaderPtr;
 typedef QScopedPointer<IGeometryFactory> GeometryFactoryPtr;
-//------------------------------------------------------------------------------
 const QString ShapeFileFeatureDataset::m_shapeFileExt = ".shp";
 
-//------------------------------------------------------------------------------
 ShapeFileFeatureDataset::ShapeFileFeatureDataset(IWorkspace &workspace, const QString &name, IServiceLocator *locator)
     : m_workspace(workspace)
     , m_name(name)
@@ -64,26 +61,22 @@ ShapeFileFeatureDataset::ShapeFileFeatureDataset(IWorkspace &workspace, const QS
 {
 }
 
-//------------------------------------------------------------------------------
 ShapeFileFeatureDataset::~ShapeFileFeatureDataset()
 {
     delete m_file;
     m_file = nullptr;
 }
 
-//------------------------------------------------------------------------------
 QString ShapeFileFeatureDataset::name() const
 {
     return m_name;
 }
 
-//------------------------------------------------------------------------------
 IWorkspace *ShapeFileFeatureDataset::workspace() const
 {
     return &m_workspace;
 }
 
-//------------------------------------------------------------------------------
 QRectF ShapeFileFeatureDataset::extent()
 {
     QRectF rect;
@@ -101,7 +94,6 @@ QRectF ShapeFileFeatureDataset::extent()
     return header.bBox;
 }
 
-//------------------------------------------------------------------------------
 IFeatureClass *ShapeFileFeatureDataset::classById(int id)
 {
     // Standalone file dataset could work only with single feature class;
@@ -111,7 +103,6 @@ IFeatureClass *ShapeFileFeatureDataset::classById(int id)
     return classByName();
 }
 
-//------------------------------------------------------------------------------
 IFeatureClass *ShapeFileFeatureDataset::classByName(const QString &className)
 {
     QString clName = className.isEmpty() ? name() : className;
@@ -160,7 +151,6 @@ IFeatureClass *ShapeFileFeatureDataset::classByName(const QString &className)
     return featureClass;
 }
 
-//------------------------------------------------------------------------------
 QList<IFeatureClass *> ShapeFileFeatureDataset::classes()
 {
     QList<IFeatureClass *> features;
@@ -168,7 +158,6 @@ QList<IFeatureClass *> ShapeFileFeatureDataset::classes()
     return features;
 }
 
-//------------------------------------------------------------------------------
 GeometryType ShapeFileFeatureDataset::geometryType()
 {
     GeometryType type = GeometryNull;
@@ -188,13 +177,11 @@ GeometryType ShapeFileFeatureDataset::geometryType()
     return geometryFactory->geometryTypeFromShapeType(header.shapeType);
 }
 
-//------------------------------------------------------------------------------
 IFeatureClass *ShapeFileFeatureDataset::createFeatureClass(GeometryType geometryType, const QRectF &extent, const QString &source)
 {
     return new FeatureClass(geometryType, extent, source);
 }
 
-//------------------------------------------------------------------------------
 bool ShapeFileFeatureDataset::prepareToReading(const QString &name)
 {
     if (m_isOpen)
@@ -216,7 +203,6 @@ bool ShapeFileFeatureDataset::prepareToReading(const QString &name)
     return true;
 }
 
-//------------------------------------------------------------------------------
 void ShapeFileFeatureDataset::finishReading()
 {
     if (!m_isOpen)
@@ -228,7 +214,6 @@ void ShapeFileFeatureDataset::finishReading()
     m_file = nullptr;
 }
 
-//------------------------------------------------------------------------------
 QString ShapeFileFeatureDataset::absoluteFilePath(const QString &name)
 {
     QDir dir(m_workspace.pathName());
@@ -241,4 +226,3 @@ QString ShapeFileFeatureDataset::absoluteFilePath(const QString &name)
     return fileInfo.absoluteFilePath();
 }
 
-//------------------------------------------------------------------------------

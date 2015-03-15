@@ -16,13 +16,11 @@ static const QString libraryPattern("lib%1.dylib");
 static const QString libraryPattern("lib%1.so");
 #endif // Q_WS_X11
 
-//------------------------------------------------------------------------------
 QString formatLibraryName(const QString &libName)
 {
     return libraryPattern.arg(libName);
 }
 
-//------------------------------------------------------------------------------
 QString pathToLib(const QString &libName, bool decorateName)
 {
     QDir libDir(qApp->applicationDirPath());
@@ -39,7 +37,6 @@ QString pathToLib(const QString &libName, bool decorateName)
     return absoluteLibFileName;
 }
 
-//------------------------------------------------------------------------------
 QString pathToComponent(const QString &libName, bool decorateName)
 {
     QDir componentDir(qApp->applicationDirPath());
@@ -56,7 +53,6 @@ QString pathToComponent(const QString &libName, bool decorateName)
     return absoluteComponentFileName;
 }
 
-//------------------------------------------------------------------------------
 QString pathToComponentDefinition(const QString &libName)
 {
     QDir componentDir(qApp->applicationDirPath());
@@ -71,7 +67,6 @@ QString pathToComponentDefinition(const QString &libName)
     return absoluteComponentFileName;
 }
 
-//------------------------------------------------------------------------------
 QString pathToComponentsDir()
 {
     QDir libDir(qApp->applicationDirPath());
@@ -82,7 +77,6 @@ QString pathToComponentsDir()
     return libDir.absolutePath();
 }
 
-//------------------------------------------------------------------------------
 MockChildComponent* createParentDefinition(const QString &name, const QString &dependsOn, int major_version, int minor_version, int build_version, int revision_version)
 {
     MockChildComponent *component = new MockChildComponent(name, 1, 0);
@@ -91,7 +85,6 @@ MockChildComponent* createParentDefinition(const QString &name, const QString &d
     return component;
 }
 
-//------------------------------------------------------------------------------
 MockChildComponent *createParentDefinition(const QString &name, const QString &dependsOn, const QString &dependsOn2)
 {
     MockChildComponent *component = new MockChildComponent(name, 1, 0);
@@ -101,7 +94,6 @@ MockChildComponent *createParentDefinition(const QString &name, const QString &d
     return component;
 }
 
-//------------------------------------------------------------------------------
 MockChildComponent *createParentDefinition(const QString &name, const QString &dependsOn, int major_version, const QString &dependsOn2, int major_version2)
 {
     MockChildComponent *component = new MockChildComponent(name, 1, 0);
@@ -111,14 +103,12 @@ MockChildComponent *createParentDefinition(const QString &name, const QString &d
     return component;
 }
 
-//------------------------------------------------------------------------------
 MockComponent* createComponent(const QString &name, int major_version, int minor_version, int build_version, int revision_version)
 {
     MockComponent *component = new MockComponent(name, major_version, minor_version, build_version, revision_version);
     return component;
 }
 
-//------------------------------------------------------------------------------
 bool removeDir(const QString & dirName)
 {
     bool result = false;
@@ -139,4 +129,3 @@ bool removeDir(const QString & dirName)
     return result;
 }
 
-//------------------------------------------------------------------------------

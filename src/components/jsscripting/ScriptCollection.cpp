@@ -34,13 +34,11 @@
 #include <QtCore/QDirIterator>
 #include <QtCore/QtAlgorithms>
 
-//------------------------------------------------------------------------------
 namespace
 {
 static LoggerFacade Log = LoggerFacade::createLogger("ScriptCollection");
 }
 
-//------------------------------------------------------------------------------
 ScriptCollection::ScriptCollection(IScriptEngineFactory *factory, QObject *parent)
     : IScriptCollection()
     , m_factory(factory)
@@ -49,20 +47,17 @@ ScriptCollection::ScriptCollection(IScriptEngineFactory *factory, QObject *paren
     setParent(parent);
 }
 
-//------------------------------------------------------------------------------
 ScriptCollection::~ScriptCollection()
 {
     qDeleteAll(m_scripts);
     m_scripts.clear();
 }
 
-//------------------------------------------------------------------------------
 IScriptCollection::Scripts ScriptCollection::scripts() const
 {
     return m_scripts;
 }
 
-//------------------------------------------------------------------------------
 IScriptUnit *ScriptCollection::scriptByFileName(const QString &fileName)
 {
     QDir dir(QCoreApplication::applicationDirPath());
@@ -75,7 +70,6 @@ IScriptUnit *ScriptCollection::scriptByFileName(const QString &fileName)
     return nullptr;
 }
 
-//------------------------------------------------------------------------------
 IScriptUnit *ScriptCollection::create()
 {
     IScriptUnit *unit = createNewScript();
@@ -84,7 +78,6 @@ IScriptUnit *ScriptCollection::create()
     return unit;
 }
 
-//------------------------------------------------------------------------------
 IScriptUnit *ScriptCollection::createFromFile(const QString &fileName)
 {
     IScriptUnit *existedScript = scriptByFileName(fileName);
@@ -101,7 +94,6 @@ IScriptUnit *ScriptCollection::createFromFile(const QString &fileName)
     return unit;
 }
 
-//------------------------------------------------------------------------------
 void ScriptCollection::remove(IScriptUnit *script)
 {
     if (!m_scripts.contains(script))
@@ -112,7 +104,6 @@ void ScriptCollection::remove(IScriptUnit *script)
     script->deleteLater();
 }
 
-//------------------------------------------------------------------------------
 IScriptCollection::Scripts ScriptCollection::createFromDirectory(const QString &directory)
 {
 #ifdef Q_COMPILER_INITIALIZER_LISTS // MSVC does not support it yet
@@ -142,10 +133,8 @@ IScriptCollection::Scripts ScriptCollection::createFromDirectory(const QString &
     return result;
 }
 
-//------------------------------------------------------------------------------
 IScriptUnit *ScriptCollection::createNewScript(const QString *fileName)
 {
     return (fileName == nullptr) ? new ScriptUnit(m_factory) : new ScriptUnit(*fileName, m_factory);
 }
 
-//------------------------------------------------------------------------------

@@ -42,17 +42,14 @@
 
 #include <algorithm>
 
-//------------------------------------------------------------------------------
 namespace
 {
 static LoggerFacade Log = LoggerFacade::createLogger("JsScriptingUIComponent");
 }
 
-//------------------------------------------------------------------------------
 static const QByteArray description(
         "");
 
-//------------------------------------------------------------------------------
 JsScriptingUIComponent::JsScriptingUIComponent(QObject *parent)
     : BaseComponent("org.carousel.JsScriptingUI", parent)
 {
@@ -68,19 +65,16 @@ JsScriptingUIComponent::JsScriptingUIComponent(QObject *parent)
     addParent("org.carousel.Interactivity", 1, 0);
 }
 
-//------------------------------------------------------------------------------
 JsScriptingUIComponent::~JsScriptingUIComponent()
 {
 }
 
-//------------------------------------------------------------------------------
 void JsScriptingUIComponent::onShutdown(IServiceLocator *serviceLocator)
 {
     Q_UNUSED(serviceLocator)
     // TODO: unregister dialog
 }
 
-//------------------------------------------------------------------------------
 bool JsScriptingUIComponent::onStartup(IServiceLocator *serviceLocator)
 {
     IScriptingService *service = serviceLocator->locate<IScriptingService>();
@@ -95,7 +89,5 @@ bool JsScriptingUIComponent::onStartup(IServiceLocator *serviceLocator)
     return true;
 }
 
-//------------------------------------------------------------------------------
 EXPORT_COMPONENT(JsScriptingUIComponent)
 
-//------------------------------------------------------------------------------

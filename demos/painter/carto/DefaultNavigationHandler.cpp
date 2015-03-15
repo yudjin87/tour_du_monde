@@ -34,7 +34,6 @@
 
 #include <QtGui/QMouseEvent>
 
-//------------------------------------------------------------------------------
 DefaultNavigationHandler::DefaultNavigationHandler(IDisplay *display, IPainterDocumentController *docCtrl, QObject *parent)
     : QObject(parent)
     , BaseInputReceiver()
@@ -48,7 +47,6 @@ DefaultNavigationHandler::DefaultNavigationHandler(IDisplay *display, IPainterDo
     m_dispatcher->activate();
 }
 
-//------------------------------------------------------------------------------
 bool DefaultNavigationHandler::onMouseMove(QMouseEvent *event)
 {
     BaseInputReceiver::onMouseMove(event);
@@ -61,7 +59,6 @@ bool DefaultNavigationHandler::onMouseMove(QMouseEvent *event)
     return false;
 }
 
-//------------------------------------------------------------------------------
 bool DefaultNavigationHandler::onMouseDown(QMouseEvent *event)
 {
     if (event->button() != Qt::MiddleButton)
@@ -74,7 +71,6 @@ bool DefaultNavigationHandler::onMouseDown(QMouseEvent *event)
     return false;
 }
 
-//------------------------------------------------------------------------------
 bool DefaultNavigationHandler::onMouseUp(QMouseEvent *event)
 {
     if (event->button() != Qt::MiddleButton)
@@ -91,5 +87,4 @@ bool DefaultNavigationHandler::onMouseUp(QMouseEvent *event)
     return false;
 }
 
-//------------------------------------------------------------------------------
 

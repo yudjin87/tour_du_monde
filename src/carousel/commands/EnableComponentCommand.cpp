@@ -29,7 +29,6 @@
 #include <carousel/componentsystem/IComponent.h>
 #include <carousel/componentsystem/IComponentManager.h>
 
-//------------------------------------------------------------------------------
 EnableComponentCommand::EnableComponentCommand(IUndoStack *stack, IComponentManager *manager, QObject* parent)
     : BaseUndoableCommand(stack, parent)
     , m_manager(manager)
@@ -37,24 +36,20 @@ EnableComponentCommand::EnableComponentCommand(IUndoStack *stack, IComponentMana
     setText("enabling components");
 }
 
-//------------------------------------------------------------------------------
 EnableComponentCommand::~EnableComponentCommand()
 {
 }
 
-//------------------------------------------------------------------------------
 void EnableComponentCommand::addComponentToDisable(IComponent *component)
 {
     m_componentsToDisable.insert(component);
 }
 
-//------------------------------------------------------------------------------
 void EnableComponentCommand::addComponentToEnable(IComponent *component)
 {
     m_componentsToEnable.insert(component);
 }
 
-//------------------------------------------------------------------------------
 void EnableComponentCommand::addComponentToSwitchState(IComponent *component)
 {
     if (component->availability() == IComponent::Enabled)
@@ -63,19 +58,16 @@ void EnableComponentCommand::addComponentToSwitchState(IComponent *component)
         m_componentsToEnable.insert(component);
 }
 
-//------------------------------------------------------------------------------
 QList<IComponent *> EnableComponentCommand::componentsToDisable() const
 {
     return m_componentsToDisable.toList();
 }
 
-//------------------------------------------------------------------------------
 QList<IComponent *> EnableComponentCommand::componentsToEnable() const
 {
     return m_componentsToEnable.toList();
 }
 
-//------------------------------------------------------------------------------
 void EnableComponentCommand::redo()
 {
     DependenciesSolvingResult startedComponents = m_manager->startupComponents(m_componentsToEnable.toList());
@@ -89,11 +81,9 @@ void EnableComponentCommand::redo()
         m_componentsToDisable.insert(comp);
 }
 
-//------------------------------------------------------------------------------
 void EnableComponentCommand::undo()
 {
     m_manager->startupComponents(m_componentsToDisable.toList());
     m_manager->shutdownComponents(m_componentsToEnable.toList());
 }
 
-//------------------------------------------------------------------------------

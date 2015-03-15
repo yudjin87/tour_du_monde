@@ -28,7 +28,6 @@
 
 #include <geometry/AbstractGeometry.h>
 
-//------------------------------------------------------------------------------
 Feature::Feature(GeometryType type)
     : m_type(type)
     , m_id(-1)
@@ -36,54 +35,45 @@ Feature::Feature(GeometryType type)
 {
 }
 
-//------------------------------------------------------------------------------
 Feature::~Feature()
 {
     delete m_geometry;
     m_geometry = 0;
 }
 
-//------------------------------------------------------------------------------
 int Feature::id() const
 {
     return m_id;
 }
 
-//------------------------------------------------------------------------------
 void Feature::setId(int id)
 {
     m_id = id;
 }
 
-//------------------------------------------------------------------------------
 const QRectF &Feature::extent() const
 {
     return m_geometry->extent();
 }
 
-//------------------------------------------------------------------------------
 AbstractGeometry *Feature::geometry()
 {
     return m_geometry;
 }
 
-//------------------------------------------------------------------------------
 const AbstractGeometry *Feature::geometry() const
 {
     return m_geometry;
 }
 
-//------------------------------------------------------------------------------
 void Feature::setGeometry(AbstractGeometry *geometry)
 {
     delete m_geometry;
     m_geometry = geometry;
 }
 
-//------------------------------------------------------------------------------
 GeometryType Feature::shapeType() const
 {
     return m_type;
 }
 
-//------------------------------------------------------------------------------

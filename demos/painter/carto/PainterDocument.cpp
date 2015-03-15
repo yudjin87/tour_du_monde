@@ -27,36 +27,30 @@
 #include "PainterDocument.h"
 #include "IMap.h"
 
-//------------------------------------------------------------------------------
 PainterDocument::PainterDocument()
     : m_name("Demo PainterDocument")
     , m_map(nullptr)
 {
 }
 
-//------------------------------------------------------------------------------
 PainterDocument::~PainterDocument()
 {
     delete m_map;
     m_map = nullptr;
 }
 
-//------------------------------------------------------------------------------
 IMap *PainterDocument::map()
 {
     return m_map;
 }
 
-//------------------------------------------------------------------------------
 void PainterDocument::addMap(IMap *map)
 {
     m_map = map;
 }
 
-//------------------------------------------------------------------------------
 const QString &PainterDocument::name() const
 {
     return m_name;
 }
 
-//------------------------------------------------------------------------------

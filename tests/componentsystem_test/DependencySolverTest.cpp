@@ -5,12 +5,10 @@
 
 #include <QtTest/QtTest>
 
-//------------------------------------------------------------------------------
 DependencySolverTest::DependencySolverTest()
 {
 }
 
-//------------------------------------------------------------------------------
 void DependencySolverTest::cannotAddEmptyComponentName()
 {
     DependencySolver solver;
@@ -18,7 +16,6 @@ void DependencySolverTest::cannotAddEmptyComponentName()
     QCOMPARE(solver.componentsCount(), 0);
 }
 
-//------------------------------------------------------------------------------
 void DependencySolverTest::cannotAddDependencyWithoutAddingComponent()
 {
     DependencySolver solver;
@@ -26,7 +23,6 @@ void DependencySolverTest::cannotAddDependencyWithoutAddingComponent()
     QCOMPARE(solver.componentsCount(), 0);
 }
 
-//------------------------------------------------------------------------------
 void DependencySolverTest::canAddComponentDepedency()
 {
     DependencySolver solver;
@@ -37,7 +33,6 @@ void DependencySolverTest::canAddComponentDepedency()
     QCOMPARE(solver.componentsCount(), 2);
 }
 
-//------------------------------------------------------------------------------
 void DependencySolverTest::canSolveAcyclicDependencies()
 {
     DependencySolver solver;
@@ -56,7 +51,6 @@ void DependencySolverTest::canSolveAcyclicDependencies()
     QCOMPARE(QString("Child"), ordered[1]);
 }
 
-//------------------------------------------------------------------------------
 void DependencySolverTest::failsWithSimpleCycle()
 {
     DependencySolver solver;
@@ -70,7 +64,6 @@ void DependencySolverTest::failsWithSimpleCycle()
     QCOMPARE(orphans.size(), 0);
 }
 
-//------------------------------------------------------------------------------
 void DependencySolverTest::canSolveBundle()
 {
     DependencySolver solver;
@@ -98,7 +91,6 @@ void DependencySolverTest::canSolveBundle()
     QVERIFY(ordered.indexOf("ComD") < ordered.indexOf("ComE"));
 }
 
-//------------------------------------------------------------------------------
 void DependencySolverTest::canSolveComplexBundleWithMissingComponents()
 {
     // Parent <- Child <- GrandChild
@@ -118,7 +110,6 @@ void DependencySolverTest::canSolveComplexBundleWithMissingComponents()
     QCOMPARE(orphans.size(), 2); // GrandChild, Child
 }
 
-//------------------------------------------------------------------------------
 void DependencySolverTest::failsWithComplexCycle()
 {
     DependencySolver solver;
@@ -144,7 +135,6 @@ void DependencySolverTest::failsWithComplexCycle()
     QCOMPARE(orphans.size(), 0);
 }
 
-//------------------------------------------------------------------------------
 void DependencySolverTest::shouldFillMissingComponents()
 {
     DependencySolver solver;
@@ -163,7 +153,6 @@ void DependencySolverTest::shouldFillMissingComponents()
     QCOMPARE(orphans.size(), 1);
 }
 
-//------------------------------------------------------------------------------
 void DependencySolverTest::shouldFillOrphanComponents()
 {
     DependencySolver solver;
@@ -182,7 +171,6 @@ void DependencySolverTest::shouldFillOrphanComponents()
     QCOMPARE(orphans[0], QString("Child"));
 }
 
-//------------------------------------------------------------------------------
 void DependencySolverTest::iterationWithReferenceLeadsToBug()
 {
     DependencySolver solver;
@@ -209,5 +197,4 @@ void DependencySolverTest::iterationWithReferenceLeadsToBug()
     QCOMPARE(orphans.size(), 1);
 }
 
-//------------------------------------------------------------------------------
 

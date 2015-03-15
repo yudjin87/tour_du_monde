@@ -8,7 +8,6 @@ namespace
 static LoggerFacade Log = LoggerFacade::createLogger("UpdateTask");
 }
 
-//------------------------------------------------------------------------------
 UpdateTask::UpdateTask(MultithreadDisplay* display, QObject *parent)
     : QObject(parent)
     , m_display(display)
@@ -16,7 +15,6 @@ UpdateTask::UpdateTask(MultithreadDisplay* display, QObject *parent)
     //QObject::connect(this, SIGNAL(callUpdate()), widget, SLOT(update()));
 }
 
-//------------------------------------------------------------------------------
 void UpdateTask::draw(IDisplay &)
 {
     Log.d("Emit update needed");
@@ -24,4 +22,3 @@ void UpdateTask::draw(IDisplay &)
     m_display->callCopyAndUpdate();
 }
 
-//------------------------------------------------------------------------------

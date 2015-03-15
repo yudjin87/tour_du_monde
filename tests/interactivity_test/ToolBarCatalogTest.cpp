@@ -34,13 +34,11 @@
 #include <QtTest/QtTest>
 #include <QtTest/QSignalSpy>
 
-//------------------------------------------------------------------------------
 ToolBarCatalogTest::ToolBarCatalogTest(QObject *parent)
     : QObject(parent)
 {
 }
 
-//------------------------------------------------------------------------------
 void ToolBarCatalogTest::shouldAddToolbarToList()
 {
     QMainWindow window;
@@ -53,7 +51,6 @@ void ToolBarCatalogTest::shouldAddToolbarToList()
     QVERIFY(toolbar.toolbars().count() == 1);
 }
 
-//------------------------------------------------------------------------------
 void ToolBarCatalogTest::shouldSetupAddedToolbar()
 {
     QMainWindow window;
@@ -65,7 +62,6 @@ void ToolBarCatalogTest::shouldSetupAddedToolbar()
     QVERIFY(toolbar.toolbars()[0]->objectName() == "TB1");
 }
 
-//------------------------------------------------------------------------------
 void ToolBarCatalogTest::shouldAddToolbarToMainWindow()
 {
     QMainWindow window;
@@ -80,7 +76,6 @@ void ToolBarCatalogTest::shouldAddToolbarToMainWindow()
     QVERIFY(toolbars.count() == 1);
 }
 
-//------------------------------------------------------------------------------
 void ToolBarCatalogTest::shouldEmitWhenToolbarAdded()
 {
     QMainWindow window;
@@ -91,7 +86,6 @@ void ToolBarCatalogTest::shouldEmitWhenToolbarAdded()
     QCOMPARE(spy.count(), 1);
 }
 
-//------------------------------------------------------------------------------
 void ToolBarCatalogTest::shouldNotAddToolbarWithEmptyTitleToList()
 {
     QMainWindow window;
@@ -104,7 +98,6 @@ void ToolBarCatalogTest::shouldNotAddToolbarWithEmptyTitleToList()
     QVERIFY(toolbar.toolbars().count() == 0);
 }
 
-//------------------------------------------------------------------------------
 void ToolBarCatalogTest::shouldNotAddToolbarWithEmptyTitleToMainWindow()
 {
     QMainWindow window;
@@ -119,7 +112,6 @@ void ToolBarCatalogTest::shouldNotAddToolbarWithEmptyTitleToMainWindow()
     QVERIFY(toolbars.count() == 0);
 }
 
-//------------------------------------------------------------------------------
 void ToolBarCatalogTest::shouldReturnNullIfAddToolbarEmptyTitle()
 {
     QMainWindow window;
@@ -129,7 +121,6 @@ void ToolBarCatalogTest::shouldReturnNullIfAddToolbarEmptyTitle()
     QVERIFY(tb == nullptr);
 }
 
-//------------------------------------------------------------------------------
 void ToolBarCatalogTest::shouldNotAddToolbarWithExistedTitleToList()
 {
     QMainWindow window;
@@ -142,7 +133,6 @@ void ToolBarCatalogTest::shouldNotAddToolbarWithExistedTitleToList()
     QVERIFY(toolbar.toolbars().count() == 1);
 }
 
-//------------------------------------------------------------------------------
 void ToolBarCatalogTest::shouldNotAddToolbarWithExistedTitleToMainWindow()
 {
     QMainWindow window;
@@ -157,7 +147,6 @@ void ToolBarCatalogTest::shouldNotAddToolbarWithExistedTitleToMainWindow()
     QVERIFY(toolbars.count() == 1);
 }
 
-//------------------------------------------------------------------------------
 void ToolBarCatalogTest::shouldReturnExistedToolbarActionIfAddToolbarWithExistedTitle()
 {
     QMainWindow window;
@@ -170,7 +159,6 @@ void ToolBarCatalogTest::shouldReturnExistedToolbarActionIfAddToolbarWithExisted
     QVERIFY(toolbar.toolbars()[0] == tb);
 }
 
-//------------------------------------------------------------------------------
 void ToolBarCatalogTest::shouldFindToolbarByTilte()
 {
     QMainWindow window;
@@ -181,7 +169,6 @@ void ToolBarCatalogTest::shouldFindToolbarByTilte()
     QVERIFY(toolbar.toolbars()[0] == toolbar.find("TB1"));
 }
 
-//------------------------------------------------------------------------------
 void ToolBarCatalogTest::shouldReturnNullIfToolbarDoesNotFoundByTilte()
 {
     QMainWindow window;
@@ -192,7 +179,6 @@ void ToolBarCatalogTest::shouldReturnNullIfToolbarDoesNotFoundByTilte()
     QVERIFY(toolbar.find("TB2") == nullptr);
 }
 
-//------------------------------------------------------------------------------
 void ToolBarCatalogTest::shouldReturnCorrectToolbarAction()
 {
     QMainWindow window;
@@ -203,7 +189,6 @@ void ToolBarCatalogTest::shouldReturnCorrectToolbarAction()
     QVERIFY(toolbar.toolbars()[0] == tb);
 }
 
-//------------------------------------------------------------------------------
 void ToolBarCatalogTest::returnedToolbarActionShouldHasSpecifiedText()
 {
     QMainWindow window;
@@ -214,7 +199,6 @@ void ToolBarCatalogTest::returnedToolbarActionShouldHasSpecifiedText()
     QVERIFY(toogleAction->text() == "TB1");
 }
 
-//------------------------------------------------------------------------------
 void ToolBarCatalogTest::shouldDeleteToolbar()
 {
     QMainWindow window;
@@ -227,7 +211,6 @@ void ToolBarCatalogTest::shouldDeleteToolbar()
     QVERIFY(toolbar.find("TB1") == nullptr);
 }
 
-//------------------------------------------------------------------------------
 void ToolBarCatalogTest::shouldDeleteToolbarByName()
 {
     QMainWindow window;
@@ -240,4 +223,3 @@ void ToolBarCatalogTest::shouldDeleteToolbarByName()
     QVERIFY(toolbar.find("TB1") == nullptr);
 }
 
-//------------------------------------------------------------------------------

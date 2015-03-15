@@ -32,18 +32,15 @@
 #include <carousel/logging/LoggerFacade.h>
 #include <carousel/utils/IServiceLocator.h>
 
-//------------------------------------------------------------------------------
 namespace
 {
 static LoggerFacade Log = LoggerFacade::createLogger("UndoComponent");
 }
 
 
-//------------------------------------------------------------------------------
 static const QByteArray description(
         "");
 
-//------------------------------------------------------------------------------
 UndoComponent::UndoComponent(QObject *parent)
     : BaseComponent("org.carousel.Undo", parent)
 {
@@ -58,21 +55,18 @@ UndoComponent::UndoComponent(QObject *parent)
     addParent("org.carousel.Interactivity", 1, 0);
 }
 
-//------------------------------------------------------------------------------
 UndoComponent::~UndoComponent()
 {
     if (started())
         Log.w("Logic error: onShutdown() was not called.");
 }
 
-//------------------------------------------------------------------------------
 void UndoComponent::onShutdown(IServiceLocator *serviceLocator)
 {
     QUndoStackAdapter *undoStack = serviceLocator->unregisterInstance<QUndoStackAdapter>();
     delete undoStack;
 }
 
-//------------------------------------------------------------------------------
 bool UndoComponent::onStartup(IServiceLocator *serviceLocator)
 {
     QUndoStackAdapter *undoStack = new QUndoStackAdapter();
@@ -82,7 +76,5 @@ bool UndoComponent::onStartup(IServiceLocator *serviceLocator)
     return true;
 }
 
-//------------------------------------------------------------------------------
 EXPORT_COMPONENT(UndoComponent)
 
-//------------------------------------------------------------------------------

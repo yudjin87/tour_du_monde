@@ -42,10 +42,8 @@
 #include <carousel/utils/IServiceLocator.h>
 #include <carousel/utils/TypeCreators.h>
 
-//------------------------------------------------------------------------------
 static const QByteArray productName("Carto");
 
-//------------------------------------------------------------------------------
 CartoComponent::CartoComponent()
     : BaseComponent("org.carousel.demos.Carto")
 {
@@ -62,19 +60,16 @@ CartoComponent::CartoComponent()
     setVersion(1, 0);
 }
 
-//------------------------------------------------------------------------------
 CartoComponent::~CartoComponent()
 {
 }
 
-//------------------------------------------------------------------------------
 void CartoComponent::onShutdown(IServiceLocator *serviceLocator)
 {
     IPainterDocumentController *controller = serviceLocator->unregisterInstance<IPainterDocumentController>();
     delete controller;
 }
 
-//------------------------------------------------------------------------------
 bool CartoComponent::onStartup(IServiceLocator *serviceLocator)
 {
     TypeCreator<AddShapesCommand, TypeLocator<IUndoStack>, TypeLocator<IPainterDocumentController>, TypeBuilder<IShapeFileWorkspaceFactory>> addShapesCreator{serviceLocator};
@@ -99,7 +94,5 @@ bool CartoComponent::onStartup(IServiceLocator *serviceLocator)
     return true;
 }
 
-//------------------------------------------------------------------------------
 EXPORT_COMPONENT(CartoComponent)
 
-//------------------------------------------------------------------------------

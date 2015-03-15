@@ -350,27 +350,23 @@ private:
     QList<TItem> m_items;
 };
 
-//------------------------------------------------------------------------------
 template <typename TItem>
 ObservableList<TItem>::ObservableList()
 {
 }
 
-//------------------------------------------------------------------------------
 template <typename TItem>
 ObservableList<TItem>::ObservableList(const QList<TItem> &items)
     : m_items(items)
 {
 }
 
-//------------------------------------------------------------------------------
 template <typename TItem>
 ObservableList<TItem>::~ObservableList()
 {
     m_items.clear();
 }
 
-//------------------------------------------------------------------------------
 template <typename TItem>
 void ObservableList<TItem>::append(const TItem &item)
 {
@@ -378,7 +374,6 @@ void ObservableList<TItem>::append(const TItem &item)
     added(item);
 }
 
-//------------------------------------------------------------------------------
 template <typename TItem>
 void ObservableList<TItem>::append(const QList<TItem> &items)
 {
@@ -387,7 +382,6 @@ void ObservableList<TItem>::append(const QList<TItem> &items)
         added(item);
 }
 
-//------------------------------------------------------------------------------
 template <typename TItem>
 void ObservableList<TItem>::prepend(const TItem &item)
 {
@@ -395,21 +389,18 @@ void ObservableList<TItem>::prepend(const TItem &item)
     added(item);
 }
 
-//------------------------------------------------------------------------------
 template <typename TItem>
 int ObservableList<TItem>::size() const
 {
     return m_items.size();
 }
 
-//------------------------------------------------------------------------------
 template <typename TItem>
 bool ObservableList<TItem>::isEmpty() const
 {
     return m_items.isEmpty();
 }
 
-//------------------------------------------------------------------------------
 template <typename TItem>
 void ObservableList<TItem>::clear()
 {
@@ -423,35 +414,30 @@ void ObservableList<TItem>::clear()
         removed(item);
 }
 
-//------------------------------------------------------------------------------
 template <typename TItem>
 const TItem &ObservableList<TItem>::at(int index) const
 {
     return m_items.at(index);
 }
 
-//------------------------------------------------------------------------------
 template <typename TItem>
 const TItem &ObservableList<TItem>::operator [](int index) const
 {
     return m_items[index];
 }
 
-//------------------------------------------------------------------------------
 template <typename TItem>
 TItem ObservableList<TItem>::operator [](int index)
 {
     return m_items[index];
 }
 
-//------------------------------------------------------------------------------
 template <typename TItem>
 void ObservableList<TItem>::reserve(int size)
 {
     m_items.reserve(size);
 }
 
-//------------------------------------------------------------------------------
 template <typename TItem>
 void ObservableList<TItem>::removeAt(int index)
 {
@@ -459,7 +445,6 @@ void ObservableList<TItem>::removeAt(int index)
     removeOne(item);
 }
 
-//------------------------------------------------------------------------------
 template <typename TItem>
 int ObservableList<TItem>::removeAll(const TItem &item)
 {    
@@ -484,7 +469,6 @@ int ObservableList<TItem>::removeAll(const TItem &item)
     return items.size();
 }
 
-//------------------------------------------------------------------------------
 template <typename TItem>
 bool ObservableList<TItem>::removeOne(const TItem &item)
 {
@@ -496,98 +480,84 @@ bool ObservableList<TItem>::removeOne(const TItem &item)
     return result;
 }
 
-//------------------------------------------------------------------------------
 template <typename TItem>
 int ObservableList<TItem>::indexOf(const TItem &item, int from) const
 {
     return m_items.indexOf(item, from);
 }
 
-//------------------------------------------------------------------------------
 template <typename TItem>
 int ObservableList<TItem>::lastIndexOf(const TItem &item, int from) const
 {
     return m_items.lastIndexOf(item, from);
 }
 
-//------------------------------------------------------------------------------
 template <typename TItem>
 bool ObservableList<TItem>::contains(const TItem &item) const
 {
     return m_items.contains(item);
 }
 
-//------------------------------------------------------------------------------
 template <typename TItem>
 int ObservableList<TItem>::count() const
 {
     return m_items.count();
 }
 
-//------------------------------------------------------------------------------
 template <typename TItem>
 int ObservableList<TItem>::count(const TItem &item) const
 {
     return m_items.count(item);
 }
 
-//------------------------------------------------------------------------------
 template <typename TItem>
 TItem ObservableList<TItem>::first()
 {
     return m_items.first();
 }
 
-//------------------------------------------------------------------------------
 template <typename TItem>
 const TItem &ObservableList<TItem>::first() const
 {
     return m_items.first();
 }
 
-//------------------------------------------------------------------------------
 template <typename TItem>
 const TItem &ObservableList<TItem>::last() const
 {
     return m_items.last();
 }
 
-//------------------------------------------------------------------------------
 template <typename TItem>
 TItem ObservableList<TItem>::last()
 {
     return m_items.last();
 }
 
-//------------------------------------------------------------------------------
 template <typename TItem>
 typename QList<TItem>::const_iterator ObservableList<TItem>::begin() const
 {
     return m_items.begin();
 }
 
-//------------------------------------------------------------------------------
 template <typename TItem>
 typename QList<TItem>::const_iterator ObservableList<TItem>::constBegin() const
 {
     return m_items.constBegin();
 }
 
-//------------------------------------------------------------------------------
 template <typename TItem>
 typename QList<TItem>::const_iterator ObservableList<TItem>::end() const
 {
     return m_items.end();
 }
 
-//------------------------------------------------------------------------------
 template <typename TItem>
 typename QList<TItem>::const_iterator ObservableList<TItem>::constEnd() const
 {
     return m_items.constEnd();
 }
 
-//------------------------------------------------------------------------------
 template <typename TItem>
 void ObservableList<TItem>::push_back(const TItem &item)
 {
@@ -595,7 +565,6 @@ void ObservableList<TItem>::push_back(const TItem &item)
     added(item);
 }
 
-//------------------------------------------------------------------------------
 template <typename TItem>
 void ObservableList<TItem>::push_front(const TItem &item)
 {
@@ -603,42 +572,36 @@ void ObservableList<TItem>::push_front(const TItem &item)
     added(item);
 }
 
-//------------------------------------------------------------------------------
 template <typename TItem>
 const TItem &ObservableList<TItem>::front() const
 {
     return m_items.front();
 }
 
-//------------------------------------------------------------------------------
 template <typename TItem>
 const TItem &ObservableList<TItem>::back() const
 {
     return m_items.back();
 }
 
-//------------------------------------------------------------------------------
 template <typename TItem>
 bool ObservableList<TItem>::empty() const
 {
     return m_items.empty();
 }
 
-//------------------------------------------------------------------------------
 template <typename TItem>
 QList<TItem> ObservableList<TItem>::toList() const
 {
     return m_items;
 }
 
-//------------------------------------------------------------------------------
 template <typename TItem>
 void ObservableList<TItem>::sort()
 {
     qSort(m_items);
 }
 
-//------------------------------------------------------------------------------
 template <typename TItem>
 template <template<typename> class LessThan>
 void ObservableList<TItem>::sort(LessThan<TItem> &lessThan)
@@ -646,6 +609,5 @@ void ObservableList<TItem>::sort(LessThan<TItem> &lessThan)
     qSort(m_items.begin(), m_items.end(), lessThan);
 }
 
-//------------------------------------------------------------------------------
 
 #endif // OBSERVABLELIST_H

@@ -33,7 +33,6 @@
 #include <QtGui/QSyntaxHighlighter>
 #include <QtWidgets/QFileDialog>
 
-//------------------------------------------------------------------------------
 ScriptUnitView::ScriptUnitView(IScriptUnit *data, QSyntaxHighlighter *highlighter, QWidget *parent)
     : QWidget(parent)
     , m_ui(new Ui::ScriptUnitView())
@@ -52,26 +51,22 @@ ScriptUnitView::ScriptUnitView(IScriptUnit *data, QSyntaxHighlighter *highlighte
     connect(data, &IScriptUnit::aborted, this, &ScriptUnitView::onAborted);
 }
 
-//------------------------------------------------------------------------------
 ScriptUnitView::~ScriptUnitView()
 {
     delete m_ui;
     m_ui = nullptr;
 }
 
-//------------------------------------------------------------------------------
 IScriptUnit *ScriptUnitView::data()
 {
     return m_data;
 }
 
-//------------------------------------------------------------------------------
 void ScriptUnitView::clear()
 {
     m_ui->outputEditor->clear();
 }
 
-//------------------------------------------------------------------------------
 void ScriptUnitView::printError(const QString &error)
 {
     // TODO: merge same functional with Console View
@@ -80,26 +75,22 @@ void ScriptUnitView::printError(const QString &error)
     m_ui->outputEditor->setTextColor(Qt::black);
 }
 
-//------------------------------------------------------------------------------
 void ScriptUnitView::printOutput(const QString &output)
 {
     m_ui->outputEditor->append(output);
 }
 
-//------------------------------------------------------------------------------
 void ScriptUnitView::onAbort()
 {
     m_data->abort();
 }
 
-//------------------------------------------------------------------------------
 void ScriptUnitView::onRun()
 {
     clear();
     m_data->run();
 }
 
-//------------------------------------------------------------------------------
 bool ScriptUnitView::onSave()
 {
     // for saveAs:
@@ -119,7 +110,6 @@ bool ScriptUnitView::onSave()
     return m_data->save();
 }
 
-//------------------------------------------------------------------------------
 bool ScriptUnitView::eventFilter(QObject *sender, QEvent *event)
 {
     if (event->type() == QEvent::KeyPress) {
@@ -132,7 +122,6 @@ bool ScriptUnitView::eventFilter(QObject *sender, QEvent *event)
     return QObject::eventFilter(sender, event);
 }
 
-//------------------------------------------------------------------------------
 bool ScriptUnitView::onKeyPressed(QKeyEvent *event)
 {
     int key = event->key();
@@ -150,7 +139,6 @@ bool ScriptUnitView::onKeyPressed(QKeyEvent *event)
     return false;
 }
 
-//------------------------------------------------------------------------------
 bool ScriptUnitView::processControlKey(int key)
 {
     switch (key) {
@@ -165,7 +153,6 @@ bool ScriptUnitView::processControlKey(int key)
     return false;
 }
 
-//------------------------------------------------------------------------------
 void ScriptUnitView::insertIndent()
 {
     static const int indent_size = 4;
@@ -176,10 +163,8 @@ void ScriptUnitView::insertIndent()
     m_ui->scriptEditor->insertPlainText(QString(position, ' '));
 }
 
-//------------------------------------------------------------------------------
 void ScriptUnitView::onAborted()
 {
     printError("Aborted by user...");
 }
 
-//------------------------------------------------------------------------------

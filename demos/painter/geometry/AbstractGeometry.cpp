@@ -26,7 +26,6 @@
 
 #include "AbstractGeometry.h"
 
-//------------------------------------------------------------------------------
 AbstractGeometry::AbstractGeometry(QObject *parent)
     : QObject(parent)
     , m_id(-1)
@@ -34,7 +33,6 @@ AbstractGeometry::AbstractGeometry(QObject *parent)
 {
 }
 
-//------------------------------------------------------------------------------
 AbstractGeometry::AbstractGeometry(const QRectF &extent, QObject *parent)
     : QObject(parent)
     , m_id(-1)
@@ -42,33 +40,27 @@ AbstractGeometry::AbstractGeometry(const QRectF &extent, QObject *parent)
 {
 }
 
-//------------------------------------------------------------------------------
 AbstractGeometry::~AbstractGeometry()
 {
 }
 
-//------------------------------------------------------------------------------
 int AbstractGeometry::id() const
 {
     return m_id;
 }
 
-//------------------------------------------------------------------------------
 void AbstractGeometry::setId(int id)
 {
     m_id = id;
 }
 
-//------------------------------------------------------------------------------
 const QRectF &AbstractGeometry::extent() const
 {
     return m_extent;
 }
 
-//------------------------------------------------------------------------------
 void AbstractGeometry::setExtent(const QRectF &extent)
 {
     m_extent = extent;
 }
 
-//------------------------------------------------------------------------------

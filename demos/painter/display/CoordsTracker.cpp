@@ -32,7 +32,6 @@
 #include <QtGui/QMouseEvent>
 #include <QtWidgets/QStatusBar>
 
-//------------------------------------------------------------------------------
 CoordsTracker::CoordsTracker(const IDisplay *display, QStatusBar *statusBar, QObject *parent)
     : QObject(parent)
     , BaseInputReceiver()
@@ -45,7 +44,6 @@ CoordsTracker::CoordsTracker(const IDisplay *display, QStatusBar *statusBar, QOb
     m_dispatcher->activate();
 }
 
-//------------------------------------------------------------------------------
 bool CoordsTracker::onMouseMove(QMouseEvent *event)
 {
     const DisplayTransformation* transform = m_display->transformation();
@@ -57,7 +55,6 @@ bool CoordsTracker::onMouseMove(QMouseEvent *event)
     return false;
 }
 
-//------------------------------------------------------------------------------
 
 
 

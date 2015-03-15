@@ -26,7 +26,6 @@
 
 #include "MockInteractiveExtension.h"
 
-//------------------------------------------------------------------------------
 MockInteractiveExtension::MockInteractiveExtension()
     : BaseComponent("MockInteractiveExtension")
     , m_interactiveExtension(new FakeInteractiveExtension())
@@ -34,7 +33,6 @@ MockInteractiveExtension::MockInteractiveExtension()
     registerExtension<IInteractiveExtension>(m_interactiveExtension);
 }
 
-//------------------------------------------------------------------------------
 MockInteractiveExtension::MockInteractiveExtension(const QString &name)
     : BaseComponent(name)
     , m_interactiveExtension(new FakeInteractiveExtension())
@@ -42,11 +40,9 @@ MockInteractiveExtension::MockInteractiveExtension(const QString &name)
     registerExtension<IInteractiveExtension>(m_interactiveExtension);
 }
 
-//------------------------------------------------------------------------------
 MockInteractiveExtension::~MockInteractiveExtension()
 {
     delete m_interactiveExtension;
     m_interactiveExtension = nullptr;
 }
 
-//------------------------------------------------------------------------------

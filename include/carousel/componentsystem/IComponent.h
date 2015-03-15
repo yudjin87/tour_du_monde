@@ -267,7 +267,6 @@ signals:
  */
 QStringList toStringList(const QList<IComponent *> &components);
 
-//------------------------------------------------------------------------------
 template<typename TExtension>
 TExtension *IComponent::extension()
 {
@@ -276,7 +275,6 @@ TExtension *IComponent::extension()
                 static_cast<const IComponent *>(this)->extension<TExtension>());
 }
 
-//------------------------------------------------------------------------------
 template<typename TExtension>
 const TExtension *IComponent::extension() const
 {
@@ -289,5 +287,4 @@ const TExtension *IComponent::extension() const
 Q_DECLARE_METATYPE(IComponent*)
 Q_DECLARE_METATYPE(IComponent::Availability)
 
-//------------------------------------------------------------------------------
 #endif // ICOMPONENT_H

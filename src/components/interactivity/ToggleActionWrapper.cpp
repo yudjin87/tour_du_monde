@@ -26,7 +26,6 @@
 
 #include "ToggleActionWrapper.h"
 
-//------------------------------------------------------------------------------
 ToggleActionWrapper::ToggleActionWrapper(QAction *toogleAction)
     : Operation(toogleAction->text())
     , m_action(toogleAction)
@@ -36,7 +35,6 @@ ToggleActionWrapper::ToggleActionWrapper(QAction *toogleAction)
     connect(m_action, &QAction::toggled, this, &ToggleActionWrapper::onActionChanged);
 }
 
-//------------------------------------------------------------------------------
 ToggleActionWrapper::ToggleActionWrapper(QAction *toogleAction, const QString &text)
     : Operation(text)
     , m_action(toogleAction)
@@ -46,7 +44,6 @@ ToggleActionWrapper::ToggleActionWrapper(QAction *toogleAction, const QString &t
     connect(m_action, &QAction::toggled, this, &ToggleActionWrapper::onActionChanged);
 }
 
-//------------------------------------------------------------------------------
 ToggleActionWrapper::ToggleActionWrapper(QAction *toogleAction, const QIcon &icon)
     : Operation(icon, toogleAction->text())
     , m_action(toogleAction)
@@ -56,7 +53,6 @@ ToggleActionWrapper::ToggleActionWrapper(QAction *toogleAction, const QIcon &ico
     connect(m_action, &QAction::toggled, this, &ToggleActionWrapper::onActionChanged);
 }
 
-//------------------------------------------------------------------------------
 ToggleActionWrapper::ToggleActionWrapper(QAction *toogleAction, const QIcon &icon, const QString &text)
     : Operation(icon, text)
     , m_action(toogleAction)
@@ -66,19 +62,16 @@ ToggleActionWrapper::ToggleActionWrapper(QAction *toogleAction, const QIcon &ico
     connect(m_action, &QAction::toggled, this, &ToggleActionWrapper::onActionChanged);
 }
 
-//------------------------------------------------------------------------------
 void ToggleActionWrapper::execute()
 {
     m_action->trigger();
 }
 
-//------------------------------------------------------------------------------
 void ToggleActionWrapper::stopExecuting()
 {
     m_action->trigger();
 }
 
-//------------------------------------------------------------------------------
 void ToggleActionWrapper::onActionChanged(bool checked)
 {
     disconectFromSignals();
@@ -86,4 +79,3 @@ void ToggleActionWrapper::onActionChanged(bool checked)
     connectToSignals();
 }
 
-//------------------------------------------------------------------------------

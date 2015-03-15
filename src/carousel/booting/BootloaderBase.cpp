@@ -35,7 +35,6 @@
 #include <QtCore/QCoreApplication>
 #include <QtCore/QThread>
 
-//------------------------------------------------------------------------------
 BootloaderBase::BootloaderBase(const QString &mainThreadName)
     : m_componentManager(nullptr)
     , m_componentProvider(nullptr)
@@ -49,7 +48,6 @@ BootloaderBase::BootloaderBase(const QString &mainThreadName)
     }
 }
 
-//------------------------------------------------------------------------------
 BootloaderBase::~BootloaderBase()
 {
     delete m_componentManager;
@@ -65,7 +63,6 @@ BootloaderBase::~BootloaderBase()
     m_serviceLocator = nullptr;
 }
 
-//------------------------------------------------------------------------------
 void BootloaderBase::run()
 {
     if (m_alreadyRunned)
@@ -76,80 +73,66 @@ void BootloaderBase::run()
     m_alreadyRunned = true;
 }
 
-//------------------------------------------------------------------------------
 IServiceLocator *BootloaderBase::serviceLocator()
 {
     return m_serviceLocator;
 }
 
-//------------------------------------------------------------------------------
 void BootloaderBase::configureComponentManager()
 {
 }
 
-//------------------------------------------------------------------------------
 void BootloaderBase::configureComponentProvider()
 {
 }
 
-//------------------------------------------------------------------------------
 IComponentManager *BootloaderBase::createComponentManager()
 {
     return new ComponentManager(m_serviceLocator, new ComponentDependencies(), nullptr);
 }
 
-//------------------------------------------------------------------------------
 IComponentProvider *BootloaderBase::createComponentProvider()
 {
     return new ComponentProvider();
 }
 
-//------------------------------------------------------------------------------
 ILoggerEngineCreator *BootloaderBase::createLoggerEngine()
 {
     static QTextStream text(stdout);
     return new TextLogger(text);
 }
 
-//------------------------------------------------------------------------------
 IServiceLocator *BootloaderBase::createServiceLocator()
 {
     return new ServiceLocator();
 }
 
-//------------------------------------------------------------------------------
 void BootloaderBase::initialiseComponentProvider()
 {
 }
 
-//------------------------------------------------------------------------------
 void BootloaderBase::onLoadingSequenceFinised()
 {
 
 }
 
-//------------------------------------------------------------------------------
 void BootloaderBase::onLoadingSequenceStarting()
 {
     connect(QCoreApplication::instance(), &QCoreApplication::aboutToQuit, this, &BootloaderBase::onAboutToQuit);
 }
 
-//------------------------------------------------------------------------------
 void BootloaderBase::shutdownComponentManager()
 {
     m_componentManager->shutdown();
 }
 
-//------------------------------------------------------------------------------
 void BootloaderBase::startComponentManager()
 {
     m_componentManager->startup();
 }
 
-//------------------------------------------------------------------------------
 void BootloaderBase::onAboutToQuit()
 {
     shutdownComponentManager();
 }
 
-//------------------------------------------------------------------------------

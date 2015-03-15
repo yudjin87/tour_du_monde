@@ -10,7 +10,6 @@
 
 #include <QtGui/QMouseEvent>
 
-//------------------------------------------------------------------------------
 PanTool::PanTool()
     : ToolBase("Pan")
     , m_serviceLocator(nullptr)
@@ -20,7 +19,6 @@ PanTool::PanTool()
     setIconVisibleInMenu(true);
 }
 
-//------------------------------------------------------------------------------
 void PanTool::execute()
 {
     ToolBase::execute();
@@ -30,14 +28,12 @@ void PanTool::execute()
     display->setCursor(Qt::OpenHandCursor);
 }
 
-//------------------------------------------------------------------------------
 void PanTool::initialize(IServiceLocator *serviceLocator)
 {
     ToolBase::initialize(serviceLocator);
     m_serviceLocator = serviceLocator;
 }
 
-//------------------------------------------------------------------------------
 bool PanTool::onMouseDown(QMouseEvent *event)
 {
     if (event->button() != Qt::LeftButton)
@@ -51,7 +47,6 @@ bool PanTool::onMouseDown(QMouseEvent *event)
     return true;
 }
 
-//------------------------------------------------------------------------------
 bool PanTool::onMouseMove(QMouseEvent *event)
 {
     ToolBase::onMouseMove(event);
@@ -66,7 +61,6 @@ bool PanTool::onMouseMove(QMouseEvent *event)
     return false;
 }
 
-//------------------------------------------------------------------------------
 bool PanTool::onMouseUp(QMouseEvent *event)
 {
     if (event->button() != Qt::LeftButton)
@@ -85,7 +79,6 @@ bool PanTool::onMouseUp(QMouseEvent *event)
     return true;
 }
 
-//------------------------------------------------------------------------------
 void PanTool::stopExecuting()
 {
     ToolBase::stopExecuting();
@@ -94,4 +87,3 @@ void PanTool::stopExecuting()
     display->unsetCursor();
 }
 
-//------------------------------------------------------------------------------

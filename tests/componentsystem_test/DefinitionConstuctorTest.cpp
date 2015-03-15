@@ -37,13 +37,11 @@
 #include <QtCore/QDir>
 #include <QtTest/QTest>
 
-//------------------------------------------------------------------------------
 DefinitionConstuctorTest::DefinitionConstuctorTest(QObject *parent)
     : QObject(parent)
 {
 }
 
-//------------------------------------------------------------------------------
 void DefinitionConstuctorTest::construct_ShouldConstructDefinitionFromParser()
 {
     FakeDefinitionParser parser;
@@ -80,7 +78,6 @@ void DefinitionConstuctorTest::construct_ShouldConstructDefinitionFromParser()
     QCOMPARE(definition.parents()["ComponentB"]->toString(), QString("3.4.5.6"));
 }
 
-//------------------------------------------------------------------------------
 void DefinitionConstuctorTest::construct_ShouldUseDefaultProviderIfParserReturnsEmpty()
 {
     FakeDefinitionParser parser;
@@ -94,7 +91,6 @@ void DefinitionConstuctorTest::construct_ShouldUseDefaultProviderIfParserReturns
     QCOMPARE(definition.provider(), ComponentDefinition::defaultProvider());
 }
 
-//------------------------------------------------------------------------------
 void DefinitionConstuctorTest::construct_ShouldUseDefaultVersionIfParserReturnsEmpty()
 {
     FakeDefinitionParser parser;
@@ -108,7 +104,6 @@ void DefinitionConstuctorTest::construct_ShouldUseDefaultVersionIfParserReturnsE
     QVERIFY(definition.version()->toString().contains("1.0.0"));
 }
 
-//------------------------------------------------------------------------------
 void DefinitionConstuctorTest::construct_ShouldUseNameIfShortNameIsEmpty()
 {
     FakeDefinitionParser parser;
@@ -122,7 +117,6 @@ void DefinitionConstuctorTest::construct_ShouldUseNameIfShortNameIsEmpty()
     QCOMPARE(definition.shortComponentName(), QString("Carousel"));
 }
 
-//------------------------------------------------------------------------------
 void DefinitionConstuctorTest::construct_ShouldUseDelegateIfAny()
 {
     FakeDefinitionParser parser;
@@ -137,7 +131,6 @@ void DefinitionConstuctorTest::construct_ShouldUseDelegateIfAny()
     QCOMPARE(definition.definitionLocation(), QString("/some/where"));
 }
 
-//------------------------------------------------------------------------------
 void DefinitionConstuctorTest::construct_ShouldReturnFalseIfComponentNameIsEmpty()
 {
     FakeDefinitionParser parser;
@@ -150,7 +143,6 @@ void DefinitionConstuctorTest::construct_ShouldReturnFalseIfComponentNameIsEmpty
     QVERIFY(!result);
 }
 
-//------------------------------------------------------------------------------
 void DefinitionConstuctorTest::construct_ShouldReturnFalseIfComponentVersionCouldNotParsed()
 {
     FakeDefinitionParser parser;
@@ -164,7 +156,6 @@ void DefinitionConstuctorTest::construct_ShouldReturnFalseIfComponentVersionCoul
     QVERIFY(definition.version()->isEmpty());
 }
 
-//------------------------------------------------------------------------------
 void DefinitionConstuctorTest::construct_ShouldSetupFileNameAsComponentNameIfLocationIsAbsent()
 {
     FakeDefinitionParser parser;
@@ -186,4 +177,3 @@ void DefinitionConstuctorTest::construct_ShouldSetupFileNameAsComponentNameIfLoc
 #endif // Q_WS_WIN
 }
 
-//------------------------------------------------------------------------------

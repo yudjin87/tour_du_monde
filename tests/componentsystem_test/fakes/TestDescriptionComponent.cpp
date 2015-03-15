@@ -1,6 +1,5 @@
 #include "TestDescriptionComponent.h"
 
-//------------------------------------------------------------------------------
 TestDescriptionComponent::TestDescriptionComponent()
     : BaseComponent("TestDescriptionComponent")
     , m_definition()
@@ -8,7 +7,6 @@ TestDescriptionComponent::TestDescriptionComponent()
 {
 }
 
-//------------------------------------------------------------------------------
 TestDescriptionComponent::TestDescriptionComponent(const QString &name)
     : BaseComponent(name)
     , m_definition()
@@ -16,17 +14,14 @@ TestDescriptionComponent::TestDescriptionComponent(const QString &name)
 {
 }
 
-//------------------------------------------------------------------------------
 bool TestDescriptionComponent::onStartup(IServiceLocator *)
 {
     emit whenStarted(name());
     return startUpResult;
 }
 
-//------------------------------------------------------------------------------
 ComponentDefinition *TestDescriptionComponent::definition() const
 {
     return &const_cast<TestDescriptionComponent *>(this)->m_definition;
 }
 
-//------------------------------------------------------------------------------

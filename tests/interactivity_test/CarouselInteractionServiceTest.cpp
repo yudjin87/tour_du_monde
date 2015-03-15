@@ -49,13 +49,11 @@
 
 #include <memory>
 
-//------------------------------------------------------------------------------
 CarouselInteractionServiceTest::CarouselInteractionServiceTest(QObject *parent)
     : QObject(parent)
 {
 }
 
-//------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldCreateEmptyCatalogs()
 {
     QMainWindow mainWnd; MockComponentManager manager(&m_serviceLocator);
@@ -70,7 +68,6 @@ void CarouselInteractionServiceTest::shouldCreateEmptyCatalogs()
     QCOMPARE(catalogs.toolBarCatalog().toolbars().size(), 0);
 }
 
-//------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldReturnEmptyToolByDefault()
 {
     QMainWindow mainWnd; MockComponentManager manager(&m_serviceLocator);
@@ -80,7 +77,6 @@ void CarouselInteractionServiceTest::shouldReturnEmptyToolByDefault()
     QVERIFY(service.activeTool() == nullptr);
 }
 
-//------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldReturnEmptyInputDispatcher()
 {
     QMainWindow mainWnd; MockComponentManager manager(&m_serviceLocator);
@@ -90,7 +86,6 @@ void CarouselInteractionServiceTest::shouldReturnEmptyInputDispatcher()
     QVERIFY(service.dispatcher() == nullptr);
 }
 
-//------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldReturnMainWindow()
 {
     QMainWindow mainWnd; MockComponentManager manager(&m_serviceLocator);
@@ -100,7 +95,6 @@ void CarouselInteractionServiceTest::shouldReturnMainWindow()
     QVERIFY(&service.mainWindow() == &mainWnd);
 }
 
-//------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldSetupInputDispatcher()
 {
     QMainWindow mainWnd; MockComponentManager manager(&m_serviceLocator);
@@ -115,7 +109,6 @@ void CarouselInteractionServiceTest::shouldSetupInputDispatcher()
     QVERIFY(service.dispatcher() == dispatcher);
 }
 
-//------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldSetupCurrentToolToDispatcher()
 {
     QMainWindow mainWnd; MockComponentManager manager(&m_serviceLocator);
@@ -131,7 +124,6 @@ void CarouselInteractionServiceTest::shouldSetupCurrentToolToDispatcher()
     QVERIFY(dispatcher->receiver() == &tool);
 }
 
-//------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldNullToolAfterItsDeletion()
 {
     QMainWindow mainWnd; MockComponentManager manager(&m_serviceLocator);
@@ -146,7 +138,6 @@ void CarouselInteractionServiceTest::shouldNullToolAfterItsDeletion()
     QVERIFY(service.activeTool() == nullptr);
 }
 
-//------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldNotThrowIfPreviousDispatcherIsNull()
 {
     QMainWindow mainWnd; MockComponentManager manager(&m_serviceLocator);
@@ -161,7 +152,6 @@ void CarouselInteractionServiceTest::shouldNotThrowIfPreviousDispatcherIsNull()
     QVERIFY(true);
 }
 
-//------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldNotThrowIfNewDispatcherIsNull()
 {
     QMainWindow mainWnd; MockComponentManager manager(&m_serviceLocator);
@@ -174,7 +164,6 @@ void CarouselInteractionServiceTest::shouldNotThrowIfNewDispatcherIsNull()
     QVERIFY(true);
 }
 
-//------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldDeletePreviousInputDispatcher()
 {
     QMainWindow mainWnd; MockComponentManager manager(&m_serviceLocator);
@@ -195,7 +184,6 @@ void CarouselInteractionServiceTest::shouldDeletePreviousInputDispatcher()
     QVERIFY(wasDeleted);
 }
 
-//------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldReturnDefaultConfigurationDelegate()
 {
     QMainWindow mainWnd; MockComponentManager manager(&m_serviceLocator);
@@ -205,7 +193,6 @@ void CarouselInteractionServiceTest::shouldReturnDefaultConfigurationDelegate()
     QVERIFY(service.configurationDelegate() != nullptr);
 }
 
-//------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldSetupConfigurationDelegate()
 {
     QMainWindow mainWnd; MockComponentManager manager(&m_serviceLocator);
@@ -218,7 +205,6 @@ void CarouselInteractionServiceTest::shouldSetupConfigurationDelegate()
     QVERIFY(service.configurationDelegate() == delegate);
 }
 
-//------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldNotThrowIfPreviousDelegateIsNull()
 {
     QMainWindow mainWnd; MockComponentManager manager(&m_serviceLocator);
@@ -231,7 +217,6 @@ void CarouselInteractionServiceTest::shouldNotThrowIfPreviousDelegateIsNull()
     QVERIFY(true);
 }
 
-//------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldNotThrowIfNewDelegateIsNull()
 {
     QMainWindow mainWnd; MockComponentManager manager(&m_serviceLocator);
@@ -243,7 +228,6 @@ void CarouselInteractionServiceTest::shouldNotThrowIfNewDelegateIsNull()
     QVERIFY(true);
 }
 
-//------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldSaveUiStateWhenComponentManagerShutdDown()
 {
     QMainWindow mainWnd; MockComponentManager manager(&m_serviceLocator);
@@ -255,7 +239,6 @@ void CarouselInteractionServiceTest::shouldSaveUiStateWhenComponentManagerShutdD
     QCOMPARE(service.saveUiCalled, 1);
 }
 
-//------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldtCallConfigureWhenComponentManagerStarted()
 {
     QMainWindow mainWnd; MockComponentManager manager(&m_serviceLocator);
@@ -273,7 +256,6 @@ void CarouselInteractionServiceTest::shouldtCallConfigureWhenComponentManagerSta
     QCOMPARE(delegate->m_configureCalls, 2);
 }
 
-//------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldNotCallConfigureWhenComponentStartedUntilManagerStarted()
 {
     QMainWindow mainWnd; MockComponentManager manager(&m_serviceLocator);
@@ -288,7 +270,6 @@ void CarouselInteractionServiceTest::shouldNotCallConfigureWhenComponentStartedU
     QVERIFY(!delegate->m_configureCalled);
 }
 
-//------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldCallConfigureWhenComponentStarted()
 {
     QMainWindow mainWnd; MockComponentManager manager(&m_serviceLocator);
@@ -305,7 +286,6 @@ void CarouselInteractionServiceTest::shouldCallConfigureWhenComponentStarted()
     QVERIFY(delegate->m_configureCalled);
 }
 
-//------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldCallLoadUiStateWhenComponentStarted()
 {
     QMainWindow mainWnd; MockComponentManager manager(&m_serviceLocator);
@@ -322,7 +302,6 @@ void CarouselInteractionServiceTest::shouldCallLoadUiStateWhenComponentStarted()
     QVERIFY(service.loadUiCalled);
 }
 
-//------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldConnectDelegateDeconfigureMethodWithComponentManagerSignal()
 {
     QMainWindow mainWnd; MockComponentManager manager(&m_serviceLocator);
@@ -338,7 +317,6 @@ void CarouselInteractionServiceTest::shouldConnectDelegateDeconfigureMethodWithC
     QVERIFY(delegate->m_deconfigureCalled);
 }
 
-//------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldDeletePreviousConfigurationDelegate()
 {
     QMainWindow mainWnd; MockComponentManager manager(&m_serviceLocator);
@@ -355,7 +333,6 @@ void CarouselInteractionServiceTest::shouldDeletePreviousConfigurationDelegate()
     QVERIFY(wasDelete);
 }
 
-//------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldCallDeconfigureForAllComponentsWhileResetUi()
 {
     QMainWindow mainWnd; MockComponentManager manager(&m_serviceLocator);
@@ -373,7 +350,6 @@ void CarouselInteractionServiceTest::shouldCallDeconfigureForAllComponentsWhileR
     QCOMPARE(delegate->m_deconfigureCalls, 3);
 }
 
-//------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldCallConfigureForAllComponentsWhileResetUi()
 {
     QMainWindow mainWnd; MockComponentManager manager(&m_serviceLocator);
@@ -391,7 +367,6 @@ void CarouselInteractionServiceTest::shouldCallConfigureForAllComponentsWhileRes
     QCOMPARE(delegate->m_configureCalls, 3);
 }
 
-//------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldNotThrowIfConfigurationDelegateIsNullWhileResetUi()
 {
     QMainWindow mainWnd; MockComponentManager manager(&m_serviceLocator);
@@ -409,7 +384,6 @@ void CarouselInteractionServiceTest::shouldNotThrowIfConfigurationDelegateIsNull
     QVERIFY(true);
 }
 
-//------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldSetupActiveTool()
 {
     QMainWindow mainWnd; MockComponentManager manager(&m_serviceLocator);
@@ -422,7 +396,6 @@ void CarouselInteractionServiceTest::shouldSetupActiveTool()
     QVERIFY(&tool == service.activeTool());
 }
 
-//------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldDeactivatePreviousActiveTool()
 {
     QMainWindow mainWnd; MockComponentManager manager(&m_serviceLocator);
@@ -438,7 +411,6 @@ void CarouselInteractionServiceTest::shouldDeactivatePreviousActiveTool()
     QVERIFY(previousTool.stopExecutingCalled == true);
 }
 
-//------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldSetupNullToolWhenActiveIsDeactivated()
 {
     QMainWindow mainWnd; MockComponentManager manager(&m_serviceLocator);
@@ -452,7 +424,6 @@ void CarouselInteractionServiceTest::shouldSetupNullToolWhenActiveIsDeactivated(
     QVERIFY(service.activeTool() == nullptr);
 }
 
-//------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldSetupNullToDispatcherWhenActiveToolIsDeactivated()
 {
     QMainWindow mainWnd; MockComponentManager manager(&m_serviceLocator);
@@ -472,7 +443,6 @@ void CarouselInteractionServiceTest::shouldSetupNullToDispatcherWhenActiveToolIs
     QVERIFY(dispatcher->receiver() == nullptr);
 }
 
-//------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldNotThrowIfPreviousActiveToolIsNull()
 {
     QMainWindow mainWnd; MockComponentManager manager(&m_serviceLocator);
@@ -485,7 +455,6 @@ void CarouselInteractionServiceTest::shouldNotThrowIfPreviousActiveToolIsNull()
     QVERIFY(true);
 }
 
-//------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldSetupNewlyCurrentToolToDispatcher()
 {
     QMainWindow mainWnd; MockComponentManager manager(&m_serviceLocator);
@@ -501,7 +470,6 @@ void CarouselInteractionServiceTest::shouldSetupNewlyCurrentToolToDispatcher()
     QVERIFY(dispatcher->receiver() == &tool);
 }
 
-//------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldNotThrowIfDispatcherIsNull()
 {
     QMainWindow mainWnd; MockComponentManager manager(&m_serviceLocator);
@@ -517,7 +485,6 @@ void CarouselInteractionServiceTest::shouldNotThrowIfDispatcherIsNull()
     QVERIFY(true);
 }
 
-//------------------------------------------------------------------------------
 void CarouselInteractionServiceTest::shouldNotThrowIfDispatcherIsNullWhenActiveToolIsDeactivated()
 {
     QMainWindow mainWnd; MockComponentManager manager(&m_serviceLocator);
@@ -531,4 +498,3 @@ void CarouselInteractionServiceTest::shouldNotThrowIfDispatcherIsNullWhenActiveT
     // just do not crash here
 }
 
-//------------------------------------------------------------------------------

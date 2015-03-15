@@ -31,26 +31,22 @@
 #include <algorithm>
 #include <iterator>
 
-//------------------------------------------------------------------------------
 namespace
 {
 static LoggerFacade Log = LoggerFacade::createLogger("DependencySolver");
 }
 
-//------------------------------------------------------------------------------
 DependencySolver::DependencySolver()
     : m_dependencyMatrix(new ListDictionary<QString, QString>())
 {
 }
 
-//------------------------------------------------------------------------------
 DependencySolver::~DependencySolver()
 {
     delete m_dependencyMatrix;
     m_dependencyMatrix = nullptr;
 }
 
-//------------------------------------------------------------------------------
 void DependencySolver::addComponent(const QString &name)
 {
     if (name.isEmpty()) {
@@ -62,7 +58,6 @@ void DependencySolver::addComponent(const QString &name)
     addToKnownComponents(name);
 }
 
-//------------------------------------------------------------------------------
 void DependencySolver::addDependency(const QString &childComponent, const QString &parentComponent)
 {
     if (childComponent.isEmpty()) {
@@ -84,13 +79,11 @@ void DependencySolver::addDependency(const QString &childComponent, const QStrin
     m_dependencyMatrix->add(parentComponent, childComponent);
 }
 
-//------------------------------------------------------------------------------
 int DependencySolver::componentsCount() const
 {
     return m_knownComponents.size();
 }
 
-//------------------------------------------------------------------------------
 void DependencySolver::removeComponent(const QString &component)
 {
     if (m_dependencyMatrix->contains(component))
@@ -100,13 +93,11 @@ void DependencySolver::removeComponent(const QString &component)
         m_knownComponents.removeOne(component);
 }
 
-//------------------------------------------------------------------------------
 int Compare(const QString &a, const QString &b)
 {
     return QString::compare(a, b);
 }
 
-//------------------------------------------------------------------------------
 bool DependencySolver::solve(QStringList &ordered, QStringList &orphans, QStringList &missing) const
 {
     QStringList orderedList;
@@ -137,7 +128,6 @@ bool DependencySolver::solve(QStringList &ordered, QStringList &orphans, QString
     return true;
 }
 
-//------------------------------------------------------------------------------
 void DependencySolver::removeMissingComponents(const QString &unknownComponent, QStringList &orderedList, QStringList &orphans) const
 {
     const QStringList &children = *m_dependencyMatrix->value(unknownComponent);
@@ -148,21 +138,18 @@ void DependencySolver::removeMissingComponents(const QString &unknownComponent, 
     }
 }
 
-//------------------------------------------------------------------------------
 void DependencySolver::addToDependencyMatrix(const QString &component)
 {
     if (!m_dependencyMatrix->contains(component))
         m_dependencyMatrix->add(component);
 }
 
-//------------------------------------------------------------------------------
 void DependencySolver::addToKnownComponents(const QString &component)
 {
     if (!m_knownComponents.contains(component, Qt::CaseInsensitive))
         m_knownComponents.push_back(component);
 }
 
-//------------------------------------------------------------------------------
 QStringList DependencySolver::findLeaves(const QStringList &skip) const
 {
     QStringList result;
@@ -186,4 +173,3 @@ QStringList DependencySolver::findLeaves(const QStringList &skip) const
     return result;
 }
 
-//------------------------------------------------------------------------------

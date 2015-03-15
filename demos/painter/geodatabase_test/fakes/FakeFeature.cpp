@@ -26,18 +26,15 @@
 
 #include "FakeFeature.h"
 
-//------------------------------------------------------------------------------
 FakeFeature::FakeFeature(GeometryType type)
     : Feature(type)
     , geometryWasSet(false)
 {
 }
 
-//------------------------------------------------------------------------------
 void FakeFeature::setGeometry(AbstractGeometry *geometry)
 {
     Q_UNUSED(geometry)
     geometryWasSet = true;
 }
 
-//------------------------------------------------------------------------------

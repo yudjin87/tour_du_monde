@@ -35,7 +35,6 @@
 
 static QMutex mutex;
 
-//------------------------------------------------------------------------------
 TextLogger::TextLogger(QTextStream &output)
     : ILoggerEngine()
     , ILoggerEngineCreator()
@@ -44,7 +43,6 @@ TextLogger::TextLogger(QTextStream &output)
 {
 }
 
-//------------------------------------------------------------------------------
 TextLogger::TextLogger(QTextStream &output, const QString &name)
     : ILoggerEngine()
     , ILoggerEngineCreator()
@@ -53,14 +51,12 @@ TextLogger::TextLogger(QTextStream &output, const QString &name)
 {
 }
 
-//------------------------------------------------------------------------------
 ILoggerEngine *TextLogger::getLogger(const QString &name)
 {
     QMutexLocker locker(&mutex);
     return new TextLogger(m_outputStream, name);
 }
 
-//------------------------------------------------------------------------------
 void TextLogger::d(const QString &message)
 {
 #ifdef QT_DEBUG
@@ -70,37 +66,31 @@ void TextLogger::d(const QString &message)
 #endif
 }
 
-//------------------------------------------------------------------------------
 void TextLogger::e(const QString &message)
 {
     log(message, "Error");
 }
 
-//------------------------------------------------------------------------------
 void TextLogger::f(const QString &message)
 {
     log(message, "Fatal");
 }
 
-//------------------------------------------------------------------------------
 void TextLogger::i(const QString &message)
 {
     log(message, "Info");
 }
 
-//------------------------------------------------------------------------------
 void TextLogger::t(const QString &message)
 {
     log(message, "Trace");
 }
 
-//------------------------------------------------------------------------------
 void TextLogger::w(const QString &message)
 {
     log(message, "Warning");
 }
 
-//------------------------------------------------------------------------------
 void TextLogger::log(const QString &message, const QString &category)
 {
     static const QString messagePattern = "[%1]%2[%3] %4: %5";
@@ -117,10 +107,8 @@ void TextLogger::log(const QString &message, const QString &category)
     m_outputStream << formatedMessage << endl;
 }
 
-//------------------------------------------------------------------------------
 const QString &TextLogger::name() const
 {
     return m_name;
 }
 
-//------------------------------------------------------------------------------

@@ -37,13 +37,11 @@
 #include <QtScript/QScriptEngine>
 #include <QtScript/QScriptValueIterator>
 
-//------------------------------------------------------------------------------
 Q_DECLARE_METATYPE(IPainterDocument *)
 Q_DECLARE_METATYPE(IPainterDocumentController *)
 Q_DECLARE_METATYPE(IMap *)
 Q_DECLARE_METATYPE(QList<AbstractLayer *>)
 
-//------------------------------------------------------------------------------
 namespace
 {
 int registerScriptMetaTypes(QScriptEngine *engine)
@@ -54,14 +52,12 @@ int registerScriptMetaTypes(QScriptEngine *engine)
 }
 } // namespace
 
-//------------------------------------------------------------------------------
 CartoScriptExtension::CartoScriptExtension(QObject *parent)
     : QObject(parent)
 {
 
 }
 
-//------------------------------------------------------------------------------
 void CartoScriptExtension::configureEngine(IServiceLocator *locator, QScriptEngine *engine)
 {
     Q_UNUSED(locator)
@@ -73,4 +69,3 @@ void CartoScriptExtension::configureEngine(IServiceLocator *locator, QScriptEngi
     REGISTER_METATYPE(IMap);
 }
 
-//------------------------------------------------------------------------------

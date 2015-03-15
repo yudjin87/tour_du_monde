@@ -28,14 +28,12 @@
 
 #include <QtScript/QScriptEngine>
 
-//------------------------------------------------------------------------------
 FakeScriptEngineFactory::FakeScriptEngineFactory(QObject *parent)
     : QObject(parent)
     , IScriptEngineFactory()
 {
 }
 
-//------------------------------------------------------------------------------
 QScriptEngine *FakeScriptEngineFactory::createEngine(IOutputHandler *output, QObject *parent)
 {
     Q_UNUSED(output)
@@ -43,4 +41,3 @@ QScriptEngine *FakeScriptEngineFactory::createEngine(IOutputHandler *output, QOb
     return new QScriptEngine();
 }
 
-//------------------------------------------------------------------------------

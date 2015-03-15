@@ -36,13 +36,11 @@
 #include <QtCore/QCoreApplication>
 #include <QtCore/QTextStream>
 
-//------------------------------------------------------------------------------
 namespace
 {
 static LoggerFacade Log = LoggerFacade::createLogger("PersistenceService");
 }
 
-//------------------------------------------------------------------------------
 PersistenceService::PersistenceService(IServiceLocator *locator, IComponentManager *manager, QObject *parent)
     : IPersistenceService()
     , m_delegate(new CarouselPersistenceDelegate(locator))
@@ -52,7 +50,6 @@ PersistenceService::PersistenceService(IServiceLocator *locator, IComponentManag
     setParent(parent);
 }
 
-//------------------------------------------------------------------------------
 PersistenceService::PersistenceService(IPersistenceDelegate *delegate, IComponentManager *manager, QObject *parent)
     : IPersistenceService()
     , m_delegate(delegate)
@@ -62,7 +59,6 @@ PersistenceService::PersistenceService(IPersistenceDelegate *delegate, IComponen
     setParent(parent);
 }
 
-//------------------------------------------------------------------------------
 PersistenceService::~PersistenceService()
 {
     delete m_delegate;
@@ -71,45 +67,38 @@ PersistenceService::~PersistenceService()
     m_manager = nullptr;
 }
 
-//------------------------------------------------------------------------------
 IPersistenceDelegate *PersistenceService::delegate()
 {
     return m_delegate;
 }
 
-//------------------------------------------------------------------------------
 const IPersistenceDelegate *PersistenceService::delegate() const
 {
     return m_delegate;
 }
 
-//------------------------------------------------------------------------------
 void PersistenceService::setDelegate(IPersistenceDelegate *delegate)
 {
     delete m_delegate;
     m_delegate = delegate;
 }
 
-//------------------------------------------------------------------------------
 QString PersistenceService::absoluteFilePath() const
 {
     return m_filePath;
 }
 
-//------------------------------------------------------------------------------
 QString PersistenceService::fileName() const
 {
     QFileInfo file(m_filePath);
     return file.fileName();
 }
 
-//------------------------------------------------------------------------------
 bool PersistenceService::save()
 {
     return saveAs(m_filePath);
 }
 
-//------------------------------------------------------------------------------
 bool PersistenceService::saveAs(const QString &filePath)
 {
     if (filePath.isEmpty()) {
@@ -127,7 +116,6 @@ bool PersistenceService::saveAs(const QString &filePath)
     return true;
 }
 
-//------------------------------------------------------------------------------
 bool PersistenceService::load(const QString &filePath)
 {
     m_filePath = absolutePath(filePath);
@@ -135,7 +123,6 @@ bool PersistenceService::load(const QString &filePath)
     return load();
 }
 
-//------------------------------------------------------------------------------
 bool PersistenceService::load()
 {
     if (m_delegate == nullptr) {
@@ -166,7 +153,6 @@ bool PersistenceService::load()
     return true;
 }
 
-//------------------------------------------------------------------------------
 bool PersistenceService::saveToFile(const QString &filePath)
 {
     if (m_delegate == nullptr) {
@@ -194,11 +180,9 @@ bool PersistenceService::saveToFile(const QString &filePath)
     return true;
 }
 
-//------------------------------------------------------------------------------
 QString PersistenceService::absolutePath(const QString &filePath)
 {
     QDir dir(QCoreApplication::applicationDirPath());
     return QDir::cleanPath(dir.absoluteFilePath(filePath));
 }
 
-//------------------------------------------------------------------------------

@@ -27,7 +27,6 @@
 #include "FillSymbol.h"
 #include "SimpleLineSymbol.h"
 
-//------------------------------------------------------------------------------
 FillSymbol::FillSymbol(QObject *parent)
     : SymbolBase(parent)
     , m_outline(new SimpleLineSymbol())
@@ -36,7 +35,6 @@ FillSymbol::FillSymbol(QObject *parent)
 
 }
 
-//------------------------------------------------------------------------------
 FillSymbol::FillSymbol(const FillSymbol &o, QObject *parent)
     : m_outline(static_cast<LineSymbol*>(o.m_outline->clone(parent)))
     , m_color(o.m_color)
@@ -45,60 +43,50 @@ FillSymbol::FillSymbol(const FillSymbol &o, QObject *parent)
     setParent(parent);
 }
 
-//------------------------------------------------------------------------------
 FillSymbol::~FillSymbol()
 {
     delete m_outline;
     m_outline = nullptr;
 }
 
-//------------------------------------------------------------------------------
 void FillSymbol::setupPainter(QPainter *painter)
 {
     m_outline->setupPainter(painter);
 }
 
-//------------------------------------------------------------------------------
 void FillSymbol::resetPainter(QPainter *painter)
 {
     m_outline->resetPainter(painter);
 }
 
-//------------------------------------------------------------------------------
 QColor FillSymbol::color() const
 {
     return m_color;
 }
 
-//------------------------------------------------------------------------------
 void FillSymbol::setColor(const QColor &color)
 {
     m_color = color;
 }
 
-//------------------------------------------------------------------------------
 void FillSymbol::setColor(int r, int g, int b, int a)
 {
     setColor(QColor(r, g, b, a));
 }
 
-//------------------------------------------------------------------------------
 LineSymbol *FillSymbol::outline()
 {
     return m_outline;
 }
 
-//------------------------------------------------------------------------------
 const LineSymbol *FillSymbol::outline() const
 {
     return m_outline;
 }
 
-//------------------------------------------------------------------------------
 void FillSymbol::setOutline(LineSymbol *outline)
 {
     delete m_outline;
     m_outline = outline;
 }
 
-//------------------------------------------------------------------------------

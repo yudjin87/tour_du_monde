@@ -31,19 +31,16 @@
 
 #include <QtGui/QPainter>
 
-//------------------------------------------------------------------------------
 SimpleFeatureRenderer::SimpleFeatureRenderer(QObject *parent)
     : IFeatureRenderer(parent)
     , m_symbol(nullptr)
 {
 }
 
-//------------------------------------------------------------------------------
 SimpleFeatureRenderer::~SimpleFeatureRenderer()
 {
 }
 
-//------------------------------------------------------------------------------
 void SimpleFeatureRenderer::draw(const QVector<IFeature *> &features, QPainter *painter)
 {
     m_symbol->setupPainter(painter);
@@ -54,23 +51,19 @@ void SimpleFeatureRenderer::draw(const QVector<IFeature *> &features, QPainter *
     m_symbol->resetPainter(painter);
 }
 
-//------------------------------------------------------------------------------
 ISymbol *SimpleFeatureRenderer::symbol()
 {
     return m_symbol.get();
 }
 
-//------------------------------------------------------------------------------
 const ISymbol *SimpleFeatureRenderer::symbol() const
 {
     return m_symbol.get();
 }
 
-//------------------------------------------------------------------------------
 void SimpleFeatureRenderer::setSymbol(ISymbol *symbol)
 {
     m_symbol.reset(symbol);
     emit symbolChanged(symbol);
 }
 
-//------------------------------------------------------------------------------

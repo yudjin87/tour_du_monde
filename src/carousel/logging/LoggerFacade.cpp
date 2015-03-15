@@ -28,20 +28,17 @@
 #include "logging/ILoggerEngine.h"
 #include "logging/ILoggerEngineCreator.h"
 
-//------------------------------------------------------------------------------
 namespace
 {
 static ILoggerEngineCreator *LoggerEngineCreator = nullptr;
 }
 
-//------------------------------------------------------------------------------
 LoggerFacade::LoggerFacade(const QString &name)
     : m_engine()
     , m_name(name)
 {
 }
 
-//------------------------------------------------------------------------------
 ILoggerEngine *LoggerFacade::logger()
 {
     if (m_engine == nullptr)
@@ -50,7 +47,6 @@ ILoggerEngine *LoggerFacade::logger()
     return m_engine;
 }
 
-//------------------------------------------------------------------------------
 LoggerFacade::~LoggerFacade()
 {
     // TODO: use move constructor
@@ -58,25 +54,21 @@ LoggerFacade::~LoggerFacade()
     m_engine = nullptr;
 }
 
-//------------------------------------------------------------------------------
 LoggerFacade LoggerFacade::createLogger(const QString &name)
 {
     return LoggerFacade(name);
 }
 
-//------------------------------------------------------------------------------
 ILoggerEngineCreator *LoggerFacade::loggerEngine()
 {
     return LoggerEngineCreator;
 }
 
-//------------------------------------------------------------------------------
 void LoggerFacade::installLoggerEngineCreator(ILoggerEngineCreator *loggerEngine)
 {
     LoggerEngineCreator = loggerEngine;
 }
 
-//------------------------------------------------------------------------------
 void LoggerFacade::d(const QString &message)
 {
 #ifdef QT_DEBUG
@@ -86,34 +78,28 @@ void LoggerFacade::d(const QString &message)
 #endif
 }
 
-//------------------------------------------------------------------------------
 void LoggerFacade::e(const QString &message)
 {
     logger()->e(message);
 }
 
-//------------------------------------------------------------------------------
 void LoggerFacade::f(const QString &message)
 {
     logger()->f(message);
 }
 
-//------------------------------------------------------------------------------
 void LoggerFacade::i(const QString &message)
 {
     logger()->i(message);
 }
 
-//------------------------------------------------------------------------------
 void LoggerFacade::t(const QString &message)
 {
     logger()->t(message);
 }
 
-//------------------------------------------------------------------------------
 void LoggerFacade::w(const QString &message)
 {
     logger()->w(message);
 }
 
-//------------------------------------------------------------------------------

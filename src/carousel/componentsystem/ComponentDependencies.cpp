@@ -33,25 +33,21 @@
 
 #include "logging/LoggerFacade.h"
 
-//------------------------------------------------------------------------------
 namespace
 {
 static LoggerFacade Log = LoggerFacade::createLogger("ComponentDependencies");
 }
 
-//------------------------------------------------------------------------------
 ComponentDependencies::ComponentDependencies(QObject *parent)
     : QObject(parent)
     , m_components(new ComponentCollection(this))
 {
 }
 
-//------------------------------------------------------------------------------
 ComponentDependencies::~ComponentDependencies()
 {
 }
 
-//------------------------------------------------------------------------------
 bool ComponentDependencies::addComponent(IComponent *component)
 {
     if (component == nullptr) {
@@ -68,7 +64,6 @@ bool ComponentDependencies::addComponent(IComponent *component)
     return true;
 }
 
-//------------------------------------------------------------------------------
 DependenciesSolvingResult ComponentDependencies::completeListWithChild(IComponent *forChild) const
 {
     QList<IComponent *> components;
@@ -77,7 +72,6 @@ DependenciesSolvingResult ComponentDependencies::completeListWithChild(IComponen
     return completeListWithChildren(components);
 }
 
-//------------------------------------------------------------------------------
 DependenciesSolvingResult ComponentDependencies::completeListWithChildren(const QList<IComponent *> &forChildren) const
 {
     if (forChildren.empty())
@@ -119,7 +113,6 @@ DependenciesSolvingResult ComponentDependencies::completeListWithChildren(const 
     return result;
 }
 
-//------------------------------------------------------------------------------
 DependenciesSolvingResult ComponentDependencies::completeListWithParent(IComponent *forParent) const
 {
     QList<IComponent *> components;
@@ -128,7 +121,6 @@ DependenciesSolvingResult ComponentDependencies::completeListWithParent(ICompone
     return completeListWithParents(components);
 }
 
-//------------------------------------------------------------------------------
 DependenciesSolvingResult ComponentDependencies::completeListWithParents(const QList<IComponent *> &forParents) const
 {
     if (forParents.empty())
@@ -177,7 +169,6 @@ DependenciesSolvingResult ComponentDependencies::completeListWithParents(const Q
     return DependenciesSolvingResult(ordered, orphans, missing, m_components->toList(), hasCyclic);
 }
 
-//------------------------------------------------------------------------------
 IComponent *ComponentDependencies::componentByName(const QString &byName) const
 {
     if (m_components->empty())
@@ -191,19 +182,16 @@ IComponent *ComponentDependencies::componentByName(const QString &byName) const
     return nullptr;
 }
 
-//------------------------------------------------------------------------------
 const ComponentCollection &ComponentDependencies::components() const
 {
     return *m_components;
 }
 
-//------------------------------------------------------------------------------
 DependenciesSolvingResult ComponentDependencies::orderedComponents() const
 {
     return completeListWithChildren(m_components->toList());
 }
 
-//------------------------------------------------------------------------------
 QList<IComponent *> ComponentDependencies::getParentDefinitions(const IComponent *forChild) const
 {
     QList<IComponent *> result;
@@ -211,7 +199,6 @@ QList<IComponent *> ComponentDependencies::getParentDefinitions(const IComponent
     return result;
 }
 
-//------------------------------------------------------------------------------
 DependenciesSolvingResult ComponentDependencies::getChildComponents(const IComponent *forParent) const
 {
     if (forParent == nullptr)
@@ -233,7 +220,6 @@ DependenciesSolvingResult ComponentDependencies::getChildComponents(const ICompo
     return DependenciesSolvingResult(components_to_return);
 }
 
-//------------------------------------------------------------------------------
 DependenciesSolvingResult ComponentDependencies::solveDependencies(const QList<IComponent *> &components)
 {
     QStringList ordered;
@@ -270,7 +256,6 @@ DependenciesSolvingResult ComponentDependencies::solveDependencies(const QList<I
     return DependenciesSolvingResult(ordered, orphans, missing, components, hasCyclic);
 }
 
-//------------------------------------------------------------------------------
 void ComponentDependencies::getParentDefinitions(const IComponent *forChild, QList<IComponent *> &found) const
 {
     if (forChild == nullptr)
@@ -296,4 +281,3 @@ void ComponentDependencies::getParentDefinitions(const IComponent *forChild, QLi
     }
 }
 
-//------------------------------------------------------------------------------

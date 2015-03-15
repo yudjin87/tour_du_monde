@@ -32,7 +32,6 @@
 #include <QtCore/QSortFilterProxyModel>
 #include <QtWidgets/QTableView>
 
-//------------------------------------------------------------------------------
 ComponentsDialog::ComponentsDialog(ComponentDefinitionsModel *model, QWidget *parent)
     : QDialog(parent)
     , m_model(model)
@@ -50,11 +49,9 @@ ComponentsDialog::ComponentsDialog(ComponentDefinitionsModel *model, QWidget *pa
     connect(m_ui->installButton, &QPushButton::clicked, m_model, &ComponentDefinitionsModel::onInstall);
 }
 
-//------------------------------------------------------------------------------
 ComponentsDialog::~ComponentsDialog()
 {
     delete m_ui;
     m_ui = nullptr;
 }
 
-//------------------------------------------------------------------------------

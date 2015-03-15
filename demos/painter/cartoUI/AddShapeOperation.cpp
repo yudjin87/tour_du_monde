@@ -33,7 +33,6 @@
 #include <QtWidgets/QFileDialog>
 #include <QtWidgets/QMainWindow>
 
-//------------------------------------------------------------------------------
 AddShapeOperation::AddShapeOperation()
     : Operation("Open shape")
     , m_serviceLocator(nullptr)
@@ -42,7 +41,6 @@ AddShapeOperation::AddShapeOperation()
     setIconVisibleInMenu(true);
 }
 
-//------------------------------------------------------------------------------
 void AddShapeOperation::execute()
 {
     QFileDialog fileDialog(m_serviceLocator->locate<QMainWindow>(), "Open shape");
@@ -57,10 +55,8 @@ void AddShapeOperation::execute()
     addShapesCommand->pushToStack();
 }
 
-//------------------------------------------------------------------------------
 void AddShapeOperation::initialize(IServiceLocator *serviceLocator)
 {
     m_serviceLocator = serviceLocator;
 }
 
-//------------------------------------------------------------------------------

@@ -3,7 +3,6 @@
 #include "MockComponent.h"
 
 #include <QtCore/QtAlgorithms>
-//------------------------------------------------------------------------------
 MockDirectoryComponentProvider::MockDirectoryComponentProvider()
     : DirectoryComponentProvider()
     , parser(nullptr)
@@ -14,7 +13,6 @@ MockDirectoryComponentProvider::MockDirectoryComponentProvider()
   {
 }
 
-//------------------------------------------------------------------------------
 MockDirectoryComponentProvider::MockDirectoryComponentProvider(const QString &path)
     : DirectoryComponentProvider(path)
     , parser(nullptr)
@@ -25,13 +23,11 @@ MockDirectoryComponentProvider::MockDirectoryComponentProvider(const QString &pa
 {
 }
 
-//------------------------------------------------------------------------------
 MockDirectoryComponentProvider::~MockDirectoryComponentProvider()
 {
     qDeleteAll(this->components());
 }
 
-//------------------------------------------------------------------------------
 QList<IComponent *> MockDirectoryComponentProvider::update()
 {
     updateCalled++;
@@ -42,7 +38,6 @@ QList<IComponent *> MockDirectoryComponentProvider::update()
     return updateResult;
 }
 
-//------------------------------------------------------------------------------
 bool MockDirectoryComponentProvider::initialize()
 {
     initializeCalled = true;
@@ -51,33 +46,27 @@ bool MockDirectoryComponentProvider::initialize()
     return initializeReturnValue;
 }
 
-//------------------------------------------------------------------------------
 FileComponentProvider *MockDirectoryComponentProvider::createFileComponentProvider(const QString &definitionPath)
 {
     ++providersCreated;
     return new FakeFileComponentProvider(definitionPath);
 }
 
-//------------------------------------------------------------------------------
 bool FakeFileComponentProvider::initializeReturnValue = true;
 
-//------------------------------------------------------------------------------
 FakeFileComponentProvider::FakeFileComponentProvider(QObject *parent)
     : FileComponentProvider(parent)
 {
 }
 
-//------------------------------------------------------------------------------
 FakeFileComponentProvider::FakeFileComponentProvider(const QString &path, QObject *parent)
     : FileComponentProvider(path, parent)
 {
 }
 
-//------------------------------------------------------------------------------
 bool FakeFileComponentProvider::onInitialize()
 {
     FileComponentProvider::onInitialize();
     return initializeReturnValue;
 }
 
-//------------------------------------------------------------------------------

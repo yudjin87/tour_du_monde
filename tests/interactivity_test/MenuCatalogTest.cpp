@@ -33,13 +33,11 @@
 #include <QtTest/QtTest>
 #include <QtTest/QSignalSpy>
 
-//------------------------------------------------------------------------------
 MenuCatalogTest::MenuCatalogTest(QObject *parent)
     : QObject(parent)
 {
 }
 
-//------------------------------------------------------------------------------
 void MenuCatalogTest::addMenu_shouldEmit()
 {
     QMenuBar menuBar;
@@ -53,7 +51,6 @@ void MenuCatalogTest::addMenu_shouldEmit()
     QCOMPARE(spy.count(), 2);
 }
 
-//------------------------------------------------------------------------------
 void MenuCatalogTest::addMenu_shouldReturnExistedOne()
 {
     QMenuBar menuBar;
@@ -64,7 +61,6 @@ void MenuCatalogTest::addMenu_shouldReturnExistedOne()
     QCOMPARE(menu1, menu2);
 }
 
-//------------------------------------------------------------------------------
 void MenuCatalogTest::addMenu_shouldInstallFiltersToNewMenu()
 {
     QMenuBar menuBar;
@@ -77,7 +73,6 @@ void MenuCatalogTest::addMenu_shouldInstallFiltersToNewMenu()
     QCOMPARE(spy.count(), 1);
 }
 
-//------------------------------------------------------------------------------
 void MenuCatalogTest::addPopup_shouldEmit()
 {
     QMenuBar menuBar;
@@ -91,7 +86,6 @@ void MenuCatalogTest::addPopup_shouldEmit()
     QCOMPARE(spy.count(), 2);
 }
 
-//------------------------------------------------------------------------------
 void MenuCatalogTest::addPopup_shouldSetupProperties()
 {
     QMenuBar menuBar;
@@ -104,7 +98,6 @@ void MenuCatalogTest::addPopup_shouldSetupProperties()
     QVERIFY(popup->title() == "Menu1");
 }
 
-//------------------------------------------------------------------------------
 void MenuCatalogTest::addPopup_shouldAddItToList()
 {
     QMenuBar menuBar;
@@ -116,7 +109,6 @@ void MenuCatalogTest::addPopup_shouldAddItToList()
     QVERIFY(catalog.popups()[0] == popup);
 }
 
-//------------------------------------------------------------------------------
 void MenuCatalogTest::menus_shouldReturnFromMenuBar()
 {
     QMenuBar menuBar;
@@ -133,7 +125,6 @@ void MenuCatalogTest::menus_shouldReturnFromMenuBar()
     QVERIFY(menus.contains(menu2));
 }
 
-//------------------------------------------------------------------------------
 void MenuCatalogTest::menus_shouldReturnBothRemovedAndExistedMenus()
 {
     QMenuBar menuBar;
@@ -151,7 +142,6 @@ void MenuCatalogTest::menus_shouldReturnBothRemovedAndExistedMenus()
     QVERIFY(menus.contains(menu2));
 }
 
-//------------------------------------------------------------------------------
 void MenuCatalogTest::shouldEmitWhenMenuAddedToExistingMenuInMenuBar()
 {
     QMenuBar menuBar;
@@ -165,7 +155,6 @@ void MenuCatalogTest::shouldEmitWhenMenuAddedToExistingMenuInMenuBar()
     QCOMPARE(spy.count(), 1);
 }
 
-//------------------------------------------------------------------------------
 void MenuCatalogTest::shouldEmitWhenSubMenuRemovedFromExistingMenu()
 {
     QMenuBar menuBar;
@@ -180,7 +169,6 @@ void MenuCatalogTest::shouldEmitWhenSubMenuRemovedFromExistingMenu()
     QCOMPARE(spy.count(), 1);
 }
 
-//------------------------------------------------------------------------------
 void MenuCatalogTest::removeMenu_shouldEmitWhenRemovingFromMenuBar()
 {
     QMenuBar menuBar;
@@ -194,7 +182,6 @@ void MenuCatalogTest::removeMenu_shouldEmitWhenRemovingFromMenuBar()
     QCOMPARE(spy.count(), 1);
 }
 
-//------------------------------------------------------------------------------
 void MenuCatalogTest::removeMenu_shouldRemoveFromMenuBar()
 {
     QMenuBar menuBar;
@@ -207,7 +194,6 @@ void MenuCatalogTest::removeMenu_shouldRemoveFromMenuBar()
     QCOMPARE(1, menuBar.actions().count());
 }
 
-//------------------------------------------------------------------------------
 void MenuCatalogTest::findMenu_shouldFindMenuFromMenuBar()
 {
     QMenuBar menuBar;
@@ -222,7 +208,6 @@ void MenuCatalogTest::findMenu_shouldFindMenuFromMenuBar()
     QCOMPARE(menu2, foundMenu);
 }
 
-//------------------------------------------------------------------------------
 void MenuCatalogTest::findMenu_shouldFindMenuFromSubmenu()
 {
     QMenuBar menuBar;
@@ -241,7 +226,6 @@ void MenuCatalogTest::findMenu_shouldFindMenuFromSubmenu()
     QCOMPARE(menu2menu2, foundMenu);
 }
 
-//------------------------------------------------------------------------------
 void MenuCatalogTest::findMenuEverywhere_shouldFindEverywhere()
 {
     QMenuBar menuBar;
@@ -258,7 +242,6 @@ void MenuCatalogTest::findMenuEverywhere_shouldFindEverywhere()
     QCOMPARE(menu2, foundMenu2);
 }
 
-//------------------------------------------------------------------------------
 void MenuCatalogTest::findPopup_shouldFindPopup()
 {
     QMenuBar menuBar;
@@ -271,7 +254,6 @@ void MenuCatalogTest::findPopup_shouldFindPopup()
     QVERIFY(catalog.findPopup("Menu1") == popup);
 }
 
-//------------------------------------------------------------------------------
 void MenuCatalogTest::findPopup_shouldFindFromSubmenu()
 {
     QMenuBar menuBar;
@@ -286,7 +268,6 @@ void MenuCatalogTest::findPopup_shouldFindFromSubmenu()
     QVERIFY(catalog.findPopup("Menu4") == menu4);
 }
 
-//------------------------------------------------------------------------------
 void MenuCatalogTest::deleteMenu_shouldDeleteMenu()
 {
     QMenuBar menuBar;
@@ -299,7 +280,6 @@ void MenuCatalogTest::deleteMenu_shouldDeleteMenu()
     QVERIFY(catalog.findMenuEverywhere("Menu1") == nullptr);
 }
 
-//------------------------------------------------------------------------------
 void MenuCatalogTest::deleteMenu_shouldDeleteRemovedMenu()
 {
     QMenuBar menuBar;
@@ -313,7 +293,6 @@ void MenuCatalogTest::deleteMenu_shouldDeleteRemovedMenu()
     QVERIFY(catalog.findMenuEverywhere("Menu1") == nullptr);
 }
 
-//------------------------------------------------------------------------------
 void MenuCatalogTest::deleteMenu_shouldDeleteMenuByName()
 {
     QMenuBar menuBar;
@@ -326,4 +305,3 @@ void MenuCatalogTest::deleteMenu_shouldDeleteMenuByName()
     QVERIFY(catalog.findMenuEverywhere("Menu1") == nullptr);
 }
 
-//------------------------------------------------------------------------------

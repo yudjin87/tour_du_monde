@@ -32,14 +32,12 @@
 
 #include <QtWidgets/QMainWindow>
 
-//------------------------------------------------------------------------------
 ShowComponentsOperation::ShowComponentsOperation()
     : Operation("View all")
     , m_serviceLocator(nullptr)
 {
 }
 
-//------------------------------------------------------------------------------
 void ShowComponentsOperation::execute()
 {
     IDialogService *dialogService = m_serviceLocator->locate<IDialogService>();
@@ -49,10 +47,8 @@ void ShowComponentsOperation::execute()
     delete model;
 }
 
-//------------------------------------------------------------------------------
 void ShowComponentsOperation::initialize(IServiceLocator *serviceLocator)
 {
     m_serviceLocator = serviceLocator;
 }
 
-//------------------------------------------------------------------------------

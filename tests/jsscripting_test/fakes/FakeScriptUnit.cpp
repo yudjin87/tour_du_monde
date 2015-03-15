@@ -26,7 +26,6 @@
 
 #include "FakeScriptUnit.h"
 
-//------------------------------------------------------------------------------
 FakeScriptUnit::FakeScriptUnit(QObject *parent)
     : ScriptUnit(nullptr, parent)
     , saveToFileResult(false)
@@ -34,7 +33,6 @@ FakeScriptUnit::FakeScriptUnit(QObject *parent)
 {
 }
 
-//------------------------------------------------------------------------------
 FakeScriptUnit::FakeScriptUnit(const QString &filePath, QObject *parent)
     : ScriptUnit(filePath, nullptr, parent)
     , saveToFileResult(false)
@@ -43,24 +41,20 @@ FakeScriptUnit::FakeScriptUnit(const QString &filePath, QObject *parent)
 
 }
 
-//------------------------------------------------------------------------------
 bool FakeScriptUnit::load()
 {
     return ScriptUnit::load();
 }
 
-//------------------------------------------------------------------------------
 bool FakeScriptUnit::load(const QString &filePath)
 {
     Q_UNUSED(filePath)
     return loadFileResult;
 }
 
-//------------------------------------------------------------------------------
 bool FakeScriptUnit::saveToFile(const QString &filePath)
 {
     Q_UNUSED(filePath)
     return saveToFileResult;
 }
 
-//------------------------------------------------------------------------------

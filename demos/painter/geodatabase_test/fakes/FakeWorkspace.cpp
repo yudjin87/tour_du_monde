@@ -26,23 +26,19 @@
 
 #include "FakeWorkspace.h"
 
-//------------------------------------------------------------------------------
 FakeWorkspace::FakeWorkspace(const QString &pathName)
     : m_pathName(pathName)
 {
 }
 
-//------------------------------------------------------------------------------
 OwnedList<IDataset *> *FakeWorkspace::datasets(IWorkspace::esriDatasetType byType)
 {
     Q_UNUSED(byType)
     return 0;
 }
 
-//------------------------------------------------------------------------------
 QString FakeWorkspace::pathName() const
 {
     return m_pathName;
 }
 
-//------------------------------------------------------------------------------

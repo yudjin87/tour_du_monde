@@ -38,13 +38,11 @@
 
 #include <QtGui/QMouseEvent>
 
-//------------------------------------------------------------------------------
 namespace
 {
 static LoggerFacade Log = LoggerFacade::createLogger("ZoomInTool");
 }
 
-//------------------------------------------------------------------------------
 ZoomInTool::ZoomInTool()
     : ToolBase("Zoom in")
     , m_serviceLocator(nullptr)
@@ -53,13 +51,11 @@ ZoomInTool::ZoomInTool()
     setIconVisibleInMenu(true);
 }
 
-//------------------------------------------------------------------------------
 void ZoomInTool::execute()
 {
     ToolBase::execute();
 }
 
-//------------------------------------------------------------------------------
 void ZoomInTool::initialize(IServiceLocator *serviceLocator)
 {
     ToolBase::initialize(serviceLocator);
@@ -67,7 +63,6 @@ void ZoomInTool::initialize(IServiceLocator *serviceLocator)
     m_serviceLocator = serviceLocator;
 }
 
-//------------------------------------------------------------------------------
 bool ZoomInTool::onMouseDown(QMouseEvent *event)
 {
     if (event->button() != Qt::LeftButton)
@@ -105,7 +100,6 @@ bool ZoomInTool::onMouseDown(QMouseEvent *event)
     return true;
 }
 
-//------------------------------------------------------------------------------
 bool ZoomInTool::onMouseUp(QMouseEvent *event)
 {
     if (event->button() != Qt::LeftButton)
@@ -121,7 +115,6 @@ bool ZoomInTool::onMouseUp(QMouseEvent *event)
     return true;
 }
 
-//------------------------------------------------------------------------------
 void ZoomInTool::changeToFixedScale()
 {
     IDisplay *display = m_serviceLocator->locate<IDisplay>();
@@ -133,4 +126,3 @@ void ZoomInTool::changeToFixedScale()
     map->refresh();
 }
 
-//------------------------------------------------------------------------------

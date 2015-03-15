@@ -26,17 +26,14 @@
 
 #include "FakeComponentLocationConstructorDelegate.h"
 
-//------------------------------------------------------------------------------
 FakeComponentLocationConstructorDelegate::FakeComponentLocationConstructorDelegate(const QString &returningValue)
     : toReturn(returningValue)
 {
 }
 
-//------------------------------------------------------------------------------
 QString FakeComponentLocationConstructorDelegate::constructLocation(const QString &ending)
 {
     Q_UNUSED(ending);
     return toReturn;
 }
 
-//------------------------------------------------------------------------------

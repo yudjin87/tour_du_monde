@@ -31,7 +31,6 @@
 
 #include <QtWidgets/QUndoStack>
 
-//------------------------------------------------------------------------------
 RedoOperation::RedoOperation()
     : Operation("Redo")
     , m_action(nullptr)
@@ -41,13 +40,11 @@ RedoOperation::RedoOperation()
     setShortcut(QKeySequence("Ctrl+Y"));
 }
 
-//------------------------------------------------------------------------------
 void RedoOperation::execute()
 {
     m_action->trigger();
 }
 
-//------------------------------------------------------------------------------
 void RedoOperation::initialize(IServiceLocator *serviceLocator)
 {
     QUndoStackAdapter* adapter = serviceLocator->locate<QUndoStackAdapter>();
@@ -59,12 +56,10 @@ void RedoOperation::initialize(IServiceLocator *serviceLocator)
     connect(m_action, &QAction::changed, this, &RedoOperation::onActionChanged);
 }
 
-//------------------------------------------------------------------------------
 void RedoOperation::onActionChanged()
 {
     setEnabled(m_action->isEnabled());
     setText(m_action->text());
 }
 
-//------------------------------------------------------------------------------
 

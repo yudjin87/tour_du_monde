@@ -30,10 +30,8 @@
 #include <carousel/componentsystem/ComponentDefinition.h>
 #include <carousel/componentsystem/ComponentExport.h>
 
-//------------------------------------------------------------------------------
 static const QByteArray productName("NavigationOperations");
 
-//------------------------------------------------------------------------------
 NavigationOperationsComponent::NavigationOperationsComponent(QObject *parent /*= nullptr*/)
     : BaseComponent("org.carousel.demos.NavigationOperations", parent)
 {
@@ -49,25 +47,20 @@ NavigationOperationsComponent::NavigationOperationsComponent(QObject *parent /*=
     setVersion(1, 0);
 }
 
-//------------------------------------------------------------------------------
 NavigationOperationsComponent::~NavigationOperationsComponent()
 {
 }
 
-//------------------------------------------------------------------------------
 bool NavigationOperationsComponent::onStartup(IServiceLocator *serviceLocator)
 {
     Q_UNUSED(serviceLocator)
     return true;
 }
 
-//------------------------------------------------------------------------------
 void NavigationOperationsComponent::onShutdown(IServiceLocator *serviceLocator)
 {
     Q_UNUSED(serviceLocator)
 }
 
-//------------------------------------------------------------------------------
 EXPORT_COMPONENT(NavigationOperationsComponent)
 
-//------------------------------------------------------------------------------

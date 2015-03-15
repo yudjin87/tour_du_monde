@@ -38,13 +38,11 @@
 #include <QtCore/QJsonValue>
 #include <QtTest/QtTest>
 
-//------------------------------------------------------------------------------
 CarouselPersistenceDelegateTest::CarouselPersistenceDelegateTest(QObject *parent)
     : QObject(parent)
 {
 }
 
-//------------------------------------------------------------------------------
 void CarouselPersistenceDelegateTest::save_shouldCallSaveForPersistComponents()
 {
     ServiceLocator locator; QByteArray stream;
@@ -60,7 +58,6 @@ void CarouselPersistenceDelegateTest::save_shouldCallSaveForPersistComponents()
     QVERIFY(comp3.persistExtension->saveCalled);
 }
 
-//------------------------------------------------------------------------------
 void CarouselPersistenceDelegateTest::save_shouldCreateJsonDocument()
 {
     ServiceLocator locator; QByteArray stream;
@@ -78,7 +75,6 @@ void CarouselPersistenceDelegateTest::save_shouldCreateJsonDocument()
     QVERIFY(error.error == QJsonParseError::NoError);
 }
 
-//------------------------------------------------------------------------------
 void CarouselPersistenceDelegateTest::save_shouldAddObjectsToDocument()
 {
     ServiceLocator locator; QByteArray stream;
@@ -106,7 +102,6 @@ void CarouselPersistenceDelegateTest::save_shouldAddObjectsToDocument()
     QCOMPARE(comp1JsonData.value("mockField").toString(), QString("mockValue"));
 }
 
-//------------------------------------------------------------------------------
 void CarouselPersistenceDelegateTest::load_shouldCallLoadForSpecificComponents()
 {
     ServiceLocator locator; QByteArray stream;
@@ -126,4 +121,3 @@ void CarouselPersistenceDelegateTest::load_shouldCallLoadForSpecificComponents()
     QVERIFY(!comp4.persistExtension->loadCalled);
 }
 
-//------------------------------------------------------------------------------

@@ -38,13 +38,11 @@
 #include <QtGui/QKeyEvent>
 #include <QtGui/QTextDocument>
 
-//------------------------------------------------------------------------------
 namespace
 {
 static LoggerFacade Log = LoggerFacade::createLogger("ScriptCollectionDialog");
 }
 
-//------------------------------------------------------------------------------
 ScriptCollectionDialog::ScriptCollectionDialog(ScriptCollectionModel *model, QWidget *parent)
     : QDialog(parent)
     , m_ui(new Ui::ScriptCollectionDialog())
@@ -71,7 +69,6 @@ ScriptCollectionDialog::ScriptCollectionDialog(ScriptCollectionModel *model, QWi
     restoreGeometry(settings.value(QString(metaObject()->className()) +"/geometry").toByteArray());
 }
 
-//------------------------------------------------------------------------------
 ScriptCollectionDialog::~ScriptCollectionDialog()
 {
     for (int i = 0; i < m_ui->tabWidget->count(); ++i) {
@@ -85,7 +82,6 @@ ScriptCollectionDialog::~ScriptCollectionDialog()
     settings.setValue(QString(metaObject()->className()) +"/geometry", saveGeometry());
 }
 
-//------------------------------------------------------------------------------
 void ScriptCollectionDialog::onScriptAdded(IScriptUnit *script)
 {
     ScriptUnitView *scriptView = new ScriptUnitView(script, new CodeHighlighter(ColorTheme::getDefault(), this), this);
@@ -108,7 +104,6 @@ void ScriptCollectionDialog::onScriptAdded(IScriptUnit *script)
             this, &ScriptCollectionDialog::onScriptFileNameChanged);
 }
 
-//------------------------------------------------------------------------------
 void ScriptCollectionDialog::onScriptRemoved(IScriptUnit *script)
 {
     int index = indexByScript(script);
@@ -120,7 +115,6 @@ void ScriptCollectionDialog::onScriptRemoved(IScriptUnit *script)
         setActionsEnabled(false);
 }
 
-//------------------------------------------------------------------------------
 void ScriptCollectionDialog::onRun()
 {
     ScriptUnitView *scriptView = getCurrentView();
@@ -130,7 +124,6 @@ void ScriptCollectionDialog::onRun()
     scriptView->onRun();
 }
 
-//------------------------------------------------------------------------------
 void ScriptCollectionDialog::onSave()
 {
     ScriptUnitView *scriptView = getCurrentView();
@@ -141,7 +134,6 @@ void ScriptCollectionDialog::onSave()
         clearModifiedMark(m_ui->tabWidget->currentIndex());
 }
 
-//------------------------------------------------------------------------------
 void ScriptCollectionDialog::onAbort()
 {
     ScriptUnitView *scriptView = getCurrentView();
@@ -151,7 +143,6 @@ void ScriptCollectionDialog::onAbort()
     scriptView->onAbort();
 }
 
-//------------------------------------------------------------------------------
 void ScriptCollectionDialog::onCurrentScriptModificationChanged(bool changed)
 {
     if (changed)
@@ -160,7 +151,6 @@ void ScriptCollectionDialog::onCurrentScriptModificationChanged(bool changed)
         clearModifiedMark(m_ui->tabWidget->currentIndex());
 }
 
-//------------------------------------------------------------------------------
 void ScriptCollectionDialog::onScriptFileNameChanged()
 {
     IScriptUnit *script = qobject_cast<IScriptUnit *>(sender());
@@ -168,20 +158,17 @@ void ScriptCollectionDialog::onScriptFileNameChanged()
     m_ui->tabWidget->setTabText(index, script->fileName());
 }
 
-//------------------------------------------------------------------------------
 void ScriptCollectionDialog::onTabCloseRequested(int index)
 {
     ScriptUnitView *view = qobject_cast<ScriptUnitView *>(m_ui->tabWidget->widget(index));
     m_model->onScriptRemoved(view->data());
 }
 
-//------------------------------------------------------------------------------
 ScriptUnitView *ScriptCollectionDialog::getCurrentView()
 {
     return qobject_cast<ScriptUnitView *>(m_ui->tabWidget->currentWidget());
 }
 
-//------------------------------------------------------------------------------
 void ScriptCollectionDialog::clearModifiedMark(int index)
 {
     QString tabTitle = m_ui->tabWidget->tabText(index);
@@ -192,7 +179,6 @@ void ScriptCollectionDialog::clearModifiedMark(int index)
     m_ui->tabWidget->setTabText(index, tabTitle);
 }
 
-//------------------------------------------------------------------------------
 void ScriptCollectionDialog::setModifiedMark(int index)
 {
     QString tabTitle = m_ui->tabWidget->tabText(index);
@@ -203,7 +189,6 @@ void ScriptCollectionDialog::setModifiedMark(int index)
     m_ui->tabWidget->setTabText(index, tabTitle);
 }
 
-//------------------------------------------------------------------------------
 int ScriptCollectionDialog::indexByScript(IScriptUnit *script) const
 {
     for (int i = 0; i < m_ui->tabWidget->count(); ++i) {
@@ -215,7 +200,6 @@ int ScriptCollectionDialog::indexByScript(IScriptUnit *script) const
     return -1;
 }
 
-//------------------------------------------------------------------------------
 void ScriptCollectionDialog::setActionsEnabled(bool enable)
 {
     m_ui->actionRun->setEnabled(enable);
@@ -223,4 +207,3 @@ void ScriptCollectionDialog::setActionsEnabled(bool enable)
     m_ui->actionAbort->setEnabled(enable);
 }
 
-//------------------------------------------------------------------------------

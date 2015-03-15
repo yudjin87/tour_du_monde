@@ -26,76 +26,63 @@
 
 #include "MockInteractionService.h"
 
-//------------------------------------------------------------------------------
 MockInteractionService::MockInteractionService()
     : m_activeTool(nullptr)
 {
 }
 
-//------------------------------------------------------------------------------
 ITool *MockInteractionService::activeTool()
 {
     throw "Not Implemented.";
 }
 
-//------------------------------------------------------------------------------
 ICatalogs &MockInteractionService::catalogs()
 {
     throw "Not Implemented.";
 }
 
-//------------------------------------------------------------------------------
 const ICatalogs &MockInteractionService::catalogs() const
 {
     throw "Not Implemented.";
 }
 
-//------------------------------------------------------------------------------
 IInputDispatcher *MockInteractionService::dispatcher()
 {
     throw "Not Implemented.";
 }
 
-//------------------------------------------------------------------------------
 QMainWindow &MockInteractionService::mainWindow()
 {
     throw "Not Implemented.";
 }
 
-//------------------------------------------------------------------------------
 void MockInteractionService::setActiveTool(ITool * activeTool)
 {
     m_activeTool = activeTool;
 }
 
-//------------------------------------------------------------------------------
 void MockInteractionService::setConfigurationDelegate(IComponentConfigurationDelegate * /*configurationDelegate*/)
 {
     throw "Not Implemented.";
 }
 
-//------------------------------------------------------------------------------
 void MockInteractionService::setDispatcher(IInputDispatcher * /*dispatcher*/)
 {
     throw "Not Implemented.";
 }
 
-//------------------------------------------------------------------------------
 void MockInteractionService::saveUiState(int /*version*/)
 {
     throw "Not Implemented.";
 }
 
-//------------------------------------------------------------------------------
 void MockInteractionService::loadUiState(int /*version*/)
 {
     throw "Not Implemented.";
 }
 
-//------------------------------------------------------------------------------
 void MockInteractionService::resetUi()
 {
     throw "Not Implemented.";
 }
 
-//------------------------------------------------------------------------------

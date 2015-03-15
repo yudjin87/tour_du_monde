@@ -28,7 +28,6 @@ QString pathToComponentDefinition(const QString &libName);
 QString pathToComponentsDir();
 
 bool removeDir(const QString & dirName);
-//------------------------------------------------------------------------------
 
 typedef std::unique_ptr<IComponent> IComponentPtr;
 typedef std::unique_ptr<MockComponent> MockComponentPtr;
@@ -39,7 +38,6 @@ MockChildComponent *createParentDefinition(const QString &name, const QString &d
 MockChildComponent *createParentDefinition(const QString &name, const QString &dependsOn, const QString &dependsOn2);
 MockChildComponent *createParentDefinition(const QString &name, const QString &dependsOn, int major_version, const QString &dependsOn2, int major_version2);
 
-//------------------------------------------------------------------------------
 class IDirectoryComponentProvider;
 template<typename TProvider>
 class AutoComponentProvider : public TProvider

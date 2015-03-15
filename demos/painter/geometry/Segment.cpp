@@ -26,7 +26,6 @@
 
 #include "Segment.h"
 
-//------------------------------------------------------------------------------
 Segment::Segment(QObject *parent)
     : AbstractGeometry(parent)
     , m_value()
@@ -40,14 +39,12 @@ Segment::Segment(int size, QObject *parent)
 
 }
 
-//------------------------------------------------------------------------------
 Segment::Segment(const QRectF &extent, QObject *parent)
     : AbstractGeometry(extent, parent)
     , m_value()
 {
 }
 
-//------------------------------------------------------------------------------
 Segment::Segment(std::initializer_list<QPointF> points, QObject *parent)
     : AbstractGeometry(parent)
     , m_value()
@@ -57,28 +54,23 @@ Segment::Segment(std::initializer_list<QPointF> points, QObject *parent)
     }
 }
 
-//------------------------------------------------------------------------------
 QPolygonF &Segment::curve()
 {
     return m_value;
 }
 
-//------------------------------------------------------------------------------
 const QPolygonF &Segment::curve() const
 {
     return m_value;
 }
 
-//------------------------------------------------------------------------------
 void Segment::setCurve(const QPolygonF &value)
 {
     m_value = value;
 }
 
-//------------------------------------------------------------------------------
 GeometryType Segment::type() const
 {
     return GeometryPath;
 }
 
-//------------------------------------------------------------------------------

@@ -37,13 +37,11 @@
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QToolBar>
 
-//------------------------------------------------------------------------------
 ComponentManagementInteractiveExtension::ComponentManagementInteractiveExtension(QObject *parent /*= nullptr*/)
     : QObject(parent)
 {
 }
 
-//------------------------------------------------------------------------------
 void ComponentManagementInteractiveExtension::configureGui(ICatalogs &inCatalogs, IServiceLocator *serviceLocator)
 {
     Q_UNUSED(serviceLocator);
@@ -63,4 +61,3 @@ void ComponentManagementInteractiveExtension::configureGui(ICatalogs &inCatalogs
     menu->addAction(showComponents);
 }
 
-//------------------------------------------------------------------------------

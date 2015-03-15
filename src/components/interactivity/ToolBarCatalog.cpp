@@ -31,25 +31,21 @@
 #include <QtWidgets/QToolBar>
 #include <QtCore/QtAlgorithms>
 
-//------------------------------------------------------------------------------
 ToolBarCatalog::ToolBarCatalog(QMainWindow &mainWindow)
     : m_mainWindow(mainWindow)
 {
 }
 
-//------------------------------------------------------------------------------
 ToolBarCatalog::~ToolBarCatalog()
 {
     qDeleteAll(m_toolbars);
 }
 
-//------------------------------------------------------------------------------
 QToolBar *ToolBarCatalog::add(const QString &title)
 {
     return add(Qt::TopToolBarArea, title);
 }
 
-//------------------------------------------------------------------------------
 QToolBar *ToolBarCatalog::add(Qt::ToolBarArea area, const QString &title)
 {
     if (title.isEmpty())
@@ -65,27 +61,23 @@ QToolBar *ToolBarCatalog::add(Qt::ToolBarArea area, const QString &title)
     return newToolbar;
 }
 
-//------------------------------------------------------------------------------
 void ToolBarCatalog::deleteToolbar(const QString &title)
 {
     QToolBar *toolbar = find(title);
     deleteToolbar(toolbar);
 }
 
-//------------------------------------------------------------------------------
 void ToolBarCatalog::deleteToolbar(QToolBar *toolbar)
 {
     if (m_toolbars.removeOne(toolbar))
         delete toolbar;
 }
 
-//------------------------------------------------------------------------------
 QToolBar *ToolBarCatalog::find(const QString &title)
 {
     return const_cast<QToolBar *>(static_cast<const ToolBarCatalog &>(*this).find(title));
 }
 
-//------------------------------------------------------------------------------
 const QToolBar *ToolBarCatalog::find(const QString &title) const
 {
     for (QToolBar *toolbar : m_toolbars) {
@@ -96,19 +88,16 @@ const QToolBar *ToolBarCatalog::find(const QString &title) const
     return nullptr;
 }
 
-//------------------------------------------------------------------------------
 QList<QToolBar *> ToolBarCatalog::toolbars() const
 {
     return m_toolbars;
 }
 
-//------------------------------------------------------------------------------
 void ToolBarCatalog::onToolbarAdded(QToolBar *toolbar)
 {
     emit toolbarAdded(toolbar);
 }
 
-//------------------------------------------------------------------------------
 QToolBar *ToolBarCatalog::createToolbar(Qt::ToolBarArea area, const QString &title)
 {
     QToolBar *newToolBar = new QToolBar();
@@ -121,4 +110,3 @@ QToolBar *ToolBarCatalog::createToolbar(Qt::ToolBarArea area, const QString &tit
     return newToolBar;
 }
 
-//------------------------------------------------------------------------------

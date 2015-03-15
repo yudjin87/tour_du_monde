@@ -30,7 +30,6 @@
 #include <QtCore/QtAlgorithms>
 #include <QtGui/QFont>
 
-//------------------------------------------------------------------------------
 namespace
 {
 ColorTheme *createDefaultTheme()
@@ -68,7 +67,6 @@ ColorTheme *createDefaultTheme()
 }
 } // namespace
 
-//------------------------------------------------------------------------------
 ColorTheme::ColorTheme(QObject *parent)
     : QObject(parent)
     , m_name("")
@@ -77,7 +75,6 @@ ColorTheme::ColorTheme(QObject *parent)
 {
 }
 
-//------------------------------------------------------------------------------
 ColorTheme::ColorTheme(const QString &name, QObject *parent)
     : QObject(parent)
     , m_name(name)
@@ -87,7 +84,6 @@ ColorTheme::ColorTheme(const QString &name, QObject *parent)
 
 }
 
-//------------------------------------------------------------------------------
 ColorTheme::~ColorTheme()
 {
     qDeleteAll(m_lexemes);
@@ -97,47 +93,39 @@ ColorTheme::~ColorTheme()
     m_blockLexemes.clear();
 }
 
-//------------------------------------------------------------------------------
 const QString &ColorTheme::name() const
 {
     return m_name;
 }
 
-//------------------------------------------------------------------------------
 void ColorTheme::setName(const QString &name)
 {
     m_name = name;
 }
 
-//------------------------------------------------------------------------------
 void ColorTheme::addLexeme(LexemeAppearance *lexeme)
 {
     m_lexemes.push_back(lexeme);
 }
 
-//------------------------------------------------------------------------------
 void ColorTheme::addBlockLexeme(LexemeAppearance *lexeme)
 {
     m_blockLexemes.push_back(lexeme);
 }
 
-//------------------------------------------------------------------------------
 const QList<LexemeAppearance *> &ColorTheme::lexemes() const
 {
     return m_lexemes;
 }
 
-//------------------------------------------------------------------------------
 const QList<LexemeAppearance *> &ColorTheme::blockLexemes() const
 {
     return m_blockLexemes;
 }
 
-//------------------------------------------------------------------------------
 ColorTheme *ColorTheme::getDefault()
 {
     static ColorTheme *theme = createDefaultTheme();
     return theme;
 }
 
-//------------------------------------------------------------------------------

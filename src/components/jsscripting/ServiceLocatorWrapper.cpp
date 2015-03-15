@@ -28,20 +28,17 @@
 
 #include <carousel/utils/IServiceLocator.h>
 
-//------------------------------------------------------------------------------
 ServiceLocatorWrapper::ServiceLocatorWrapper(IServiceLocator *locator, QObject *parent)
     : QObject(parent)
     , m_locator(locator)
 {
 }
 
-//------------------------------------------------------------------------------
 QObject *ServiceLocatorWrapper::locate(const QString &name)
 {
     return m_locator->locateToObject(name);
 }
 
-//------------------------------------------------------------------------------
 QObject *ServiceLocatorWrapper::build(const QString &name, bool takeOwnership)
 {
     QObject *obj = m_locator->buildObject(name);
@@ -54,10 +51,8 @@ QObject *ServiceLocatorWrapper::build(const QString &name, bool takeOwnership)
     return obj;
 }
 
-//------------------------------------------------------------------------------
 QStringList ServiceLocatorWrapper::services() const
 {
     return m_locator->services();
 }
 
-//------------------------------------------------------------------------------

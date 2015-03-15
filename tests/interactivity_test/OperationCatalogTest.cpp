@@ -33,13 +33,11 @@
 #include <QtTest/QtTest>
 #include <QtTest/QSignalSpy>
 
-//------------------------------------------------------------------------------
 OperationCatalogTest::OperationCatalogTest(QObject *parent)
     : QObject(parent)
 {
 }
 
-//------------------------------------------------------------------------------
 void OperationCatalogTest::shouldAddOperationToList()
 {
     OperationCatalog catalog;
@@ -49,7 +47,6 @@ void OperationCatalogTest::shouldAddOperationToList()
     QVERIFY(operation == catalog.operations()[0]);
 }
 
-//------------------------------------------------------------------------------
 void OperationCatalogTest::shouldEmitWhenOperationAdded()
 {
     OperationCatalog catalog;
@@ -60,7 +57,6 @@ void OperationCatalogTest::shouldEmitWhenOperationAdded()
     QCOMPARE(spy.count(), 1);
 }
 
-//------------------------------------------------------------------------------
 void OperationCatalogTest::shouldInitializeAddedOperation()
 {
     OperationCatalog catalog;
@@ -70,7 +66,6 @@ void OperationCatalogTest::shouldInitializeAddedOperation()
     QVERIFY(operation->initializeCalled);
 }
 
-//------------------------------------------------------------------------------
 void OperationCatalogTest::shouldInitializeAddedOperationWithStartupData()
 {
     OperationCatalog catalog;
@@ -83,7 +78,6 @@ void OperationCatalogTest::shouldInitializeAddedOperationWithStartupData()
     QCOMPARE(&serviceLocator, operation->m_serviceLocator);
 }
 
-//------------------------------------------------------------------------------
 void OperationCatalogTest::shouldReturnTheSameOperation()
 {
     OperationCatalog catalog;
@@ -92,7 +86,6 @@ void OperationCatalogTest::shouldReturnTheSameOperation()
     QVERIFY(operation == catalog.add(operation));
 }
 
-//------------------------------------------------------------------------------
 void OperationCatalogTest::shouldReturnOperationsByCategory()
 {
     OperationCatalog catalog;
@@ -109,7 +102,6 @@ void OperationCatalogTest::shouldReturnOperationsByCategory()
     QVERIFY(operation1 == operations[0]);
 }
 
-//------------------------------------------------------------------------------
 void OperationCatalogTest::shouldFindOperationByName()
 {
     OperationCatalog catalog;
@@ -123,7 +115,6 @@ void OperationCatalogTest::shouldFindOperationByName()
     QVERIFY(operation == catalog.find("ctg"));
 }
 
-//------------------------------------------------------------------------------
 void OperationCatalogTest::shouldDeleteOperation()
 {
     OperationCatalog catalog;
@@ -137,7 +128,6 @@ void OperationCatalogTest::shouldDeleteOperation()
     QVERIFY(catalog.find("ctg") == nullptr);
 }
 
-//------------------------------------------------------------------------------
 void OperationCatalogTest::shouldDeleteOperationByName()
 {
     OperationCatalog catalog;
@@ -151,4 +141,3 @@ void OperationCatalogTest::shouldDeleteOperationByName()
     QVERIFY(catalog.find("ctg") == nullptr);
 }
 
-//------------------------------------------------------------------------------

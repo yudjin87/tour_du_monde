@@ -34,7 +34,6 @@
 #include <carto/IPainterDocument.h>
 #include <carto/IPainterDocumentController.h>
 
-//------------------------------------------------------------------------------
 ZoomOutOperation::ZoomOutOperation()
     : Operation("Zoom out")
     , m_serviceLocator(nullptr)
@@ -43,7 +42,6 @@ ZoomOutOperation::ZoomOutOperation()
     setIconVisibleInMenu(true);
 }
 
-//------------------------------------------------------------------------------
 void ZoomOutOperation::execute()
 {
     IDisplay *display = m_serviceLocator->locate<IDisplay>();
@@ -55,10 +53,8 @@ void ZoomOutOperation::execute()
     map->refresh();
 }
 
-//------------------------------------------------------------------------------
 void ZoomOutOperation::initialize(IServiceLocator *serviceLocator)
 {
     m_serviceLocator = serviceLocator;
 }
 
-//------------------------------------------------------------------------------

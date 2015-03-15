@@ -26,7 +26,6 @@
 
 #include "MockCarouselInteractionService.h"
 
-//------------------------------------------------------------------------------
 MockCarouselInteractionService::MockCarouselInteractionService(IServiceLocator *serviceLocator, QMainWindow *mainWindow, IComponentManager *manager, QObject *parent)
     : CarouselInteractionService(serviceLocator, mainWindow, manager, parent)
     , loadUiCalled(0)
@@ -34,14 +33,12 @@ MockCarouselInteractionService::MockCarouselInteractionService(IServiceLocator *
 {
 }
 
-//------------------------------------------------------------------------------
 void MockCarouselInteractionService::loadUiState(int version)
 {
     CarouselInteractionService::loadUiState(version);
     ++loadUiCalled;
 }
 
-//------------------------------------------------------------------------------
 void MockCarouselInteractionService::saveUiState(int version)
 {
     CarouselInteractionService::saveUiState(version);
@@ -50,4 +47,3 @@ void MockCarouselInteractionService::saveUiState(int version)
 
 
 
-//------------------------------------------------------------------------------

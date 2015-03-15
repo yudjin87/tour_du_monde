@@ -31,7 +31,6 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QWidget>
 
-//------------------------------------------------------------------------------
 InputDispatcher::InputDispatcher(QObject *parent)
     : QObject(parent)
     , m_interceptedWidget(nullptr)
@@ -42,39 +41,33 @@ InputDispatcher::InputDispatcher(QObject *parent)
     setObjectName("InputDispatcher");
 }
 
-//------------------------------------------------------------------------------
 InputDispatcher::~InputDispatcher()
 {
     deactivate();
 }
 
-//------------------------------------------------------------------------------
 void InputDispatcher::activate()
 {
     m_isActive = true;
     m_isWorking = invalidate(m_interceptedWidget);
 }
 
-//------------------------------------------------------------------------------
 void InputDispatcher::deactivate()
 {
     m_isActive = false;
     m_isWorking = invalidate(m_interceptedWidget);
 }
 
-//------------------------------------------------------------------------------
 bool InputDispatcher::isActive() const
 {
     return m_isActive;
 }
 
-//------------------------------------------------------------------------------
 bool InputDispatcher::isWorking() const
 {
     return m_isWorking;
 }
 
-//------------------------------------------------------------------------------
 void InputDispatcher::setSender(QWidget *interceptedWidget)
 {
     QWidget *old = m_interceptedWidget;
@@ -85,7 +78,6 @@ void InputDispatcher::setSender(QWidget *interceptedWidget)
     m_isWorking = invalidate(old);
 }
 
-//------------------------------------------------------------------------------
 void InputDispatcher::setReceiver(IInputReceiver *receiver)
 {
     m_receiver = receiver;
@@ -95,19 +87,16 @@ void InputDispatcher::setReceiver(IInputReceiver *receiver)
     m_isWorking = invalidate(m_interceptedWidget);
 }
 
-//------------------------------------------------------------------------------
 QWidget *InputDispatcher::sender() const
 {
     return m_interceptedWidget;
 }
 
-//------------------------------------------------------------------------------
 IInputReceiver *InputDispatcher::receiver() const
 {
     return m_receiver;
 }
 
-//------------------------------------------------------------------------------
 bool InputDispatcher::eventFilter(QObject *sender, QEvent *event)
 {
     Q_UNUSED(sender)
@@ -152,7 +141,6 @@ bool InputDispatcher::eventFilter(QObject *sender, QEvent *event)
     return true;
 }
 
-//------------------------------------------------------------------------------
 bool InputDispatcher::canStartWorking()
 {
     if (!isActive())
@@ -167,7 +155,6 @@ bool InputDispatcher::canStartWorking()
     return true;
 }
 
-//------------------------------------------------------------------------------
 bool InputDispatcher::invalidate(QWidget *interceptedWidget)
 {
     bool result = canStartWorking();
@@ -182,18 +169,15 @@ bool InputDispatcher::invalidate(QWidget *interceptedWidget)
     return result;
 }
 
-//------------------------------------------------------------------------------
 void InputDispatcher::onSenderDeleted()
 {
     m_interceptedWidget = nullptr;
     m_isWorking = invalidate(m_interceptedWidget);
 }
 
-//------------------------------------------------------------------------------
 void InputDispatcher::onReceiverDeleted()
 {
     m_receiver = nullptr;
     m_isWorking = invalidate(m_interceptedWidget);
 }
 
-//------------------------------------------------------------------------------

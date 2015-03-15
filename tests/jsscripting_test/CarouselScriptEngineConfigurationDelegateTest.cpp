@@ -34,14 +34,12 @@
 #include <QtScript/QScriptEngine>
 #include <QtTest/QtTest>
 
-//------------------------------------------------------------------------------
 CarouselScriptEngineConfigurationDelegateTest::CarouselScriptEngineConfigurationDelegateTest(QObject *parent)
     : QObject(parent)
     , m_testScriptPath("./scripts/TestScript.js")
 {
 }
 
-//------------------------------------------------------------------------------
 void CarouselScriptEngineConfigurationDelegateTest::configureComponent_shouldConfigureComponentIfItHasScriptExtension()
 {
     ServiceLocator locator; QScriptEngine engine;
@@ -54,7 +52,6 @@ void CarouselScriptEngineConfigurationDelegateTest::configureComponent_shouldCon
     QVERIFY(component.m_extension->m_configureCalled);
 }
 
-//------------------------------------------------------------------------------
 void CarouselScriptEngineConfigurationDelegateTest::configureComponent_shouldNotCallConfigureIfComponentWasNotStarted()
 {
     ServiceLocator locator; QScriptEngine engine;
@@ -66,7 +63,6 @@ void CarouselScriptEngineConfigurationDelegateTest::configureComponent_shouldNot
     QVERIFY(!component.m_extension->m_configureCalled);
 }
 
-//------------------------------------------------------------------------------
 void CarouselScriptEngineConfigurationDelegateTest::configureComponent_shouldNotThrowIfComponentHasNoScriptExtension()
 {
     ServiceLocator locator; QScriptEngine engine;
@@ -79,7 +75,6 @@ void CarouselScriptEngineConfigurationDelegateTest::configureComponent_shouldNot
     QVERIFY(true);
 }
 
-//------------------------------------------------------------------------------
 void CarouselScriptEngineConfigurationDelegateTest::configureDefaults_shouldAddServiceLocatorObjectToEngine()
 {
     ServiceLocator locator; QScriptEngine engine;
@@ -91,7 +86,6 @@ void CarouselScriptEngineConfigurationDelegateTest::configureDefaults_shouldAddS
     QVERIFY(engine.globalObject().property("serviceLocator").isValid());
 }
 
-//------------------------------------------------------------------------------
 void CarouselScriptEngineConfigurationDelegateTest::configureDefaults_shouldAddPrintFunctionToEngine()
 {
     ServiceLocator locator; QScriptEngine engine;
@@ -104,7 +98,6 @@ void CarouselScriptEngineConfigurationDelegateTest::configureDefaults_shouldAddP
     QCOMPARE(output.lastMessage, QString("Hello, carousel!"));
 }
 
-//------------------------------------------------------------------------------
 void CarouselScriptEngineConfigurationDelegateTest::configureDefaults_shouldAddIncludeFunctionToEngine()
 {
     ServiceLocator locator; QScriptEngine engine;
@@ -123,7 +116,6 @@ void CarouselScriptEngineConfigurationDelegateTest::configureDefaults_shouldAddI
     QCOMPARE(value, 111);
 }
 
-//------------------------------------------------------------------------------
 void CarouselScriptEngineConfigurationDelegateTest::explore_shouldPrintAllGlobals()
 {
     ServiceLocator locator; QScriptEngine engine;
@@ -139,7 +131,6 @@ void CarouselScriptEngineConfigurationDelegateTest::explore_shouldPrintAllGlobal
     QVERIFY(output.messages.contains("NaN"));
 }
 
-//------------------------------------------------------------------------------
 void CarouselScriptEngineConfigurationDelegateTest::explore_shouldPrintVariableMembers()
 {
     ServiceLocator locator; QScriptEngine engine;
@@ -161,4 +152,3 @@ void CarouselScriptEngineConfigurationDelegateTest::explore_shouldPrintVariableM
     QVERIFY(output.messages.contains("build(QString,bool)"));
 }
 
-//------------------------------------------------------------------------------

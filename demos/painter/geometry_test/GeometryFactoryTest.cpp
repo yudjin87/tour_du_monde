@@ -37,7 +37,6 @@
 #include <QtGui/QPolygonF>
 #include <QtTest/QTest>
 
-//------------------------------------------------------------------------------
 namespace ShapeType {
 enum ShapeType
 {
@@ -58,13 +57,11 @@ enum ShapeType
 };
 }
 
-//------------------------------------------------------------------------------
 GeometryFactoryTest::GeometryFactoryTest(QObject *parent)
     : QObject(parent)
 {
 }
 
-//------------------------------------------------------------------------------
 void GeometryFactoryTest::shouldCreatePointInstance_data()
 {
     QTest::addColumn<int>("bytesCount");
@@ -81,7 +78,6 @@ void GeometryFactoryTest::shouldCreatePointInstance_data()
     QTest::newRow("simple point") << data.size() << data;
 }
 
-//------------------------------------------------------------------------------
 void GeometryFactoryTest::shouldCreatePointInstance()
 {
     QFETCH(int, bytesCount);
@@ -96,13 +92,11 @@ void GeometryFactoryTest::shouldCreatePointInstance()
     QCOMPARE(geometry->point().y(), 52.4837034);
 }
 
-//------------------------------------------------------------------------------
 void GeometryFactoryTest::shouldCreatePolylineInstance_data()
 {
     fillPolyTestData(ShapeType::Polyline);
 }
 
-//------------------------------------------------------------------------------
 void GeometryFactoryTest::shouldCreatePolylineInstance()
 {
     QFETCH(int, bytesCount);
@@ -141,13 +135,11 @@ void GeometryFactoryTest::shouldCreatePolylineInstance()
     QCOMPARE(poly[3].y(), 52.4981699);
 }
 
-//------------------------------------------------------------------------------
 void GeometryFactoryTest::shouldCreatePolygonInstance_data()
 {
     fillPolyTestData(ShapeType::Polygon);
 }
 
-//------------------------------------------------------------------------------
 void GeometryFactoryTest::shouldCreatePolygonInstance()
 {
     QFETCH(int, bytesCount);
@@ -186,7 +178,6 @@ void GeometryFactoryTest::shouldCreatePolygonInstance()
     QCOMPARE(poly[3].y(), 52.4981699);
 }
 
-//------------------------------------------------------------------------------
 void GeometryFactoryTest::shouldReturnCorrectGeometryTypeForShapeType_data()
 {
     QTest::addColumn<int>("shapeType");
@@ -205,7 +196,6 @@ void GeometryFactoryTest::shouldReturnCorrectGeometryTypeForShapeType_data()
     QTest::newRow("MultiPoint") << int(ShapeType::MultiPoint) << int(GeometryMultipoint);
 }
 
-//------------------------------------------------------------------------------
 void GeometryFactoryTest::shouldReturnCorrectGeometryTypeForShapeType()
 {
     QFETCH(int, shapeType);
@@ -216,7 +206,6 @@ void GeometryFactoryTest::shouldReturnCorrectGeometryTypeForShapeType()
     QCOMPARE(geometryType, type);
 }
 
-//------------------------------------------------------------------------------
 void GeometryFactoryTest::fillPolyTestData(int type)
 {
     QTest::addColumn<int>("bytesCount");
@@ -256,5 +245,4 @@ void GeometryFactoryTest::fillPolyTestData(int type)
     QTest::newRow("simple poly") << data.size() << data;
 }
 
-//------------------------------------------------------------------------------
 

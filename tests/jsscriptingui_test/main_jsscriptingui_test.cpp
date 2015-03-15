@@ -6,7 +6,6 @@
 #include <QtTest/QTest>
 #include <QtWidgets/QApplication>
 
-//------------------------------------------------------------------------------
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
@@ -21,5 +20,4 @@ int main(int argc, char *argv[])
     return app.exec();
 }
 
-//------------------------------------------------------------------------------
 

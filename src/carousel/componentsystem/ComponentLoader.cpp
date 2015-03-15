@@ -33,17 +33,14 @@
 #include <QtCore/QFileInfo>
 #include <QtCore/QLibrary>
 
-//------------------------------------------------------------------------------
 namespace
 {
 static LoggerFacade Log = LoggerFacade::createLogger("ComponentLoader");
 }
 
-//------------------------------------------------------------------------------
 const QString ComponentLoader::m_createFuncName = CREATE_FUNCTION_NAME;
 const QString ComponentLoader::m_releaseFuncName = RELEASE_FUNCTION_NAME;
 
-//------------------------------------------------------------------------------
 ComponentLoader::ComponentLoader(QObject *parent)
     : QObject(parent)
     , m_instance(nullptr)
@@ -57,7 +54,6 @@ ComponentLoader::ComponentLoader(QObject *parent)
 {
 }
 
-//------------------------------------------------------------------------------
 ComponentLoader::ComponentLoader(const QString &fileName, QObject *parent)
     : QObject(parent)
     , m_instance(nullptr)
@@ -71,25 +67,21 @@ ComponentLoader::ComponentLoader(const QString &fileName, QObject *parent)
     setFileName(fileName);
 }
 
-//------------------------------------------------------------------------------
 ComponentLoader::~ComponentLoader()
 {
     unload();
 }
 
-//------------------------------------------------------------------------------
 QString ComponentLoader::errorString() const
 {
     return m_errorString;
 }
 
-//------------------------------------------------------------------------------
 QString ComponentLoader::fileName() const
 {
     return m_fileName;
 }
 
-//------------------------------------------------------------------------------
 IComponent *ComponentLoader::instance()
 {
     if (!m_loaded)
@@ -98,13 +90,11 @@ IComponent *ComponentLoader::instance()
     return m_instance;
 }
 
-//------------------------------------------------------------------------------
 bool ComponentLoader::isLoaded() const
 {
     return m_loaded;
 }
 
-//------------------------------------------------------------------------------
 bool ComponentLoader::load()
 {
     if (m_loaded)
@@ -153,13 +143,11 @@ bool ComponentLoader::load()
     return true;
 }
 
-//------------------------------------------------------------------------------
 QLibrary::LoadHints ComponentLoader::loadHints() const
 {
     return m_loadHits;
 }
 
-//------------------------------------------------------------------------------
 void ComponentLoader::setFileName(const QString &fileName)
 {
     QFileInfo file(fileName);
@@ -174,13 +162,11 @@ void ComponentLoader::setFileName(const QString &fileName)
     m_fileName = fileName;
 }
 
-//------------------------------------------------------------------------------
 void ComponentLoader::setLoadHints(QLibrary::LoadHints loadHints)
 {
     m_loadHits = loadHints;
 }
 
-//------------------------------------------------------------------------------
 bool ComponentLoader::unload()
 {
     if (!m_loaded)
@@ -196,7 +182,6 @@ bool ComponentLoader::unload()
     return result;
 }
 
-//------------------------------------------------------------------------------
 bool ComponentLoader::deleteInstance()
 {
     if (!m_loaded) {
@@ -214,4 +199,3 @@ bool ComponentLoader::deleteInstance()
     return true;
 }
 
-//------------------------------------------------------------------------------

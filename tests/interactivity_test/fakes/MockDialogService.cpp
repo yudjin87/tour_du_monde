@@ -29,14 +29,12 @@
 #include <QtCore/QTimer>
 #include <QtWidgets/QDialog>
 
-//------------------------------------------------------------------------------
 MockDialogService::MockDialogService(QWidget *mainWindow, IServiceLocator *locator)
     : DialogService(mainWindow, locator)
     , m_created_dlg(nullptr)
 {
 }
 
-//------------------------------------------------------------------------------
 QDialog *MockDialogService::createDialogForModel(const QString &forDlgModelType, void *dlgModel) const
 {
     m_created_dlg = DialogService::createDialogForModel(forDlgModelType, dlgModel);
@@ -49,4 +47,3 @@ QDialog *MockDialogService::createDialogForModel(const QString &forDlgModelType,
     return m_created_dlg;
 }
 
-//------------------------------------------------------------------------------

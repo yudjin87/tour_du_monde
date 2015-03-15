@@ -30,7 +30,6 @@
 
 #include <framework/AbstractApplication.h>
 
-//------------------------------------------------------------------------------
 TableViewComponent::TableViewComponent(QObject *parent /*= nullptr*/)
     : BaseComponent("TableViewComponent", parent)
 {
@@ -41,12 +40,10 @@ TableViewComponent::TableViewComponent(QObject *parent /*= nullptr*/)
     registerExtension<IChildExtension>(childExtension);
 }
 
-//------------------------------------------------------------------------------
 TableViewComponent::~TableViewComponent()
 {
 }
 
-//------------------------------------------------------------------------------
 bool TableViewComponent::_onStartup(QObject *ip_initData)
 {
     AbstractApplication *app = qobject_cast<AbstractApplication *>(ip_initData);
@@ -56,16 +53,13 @@ bool TableViewComponent::_onStartup(QObject *ip_initData)
     return true;
 }
 
-//------------------------------------------------------------------------------
 void *createInstance()
 {
     return new TableViewComponent();
 }
 
-//------------------------------------------------------------------------------
 void disposeInstance(void *ip_componentObject)
 {
     delete reinterpret_cast<TableViewComponent *>(ip_componentObject);
 }
 
-//------------------------------------------------------------------------------

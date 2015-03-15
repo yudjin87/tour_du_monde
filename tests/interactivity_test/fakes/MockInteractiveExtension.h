@@ -34,7 +34,6 @@ class ICatalogs;
 class IInteractiveExtension;
 class FakeInteractiveExtension;
 
-//------------------------------------------------------------------------------
 class MockInteractiveExtension : public BaseComponent
 {
 public:
@@ -46,9 +45,7 @@ public:
     FakeInteractiveExtension *m_interactiveExtension;
 };
 
-//------------------------------------------------------------------------------
 typedef void(*configuredFunc)(ICatalogs &);
-//------------------------------------------------------------------------------
 class FakeInteractiveExtension : public IInteractiveExtension
 {
 public:

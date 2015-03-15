@@ -43,10 +43,8 @@
 #include <QtScript/QScriptEngine>
 #include <QtScript/QScriptValueIterator>
 
-//------------------------------------------------------------------------------
 Q_DECLARE_METATYPE(GeometryType)
 
-//------------------------------------------------------------------------------
 namespace
 {
 int registerFeatureList(QScriptEngine *engine)
@@ -65,14 +63,12 @@ int registerFeatureClassList(QScriptEngine *engine)
 
 } // namespace
 
-//------------------------------------------------------------------------------
 GDBScriptExtension::GDBScriptExtension(QObject *parent)
     : QObject(parent)
 {
 
 }
 
-//------------------------------------------------------------------------------
 void GDBScriptExtension::configureEngine(IServiceLocator *locator, QScriptEngine *engine)
 {
     Q_UNUSED(locator)
@@ -92,4 +88,3 @@ void GDBScriptExtension::configureEngine(IServiceLocator *locator, QScriptEngine
     REGISTER_METATYPE(IWorkspaceFactory);
 }
 
-//------------------------------------------------------------------------------

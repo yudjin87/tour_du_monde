@@ -26,7 +26,6 @@
 
 #include "ConfigurationChanges.h"
 
-//------------------------------------------------------------------------------
 ConfigurationChanges::ConfigurationChanges()
     : m_insertedOperations()
     , m_addedOperations()
@@ -36,7 +35,6 @@ ConfigurationChanges::ConfigurationChanges()
 {
 }
 
-//------------------------------------------------------------------------------
 ConfigurationChanges::~ConfigurationChanges()
 {
     m_addedOperations.clear();
@@ -46,76 +44,63 @@ ConfigurationChanges::~ConfigurationChanges()
     m_addedToolbars.clear();
 }
 
-//------------------------------------------------------------------------------
 void ConfigurationChanges::insertAddedOperation(Operation *operation)
 {
     m_addedOperations.push_back(operation);
 }
 
-//------------------------------------------------------------------------------
 void ConfigurationChanges::insertAddedDockWidget(QDockWidget *dockWidget)
 {
     m_addedDockWidgets.push_back(dockWidget);
 }
 
-//------------------------------------------------------------------------------
 void ConfigurationChanges::insertAddedMenu(QMenu *menu)
 {
     m_addedMenus.push_back(menu);
 }
 
-//------------------------------------------------------------------------------
 void ConfigurationChanges::insertAddedToolbar(QToolBar *toolbar)
 {
     m_addedToolbars.push_back(toolbar);
 }
 
-//------------------------------------------------------------------------------
 void ConfigurationChanges::insertInsertedOperation(Operation *operation)
 {
     m_insertedOperations.push_back(operation);
 }
 
-//------------------------------------------------------------------------------
 void ConfigurationChanges::insertRemovedMenu(QMenu *menu)
 {
     m_removedMenus.push_back(menu);
 }
 
-//------------------------------------------------------------------------------
 const ConfigurationChanges::Operations &ConfigurationChanges::addedOperations() const
 {
     return m_addedOperations;
 }
 
-//------------------------------------------------------------------------------
 const ConfigurationChanges::DockWidgets &ConfigurationChanges::addedDockWidgets() const
 {
     return m_addedDockWidgets;
 }
 
-//------------------------------------------------------------------------------
 const ConfigurationChanges::Menus &ConfigurationChanges::addedMenus() const
 {
     return m_addedMenus;
 }
 
-//------------------------------------------------------------------------------
 const ConfigurationChanges::Menus &ConfigurationChanges::removedMenus() const
 {
     return m_removedMenus;
 }
 
-//------------------------------------------------------------------------------
 const ConfigurationChanges::ToolBars &ConfigurationChanges::addedToolbars() const
 {
     return m_addedToolbars;
 }
 
-//------------------------------------------------------------------------------
 const ConfigurationChanges::Operations &ConfigurationChanges::insertedOperations() const
 {
     return m_insertedOperations;
 }
 
-//------------------------------------------------------------------------------

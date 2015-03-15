@@ -40,13 +40,11 @@
 #include <components/interactivity/InteractionServiceComponent.h>
 #include <components/undo/UndoComponent.h>
 
-//------------------------------------------------------------------------------
 Bootloader::Bootloader()
     : CarouselBootloader()
 {
 }
 
-//------------------------------------------------------------------------------
 void Bootloader::configureComponentProvider()
 {
     CompositeComponentProvider *provider = static_cast<CompositeComponentProvider *>(m_componentProvider);
@@ -59,30 +57,25 @@ void Bootloader::configureComponentProvider()
     provider->registerComponent(new UndoComponent());
 }
 
-//------------------------------------------------------------------------------
 IComponentProvider *Bootloader::createComponentProvider()
 {
     return new CompositeComponentProvider();
 }
 
-//------------------------------------------------------------------------------
 void Bootloader::onLoadingSequenceFinised()
 {
     m_mainWindow.show();
 }
 
-//------------------------------------------------------------------------------
 ILoggerEngineCreator *Bootloader::createLoggerEngine()
 {
     return CarouselBootloader::createLoggerEngine();
     //return new LoggerEngineCreator();
 }
 
-//------------------------------------------------------------------------------
 void Bootloader::onLoadingSequenceStarting()
 {
     CarouselBootloader::onLoadingSequenceStarting();
     serviceLocator()->registerInstance<QMainWindow>(&m_mainWindow);
 }
 
-//------------------------------------------------------------------------------

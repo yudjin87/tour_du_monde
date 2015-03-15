@@ -27,7 +27,6 @@
 #include "PersistComponent.h"
 #include "MockPersistExtension.h"
 
-//------------------------------------------------------------------------------
 PersistComponent::PersistComponent(QObject *parent)
     : BaseComponent("PersistComponent", parent)
     , persistExtension(new MockPersistExtension(this))
@@ -35,7 +34,6 @@ PersistComponent::PersistComponent(QObject *parent)
     registerExtension<IPersistExtension>(persistExtension);
 }
 
-//------------------------------------------------------------------------------
 PersistComponent::PersistComponent(const QString &name, QObject *parent)
     : BaseComponent(name, parent)
     , persistExtension(new MockPersistExtension(this))
@@ -43,4 +41,3 @@ PersistComponent::PersistComponent(const QString &name, QObject *parent)
     registerExtension<IPersistExtension>(persistExtension);
 }
 
-//------------------------------------------------------------------------------

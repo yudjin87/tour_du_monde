@@ -37,7 +37,6 @@
 #include <QtCore/QDir>
 #include <QtCore/QFileInfo>
 
-//------------------------------------------------------------------------------
 InstallComponentsCommand::InstallComponentsCommand(IUndoStack *stack, IComponentManager *manager, QObject* parent)
     : BaseUndoableCommand(stack, parent)
     , m_manager(manager)
@@ -49,73 +48,61 @@ InstallComponentsCommand::InstallComponentsCommand(IUndoStack *stack, IComponent
     setText("installing new components");
 }
 
-//------------------------------------------------------------------------------
 InstallComponentsCommand::~InstallComponentsCommand()
 {
 }
 
-//------------------------------------------------------------------------------
 void InstallComponentsCommand::addDefinitionPath(const QString &definitionPath)
 {
     m_definitionFiles.push_back(definitionPath);
 }
 
-//------------------------------------------------------------------------------
 void InstallComponentsCommand::setInstallPath(const QString &installPath)
 {
     m_installPath = installPath;
 }
 
-//------------------------------------------------------------------------------
 const QString &InstallComponentsCommand::installPath() const
 {
     return m_installPath;
 }
 
-//------------------------------------------------------------------------------
 void InstallComponentsCommand::setSourceDirectoryPath(const QString &sourceDirectoryPath)
 {
     m_sourceDirectoryPath = sourceDirectoryPath;
 }
 
-//------------------------------------------------------------------------------
 const QString &InstallComponentsCommand::sourceDirectoryPath() const
 {
     return m_sourceDirectoryPath;
 }
 
-//------------------------------------------------------------------------------
 bool InstallComponentsCommand::addComponentsAfterInstallation() const
 {
     return m_addAfterInstallation;
 }
 
-//------------------------------------------------------------------------------
 void InstallComponentsCommand::setAddComponentsAfterInstallation(bool start)
 {
     m_addAfterInstallation = start;
 }
 
-//------------------------------------------------------------------------------
 bool InstallComponentsCommand::startComponentsAfterInstallation() const
 {
     return m_startAfterInstallation;
 }
 
-//------------------------------------------------------------------------------
 void InstallComponentsCommand::setStartComponentsAfterInstallation(bool start)
 {
     m_startAfterInstallation = start;
 }
 
-//------------------------------------------------------------------------------
 bool InstallComponentsCommand::tryRedo()
 {
     //TODO: implement me!
     return true;
 }
 
-//------------------------------------------------------------------------------
 void InstallComponentsCommand::redo()
 {
     if (!m_installedComponents.empty()) {
@@ -159,10 +146,8 @@ void InstallComponentsCommand::redo()
     m_manager->startupComponents(m_installedComponents);
 }
 
-//------------------------------------------------------------------------------
 void InstallComponentsCommand::undo()
 {
     m_manager->shutdownComponents(m_installedComponents);
 }
 
-//------------------------------------------------------------------------------

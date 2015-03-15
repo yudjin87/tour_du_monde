@@ -26,7 +26,6 @@
 
 #include "FakeComponentInstaller.h"
 
-//------------------------------------------------------------------------------
 FakeComponentInstaller::FakeComponentInstaller()
     : ComponentInstaller(ComponentInstaller::defaultInstallDir())
     , discoverCalled(false)
@@ -35,7 +34,6 @@ FakeComponentInstaller::FakeComponentInstaller()
 {
 }
 
-//------------------------------------------------------------------------------
 FakeComponentInstaller::FakeComponentInstaller(const QString &destinationDirectory)
     : ComponentInstaller(destinationDirectory)
     , discoverCalled(false)
@@ -44,14 +42,12 @@ FakeComponentInstaller::FakeComponentInstaller(const QString &destinationDirecto
 {
 }
 
-//------------------------------------------------------------------------------
 QList<IComponent *> FakeComponentInstaller::discoverComponents()
 {
     discoverCalled = true;
     return discovered;
 }
 
-//------------------------------------------------------------------------------
 QList<IComponent *> FakeComponentInstaller::loadComponents(const QList<IComponent *> &componentsToInstall)
 {
     loadCalled = true;
@@ -59,10 +55,8 @@ QList<IComponent *> FakeComponentInstaller::loadComponents(const QList<IComponen
     return loaded;
 }
 
-//------------------------------------------------------------------------------
 IComponentDependencies *FakeComponentInstaller::createDependencies()
 {
     return dependencies;
 }
 
-//------------------------------------------------------------------------------

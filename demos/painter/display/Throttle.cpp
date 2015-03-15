@@ -27,7 +27,6 @@
 #include "Throttle.h"
 #include <QTimer>
 
-//------------------------------------------------------------------------------
 Throttle::Throttle(int minimumDelay, QObject *parent)
     : QObject(parent)
     , m_minimumDelay(minimumDelay)
@@ -36,7 +35,6 @@ Throttle::Throttle(int minimumDelay, QObject *parent)
     connect(m_timer, &QTimer::timeout, this, &Throttle::timeout);
 }
 
-//------------------------------------------------------------------------------
 Throttle::Throttle(QObject* parent)
     : QObject(parent)
     , m_minimumDelay(150)
@@ -45,17 +43,14 @@ Throttle::Throttle(QObject* parent)
     connect(m_timer, &QTimer::timeout, this, &Throttle::timeout);
 }
 
-//------------------------------------------------------------------------------
 void Throttle::start()
 {
     m_timer->start(m_minimumDelay);
 }
 
-//------------------------------------------------------------------------------
 void Throttle::timeout()
 {
     m_timer->stop();
     emit elapsed();
 }
 
-//------------------------------------------------------------------------------

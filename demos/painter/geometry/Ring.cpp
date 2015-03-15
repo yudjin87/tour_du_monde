@@ -27,7 +27,6 @@
 #include "Ring.h"
 #include "Segment.h"
 
-//------------------------------------------------------------------------------
 Ring::Ring(QObject *parent)
     : AbstractGeometry(parent)
     , m_segments()
@@ -41,14 +40,12 @@ Ring::Ring(int size, QObject *parent)
 
 }
 
-//------------------------------------------------------------------------------
 Ring::Ring(const QRectF &extent, QObject *parent)
     : AbstractGeometry(extent, parent)
     , m_segments()
 {
 }
 
-//------------------------------------------------------------------------------
 Ring::Ring(std::initializer_list<QPointF> points, QObject *parent)
     : AbstractGeometry(parent)
     , m_segments()
@@ -56,31 +53,26 @@ Ring::Ring(std::initializer_list<QPointF> points, QObject *parent)
     m_segments.push_back(new Segment(points));
 }
 
-//------------------------------------------------------------------------------
 Ring::~Ring()
 {
     clearData();
 }
 
-//------------------------------------------------------------------------------
 SegmentList &Ring::segments()
 {
     return m_segments;
 }
 
-//------------------------------------------------------------------------------
 const SegmentList &Ring::segments() const
 {
     return m_segments;
 }
 
-//------------------------------------------------------------------------------
 GeometryType Ring::type() const
 {
     return GeometryRing;
 }
 
-//------------------------------------------------------------------------------
 void Ring::clearData()
 {
     for (Segment *segment : m_segments)
@@ -89,4 +81,3 @@ void Ring::clearData()
     m_segments.clear();
 }
 
-//------------------------------------------------------------------------------

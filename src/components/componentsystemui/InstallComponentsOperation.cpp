@@ -33,7 +33,6 @@
 #include <QtWidgets/QFileDialog>
 #include <QtWidgets/QMainWindow>
 
-//------------------------------------------------------------------------------
 InstallComponentsOperation::InstallComponentsOperation()
     : Operation("Install new")
     , m_serviceLocator(nullptr)
@@ -42,7 +41,6 @@ InstallComponentsOperation::InstallComponentsOperation()
     setIconVisibleInMenu(true);
 }
 
-//------------------------------------------------------------------------------
 void InstallComponentsOperation::execute()
 {
     QFileDialog fileDialog(m_serviceLocator->locate<QMainWindow>(), "Install component");
@@ -63,10 +61,8 @@ void InstallComponentsOperation::execute()
     command->pushToStack();
 }
 
-//------------------------------------------------------------------------------
 void InstallComponentsOperation::initialize(IServiceLocator *serviceLocator)
 {
     m_serviceLocator = serviceLocator;
 }
 
-//------------------------------------------------------------------------------

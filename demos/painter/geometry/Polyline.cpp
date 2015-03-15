@@ -26,7 +26,6 @@
 
 #include "Polyline.h"
 
-//------------------------------------------------------------------------------
 Polyline::Polyline(QObject *parent)
     : Polycurve(parent)
 {
@@ -38,27 +37,22 @@ Polyline::Polyline(int size, QObject *parent)
 
 }
 
-//------------------------------------------------------------------------------
 Polyline::Polyline(const QRectF &extent, QObject *parent)
     : Polycurve(extent, parent)
 {
 }
 
-//------------------------------------------------------------------------------
 Polyline::Polyline(std::initializer_list<QPointF> points, QObject *parent)
     : Polycurve(points, parent)
 {
 }
 
-//------------------------------------------------------------------------------
 Polyline::~Polyline()
 {
 }
 
-//------------------------------------------------------------------------------
 GeometryType Polyline::type() const
 {
     return GeometryPolyline;
 }
 
-//------------------------------------------------------------------------------

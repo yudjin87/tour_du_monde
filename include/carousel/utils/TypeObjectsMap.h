@@ -115,7 +115,6 @@ private:
     InstanceObjects m_objects;
 };
 
-//------------------------------------------------------------------------------
 template<typename TObject>
 struct InstanceObject
 {
@@ -131,13 +130,11 @@ struct InstanceObject
     const QString tag;
 };
 
-//------------------------------------------------------------------------------
 template<typename TValue>
 TypeObjectsMap<TValue>::TypeObjectsMap()
 {
 }
 
-//------------------------------------------------------------------------------
 template<typename TValue>
 TypeObjectsMap<TValue>::~TypeObjectsMap()
 {
@@ -145,14 +142,12 @@ TypeObjectsMap<TValue>::~TypeObjectsMap()
         delete object;
 }
 
-//------------------------------------------------------------------------------
 template<typename TValue>
 TValue TypeObjectsMap<TValue>::getInstance(const QString &key, bool *success) const
 {
     return getInstance(key, "", success);
 }
 
-//------------------------------------------------------------------------------
 template<typename TValue>
 TValue TypeObjectsMap<TValue>::getInstance(const QString &key, const QString &tag, bool* success) const
 {
@@ -167,14 +162,12 @@ TValue TypeObjectsMap<TValue>::getInstance(const QString &key, const QString &ta
     return foundObject->instance;
 }
 
-//------------------------------------------------------------------------------
 template<typename TValue>
 void TypeObjectsMap<TValue>::registerInstance(TValue instance, const QString &key)
 {
     registerInstance(instance, key, "");
 }
 
-//------------------------------------------------------------------------------
 template<typename TValue>
 void TypeObjectsMap<TValue>::registerInstance(TValue instance, const QString &key, const QString &tag)
 {
@@ -187,21 +180,18 @@ void TypeObjectsMap<TValue>::registerInstance(TValue instance, const QString &ke
     m_objects.push_back(newObj);
 }
 
-//------------------------------------------------------------------------------
 template<typename TValue>
 int TypeObjectsMap<TValue>::size() const
 {
     return m_objects.size();
 }
 
-//------------------------------------------------------------------------------
 template<typename TValue>
 bool TypeObjectsMap<TValue>::findPredicate(InstanceObject<TValue> *object, const QString &key, const QString &tag)
 {
     return (object->key == key) && (object->tag == tag);
 }
 
-//------------------------------------------------------------------------------
 template<typename TValue>
 TValue TypeObjectsMap<TValue>::unregisterInstance(const QString &key, const QString &tag)
 {
@@ -218,14 +208,12 @@ TValue TypeObjectsMap<TValue>::unregisterInstance(const QString &key, const QStr
     return foundInstance->instance;
 }
 
-//------------------------------------------------------------------------------
 template<typename TValue>
 QStringList TypeObjectsMap<TValue>::keys() const
 {
     return keys("");
 }
 
-//------------------------------------------------------------------------------
 template<typename TValue>
 QStringList TypeObjectsMap<TValue>::keys(const QString &tag) const
 {
@@ -238,7 +226,6 @@ QStringList TypeObjectsMap<TValue>::keys(const QString &tag) const
     return result;
 }
 
-//------------------------------------------------------------------------------
 template<typename TValue>
 InstanceObject<TValue> *TypeObjectsMap<TValue>::findInstance(const QString &key, const QString &tag) const
 {
@@ -252,5 +239,4 @@ InstanceObject<TValue> *TypeObjectsMap<TValue>::findInstance(const QString &key,
     return foundInstance;
 }
 
-//------------------------------------------------------------------------------
 #endif // TYPEOBJECTSMAP_H

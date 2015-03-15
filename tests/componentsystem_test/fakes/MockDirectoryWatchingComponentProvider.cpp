@@ -29,24 +29,20 @@
 #include <carousel/componentsystem/IComponent.h>
 
 #include <QtCore/QtAlgorithms>
-//------------------------------------------------------------------------------
 MockDirectoryWatchingComponentProvider::MockDirectoryWatchingComponentProvider(IDirectoryComponentProvider *provider, QObject *parent)
     : DirectoryWatchingComponentProvider(provider, parent)
     , mockWatcher(nullptr)
 {
 }
 
-//------------------------------------------------------------------------------
 MockDirectoryWatchingComponentProvider::~MockDirectoryWatchingComponentProvider()
 {
     qDeleteAll(this->components());
 }
 
-//------------------------------------------------------------------------------
 QFileSystemWatcher *MockDirectoryWatchingComponentProvider::createWatcher() const
 {
     mockWatcher = new MockFileSystemWatcher();
     return mockWatcher;
 }
 
-//------------------------------------------------------------------------------

@@ -30,7 +30,6 @@ bool MockDialog::wasCreated = false;
 bool MockDialog::wasDestroyed = false;
 QDialog::DialogCode MockDialog::s_result = QDialog::Rejected;
 
-//------------------------------------------------------------------------------
 MockDialog::MockDialog(MockDialogModel *model, QWidget *mainWindow)
     : QDialog(mainWindow)
     , m_model(model)
@@ -39,11 +38,9 @@ MockDialog::MockDialog(MockDialogModel *model, QWidget *mainWindow)
     setResult(s_result);
 }
 
-//------------------------------------------------------------------------------
 MockDialog::~MockDialog()
 {
     m_model = 0;
     wasDestroyed = true;
 }
 
-//------------------------------------------------------------------------------

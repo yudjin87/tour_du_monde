@@ -26,13 +26,11 @@
 
 #include "MockDefaultConstructor.h"
 
-//------------------------------------------------------------------------------
 MockDefaultConstructor::MockDefaultConstructor()
     : m_constructResult(nullptr)
 {
 }
 
-//------------------------------------------------------------------------------
 bool MockDefaultConstructor::construct(ComponentDefinition *definition, const IDefinitionParser *parser)
 {
     bool result = DefinitionConstuctor::construct(definition, parser);
@@ -44,4 +42,3 @@ bool MockDefaultConstructor::construct(ComponentDefinition *definition, const ID
     return result;
 }
 
-//------------------------------------------------------------------------------

@@ -29,7 +29,6 @@
 
 #include <QtCore/QtAlgorithms>
 
-//------------------------------------------------------------------------------
 CompositeComponentProvider::CompositeComponentProvider(QObject *parent /* = nullptr*/)
     : m_alreadyInit(false)
 {
@@ -37,13 +36,11 @@ CompositeComponentProvider::CompositeComponentProvider(QObject *parent /* = null
     m_providers.push_back(new ComponentProvider());
 }
 
-//------------------------------------------------------------------------------
 CompositeComponentProvider::~CompositeComponentProvider()
 {
     qDeleteAll(m_providers);
 }
 
-//------------------------------------------------------------------------------
 bool CompositeComponentProvider::initialize()
 {
     if (m_alreadyInit)
@@ -56,13 +53,11 @@ bool CompositeComponentProvider::initialize()
     return m_alreadyInit;
 }
 
-//------------------------------------------------------------------------------
 bool CompositeComponentProvider::isInitialized() const
 {
     return m_alreadyInit;
 }
 
-//------------------------------------------------------------------------------
 QList<IComponent *> CompositeComponentProvider::components() const
 {
     QList<IComponent *> components_to_return;
@@ -74,7 +69,6 @@ QList<IComponent *> CompositeComponentProvider::components() const
     return components_to_return;
 }
 
-//------------------------------------------------------------------------------
 CompositeComponentProvider &CompositeComponentProvider::addProvider(IComponentProvider *provider)
 {
     m_providers.push_back(provider);
@@ -86,4 +80,3 @@ void CompositeComponentProvider::registerComponent(IComponent *component)
     m_providers[0]->registerComponent(component);
 }
 
-//------------------------------------------------------------------------------

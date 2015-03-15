@@ -31,13 +31,11 @@
 
 #include <QtTest/QtTest>
 
-//------------------------------------------------------------------------------
 ServiceLocatorWrapperTest::ServiceLocatorWrapperTest(QObject *parent)
     : QObject(parent)
 {
 }
 
-//------------------------------------------------------------------------------
 void ServiceLocatorWrapperTest::findService_shouldReturnService()
 {
     ServiceLocator locator; locator.registerInstance<ServiceLocatorWrapperTest>(this);
@@ -48,4 +46,3 @@ void ServiceLocatorWrapperTest::findService_shouldReturnService()
     QCOMPARE(this, service);
 }
 
-//------------------------------------------------------------------------------

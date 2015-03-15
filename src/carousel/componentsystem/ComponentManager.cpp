@@ -36,13 +36,11 @@
 #include <QtCore/QSet>
 #include <QtCore/QCoreApplication>
 
-//------------------------------------------------------------------------------
 namespace
 {
 static LoggerFacade Log = LoggerFacade::createLogger("ComponentManager");
 }
 
-//------------------------------------------------------------------------------
 ComponentManager::ComponentManager(IServiceLocator *serviceLocator, QObject *parent)
     : m_shutDownFunc(&ComponentManager::shutdownCheckedComponent)
     , m_startUpFunc(&ComponentManager::enableAndStartComponent)
@@ -57,7 +55,6 @@ ComponentManager::ComponentManager(IServiceLocator *serviceLocator, QObject *par
     QObject::setParent(parent);
 }
 
-//------------------------------------------------------------------------------
 ComponentManager::ComponentManager(IServiceLocator *serviceLocator, IComponentDependencies *dependencies, QObject *parent)
     : m_shutDownFunc(&ComponentManager::shutdownCheckedComponent)
     , m_startUpFunc(&ComponentManager::enableAndStartComponent)
@@ -73,7 +70,6 @@ ComponentManager::ComponentManager(IServiceLocator *serviceLocator, IComponentDe
     Q_ASSERT(m_components != nullptr);
 }
 
-//------------------------------------------------------------------------------
 ComponentManager::~ComponentManager()
 {
     for (IComponent *comp : m_components->components())
@@ -83,7 +79,6 @@ ComponentManager::~ComponentManager()
     m_components = nullptr;
 }
 
-//------------------------------------------------------------------------------
 bool ComponentManager::addComponent(IComponent *component)
 {
     bool result = addComponentInternal(component);
@@ -95,7 +90,6 @@ bool ComponentManager::addComponent(IComponent *component)
     return result;
 }
 
-//------------------------------------------------------------------------------
 DependenciesSolvingResult ComponentManager::check()
 {
     if (isChecked()) {
@@ -111,55 +105,46 @@ DependenciesSolvingResult ComponentManager::check()
     return m_checkResult;
 }
 
-//------------------------------------------------------------------------------
 const ObservableList<IComponent *> &ComponentManager::components() const
 {
     return m_components->components();
 }
 
-//------------------------------------------------------------------------------
 const IComponentDependencies &ComponentManager::dependencies() const
 {
     return *m_components;
 }
 
-//------------------------------------------------------------------------------
 bool ComponentManager::isChecked() const
 {
     return m_isCheck;
 }
 
-//------------------------------------------------------------------------------
 IServiceLocator *ComponentManager::serviceLocator() const
 {
     return m_serviceLocator;
 }
 
-//------------------------------------------------------------------------------
 QStringList ComponentManager::missingComponents() const
 {
     return m_checkResult.missing();
 }
 
-//------------------------------------------------------------------------------
 QList<IComponent *> ComponentManager::orphanComponents() const
 {
     return m_checkResult.orphans();
 }
 
-//------------------------------------------------------------------------------
 QList<IComponent *> ComponentManager::stoppedComponents() const
 {
     return m_stoppedComponents;
 }
 
-//------------------------------------------------------------------------------
 QList<IComponent *> ComponentManager::startedComponents() const
 {
     return m_startedComponents;
 }
 
-//------------------------------------------------------------------------------
 void ComponentManager::shutdown()
 {
     if (!m_started) {
@@ -175,7 +160,6 @@ void ComponentManager::shutdown()
     Log.i("All components have been shut down.");
 }
 
-//------------------------------------------------------------------------------
 DependenciesSolvingResult ComponentManager::shutdownComponent(IComponent *component)
 {
     QList<IComponent *> components;
@@ -183,13 +167,11 @@ DependenciesSolvingResult ComponentManager::shutdownComponent(IComponent *compon
     return shutdownComponents(components);
 }
 
-//------------------------------------------------------------------------------
 DependenciesSolvingResult ComponentManager::shutdownAllComponents()
 {
     return shutdownComponents(m_components->components().toList());
 }
 
-//------------------------------------------------------------------------------
 DependenciesSolvingResult ComponentManager::shutdownComponents(const QList<IComponent *> &components)
 {
     if (components.empty()) {
@@ -223,7 +205,6 @@ DependenciesSolvingResult ComponentManager::shutdownComponents(const QList<IComp
     return DependenciesSolvingResult(realyShutdownComponents);
 }
 
-//------------------------------------------------------------------------------
 DependenciesSolvingResult ComponentManager::startup()
 {
     if (m_started) {
@@ -247,7 +228,6 @@ DependenciesSolvingResult ComponentManager::startup()
     return result;
 }
 
-//------------------------------------------------------------------------------
 DependenciesSolvingResult ComponentManager::startupComponent(IComponent *component)
 {
     QList<IComponent *> components;
@@ -256,13 +236,11 @@ DependenciesSolvingResult ComponentManager::startupComponent(IComponent *compone
     return startupComponents(components);
 }
 
-//------------------------------------------------------------------------------
 DependenciesSolvingResult ComponentManager::startupAllComponents()
 {
     return startupComponents(m_components->components().toList());
 }
 
-//------------------------------------------------------------------------------
 DependenciesSolvingResult ComponentManager::startupComponents(QList<IComponent *> components)
 {
     if (components.empty()) {
@@ -320,19 +298,16 @@ DependenciesSolvingResult ComponentManager::startupComponents(QList<IComponent *
     return DependenciesSolvingResult(reallyStartedComponents);
 }
 
-//------------------------------------------------------------------------------
 void ComponentManager::onStartedUp()
 {
     emit startedUp();
 }
 
-//------------------------------------------------------------------------------
 void ComponentManager::onAboutToShutDown()
 {
     emit aboutToShutDown();
 }
 
-//------------------------------------------------------------------------------
 void ComponentManager::onComponentStarted(IComponent *component)
 {    
     m_stoppedComponents.removeOne(component);
@@ -340,13 +315,11 @@ void ComponentManager::onComponentStarted(IComponent *component)
     emit componentStarted(component);
 }
 
-//------------------------------------------------------------------------------
 void ComponentManager::onComponentAboutToShutDown(IComponent *component)
 {
     emit componentAboutToShutDown(component);
 }
 
-//------------------------------------------------------------------------------
 void ComponentManager::onComponentShutDown(IComponent *component)
 {
     m_startedComponents.removeOne(component);
@@ -354,7 +327,6 @@ void ComponentManager::onComponentShutDown(IComponent *component)
     emit componentShutDown(component);
 }
 
-//------------------------------------------------------------------------------
 bool ComponentManager::startCheckedComponent(IComponent *component)
 {
     Log.i("Ensure before startup that component is available.");
@@ -371,7 +343,6 @@ bool ComponentManager::startCheckedComponent(IComponent *component)
     return true;
 }
 
-//------------------------------------------------------------------------------
 bool ComponentManager::enableAndStartComponent(IComponent *component)
 {
     component->setAvailability(IComponent::Enabled);
@@ -382,7 +353,6 @@ bool ComponentManager::enableAndStartComponent(IComponent *component)
     return true;
 }
 
-//------------------------------------------------------------------------------
 void ComponentManager::shutdownCheckedComponent(IComponent *component)
 {
     // We should not shutdown built in component
@@ -394,14 +364,12 @@ void ComponentManager::shutdownCheckedComponent(IComponent *component)
     component->setState(IComponent::Stopped);
 }
 
-//------------------------------------------------------------------------------
 void ComponentManager::forceShutdownCheckedComponent(IComponent *component)
 {
     component->shutdown(m_serviceLocator);
     component->setState(IComponent::Stopped);
 }
 
-//------------------------------------------------------------------------------
 bool ComponentManager::tryToStartComponent(IComponent *component)
 {
     if (!m_components->components().contains(component)) {
@@ -427,7 +395,6 @@ bool ComponentManager::tryToStartComponent(IComponent *component)
     return true;
 }
 
-//------------------------------------------------------------------------------
 bool ComponentManager::addComponentInternal(IComponent *component)
 {
     if (!m_components->addComponent(component)) {
@@ -439,11 +406,9 @@ bool ComponentManager::addComponentInternal(IComponent *component)
     return true;
 }
 
-//------------------------------------------------------------------------------
 void ComponentManager::resetCheck()
 {
     m_isCheck = false;
     m_checkResult = DependenciesSolvingResult();
 }
 
-//------------------------------------------------------------------------------

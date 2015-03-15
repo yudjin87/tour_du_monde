@@ -33,7 +33,6 @@
 #include <QtGui/QSyntaxHighlighter>
 #include <QtWidgets/QScrollBar>
 
-//------------------------------------------------------------------------------
 ScriptConsoleView::ScriptConsoleView(IScriptConsole *console, QSyntaxHighlighter *hilighter, QWidget *parent)
     : QWidget(parent)
     , m_ui(new Ui::ScriptConsoleView)
@@ -46,14 +45,12 @@ ScriptConsoleView::ScriptConsoleView(IScriptConsole *console, QSyntaxHighlighter
     connectSignalsToSlots();
 }
 
-//------------------------------------------------------------------------------
 ScriptConsoleView::~ScriptConsoleView()
 {
     delete m_ui;
     m_ui = nullptr;
 }
 
-//------------------------------------------------------------------------------
 void ScriptConsoleView::onEnter()
 {
     QString command = m_ui->commandEdit->text();
@@ -61,7 +58,6 @@ void ScriptConsoleView::onEnter()
     m_console->execCommand(command);
 }
 
-//------------------------------------------------------------------------------
 void ScriptConsoleView::onAboutToExecute(const QString &command)
 {
     printOutput(QString(">>> %1").arg(command));
@@ -69,7 +65,6 @@ void ScriptConsoleView::onAboutToExecute(const QString &command)
     scrollDown();
 }
 
-//------------------------------------------------------------------------------
 bool ScriptConsoleView::eventFilter(QObject *sender, QEvent *event)
 {
     if (event->type() == QEvent::KeyPress) {
@@ -87,7 +82,6 @@ bool ScriptConsoleView::eventFilter(QObject *sender, QEvent *event)
     return QObject::eventFilter(sender, event);
 }
 
-//------------------------------------------------------------------------------
 void ScriptConsoleView::printError(const QString &error)
 {
     m_ui->commandsList->setTextColor(Qt::red);
@@ -97,7 +91,6 @@ void ScriptConsoleView::printError(const QString &error)
     scrollDown();
 }
 
-//------------------------------------------------------------------------------
 void ScriptConsoleView::printOutput(const QString &output)
 {
     if (!output.isEmpty())
@@ -106,28 +99,24 @@ void ScriptConsoleView::printOutput(const QString &output)
     scrollDown();
 }
 
-//------------------------------------------------------------------------------
 void ScriptConsoleView::onPrevCommand()
 {
     QString prev = m_console->prevCommand();
     m_ui->commandEdit->setText(prev);
 }
 
-//------------------------------------------------------------------------------
 void ScriptConsoleView::onNextCommand()
 {
     QString next = m_console->nextCommand();
     m_ui->commandEdit->setText(next);
 }
 
-//------------------------------------------------------------------------------
 void ScriptConsoleView::scrollDown()
 {
     QScrollBar *scroll = m_ui->commandsList->verticalScrollBar();
     scroll->setValue(scroll->maximum());
 }
 
-//------------------------------------------------------------------------------
 void ScriptConsoleView::connectSignalsToSlots()
 {
     m_ui->commandEdit->installEventFilter(this);
@@ -138,4 +127,3 @@ void ScriptConsoleView::connectSignalsToSlots()
     connect(m_console, &IScriptConsole::error, this, &ScriptConsoleView::printError);
 }
 
-//------------------------------------------------------------------------------

@@ -26,23 +26,19 @@
 
 #include "MockInputDispatcher.h"
 
-//------------------------------------------------------------------------------
 MockInputDispatcher::MockInputDispatcher()
     : m_wasDestructorCalled(nullptr)
 {
 }
 
-//------------------------------------------------------------------------------
 MockInputDispatcher::~MockInputDispatcher()
 {
     if (m_wasDestructorCalled != nullptr)
         *m_wasDestructorCalled = true;
 }
 
-//------------------------------------------------------------------------------
 void MockInputDispatcher::setDeleteFlag(bool &wasDestructorCalled)
 {
     m_wasDestructorCalled = &wasDestructorCalled;
 }
 
-//------------------------------------------------------------------------------

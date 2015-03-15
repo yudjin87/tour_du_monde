@@ -27,7 +27,6 @@
 #include "Polycurve.h"
 #include "Ring.h"
 
-//------------------------------------------------------------------------------
 Polycurve::Polycurve(QObject *parent)
     : AbstractGeometry(parent)
     , m_rings()
@@ -41,14 +40,12 @@ Polycurve::Polycurve(int size, QObject *parent)
 
 }
 
-//------------------------------------------------------------------------------
 Polycurve::Polycurve(const QRectF &extent, QObject *parent)
     : AbstractGeometry(extent, parent)
     , m_rings()
 {
 }
 
-//------------------------------------------------------------------------------
 Polycurve::Polycurve(std::initializer_list<QPointF> points, QObject *parent)
     : AbstractGeometry(parent)
     , m_rings()
@@ -56,25 +53,21 @@ Polycurve::Polycurve(std::initializer_list<QPointF> points, QObject *parent)
     m_rings.push_back(new Ring(points));
 }
 
-//------------------------------------------------------------------------------
 Polycurve::~Polycurve()
 {
     clearData();
 }
 
-//------------------------------------------------------------------------------
 RingList &Polycurve::rings()
 {
     return m_rings;
 }
 
-//------------------------------------------------------------------------------
 const RingList &Polycurve::rings() const
 {
     return m_rings;
 }
 
-//------------------------------------------------------------------------------
 void Polycurve::clearData()
 {
     for (Ring *ring : m_rings)
@@ -83,4 +76,3 @@ void Polycurve::clearData()
     m_rings.clear();
 }
 
-//------------------------------------------------------------------------------

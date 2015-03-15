@@ -4,13 +4,11 @@
 
 #include <QtTest/QTest>
 
-//------------------------------------------------------------------------------
 VersionTest::VersionTest(QObject *parent)
     : QObject(parent)
 {
 }
 
-//------------------------------------------------------------------------------
 void VersionTest::parseString_shouldReturnTrueFor4Numbers()
 {
     QString vers = "1.2.3.4";
@@ -27,7 +25,6 @@ void VersionTest::parseString_shouldReturnTrueFor4Numbers()
     QCOMPARE(revision, 4);
 }
 
-//------------------------------------------------------------------------------
 void VersionTest::parseString_shouldReturnTrueFor3Numbers()
 {
     QString vers = "1.2.3";
@@ -42,7 +39,6 @@ void VersionTest::parseString_shouldReturnTrueFor3Numbers()
     QCOMPARE(build, 3);
 }
 
-//------------------------------------------------------------------------------
 void VersionTest::parseString_shouldReturnTrueFor2Numbers()
 {
     QString vers = "1.2";
@@ -55,7 +51,6 @@ void VersionTest::parseString_shouldReturnTrueFor2Numbers()
     QCOMPARE(minor, 2);
 }
 
-//------------------------------------------------------------------------------
 void VersionTest::parseString_shouldReturnFalseFor1Number()
 {
     QString vers = "1.";
@@ -68,7 +63,6 @@ void VersionTest::parseString_shouldReturnFalseFor1Number()
     QCOMPARE(minor, 0);
 }
 
-//------------------------------------------------------------------------------
 void VersionTest::fromString_shouldReturnVersion()
 {
     QString vers = "1.2.3.4";
@@ -82,7 +76,6 @@ void VersionTest::fromString_shouldReturnVersion()
     delete version;
 }
 
-//------------------------------------------------------------------------------
 void VersionTest::fromString_shouldReturnNullIfFailed()
 {
     QString vers = "1.";
@@ -94,4 +87,3 @@ void VersionTest::fromString_shouldReturnNullIfFailed()
     QVERIFY(version == nullptr);
 }
 
-//------------------------------------------------------------------------------

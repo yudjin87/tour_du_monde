@@ -31,7 +31,6 @@
 #include <carto/IPainterDocumentController.h>
 #include <display/IFeatureRenderer.h>
 
-//------------------------------------------------------------------------------
 ChangeLayerSymbolCommand::ChangeLayerSymbolCommand(IUndoStack *stack, IPainterDocumentController *docContr, QObject *parent)
     : BaseUndoableCommand(stack, parent)
     , m_docContr(docContr)
@@ -52,7 +51,6 @@ void ChangeLayerSymbolCommand::setNewSymbol(const ISymbol *newSymbol)
     m_newSymbol.reset(newSymbol->clone());
 }
 
-//------------------------------------------------------------------------------
 void ChangeLayerSymbolCommand::redo()
 {
     if (m_oldSymbol == nullptr)
@@ -65,7 +63,6 @@ void ChangeLayerSymbolCommand::redo()
     map->refresh();
 }
 
-//------------------------------------------------------------------------------
 void ChangeLayerSymbolCommand::undo()
 {
     m_layer->renderer()->setSymbol(m_oldSymbol->clone());
@@ -75,5 +72,4 @@ void ChangeLayerSymbolCommand::undo()
     map->refresh();
 }
 
-//------------------------------------------------------------------------------
 

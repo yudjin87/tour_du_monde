@@ -36,10 +36,8 @@ namespace
 static LoggerFacade Log = LoggerFacade::createLogger("DispTransform");
 }
 
-//------------------------------------------------------------------------------
 static const int flipY = -1;
 
-//------------------------------------------------------------------------------
 DisplayTransformation::DisplayTransformation(QObject *parent)
     : QObject(parent)
     , m_bounds(QRectF())
@@ -49,18 +47,15 @@ DisplayTransformation::DisplayTransformation(QObject *parent)
 {
 }
 
-//------------------------------------------------------------------------------
 DisplayTransformation::~DisplayTransformation()
 {
 }
 
-//------------------------------------------------------------------------------
 QRectF DisplayTransformation::bounds() const
 {
     return m_bounds;
 }
 
-//------------------------------------------------------------------------------
 void DisplayTransformation::setBounds(const QRectF &bounds)
 {
     if (m_bounds == bounds)
@@ -79,13 +74,11 @@ void DisplayTransformation::setBounds(const QRectF &bounds)
         setVisibleBounds(m_bounds);
 }
 
-//------------------------------------------------------------------------------
 QRectF DisplayTransformation::deviceFrame() const
 {
     return m_deviceFrame;
 }
 
-//------------------------------------------------------------------------------
 void DisplayTransformation::setDeviceFrame(const QRectF &deviceFrame)
 {
     if (m_deviceFrame == deviceFrame)
@@ -95,7 +88,6 @@ void DisplayTransformation::setDeviceFrame(const QRectF &deviceFrame)
     emit deviceFrameChanged(m_deviceFrame);
 }
 
-//------------------------------------------------------------------------------
 double DisplayTransformation::scale() const
 {
     double relY = m_deviceFrame.height() / m_visibleBounds.height();
@@ -104,7 +96,6 @@ double DisplayTransformation::scale() const
     return std::min(relY, relX);
 }
 
-//------------------------------------------------------------------------------
 void DisplayTransformation::setScale(double absoluteScale)
 {
     double scale2 =  scale() / absoluteScale;
@@ -112,13 +103,11 @@ void DisplayTransformation::setScale(double absoluteScale)
     setVisibleBounds(expandRect(m_visibleBounds, scale2));
 }
 
-//------------------------------------------------------------------------------
 QRectF DisplayTransformation::visibleBounds() const
 {
     return m_visibleBounds;
 }
 
-//------------------------------------------------------------------------------
 void DisplayTransformation::setVisibleBounds(const QRectF &visibleBounds)
 {
     if (m_visibleBounds == visibleBounds)
@@ -144,7 +133,6 @@ void DisplayTransformation::setVisibleBounds(const QRectF &visibleBounds)
     emit visibleBoundsChanged(m_visibleBounds);
 }
 
-//------------------------------------------------------------------------------
 QTransform DisplayTransformation::transform() const
 {
     if (m_visibleBounds.height() <= 0 || m_visibleBounds.width() <= 0)
@@ -162,7 +150,6 @@ QTransform DisplayTransformation::transform() const
     return viewport;
 }
 
-//------------------------------------------------------------------------------
 QPointF DisplayTransformation::toMapPoint(int x, int y) const
 {
     qreal outX;
@@ -171,13 +158,11 @@ QPointF DisplayTransformation::toMapPoint(int x, int y) const
     return QPointF(outX, outY);
 }
 
-//------------------------------------------------------------------------------
 QPointF DisplayTransformation::toMapPoint(const QPoint &position) const
 {
     return toMapPoint(position.x(), position.y());
 }
 
-//------------------------------------------------------------------------------
 QRectF DisplayTransformation::toMapRect(const QRect &deviceRect) const
 {
 //    +------------------------------------+
@@ -193,7 +178,6 @@ QRectF DisplayTransformation::toMapRect(const QRect &deviceRect) const
     return QRectF(topLeft, bottomRight);
 }
 
-//------------------------------------------------------------------------------
 QRectF DisplayTransformation::expandRect(const QRectF &extent, double scale)
 {
     qreal new_left = extent.center().x() - extent.width() / 2 * scale;
@@ -231,4 +215,3 @@ QRectF DisplayTransformation::expandRect(const QRectF &extent, double scale)
     return rect;
 }
 
-//------------------------------------------------------------------------------

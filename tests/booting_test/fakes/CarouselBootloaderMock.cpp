@@ -1,6 +1,5 @@
 #include "CarouselBootloaderMock.h"
 
-//------------------------------------------------------------------------------
 CarouselBootloaderMock::CarouselBootloaderMock()
     : mcreateLoggerCalled(false)
     , monLoadingSequenceStartingCalled(false)
@@ -16,37 +15,31 @@ CarouselBootloaderMock::CarouselBootloaderMock()
 {
 }
 
-//------------------------------------------------------------------------------
 bool CarouselBootloaderMock::createLoggerCalled() const
 {
     return mcreateLoggerCalled;
 }
 
-//------------------------------------------------------------------------------
 bool CarouselBootloaderMock::createComponentProviderCalled() const
 {
     return mcreateComponentProviderCalled;
 }
 
-//------------------------------------------------------------------------------
 bool CarouselBootloaderMock::createComponentManagerCalled() const
 {
     return mcreateComponentManagerCalled;
 }
 
-//------------------------------------------------------------------------------
 bool CarouselBootloaderMock::createServiceLocatorCalled() const
 {
     return mcreateServiceLocatorCalled;
 }
 
-//------------------------------------------------------------------------------
 bool CarouselBootloaderMock::initialiseComponentProviderCalled() const
 {
     return minitialiseComponentProviderCalled;
 }
 
-//------------------------------------------------------------------------------
 bool CarouselBootloaderMock::configureComponentProviderCalled() const
 {
     return mconfigureComponentProviderCalled;
@@ -57,25 +50,21 @@ bool CarouselBootloaderMock::configureComponentManagerCalled() const
     return mconfigureComponentManagerCalled;
 }
 
-//------------------------------------------------------------------------------
 bool CarouselBootloaderMock::configureServiceLocatorCalled() const
 {
     return mconfigureServiceLocatorCalled;
 }
 
-//------------------------------------------------------------------------------
 const QStringList &CarouselBootloaderMock::methodCalls() const
 {
     return m_methodCalls;
 }
 
-//------------------------------------------------------------------------------
 IServiceLocator *CarouselBootloaderMock::locator()
 {
     return serviceLocator();
 }
 
-//------------------------------------------------------------------------------
 ILoggerEngineCreator *CarouselBootloaderMock::createLoggerEngine()
 {
     mcreateLoggerCalled = true;
@@ -83,7 +72,6 @@ ILoggerEngineCreator *CarouselBootloaderMock::createLoggerEngine()
     return CarouselBootloader::createLoggerEngine();
 }
 
-//------------------------------------------------------------------------------
 IComponentProvider *CarouselBootloaderMock::createComponentProvider()
 {
     mcreateComponentProviderCalled = true;
@@ -91,7 +79,6 @@ IComponentProvider *CarouselBootloaderMock::createComponentProvider()
     return CarouselBootloader::createComponentProvider();
 }
 
-//------------------------------------------------------------------------------
 IComponentManager *CarouselBootloaderMock::createComponentManager()
 {
     mcreateComponentManagerCalled = true;
@@ -99,7 +86,6 @@ IComponentManager *CarouselBootloaderMock::createComponentManager()
     return CarouselBootloader::createComponentManager();
 }
 
-//------------------------------------------------------------------------------
 IServiceLocator *CarouselBootloaderMock::createServiceLocator()
 {
     mcreateServiceLocatorCalled = true;
@@ -107,7 +93,6 @@ IServiceLocator *CarouselBootloaderMock::createServiceLocator()
     return CarouselBootloader::createServiceLocator();
 }
 
-//------------------------------------------------------------------------------
 void CarouselBootloaderMock::initialiseComponentProvider()
 {
     minitialiseComponentProviderCalled = true;
@@ -115,7 +100,6 @@ void CarouselBootloaderMock::initialiseComponentProvider()
     CarouselBootloader::initialiseComponentProvider();
 }
 
-//------------------------------------------------------------------------------
 void CarouselBootloaderMock::configureComponentProvider()
 {
     mconfigureComponentProviderCalled = true;
@@ -123,7 +107,6 @@ void CarouselBootloaderMock::configureComponentProvider()
     CarouselBootloader::configureComponentProvider();
 }
 
-//------------------------------------------------------------------------------
 void CarouselBootloaderMock::configureComponentManager()
 {
     mconfigureComponentManagerCalled = true;
@@ -131,7 +114,6 @@ void CarouselBootloaderMock::configureComponentManager()
     CarouselBootloader::configureComponentManager();
 }
 
-//------------------------------------------------------------------------------
 void CarouselBootloaderMock::configureServiceLocator()
 {
     mconfigureServiceLocatorCalled = true;
@@ -139,7 +121,6 @@ void CarouselBootloaderMock::configureServiceLocator()
     CarouselBootloader::configureServiceLocator();
 }
 
-//------------------------------------------------------------------------------
 void CarouselBootloaderMock::onLoadingSequenceStarting()
 {
     monLoadingSequenceStartingCalled = true;
@@ -147,7 +128,6 @@ void CarouselBootloaderMock::onLoadingSequenceStarting()
     CarouselBootloader::onLoadingSequenceStarting();
 }
 
-//------------------------------------------------------------------------------
 void CarouselBootloaderMock::startComponentManager()
 {
     mstartComponentManagerCalled = true;
@@ -155,7 +135,6 @@ void CarouselBootloaderMock::startComponentManager()
     CarouselBootloader::startComponentManager();
 }
 
-//------------------------------------------------------------------------------
 void CarouselBootloaderMock::onLoadingSequenceFinised()
 {
     monLoadingSequenceFinisedCalled = true;
@@ -163,4 +142,3 @@ void CarouselBootloaderMock::onLoadingSequenceFinised()
     CarouselBootloader::onLoadingSequenceFinised();
 }
 
-//------------------------------------------------------------------------------

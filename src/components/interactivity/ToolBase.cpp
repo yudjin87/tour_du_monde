@@ -31,7 +31,6 @@
 #include <carousel/utils/IServiceLocator.h>
 
 #include <assert.h>
-//------------------------------------------------------------------------------
 ToolBase::ToolBase(QActionGroup *actionGroup)
     : Operation(actionGroup)
     , m_serviceLocator(nullptr)
@@ -40,7 +39,6 @@ ToolBase::ToolBase(QActionGroup *actionGroup)
     setCheckable(true);
 }
 
-//------------------------------------------------------------------------------
 ToolBase::ToolBase(const QString &text, QActionGroup *actionGroup)
     : Operation(text, actionGroup)
     , m_serviceLocator(nullptr)
@@ -49,7 +47,6 @@ ToolBase::ToolBase(const QString &text, QActionGroup *actionGroup)
     setCheckable(true);
 }
 
-//------------------------------------------------------------------------------
 ToolBase::ToolBase(const QIcon &icon, const QString &text, QActionGroup *actionGroup)
     : Operation(icon, text, actionGroup)
     , m_serviceLocator(nullptr)
@@ -58,28 +55,24 @@ ToolBase::ToolBase(const QIcon &icon, const QString &text, QActionGroup *actionG
     setCheckable(true);
 }
 
-//------------------------------------------------------------------------------
 ToolBase::~ToolBase()
 {
     m_serviceLocator = nullptr;
     m_interactionService = nullptr;
 }
 
-//------------------------------------------------------------------------------
 void ToolBase::execute()
 {
     m_interactionService->setActiveTool(this);
     setChecked(true);
 }
 
-//------------------------------------------------------------------------------
 void ToolBase::stopExecuting()
 {
     Operation::stopExecuting();
     setChecked(false);
 }
 
-//------------------------------------------------------------------------------
 void ToolBase::initialize(IServiceLocator *serviceLocator)
 {
     m_serviceLocator = serviceLocator;
@@ -89,53 +82,45 @@ void ToolBase::initialize(IServiceLocator *serviceLocator)
     assert(m_interactionService != nullptr);
 }
 
-//------------------------------------------------------------------------------
 bool ToolBase::onContextMenu(QContextMenuEvent *event)
 {
     Q_UNUSED(event)
     return false;
 }
 
-//------------------------------------------------------------------------------
 bool ToolBase::onDoubleClick(QMouseEvent *event)
 {
     Q_UNUSED(event)
     return false;
 }
 
-//------------------------------------------------------------------------------
 bool ToolBase::onKeyDown(QKeyEvent *event)
 {
     Q_UNUSED(event)
     return false;
 }
 
-//------------------------------------------------------------------------------
 bool ToolBase::onKeyUp(QKeyEvent *event)
 {
     Q_UNUSED(event)
     return false;
 }
 
-//------------------------------------------------------------------------------
 bool ToolBase::onMouseDown(QMouseEvent *event)
 {
     Q_UNUSED(event)
     return false;
 }
 
-//------------------------------------------------------------------------------
 bool ToolBase::onMouseMove(QMouseEvent *event)
 {
     Q_UNUSED(event)
     return false;
 }
 
-//------------------------------------------------------------------------------
 bool ToolBase::onMouseUp(QMouseEvent *event)
 {
     Q_UNUSED(event)
     return false;
 }
 
-//------------------------------------------------------------------------------

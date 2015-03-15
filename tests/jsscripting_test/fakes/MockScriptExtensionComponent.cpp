@@ -26,7 +26,6 @@
 
 #include "MockScriptExtensionComponent.h"
 
-//------------------------------------------------------------------------------
 MockScriptExtensionComponent::MockScriptExtensionComponent()
     : BaseComponent("MockScriptExtensionComponent")
     , m_extension(new FakeScriptExtension())
@@ -34,7 +33,6 @@ MockScriptExtensionComponent::MockScriptExtensionComponent()
     registerExtension<IScriptExtension>(m_extension);
 }
 
-//------------------------------------------------------------------------------
 MockScriptExtensionComponent::MockScriptExtensionComponent(const QString &name)
     : BaseComponent(name)
     , m_extension(new FakeScriptExtension())
@@ -42,18 +40,15 @@ MockScriptExtensionComponent::MockScriptExtensionComponent(const QString &name)
     registerExtension<IScriptExtension>(m_extension);
 }
 
-//------------------------------------------------------------------------------
 MockScriptExtensionComponent::~MockScriptExtensionComponent()
 {
     delete m_extension;
     m_extension = nullptr;
 }
 
-//------------------------------------------------------------------------------
 MockNoScriptExtensionComponent::MockNoScriptExtensionComponent()
     : BaseComponent("MockNoScriptExtensionComponent")
 {
 
 }
 
-//------------------------------------------------------------------------------

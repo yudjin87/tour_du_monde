@@ -38,25 +38,21 @@
 #include "utils/IServiceLocator.h"
 #include "utils/TypeCreators.h"
 
-//------------------------------------------------------------------------------
 namespace
 {
 static LoggerFacade Log = LoggerFacade::createLogger("CarouselBootloader");
 }
 
-//------------------------------------------------------------------------------
 CarouselBootloader::CarouselBootloader()
     : BootloaderBase()
 {
 }
 
-//------------------------------------------------------------------------------
 CarouselBootloader::~CarouselBootloader()
 {
     LoggerFacade::installLoggerEngineCreator(nullptr);
 }
 
-//------------------------------------------------------------------------------
 void CarouselBootloader::configureComponentManager()
 {
     Log.i("Initializing component manager.");
@@ -68,7 +64,6 @@ void CarouselBootloader::configureComponentManager()
     }
 }
 
-//------------------------------------------------------------------------------
 void CarouselBootloader::configureServiceLocator()
 {
     // Commands
@@ -86,13 +81,11 @@ void CarouselBootloader::configureServiceLocator()
     m_serviceLocator->registerInstance<IComponentManager>(m_componentManager);
 }
 
-//------------------------------------------------------------------------------
 void CarouselBootloader::initialiseComponentProvider()
 {
     m_componentProvider->initialize();
 }
 
-//------------------------------------------------------------------------------
 void CarouselBootloader::safeRun()
 {
     m_logger = createLoggerEngine();
@@ -131,4 +124,3 @@ void CarouselBootloader::safeRun()
     onLoadingSequenceFinised();
 }
 
-//------------------------------------------------------------------------------

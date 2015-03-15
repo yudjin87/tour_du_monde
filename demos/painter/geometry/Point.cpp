@@ -26,43 +26,36 @@
 
 #include "Point.h"
 
-//------------------------------------------------------------------------------
 Point::Point(QObject *parent)
     : AbstractGeometry(parent)
     , m_value()
 {
 }
 
-//------------------------------------------------------------------------------
 Point::Point(qreal x, qreal y, QObject *parent)
     : AbstractGeometry(parent)
     , m_value(x, y)
 {
 }
 
-//------------------------------------------------------------------------------
 QPointF &Point::point()
 {
     return m_value;
 }
 
-//------------------------------------------------------------------------------
 const QPointF &Point::point() const
 {
     return m_value;
 }
 
-//------------------------------------------------------------------------------
 void Point::setPoint(const QPointF &value)
 {
     m_value = value;
     setExtent(QRectF(value, QSize(1, 1)));
 }
 
-//------------------------------------------------------------------------------
 GeometryType Point::type() const
 {
     return GeometryPoint;
 }
 
-//------------------------------------------------------------------------------

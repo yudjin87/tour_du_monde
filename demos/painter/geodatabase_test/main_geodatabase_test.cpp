@@ -30,7 +30,6 @@
 #include <QtCore/QCoreApplication>
 #include <QtTest/QtTest>
 
-//------------------------------------------------------------------------------
 int main(int argc, char *argv[])
 {
     QCoreApplication app(argc, argv);
@@ -44,4 +43,3 @@ int main(int argc, char *argv[])
     return 0;
 }
 
-//------------------------------------------------------------------------------

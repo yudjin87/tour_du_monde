@@ -37,11 +37,9 @@ namespace
 static LoggerFacade Log = LoggerFacade::createLogger("MT Display");
 }
 
-//------------------------------------------------------------------------------
 static const int flipY = -1;
 static const size_t QUEUE_LIMIT = 100;
 
-//------------------------------------------------------------------------------
 MultithreadDisplay::MultithreadDisplay(QWidget *parent)
     : SimpleDisplay(parent)
     , m_taskQueue(QUEUE_LIMIT)
@@ -51,28 +49,24 @@ MultithreadDisplay::MultithreadDisplay(QWidget *parent)
     m_renderer->start();
 }
 
-//------------------------------------------------------------------------------
 DisplayTransformation *MultithreadDisplay::transformation()
 {
     QMutexLocker guard(&m_mutex);
     return SimpleDisplay::transformation();
 }
 
-//------------------------------------------------------------------------------
 const DisplayTransformation *MultithreadDisplay::transformation() const
 {
     QMutexLocker guard(&m_mutex);
     return SimpleDisplay::transformation();
 }
 
-//------------------------------------------------------------------------------
 MultithreadDisplay::~MultithreadDisplay()
 {
     m_taskQueue.push(IDrawingTaskPtr(nullptr));
     m_renderer->wait(); // join
 }
 
-//------------------------------------------------------------------------------
 void MultithreadDisplay::startDrawing(const DispayCache inCache)
 {
     if (inCache == DispayCache::Geometry) {
@@ -85,7 +79,6 @@ void MultithreadDisplay::startDrawing(const DispayCache inCache)
     SimpleDisplay::startDrawing(inCache);
 }
 
-//------------------------------------------------------------------------------
 void MultithreadDisplay::finishDrawing(const DispayCache inCache)
 {    
     if (inCache == DispayCache::Geometry) {
@@ -97,7 +90,6 @@ void MultithreadDisplay::finishDrawing(const DispayCache inCache)
     SimpleDisplay::finishDrawing(inCache);
 }
 
-//------------------------------------------------------------------------------
 QPixmap &MultithreadDisplay::lockPixmap(const DispayCache inCache)
 {
     if (inCache == DispayCache::Geometry) {
@@ -108,7 +100,6 @@ QPixmap &MultithreadDisplay::lockPixmap(const DispayCache inCache)
     return SimpleDisplay::lockPixmap(inCache);
 }
 
-//------------------------------------------------------------------------------
 void MultithreadDisplay::unlockPixmap(const DispayCache inCache)
 {
     if (inCache == DispayCache::Geometry) {
@@ -120,26 +111,22 @@ void MultithreadDisplay::unlockPixmap(const DispayCache inCache)
     SimpleDisplay::unlockPixmap(inCache);
 }
 
-//------------------------------------------------------------------------------
 void MultithreadDisplay::postDrawingTask(IDrawingTaskPtr task)
 {
     Q_ASSERT(task != nullptr && "Null pointer is not allowed");
     m_taskQueue.push(std::move(task));
 }
 
-//------------------------------------------------------------------------------
 void MultithreadDisplay::callCreatePixmap() // TODO: rename
 {
     QMutexLocker guard(&m_mutex);
     SimpleDisplay::startDrawing(DispayCache::Geometry);
 }
 
-//------------------------------------------------------------------------------
 void MultithreadDisplay::callCopyAndUpdate() // TODO: rename
 {
     QMutexLocker guard(&m_mutex);
     SimpleDisplay::finishDrawing(DispayCache::Geometry);
 }
 
-//------------------------------------------------------------------------------
 

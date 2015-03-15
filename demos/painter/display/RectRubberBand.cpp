@@ -33,7 +33,6 @@
 #include <QtGui/QPixmap>
 #include <QtGui/QPen> // TODO: use ISymbol
 
-//------------------------------------------------------------------------------
 RectRubberBand::RectRubberBand(QObject *parent)
     : QObject(parent)
     , m_result()
@@ -42,7 +41,6 @@ RectRubberBand::RectRubberBand(QObject *parent)
     setObjectName("RectRubberBand");
 }
 
-//------------------------------------------------------------------------------
 bool RectRubberBand::newRect(IDisplay *display, const QPoint &start, QRect *out)
 {
     Q_ASSERT(m_dispatcher == nullptr && "Illegal state");
@@ -61,7 +59,6 @@ bool RectRubberBand::newRect(IDisplay *display, const QPoint &start, QRect *out)
     return true;
 }
 
-//------------------------------------------------------------------------------
 bool RectRubberBand::onMouseMove(QMouseEvent *event)
 {
     m_display->startDrawing(DispayCache::Annotations);
@@ -83,7 +80,6 @@ bool RectRubberBand::onMouseMove(QMouseEvent *event)
     return false;
 }
 
-//------------------------------------------------------------------------------
 bool RectRubberBand::onMouseUp(QMouseEvent *event)
 {
     if (event->button() != Qt::LeftButton)
@@ -103,4 +99,3 @@ bool RectRubberBand::onMouseUp(QMouseEvent *event)
     return true;
 }
 
-//------------------------------------------------------------------------------

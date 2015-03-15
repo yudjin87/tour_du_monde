@@ -26,17 +26,14 @@
 
 #include "MockOutputHandler.h"
 
-//------------------------------------------------------------------------------
 MockOutputHandler::MockOutputHandler(QObject *parent)
     : QObject(parent)
 {
 }
 
-//------------------------------------------------------------------------------
 void MockOutputHandler::print(const QString &message)
 {
     lastMessage = message;
     messages.push_back(message);
 }
 
-//------------------------------------------------------------------------------

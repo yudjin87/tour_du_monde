@@ -28,27 +28,23 @@
 #include "ColorTheme.h"
 #include "LexemeAppearance.h"
 
-//------------------------------------------------------------------------------
 CodeHighlighter::CodeHighlighter(ColorTheme *theme, QObject *parent)
     : QSyntaxHighlighter(parent)
     , m_theme(theme)
 {
 }
 
-//------------------------------------------------------------------------------
 CodeHighlighter::~CodeHighlighter()
 {
 
 }
 
-//------------------------------------------------------------------------------
 void CodeHighlighter::highlightBlock(const QString &text)
 {
     highlightLines(text);
     highlightCommentBlocks(text);
 }
 
-//------------------------------------------------------------------------------
 void CodeHighlighter::highlightLines(const QString &text)
 {
     const QList<LexemeAppearance *> &lexemes = m_theme->lexemes();
@@ -63,7 +59,6 @@ void CodeHighlighter::highlightLines(const QString &text)
     }
 }
 
-//------------------------------------------------------------------------------
 void CodeHighlighter::highlightCommentBlocks(const QString &text)
 {
     const QList<LexemeAppearance *> &lexemes = m_theme->blockLexemes();
@@ -94,7 +89,6 @@ void CodeHighlighter::highlightCommentBlocks(const QString &text)
     }
 }
 
-//------------------------------------------------------------------------------
 
 
 

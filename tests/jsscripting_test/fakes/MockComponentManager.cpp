@@ -26,34 +26,28 @@
 
 #include "MockComponentManager.h"
 
-//------------------------------------------------------------------------------
 MockComponentManager::MockComponentManager(IServiceLocator *serviceLocator)
     : ComponentManager(serviceLocator)
 {
 }
 
-//------------------------------------------------------------------------------
 void MockComponentManager::callOnComponentStarted(IComponent *component)
 {
     onComponentStarted(component);
 }
 
-//------------------------------------------------------------------------------
 void MockComponentManager::callOnComponentAboutToShutDown(IComponent *component)
 {
     onComponentAboutToShutDown(component);
 }
 
-//------------------------------------------------------------------------------
 void MockComponentManager::callOnAboutToShutDown()
 {
     onAboutToShutDown();
 }
 
-//------------------------------------------------------------------------------
 void MockComponentManager::callOnStartUp()
 {
     onStartedUp();
 }
 
-//------------------------------------------------------------------------------

@@ -31,29 +31,24 @@
 
 #include "logging/LoggerFacade.h"
 
-//------------------------------------------------------------------------------
 namespace
 {
 static LoggerFacade Log = LoggerFacade::createLogger("DirectoryInstaller");
 }
 
-//------------------------------------------------------------------------------
 typedef QScopedPointer<DirectoryComponentProvider> DirectoryComponentProviderPtr;
 
-//------------------------------------------------------------------------------
 DirectoryInstaller::DirectoryInstaller(const QString &sourceDirectory, const QString &destinationDirectory)
     : ComponentInstaller(destinationDirectory)
     , m_sourceDirectory(sourceDirectory)
 {
 }
 
-//------------------------------------------------------------------------------
 DirectoryComponentProvider *DirectoryInstaller::createProvider(const QString &sourceDirectory)
 {
     return new DirectoryComponentProvider(sourceDirectory);
 }
 
-//------------------------------------------------------------------------------
 QList<IComponent *> DirectoryInstaller::discoverComponents()
 {
     Log.d(QString("Discovering components in the \"%1\" direcotry...").arg(m_sourceDirectory));
@@ -64,10 +59,8 @@ QList<IComponent *> DirectoryInstaller::discoverComponents()
     return provider->components();
 }
 
-//------------------------------------------------------------------------------
 QList<IComponent *> DirectoryInstaller::loadComponents(const QList<IComponent *> &componentsToInstall)
 {
     return componentsToInstall;
 }
 
-//------------------------------------------------------------------------------

@@ -6,14 +6,12 @@
 #include <QtCore/QStringList>
 #include <QtTest/QtTest>
 
-//------------------------------------------------------------------------------
 ServiceLocatorTest::ServiceLocatorTest()
     : QObject(nullptr)
 {
 
 }
 
-//------------------------------------------------------------------------------
 void ServiceLocatorTest::canRegisterInstance()
 {
     Service1 service(45);
@@ -23,7 +21,6 @@ void ServiceLocatorTest::canRegisterInstance()
     QCOMPARE(mockLocator.items().size(), 1);
 }
 
-//------------------------------------------------------------------------------
 void ServiceLocatorTest::shouldNotRegisterInstanceOfExistingType()
 {
     Service1 service(1);
@@ -36,7 +33,6 @@ void ServiceLocatorTest::shouldNotRegisterInstanceOfExistingType()
     QCOMPARE(mockLocator.items().size(), 1);
 }
 
-//------------------------------------------------------------------------------
 void ServiceLocatorTest::canRegisterInstanceOfExistingTypeWithTag()
 {
     Service1 service(1);
@@ -49,7 +45,6 @@ void ServiceLocatorTest::canRegisterInstanceOfExistingTypeWithTag()
     QCOMPARE(mockLocator.items().size(), 2);
 }
 
-//------------------------------------------------------------------------------
 void ServiceLocatorTest::shouldNotRegisterInstanceOfExistingTypeWithExistingTag()
 {
     Service1 service(1);
@@ -64,7 +59,6 @@ void ServiceLocatorTest::shouldNotRegisterInstanceOfExistingTypeWithExistingTag(
     QCOMPARE(mockLocator.items().size(), 2);
 }
 
-//------------------------------------------------------------------------------
 void ServiceLocatorTest::unregisterInstance_shouldReturnFoundInstance()
 {
     Service1 service(1);
@@ -76,7 +70,6 @@ void ServiceLocatorTest::unregisterInstance_shouldReturnFoundInstance()
     QVERIFY(unregistered == &service);
 }
 
-//------------------------------------------------------------------------------
 void ServiceLocatorTest::unregisterInstance_shouldRemoveInstanceFromList()
 {
     Service1 service(1);
@@ -88,7 +81,6 @@ void ServiceLocatorTest::unregisterInstance_shouldRemoveInstanceFromList()
     QCOMPARE(mockLocator.items().size(), 0);
 }
 
-//------------------------------------------------------------------------------
 void ServiceLocatorTest::shouldRegisterInstanceAfterUnregistring()
 {
     Service1 service(1);
@@ -103,7 +95,6 @@ void ServiceLocatorTest::shouldRegisterInstanceAfterUnregistring()
     QCOMPARE(iservice2->id(), 2);
 }
 
-//------------------------------------------------------------------------------
 void ServiceLocatorTest::canLocateToRegisterInstanceByType()
 {
     Service1 service(45);
@@ -115,7 +106,6 @@ void ServiceLocatorTest::canLocateToRegisterInstanceByType()
     QVERIFY(located_service == &service);
 }
 
-//------------------------------------------------------------------------------
 void ServiceLocatorTest::canLocateToRegisterInstanceByTypeAndTag()
 {
     Service1 service(1);
@@ -131,7 +121,6 @@ void ServiceLocatorTest::canLocateToRegisterInstanceByTypeAndTag()
     QVERIFY(located_service2 == &service2);
 }
 
-//------------------------------------------------------------------------------
 void ServiceLocatorTest::canLocateToRegisteredObjectByClassName()
 {
     Service1 service(45);
@@ -143,7 +132,6 @@ void ServiceLocatorTest::canLocateToRegisteredObjectByClassName()
     QVERIFY(located_service == &service);
 }
 
-//------------------------------------------------------------------------------
 void ServiceLocatorTest::services_shouldReturnAllRegisteredServices()
 {
     Service1 service(45);
@@ -157,7 +145,6 @@ void ServiceLocatorTest::services_shouldReturnAllRegisteredServices()
     QCOMPARE(services.size(), 2);
 }
 
-//------------------------------------------------------------------------------
 void ServiceLocatorTest::canBindConcreteClassForType()
 {
     MockServiceLocator mockLocator;
@@ -166,7 +153,6 @@ void ServiceLocatorTest::canBindConcreteClassForType()
     QCOMPARE(mockLocator.creators().size(), 1);
 }
 
-//------------------------------------------------------------------------------
 void ServiceLocatorTest::shouldNotBindConcreteClassForExistingType()
 {
     MockServiceLocator mockLocator;
@@ -176,7 +162,6 @@ void ServiceLocatorTest::shouldNotBindConcreteClassForExistingType()
     QCOMPARE(mockLocator.creators().size(), 1);
 }
 
-//------------------------------------------------------------------------------
 void ServiceLocatorTest::canBindConcreteClassForExistingTypeWithTag()
 {
     MockServiceLocator mockLocator;
@@ -186,7 +171,6 @@ void ServiceLocatorTest::canBindConcreteClassForExistingTypeWithTag()
     QCOMPARE(mockLocator.creators().size(), 2);
 }
 
-//------------------------------------------------------------------------------
 void ServiceLocatorTest::shouldNotBindConcreteClassForExistingTypeWithExistingTag()
 {
     MockServiceLocator mockLocator;
@@ -197,7 +181,6 @@ void ServiceLocatorTest::shouldNotBindConcreteClassForExistingTypeWithExistingTa
     QCOMPARE(mockLocator.creators().size(), 2);
 }
 
-//------------------------------------------------------------------------------
 void ServiceLocatorTest::canRegisterFactoryMethodForType()
 {
     MockServiceLocator mockLocator;
@@ -207,7 +190,6 @@ void ServiceLocatorTest::canRegisterFactoryMethodForType()
     QCOMPARE(mockLocator.creators().size(), 1);
 }
 
-//------------------------------------------------------------------------------
 void ServiceLocatorTest::canBuildRegisteredWithFactoryMethodInterfaceByType()
 {
     MockServiceLocator mockLocator;
@@ -229,7 +211,6 @@ void ServiceLocatorTest::canBuildRegisteredWithFactoryMethodInterfaceByType()
     delete service2;
 }
 
-//------------------------------------------------------------------------------
 void ServiceLocatorTest::canBuildBindedInterfaceByType()
 {
     MockServiceLocator mockLocator;
@@ -250,7 +231,6 @@ void ServiceLocatorTest::canBuildBindedInterfaceByType()
     delete service2;
 }
 
-//------------------------------------------------------------------------------
 void ServiceLocatorTest::canBuildBindedInterfaceByTypeAndTag()
 {
     MockServiceLocator mockLocator;
@@ -271,7 +251,6 @@ void ServiceLocatorTest::canBuildBindedInterfaceByTypeAndTag()
     delete service2;
 }
 
-//------------------------------------------------------------------------------
 void ServiceLocatorTest::canBuildRegisteredWithFactoryMethodInterfaceClassName()
 {
     MockServiceLocator mockLocator;
@@ -282,4 +261,3 @@ void ServiceLocatorTest::canBuildRegisteredWithFactoryMethodInterfaceClassName()
     QVERIFY(dynamic_cast<IService *>(obj) != nullptr);
 }
 
-//------------------------------------------------------------------------------

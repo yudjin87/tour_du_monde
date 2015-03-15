@@ -37,17 +37,14 @@
 
 #include <components/interactivity/IDialogService.h>
 
-//------------------------------------------------------------------------------
 namespace
 {
 static LoggerFacade Log = LoggerFacade::createLogger("ComponentSystemUIComponent");
 }
 
-//------------------------------------------------------------------------------
 static const QByteArray description(
         "");
 
-//------------------------------------------------------------------------------
 ComponentSystemUIComponent::ComponentSystemUIComponent(QObject *parent)
     : BaseComponent("org.carousel.ComponentSystemUI", parent)
 {
@@ -62,21 +59,18 @@ ComponentSystemUIComponent::ComponentSystemUIComponent(QObject *parent)
     addParent("org.carousel.Interactivity", 1, 0);
 }
 
-//------------------------------------------------------------------------------
 ComponentSystemUIComponent::~ComponentSystemUIComponent()
 {
     if (started())
         Log.w("Logic error: onShutdown() was not called.");
 }
 
-//------------------------------------------------------------------------------
 void ComponentSystemUIComponent::onShutdown(IServiceLocator *serviceLocator)
 {
     IDialogService *dialogService = serviceLocator->locate<IDialogService>();
     dialogService->unregisterDialogForModel<ComponentDefinitionsModel>();
 }
 
-//------------------------------------------------------------------------------
 bool ComponentSystemUIComponent::onStartup(IServiceLocator *serviceLocator)
 {
     IComponentManager *manager = serviceLocator->locate<IComponentManager>();
@@ -91,8 +85,6 @@ bool ComponentSystemUIComponent::onStartup(IServiceLocator *serviceLocator)
     return true;
 }
 
-//------------------------------------------------------------------------------
 EXPORT_COMPONENT(ComponentSystemUIComponent)
 
-//------------------------------------------------------------------------------
 

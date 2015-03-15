@@ -33,7 +33,6 @@
 
 #include <stdlib.h>
 
-//------------------------------------------------------------------------------
 SimpleMarkerSymbol::SimpleMarkerSymbol(QObject *parent)
     : MarkerSymbol(parent)
     , m_outline(true)
@@ -50,7 +49,6 @@ void SimpleMarkerSymbol::accept(ISymbolVisitor &visitor)
     visitor.visit(*this);
 }
 
-//------------------------------------------------------------------------------
 SimpleMarkerSymbol::SimpleMarkerSymbol(const SimpleMarkerSymbol &o, QObject *parent)
     : MarkerSymbol(o, parent)
     , m_outline(o.m_outline)
@@ -62,49 +60,41 @@ SimpleMarkerSymbol::SimpleMarkerSymbol(const SimpleMarkerSymbol &o, QObject *par
 {
 }
 
-//------------------------------------------------------------------------------
 ISymbol* SimpleMarkerSymbol::clone(QObject* parent) const
 {
     return new SimpleMarkerSymbol(*this, parent);
 }
 
-//------------------------------------------------------------------------------
 bool SimpleMarkerSymbol::isOutline() const
 {
     return m_outline;
 }
 
-//------------------------------------------------------------------------------
 void SimpleMarkerSymbol::setOutline(bool outline)
 {
     m_outline = outline;
 }
 
-//------------------------------------------------------------------------------
 QColor SimpleMarkerSymbol::outlineColor() const
 {
     return m_outlinePen.color();
 }
 
-//------------------------------------------------------------------------------
 void SimpleMarkerSymbol::setOutlineColor(const QColor &outlineColor)
 {
     m_outlinePen.setColor(outlineColor);
 }
 
-//------------------------------------------------------------------------------
 qreal SimpleMarkerSymbol::outlineSize() const
 {
     return m_outlineSize;
 }
 
-//------------------------------------------------------------------------------
 void SimpleMarkerSymbol::setOutlineSize(qreal outlineSize)
 {
     m_outlineSize = outlineSize;
 }
 
-//------------------------------------------------------------------------------
 void SimpleMarkerSymbol::setupPainter(QPainter *painter)
 {
     MarkerSymbol::setupPainter(painter);
@@ -124,17 +114,14 @@ void SimpleMarkerSymbol::setupPainter(QPainter *painter)
     }
 }
 
-//------------------------------------------------------------------------------
 void SimpleMarkerSymbol::resetPainter(QPainter *painter)
 {
     MarkerSymbol::resetPainter(painter);
     painter->setPen(m_oldPen);
 }
 
-//------------------------------------------------------------------------------
 void SimpleMarkerSymbol::drawPoint(const Point &point, QPainter &painter)
 {
     painter.drawEllipse(point.point(), m_width, m_height);
 }
 
-//------------------------------------------------------------------------------

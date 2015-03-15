@@ -30,13 +30,11 @@
 
 #include <QtTest/QTest>
 
-//------------------------------------------------------------------------------
 XmlDefinitionParserTest::XmlDefinitionParserTest(QObject *parent)
     : QObject(parent)
 {
 }
 
-//------------------------------------------------------------------------------
 void XmlDefinitionParserTest::shouldReadValues()
 {
     XmlDefinitionParser parser;
@@ -56,7 +54,6 @@ void XmlDefinitionParserTest::shouldReadValues()
     QCOMPARE(parser.parents()["ComponentC"], QString("3.4.5.6"));
 }
 
-//------------------------------------------------------------------------------
 void XmlDefinitionParserTest::shouldReadMinimalRequiredValues()
 {
     XmlDefinitionParser parser;
@@ -70,7 +67,6 @@ void XmlDefinitionParserTest::shouldReadMinimalRequiredValues()
     QCOMPARE(parser.parents().size(), 0);
 }
 
-//------------------------------------------------------------------------------
 void XmlDefinitionParserTest::shouldReadNotFullValues()
 {
     XmlDefinitionParser parser;
@@ -83,7 +79,6 @@ void XmlDefinitionParserTest::shouldReadNotFullValues()
     QCOMPARE(parser.parents().size(), 0);
 }
 
-//------------------------------------------------------------------------------
 void XmlDefinitionParserTest::shouldReturnFalseIfRootTagIsWrong()
 {
     XmlDefinitionParser parser;
@@ -92,7 +87,6 @@ void XmlDefinitionParserTest::shouldReturnFalseIfRootTagIsWrong()
     QVERIFY(!result);
 }
 
-//------------------------------------------------------------------------------
 void XmlDefinitionParserTest::shouldReturnFalseIfComponentNameAttrIsWrong()
 {
     XmlDefinitionParser parser;
@@ -101,7 +95,6 @@ void XmlDefinitionParserTest::shouldReturnFalseIfComponentNameAttrIsWrong()
     QVERIFY(!result);
 }
 
-//------------------------------------------------------------------------------
 void XmlDefinitionParserTest::shouldReturnFalseIfComponentNameAttrIsEmpty()
 {
     XmlDefinitionParser parser;
@@ -110,7 +103,6 @@ void XmlDefinitionParserTest::shouldReturnFalseIfComponentNameAttrIsEmpty()
     QVERIFY(!result);
 }
 
-//------------------------------------------------------------------------------
 void XmlDefinitionParserTest::shouldNotReturnFalseIfShortNameAttrIsWrong()
 {
     XmlDefinitionParser parser;
@@ -119,7 +111,6 @@ void XmlDefinitionParserTest::shouldNotReturnFalseIfShortNameAttrIsWrong()
     QVERIFY(result);
 }
 
-//------------------------------------------------------------------------------
 void XmlDefinitionParserTest::shouldNotReturnFalseIfShortNameAttrIsEmpty()
 {
     XmlDefinitionParser parser;
@@ -129,7 +120,6 @@ void XmlDefinitionParserTest::shouldNotReturnFalseIfShortNameAttrIsEmpty()
 }
 
 
-//------------------------------------------------------------------------------
 const QByteArray XmlDefinitionParserTest::simpleXml(
         "<component name=\"TestingComponentDescription\" shortName=\"org.test.TestingComponentDescription\">"
         "    <version>1.2.3.4</version> "
@@ -144,12 +134,10 @@ const QByteArray XmlDefinitionParserTest::simpleXml(
         "    </parents>"
         "</component>");
 
-//------------------------------------------------------------------------------
 const QByteArray XmlDefinitionParserTest::minimalisticXml(
         "<component name=\"TestingComponentDescription\" >"
         "</component>");
 
-//------------------------------------------------------------------------------
 const QByteArray XmlDefinitionParserTest::notFullXml(
         "<component name=\"TestingComponentDescription\" shortName=\"org.test.TestingComponentDescription\">"
         "    <productName>Testing Component Description</productName>"
@@ -157,30 +145,24 @@ const QByteArray XmlDefinitionParserTest::notFullXml(
         "</component>");
 
 
-//------------------------------------------------------------------------------
 const QByteArray XmlDefinitionParserTest::wrongRootTagXml(
         "<plugin name=\"TestingComponentDescription\">"
         "</plugin>");
 
-//------------------------------------------------------------------------------
 const QByteArray XmlDefinitionParserTest::wrongComponentNameAttrXml(
         "<component componentName=\"TestingComponentDescription\">"
         "</component>");
 
-//------------------------------------------------------------------------------
 const QByteArray XmlDefinitionParserTest::emptyComponentNameAttrXml(
         "<component name=\" \">"
         "</component>");
 
-//------------------------------------------------------------------------------
 
 const QByteArray XmlDefinitionParserTest::wrongComponentShortNameAttrXml(
         "<component name=\"TestingComponentDescription\" shortName=\"org.test.TestingComponentDescription\">"
         "</component>");
 
-//------------------------------------------------------------------------------
 const QByteArray XmlDefinitionParserTest::emptyComponentShortNameAttrXml(
         "<component name=\"TestingComponentDescription\" shortName=\" \">"
         "</component>");
 
-//------------------------------------------------------------------------------

@@ -7,7 +7,6 @@ namespace
 static LoggerFacade Log = LoggerFacade::createLogger("StartDrawingTask");
 }
 
-//------------------------------------------------------------------------------
 StartDrawingTask::StartDrawingTask(MultithreadDisplay *display, QObject *parent)
     : QObject(parent)
     , IDrawingTask()
@@ -15,11 +14,9 @@ StartDrawingTask::StartDrawingTask(MultithreadDisplay *display, QObject *parent)
 {
 }
 
-//------------------------------------------------------------------------------
 void StartDrawingTask::draw(IDisplay &)
 {
     Log.d("Calling create pixmap");
     m_display->callCreatePixmap();
 }
 
-//------------------------------------------------------------------------------

@@ -28,7 +28,6 @@
 
 #include <QtCore/QStringList>
 
-//------------------------------------------------------------------------------
 Version::Version(QObject *parent)
     : QObject(parent)
     , m_major_version(0)
@@ -38,7 +37,6 @@ Version::Version(QObject *parent)
 {
 }
 
-//------------------------------------------------------------------------------
 Version::Version(int major_version, int minor_version, QObject *parent)
     : QObject(parent)
     , m_major_version(major_version)
@@ -48,7 +46,6 @@ Version::Version(int major_version, int minor_version, QObject *parent)
 {
 }
 
-//------------------------------------------------------------------------------
 Version::Version(int major_version, int minor_version, int build_version, QObject *parent)
     : QObject(parent)
     , m_major_version(major_version)
@@ -58,7 +55,6 @@ Version::Version(int major_version, int minor_version, int build_version, QObjec
 {
 }
 
-//------------------------------------------------------------------------------
 Version::Version(int major_version, int minor_version, int build_version, int revision_version, QObject *parent)
     : QObject(parent)
     , m_major_version(major_version)
@@ -68,7 +64,6 @@ Version::Version(int major_version, int minor_version, int build_version, int re
 {
 }
 
-//------------------------------------------------------------------------------
 Version::~Version()
 {
     m_major_version = 0;
@@ -77,7 +72,6 @@ Version::~Version()
     m_revision_version = 0;
 }
 
-//------------------------------------------------------------------------------
 Version *Version::fromString(const QString &version, bool *ok)
 {
     if (ok != nullptr)
@@ -97,7 +91,6 @@ Version *Version::fromString(const QString &version, bool *ok)
     return new Version(major, minor, build, revision);
 }
 
-//------------------------------------------------------------------------------
 bool Version::parseString(const QString &version, int *major, int *minor, int *build, int *revision)
 {
     *major = 0;
@@ -155,37 +148,31 @@ bool Version::parseString(const QString &version, int *major, int *minor, int *b
     return true;
 }
 
-//------------------------------------------------------------------------------
 bool Version::isEmpty() const
 {
     return *this == Version(0, 0, 0, 0);
 }
 
-//------------------------------------------------------------------------------
 bool Version::operator<(const Version &other) const
 {
     return (compare(other) < 0);
 }
 
-//------------------------------------------------------------------------------
 bool Version::operator<=(const Version &other) const
 {
     return (compare(other) <= 0);
 }
 
-//------------------------------------------------------------------------------
 bool Version::operator>(const Version &other) const
 {
     return (compare(other) > 0);
 }
 
-//------------------------------------------------------------------------------
 bool Version::operator>=(const Version &other) const
 {
     return (compare(other) >= 0);
 }
 
-//------------------------------------------------------------------------------
 bool Version::operator==(const Version &other) const
 {
     return (m_major_version == other.m_major_version)
@@ -194,19 +181,16 @@ bool Version::operator==(const Version &other) const
             && (m_revision_version == other.m_revision_version);
 }
 
-//------------------------------------------------------------------------------
 bool Version::operator!=(const Version &other) const
 {
     return !(*this == other);
 }
 
-//------------------------------------------------------------------------------
 bool Version::isEqual(const Version *other) const
 {
     return *this == *other;
 }
 
-//------------------------------------------------------------------------------
 void Version::setVersion(int major_version, int minor_version, int build_version, int revision_version)
 {
     m_major_version = major_version;
@@ -215,7 +199,6 @@ void Version::setVersion(int major_version, int minor_version, int build_version
     m_revision_version = revision_version;
 }
 
-//------------------------------------------------------------------------------
 QString Version::toString() const
 {
     return QString("%1.%2.%3.%4")
@@ -225,55 +208,46 @@ QString Version::toString() const
             .arg(m_revision_version);
 }
 
-//------------------------------------------------------------------------------
 void Version::setMajor(int major_version)
 {
     m_major_version = major_version;
 }
 
-//------------------------------------------------------------------------------
 void Version::setMinor(int minor_version)
 {
     m_minor_version = minor_version;
 }
 
-//------------------------------------------------------------------------------
 void Version::setBuild(int build_version)
 {
     m_build_version = build_version;
 }
 
-//------------------------------------------------------------------------------
 void Version::setRevision(int revision_version)
 {
     m_revision_version = revision_version;
 }
 
-//------------------------------------------------------------------------------
 int Version::major() const
 {
     return m_major_version;
 }
 
-//------------------------------------------------------------------------------
 int Version::minor() const
 {
     return m_minor_version;
 }
 
-//------------------------------------------------------------------------------
 int Version::build() const
 {
     return m_build_version;
 }
 
-//------------------------------------------------------------------------------
 int Version::revision() const
 {
     return m_revision_version;
 }
 
-//------------------------------------------------------------------------------
 int Version::compare(const Version &other) const
 {
     if (m_major_version < other.m_major_version)

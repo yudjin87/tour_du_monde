@@ -32,13 +32,11 @@
 #include <QtCore/QtAlgorithms>
 #include <QtTest/QtTest>
 
-//------------------------------------------------------------------------------
 ObservableListTest::ObservableListTest(QObject *parent)
     : QObject(parent)
 {
 }
 
-//------------------------------------------------------------------------------
 void ObservableListTest::shouldAddItemsCorrectly()
 {
     MockObservableList list;
@@ -66,7 +64,6 @@ void ObservableListTest::shouldAddItemsCorrectly()
     QVERIFY(!list.isEmpty());
 }
 
-//------------------------------------------------------------------------------
 void ObservableListTest::shouldRemoveItemsCorrectly()
 {
     MockObservableList list;
@@ -96,7 +93,6 @@ void ObservableListTest::shouldRemoveItemsCorrectly()
     QVERIFY(list.empty());
 }
 
-//------------------------------------------------------------------------------
 void ObservableListTest::shouldGetCorrectElemets()
 {
     MockObservableList list;
@@ -123,7 +119,6 @@ void ObservableListTest::shouldGetCorrectElemets()
     QCOMPARE(emptyList.constBegin(), emptyList.constEnd());
 }
 
-//------------------------------------------------------------------------------
 void ObservableListTest::shouldFindElementsCorrectly()
 {
     MockObservableList list;
@@ -140,7 +135,6 @@ void ObservableListTest::shouldFindElementsCorrectly()
     QVERIFY(!list.contains(new QObject(this)));
 }
 
-//------------------------------------------------------------------------------
 void ObservableListTest::shouldNotifyAboutItemsAdding()
 {
     {// append
@@ -180,7 +174,6 @@ void ObservableListTest::shouldNotifyAboutItemsAdding()
     }
 }
 
-//------------------------------------------------------------------------------
 void ObservableListTest::shouldNotifyAboutItemsRemoving()
 {
     {// removeOne
@@ -209,7 +202,6 @@ void ObservableListTest::shouldNotifyAboutItemsRemoving()
     }
 }
 
-//------------------------------------------------------------------------------
 void ObservableListTest::shouldNotifyAboutClearing()
 {
     MockObservableList list;
@@ -221,7 +213,6 @@ void ObservableListTest::shouldNotifyAboutClearing()
     QVERIFY(list.removedCalled);
 }
 
-//------------------------------------------------------------------------------
 void ObservableListTest::shouldSortItems()
 {
     MockObservableList list;
@@ -233,7 +224,6 @@ void ObservableListTest::shouldSortItems()
     QVERIFY(list[1] < list[2]);
 }
 
-//------------------------------------------------------------------------------
 void ObservableListTest::shouldSortItemsWithCustomPredicate()
 {
     MockObservableList list;
@@ -246,6 +236,5 @@ void ObservableListTest::shouldSortItemsWithCustomPredicate()
     QVERIFY(list[1] < list[2]);
 }
 
-//------------------------------------------------------------------------------
 
 

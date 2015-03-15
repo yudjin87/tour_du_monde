@@ -36,10 +36,8 @@
 
 #include <QtWidgets/QGraphicsScene>
 
-//------------------------------------------------------------------------------
 static const QByteArray productName("CartoUI");
 
-//------------------------------------------------------------------------------
 CartoUIComponent::CartoUIComponent(QObject *parent /*= nullptr*/)
     : BaseComponent("org.carousel.demos.CartoUI", parent)
 {
@@ -55,26 +53,21 @@ CartoUIComponent::CartoUIComponent(QObject *parent /*= nullptr*/)
     setVersion(1, 0);
 }
 
-//------------------------------------------------------------------------------
 CartoUIComponent::~CartoUIComponent()
 {
 }
 
-//------------------------------------------------------------------------------
 bool CartoUIComponent::onStartup(IServiceLocator *serviceLocator)
 {
     Q_UNUSED(serviceLocator)
     return true;
 }
 
-//------------------------------------------------------------------------------
 void CartoUIComponent::onShutdown(IServiceLocator *serviceLocator)
 {
     Q_UNUSED(serviceLocator)
 }
 
-//------------------------------------------------------------------------------
 EXPORT_COMPONENT(CartoUIComponent)
 
-//------------------------------------------------------------------------------
 

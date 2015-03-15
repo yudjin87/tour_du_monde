@@ -28,7 +28,6 @@
 
 #include <QtCore/QFile>
 
-//------------------------------------------------------------------------------
 FakeShapeFileReader::FakeShapeFileReader()
     : QObject()
     , device(nullptr)
@@ -38,26 +37,22 @@ FakeShapeFileReader::FakeShapeFileReader()
     memset(reinterpret_cast<char *>(&recHeader), 0, sizeof(Record));
 }
 
-//------------------------------------------------------------------------------
 FakeShapeFileReader::~FakeShapeFileReader()
 {
     device = nullptr;
 }
 
-//------------------------------------------------------------------------------
 QIODevice *FakeShapeFileReader::inputDevice() const
 {
     return device;
 }
 
-//------------------------------------------------------------------------------
 bool FakeShapeFileReader::readHeader(ShapeFileHeader &outHeader)
 {
     outHeader = header;
     return true;
 }
 
-//------------------------------------------------------------------------------
 void FakeShapeFileReader::readShapeRecord(Record &outRecHeader)
 {
     outRecHeader = recHeader;
@@ -70,7 +65,6 @@ void FakeShapeFileReader::readShapeRecord(Record &outRecHeader)
 
 }
 
-//------------------------------------------------------------------------------
 void FakeShapeFileReader::setInputDevice(QIODevice *inputDevice)
 {
     QFile *file = qobject_cast<QFile *>(inputDevice);
@@ -83,4 +77,3 @@ void FakeShapeFileReader::setInputDevice(QIODevice *inputDevice)
     emit deviceIsSet(fileName, pos, isOpen);
 }
 
-//------------------------------------------------------------------------------

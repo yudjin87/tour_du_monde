@@ -26,7 +26,6 @@
 
 #include "Polygon.h"
 
-//------------------------------------------------------------------------------
 Polygon::Polygon(QObject *parent)
     : Polycurve(parent)
 {
@@ -38,27 +37,22 @@ Polygon::Polygon(int size, QObject *parent)
 
 }
 
-//------------------------------------------------------------------------------
 Polygon::Polygon(const QRectF &extent, QObject *parent)
     : Polycurve(extent, parent)
 {
 }
 
-//------------------------------------------------------------------------------
 Polygon::Polygon(std::initializer_list<QPointF> points, QObject *parent)
     : Polycurve(points, parent)
 {
 }
 
-//------------------------------------------------------------------------------
 Polygon::~Polygon()
 {
 }
 
-//------------------------------------------------------------------------------
 GeometryType Polygon::type() const
 {
     return GeometryPolygon;
 }
 
-//------------------------------------------------------------------------------

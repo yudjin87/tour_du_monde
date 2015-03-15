@@ -36,13 +36,11 @@
 
 #include <QtWidgets/QMainWindow>
 
-//------------------------------------------------------------------------------
 namespace
 {
 static LoggerFacade Log = LoggerFacade::createLogger("InteractionServiceComponent");
 }
 
-//------------------------------------------------------------------------------
 class InteractionServiceComponent::InteractionServiceComponentPrivate
 {
 public:
@@ -57,7 +55,6 @@ private:
     IDialogService *m_dialogService;
 };
 
-//------------------------------------------------------------------------------
 static const QByteArray description(
         "The Interactivity component is a main component of GUI based\r\n"
         "application. If your components add new operations or menus, or\r\n"
@@ -65,7 +62,6 @@ static const QByteArray description(
         "component. This mean a dependency of component parent name:\r\n"
         "\"org.carousel.Interactivity\".");
 
-//------------------------------------------------------------------------------
 InteractionServiceComponent::InteractionServiceComponent(QObject *parent)
     : BaseComponent("org.carousel.Interactivity", parent)
     , d(new InteractionServiceComponentPrivate())
@@ -77,40 +73,34 @@ InteractionServiceComponent::InteractionServiceComponent(QObject *parent)
     setVersion(1, 0);
 }
 
-//------------------------------------------------------------------------------
 InteractionServiceComponent::~InteractionServiceComponent()
 {
     delete d;
     d = nullptr;
 }
 
-//------------------------------------------------------------------------------
 void InteractionServiceComponent::onShutdown(IServiceLocator *serviceLocator)
 {
     d->onShutdown(serviceLocator);
 }
 
-//------------------------------------------------------------------------------
 bool InteractionServiceComponent::onStartup(IServiceLocator *serviceLocator)
 {
     return d->onStartup(serviceLocator);
 }
 
-//------------------------------------------------------------------------------
 InteractionServiceComponent::InteractionServiceComponentPrivate::InteractionServiceComponentPrivate()
     : m_service(nullptr)
     , m_dialogService(nullptr)
 {
 }
 
-//------------------------------------------------------------------------------
 InteractionServiceComponent::InteractionServiceComponentPrivate::~InteractionServiceComponentPrivate()
 {
     if (m_service != nullptr || m_dialogService != nullptr )
         Log.w("Logic error: onShutdown() was not called.");
 }
 
-//------------------------------------------------------------------------------
 void InteractionServiceComponent::InteractionServiceComponentPrivate::onShutdown(IServiceLocator *serviceLocator)
 {
     if (m_service == nullptr || m_dialogService == nullptr )
@@ -125,7 +115,6 @@ void InteractionServiceComponent::InteractionServiceComponentPrivate::onShutdown
     m_dialogService = nullptr;
 }
 
-//------------------------------------------------------------------------------
 bool InteractionServiceComponent::InteractionServiceComponentPrivate::onStartup(IServiceLocator *serviceLocator)
 {
     if (m_service != nullptr || m_dialogService != nullptr )
@@ -148,7 +137,5 @@ bool InteractionServiceComponent::InteractionServiceComponentPrivate::onStartup(
     return true;
 }
 
-//------------------------------------------------------------------------------
 EXPORT_COMPONENT(InteractionServiceComponent)
 
-//------------------------------------------------------------------------------

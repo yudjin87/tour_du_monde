@@ -32,13 +32,11 @@
 
 #include <QtCore/QFileInfo>
 
-//------------------------------------------------------------------------------
 namespace
 {
 static LoggerFacade Log = LoggerFacade::createLogger("ProxyComponent");
 }
 
-//------------------------------------------------------------------------------
 ProxyComponent::ProxyComponent(ComponentDefinition *definition, QObject *parent)
     : BaseComponent(definition, parent)
     , m_loader(new ComponentLoader())
@@ -48,7 +46,6 @@ ProxyComponent::ProxyComponent(ComponentDefinition *definition, QObject *parent)
     setState(IComponent::Invalid);
 }
 
-//------------------------------------------------------------------------------
 ProxyComponent::ProxyComponent(ComponentDefinition *definition, IComponentLoader *loader, QObject *parent)
     : BaseComponent(definition, parent)
     , m_loader(loader)
@@ -58,7 +55,6 @@ ProxyComponent::ProxyComponent(ComponentDefinition *definition, IComponentLoader
     setState(IComponent::Invalid);
 }
 
-//------------------------------------------------------------------------------
 void *ProxyComponent::getExtension(const QString &byTypeId) const
 {
     if (m_component == nullptr) {
@@ -69,14 +65,12 @@ void *ProxyComponent::getExtension(const QString &byTypeId) const
     return m_component->getExtension(byTypeId);
 }
 
-//------------------------------------------------------------------------------
 ProxyComponent::~ProxyComponent()
 {
     delete m_loader;
     m_loader = nullptr;
 }
 
-//------------------------------------------------------------------------------
 IComponent::Availability ProxyComponent::availability() const
 {
     return (m_component == nullptr)
@@ -84,7 +78,6 @@ IComponent::Availability ProxyComponent::availability() const
             : m_component->availability();
 }
 
-//------------------------------------------------------------------------------
 IComponent::State ProxyComponent::state() const
 {
     return (m_component == nullptr)
@@ -92,7 +85,6 @@ IComponent::State ProxyComponent::state() const
             : m_component->state();
 }
 
-//------------------------------------------------------------------------------
 bool ProxyComponent::initialize(QString *error)
 {
     if (m_initialized)
@@ -134,7 +126,6 @@ bool ProxyComponent::initialize(QString *error)
     return true;
 }
 
-//------------------------------------------------------------------------------
 void ProxyComponent::setAvailability(IComponent::Availability newMode)
 {
     BaseComponent::setAvailability(newMode);
@@ -142,7 +133,6 @@ void ProxyComponent::setAvailability(IComponent::Availability newMode)
         m_component->setAvailability(newMode);
 }
 
-//------------------------------------------------------------------------------
 void ProxyComponent::setState(IComponent::State newState)
 {
     BaseComponent::setState(newState);
@@ -150,13 +140,11 @@ void ProxyComponent::setState(IComponent::State newState)
         m_component->setState(newState);
 }
 
-//------------------------------------------------------------------------------
 IComponent *ProxyComponent::loadedComponent() const
 {
     return m_component;
 }
 
-//------------------------------------------------------------------------------
 void ProxyComponent::onShutdown(IServiceLocator *serviceLocator)
 {
     m_component->shutdown(serviceLocator);
@@ -167,7 +155,6 @@ void ProxyComponent::onShutdown(IServiceLocator *serviceLocator)
     m_component = nullptr;
 }
 
-//------------------------------------------------------------------------------
 bool ProxyComponent::onStartup(IServiceLocator *serviceLocator)
 {
     if (!m_initialized) {
@@ -201,4 +188,3 @@ bool ProxyComponent::onStartup(IServiceLocator *serviceLocator)
     return m_component->startup(serviceLocator);
 }
 
-//------------------------------------------------------------------------------

@@ -35,7 +35,6 @@
 
 #include <assert.h>
 
-//------------------------------------------------------------------------------
 Catalogs::Catalogs(QMainWindow &shell, IServiceLocator *serviceLocator)
     : m_operationCatalog(new OperationCatalog())
     , m_dockWidgetCatalog(new DockWidgetCatalog(shell))
@@ -48,7 +47,6 @@ Catalogs::Catalogs(QMainWindow &shell, IServiceLocator *serviceLocator)
     m_operationCatalog->setStartupData(serviceLocator);
 }
 
-//------------------------------------------------------------------------------
 Catalogs::~Catalogs()
 {
     delete m_operationCatalog;
@@ -61,52 +59,43 @@ Catalogs::~Catalogs()
     m_toolBarCatalog = nullptr;
 }
 
-//------------------------------------------------------------------------------
 IOperationCatalog &Catalogs::operationCatalog()
 {
     return const_cast<IOperationCatalog &>(static_cast<const Catalogs &>(*this).operationCatalog());
 }
 
-//------------------------------------------------------------------------------
 const IOperationCatalog &Catalogs::operationCatalog() const
 {
     return *m_operationCatalog;
 }
 
-//------------------------------------------------------------------------------
 IDockWidgetCatalog &Catalogs::dockWidgetCatalog()
 {
     return const_cast<IDockWidgetCatalog &>(static_cast<const Catalogs &>(*this).dockWidgetCatalog());
 }
 
-//------------------------------------------------------------------------------
 const IDockWidgetCatalog &Catalogs::dockWidgetCatalog() const
 {
     return *m_dockWidgetCatalog;
 }
 
-//------------------------------------------------------------------------------
 IMenuCatalog &Catalogs::menuCatalog()
 {
     return const_cast<IMenuCatalog &>(static_cast<const Catalogs &>(*this).menuCatalog());
 }
 
-//------------------------------------------------------------------------------
 const IMenuCatalog &Catalogs::menuCatalog() const
 {
     return *m_menuCatalog;
 }
 
-//------------------------------------------------------------------------------
 IToolBarCatalog &Catalogs::toolBarCatalog()
 {
     return const_cast<IToolBarCatalog &>(static_cast<const Catalogs &>(*this).toolBarCatalog());
 }
 
-//------------------------------------------------------------------------------
 const IToolBarCatalog &Catalogs::toolBarCatalog() const
 {
     return *m_toolBarCatalog;
 }
 
-//------------------------------------------------------------------------------

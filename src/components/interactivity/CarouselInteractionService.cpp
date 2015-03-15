@@ -39,13 +39,11 @@
 #include <QtCore/QSettings>
 #include <QtWidgets/QMainWindow>
 
-//------------------------------------------------------------------------------
 namespace
 {
 static LoggerFacade Log = LoggerFacade::createLogger("CarouselInteractionService");
 }
 
-//------------------------------------------------------------------------------
 CarouselInteractionService::CarouselInteractionService(IServiceLocator *serviceLocator, QMainWindow *mainWindow, IComponentManager *manager, QObject *parent)
     : m_dispatcher(nullptr)
     , m_componentConfigurationDelegate(new CarouselComponentConfigurationDelegate(serviceLocator))
@@ -61,7 +59,6 @@ CarouselInteractionService::CarouselInteractionService(IServiceLocator *serviceL
     makeConnections();
 }
 
-//------------------------------------------------------------------------------
 CarouselInteractionService::~CarouselInteractionService()
 {
     delete m_catalogs;
@@ -75,43 +72,36 @@ CarouselInteractionService::~CarouselInteractionService()
     m_mainWindow = nullptr;
 }
 
-//------------------------------------------------------------------------------
 ITool *CarouselInteractionService::activeTool()
 {
     return m_activeTool;
 }
 
-//------------------------------------------------------------------------------
 ICatalogs &CarouselInteractionService::catalogs()
 {
     return const_cast<ICatalogs &>(static_cast<const CarouselInteractionService &>(*this).catalogs());
 }
 
-//------------------------------------------------------------------------------
 const ICatalogs &CarouselInteractionService::catalogs() const
 {
     return *m_catalogs;
 }
 
-//------------------------------------------------------------------------------
 IComponentConfigurationDelegate *CarouselInteractionService::configurationDelegate()
 {
     return m_componentConfigurationDelegate;
 }
 
-//------------------------------------------------------------------------------
 IInputDispatcher *CarouselInteractionService::dispatcher()
 {
     return m_dispatcher;
 }
 
-//------------------------------------------------------------------------------
 QMainWindow &CarouselInteractionService::mainWindow()
 {
     return *m_mainWindow;
 }
 
-//------------------------------------------------------------------------------
 void CarouselInteractionService::resetUi()
 {
     if (m_componentConfigurationDelegate == nullptr) {
@@ -126,7 +116,6 @@ void CarouselInteractionService::resetUi()
     }
 }
 
-//------------------------------------------------------------------------------
 void CarouselInteractionService::setActiveTool(ITool *activeTool)
 {
     Log.i("Set new active tool.");
@@ -152,7 +141,6 @@ void CarouselInteractionService::setActiveTool(ITool *activeTool)
     m_activeTool = activeTool;
 }
 
-//------------------------------------------------------------------------------
 void CarouselInteractionService::setConfigurationDelegate(IComponentConfigurationDelegate *configurationDelegate)
 {
     if (m_componentConfigurationDelegate != nullptr)
@@ -161,7 +149,6 @@ void CarouselInteractionService::setConfigurationDelegate(IComponentConfiguratio
     m_componentConfigurationDelegate = configurationDelegate;
 }
 
-//------------------------------------------------------------------------------
 void CarouselInteractionService::setDispatcher(IInputDispatcher *dispatcher)
 {
     if (m_dispatcher != nullptr)
@@ -173,7 +160,6 @@ void CarouselInteractionService::setDispatcher(IInputDispatcher *dispatcher)
     m_dispatcher = dispatcher;
 }
 
-//------------------------------------------------------------------------------
 void CarouselInteractionService::saveUiState(int version /*= 0*/)
 {
     Log.i("Save UI state.");
@@ -182,7 +168,6 @@ void CarouselInteractionService::saveUiState(int version /*= 0*/)
     settings.setValue(m_mainWindow->objectName() +"/geometry", m_mainWindow->saveGeometry());
 }
 
-//------------------------------------------------------------------------------
 void CarouselInteractionService::loadUiState(int version /* = 0*/)
 {
     Log.i("Load UI state.");
@@ -191,14 +176,12 @@ void CarouselInteractionService::loadUiState(int version /* = 0*/)
     m_mainWindow->restoreGeometry(settings.value(m_mainWindow->objectName() +"/geometry").toByteArray());
 }
 
-//------------------------------------------------------------------------------
 void CarouselInteractionService::onComponentStartedUp(IComponent *component)
 {
     if (configureComponent(component))
         loadUiState();
 }
 
-//------------------------------------------------------------------------------
 void CarouselInteractionService::onComponentManagerStartedUp()
 {
     connect(m_componentManager, &IComponentManager::componentStarted, this, &CarouselInteractionService::onComponentStartedUp);
@@ -212,7 +195,6 @@ void CarouselInteractionService::onComponentManagerStartedUp()
         loadUiState();
 }
 
-//------------------------------------------------------------------------------
 void CarouselInteractionService::onComponentAboutToShutDown(IComponent *component)
 {
     if (m_componentConfigurationDelegate == nullptr)
@@ -221,14 +203,12 @@ void CarouselInteractionService::onComponentAboutToShutDown(IComponent *componen
     m_componentConfigurationDelegate->deconfigure(component, *m_catalogs);
 }
 
-//------------------------------------------------------------------------------
 void CarouselInteractionService::onComponentManagerAboutToShutDown()
 {
     Log.i("Save changes in UI before shutdown.");
     saveUiState();
 }
 
-//------------------------------------------------------------------------------
 void CarouselInteractionService::onToolExecutingStopped()
 {
     m_activeTool = nullptr;
@@ -236,20 +216,17 @@ void CarouselInteractionService::onToolExecutingStopped()
         m_dispatcher->setReceiver(nullptr);
 }
 
-//------------------------------------------------------------------------------
 void CarouselInteractionService::onToolDeleted()
 {
     onToolExecutingStopped();
 }
 
-//------------------------------------------------------------------------------
 void CarouselInteractionService::makeConnections()
 {
     connect(m_componentManager, &IComponentManager::startedUp, this, &CarouselInteractionService::onComponentManagerStartedUp);
     connect(m_componentManager, &IComponentManager::aboutToShutDown, this, &CarouselInteractionService::onComponentManagerAboutToShutDown);
 }
 
-//------------------------------------------------------------------------------
 bool CarouselInteractionService::configureComponent(IComponent *component)
 {
     if (m_componentConfigurationDelegate == nullptr)
@@ -260,4 +237,3 @@ bool CarouselInteractionService::configureComponent(IComponent *component)
     return true;
 }
 
-//------------------------------------------------------------------------------

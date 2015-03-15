@@ -1,6 +1,5 @@
 #include "FakeGeometryFactory.h"
 
-//------------------------------------------------------------------------------
 FakeGeometryFactory::FakeGeometryFactory()
     : type(GeometryPolyline)
     , geometry(nullptr)
@@ -8,19 +7,16 @@ FakeGeometryFactory::FakeGeometryFactory()
 {
 }
 
-//------------------------------------------------------------------------------
 FakeGeometryFactory::~FakeGeometryFactory()
 {
 }
 
-//------------------------------------------------------------------------------
 GeometryType FakeGeometryFactory::geometryTypeFromShapeType(int shapeType) const
 {
     Q_UNUSED(shapeType)
     return type;
 }
 
-//------------------------------------------------------------------------------
 AbstractGeometry *FakeGeometryFactory::createGeometry(int bytesCount, const char *geometryBlob) const
 {
     Q_UNUSED(bytesCount)
@@ -29,4 +25,3 @@ AbstractGeometry *FakeGeometryFactory::createGeometry(int bytesCount, const char
     return geometry;
 }
 
-//------------------------------------------------------------------------------

@@ -26,18 +26,15 @@
 
 #include "FakeScriptCollection.h"
 
-//------------------------------------------------------------------------------
 FakeScriptCollection::FakeScriptCollection(IScriptEngineFactory *factory, QObject *parent)
     : ScriptCollection(factory, parent)
     , unitForCreating(nullptr)
 {
 }
 
-//------------------------------------------------------------------------------
 IScriptUnit *FakeScriptCollection::createNewScript(const QString *fileName)
 {
     Q_UNUSED(fileName)
     return unitForCreating;
 }
 
-//------------------------------------------------------------------------------

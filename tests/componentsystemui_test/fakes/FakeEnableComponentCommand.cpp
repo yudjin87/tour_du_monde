@@ -30,14 +30,12 @@
 #include <carousel/componentsystem/ComponentCollection.h>
 #include <carousel/componentsystem/ComponentDependencies.h>
 
-//------------------------------------------------------------------------------
 FakeEnableComponentCommand::FakeEnableComponentCommand(ComponentDependencies *dependencies)
     : EnableComponentCommand(nullptr, nullptr)
     , m_dependencies(dependencies)
 {
 }
 
-//------------------------------------------------------------------------------
 void FakeEnableComponentCommand::redo()
 {
     bool enable = false;
@@ -47,9 +45,7 @@ void FakeEnableComponentCommand::redo()
     }
 }
 
-//------------------------------------------------------------------------------
 void FakeEnableComponentCommand::undo()
 {
 }
 
-//------------------------------------------------------------------------------

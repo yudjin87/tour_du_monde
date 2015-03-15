@@ -29,7 +29,6 @@
 
 #include <QtCore/QFileSystemWatcher>
 
-//------------------------------------------------------------------------------
 DirectoryWatchingComponentProvider::DirectoryWatchingComponentProvider(IDirectoryComponentProvider *provider, QObject *parent)
     : ComponentProvider(parent)
     , m_provider(provider)
@@ -38,7 +37,6 @@ DirectoryWatchingComponentProvider::DirectoryWatchingComponentProvider(IDirector
     Q_ASSERT(provider != nullptr);
 }
 
-//------------------------------------------------------------------------------
 DirectoryWatchingComponentProvider::DirectoryWatchingComponentProvider(const QString &path, QObject *parent)
     : ComponentProvider(parent)
     , m_provider(new DirectoryComponentProvider(path, this))
@@ -46,7 +44,6 @@ DirectoryWatchingComponentProvider::DirectoryWatchingComponentProvider(const QSt
 {
 }
 
-//------------------------------------------------------------------------------
 DirectoryWatchingComponentProvider::DirectoryWatchingComponentProvider(const QString &path, const QString &definitionExtension, QObject *parent)
     : ComponentProvider(parent)
     , m_provider(new DirectoryComponentProvider(path, definitionExtension, this))
@@ -54,7 +51,6 @@ DirectoryWatchingComponentProvider::DirectoryWatchingComponentProvider(const QSt
 {
 }
 
-//------------------------------------------------------------------------------
 DirectoryWatchingComponentProvider::~DirectoryWatchingComponentProvider()
 {
     delete m_provider;
@@ -64,19 +60,16 @@ DirectoryWatchingComponentProvider::~DirectoryWatchingComponentProvider()
     m_watcher = nullptr;
 }
 
-//------------------------------------------------------------------------------
 const IDirectoryComponentProvider *DirectoryWatchingComponentProvider::provider() const
 {
     return m_provider;
 }
 
-//------------------------------------------------------------------------------
 const QFileSystemWatcher *DirectoryWatchingComponentProvider::watcher() const
 {
     return m_watcher;
 }
 
-//------------------------------------------------------------------------------
 bool DirectoryWatchingComponentProvider::onInitialize()
 {
     bool result = m_provider->initialize();
@@ -89,13 +82,11 @@ bool DirectoryWatchingComponentProvider::onInitialize()
     return result;
 }
 
-//------------------------------------------------------------------------------
 QFileSystemWatcher *DirectoryWatchingComponentProvider::createWatcher() const
 {
     return new QFileSystemWatcher();
 }
 
-//------------------------------------------------------------------------------
 void DirectoryWatchingComponentProvider::onDirectoryChanged(const QString &path)
 {
     Q_UNUSED(path)
@@ -105,4 +96,3 @@ void DirectoryWatchingComponentProvider::onDirectoryChanged(const QString &path)
         emit newComponentsDiscovered(newComponetns);
 }
 
-//------------------------------------------------------------------------------

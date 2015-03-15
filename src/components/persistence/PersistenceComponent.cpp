@@ -33,17 +33,14 @@
 #include <carousel/logging/LoggerFacade.h>
 #include <carousel/utils/IServiceLocator.h>
 
-//------------------------------------------------------------------------------
 namespace
 {
 static LoggerFacade Log = LoggerFacade::createLogger("PersistenceComponent");
 }
 
-//------------------------------------------------------------------------------
 static const QByteArray description(
         "");
 
-//------------------------------------------------------------------------------
 PersistenceComponent::PersistenceComponent(QObject *parent)
     : BaseComponent("org.carousel.Persistence", parent)
 {
@@ -54,19 +51,16 @@ PersistenceComponent::PersistenceComponent(QObject *parent)
     setVersion(1, 0);
 }
 
-//------------------------------------------------------------------------------
 PersistenceComponent::~PersistenceComponent()
 {
 }
 
-//------------------------------------------------------------------------------
 void PersistenceComponent::onShutdown(IServiceLocator *serviceLocator)
 {
     IPersistenceService *service = serviceLocator->unregisterInstance<IPersistenceService>();
     delete service;
 }
 
-//------------------------------------------------------------------------------
 bool PersistenceComponent::onStartup(IServiceLocator *serviceLocator)
 {
     IComponentManager *manager = serviceLocator->locate<IComponentManager>();
@@ -76,7 +70,5 @@ bool PersistenceComponent::onStartup(IServiceLocator *serviceLocator)
     return true;
 }
 
-//------------------------------------------------------------------------------
 EXPORT_COMPONENT(PersistenceComponent)
 
-//------------------------------------------------------------------------------

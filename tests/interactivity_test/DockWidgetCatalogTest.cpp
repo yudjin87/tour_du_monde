@@ -35,13 +35,11 @@
 #include <QtTest/QtTest>
 #include <QtTest/QSignalSpy>
 
-//------------------------------------------------------------------------------
 DockWidgetCatalogTest::DockWidgetCatalogTest(QObject *parent)
     : QObject(parent)
 {
 }
 
-//------------------------------------------------------------------------------
 void DockWidgetCatalogTest::shouldAddDockWidgetToMainWindow()
 {
     QMainWindow window;
@@ -56,7 +54,6 @@ void DockWidgetCatalogTest::shouldAddDockWidgetToMainWindow()
     QVERIFY(dockWidgets.count() == 1);
 }
 
-//------------------------------------------------------------------------------
 void DockWidgetCatalogTest::shouldNotAddDockWidgetToMainWindowIfNullPointerIsPassed()
 {
     QMainWindow window;
@@ -68,7 +65,6 @@ void DockWidgetCatalogTest::shouldNotAddDockWidgetToMainWindowIfNullPointerIsPas
     QVERIFY(dockWidgets.count() == 0);
 }
 
-//------------------------------------------------------------------------------
 void DockWidgetCatalogTest::shouldEmitWhenWidgetAdded()
 {
     QMainWindow window;
@@ -80,7 +76,6 @@ void DockWidgetCatalogTest::shouldEmitWhenWidgetAdded()
     QCOMPARE(spy.count(), 1);
 }
 
-//------------------------------------------------------------------------------
 void DockWidgetCatalogTest::shouldSetSepcifiedWidgetToTheCreatedDockWidget()
 {
     QWidget *widget = new QWidget();
@@ -92,7 +87,6 @@ void DockWidgetCatalogTest::shouldSetSepcifiedWidgetToTheCreatedDockWidget()
     QCOMPARE(dock->widget(), widget);
 }
 
-//------------------------------------------------------------------------------
 void DockWidgetCatalogTest::shouldSetSpecifiedWindowTitleToTheCreatedDockWidget()
 {
     QWidget *widget = new QWidget();
@@ -104,7 +98,6 @@ void DockWidgetCatalogTest::shouldSetSpecifiedWindowTitleToTheCreatedDockWidget(
     QCOMPARE(dock->windowTitle(), QString("Title"));
 }
 
-//------------------------------------------------------------------------------
 void DockWidgetCatalogTest::shouldSetSpecifiedObjectNameToTheCreatedDockWidget()
 {
     QWidget *widget = new QWidget();
@@ -116,7 +109,6 @@ void DockWidgetCatalogTest::shouldSetSpecifiedObjectNameToTheCreatedDockWidget()
     QCOMPARE(dock->objectName(), QString("Title"));
 }
 
-//------------------------------------------------------------------------------
 void DockWidgetCatalogTest::shouldReturnDockWidgets()
 {
     QMainWindow window;
@@ -127,7 +119,6 @@ void DockWidgetCatalogTest::shouldReturnDockWidgets()
     QCOMPARE(dock, catalog.dockWidgets()[0]);
 }
 
-//------------------------------------------------------------------------------
 void DockWidgetCatalogTest::shouldDeleteDockWidget()
 {
     QMainWindow window;
@@ -140,4 +131,3 @@ void DockWidgetCatalogTest::shouldDeleteDockWidget()
     QVERIFY(catalog.dockWidgets().contains(dock) == false);
 }
 
-//------------------------------------------------------------------------------

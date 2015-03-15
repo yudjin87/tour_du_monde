@@ -31,32 +31,27 @@
 #include <QtScript/QScriptEngine>
 #include <QtScript/QScriptValueIterator>
 
-//------------------------------------------------------------------------------
 namespace
 {
 static LoggerFacade Log = LoggerFacade::createLogger("SimpleCompleter");
 }
 
-//------------------------------------------------------------------------------
 SimpleCompleter::SimpleCompleter(QObject *parent)
     : m_engine(nullptr)
 {
     setParent(parent);
 }
 
-//------------------------------------------------------------------------------
 SimpleCompleter::~SimpleCompleter()
 {
     m_engine = nullptr;
 }
 
-//------------------------------------------------------------------------------
 void SimpleCompleter::resetEngine(QScriptEngine *engine)
 {
     m_engine = engine;
 }
 
-//------------------------------------------------------------------------------
 QStringList SimpleCompleter::completeGlobals() const
 {
     if (m_engine == nullptr) {
@@ -74,4 +69,3 @@ QStringList SimpleCompleter::completeGlobals() const
     return globals;
 }
 
-//------------------------------------------------------------------------------

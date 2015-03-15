@@ -33,20 +33,17 @@
 
 #include <QtTest/QTest>
 
-//------------------------------------------------------------------------------
 ToolBaseTest::ToolBaseTest(QObject *parent)
     : QObject(parent)
 {
 }
 
-//------------------------------------------------------------------------------
 void ToolBaseTest::shouldBeCheckable()
 {
     ToolBase tool;
     QVERIFY(tool.isCheckable());
 }
 
-//------------------------------------------------------------------------------
 void ToolBaseTest::shouldSubstituteActiveToolByItself()
 {
     ServiceLocator serviceLocator;
@@ -60,4 +57,3 @@ void ToolBaseTest::shouldSubstituteActiveToolByItself()
 
 }
 
-//------------------------------------------------------------------------------

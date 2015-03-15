@@ -33,7 +33,6 @@
 
 #include <QtGui/QPainter>
 
-//------------------------------------------------------------------------------
 SimpleFillSymbol::SimpleFillSymbol(QObject *parent)
     : FillSymbol(parent)
     , m_brush()
@@ -42,7 +41,6 @@ SimpleFillSymbol::SimpleFillSymbol(QObject *parent)
     m_brush.setStyle(Qt::SolidPattern);
 }
 
-//------------------------------------------------------------------------------
 SimpleFillSymbol::SimpleFillSymbol(const SimpleFillSymbol &o, QObject *parent)
     : FillSymbol(o, parent)
     , m_brush(o.m_brush)
@@ -55,13 +53,11 @@ void SimpleFillSymbol::accept(ISymbolVisitor &visitor)
     visitor.visit(*this);
 }
 
-//------------------------------------------------------------------------------
 ISymbol* SimpleFillSymbol::clone(QObject* parent) const
 {
     return new SimpleFillSymbol(*this, parent);
 }
 
-//------------------------------------------------------------------------------
 void SimpleFillSymbol::setupPainter(QPainter *painter)
 {
     FillSymbol::setupPainter(painter);
@@ -73,26 +69,22 @@ void SimpleFillSymbol::setupPainter(QPainter *painter)
     painter->setBrush(m_brush);
 }
 
-//------------------------------------------------------------------------------
 void SimpleFillSymbol::resetPainter(QPainter *painter)
 {
     FillSymbol::resetPainter(painter);
     painter->setBrush(m_oldBrush);
 }
 
-//------------------------------------------------------------------------------
 Qt::BrushStyle SimpleFillSymbol::style() const
 {
     return m_brush.style();
 }
 
-//------------------------------------------------------------------------------
 void SimpleFillSymbol::setStyle(Qt::BrushStyle style)
 {
     m_brush.setStyle(style);
 }
 
-//------------------------------------------------------------------------------
 void SimpleFillSymbol::drawPolygon(const Polygon &polygon, QPainter &painter)
 {
     for (const Ring *ring : polygon.rings()) {
@@ -103,4 +95,3 @@ void SimpleFillSymbol::drawPolygon(const Polygon &polygon, QPainter &painter)
     }
 }
 
-//------------------------------------------------------------------------------

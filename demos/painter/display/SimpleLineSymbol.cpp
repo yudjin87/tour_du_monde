@@ -33,7 +33,6 @@
 
 #include <QtGui/QPainter>
 
-//------------------------------------------------------------------------------
 SimpleLineSymbol::SimpleLineSymbol(QObject *parent)
     : LineSymbol(parent)
     , m_pen()
@@ -47,7 +46,6 @@ void SimpleLineSymbol::accept(ISymbolVisitor &visitor)
     visitor.visit(*this);
 }
 
-//------------------------------------------------------------------------------
 SimpleLineSymbol::SimpleLineSymbol(const SimpleLineSymbol &o, QObject *parent)
     : LineSymbol(o, parent)
     , m_pen(o.m_pen)
@@ -56,13 +54,11 @@ SimpleLineSymbol::SimpleLineSymbol(const SimpleLineSymbol &o, QObject *parent)
     m_pen.setCosmetic(true);
 }
 
-//------------------------------------------------------------------------------
 ISymbol* SimpleLineSymbol::clone(QObject* parent) const
 {
     return new SimpleLineSymbol(*this, parent);
 }
 
-//------------------------------------------------------------------------------
 void SimpleLineSymbol::setupPainter(QPainter *painter)
 {
     m_pen.setColor(color());
@@ -72,25 +68,21 @@ void SimpleLineSymbol::setupPainter(QPainter *painter)
     painter->setPen(m_pen);
 }
 
-//------------------------------------------------------------------------------
 void SimpleLineSymbol::resetPainter(QPainter *painter)
 {
     painter->setPen(m_oldPen);
 }
 
-//------------------------------------------------------------------------------
 Qt::PenStyle SimpleLineSymbol::style() const
 {
     return m_pen.style();
 }
 
-//------------------------------------------------------------------------------
 void SimpleLineSymbol::setStyle(Qt::PenStyle style)
 {
     m_pen.setStyle(style);
 }
 
-//------------------------------------------------------------------------------
 void SimpleLineSymbol::drawPolyline(const Polyline &polyline, QPainter &painter)
 {
     for (const Ring *ring : polyline.rings()) {
@@ -100,4 +92,3 @@ void SimpleLineSymbol::drawPolyline(const Polyline &polyline, QPainter &painter)
     }
 }
 
-//------------------------------------------------------------------------------

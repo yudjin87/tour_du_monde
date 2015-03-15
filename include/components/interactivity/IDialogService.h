@@ -201,7 +201,6 @@ private:
     Q_DISABLE_COPY(IDialogService)
 };
 
-//------------------------------------------------------------------------------
 /*!
  * @brief
  *   Common interface for the dialog factory.
@@ -226,7 +225,6 @@ struct IDialogConstructor
     virtual void injectServiceLocator(IServiceLocator *locator) = 0;
 };
 
-//------------------------------------------------------------------------------
 /*!
  * @brief
  *   Generic class for the dialog factory.
@@ -268,7 +266,6 @@ private:
     IServiceLocator *m_locator;
 };
 
-//------------------------------------------------------------------------------
 template<typename TDialogModel>
 QDialog *IDialogService::createDialog(TDialogModel *dlgModel) const
 {
@@ -278,7 +275,6 @@ QDialog *IDialogService::createDialog(TDialogModel *dlgModel) const
     return createDialogForModel(dlgModelType, dlgModel);
 }
 
-//------------------------------------------------------------------------------
 template<typename TDialogModel>
 bool IDialogService::isRegistered() const
 {
@@ -288,7 +284,6 @@ bool IDialogService::isRegistered() const
     return isConstructorRegistered(dlgModelType);
 }
 
-//------------------------------------------------------------------------------
 template<typename TDialog, typename TDialogModel>
 void IDialogService::registerDialog()
 {
@@ -299,7 +294,6 @@ void IDialogService::registerDialog()
     registerConstructor(dlgModelType, new DialogConstructor<TDialog, TDialogModel>());
 }
 
-//------------------------------------------------------------------------------
 template<typename TDialogModel>
 bool IDialogService::showDialog(TDialogModel *dlgModel) const
 {
@@ -309,7 +303,6 @@ bool IDialogService::showDialog(TDialogModel *dlgModel) const
     return showDialogForModel(dlgModelType, dlgModel);
 }
 
-//------------------------------------------------------------------------------
 template<typename TDialogModel>
 bool IDialogService::unregisterDialogForModel()
 {
@@ -319,5 +312,4 @@ bool IDialogService::unregisterDialogForModel()
     return unregisterConstructor(dlgModelType);
 }
 
-//------------------------------------------------------------------------------
 #endif // IDIALOGSERVICE_H

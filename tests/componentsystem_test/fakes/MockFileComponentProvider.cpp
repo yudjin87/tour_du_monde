@@ -29,7 +29,6 @@
 #include <carousel/componentsystem/ComponentDefinition.h>
 
 #include <QtCore/QtAlgorithms>
-//------------------------------------------------------------------------------
 MockFileComponentProvider::MockFileComponentProvider(FakeDefinitionParser *parser)
     : FileComponentProvider()
     , parser(parser)
@@ -41,7 +40,6 @@ MockFileComponentProvider::MockFileComponentProvider(FakeDefinitionParser *parse
 {
 }
 
-//------------------------------------------------------------------------------
 MockFileComponentProvider::MockFileComponentProvider(const QString &path, FakeDefinitionParser *parser)
     : FileComponentProvider(path)
     , parser(parser)
@@ -53,13 +51,11 @@ MockFileComponentProvider::MockFileComponentProvider(const QString &path, FakeDe
 {
 }
 
-//------------------------------------------------------------------------------
 MockFileComponentProvider::~MockFileComponentProvider()
 {
     qDeleteAll(this->components());
 }
 
-//------------------------------------------------------------------------------
 IDefinitionParser *MockFileComponentProvider::createParser()
 {
     if (parser == nullptr)
@@ -68,7 +64,6 @@ IDefinitionParser *MockFileComponentProvider::createParser()
     return parser;
 }
 
-//------------------------------------------------------------------------------
 IComponent *MockFileComponentProvider::loadComponent()
 {
     loadCalled++;
@@ -79,7 +74,6 @@ IComponent *MockFileComponentProvider::loadComponent()
     return loadResult;
 }
 
-//------------------------------------------------------------------------------
 bool MockFileComponentProvider::initialize()
 {
     initializeCalled = true;
@@ -88,13 +82,11 @@ bool MockFileComponentProvider::initialize()
     return initializeReturnValue;
 }
 
-//------------------------------------------------------------------------------
 ProxyComponent *MockFileComponentProvider::createProxy(ComponentDefinition *definition)
 {
     return new MockProxyComponent(definition);
 }
 
-//------------------------------------------------------------------------------
 DefinitionConstuctor *MockFileComponentProvider::createDefinitionConstuctor()
 {
     if (constructor == nullptr)
@@ -102,25 +94,20 @@ DefinitionConstuctor *MockFileComponentProvider::createDefinitionConstuctor()
     return constructor;
 }
 
-//------------------------------------------------------------------------------
 bool MockProxyComponent::initializeReturnValue = true;
 
-//------------------------------------------------------------------------------
 MockProxyComponent::MockProxyComponent(QObject *parent)
     : ProxyComponent(new ComponentDefinition(), parent)
 {
 }
 
-//------------------------------------------------------------------------------
 MockProxyComponent::MockProxyComponent(ComponentDefinition *definition, QObject *parent)
     : ProxyComponent(definition, parent)
 {
 }
 
-//------------------------------------------------------------------------------
 bool MockProxyComponent::initialize(QString *)
 {
     return initializeReturnValue;
 }
 
-//------------------------------------------------------------------------------

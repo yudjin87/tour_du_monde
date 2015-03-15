@@ -28,10 +28,8 @@
 #include "prototypes/PointClass.h"
 #include "prototypes/PointPrototype.h"
 
-//------------------------------------------------------------------------------
 Q_DECLARE_METATYPE(PointClass*)
 
-//------------------------------------------------------------------------------
 PointClass::PointClass(QScriptEngine* engine)
     : QObject(engine)
     , QScriptClass(engine)
@@ -48,30 +46,25 @@ PointClass::PointClass(QScriptEngine* engine)
     m_ctor.setData(engine->toScriptValue(this));
 }
 
-//------------------------------------------------------------------------------
 PointClass::~PointClass()
 {
 }
 
-//------------------------------------------------------------------------------
 QString PointClass::name() const
 {
     return QLatin1String("QPoint");
 }
 
-//------------------------------------------------------------------------------
 QScriptValue PointClass::prototype() const
 {
     return m_proto;
 }
 
-//------------------------------------------------------------------------------
 QScriptValue PointClass::constructor()
 {
     return m_ctor;
 }
 
-//------------------------------------------------------------------------------
 QScriptValue PointClass::construct(QScriptContext* ctx, QScriptEngine*)
 {
     PointClass* cls = qscriptvalue_cast<PointClass*>(ctx->callee().data());
@@ -101,7 +94,6 @@ QScriptValue PointClass::construct(QScriptContext* ctx, QScriptEngine*)
     return cls->newInstance();
 }
 
-//------------------------------------------------------------------------------
 QScriptValue PointClass::toScriptValue(QScriptEngine* eng, const QPoint& p)
 {
     const QScriptValue& ctor = eng->globalObject().property("QPoint");
@@ -112,23 +104,19 @@ QScriptValue PointClass::toScriptValue(QScriptEngine* eng, const QPoint& p)
     return cls->newInstance(p);
 }
 
-//------------------------------------------------------------------------------
 void PointClass::fromScriptValue(const QScriptValue& obj, QPoint& p)
 {
     p = qvariant_cast<QPoint>(obj.data().toVariant());
 }
 
-//------------------------------------------------------------------------------
 QScriptValue PointClass::newInstance()
 {
     return newInstance(QPoint());
 }
 
-//------------------------------------------------------------------------------
 QScriptValue PointClass::newInstance(const QPoint& p)
 {
     QScriptValue data = engine()->newVariant(QVariant::fromValue(p));
     return engine()->newObject(this, data);
 }
 
-//------------------------------------------------------------------------------

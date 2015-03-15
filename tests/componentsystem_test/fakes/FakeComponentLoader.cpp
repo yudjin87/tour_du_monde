@@ -1,7 +1,6 @@
 #include "FakeComponentLoader.h"
 
 
-//------------------------------------------------------------------------------
 FakeComponentLoader::FakeComponentLoader()
     : IComponentLoader()
     , instanceCalled(0)
@@ -15,7 +14,6 @@ FakeComponentLoader::FakeComponentLoader()
 {
 }
 
-//------------------------------------------------------------------------------
 FakeComponentLoader::FakeComponentLoader(IComponent *component)
     : IComponentLoader()
     , instanceCalled(0)
@@ -29,52 +27,44 @@ FakeComponentLoader::FakeComponentLoader(IComponent *component)
 {
 }
 
-//------------------------------------------------------------------------------
 FakeComponentLoader::~FakeComponentLoader()
 {
     delete mockComponent;
     mockComponent = nullptr;
 }
 
-//------------------------------------------------------------------------------
 QString FakeComponentLoader::errorString() const
 {
     return "";
 }
 
-//------------------------------------------------------------------------------
 QString FakeComponentLoader::fileName() const
 {
     return passedFileName;
 }
 
-//------------------------------------------------------------------------------
 IComponent *FakeComponentLoader::instance()
 {
     ++instanceCalled;
     return mockComponent;
 }
 
-//------------------------------------------------------------------------------
 bool FakeComponentLoader::isLoaded() const
 {
     return loadResult;
 }
 
-//------------------------------------------------------------------------------
 bool FakeComponentLoader::load()
 {
     ++loadCalled;
     return loadResult;
 }
 
-//------------------------------------------------------------------------------
 QLibrary::LoadHints FakeComponentLoader::loadHints() const
 {
     return QLibrary::LoadArchiveMemberHint;
 }
 
-//------------------------------------------------------------------------------
 void FakeComponentLoader::setFileName(const QString &fileName)
 {
     Q_UNUSED(fileName)
@@ -82,13 +72,11 @@ void FakeComponentLoader::setFileName(const QString &fileName)
     ++setFileNameCalled;
 }
 
-//------------------------------------------------------------------------------
 void FakeComponentLoader::setLoadHints(QLibrary::LoadHints loadHints)
 {
     Q_UNUSED(loadHints)
 }
 
-//------------------------------------------------------------------------------
 bool FakeComponentLoader::deleteInstance()
 {
     ++unloadCalled;
@@ -96,4 +84,3 @@ bool FakeComponentLoader::deleteInstance()
     return unloadResult;
 }
 
-//------------------------------------------------------------------------------

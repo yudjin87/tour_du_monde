@@ -35,13 +35,11 @@
 #include <QtWidgets/QWidget>
 #include <QtTest/QTest>
 
-//------------------------------------------------------------------------------
 DialogServiceTest::DialogServiceTest(QObject *parent)
     : QObject(parent)
 {
 }
 
-//------------------------------------------------------------------------------
 void DialogServiceTest::registerDialog_shouldRegisterDialogWithViewModel()
 {
     QWidget mainWindow; DialogService service(&mainWindow, nullptr);
@@ -50,7 +48,6 @@ void DialogServiceTest::registerDialog_shouldRegisterDialogWithViewModel()
     QVERIFY(service.isRegistered<MockDialogModel>());
 }
 
-//------------------------------------------------------------------------------
 void DialogServiceTest::createDialog_shouldReturnDialogForModel()
 {
     QWidget mainWindow; DialogService service(&mainWindow, nullptr);
@@ -64,7 +61,6 @@ void DialogServiceTest::createDialog_shouldReturnDialogForModel()
     delete dialog;
 }
 
-//------------------------------------------------------------------------------
 void DialogServiceTest::registerDialog_shouldOverlapExistedDialogWithSameViewModel()
 {
     QWidget mainWindow; DialogService service(&mainWindow, nullptr);
@@ -79,7 +75,6 @@ void DialogServiceTest::registerDialog_shouldOverlapExistedDialogWithSameViewMod
     delete dialog;
 }
 
-//------------------------------------------------------------------------------
 void DialogServiceTest::createDialog_shouldReturnNullIfModelWasNotRegistered()
 {
     QWidget mainWindow; DialogService service(&mainWindow, nullptr);
@@ -90,7 +85,6 @@ void DialogServiceTest::createDialog_shouldReturnNullIfModelWasNotRegistered()
     QVERIFY(dialog == nullptr);
 }
 
-//------------------------------------------------------------------------------
 void DialogServiceTest::unregisterDialogForModel_shouldUnregisterDialogForModelType()
 {
     QWidget mainWindow; DialogService service(&mainWindow, nullptr);
@@ -102,7 +96,6 @@ void DialogServiceTest::unregisterDialogForModel_shouldUnregisterDialogForModelT
     QVERIFY(!service.isRegistered<MockDialogModel>());
 }
 
-//------------------------------------------------------------------------------
 void DialogServiceTest::unregisterDialogForModel_shouldSetOldDialog()
 {
     QWidget mainWindow; DialogService service(&mainWindow, nullptr);
@@ -119,7 +112,6 @@ void DialogServiceTest::unregisterDialogForModel_shouldSetOldDialog()
     delete dialog;
 }
 
-//------------------------------------------------------------------------------
 void DialogServiceTest::showDialog_shouldCreateDialog()
 {
     MockDialog::wasCreated = false;
@@ -132,7 +124,6 @@ void DialogServiceTest::showDialog_shouldCreateDialog()
     QVERIFY(MockDialog::wasCreated);
 }
 
-//------------------------------------------------------------------------------
 void DialogServiceTest::showDialog_shouldReturnRightResult()
 {
     MockDialog::s_result = QDialog::Rejected;
@@ -149,7 +140,6 @@ void DialogServiceTest::showDialog_shouldReturnRightResult()
     QCOMPARE(result, true);
 }
 
-//------------------------------------------------------------------------------
 void DialogServiceTest::showDialog_shouldDeleteDialogAfterShowing()
 {
     MockDialog::wasDestroyed = false;
@@ -162,7 +152,6 @@ void DialogServiceTest::showDialog_shouldDeleteDialogAfterShowing()
     QVERIFY(MockDialog::wasDestroyed);
 }
 
-//------------------------------------------------------------------------------
 void DialogServiceTest::showDialog_shouldReturnFalseIfDialogWasNotRegistered()
 {
     MockDialog::s_result = QDialog::Accepted;
@@ -175,7 +164,6 @@ void DialogServiceTest::showDialog_shouldReturnFalseIfDialogWasNotRegistered()
     QCOMPARE(result, false);
 }
 
-//------------------------------------------------------------------------------
 void DialogServiceTest::showDialog_shouldInjectLocatorToTheModel()
 {
     MockDialog::s_result = QDialog::Accepted;
@@ -189,4 +177,3 @@ void DialogServiceTest::showDialog_shouldInjectLocatorToTheModel()
     QCOMPARE(model.injectedLocator, &locator);
 }
 
-//------------------------------------------------------------------------------

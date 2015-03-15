@@ -401,7 +401,6 @@ private:
     Q_DISABLE_COPY(IServiceLocator)
 };
 
-//------------------------------------------------------------------------------
 template<typename TInterface, typename TConcreteClass>
 void IServiceLocator::bindType()
 {
@@ -411,7 +410,6 @@ void IServiceLocator::bindType()
     this->bindType<TInterface, TConcreteClass>("");
 }
 
-//------------------------------------------------------------------------------
 template<typename TInterface, typename TConcreteClass>
 void IServiceLocator::bindType(const QString &tag)
 {
@@ -422,7 +420,6 @@ void IServiceLocator::bindType(const QString &tag)
     this->registerType<TInterface>(creator, tag);
 }
 
-//------------------------------------------------------------------------------
 template<typename TInterface>
 TInterface *IServiceLocator::buildInstance()
 {
@@ -431,7 +428,6 @@ TInterface *IServiceLocator::buildInstance()
     return buildInstance<TInterface>("");
 }
 
-//------------------------------------------------------------------------------
 template<typename TInterface>
 TInterface *IServiceLocator::buildInstance(const QString &tag)
 {
@@ -446,7 +442,6 @@ TInterface *IServiceLocator::buildInstance(const QString &tag)
     return instance;
 }
 
-//------------------------------------------------------------------------------
 template<typename TService>
 TService *IServiceLocator::locate()
 {
@@ -455,7 +450,6 @@ TService *IServiceLocator::locate()
     return this->locate<TService>("");
 }
 
-//------------------------------------------------------------------------------
 template<typename TService>
 TService *IServiceLocator::locate(const QString &tag)
 {
@@ -470,7 +464,6 @@ TService *IServiceLocator::locate(const QString &tag)
     return service;
 }
 
-//------------------------------------------------------------------------------
 template<typename TService>
 void IServiceLocator::registerInstance(TService *instance)
 {
@@ -479,7 +472,6 @@ void IServiceLocator::registerInstance(TService *instance)
     this->registerInstance<TService>(instance, "");
 }
 
-//------------------------------------------------------------------------------
 template<typename TService>
 void IServiceLocator::registerInstance(TService *instance, const QString &tag)
 {
@@ -489,7 +481,6 @@ void IServiceLocator::registerInstance(TService *instance, const QString &tag)
     this->registerInstanceImpl(reinterpret_cast<void *>(instance), className, tag);
 }
 
-//------------------------------------------------------------------------------
 template<typename TInterface>
 void IServiceLocator::registerType(factoryMethod method)
 {
@@ -498,7 +489,6 @@ void IServiceLocator::registerType(factoryMethod method)
     this->registerType<TInterface>(method, "");
 }
 
-//------------------------------------------------------------------------------
 template<typename TInterface>
 void IServiceLocator::registerType(factoryMethod method, const QString &tag)
 {
@@ -508,7 +498,6 @@ void IServiceLocator::registerType(factoryMethod method, const QString &tag)
     this->registerTypeImpl(className, method, tag);
 }
 
-//------------------------------------------------------------------------------
 template<typename TService>
 TService *IServiceLocator::unregisterInstance()
 {
@@ -517,7 +506,6 @@ TService *IServiceLocator::unregisterInstance()
     return this->unregisterInstance<TService>("");
 }
 
-//------------------------------------------------------------------------------
 template<typename TService>
 TService *IServiceLocator::unregisterInstance(const QString &tag)
 {
@@ -532,5 +520,4 @@ TService *IServiceLocator::unregisterInstance(const QString &tag)
     return reinterpret_cast<TService *>(service);
 }
 
-//------------------------------------------------------------------------------
 #endif // ISERVICELOCATOR_H

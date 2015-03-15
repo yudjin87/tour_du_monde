@@ -38,13 +38,11 @@
 #include <QtCore/QDir>
 #include <QtCore/QFileInfo>
 
-//------------------------------------------------------------------------------
 namespace
 {
 static LoggerFacade Log = LoggerFacade::createLogger("DefinitionConstuctor");
 }
 
-//------------------------------------------------------------------------------
 #ifdef Q_OS_WIN32
 static const QString libraryPattern("%1%2.dll");
 #endif // Q_WS_WIN
@@ -57,20 +55,17 @@ static const QString libraryPattern("%1lib%2.so");
 
 static const QString definitionPattern("%1%2.definition");
 
-//------------------------------------------------------------------------------
 DefinitionConstuctor::DefinitionConstuctor()
     : m_delegate(nullptr)
 {
 }
 
-//------------------------------------------------------------------------------
 DefinitionConstuctor::~DefinitionConstuctor()
 {
     delete m_delegate;
     m_delegate = nullptr;
 }
 
-//------------------------------------------------------------------------------
 bool DefinitionConstuctor::construct(ComponentDefinition *definition, const IDefinitionParser *parser)
 {
     QString name = parser->componentName();
@@ -120,7 +115,6 @@ bool DefinitionConstuctor::construct(ComponentDefinition *definition, const IDef
     return true;
 }
 
-//------------------------------------------------------------------------------
 void DefinitionConstuctor::setLocationConstructorDelegate(IComponentLocationConstructorDelegate *delegate)
 {
     if (m_delegate != nullptr)
@@ -129,4 +123,3 @@ void DefinitionConstuctor::setLocationConstructorDelegate(IComponentLocationCons
     m_delegate = delegate;
 }
 
-//------------------------------------------------------------------------------

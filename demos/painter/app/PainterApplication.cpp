@@ -26,7 +26,6 @@
 
 #include "PainterApplication.h"
 
-//------------------------------------------------------------------------------
 PainterApplication::PainterApplication(int &argc, char **argv)
     : QApplication(argc, argv)
 {
@@ -34,4 +33,3 @@ PainterApplication::PainterApplication(int &argc, char **argv)
     setOrganizationName("carousel-demo");
 }
 
-//------------------------------------------------------------------------------

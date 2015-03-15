@@ -33,10 +33,8 @@
 #include <components/componentsystemui/ComponentDefinitionsModel.h>
 #include <components/interactivity/IDialogService.h>
 
-//------------------------------------------------------------------------------
 static const QByteArray productName("NewComponentsDialog");
 
-//------------------------------------------------------------------------------
 NewComponentsDialogComponent::NewComponentsDialogComponent(QObject *parent /*= nullptr*/)
     : BaseComponent("org.carousel.demos.NewComponentsDialog", parent)
 {
@@ -48,12 +46,10 @@ NewComponentsDialogComponent::NewComponentsDialogComponent(QObject *parent /*= n
     setVersion(1, 0);
 }
 
-//------------------------------------------------------------------------------
 NewComponentsDialogComponent::~NewComponentsDialogComponent()
 {
 }
 
-//------------------------------------------------------------------------------
 bool NewComponentsDialogComponent::onStartup(IServiceLocator *serviceLocator)
 {
     // Services
@@ -63,14 +59,11 @@ bool NewComponentsDialogComponent::onStartup(IServiceLocator *serviceLocator)
     return true;
 }
 
-//------------------------------------------------------------------------------
 void NewComponentsDialogComponent::onShutdown(IServiceLocator *serviceLocator)
 {
     IDialogService *dialogService = serviceLocator->locate<IDialogService>();
     Q_ASSERT(dialogService->unregisterDialogForModel<ComponentDefinitionsModel>());
 }
 
-//------------------------------------------------------------------------------
 EXPORT_COMPONENT(NewComponentsDialogComponent)
 
-//------------------------------------------------------------------------------

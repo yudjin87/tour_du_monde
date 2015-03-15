@@ -26,7 +26,6 @@
 
 #include "MockComponentConfigurationDelegate.h"
 
-//------------------------------------------------------------------------------
 MockComponentConfigurationDelegate::MockComponentConfigurationDelegate()
     : m_configureCalled(false)
     , m_deconfigureCalled(false)
@@ -36,7 +35,6 @@ MockComponentConfigurationDelegate::MockComponentConfigurationDelegate()
 {
 }
 
-//------------------------------------------------------------------------------
 MockComponentConfigurationDelegate::~MockComponentConfigurationDelegate()
 {
     if (m_wasDestructorCalled != nullptr)
@@ -46,30 +44,25 @@ MockComponentConfigurationDelegate::~MockComponentConfigurationDelegate()
     m_deconfigureCalls = -1;
 }
 
-//------------------------------------------------------------------------------
 void MockComponentConfigurationDelegate::configure(IComponent * /*component*/, ICatalogs &/*catalogs*/)
 {
     m_configureCalled = true;
     ++m_configureCalls;
 }
 
-//------------------------------------------------------------------------------
 void MockComponentConfigurationDelegate::deconfigure(IComponent * /*component*/, ICatalogs &/*catalogs*/)
 {
     m_deconfigureCalled = true;
     ++m_deconfigureCalls;
 }
 
-//------------------------------------------------------------------------------
 void MockComponentConfigurationDelegate::setDeleteFlag(bool &wasDestructorCalled)
 {
     m_wasDestructorCalled = &wasDestructorCalled;
 }
 
-//------------------------------------------------------------------------------
 const ConfigurationChanges *MockComponentConfigurationDelegate::changesByComponent(IComponent * /*component*/) const
 {
     return nullptr;
 }
 
-//------------------------------------------------------------------------------

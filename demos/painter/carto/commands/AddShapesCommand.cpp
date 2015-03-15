@@ -35,7 +35,6 @@
 
 #include <QtCore/QFileInfo>
 
-//------------------------------------------------------------------------------
 AddShapesCommand::AddShapesCommand(IUndoStack *stack, IPainterDocumentController *docContr, IShapeFileWorkspaceFactory *factory, QObject *parent)
     : BaseUndoableCommand(stack, parent)
     , m_docContr(docContr)
@@ -45,18 +44,15 @@ AddShapesCommand::AddShapesCommand(IUndoStack *stack, IPainterDocumentController
     setText("adding shape layer(s)");
 }
 
-//------------------------------------------------------------------------------
 AddShapesCommand::~AddShapesCommand()
 {
 }
 
-//------------------------------------------------------------------------------
 void AddShapesCommand::addShapeFiles(const QStringList &files)
 {
     m_files = files;
 }
 
-//------------------------------------------------------------------------------
 void AddShapesCommand::redo()
 {
     IPainterDocument *doc = m_docContr->document();
@@ -79,7 +75,6 @@ void AddShapesCommand::redo()
     map->refresh();
 }
 
-//------------------------------------------------------------------------------
 void AddShapesCommand::undo()
 {
     IPainterDocument *doc = m_docContr->document();
@@ -91,5 +86,4 @@ void AddShapesCommand::undo()
     map->refresh();
 }
 
-//------------------------------------------------------------------------------
 

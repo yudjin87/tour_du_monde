@@ -31,7 +31,6 @@
 #include <components/jsscriptingui/CodeHighlighter.h>
 #include <components/jsscriptingui/ColorTheme.h>
 
-//------------------------------------------------------------------------------
 ScriptConsoleViewTest::ScriptConsoleViewTest(QObject *parent)
     : QObject(parent)
     , m_theme(ColorTheme::getDefault())
@@ -41,17 +40,14 @@ ScriptConsoleViewTest::ScriptConsoleViewTest(QObject *parent)
 {
 }
 
-//------------------------------------------------------------------------------
 ScriptConsoleViewTest::~ScriptConsoleViewTest()
 {
     delete m_view;
     m_view = nullptr;
 }
 
-//------------------------------------------------------------------------------
 void ScriptConsoleViewTest::test()
 {
     m_view->show();    
 }
 
-//------------------------------------------------------------------------------

@@ -34,7 +34,6 @@
 #include <carto/IPainterDocument.h>
 #include <carto/IPainterDocumentController.h>
 
-//------------------------------------------------------------------------------
 ZoomAllOperation::ZoomAllOperation()
     : Operation("Zoom all")
     , m_serviceLocator(nullptr)
@@ -43,7 +42,6 @@ ZoomAllOperation::ZoomAllOperation()
     setIconVisibleInMenu(true);
 }
 
-//------------------------------------------------------------------------------
 void ZoomAllOperation::execute()
 {
     IDisplay *display = m_serviceLocator->locate<IDisplay>();
@@ -55,10 +53,8 @@ void ZoomAllOperation::execute()
     map->refresh();
 }
 
-//------------------------------------------------------------------------------
 void ZoomAllOperation::initialize(IServiceLocator *serviceLocator)
 {
     m_serviceLocator = serviceLocator;
 }
 
-//------------------------------------------------------------------------------

@@ -33,20 +33,17 @@
 
 #include <carousel/logging/LoggerFacade.h>
 
-//------------------------------------------------------------------------------
 namespace
 {
 static LoggerFacade Log = LoggerFacade::createLogger("DialogService");
 }
 
-//------------------------------------------------------------------------------
 DialogService::DialogService(QWidget *mainWindow, IServiceLocator *locator)
     : m_mainWindow(mainWindow)
     , m_locator(locator)
 {
 }
 
-//------------------------------------------------------------------------------
 DialogService::~DialogService()
 {
     for(auto it = m_dialogMap.begin(); it != m_dialogMap.end(); ++it)
@@ -65,19 +62,16 @@ PropertiesDialog *DialogService::createPropertyDialog(PropertiesWidget *mainWidg
     return dialog;
 }
 
-//------------------------------------------------------------------------------
 bool DialogService::isConstructorRegistered(const QString &forDlgModelType) const
 {
     return m_dialogMap.contains(forDlgModelType);
 }
 
-//------------------------------------------------------------------------------
 void DialogService::registerConstructor(const QString &dlgModelType, IDialogConstructor *constructor)
 {
     m_dialogMap.add(dlgModelType, constructor);
 }
 
-//------------------------------------------------------------------------------
 bool DialogService::showDialogForModel(const QString &forDlgModelType, void *dlgModel) const
 {
     if (!isConstructorRegistered(forDlgModelType)) {
@@ -91,7 +85,6 @@ bool DialogService::showDialogForModel(const QString &forDlgModelType, void *dlg
     return (code == QDialog::Accepted);
 }
 
-//------------------------------------------------------------------------------
 QDialog *DialogService::createDialogForModel(const QString &forDlgModelType, void *dlgModel) const
 {
     if (!isConstructorRegistered(forDlgModelType)) {
@@ -108,7 +101,6 @@ QDialog *DialogService::createDialogForModel(const QString &forDlgModelType, voi
     return dlg;
 }
 
-//------------------------------------------------------------------------------
 bool DialogService::unregisterConstructor(const QString &forDlgModelType)
 {
     if (!isConstructorRegistered(forDlgModelType))
@@ -130,4 +122,3 @@ bool DialogService::unregisterConstructor(const QString &forDlgModelType)
     return true;
 }
 
-//------------------------------------------------------------------------------

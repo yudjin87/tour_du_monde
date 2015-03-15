@@ -2,12 +2,10 @@
 #include <carousel/logging/TextLogger.h>
 #include <QtTest/QtTest>
 
-//------------------------------------------------------------------------------
 TextLoggerTest::TextLoggerTest()
 {
 }
 
-//------------------------------------------------------------------------------
 void TextLoggerTest::writeToStream()
 {
     QString log;
@@ -22,4 +20,3 @@ void TextLoggerTest::writeToStream()
     QVERIFY(log.contains("Info"));
 }
 
-//------------------------------------------------------------------------------

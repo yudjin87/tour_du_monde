@@ -29,7 +29,6 @@
 
 #include <geodatabase/FeatureClass.h>
 
-//------------------------------------------------------------------------------
 FakeShapeFileFeatureDataset::FakeShapeFileFeatureDataset(IWorkspace &workspace, const QString &name, IServiceLocator &locator)
     : ShapeFileFeatureDataset(workspace, name, locator)
     , featureClass(new FakeFeatureClass(GeometryNull, QRectF()))
@@ -38,7 +37,6 @@ FakeShapeFileFeatureDataset::FakeShapeFileFeatureDataset(IWorkspace &workspace, 
 {
 }
 
-//------------------------------------------------------------------------------
 IFeatureClass *FakeShapeFileFeatureDataset::createFeatureClass(GeometryType shapeType, const QRectF &extent)
 {
     passedShapeType = shapeType;
@@ -46,4 +44,3 @@ IFeatureClass *FakeShapeFileFeatureDataset::createFeatureClass(GeometryType shap
     return featureClass;
 }
 
-//------------------------------------------------------------------------------

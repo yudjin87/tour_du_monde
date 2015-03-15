@@ -28,7 +28,6 @@
 
 #include <limits.h>
 
-//------------------------------------------------------------------------------
 AbstractLayer::AbstractLayer(QObject *parent)
     : QObject(parent)
     , m_name("")
@@ -38,13 +37,11 @@ AbstractLayer::AbstractLayer(QObject *parent)
 {
 }
 
-//------------------------------------------------------------------------------
 const QString &AbstractLayer::name() const
 {
     return m_name;
 }
 
-//------------------------------------------------------------------------------
 void AbstractLayer::setName(const QString &name)
 {
     if (m_name == name)
@@ -54,13 +51,11 @@ void AbstractLayer::setName(const QString &name)
     emit nameChanged(this, name);
 }
 
-//------------------------------------------------------------------------------
 bool AbstractLayer::isVisible() const
 {
     return m_isVisible;
 }
 
-//------------------------------------------------------------------------------
 void AbstractLayer::setVisible(bool visible)
 {
     if (m_isVisible == visible)
@@ -75,30 +70,25 @@ void AbstractLayer::setVisible(bool visible)
     emit visibilityChanged(this, m_isVisible);
 }
 
-//------------------------------------------------------------------------------
 double AbstractLayer::minimumScale() const
 {
     return m_minimumScale;
 }
 
-//------------------------------------------------------------------------------
 double AbstractLayer::maximumScale() const
 {
     return m_maximumScale;
 }
 
-//------------------------------------------------------------------------------
 void AbstractLayer::setMinimumScale(double minimumScale)
 {
     m_minimumScale = minimumScale;
     emit minimumScaleChanged(this, minimumScale);
 }
 
-//------------------------------------------------------------------------------
 void AbstractLayer::setMaximumScale(double maximumScale)
 {
     m_maximumScale = maximumScale;
     emit maximumScaleChanged(this, maximumScale);
 }
 
-//------------------------------------------------------------------------------

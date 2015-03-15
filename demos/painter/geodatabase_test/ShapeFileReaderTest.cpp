@@ -33,10 +33,8 @@
 #include <QtCore/QFile>
 #include <QtTest/QTest>
 
-//------------------------------------------------------------------------------
 void verifyShapeHeaderNull(ShapeFileHeader &header);
 
-//------------------------------------------------------------------------------
 namespace ShapeType {
 enum ShapeType
 {
@@ -57,7 +55,6 @@ enum ShapeType
 };
 }
 
-//------------------------------------------------------------------------------
 ShapeFileReaderTest::ShapeFileReaderTest(QObject *parent)
     : QObject(parent)
     , m_pointsFileName("")
@@ -76,7 +73,6 @@ ShapeFileReaderTest::ShapeFileReaderTest(QObject *parent)
     m_wrongFileVersionFileName = testDataDir.absoluteFilePath("wrong_file_version.shp");
 }
 
-//------------------------------------------------------------------------------
 void ShapeFileReaderTest::shouldReadShapeFileHeader()
 {
     QFile pointsFile(m_pointsFileName);
@@ -109,7 +105,6 @@ void ShapeFileReaderTest::shouldReadShapeFileHeader()
     QCOMPARE(header.mmax, 0.0);
 }
 
-//------------------------------------------------------------------------------
 void ShapeFileReaderTest::shouldReturnFalseIfFileCodeIsWrong()
 {
     QFile pointsFile(m_wrongFileCodeFileName);
@@ -126,7 +121,6 @@ void ShapeFileReaderTest::shouldReturnFalseIfFileCodeIsWrong()
     verifyShapeHeaderNull(header);
 }
 
-//------------------------------------------------------------------------------
 void ShapeFileReaderTest::shouldReturnFalseIfFileVersionIsWrong()
 {
     QFile pointsFile(m_wrongFileVersionFileName);
@@ -143,7 +137,6 @@ void ShapeFileReaderTest::shouldReturnFalseIfFileVersionIsWrong()
     verifyShapeHeaderNull(header);
 }
 
-//------------------------------------------------------------------------------
 void ShapeFileReaderTest::shouldReadShapeRecord()
 {
     QFile pointsFile(m_pointsFileName);
@@ -170,7 +163,6 @@ void ShapeFileReaderTest::shouldReadShapeRecord()
     delete[] point.shapeBlob;
 }
 
-//------------------------------------------------------------------------------
 void verifyShapeHeaderNull(ShapeFileHeader &header)
 {
     QCOMPARE(header.fileCode, 0);
@@ -193,4 +185,3 @@ void verifyShapeHeaderNull(ShapeFileHeader &header)
     QCOMPARE(header.mmax, 0.0);
 }
 
-//------------------------------------------------------------------------------

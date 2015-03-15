@@ -26,7 +26,6 @@
 
 #include "ChildExtension.h"
 
-//------------------------------------------------------------------------------
 static QStringList fillList()
 {
     QStringList list;
@@ -36,17 +35,14 @@ static QStringList fillList()
     return list;
 }
 
-//------------------------------------------------------------------------------
 ChildExtension::ChildExtension(QObject *parent /*= nullptr*/)
 {
     setParent(parent);
 }
 
-//------------------------------------------------------------------------------
 QStringList ChildExtension::parents() const
 {
     static QStringList parents = fillList();
     return parents;
 }
 
-//------------------------------------------------------------------------------

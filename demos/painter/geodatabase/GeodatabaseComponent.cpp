@@ -33,10 +33,8 @@
 #include <carousel/componentsystem/ComponentExport.h>
 #include <carousel/utils/IServiceLocator.h>
 
-//------------------------------------------------------------------------------
 static const QByteArray productName("Geodatabase");
 
-//------------------------------------------------------------------------------
 GeodatabaseComponent::GeodatabaseComponent()
     : BaseComponent("org.carousel.demos.Geodatabase")
 {
@@ -51,12 +49,10 @@ GeodatabaseComponent::GeodatabaseComponent()
     setVersion(1, 0);
 }
 
-//------------------------------------------------------------------------------
 GeodatabaseComponent::~GeodatabaseComponent()
 {
 }
 
-//------------------------------------------------------------------------------
 bool GeodatabaseComponent::onStartup(IServiceLocator *serviceLocator)
 {
     auto creator = [serviceLocator](){return new ShapeFileWorkspaceFactory(serviceLocator);};
@@ -66,7 +62,5 @@ bool GeodatabaseComponent::onStartup(IServiceLocator *serviceLocator)
     return true;
 }
 
-//------------------------------------------------------------------------------
 EXPORT_COMPONENT(GeodatabaseComponent)
 
-//------------------------------------------------------------------------------

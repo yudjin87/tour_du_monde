@@ -4,7 +4,6 @@
 #include <carousel/componentsystem/ComponentDefinition.h>
 #include <carousel/componentsystem/BaseComponent.h>
 
-//------------------------------------------------------------------------------
 class TestDescriptionComponent : public BaseComponent
 {
     Q_OBJECT
@@ -24,5 +23,4 @@ public:
     bool startUpResult;
 };
 
-//------------------------------------------------------------------------------
 #endif // TESTCONFIGUREDCOMPONENT_H

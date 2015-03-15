@@ -26,17 +26,14 @@
 
 #include "MockFileSystemWatcher.h"
 
-//------------------------------------------------------------------------------
 MockFileSystemWatcher::MockFileSystemWatcher(QObject *parent)
     : QFileSystemWatcher(parent)
 {
 }
 
-//------------------------------------------------------------------------------
 void MockFileSystemWatcher::emitDirectoryChanged()
 {
     //emit directoryChanged("");
 	throw "Cannot emit private signal! (since Qt5)";
 }
 
-//------------------------------------------------------------------------------
