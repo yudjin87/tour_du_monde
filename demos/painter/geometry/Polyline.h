@@ -39,7 +39,7 @@ public:
     explicit Polyline(std::initializer_list<QPointF> points, QObject *parent = nullptr);
 
     ~Polyline();
-    GeometryType type() const override;
+    Geometry::Type type() const override;
 };
 
 #endif // POLYLINE_H

@@ -33,12 +33,12 @@ class FeatureClass : public IFeatureClass
 {
     Q_OBJECT
 public:
-    FeatureClass(GeometryType shapeType, const QRectF &extent, QString source);
+    FeatureClass(Geometry::Type shapeType, const QRectF &extent, QString source);
     ~FeatureClass();
 
     QRectF extent() const override;
 
-    GeometryType shapeType() const override;
+    Geometry::Type shapeType() const override;
 
     IFeature *createFeature() override;
     const FeatureList &features() const override;
@@ -48,7 +48,7 @@ public:
     const QString &source() const override;
 
 private:
-    GeometryType m_type;
+    Geometry::Type m_type;
     FeatureList m_features;
     QRectF m_extent;
     QString m_source;

@@ -15,7 +15,7 @@ class ISpatialFilter;
 class GEODATABASE_API IFeatureClass : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(int shapeType READ shapeType)
+    Q_PROPERTY(Geometry::Type shapeType READ shapeType)
     Q_PROPERTY(QRectF extent READ extent)
     Q_PROPERTY(QVector<IFeature *> features READ features)
     Q_PROPERTY(QString source READ source)
@@ -26,7 +26,7 @@ public:
     IFeatureClass(){}
 
     virtual QRectF extent() const = 0;
-    virtual GeometryType shapeType() const = 0;
+    virtual Geometry::Type shapeType() const = 0;
     virtual const FeatureList &features() const = 0;
 
     virtual const QString &source() const = 0;

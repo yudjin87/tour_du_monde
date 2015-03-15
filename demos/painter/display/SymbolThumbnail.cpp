@@ -52,7 +52,7 @@ void SymbolThumbnail::setBackground(const QColor color)
     m_bgColor = color;
 }
 
-QPixmap SymbolThumbnail::createSymbolThumbnail(ISymbol *forSymbol, const GeometryType type) const
+QPixmap SymbolThumbnail::createSymbolThumbnail(ISymbol *forSymbol, const Geometry::Type type) const
 {
     QPixmap pixmap(m_size, m_size);
     pixmap.fill(m_bgColor);
@@ -70,10 +70,10 @@ QPixmap SymbolThumbnail::createSymbolThumbnail(ISymbol *forSymbol, const Geometr
 void SymbolThumbnail::fillThumbnails()
 {
     // •
-    m_thumbnails.insert(GeometryPoint, new Point(m_size / 2, m_size / 2));
+    m_thumbnails.insert(Geometry::Type::Point, new Point(m_size / 2, m_size / 2));
 
     // ─<
-    m_thumbnails.insert(GeometryPolyline, new Polyline{
+    m_thumbnails.insert(Geometry::Type::Polyline, new Polyline{
                    QPointF(m_offset, m_size / 2), QPointF(m_size / 2 + m_offset, m_size / 2),
                    QPointF(m_size / 2 + m_offset, m_size / 2), QPointF(m_size - m_offset, m_size - m_offset * 2),
                    QPointF(m_size / 2 + m_offset, m_size / 2), QPointF(m_size - m_offset, m_offset * 2)
@@ -81,6 +81,6 @@ void SymbolThumbnail::fillThumbnails()
 
     // ■
     const QRectF rect(QPointF(m_offset, m_offset),  QPointF(m_size - m_offset - 1, m_size - m_offset - 1));
-    m_thumbnails.insert(GeometryPolygon, new Polygon{rect.topLeft(), rect.topRight(), rect.bottomRight(), rect.bottomLeft()});
+    m_thumbnails.insert(Geometry::Type::Polygon, new Polygon{rect.topLeft(), rect.topRight(), rect.bottomRight(), rect.bottomLeft()});
 }
 

@@ -46,17 +46,17 @@ void SymbolBase::draw(const AbstractGeometry *geometry, QPainter *painter)
 {
     switch (geometry->type())
     {
-    case GeometryPoint: {
+    case Geometry::Type::Point: {
         const Point *point = static_cast<const Point *>(geometry);
         drawPoint(*point, *painter);
         break;
     }
-    case GeometryPolygon: {
+    case Geometry::Type::Polygon: {
         const Polygon *polygon = static_cast<const Polygon *>(geometry);
         drawPolygon(*polygon, *painter);
         break;
     }
-    case GeometryPolyline: {
+    case Geometry::Type::Polyline: {
         const Polyline *polyline = static_cast<const Polyline *>(geometry);
         drawPolyline(*polyline, *painter);
         break;

@@ -42,14 +42,14 @@ class GEOMETRY_API GeometryFactory : public IGeometryFactory
 public:
     GeometryFactory();
 
-    GeometryType geometryTypeFromShapeType(int shapeType) const override;
+    Geometry::Type geometryTypeFromShapeType(int shapeType) const override;
 
     AbstractGeometry *createGeometry(int bytesCount, const char *geometryBlob) const override;
 
 private:
-    static const QMap<int, GeometryType> m_typesMap;
+    static const QMap<int, Geometry::Type> m_typesMap;
 
-    static QMap<int, GeometryType> fillTypesMap();
+    static QMap<int, Geometry::Type> fillTypesMap();
     static void createPoint(QDataStream &stream, Point *point);
     static void createPoly(QDataStream &stream, Polycurve *polycurve);
     static void readBoundingBox(QDataStream &stream, QRectF &bBox);

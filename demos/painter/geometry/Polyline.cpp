@@ -51,8 +51,8 @@ Polyline::~Polyline()
 {
 }
 
-GeometryType Polyline::type() const
+Geometry::Type Polyline::type() const
 {
-    return GeometryPolyline;
+    return Geometry::Type::Polyline;
 }
 

@@ -39,7 +39,7 @@ class SymbolItem : public QObject, public QStandardItem
 {
     Q_OBJECT
 public:
-    SymbolItem(const ISymbol *symbol, const GeometryType geometry);
+    SymbolItem(const ISymbol *symbol, const Geometry::Type geometry);
     ~SymbolItem();
 
     QVariant data(int role) const;
@@ -48,7 +48,7 @@ public:
 
 private:
     ISymbolUPtr m_symbol;
-    const GeometryType m_geometry;
+    const Geometry::Type m_geometry;
 };
 
 #endif // SYMBOLITEM_H

@@ -68,9 +68,9 @@ const SegmentList &Ring::segments() const
     return m_segments;
 }
 
-GeometryType Ring::type() const
+Geometry::Type Ring::type() const
 {
-    return GeometryRing;
+    return Geometry::Type::Ring;
 }
 
 void Ring::clearData()

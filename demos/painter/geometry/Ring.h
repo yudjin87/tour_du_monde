@@ -51,7 +51,7 @@ public:
     SegmentList &segments();
     const SegmentList &segments() const;
 
-    GeometryType type() const override;
+    Geometry::Type type() const override;
 
 private:
     void clearData();

@@ -43,7 +43,7 @@
 #include <QtScript/QScriptEngine>
 #include <QtScript/QScriptValueIterator>
 
-Q_DECLARE_METATYPE(GeometryType)
+Q_DECLARE_METATYPE(Geometry::Type)
 
 namespace
 {

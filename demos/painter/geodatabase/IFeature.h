@@ -14,7 +14,7 @@ class GEODATABASE_API IFeature : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(int id READ id)
-    Q_PROPERTY(int shapeType READ shapeType)
+    Q_PROPERTY(Geometry::Type shapeType READ shapeType)
     Q_PROPERTY(QRectF extent READ extent)
     Q_PROPERTY(AbstractGeometry *geometry READ geometry WRITE setGeometry)
 public:
@@ -30,7 +30,7 @@ public:
 
     virtual void setGeometry(AbstractGeometry *geometry) = 0;
 
-    virtual GeometryType shapeType() const = 0;
+    virtual Geometry::Type shapeType() const = 0;
 
 private:
     Q_DISABLE_COPY(IFeature)

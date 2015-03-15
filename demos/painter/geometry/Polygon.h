@@ -40,7 +40,7 @@ public:
 
     ~Polygon();
 
-    GeometryType type() const override;
+    Geometry::Type type() const override;
 };
 
 

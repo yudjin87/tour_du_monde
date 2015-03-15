@@ -28,7 +28,7 @@
 #include <display/SymbolThumbnail.h>
 #include <QtGui/QPixmap>
 
-SymbolItem::SymbolItem(const ISymbol *symbol, const GeometryType geometry)
+SymbolItem::SymbolItem(const ISymbol *symbol, const Geometry::Type geometry)
     : QStandardItem()
     , m_symbol(symbol->clone())
     , m_geometry(geometry)

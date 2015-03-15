@@ -39,14 +39,14 @@ class IFeatureClass;
 class CARTO_API FeatureLayer : public AbstractLayer
 {
     Q_OBJECT
-    Q_PROPERTY(int shapeType READ shapeType)
+    Q_PROPERTY(Geometry::Type shapeType READ shapeType)
     Q_PROPERTY(IFeatureClass *featureClass READ featureClass WRITE setFeatureClass)
     Q_PROPERTY(IFeatureRenderer *renderer READ renderer)
 public:
     FeatureLayer(QObject *parent = nullptr);
     ~FeatureLayer();
 
-    GeometryType shapeType() const;
+    Geometry::Type shapeType() const;
 
     IFeatureRenderer *renderer() const;
     void setRenderer(IFeatureRenderer *newRenderer);

@@ -34,7 +34,7 @@
 #include <QtGui/QDoubleValidator>
 
 SimpleFillSymbolWidget::SimpleFillSymbolWidget(const SimpleFillSymbol *symbol, SymbolWidget *lineWidget,  QWidget *parent)
-    : SymbolWidget(GeometryPolygon, parent)
+    : SymbolWidget(Geometry::Type::Polygon, parent)
     , m_ui(new Ui::SimpleFillSymbolWidget)
     , m_lineWidget(lineWidget)
     , m_symbol(static_cast<SimpleFillSymbol*>(symbol->clone()))

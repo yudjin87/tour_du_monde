@@ -33,7 +33,7 @@ class Feature : public IFeature
 {
     Q_OBJECT
 public:
-    explicit Feature(GeometryType type);
+    explicit Feature(Geometry::Type type);
     ~Feature();
 
     int id() const override;
@@ -46,10 +46,10 @@ public:
 
     void setGeometry(AbstractGeometry *geometry) override;
 
-    GeometryType shapeType() const override;
+    Geometry::Type shapeType() const override;
 
 private:
-    GeometryType m_type;
+    Geometry::Type m_type;
     int m_id;
     AbstractGeometry* m_geometry;
 };

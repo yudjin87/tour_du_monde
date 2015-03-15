@@ -114,7 +114,7 @@ IFeatureClass *ShapeFileFeatureDataset::classByName(const QString &className)
     ShapeFileHeader header;
     m_fileReader->readHeader(header);
 
-    GeometryType type = m_factory->geometryTypeFromShapeType(header.shapeType);
+    Geometry::Type type = m_factory->geometryTypeFromShapeType(header.shapeType);
     IFeatureClass *featureClass = createFeatureClass(type, header.bBox, absoluteFilePath(className));
 
     while (!m_file->atEnd()) {
@@ -148,9 +148,9 @@ QList<IFeatureClass *> ShapeFileFeatureDataset::classes()
     return features;
 }
 
-GeometryType ShapeFileFeatureDataset::geometryType()
+Geometry::Type ShapeFileFeatureDataset::geometryType()
 {
-    GeometryType type = GeometryNull;
+    Geometry::Type type = Geometry::Type::Null;
     if (!prepareToReading(name()))
         return type;
 
@@ -162,7 +162,7 @@ GeometryType ShapeFileFeatureDataset::geometryType()
     return m_factory->geometryTypeFromShapeType(header.shapeType);
 }
 
-IFeatureClass *ShapeFileFeatureDataset::createFeatureClass(GeometryType geometryType, const QRectF &extent, const QString &source)
+IFeatureClass *ShapeFileFeatureDataset::createFeatureClass(Geometry::Type geometryType, const QRectF &extent, const QString &source)
 {
     return new FeatureClass(geometryType, extent, source);
 }

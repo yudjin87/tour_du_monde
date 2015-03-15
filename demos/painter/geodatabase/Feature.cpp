@@ -28,7 +28,7 @@
 
 #include <geometry/AbstractGeometry.h>
 
-Feature::Feature(GeometryType type)
+Feature::Feature(Geometry::Type type)
     : m_type(type)
     , m_id(-1)
     , m_geometry(0)
@@ -72,7 +72,7 @@ void Feature::setGeometry(AbstractGeometry *geometry)
     m_geometry = geometry;
 }
 
-GeometryType Feature::shapeType() const
+Geometry::Type Feature::shapeType() const
 {
     return m_type;
 }

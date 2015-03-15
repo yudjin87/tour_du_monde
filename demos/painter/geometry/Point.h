@@ -43,7 +43,7 @@ public:
     const QPointF &point() const;
     void setPoint(const QPointF &point);
 
-    GeometryType type() const override;
+    Geometry::Type type() const override;
 
 private:
     QPointF m_value;

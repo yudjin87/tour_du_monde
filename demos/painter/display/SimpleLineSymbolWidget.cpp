@@ -33,7 +33,7 @@
 #include <QtGui/QDoubleValidator>
 
 SimpleLineSymbolWidget::SimpleLineSymbolWidget(const SimpleLineSymbol *symbol, QWidget *parent)
-    : SymbolWidget(GeometryPolyline, parent)
+    : SymbolWidget(Geometry::Type::Polyline, parent)
     , m_ui(new Ui::SimpleLineSymbolWidget)
     , m_symbol(static_cast<SimpleLineSymbol*>(symbol->clone()))
     , m_lineStyles(QStringList{"No pen", "Solid line", "Dash line", "Dot line", "Dash dot line", "Dash dot dot line"})

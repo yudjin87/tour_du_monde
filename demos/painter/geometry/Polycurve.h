@@ -49,7 +49,7 @@ public:
     RingList &rings();
     const RingList &rings() const;
 
-    GeometryType type() const = 0;
+    Geometry::Type type() const = 0;
 
 private:
     void clearData();

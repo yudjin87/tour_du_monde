@@ -27,27 +27,34 @@
 #ifndef GEOMETRYTYPE_H
 #define GEOMETRYTYPE_H
 
-enum GeometryType
+namespace Geometry
 {
-    GeometryNull          = 0,
-    GeometryPoint         = 1,
-    GeometryMultipoint    = 2,
-    GeometryPolyline      = 3,
-    GeometryPolygon       = 4,
-    GeometryEnvelope      = 5,
-    GeometryPath          = 6,
-    GeometryAny           = 7,
-    GeometryMultiPatch    = 9,
-    GeometryRing          = 11,
-    GeometryLine          = 13,
-    GeometryCircularArc   = 14,
-    GeometryBezier3Curve  = 15,
-    GeometryEllipticArc   = 16,
-    GeometryBag           = 17,
-    GeometryTriangleStrip = 18,
-    GeometryTriangleFan   = 19,
-    GeometryRay           = 20,
-    GeometrySphere        = 21
+enum class Type
+{
+    Null          = 0,
+    Point         = 1,
+    Multipoint    = 2,
+    Polyline      = 3,
+    Polygon       = 4,
+    Envelope      = 5,
+    Path          = 6,
+    Any           = 7,
+    MultiPatch    = 9,
+    Ring          = 11,
+    Line          = 13,
+    CircularArc   = 14,
+    Bezier3Curve  = 15,
+    EllipticArc   = 16,
+    Bag           = 17,
+    TriangleStrip = 18,
+    TriangleFan   = 19,
+    Ray           = 20,
+    Sphere        = 21
 };
 
+}
+
 #endif // GEOMETRYTYPE_H
+
+
+

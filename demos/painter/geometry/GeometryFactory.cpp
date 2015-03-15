@@ -56,14 +56,14 @@ namespace ShapeType {
     };
 }
 
-const QMap<int, GeometryType> GeometryFactory::m_typesMap = fillTypesMap();
+const QMap<int, Geometry::Type> GeometryFactory::m_typesMap = fillTypesMap();
 
 GeometryFactory::GeometryFactory()
 {
     setObjectName("GeometryFactory");
 }
 
-GeometryType GeometryFactory::geometryTypeFromShapeType(int shapeType) const
+Geometry::Type GeometryFactory::geometryTypeFromShapeType(int shapeType) const
 {
     return m_typesMap.value(shapeType);
 }
@@ -106,14 +106,14 @@ AbstractGeometry *GeometryFactory::createGeometry(int bytesCount, const char *ge
     return nullptr;
 }
 
-QMap<int, GeometryType> GeometryFactory::fillTypesMap()
+QMap<int, Geometry::Type> GeometryFactory::fillTypesMap()
 {
-    QMap<int, GeometryType> types;
-    types.insert(ShapeType::NullShape, GeometryNull);
-    types.insert(ShapeType::Point, GeometryPoint);
-    types.insert(ShapeType::Polyline, GeometryPolyline);
-    types.insert(ShapeType::Polygon, GeometryPolygon);
-    types.insert(ShapeType::MultiPoint, GeometryMultipoint);
+    QMap<int, Geometry::Type> types;
+    types.insert(ShapeType::NullShape, Geometry::Type::Null);
+    types.insert(ShapeType::Point, Geometry::Type::Point);
+    types.insert(ShapeType::Polyline, Geometry::Type::Polyline);
+    types.insert(ShapeType::Polygon, Geometry::Type::Polygon);
+    types.insert(ShapeType::MultiPoint, Geometry::Type::Multipoint);
 
     return types;
 }

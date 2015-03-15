@@ -54,8 +54,8 @@ void Point::setPoint(const QPointF &value)
     setExtent(QRectF(value, QSize(1, 1)));
 }
 
-GeometryType Point::type() const
+Geometry::Type Point::type() const
 {
-    return GeometryPoint;
+    return Geometry::Type::Point;
 }
 

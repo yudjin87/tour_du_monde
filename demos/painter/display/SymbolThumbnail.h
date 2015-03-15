@@ -43,7 +43,7 @@ public:
     explicit SymbolThumbnail(const int size, const int offset = 0);
     ~SymbolThumbnail();
 
-    QPixmap createSymbolThumbnail(ISymbol *forSymbol, GeometryType type) const;
+    QPixmap createSymbolThumbnail(ISymbol *forSymbol, Geometry::Type type) const;
     void setBackground(const QColor color);
 
 private:
@@ -53,7 +53,7 @@ private:
     const int m_size;
     const int m_offset;
     QColor m_bgColor;
-    QMap<GeometryType, AbstractGeometry *> m_thumbnails;
+    QMap<Geometry::Type, AbstractGeometry *> m_thumbnails;
 };
 
 #endif // SYMBOLTHUMBNAIL_H

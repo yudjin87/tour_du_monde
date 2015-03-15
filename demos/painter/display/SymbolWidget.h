@@ -39,7 +39,7 @@ class DISPLAY_API SymbolWidget : public QWidget
 {
     Q_OBJECT
 public:
-    SymbolWidget(const GeometryType type, QWidget *parent = nullptr);
+    SymbolWidget(const Geometry::Type type, QWidget *parent = nullptr);
     ~SymbolWidget();
 
     virtual const ISymbol* symbol() const = 0;
@@ -63,7 +63,7 @@ protected:
     const int LABEL_COLUMN_WIDHT = 50; // have to synchronoze embedded widgets, because of 1st column width may be different
 
 private:
-    const GeometryType m_type;
+    const Geometry::Type m_type;
     QLabel* m_sample;
 };
 

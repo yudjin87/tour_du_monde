@@ -69,8 +69,8 @@ void Segment::setCurve(const QPolygonF &value)
     m_value = value;
 }
 
-GeometryType Segment::type() const
+Geometry::Type Segment::type() const
 {
-    return GeometryPath;
+    return Geometry::Type::Path;
 }
 

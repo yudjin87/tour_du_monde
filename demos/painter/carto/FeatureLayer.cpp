@@ -64,7 +64,7 @@ FeatureLayer::~FeatureLayer()
     m_featureRenderer = nullptr;
 }
 
-GeometryType FeatureLayer::shapeType() const
+Geometry::Type FeatureLayer::shapeType() const
 {
     return m_featureClass->shapeType();
 }
@@ -123,15 +123,15 @@ void FeatureLayer::setFeatureClass(IFeatureClass *featureClass)
     ISymbol* defaultSymbol = nullptr;
     switch (m_featureClass->shapeType())
     {
-    case GeometryPoint:
+    case Geometry::Type::Point:
         defaultSymbol = new SimpleMarkerSymbol();
         break;
 
-    case GeometryPolyline:
+    case Geometry::Type::Polyline:
         defaultSymbol = new SimpleLineSymbol();
         break;
 
-    case GeometryPolygon:
+    case Geometry::Type::Polygon:
         defaultSymbol = new SimpleFillSymbol();
         break;
 

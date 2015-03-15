@@ -30,7 +30,7 @@
 
 #include <QtWidgets/QLabel>
 
-SymbolWidget::SymbolWidget(const GeometryType type, QWidget *parent)
+SymbolWidget::SymbolWidget(const Geometry::Type type, QWidget *parent)
     : QWidget(parent)
     , m_type(type)
     , m_sample(nullptr)

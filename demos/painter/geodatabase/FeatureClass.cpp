@@ -37,7 +37,7 @@ namespace
 static LoggerFacade Log = LoggerFacade::createLogger("FeatureClass");
 }
 
-FeatureClass::FeatureClass(GeometryType shapeType, const QRectF &extent, QString source)
+FeatureClass::FeatureClass(Geometry::Type shapeType, const QRectF &extent, QString source)
     : m_type(shapeType)
     , m_features()
     , m_extent(extent)
@@ -56,7 +56,7 @@ QRectF FeatureClass::extent() const
     return m_extent;
 }
 
-GeometryType FeatureClass::shapeType() const
+Geometry::Type FeatureClass::shapeType() const
 {
     return m_type;
 }

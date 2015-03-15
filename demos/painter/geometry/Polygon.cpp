@@ -51,8 +51,8 @@ Polygon::~Polygon()
 {
 }
 
-GeometryType Polygon::type() const
+Geometry::Type Polygon::type() const
 {
-    return GeometryPolygon;
+    return Geometry::Type::Polygon;
 }
 

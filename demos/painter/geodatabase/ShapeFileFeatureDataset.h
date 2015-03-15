@@ -42,7 +42,7 @@ public:
     ShapeFileFeatureDataset(IWorkspace &workspace, const QString &name);
     ~ShapeFileFeatureDataset();
 
-    GeometryType geometryType() override;
+    Geometry::Type geometryType() override;
 
     QRectF extent() override;
 
@@ -54,7 +54,7 @@ public:
     IFeatureClass* classByName(const QString &className = "") override;
 
 protected:
-    virtual IFeatureClass* createFeatureClass(GeometryType geometryType, const QRectF &extent, const QString &source);
+    virtual IFeatureClass* createFeatureClass(Geometry::Type geometryType, const QRectF &extent, const QString &source);
 
 private:
     bool prepareToReading(const QString &name);
