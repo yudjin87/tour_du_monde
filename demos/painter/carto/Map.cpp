@@ -221,8 +221,6 @@ void Map::refresh()
         layer->draw(m_display);
 
     m_display->finishDrawing(DispayCache::Geometry);
-
-    emit refreshed(); // TODO? what for?
 }
 
 void Map::onDeviceFrameChanged(const QRectF &)

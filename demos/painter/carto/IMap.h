@@ -64,7 +64,6 @@ public slots:
 signals:
     void layerAdded(AbstractLayer *layer, const int index);
     void layerRemoved(AbstractLayer *layer, const int index);
-    void refreshed();
 
 private:
     Q_DISABLE_COPY(IMap)

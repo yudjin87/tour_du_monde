@@ -60,7 +60,6 @@ LayerTreeModel::LayerTreeModel(IMap *map, IServiceLocator *serviceLocator, QObje
 
     connect(map, &IMap::layerAdded, this, &LayerTreeModel::onLayerAdded);
     connect(map, &IMap::layerRemoved, this, &LayerTreeModel::onLayerRemoved);
-    // connect(map, &IMap::refreshed, this, &LayerTreeModel::onMapRefreshed); - ugly hackish signal
 }
 
 //------------------------------------------------------------------------------
