@@ -74,7 +74,10 @@ public slots:
     virtual void updateWindow() = 0;
 
 signals:
-    void visibleBoundsUpdated(DisplayTransformation *transform);
+    /* from DisplayTransformation */
+    void boundsChanged(const QRectF &bounds);
+    void deviceFrameChanged(const QRectF &deviceFrame);
+    void visibleBoundsChanged(const QRectF &visibleBounds);
 
 private:
     Q_DISABLE_COPY(IDisplay)

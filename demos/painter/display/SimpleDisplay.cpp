@@ -67,6 +67,11 @@ SimpleDisplay::SimpleDisplay(QWidget *parent)
 
     m_conn = connect(m_transform, &DisplayTransformation::visibleBoundsChanged, this, &SimpleDisplay::onVisibleBoundChanged);
 
+    // retransmission to clients
+    connect(m_transform, &DisplayTransformation::boundsChanged, this, &SimpleDisplay::boundsChanged);
+    connect(m_transform, &DisplayTransformation::deviceFrameChanged, this, &SimpleDisplay::deviceFrameChanged);
+    connect(m_transform, &DisplayTransformation::visibleBoundsChanged, this, &SimpleDisplay::visibleBoundsChanged);
+
     m_transform->setDeviceFrame(QRectF(0, 0, width(), height()));
 }
 
@@ -212,7 +217,6 @@ QRectF SimpleDisplay::panStop()
 void SimpleDisplay::emitChanged()
 {
     //m_offset = QPointF(0, 0);
-    emit visibleBoundsUpdated(transformation());
     viewport()->update();
 }
 

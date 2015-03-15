@@ -44,7 +44,7 @@ Map::Map(IPainterDocument *parentDocument, IDisplay *display)
     : m_parentDocument(parentDocument)
     , m_display(display)
 {
-    //connect(m_display, &IDisplay::visibleBoundsUpdated, this, &Map::onVisibleBoundsChanged);
+    connect(m_display, &IDisplay::deviceFrameChanged, this, &Map::onDeviceFrameChanged);
 }
 
 //------------------------------------------------------------------------------
@@ -225,11 +225,9 @@ void Map::refresh()
     emit refreshed(); // TODO? what for?
 }
 
-//------------------------------------------------------------------------------
-void Map::onVisibleBoundsChanged(DisplayTransformation *transform)
+void Map::onDeviceFrameChanged(const QRectF &)
 {
-    Q_UNUSED(transform)
-//    refresh();
+    refresh();
 }
 
 //------------------------------------------------------------------------------

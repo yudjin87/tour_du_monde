@@ -58,7 +58,7 @@ public slots:
     const AbstractLayer *getLayer(const QString& name) const override;
 
 private slots:
-    void onVisibleBoundsChanged(DisplayTransformation *transform);
+    void onDeviceFrameChanged(const QRectF &deviceFrame);
 
 private:
     IPainterDocument *m_parentDocument;
