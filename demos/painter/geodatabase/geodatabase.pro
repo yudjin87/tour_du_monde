@@ -1,6 +1,6 @@
 include(../shared.pri)
 
-QT       += gui script
+QT       += script sql
 
 TEMPLATE = lib
 
@@ -32,6 +32,7 @@ HEADERS += \
     ShapeFileReader.h \
     IFeatureClass.h \
     IFeature.h \
+    IRecord.h \
     GeodatabaseComponent.h \
     IShapeFileWorkspaceFactory.h \
     ISpatialFilter.h \
