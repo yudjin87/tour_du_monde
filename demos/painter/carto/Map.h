@@ -49,7 +49,7 @@ public slots:
     void addLayer(AbstractLayer *layer) override;
     void insertLayer(const int index, AbstractLayer *layer) override;
     int removeLayer(AbstractLayer *layer) override;
-    void moveLayer(AbstractLayer *layer, const int index) override;
+    int moveLayer(AbstractLayer *layer, const int index) override;
 
     AbstractLayer *takeLayer(const int index) override; // removes layer without deleting it
     AbstractLayer *getLayer(const int index) override;

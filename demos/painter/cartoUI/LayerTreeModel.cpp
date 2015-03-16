@@ -32,6 +32,7 @@
 #include <carto/IMap.h>
 #include <carto/FeatureLayer.h>
 #include <carto/commands/RenameLayerCommand.h>
+#include <carto/commands/MoveLayerCommand.h>
 #include <display/IFeatureRenderer.h>
 #include <carousel/logging/LoggerFacade.h>
 #include <carousel/utils/IServiceLocator.h>
@@ -85,7 +86,7 @@ Qt::ItemFlags LayerTreeModel::flags(const QModelIndex &index) const
     Qt::ItemFlags defaultFlags = QStandardItemModel::flags(index);
 
     if (index.isValid())
-        return Qt::ItemIsDragEnabled | Qt::ItemIsDropEnabled | Qt::ItemIsEditable | defaultFlags;
+        return Qt::ItemIsDragEnabled | Qt::ItemIsDropEnabled | Qt::ItemIsEditable | defaultFlags; // TODO: rename command
 
     return Qt::ItemIsDropEnabled | defaultFlags;
 }
@@ -133,6 +134,7 @@ bool LayerTreeModel::canDropMimeData(const QMimeData *data, Qt::DropAction actio
 {
     Q_UNUSED(action);
     Q_UNUSED(row);
+    Q_UNUSED(parent);
 
     if (!data->hasFormat(LAYER_NAME_MIME))
         return false;
@@ -193,17 +195,12 @@ bool LayerTreeModel::dropMimeData(const QMimeData *data, Qt::DropAction action, 
     int nextMoveIndex = row;
     for (const QModelIndex &index : mimeData->indexes)
     {
-        // TODO: command for moving layers
-        AbstractLayer* movedLayer = m_map->getLayer(index.row()); // TODO: itemByIndex, since it may be grouped
-        Q_ASSERT(movedLayer != nullptr && "Invalid layer name during Drag&Drop");
-
-        if (nextMoveIndex < index.row())
-            m_map->moveLayer(movedLayer, nextMoveIndex);
-        else
-            m_map->moveLayer(movedLayer, nextMoveIndex - 1); // because 1 before it will be removed
+        MoveLayerCommand* cmd = m_serviceLocator->buildInstance<MoveLayerCommand>();
+        cmd->setLayerIndex(index.row());
+        cmd->setNewLayerIndex(nextMoveIndex);
+        cmd->pushToStack();
     }
 
-    m_map->refresh();
     return true;
 }
 

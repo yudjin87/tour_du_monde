@@ -122,32 +122,36 @@ int Map::removeLayer(AbstractLayer *layer)
     return layerIndex;
 }
 
-void Map::moveLayer(AbstractLayer *layer, const int index)
+int Map::moveLayer(AbstractLayer *layer, const int index)
 {
     if (layer == nullptr)
-        return;
+        return -1;
 
     const auto it = std::find(std::begin(m_layers), std::end(m_layers), layer);
     if (it == std::end(m_layers)) {
         Log.d(QString("Layer \"%1\" wasn't found").arg(layer->name()));
-        return;
+        return -1;
     }
 
-    const size_t oldIndex = std::distance(std::begin(m_layers), it);
+    const int oldIndex = std::distance(std::begin(m_layers), it);
     if (oldIndex == index) {
         Log.d(QString("Trying to move layer \"%1\" to the same index %2. Skipping").arg(layer->name()).arg(index));
-        return;
+        return -1;
     }
 
-    const int layerIndex = ((0 < index) && (index < m_layers.size()))
+    const int newIndex = ((0 < index) && (index < m_layers.size()))
             ? index
             : 0;
 
-    Log.d(QString("Moving layer \"%1\" to position %2").arg(layer->name()).arg(layerIndex));
+    const int actualNewIndex = newIndex < oldIndex ? newIndex : newIndex - 1; // since it will be removed from old position
+
+    Log.d(QString("Moving layer \"%1\" to position %2").arg(layer->name()).arg(actualNewIndex));
 
     AbstractLayer *foundLayer = takeLayer(oldIndex);
     Q_ASSERT(foundLayer == layer);
-    insertLayer(layerIndex, layer);
+    insertLayer(actualNewIndex, layer);
+
+    return actualNewIndex;
 }
 
 AbstractLayer *Map::getLayer(const int index)
