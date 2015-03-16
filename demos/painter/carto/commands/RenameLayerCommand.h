@@ -30,25 +30,22 @@
 #include <carto/carto_api.h>
 #include <carousel/commands/BaseUndoableCommand.h>
 
-class IPainterDocumentController;
 class AbstractLayer;
 
 class CARTO_API RenameLayerCommand : public BaseUndoableCommand
 {
     Q_OBJECT
 public:
-    RenameLayerCommand(IUndoStack *stack, IPainterDocumentController *docContr, QObject* parent = nullptr);
+    RenameLayerCommand(IUndoStack *stack, QObject* parent = nullptr);
     ~RenameLayerCommand();
 
-    void setLayer(AbstractLayer* layer); // or
-    void setLayerIndex(const int layerToRename);
+    void setLayer(AbstractLayer* layer);
     void setNewName(const QString& newName);
 
     void redo() override;
     void undo() override;
 
 private:
-    IPainterDocumentController* m_docContr;
     AbstractLayer* m_layer;
     int m_layerIndexToRename;
     QString m_newName;

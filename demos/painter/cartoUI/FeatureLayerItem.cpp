@@ -27,12 +27,15 @@
 #include "FeatureLayerItem.h"
 #include "SymbolItem.h"
 
+#include <carto/commands/RenameLayerCommand.h>
 #include <carto/FeatureLayer.h>
 #include <display/IFeatureRenderer.h>
+#include <carousel/utils/IServiceLocator.h>
 
-FeatureLayerItem::FeatureLayerItem(FeatureLayer &layer)
+FeatureLayerItem::FeatureLayerItem(IServiceLocator *serviceLocator, FeatureLayer &layer)
     : QStandardItem(layer.name())
     , m_layer(layer)
+    , m_serviceLocator(serviceLocator)
 {
     SymbolItem* symbolItem = new SymbolItem(layer.renderer()->symbol(), layer.shapeType());
     appendRow(symbolItem);
@@ -43,6 +46,30 @@ FeatureLayerItem::FeatureLayerItem(FeatureLayer &layer)
 
 FeatureLayerItem::~FeatureLayerItem()
 {
+}
+
+QVariant FeatureLayerItem::data(int role) const
+{
+    if (role != Qt::DisplayRole)
+    {
+        return QStandardItem::data(role);
+    }
+
+    return m_layer.name();
+}
+
+void FeatureLayerItem::setData(const QVariant &value, int role)
+{
+    QStandardItem::setData(value, role);
+    if (role != Qt::EditRole)
+    {
+        return;
+    }
+
+    RenameLayerCommand* rename = m_serviceLocator->buildInstance<RenameLayerCommand>();
+    rename->setLayer(&m_layer);
+    rename->setNewName(value.toString());
+    rename->pushToStack();
 }
 
 void FeatureLayerItem::onNameChanged(AbstractLayer *, const QString &)

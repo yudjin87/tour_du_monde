@@ -33,12 +33,13 @@
 #include <QtGui/QStandardItem>
 
 class AbstractLayer;
+class IServiceLocator;
 
 class LayerItemCreator : public QObject, private ILayerVisitor
 {
     Q_OBJECT
 public:
-    explicit LayerItemCreator(QObject *parent = nullptr);
+    explicit LayerItemCreator(IServiceLocator* serviceLocator, QObject *parent = nullptr);
     ~LayerItemCreator();
 
     QStandardItem* createItem(AbstractLayer *forLayer);
@@ -48,6 +49,7 @@ private:
 
 private:
     QStandardItem* m_item;
+    IServiceLocator* m_serviceLocator;
 };
 
 #endif // LAYERITEMCREATOR_H

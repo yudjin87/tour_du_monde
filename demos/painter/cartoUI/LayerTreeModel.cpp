@@ -31,7 +31,6 @@
 #include <display/SymbolThumbnail.h>
 #include <carto/IMap.h>
 #include <carto/FeatureLayer.h>
-#include <carto/commands/RenameLayerCommand.h>
 #include <carto/commands/MoveLayerCommand.h>
 #include <display/IFeatureRenderer.h>
 #include <carousel/logging/LoggerFacade.h>
@@ -239,7 +238,7 @@ bool LayerTreeModel::dropMimeData(const QMimeData *data, Qt::DropAction action, 
 
 void LayerTreeModel::onLayerAdded(AbstractLayer *layer, const int index)
 {
-    LayerItemCreator itemCreator;
+    LayerItemCreator itemCreator(m_serviceLocator);
     QStandardItem* layerItem = itemCreator.createItem(layer);
     insertRow(index, layerItem);
 }

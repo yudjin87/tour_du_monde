@@ -32,18 +32,23 @@
 
 class AbstractLayer;
 class FeatureLayer;
+class IServiceLocator;
 
 class FeatureLayerItem : public QObject, public QStandardItem
 {
 public:
-    FeatureLayerItem(FeatureLayer &layer);
+    FeatureLayerItem(IServiceLocator* serviceLocator, FeatureLayer &layer);
     ~FeatureLayerItem();
+
+    QVariant data(int role = Qt::UserRole + 1) const override;
+    void setData(const QVariant &value, int role = Qt::UserRole + 1) override;
 
 private:
     void onNameChanged(AbstractLayer* sender, const QString &newName);
 
 private:
     FeatureLayer& m_layer;
+    IServiceLocator* m_serviceLocator;
 };
 
 #endif // FEATURELAYERITEM_H

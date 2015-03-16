@@ -29,9 +29,10 @@
 
 #include <carto/FeatureLayer.h>
 
-LayerItemCreator::LayerItemCreator(QObject *parent)
+LayerItemCreator::LayerItemCreator(IServiceLocator *serviceLocator, QObject *parent)
     : QObject(parent)
     , m_item(nullptr)
+    , m_serviceLocator(serviceLocator)
 {
 }
 
@@ -47,6 +48,6 @@ QStandardItem *LayerItemCreator::createItem(AbstractLayer *forLayer)
 
 void LayerItemCreator::visit(FeatureLayer &layer)
 {
-    m_item = new FeatureLayerItem(layer);
+    m_item = new FeatureLayerItem(m_serviceLocator, layer);
 }
 
