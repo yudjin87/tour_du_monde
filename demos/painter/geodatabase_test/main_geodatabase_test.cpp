@@ -24,8 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "ShapeFileFeatureDatasetTest.h"
-#include "ShapeFileReaderTest.h"
+#include "GeometryFactoryTest.h"
 
 #include <QtCore/QCoreApplication>
 #include <QtTest/QtTest>
@@ -34,11 +33,8 @@ int main(int argc, char *argv[])
 {
     QCoreApplication app(argc, argv);
 
-    ShapeFileReaderTest shapeFileReaderTest;
-    QTest::qExec(&shapeFileReaderTest, argc, argv);
-
-    ShapeFileFeatureDatasetTest shapeFileFeatureDatasetTest;
-    QTest::qExec(&shapeFileFeatureDatasetTest, argc, argv);
+    GeometryFactoryTest geometryFactoryTest;
+    QTest::qExec(&geometryFactoryTest, argc, argv);
 
     return 0;
 }

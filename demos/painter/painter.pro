@@ -9,8 +9,7 @@ SUBDIRS += \
     carto \
     #tableView \
     cartoUI \
-    #geodatabase_test \
-    geometry_test \
+    geodatabase_test \
     navigationOperations \
     newComponentsDialog \
 
