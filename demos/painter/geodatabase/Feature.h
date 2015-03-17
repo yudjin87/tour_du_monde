@@ -27,7 +27,7 @@
 #ifndef FEATURE_H
 #define FEATURE_H
 
-#include "IFeature.h"
+#include "geodatabase/IFeature.h"
 
 class Feature : public IFeature
 {
@@ -47,6 +47,9 @@ public:
     void setGeometry(AbstractGeometry *geometry) override;
 
     Geometry::Type shapeType() const override;
+
+    IRecord* record() override;
+    const IRecord* record() const override;
 
 private:
     Geometry::Type m_type;

@@ -7,8 +7,10 @@
 
 #include <QtCore/QRectF>
 #include <QtCore/QObject>
+#include <QtCore/QVector>
 
 class AbstractGeometry;
+class IRecord;
 
 class GEODATABASE_API IFeature : public QObject
 {
@@ -17,6 +19,7 @@ class GEODATABASE_API IFeature : public QObject
     Q_PROPERTY(Geometry::Type shapeType READ shapeType)
     Q_PROPERTY(QRectF extent READ extent)
     Q_PROPERTY(AbstractGeometry *geometry READ geometry WRITE setGeometry)
+    Q_PROPERTY(IRecord *record READ record)
 public:
     IFeature(){}
 
@@ -32,8 +35,13 @@ public:
 
     virtual Geometry::Type shapeType() const = 0;
 
+    virtual IRecord* record() = 0;
+    virtual const IRecord* record() const = 0;
+
 private:
     Q_DISABLE_COPY(IFeature)
 };
+
+typedef QVector<IFeature *> IFeatureCollection;
 
 #endif // IFEATURE_H

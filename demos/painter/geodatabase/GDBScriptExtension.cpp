@@ -27,6 +27,7 @@
 #include "GDBScriptExtension.h"
 #include "IDataset.h"
 #include "IFeature.h"
+#include "IRecord.h"
 #include "IFeatureClass.h"
 #include "IFeatureWorkspace.h"
 #include "IFeatureDataset.h"
@@ -78,6 +79,7 @@ void GDBScriptExtension::configureEngine(IServiceLocator *locator, QScriptEngine
 
     REGISTER_METATYPE(IDataset);
     REGISTER_METATYPE(IFeature);
+    REGISTER_METATYPE(IRecord);
     REGISTER_METATYPE(IFeatureWorkspace);
     REGISTER_METATYPE(IFeatureClass);
     REGISTER_METATYPE(IFeatureDataset);

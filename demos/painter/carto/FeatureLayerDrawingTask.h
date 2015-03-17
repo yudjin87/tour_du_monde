@@ -37,13 +37,13 @@ class FeatureLayerDrawingTask : public QObject, public IDrawingTask
 {
     Q_OBJECT
 public:
-    FeatureLayerDrawingTask(IFeatureClass::FeatureList &&features, IFeatureRenderer* renderer, QObject* parent = nullptr);
+    FeatureLayerDrawingTask(IFeatureCollection &&features, IFeatureRenderer* renderer, QObject* parent = nullptr);
     ~FeatureLayerDrawingTask();
 
     void draw(IDisplay &display) override;
 
 private:
-    const IFeatureClass::FeatureList m_features;
+    const IFeatureCollection m_features;
     IFeatureRenderer* m_renderer;
 };
 

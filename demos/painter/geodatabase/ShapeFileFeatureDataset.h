@@ -27,7 +27,7 @@
 #ifndef SHAPEFILEFEATUREDATASET_H
 #define SHAPEFILEFEATUREDATASET_H
 
-#include "IFeatureDataset.h".
+#include "IFeatureDataset.h"
 #include "geodatabase/IShapeFileReader.h"
 #include "geometry/IGeometryFactory.h"
 
@@ -59,10 +59,9 @@ protected:
 private:
     bool prepareToReading(const QString &name);
     void finishReading();
-    QString absoluteFilePath(const QString &name);
+    QString absoluteFilePath(const QString &name, const QString &extension);
 
-private:
-    static const QString m_shapeFileExt;
+private:    
     IWorkspace &m_workspace;
     IShapeFileReaderUPtr m_fileReader;
     IGeometryFactoryUPtr m_factory;

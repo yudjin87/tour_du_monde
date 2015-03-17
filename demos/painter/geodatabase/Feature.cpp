@@ -24,21 +24,21 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "Feature.h"
-
+#include "geodatabase/Feature.h"
+#include "geodatabase/IRecord.h"
 #include <geometry/AbstractGeometry.h>
 
 Feature::Feature(Geometry::Type type)
     : m_type(type)
     , m_id(-1)
-    , m_geometry(0)
+    , m_geometry(nullptr)
 {
 }
 
 Feature::~Feature()
 {
     delete m_geometry;
-    m_geometry = 0;
+    m_geometry = nullptr;
 }
 
 int Feature::id() const
@@ -77,3 +77,12 @@ Geometry::Type Feature::shapeType() const
     return m_type;
 }
 
+IRecord *Feature::record()
+{
+    return nullptr;
+}
+
+const IRecord *Feature::record() const
+{
+    return nullptr;
+}

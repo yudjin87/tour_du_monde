@@ -69,16 +69,20 @@ IFeature *FeatureClass::createFeature()
     return newFeature;
 }
 
-const IFeatureClass::FeatureList &FeatureClass::features() const
+const IFeature *FeatureClass::featureById(const int id) const
 {
-    return m_features;
+    if (id < m_features.size())
+    {
+        return m_features[id];
+    }
+    return nullptr;
 }
 
-IFeatureClass::FeatureList FeatureClass::search(const ISpatialFilter &filter) const
+IFeatureCollection FeatureClass::search(const ISpatialFilter &filter) const
 {
     const AbstractGeometry *geometry = filter.geometry();
     const QRectF &extent = geometry->extent();
-    FeatureList toReturn;
+    IFeatureCollection toReturn;
     for(int i = 0, end = m_features.size(); i != end; ++i) {
         IFeature *feature = m_features[i];
         if (extent.intersects(feature->geometry()->extent()))

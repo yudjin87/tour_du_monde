@@ -40,14 +40,21 @@
 #include <QtCore/QFile>
 #include <QtCore/QFileInfo>
 
+// db
+#include <QtCore/QVariant>
+#include <QtSql/QSqlDatabase>
+#include <QtSql/QSqlRecord>
+#include <QtSql/QSqlQuery>
+#include <QtSql/QSqlError>
+
 #include <chrono>
 
 namespace
 {
 static LoggerFacade Log = LoggerFacade::createLogger("FeatureDataset");
+static const char* SHAPE_FILE_EXT = "shp";
+static const char* DBF_FILE_EXT = "dbf";
 }
-
-const QString ShapeFileFeatureDataset::m_shapeFileExt = ".shp";
 
 ShapeFileFeatureDataset::ShapeFileFeatureDataset(IWorkspace &workspace, const QString &name)
     : m_workspace(workspace)
@@ -100,8 +107,12 @@ IFeatureClass *ShapeFileFeatureDataset::classById(int id)
 IFeatureClass *ShapeFileFeatureDataset::classByName(const QString &className)
 {
     QString clName = className.isEmpty() ? name() : className;
-    if (clName !=  name() && clName != name() + ".shp")
+    if ((clName != name()) && (clName != (name() + SHAPE_FILE_EXT)))
+    {
+        Log.w(QString("Invalid className \"%1\". \"%2\" is expected (with or without \".%3\")")
+              .arg(className).arg(name()).arg(SHAPE_FILE_EXT));
         return nullptr;
+    }
 
     if (!prepareToReading(clName))
         return nullptr;
@@ -115,9 +126,10 @@ IFeatureClass *ShapeFileFeatureDataset::classByName(const QString &className)
     m_fileReader->readHeader(header);
 
     Geometry::Type type = m_factory->geometryTypeFromShapeType(header.shapeType);
-    IFeatureClass *featureClass = createFeatureClass(type, header.bBox, absoluteFilePath(className));
+    IFeatureClass *featureClass = createFeatureClass(type, header.bBox, absoluteFilePath(className, SHAPE_FILE_EXT));
 
-    while (!m_file->atEnd()) {
+    while (!m_file->atEnd())
+    {
         Record record;
         memset(reinterpret_cast<char *>(&record), 0, sizeof(Record));
         m_fileReader->readShapeRecord(record);
@@ -130,13 +142,38 @@ IFeatureClass *ShapeFileFeatureDataset::classByName(const QString &className)
         delete[] record.shapeBlob;
     }
 
+    //---------------------- database
 
-    finishReading();
+    QString dbName = QString("DRIVER={Microsoft dBase Driver (*.dbf)};FIL={dBase IV;};DefaultDir=%1").arg(m_workspace.pathName());
+    QSqlDatabase db = QSqlDatabase::addDatabase("QODBC");
+    db.setDatabaseName(dbName);
+    if (!db.open())
+    {
+        Log.e(db.lastError().text());
+    }
+
+    QSqlQuery query(db);
+    query.prepare(QString("SELECT * FROM %1.%2").arg(className).arg(DBF_FILE_EXT));
+    if (query.exec())
+    {
+        while (query.next())
+        {
+            Log.d(query.value(1).toString());
+        }
+    }
+    else
+    {
+        Log.e(query.lastError().text());
+    }
+
+    //---------------------- /database
 
     Clock::time_point finished = Clock::now();
     milliseconds ms = std::chrono::duration_cast<milliseconds>(finished - started);
 
     Log.d(QString("Reading %1 file: %2 ms").arg(className).arg(ms.count()));
+
+    finishReading();
 
     return featureClass;
 }
@@ -172,7 +209,7 @@ bool ShapeFileFeatureDataset::prepareToReading(const QString &name)
     if (m_isOpen)
         return true;
 
-    QString shapeFileName = absoluteFilePath(name);
+    QString shapeFileName = absoluteFilePath(name, SHAPE_FILE_EXT);
     QFileInfo fileInfo(shapeFileName);
     if (!fileInfo.exists())
         return false;
@@ -200,14 +237,14 @@ void ShapeFileFeatureDataset::finishReading()
     m_file = nullptr;
 }
 
-QString ShapeFileFeatureDataset::absoluteFilePath(const QString &name)
+QString ShapeFileFeatureDataset::absoluteFilePath(const QString &name, const QString &extension)
 {
     QDir dir(m_workspace.pathName());
 
     QString shapeFileName = dir.absoluteFilePath(name);
     QFileInfo fileInfo(shapeFileName);
-    if (fileInfo.suffix() == "")
-        fileInfo = shapeFileName + ShapeFileFeatureDataset::m_shapeFileExt;
+    if (fileInfo.suffix() == "" && !extension.isEmpty())
+        fileInfo = shapeFileName + "." + extension;
 
     return fileInfo.absoluteFilePath();
 }

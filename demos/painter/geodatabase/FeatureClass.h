@@ -41,15 +41,15 @@ public:
     Geometry::Type shapeType() const override;
 
     IFeature *createFeature() override;
-    const FeatureList &features() const override;
+    const IFeature *featureById(const int id) const override;
 
-    FeatureList search(const ISpatialFilter &filter) const override;
+    IFeatureCollection search(const ISpatialFilter &filter) const override;
 
     const QString &source() const override;
 
 private:
     Geometry::Type m_type;
-    FeatureList m_features;
+    IFeatureCollection m_features;
     QRectF m_extent;
     QString m_source;
 };

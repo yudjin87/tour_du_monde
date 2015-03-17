@@ -15,7 +15,7 @@ namespace
 static LoggerFacade Log = LoggerFacade::createLogger("FLDrawTask");
 }
 
-FeatureLayerDrawingTask::FeatureLayerDrawingTask(IFeatureClass::FeatureList &&features, IFeatureRenderer *renderer, QObject *parent)
+FeatureLayerDrawingTask::FeatureLayerDrawingTask(IFeatureCollection &&features, IFeatureRenderer *renderer, QObject *parent)
     : QObject(parent)
     , IDrawingTask()
     , m_features(std::move(features))

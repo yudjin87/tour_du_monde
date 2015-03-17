@@ -91,7 +91,7 @@ void FeatureLayer::draw(IDisplay *display)
     Polygon extent(display->transformation()->visibleBounds());
     filter.setGeometry(&extent);
 
-    IFeatureClass::FeatureList features = m_featureClass->search(filter);
+    IFeatureCollection features = m_featureClass->search(filter);
 
     FeatureLayerDrawingTask* task = new FeatureLayerDrawingTask(std::move(features), m_featureRenderer);
     display->postDrawingTask(IDrawingTaskPtr(task));
