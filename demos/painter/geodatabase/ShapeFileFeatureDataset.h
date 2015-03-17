@@ -29,7 +29,6 @@
 
 #include "IFeatureDataset.h"
 #include "geodatabase/IShapeFileReader.h"
-#include "geometry/IGeometryFactory.h"
 
 class IWorkspace;
 class QFile;
@@ -64,7 +63,6 @@ private:
 private:    
     IWorkspace &m_workspace;
     IShapeFileReaderUPtr m_fileReader;
-    IGeometryFactoryUPtr m_factory;
     QString m_name;
     QFile *m_file;
     bool m_isOpen;

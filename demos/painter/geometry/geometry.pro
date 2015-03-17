@@ -23,8 +23,6 @@ HEADERS += \
     Polygon.h \
     GeometryType.h \
     Polyline.h \
-    IGeometryFactory.h \
-    GeometryFactory.h \
     Polycurve.h \
     GeometryComponent.h \
     GeometryScriptExtension.h
@@ -36,7 +34,6 @@ SOURCES += \
     Ring.cpp \
     Polygon.cpp \
     Polyline.cpp \
-    GeometryFactory.cpp \
     Polycurve.cpp \
     GeometryComponent.cpp \
     GeometryScriptExtension.cpp

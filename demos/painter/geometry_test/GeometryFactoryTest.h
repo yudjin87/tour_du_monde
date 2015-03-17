@@ -27,6 +27,7 @@
 #ifndef GEOMETRYFACTORYTEST_H
 #define GEOMETRYFACTORYTEST_H
 
+#include <geodatabase/ShapeType.h>
 #include <QtCore/QObject>
 
 class GeometryFactoryTest : public QObject
@@ -45,11 +46,8 @@ private slots:
     void shouldCreatePolygonInstance_data();
     void shouldCreatePolygonInstance();
 
-    void shouldReturnCorrectGeometryTypeForShapeType_data();
-    void shouldReturnCorrectGeometryTypeForShapeType();
-
 private:
-    void fillPolyTestData(int type);
+    void fillPolyTestData(ShapeType type);
 };
 
 #endif // GEOMETRYFACTORYTEST_H

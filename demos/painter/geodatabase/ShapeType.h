@@ -24,36 +24,22 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef GEOMETRYTYPE_H
-#define GEOMETRYTYPE_H
+#pragma once
 
-namespace Geometry
+enum class ShapeType
 {
-enum class Type
-{
-    Null          = 0,
-    Point         = 1,
-    Multipoint    = 2,
-    Polyline      = 3,
-    Polygon       = 4,
-    Envelope      = 5,
-    Path          = 6,
-    Any           = 7,
-    MultiPatch    = 9,
-    Ring          = 11,
-    Line          = 13,
-    CircularArc   = 14,
-    Bezier3Curve  = 15,
-    EllipticArc   = 16,
-    Bag           = 17,
-    TriangleStrip = 18,
-    TriangleFan   = 19,
-    Ray           = 20,
-    Sphere        = 21
+    NullShape    = 0,
+    Point        = 1,
+    PolyLine     = 3,
+    Polygon      = 5,
+    MultiPoint   = 8,
+    PointZ       = 11,
+    PolyLineZ    = 13,
+    PolygonZ     = 15,
+    MultiPointZ  = 18,
+    PointM       = 21,
+    PolyLineM    = 23,
+    PolygonM     = 25,
+    MultiPointM  = 28,
+    MultiPatch   = 31
 };
-}
-
-#endif // GEOMETRYTYPE_H
-
-
-

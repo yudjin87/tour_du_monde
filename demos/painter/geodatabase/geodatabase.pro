@@ -30,6 +30,7 @@ HEADERS += \
     ShapeFileFeatureDataset.h \
     IShapeFileReader.h \
     ShapeFileReader.h \
+    ShapeType.h \
     IFeatureClass.h \
     IFeature.h \
     IRecord.h \
@@ -37,7 +38,8 @@ HEADERS += \
     IShapeFileWorkspaceFactory.h \
     ISpatialFilter.h \
     SpatialFilter.h \
-    GDBScriptExtension.h
+    GDBScriptExtension.h \
+    GeometryFactory.h \
 
 SOURCES += \
     Feature.cpp \
@@ -48,8 +50,8 @@ SOURCES += \
     ShapeFileReader.cpp \
     GeodatabaseComponent.cpp \
     SpatialFilter.cpp \
-    GDBScriptExtension.cpp
-
+    GDBScriptExtension.cpp \
+    GeometryFactory.cpp
 
 OTHER_FILES += org.carousel.demos.Geodatabase.definition
 

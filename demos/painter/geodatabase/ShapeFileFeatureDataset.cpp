@@ -30,9 +30,9 @@
 #include "IWorkspace.h"
 #include "FeatureClass.h"
 #include "ShapeFileReader.h"
+#include <geodatabase/GeometryFactory.h>
 
 #include <geometry/AbstractGeometry.h>
-#include <geometry/GeometryFactory.h>
 
 #include <carousel/logging/LoggerFacade.h>
 
@@ -59,7 +59,6 @@ static const char* DBF_FILE_EXT = "dbf";
 ShapeFileFeatureDataset::ShapeFileFeatureDataset(IWorkspace &workspace, const QString &name)
     : m_workspace(workspace)
     , m_fileReader(new ShapeFileReader())
-    , m_factory(new GeometryFactory())
     , m_name(name)
     , m_file(nullptr)
     , m_isOpen(false)
@@ -125,7 +124,7 @@ IFeatureClass *ShapeFileFeatureDataset::classByName(const QString &className)
     ShapeFileHeader header;
     m_fileReader->readHeader(header);
 
-    Geometry::Type type = m_factory->geometryTypeFromShapeType(header.shapeType);
+    Geometry::Type type = GeometryFactory::geometryTypeFromShapeType(header.shapeType);
     IFeatureClass *featureClass = createFeatureClass(type, header.bBox, absoluteFilePath(className, SHAPE_FILE_EXT));
 
     while (!m_file->atEnd())
@@ -134,7 +133,7 @@ IFeatureClass *ShapeFileFeatureDataset::classByName(const QString &className)
         memset(reinterpret_cast<char *>(&record), 0, sizeof(Record));
         m_fileReader->readShapeRecord(record);
 
-        AbstractGeometry *geometry = m_factory->createGeometry(record.contentLength, record.shapeBlob);
+        AbstractGeometry *geometry = GeometryFactory::createGeometry(record.contentLength, record.shapeBlob);
         geometry->setId(record.recordNumber);
         IFeature *feature = featureClass->createFeature();
         feature->setGeometry(geometry);
@@ -196,7 +195,7 @@ Geometry::Type ShapeFileFeatureDataset::geometryType()
 
     finishReading();
 
-    return m_factory->geometryTypeFromShapeType(header.shapeType);
+    return GeometryFactory::geometryTypeFromShapeType(header.shapeType);
 }
 
 IFeatureClass *ShapeFileFeatureDataset::createFeatureClass(Geometry::Type geometryType, const QRectF &extent, const QString &source)

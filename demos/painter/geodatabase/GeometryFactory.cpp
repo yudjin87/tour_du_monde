@@ -24,55 +24,45 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "GeometryFactory.h"
+#include "geodatabase/GeometryFactory.h"
 
-#include "Point.h"
-#include "Polygon.h"
-#include "Polyline.h"
-#include "Ring.h"
-#include "Segment.h"
+#include <geometry/Point.h>
+#include <geometry/Polygon.h>
+#include <geometry/Polyline.h>
+#include <geometry/Ring.h>
+#include <geometry/Segment.h>
 
 #include <QtCore/QByteArray>
 #include <QtCore/QDataStream>
 #include <QtCore/QPointF>
 
-namespace ShapeType {
-    enum ShapeType
-    {
-        NullShape   = 0,
-        Point       = 1,
-        Polyline    = 3,
-        Polygon     = 5,
-        MultiPoint  = 8,
-        PointZ      = 11,
-        PolyLineZ   = 13,
-        PolygonZ    = 15,
-        MultiPointZ = 18,
-        PointM      = 21,
-        PolyLineM   = 23,
-        PolygonM    = 25,
-        MultiPointM = 28,
-        MultiPatch  = 31
-    };
-}
-
-const QMap<int, Geometry::Type> GeometryFactory::m_typesMap = fillTypesMap();
+const QMap<ShapeType, Geometry::Type> GeometryFactory::m_typesMap {
+    {ShapeType::NullShape, Geometry::Type::Null},
+    {ShapeType::Point, Geometry::Type::Point},
+    {ShapeType::PolyLine, Geometry::Type::Polyline},
+    {ShapeType::Polygon, Geometry::Type::Polygon},
+    {ShapeType::MultiPoint, Geometry::Type::Multipoint}
+};
 
 GeometryFactory::GeometryFactory()
 {
-    setObjectName("GeometryFactory");
 }
 
-Geometry::Type GeometryFactory::geometryTypeFromShapeType(int shapeType) const
+Geometry::Type GeometryFactory::geometryTypeFromShapeType(int shapeType)
+{
+    return geometryTypeFromShapeType(static_cast<ShapeType>(shapeType));
+}
+
+Geometry::Type GeometryFactory::geometryTypeFromShapeType(ShapeType shapeType)
 {
     return m_typesMap.value(shapeType);
 }
 
-AbstractGeometry *GeometryFactory::createGeometry(int bytesCount, const char *geometryBlob) const
+AbstractGeometry *GeometryFactory::createGeometry(int bytesCount, const char *geometryBlob)
 {
     QDataStream stream(QByteArray(geometryBlob, bytesCount));
 
-    ShapeType::ShapeType shapeType = ShapeType::NullShape;
+    ShapeType shapeType = ShapeType::NullShape;
     stream.readRawData(reinterpret_cast<char *>(&shapeType), sizeof(shapeType));
 
     switch (shapeType)
@@ -83,7 +73,7 @@ AbstractGeometry *GeometryFactory::createGeometry(int bytesCount, const char *ge
         return point;
     }
 
-    case ShapeType::Polyline: {
+    case ShapeType::PolyLine: {
         QRectF bBox;
         readBoundingBox(stream, bBox);
         Polyline *polyline = new Polyline(bBox);
@@ -106,22 +96,10 @@ AbstractGeometry *GeometryFactory::createGeometry(int bytesCount, const char *ge
     return nullptr;
 }
 
-QMap<int, Geometry::Type> GeometryFactory::fillTypesMap()
-{
-    QMap<int, Geometry::Type> types;
-    types.insert(ShapeType::NullShape, Geometry::Type::Null);
-    types.insert(ShapeType::Point, Geometry::Type::Point);
-    types.insert(ShapeType::Polyline, Geometry::Type::Polyline);
-    types.insert(ShapeType::Polygon, Geometry::Type::Polygon);
-    types.insert(ShapeType::MultiPoint, Geometry::Type::Multipoint);
-
-    return types;
-}
-
 void GeometryFactory::createPoint(QDataStream &stream, Point *point)
 {
-    double x;
-    double y;
+    double x = 0;
+    double y = 0;
     stream.readRawData(reinterpret_cast<char *>(&x), sizeof(double));
     stream.readRawData(reinterpret_cast<char *>(&y), sizeof(double));
     point->setPoint(QPointF(x, y));
@@ -167,7 +145,11 @@ void GeometryFactory::createPoly(QDataStream &stream, Polycurve *polycurve)
 
 void GeometryFactory::readBoundingBox(QDataStream &stream, QRectF &bBox)
 {
-    double xmin, ymin, xmax, ymax;
+    double xmin = 0;
+    double ymin = 0;
+    double xmax = 0;
+    double ymax = 0;
+
     stream.readRawData(reinterpret_cast<char *>(&xmin), sizeof(double));
     stream.readRawData(reinterpret_cast<char *>(&ymin), sizeof(double));
     stream.readRawData(reinterpret_cast<char *>(&xmax), sizeof(double));

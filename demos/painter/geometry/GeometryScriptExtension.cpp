@@ -26,7 +26,6 @@
 
 #include "GeometryScriptExtension.h"
 #include "AbstractGeometry.h"
-#include "IGeometryFactory.h"
 #include "GeometryType.h"
 #include "Point.h"
 #include "Polycurve.h"
@@ -76,7 +75,6 @@ void GeometryScriptExtension::configureEngine(IServiceLocator *locator, QScriptE
     int segmentListId = registerSegmentList(engine); Q_UNUSED(segmentListId);
 
     REGISTER_METATYPE(AbstractGeometry);
-    REGISTER_METATYPE(IGeometryFactory);
     REGISTER_METATYPE(Point);
     REGISTER_METATYPE(Polycurve);
     REGISTER_METATYPE(Polygon);

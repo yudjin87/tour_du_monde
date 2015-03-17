@@ -26,7 +26,7 @@
 
 #include "GeometryFactoryTest.h"
 
-#include <geometry/GeometryFactory.h>
+#include <geodatabase/GeometryFactory.h>
 #include <geometry/Point.h>
 #include <geometry/Polygon.h>
 #include <geometry/Polyline.h>
@@ -36,26 +36,6 @@
 #include <QtCore/QByteArray>
 #include <QtGui/QPolygonF>
 #include <QtTest/QTest>
-
-namespace ShapeType {
-enum ShapeType
-{
-    NullShape   = 0,
-    Point       = 1,
-    Polyline    = 3,
-    Polygon     = 5,
-    MultiPoint  = 8,
-    PointZ      = 11,
-    PolyLineZ   = 13,
-    PolygonZ    = 15,
-    MultiPointZ = 18,
-    PointM      = 21,
-    PolyLineM   = 23,
-    PolygonM    = 25,
-    MultiPointM = 28,
-    MultiPatch  = 31
-};
-}
 
 GeometryFactoryTest::GeometryFactoryTest(QObject *parent)
     : QObject(parent)
@@ -68,10 +48,10 @@ void GeometryFactoryTest::shouldCreatePointInstance_data()
     QTest::addColumn<QByteArray>("geometryBlob");
 
     QByteArray data;
-    ShapeType::ShapeType t = ShapeType::Point;
-    data.append(reinterpret_cast<char *>(&t), sizeof(ShapeType::ShapeType));
+    ShapeType t = ShapeType::Point;
+    data.append(reinterpret_cast<char *>(&t), sizeof(ShapeType));
 
-    double d;
+    double d = 0;
     d = 13.5233553; data.append(reinterpret_cast<char *>(&d), sizeof(double)); // x
     d = 52.4837034; data.append(reinterpret_cast<char *>(&d), sizeof(double)); // x
 
@@ -94,7 +74,7 @@ void GeometryFactoryTest::shouldCreatePointInstance()
 
 void GeometryFactoryTest::shouldCreatePolylineInstance_data()
 {
-    fillPolyTestData(ShapeType::Polyline);
+    fillPolyTestData(ShapeType::PolyLine);
 }
 
 void GeometryFactoryTest::shouldCreatePolylineInstance()
@@ -178,35 +158,7 @@ void GeometryFactoryTest::shouldCreatePolygonInstance()
     QCOMPARE(poly[3].y(), 52.4981699);
 }
 
-void GeometryFactoryTest::shouldReturnCorrectGeometryTypeForShapeType_data()
-{
-    QTest::addColumn<int>("shapeType");
-    QTest::addColumn<int>("geometryType");
-
-    for (int i = 0; i < 99; ++i) {
-        if ((i != ShapeType::NullShape) && (i != ShapeType::Point) && (i != ShapeType::Polyline)
-                 && (i != ShapeType::Polygon) && (i != ShapeType::MultiPoint))
-        QTest::newRow("NULL")  << i << int(GeometryNull);
-    }
-
-    QTest::newRow("NullShape")  << int(ShapeType::NullShape)  << int(GeometryNull);
-    QTest::newRow("Point")      << int(ShapeType::Point)      << int(GeometryPoint);
-    QTest::newRow("Polyline")   << int(ShapeType::Polyline)   << int(GeometryPolyline);
-    QTest::newRow("Polygon")    << int(ShapeType::Polygon)    << int(GeometryPolygon);
-    QTest::newRow("MultiPoint") << int(ShapeType::MultiPoint) << int(GeometryMultipoint);
-}
-
-void GeometryFactoryTest::shouldReturnCorrectGeometryTypeForShapeType()
-{
-    QFETCH(int, shapeType);
-    QFETCH(int, geometryType);
-
-    GeometryFactory factory;
-    int type = factory.geometryTypeFromShapeType(shapeType);
-    QCOMPARE(geometryType, type);
-}
-
-void GeometryFactoryTest::fillPolyTestData(int type)
+void GeometryFactoryTest::fillPolyTestData(ShapeType type)
 {
     QTest::addColumn<int>("bytesCount");
     QTest::addColumn<QByteArray>("geometryBlob");
@@ -215,7 +167,7 @@ void GeometryFactoryTest::fillPolyTestData(int type)
     data.append(reinterpret_cast<char *>(&type), sizeof(int));
 
     // Bounding box:
-    double d;
+    double d = 0;
     d = 13.4497101; data.append(reinterpret_cast<char *>(&d), sizeof(double)); // xmin
     d = 52.4981699; data.append(reinterpret_cast<char *>(&d), sizeof(double)); // ymin
     d = 13.4516076; data.append(reinterpret_cast<char *>(&d), sizeof(double)); // xmax

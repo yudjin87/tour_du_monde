@@ -7,7 +7,13 @@ TEMPLATE = app
 
 TARGET = geometry_test
 
-LIBS += -L$${DESTDIR} -lgeometry \
+DESTDIR = $${DESTDIR}/externalSource
+
+LIBS += -L$${DESTDIR} -lorg.carousel.demos.Geometry \
+                      -lorg.carousel.demos.Geodatabase
+
+LIBS += -L$${CAROUSEL_BIN} -lCarousel \
+                           -lorg.carousel.JsScripting \
 
 SOURCES += \
     main_geometry_test.cpp \

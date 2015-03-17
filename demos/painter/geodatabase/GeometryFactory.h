@@ -24,30 +24,33 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef IGEOMETRYFACTORY_H
-#define IGEOMETRYFACTORY_H
+#pragma once
 
-#include "geometry_api.h"
-#include "GeometryType.h"
+#include <geodatabase/ShapeType.h>
+#include <geodatabase/geodatabase_api.h>
+#include <geometry/GeometryType.h>
 
-#include <QtCore/QObject>
-
-#include <memory>
+#include <QtCore/QMap>
 
 class AbstractGeometry;
+class Point;
+class Polycurve;
+class QDataStream;
+class QRectF;
 
-class GEOMETRY_API IGeometryFactory : public QObject
+class GEODATABASE_API GeometryFactory
 {
-    Q_OBJECT
 public:
-    IGeometryFactory(){}
-    virtual ~IGeometryFactory(){}
+    GeometryFactory();
 
-public slots:
-    virtual Geometry::Type geometryTypeFromShapeType(int shapeType) const = 0;
-    virtual AbstractGeometry *createGeometry(int bytesCount, const char *geometryBlob) const = 0;
+    static Geometry::Type geometryTypeFromShapeType(int shapeType);
+    static Geometry::Type geometryTypeFromShapeType(ShapeType shapeType);
+    static AbstractGeometry *createGeometry(int bytesCount, const char *geometryBlob);
+
+private:
+    static const QMap<ShapeType, Geometry::Type> m_typesMap;
+
+    static void createPoint(QDataStream &stream, Point *point);
+    static void createPoly(QDataStream &stream, Polycurve *polycurve);
+    static void readBoundingBox(QDataStream &stream, QRectF &bBox);
 };
-
-typedef std::unique_ptr<IGeometryFactory> IGeometryFactoryUPtr;
-
-#endif // IGEOMETRYFACTORY_H
