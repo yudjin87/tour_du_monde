@@ -17,6 +17,8 @@ LIBS += -L$${CAROUSEL_BIN} -lCarousel \
 SOURCES += \
     main_geodatabase_test.cpp \
     GeometryFactoryTest.cpp \
+    GeodatabaseTest.cpp
 
 HEADERS += \
     GeometryFactoryTest.h \
+    GeodatabaseTest.h

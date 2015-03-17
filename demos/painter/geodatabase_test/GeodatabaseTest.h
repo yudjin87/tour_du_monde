@@ -3,7 +3,7 @@
  *
  * Carousel - Qt-based managed component library.
  *
- * Copyright: 2011-2013 Carousel team
+ * Copyright: 2011-2015 Carousel team
  * Authors:
  *   Eugene Chuguy <eugene.chuguy@gmail.com>
  *
@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- 
+
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -24,21 +24,26 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "GeometryFactoryTest.h"
-#include "GeodatabaseTest.h"
+#ifndef GEODATABASETEST_H
+#define GEODATABASETEST_H
 
-#include <QtCore/QCoreApplication>
-#include <QtTest/QtTest>
+#include <QtCore/QObject>
 
-int main(int argc, char *argv[])
+class GeodatabaseTest : public QObject
 {
-    QCoreApplication app(argc, argv);
+    Q_OBJECT
+public:
+    explicit GeodatabaseTest(QObject *parent = nullptr);
+    ~GeodatabaseTest();
 
-    GeometryFactoryTest geometryFactoryTest;
-    QTest::qExec(&geometryFactoryTest, argc, argv);
+private slots:
+    void shouldLoadFeatureClasses();
 
-    GeodatabaseTest geodatabaseTest;
-    QTest::qExec(&geodatabaseTest, argc, argv);
+private:
+    QString m_workspace;
+    QString m_pointShp;
+    QString m_lineShp;
+    QString m_polygonShp;
+};
 
-    return 0;
-}
+#endif // GEODATABASETEST_H

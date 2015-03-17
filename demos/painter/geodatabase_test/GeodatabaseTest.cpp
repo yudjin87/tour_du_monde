@@ -3,7 +3,7 @@
  *
  * Carousel - Qt-based managed component library.
  *
- * Copyright: 2011-2013 Carousel team
+ * Copyright: 2011-2015 Carousel team
  * Authors:
  *   Eugene Chuguy <eugene.chuguy@gmail.com>
  *
@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- 
+
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -24,21 +24,32 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "GeometryFactoryTest.h"
 #include "GeodatabaseTest.h"
 
-#include <QtCore/QCoreApplication>
-#include <QtTest/QtTest>
+#include <geodatabase/IFeature.h>
+#include <geodatabase/ShapeFileFeatureWorkspace.h>
+#include <geodatabase/IFeatureClass.h>
 
-int main(int argc, char *argv[])
+#include <geometry/Point.h>
+#include <geometry/Polygon.h>
+#include <geometry/Polyline.h>
+#include <geometry/Ring.h>
+#include <geometry/Segment.h>
+
+#include <QtCore/QByteArray>
+#include <QtGui/QPolygonF>
+#include <QtTest/QTest>
+
+GeodatabaseTest::GeodatabaseTest(QObject *parent)
+    : QObject(parent)
+    , m_workspace()
+    , m_pointShp()
+    , m_lineShp()
+    , m_polygonShp()
 {
-    QCoreApplication app(argc, argv);
-
-    GeometryFactoryTest geometryFactoryTest;
-    QTest::qExec(&geometryFactoryTest, argc, argv);
-
-    GeodatabaseTest geodatabaseTest;
-    QTest::qExec(&geodatabaseTest, argc, argv);
-
-    return 0;
 }
+
+GeodatabaseTest::~GeodatabaseTest()
+{
+}
+
