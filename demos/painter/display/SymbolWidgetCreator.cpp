@@ -31,7 +31,7 @@
 
 #include "display/SimpleFillSymbolWidget.h"
 #include "display/SimpleLineSymbolWidget.h"
-//#include "display/SimpleMarkerSymbolWidget.h"
+#include "display/SimpleMarkerSymbolWidget.h"
 
 #include <QtWidgets/QWidget>
 
@@ -73,5 +73,6 @@ void SymbolWidgetCreator::visit(SimpleLineSymbol &symbol)
 
 void SymbolWidgetCreator::visit(SimpleMarkerSymbol &symbol)
 {
-
+    delete m_widget;
+    m_widget = new SimpleMarkerSymbolWidget(&symbol);
 }

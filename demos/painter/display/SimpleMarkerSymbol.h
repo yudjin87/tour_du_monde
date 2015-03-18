@@ -55,6 +55,16 @@ class DISPLAY_API SimpleMarkerSymbol : public MarkerSymbol
     Q_PROPERTY(double outlineSize READ outlineSize WRITE setOutlineSize)
 
 public:
+    enum class Style
+    {
+        Circle,
+        Square,
+        Cross,
+        X,
+        Diamond
+    };
+
+public:
     explicit SimpleMarkerSymbol(QObject *parent = 0);
     
     void accept(ISymbolVisitor& visitor) override;
@@ -77,18 +87,26 @@ public:
     void setupPainter(QPainter *painter) override;
     void resetPainter(QPainter *painter) override;
 
+    Style style() const;
+    void setStyle(const Style style);
+
 protected:
     SimpleMarkerSymbol(const SimpleMarkerSymbol& o, QObject *parent = nullptr);
     void drawPoint(const Point &point, QPainter &painter) override;
 
+    void drawCircle(const Point &point, QPainter &painter);
+    void drawSquare(const Point &point, QPainter &painter);
+    void drawCross(const Point &point, QPainter &painter);
+    void drawX(const Point &point, QPainter &painter);
+    void drawDiamond(const Point &point, QPainter &painter);
+
 private:
     bool m_outline;
+    Style m_style;
     qreal m_outlineSize;
-    qreal m_width;
-    qreal m_height;
     QPen m_outlinePen;
     QPen m_oldPen;
+    QTransform m_painterTransform;
 };
-
 
 #endif // SIMPLEMARKERSYMBOL_H

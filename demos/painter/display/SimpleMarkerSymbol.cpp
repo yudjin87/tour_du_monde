@@ -36,12 +36,27 @@
 SimpleMarkerSymbol::SimpleMarkerSymbol(QObject *parent)
     : MarkerSymbol(parent)
     , m_outline(true)
+    , m_style(SimpleMarkerSymbol::Style::Circle)
     , m_outlineSize(1)
-    , m_width(0)
-    , m_height(0)
     , m_outlinePen(QColor(rand() % 255, rand() % 255, rand() % 255), m_outlineSize)
     , m_oldPen()
+    , m_painterTransform()
 {
+    m_outlinePen.setCapStyle(Qt::FlatCap); // for X point, to make two lines symmetric
+    m_outlinePen.setCosmetic(true);
+}
+
+SimpleMarkerSymbol::SimpleMarkerSymbol(const SimpleMarkerSymbol &o, QObject *parent)
+    : MarkerSymbol(o, parent)
+    , m_outline(o.m_outline)
+    , m_style(o.m_style)
+    , m_outlineSize(o.m_outlineSize)
+    , m_outlinePen(o.m_outlinePen)
+    , m_oldPen(o.m_oldPen)
+    , m_painterTransform()
+{
+    m_outlinePen.setCapStyle(Qt::FlatCap);
+    m_outlinePen.setCosmetic(true);
 }
 
 void SimpleMarkerSymbol::accept(ISymbolVisitor &visitor)
@@ -49,20 +64,19 @@ void SimpleMarkerSymbol::accept(ISymbolVisitor &visitor)
     visitor.visit(*this);
 }
 
-SimpleMarkerSymbol::SimpleMarkerSymbol(const SimpleMarkerSymbol &o, QObject *parent)
-    : MarkerSymbol(o, parent)
-    , m_outline(o.m_outline)
-    , m_outlineSize(o.m_outlineSize)
-    , m_width(o.m_width)
-    , m_height(o.m_height)
-    , m_outlinePen(o.m_outlinePen)
-    , m_oldPen(o.m_oldPen)
-{
-}
-
 ISymbol* SimpleMarkerSymbol::clone(QObject* parent) const
 {
     return new SimpleMarkerSymbol(*this, parent);
+}
+
+SimpleMarkerSymbol::Style SimpleMarkerSymbol::style() const
+{
+    return m_style;
+}
+
+void SimpleMarkerSymbol::setStyle(const Style style)
+{
+    m_style = style;
 }
 
 bool SimpleMarkerSymbol::isOutline() const
@@ -99,15 +113,13 @@ void SimpleMarkerSymbol::setupPainter(QPainter *painter)
 {
     MarkerSymbol::setupPainter(painter);
 
-    double scale = painter->transform().m11();
-
-    m_width = size() / scale / 2;
-    m_height = size() / scale / 2;
+    m_painterTransform = painter->transform();
+    painter->setWorldMatrixEnabled(false);
 
     m_oldPen = painter->pen();
 
     if (isOutline()) {
-        m_outlinePen.setWidthF(m_outlineSize / scale);
+        m_outlinePen.setWidthF(m_outlineSize);
         painter->setPen(m_outlinePen);
     } else {
         painter->setPen(Qt::NoPen);
@@ -117,11 +129,122 @@ void SimpleMarkerSymbol::setupPainter(QPainter *painter)
 void SimpleMarkerSymbol::resetPainter(QPainter *painter)
 {
     MarkerSymbol::resetPainter(painter);
+    painter->setWorldMatrixEnabled(true);
     painter->setPen(m_oldPen);
 }
 
 void SimpleMarkerSymbol::drawPoint(const Point &point, QPainter &painter)
 {
-    painter.drawEllipse(point.point(), m_width, m_height);
+    switch (m_style)
+    {
+    case Style::Circle:
+        drawCircle(point, painter);
+        break;
+    case Style::Square:
+        drawSquare(point, painter);
+        break;
+    case Style::Cross:
+        drawCross(point, painter);
+        break;
+    case Style::X:
+        drawX(point, painter);
+        break;
+    case Style::Diamond:
+        drawDiamond(point, painter);
+        break;
+    }
 }
 
+void SimpleMarkerSymbol::drawCircle(const Point &point, QPainter &painter)
+{
+    QPointF p = m_painterTransform.map(point.point());
+    painter.drawEllipse(p, size() / 2, size() / 2);
+}
+
+void SimpleMarkerSymbol::drawSquare(const Point &point, QPainter &painter)
+{
+    QPointF p = m_painterTransform.map(point.point());
+
+    const int left = p.x() - (size() / 2);
+    const int top = p.y() - (size() / 2);
+
+    const QRect rect(left, top, size(), size());
+
+    painter.drawRect(rect);
+}
+
+void SimpleMarkerSymbol::drawCross(const Point &point, QPainter &painter)
+{
+    //        10   11     0
+    //          \   v    /
+    //           \ ┌────┐
+    //            \│    │
+    //        ┌────┘    └────┐ <- 2
+    //        │              │
+    //   8 -> └────┐    ┌────┘
+    //            /│    │
+    //           / └────┘
+    //          /        \
+    //         7          5
+
+    QPointF p = m_painterTransform.map(point.point());
+
+    const int offset = size() / 2;
+    const int third = size() / 3;
+
+    const int left = p.x() - offset;
+    const int top = p.y() - offset;
+    const int right = p.x() + offset;
+    const int bottom = p.y() + offset;
+
+    QVector<QPoint> cross(12); // TODO: use initialization list
+    cross[0] = QPoint(left + third + third, top);
+    cross[1] = QPoint(left + third + third, top + third);
+    cross[2] = QPoint(right, top + third);
+    cross[3] = QPoint(right, top + third + third);
+    cross[4] = QPoint(left + third + third, top + third + third);
+    cross[5] = QPoint(left + third + third, bottom);
+    cross[6] = QPoint(left + third, bottom);
+    cross[7] = QPoint(left + third, top + third + third);
+    cross[8] = QPoint(left, top + third + third);
+    cross[9] = QPoint(left, top + third);
+    cross[10] = QPoint(left + third, top + third);
+    cross[11] = QPoint(left + third, top);
+
+    painter.drawPolygon(cross);
+}
+
+void SimpleMarkerSymbol::drawX(const Point &point, QPainter &painter)
+{
+    QPointF p = m_painterTransform.map(point.point());
+
+    const int offset = size() / 2;
+
+    const int left = p.x() - offset;
+    const int top = p.y() - offset;
+    const int right = p.x() + offset;
+    const int bottom = p.y() + offset;
+
+    painter.drawLine(QPoint(left, top), QPoint(right, bottom));
+    painter.drawLine(QPoint(left, bottom), QPoint(right, top));
+}
+
+void SimpleMarkerSymbol::drawDiamond(const Point &point, QPainter &painter)
+{
+    QPointF p = m_painterTransform.map(point.point());
+
+    const int offset = size() / 2;
+
+    const int left = p.x() - offset;
+    const int top = p.y() - offset;
+    const int right = p.x() + offset;
+    const int bottom = p.y() + offset;
+
+    QVector<QPoint> diamond(4); // TODO: use initialization list
+    diamond[0] = QPoint(p.x(), top);
+    diamond[1] = QPoint(right, p.y());
+    diamond[2] = QPoint(p.x(), bottom);
+    diamond[3] = QPoint(left, p.y());
+
+    painter.drawPolygon(diamond);
+}
