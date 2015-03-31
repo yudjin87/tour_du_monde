@@ -135,8 +135,8 @@ void GeodatabaseTest::shouldLoadPolygonShapes()
 //    const Segment* segment = ring->segments()[0];
 //    QCOMPARE(segment->curve().size(), 6);
 
-//    const QPointF point = segment->curve()[3];
-//    QCOMPARE(point.x(), -0.7002893);
-//    QCOMPARE(point.y(), 52.1521591);
+    const Point* point = outerRing->points()[3];
+    QCOMPARE(point->x(), -0.702548287583833);
+    QCOMPARE(point->y(), 52.1548340837575);
 }
 
