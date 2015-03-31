@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef QUNDOSTACKADAPTER_H
-#define QUNDOSTACKADAPTER_H
-
+#pragma once
 #include <carousel/commands/IUndoStack.h>
 #include <components/undo/undo_global.h>
 
@@ -74,5 +72,4 @@ private:
     QUndoStack *m_stack;
 };
 
-#endif // QUNDOSTACKADAPTER_H
 

@@ -1,6 +1,4 @@
-#ifndef SERVICE1_H
-#define SERVICE1_H
-
+#pragma once
 #include "IService.h"
 
 class Service1 : public IService
@@ -14,4 +12,3 @@ public:
 };
 
 
-#endif // SERVICE1_H

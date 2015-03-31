@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SCRIPTMANAGERTEST_H
-#define SCRIPTMANAGERTEST_H
-
+#pragma once
 #include <QtCore/QObject>
 
 class ScriptCollectionTest: public QObject
@@ -49,4 +47,3 @@ private:
     QString m_testScriptPath;
 };
 
-#endif // SCRIPTMANAGERTEST_H

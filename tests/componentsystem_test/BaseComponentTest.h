@@ -1,6 +1,4 @@
-#ifndef BASECOMPONENTTEST_H
-#define BASECOMPONENTTEST_H
-
+#pragma once
 #include <QtCore/QObject>
 
 class BaseComponentTest : public QObject
@@ -27,4 +25,3 @@ private Q_SLOTS:
     void isCompatible_shouldReturnTrue();
 };
 
-#endif // BASECOMPONENTTEST_H

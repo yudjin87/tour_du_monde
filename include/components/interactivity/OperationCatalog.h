@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef OPERATIONCATALOG_H
-#define OPERATIONCATALOG_H
-
+#pragma once
 #include "interactivity_global.h"
 
 #include "IOperationCatalog.h"
@@ -141,4 +139,3 @@ private:
     IServiceLocator *m_serviceLocator;
 };
 
-#endif // OPERATIONCATALOG_H

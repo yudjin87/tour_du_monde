@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef DIRECTORYINSTALLER_H
-#define DIRECTORYINSTALLER_H
-
+#pragma once
 #include <carousel/componentsystem/ComponentInstaller.h>
 
 class DirectoryComponentProvider;
@@ -61,4 +59,3 @@ private:
     QString m_sourceDirectory;
 };
 
-#endif // DIRECTORYINSTALLER_H

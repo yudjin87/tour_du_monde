@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef ABSOLUTEPATHCOMPONENTLOCATIONCONSTRUCTORDELEGATE_H
-#define ABSOLUTEPATHCOMPONENTLOCATIONCONSTRUCTORDELEGATE_H
-
+#pragma once
 #include <carousel/componentsystem/IComponentLocationConstructorDelegate.h>
 
 /*!
@@ -62,4 +60,3 @@ private:
     QString m_definitionLocation;
 };
 
-#endif // ABSOLUTEPATHCOMPONENTLOCATIONCONSTRUCTORDELEGATE_H

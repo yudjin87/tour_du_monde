@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef COMPOSITECOMPONENTPROVIDER_H
-#define COMPOSITECOMPONENTPROVIDER_H
-
+#pragma once
 #include <carousel/carousel_global.h>
 #include <carousel/componentsystem/IComponentProvider.h>
 
@@ -120,4 +118,3 @@ private:
     bool m_alreadyInit;
 };
 
-#endif // COMPOSITECOMPONENTPROVIDER_H

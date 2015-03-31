@@ -1,6 +1,4 @@
-#ifndef DEPENDENCYSOLVERTEST_H
-#define DEPENDENCYSOLVERTEST_H
-
+#pragma once
 #include <QtCore/QObject>
 
 class DependencySolverTest: public QObject
@@ -25,4 +23,3 @@ private Q_SLOTS:
     void iterationWithReferenceLeadsToBug();
 };
 
-#endif // DEPENDENCYSOLVERTEST_H

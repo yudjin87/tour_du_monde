@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef INTERACTIVITY_GLOBAL_H
-#define INTERACTIVITY_GLOBAL_H
-
+#pragma once
 #include <QtCore/qglobal.h>
 
 #if defined(STATIC_BUILD)
@@ -37,6 +35,4 @@
 #   else
 #       define INTERACTIVITY_API Q_DECL_IMPORT
 #   endif //#if defined(ORG_CAROUSEL_INTERACTIVITY_LIBRARY)
-#endif //#if defined(STATIC_BUILD)
-
-#endif // INTERACTIVITY_GLOBAL_H
+#endif

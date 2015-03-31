@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef TABLEVIEWCOMPONENT_H
-#define TABLEVIEWCOMPONENT_H
-
+#pragma once
 #include "tableView_api.h"
 
 #include <componentsystem/BaseComponent.h>
@@ -48,4 +46,3 @@ TABLEVIEW_API void *createInstance();
 TABLEVIEW_API void disposeInstance(void *ip_componentObject);
 }
 
-#endif // TABLEVIEWCOMPONENT_H

@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef COMPONENTSYSTEMUICOMPONENT_H
-#define COMPONENTSYSTEMUICOMPONENT_H
-
+#pragma once
 #include <components/componentsystemui/componentsystem_ui_global.h>
 
 #include <carousel/componentsystem/BaseComponent.h>
@@ -60,4 +58,3 @@ protected:
     bool onStartup(IServiceLocator *serviceLocator) override;
 };
 
-#endif // COMPONENTSYSTEMUICOMPONENT_H

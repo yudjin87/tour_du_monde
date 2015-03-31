@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef IDIALOGSERVICE_H
-#define IDIALOGSERVICE_H
-
+#pragma once
 #include "interactivity_global.h"
 
 #include <QtCore/QObject>
@@ -312,4 +310,3 @@ bool IDialogService::unregisterDialogForModel()
     return unregisterConstructor(dlgModelType);
 }
 
-#endif // IDIALOGSERVICE_H

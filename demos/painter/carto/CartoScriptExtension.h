@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef CARTOSCRIPTEXTENSION_H
-#define CARTOSCRIPTEXTENSION_H
-
+#pragma once
 #include <components/jsscripting/IScriptExtension.h>
 
 #include <QtCore/QObject>
@@ -40,4 +38,3 @@ public:
     void configureEngine(IServiceLocator *locator, QScriptEngine *engine) override;
 };
 
-#endif // CARTOSCRIPTEXTENSION_H

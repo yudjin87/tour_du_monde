@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef NAVIGATIONOPERATIONS_API_H
-#define NAVIGATIONOPERATIONS_API_H
-
+#pragma once
 #include <QtCore/qglobal.h>
 
 #if defined(NAVIGATIONOPERATIONS_LIB_IMPORT)
@@ -34,5 +32,3 @@
 #else
 #  define NAVIGATIONOPERATIONS_API Q_DECL_IMPORT
 #endif
-
-#endif // NAVIGATIONOPERATIONS_API_H

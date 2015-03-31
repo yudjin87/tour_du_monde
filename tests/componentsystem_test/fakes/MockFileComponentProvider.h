@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef MOCKFILECOMPONENTPROVIDER_H
-#define MOCKFILECOMPONENTPROVIDER_H
-
+#pragma once
 #include "FakeDefinitionParser.h"
 #include "MockDefaultConstructor.h"
 
@@ -73,4 +71,3 @@ public:
     static bool initializeReturnValue;
 };
 
-#endif // MOCKFILECOMPONENTPROVIDER_H

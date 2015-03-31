@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef FAKECONFIGURATIONDELEGATE_H
-#define FAKECONFIGURATIONDELEGATE_H
-
+#pragma once
 #include <components/jsscripting/IScriptEngineConfigurationDelegate.h>
 
 class FakeConfigurationDelegate : public IScriptEngineConfigurationDelegate
@@ -42,4 +40,3 @@ public:
     bool configureFromComponentCalled;
 };
 
-#endif // FAKECONFIGURATIONDELEGATE_H

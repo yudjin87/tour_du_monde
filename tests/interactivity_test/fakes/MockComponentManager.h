@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef MOCKCOMPONENTMANAGER_H
-#define MOCKCOMPONENTMANAGER_H
-
+#pragma once
 #include <carousel/componentsystem/ComponentManager.h>
 
 class MockComponentManager : public ComponentManager
@@ -40,4 +38,3 @@ public:
     void callStartedUp();
 };
 
-#endif // MOCKCOMPONENTMANAGER_H

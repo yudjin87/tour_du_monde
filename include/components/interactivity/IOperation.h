@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef IOPERATION_H
-#define IOPERATION_H
-
+#pragma once
 #include "interactivity_global.h"
 
 #include <QtCore/QString>
@@ -106,4 +104,3 @@ private:
     Q_DISABLE_COPY(IOperation)
 };
 
-#endif // IOPERATION_H

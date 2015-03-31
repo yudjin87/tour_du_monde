@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef CHILDEXTENSION_H
-#define CHILDEXTENSION_H
-
+#pragma once
 #include <componentsystem/IChildExtension.h>
 
 #include <QtCore/QObject>
@@ -40,4 +38,3 @@ public:
     QStringList parents() const;
 };
 
-#endif // CHILDEXTENSION_H

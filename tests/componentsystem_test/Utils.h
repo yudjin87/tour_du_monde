@@ -1,6 +1,4 @@
-#ifndef UTILS_H
-#define UTILS_H
-
+#pragma once
 #include "fakes/MockChildComponent.h"
 #include "fakes/MockComponent.h"
 
@@ -53,4 +51,3 @@ public:
     ~AutoComponentProvider() { qDeleteAll(this->components()); }
 };
 
-#endif // UTILS_H

@@ -1,6 +1,4 @@
-#ifndef ICOMPONENTLOADER_H
-#define ICOMPONENTLOADER_H
-
+#pragma once
 #include <carousel/carousel_global.h>
 
 #include <QtCore/QLibrary>
@@ -160,4 +158,3 @@ private:
     Q_DISABLE_COPY(IComponentLoader)
 };
 
-#endif // ICOMPONENTLOADER_H

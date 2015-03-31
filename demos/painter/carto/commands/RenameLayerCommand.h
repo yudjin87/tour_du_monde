@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef RENAMELAYERCOMMAND_H
-#define RENAMELAYERCOMMAND_H
-
+#pragma once
 #include <carto/carto_api.h>
 #include <carousel/commands/BaseUndoableCommand.h>
 
@@ -52,4 +50,3 @@ private:
     QString m_oldName;
 };
 
-#endif // RENAMELAYERCOMMAND_H

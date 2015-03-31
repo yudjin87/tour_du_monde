@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef ENABLECOMPONENTCOMMAND_H
-#define ENABLECOMPONENTCOMMAND_H
-
+#pragma once
 #include <carousel/carousel_global.h>
 #include <carousel/commands/BaseUndoableCommand.h>
 
@@ -60,4 +58,3 @@ private:
     QSet<IComponent *> m_componentsToEnable;
 };
 
-#endif // ENABLECOMPONENTCOMMAND_H

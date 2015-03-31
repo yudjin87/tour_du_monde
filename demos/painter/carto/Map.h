@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef MAP_H
-#define MAP_H
-
+#pragma once
 #include <carto/IMap.h>
 
 class DisplayTransformation;
@@ -66,4 +64,3 @@ private:
     QList<AbstractLayer *> m_layers;    
 };
 
-#endif // MAP_H

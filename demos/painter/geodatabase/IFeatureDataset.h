@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef IFEATUREDATASET_H
-#define IFEATUREDATASET_H
-
+#pragma once
 #include "IGeoDataset.h"
 
 #include <QtCore/QList>
@@ -51,4 +49,3 @@ private:
     Q_DISABLE_COPY(IFeatureDataset)
 };
 
-#endif // IFEATUREDATASET_H

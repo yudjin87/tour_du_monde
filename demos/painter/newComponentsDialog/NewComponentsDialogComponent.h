@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef NEWCOMPONENTSDIALOGCOMPONENT_H
-#define NEWCOMPONENTSDIALOGCOMPONENT_H
-
+#pragma once
 #include "newComponentsDialog_api.h"
 
 #include <carousel/componentsystem/BaseComponent.h>
@@ -43,4 +41,3 @@ protected:
     void onShutdown(IServiceLocator *serviceLocator) override;
 };
 
-#endif // NEWCOMPONENTSDIALOGCOMPONENT_H

@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef COLORPICKERBUTTONT_H
-#define COLORPICKERBUTTONT_H
-
+#pragma once
 #include <QtWidgets/QPushButton>
 #include <QtGui/QColor>
 
@@ -54,4 +52,3 @@ private:
     QColor m_currentColor;
 };
 
-#endif // COLORPICKERBUTTONT_H

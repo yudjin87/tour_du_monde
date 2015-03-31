@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef PAINTERDOCUMENT_H
-#define PAINTERDOCUMENT_H
-
+#pragma once
 #include "IPainterDocument.h"
 
 class PainterDocument : public IPainterDocument
@@ -46,4 +44,3 @@ private:
     IMap *m_map;
 };
 
-#endif // PAINTERDOCUMENT_H

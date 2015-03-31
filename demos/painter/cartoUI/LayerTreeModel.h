@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef LAYERTREEMODEL_H
-#define LAYERTREEMODEL_H
-
+#pragma once
 #include <geometry/GeometryType.h>
 
 #include <QtGui/QStandardItemModel>
@@ -73,4 +71,3 @@ private:
     IServiceLocator *m_serviceLocator;
 };
 
-#endif // LAYERTREEMODEL_H

@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef STARTDRAWINGTASK_H
-#define STARTDRAWINGTASK_H
-
+#pragma once
 #include <display/IDrawingTask.h>
 #include <QtCore/QObject>
 
@@ -44,4 +42,3 @@ private:
     MultithreadDisplay* m_display;
 };
 
-#endif // STARTDRAWINGTASK_H

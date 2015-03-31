@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SIMPLEMARKERSYMBOLWIDGET_H
-#define SIMPLEMARKERSYMBOLWIDGET_H
-
+#pragma once
 #include <display/SymbolWidget.h>
 #include <QtCore/QStringListModel>
 #include <memory>
@@ -72,4 +70,3 @@ private:
 
 };
 
-#endif // SIMPLEMARKERSYMBOLWIDGET_H

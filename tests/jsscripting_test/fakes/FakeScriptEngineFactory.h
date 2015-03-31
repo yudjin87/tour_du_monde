@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef FAKESCRIPTENGINEFACTORY_H
-#define FAKESCRIPTENGINEFACTORY_H
-
+#pragma once
 #include <components/jsscripting/IScriptEngineFactory.h>
 
 #include <QtCore/QObject>
@@ -40,4 +38,3 @@ public:
     QScriptEngine *createEngine(IOutputHandler *output, QObject *parent);
 };
 
-#endif // FAKESCRIPTENGINEFACTORY_H

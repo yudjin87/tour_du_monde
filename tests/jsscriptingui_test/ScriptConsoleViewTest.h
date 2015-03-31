@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SCRIPTCONSOLEVIEWTEST_H
-#define SCRIPTCONSOLEVIEWTEST_H
-
+#pragma once
 #include <QtCore/QObject>
 
 class CodeHighlighter;
@@ -50,4 +48,3 @@ private:
     ScriptConsoleView *m_view;
 };
 
-#endif // SCRIPTCONSOLEVIEWTEST_H

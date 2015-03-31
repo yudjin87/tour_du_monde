@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef VERSION_H
-#define VERSION_H
-
+#pragma once
 #include <carousel/carousel_global.h>
 
 #include <QtCore/QObject>
@@ -98,4 +96,3 @@ private:
     int m_revision_version;
 };
 
-#endif // VERSION_H

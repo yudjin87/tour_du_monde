@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef POINTCLASS_H
-#define POINTCLASS_H
-
+#pragma once
 #include <QtCore/QObject>
 #include <QtCore/QPoint>
 
@@ -57,4 +55,3 @@ private:
     QScriptValue m_ctor;
 };
 
-#endif // POINTCLASS_H

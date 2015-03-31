@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef MOCKCOMPONENTCONFIGURATIONDELEGATE_H
-#define MOCKCOMPONENTCONFIGURATIONDELEGATE_H
-
+#pragma once
 #include <components/interactivity/IComponentConfigurationDelegate.h>
 
 class MockComponentConfigurationDelegate : public IComponentConfigurationDelegate
@@ -52,4 +50,3 @@ private:
     bool *m_wasDestructorCalled;
 };
 
-#endif // MOCKCOMPONENTCONFIGURATIONDELEGATE_H

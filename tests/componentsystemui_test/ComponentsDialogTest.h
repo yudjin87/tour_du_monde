@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef COMPONENTSDIALOGTEST_H
-#define COMPONENTSDIALOGTEST_H
-
+#pragma once
 #include <QtCore/QObject>
 
 class ComponentsDialog;
@@ -51,4 +49,3 @@ private:
     IServiceLocator *locator;
 };
 
-#endif // COMPONENTSDIALOGTEST_H

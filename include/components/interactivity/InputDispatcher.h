@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef INPUTDISPATCHER_H
-#define INPUTDISPATCHER_H
-
+#pragma once
 #include "interactivity_global.h"
 
 #include "IInputDispatcher.h"
@@ -147,4 +145,3 @@ private:
     bool m_isWorking;
 };
 
-#endif // INPUTDISPATCHER_H

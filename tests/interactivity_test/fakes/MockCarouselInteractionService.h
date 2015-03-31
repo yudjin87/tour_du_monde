@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef MOCKCAROUSELINTERACTIONSERVICE_H
-#define MOCKCAROUSELINTERACTIONSERVICE_H
-
+#pragma once
 #include <components/interactivity/CarouselInteractionService.h>
 
 class MockCarouselInteractionService : public CarouselInteractionService
@@ -43,4 +41,3 @@ public:
     int saveUiCalled;
 };
 
-#endif // MOCKCAROUSELINTERACTIONSERVICE_H

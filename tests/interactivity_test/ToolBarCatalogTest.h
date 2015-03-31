@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef TOOLBARCATALOGTEST_H
-#define TOOLBARCATALOGTEST_H
-
+#pragma once
 #include <QtCore/QObject>
 
 class ToolBarCatalogTest : public QObject
@@ -54,4 +52,3 @@ private Q_SLOTS:
     void shouldDeleteToolbarByName();
 };
 
-#endif // TOOLBARCATALOGTEST_H

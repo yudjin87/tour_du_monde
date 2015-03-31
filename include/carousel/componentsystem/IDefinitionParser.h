@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef IDEFINITIONPARSER_H
-#define IDEFINITIONPARSER_H
-
+#pragma once
 #include <carousel/carousel_global.h>
 
 #include <QtCore/QString>
@@ -139,4 +137,3 @@ public:
     virtual bool read(QIODevice* dev) = 0;
 };
 
-#endif // IDEFINITIONPARSER_H

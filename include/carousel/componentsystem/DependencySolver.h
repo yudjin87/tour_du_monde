@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef DEPENDENCYSOLVER_H
-#define DEPENDENCYSOLVER_H
-
+#pragma once
 #include <carousel/carousel_global.h>
 
 #include <QtCore/QStringList>
@@ -118,4 +116,3 @@ private:
     QStringList m_knownComponents;
 };
 
-#endif // DEPENDENCYSOLVER_H

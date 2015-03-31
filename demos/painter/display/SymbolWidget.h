@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SYMBOLWIDGET_H
-#define SYMBOLWIDGET_H
-
+#pragma once
 #include <display/display_api.h>
 #include <geometry/GeometryType.h>
 
@@ -67,4 +65,3 @@ private:
     QLabel* m_sample;
 };
 
-#endif // SYMBOLWIDGET_H

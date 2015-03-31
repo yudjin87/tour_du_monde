@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SHOWSCRIPTCOLLECTIONOPERATION_H
-#define SHOWSCRIPTCOLLECTIONOPERATION_H
-
+#pragma once
 #include <components/interactivity/Operation.h>
 
 #include <QtCore/QPointer>
@@ -46,4 +44,3 @@ private:
     QPointer<QDialog> m_scriptsDialog;
 };
 
-#endif // SHOWSCRIPTCOLLECTIONOPERATION_H

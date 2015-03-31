@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef IPERSISTENCEDELEGATE_H
-#define IPERSISTENCEDELEGATE_H
-
+#pragma once
 #include <components/persistence/persistence_global.h>
 
 #include <QtCore/QObject>
@@ -55,4 +53,3 @@ private:
     Q_DISABLE_COPY(IPersistenceDelegate)
 };
 
-#endif // IPERSISTENCEDELEGATE_H

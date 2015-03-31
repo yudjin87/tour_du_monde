@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef CAROUSELCONFIGURATIONDELEGATE_H
-#define CAROUSELCONFIGURATIONDELEGATE_H
-
+#pragma once
 #include "interactivity_global.h"
 
 #include "IComponentConfigurationDelegate.h"
@@ -93,5 +91,4 @@ private:
     IServiceLocator *m_serviceLocator;
 };
 
-#endif // CAROUSELCONFIGURATIONDELEGATE_H
 

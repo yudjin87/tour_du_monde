@@ -1,6 +1,4 @@
-#ifndef CAROUSELBOOTLOADERTEST_H
-#define CAROUSELBOOTLOADERTEST_H
-
+#pragma once
 #include <QtCore/QObject>
 
 class CarouselBootloaderTest : public QObject
@@ -32,4 +30,3 @@ private Q_SLOTS:
     void shouldInstallNullLoggerEngineInDestructor();
 };
 
-#endif // CAROUSELBOOTLOADERTEST_H

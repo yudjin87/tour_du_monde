@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef TOOLBARCATALOG_H
-#define TOOLBARCATALOG_H
-
+#pragma once
 #include "interactivity_global.h"
 #include "IToolBarCatalog.h"
 
@@ -134,4 +132,3 @@ protected:
     QMainWindow &m_mainWindow;
 };
 
-#endif // TOOLBARCATALOG_H

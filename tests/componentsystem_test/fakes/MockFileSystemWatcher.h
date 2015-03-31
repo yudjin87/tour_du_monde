@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef MOCKFILESYSTEMWATCHER_H
-#define MOCKFILESYSTEMWATCHER_H
-
+#pragma once
 #include <QtCore/QFileSystemWatcher>
 
 class MockFileSystemWatcher : public QFileSystemWatcher
@@ -41,4 +39,3 @@ signals:
     void test(const QString &str);
 };
 
-#endif // MOCKFILESYSTEMWATCHER_H

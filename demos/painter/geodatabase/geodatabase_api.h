@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef GEODATABASE_API_H
-#define GEODATABASE_API_H
-
+#pragma once
 #include <QtCore/qglobal.h>
 
 #if defined(STATIC_BUILD)
@@ -37,6 +35,4 @@
 #  else
 #    define GEODATABASE_API Q_DECL_IMPORT
 #  endif //#if defined(GEODATABASE_LIB_IMPORT)
-#endif //#if defined(STATIC_BUILD)
-
-#endif // GEODATABASE_API_H
+#endif

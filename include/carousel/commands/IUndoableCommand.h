@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef IUNDOABLECOMMAND_H
-#define IUNDOABLECOMMAND_H
-
+#pragma once
 #include <carousel/carousel_global.h>
 #include <QtCore/QObject>
 
@@ -58,4 +56,3 @@ public slots:
     virtual bool mergeWith(const IUndoableCommand *other) = 0;
 };
 
-#endif // IUNDOABLECOMMAND_H

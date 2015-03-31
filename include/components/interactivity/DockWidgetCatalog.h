@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef DOCKWINDOWCATALOG_H
-#define DOCKWINDOWCATALOG_H
-
+#pragma once
 #include "interactivity_global.h"
 #include "IDockWidgetCatalog.h"
 
@@ -104,4 +102,3 @@ private:
     QMainWindow &m_mainWindow;
 };
 
-#endif // DOCKWINDOWCATALOG_H

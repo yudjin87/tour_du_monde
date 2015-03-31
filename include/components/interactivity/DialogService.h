@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef DIALOGSERVICE_H
-#define DIALOGSERVICE_H
-
+#pragma once
 #include "IDialogService.h"
 
 #include <carousel/utils/ListDictionary.h>
@@ -133,4 +131,3 @@ private:
     IServiceLocator *m_locator;
 };
 
-#endif // DIALOGSERVICE_H

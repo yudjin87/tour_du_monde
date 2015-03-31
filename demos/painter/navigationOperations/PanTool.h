@@ -1,6 +1,4 @@
-#ifndef PANTOOL_H
-#define PANTOOL_H
-
+#pragma once
 #include <components/interactivity/ToolBase.h>
 
 class PanTool : public ToolBase
@@ -19,4 +17,3 @@ private:
     IServiceLocator *m_serviceLocator;
     bool m_tracked;
 };
-#endif // PANTOOL_H

@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef COORDSTRACKER_H
-#define COORDSTRACKER_H
-
+#pragma once
 #include <display/display_api.h>
 #include <components/interactivity/BaseInputReceiver.h>
 #include <components/interactivity/IInputDispatcher.h>
@@ -48,4 +46,3 @@ private:
     QStatusBar *m_statusBar;
     std::unique_ptr<IInputDispatcher> m_dispatcher;
 };
-#endif // COORDSTRACKER_H

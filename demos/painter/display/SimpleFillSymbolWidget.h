@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SIMPLEFILLSYMBOLWIDGET_H
-#define SIMPLEFILLSYMBOLWIDGET_H
-
+#pragma once
 #include <display/SymbolWidget.h>
 #include <QtCore/QStringListModel>
 #include <memory>
@@ -70,4 +68,3 @@ private:
     bool m_wasChanged;
 
 };
-#endif // SIMPLEFILLSYMBOLWIDGET_H

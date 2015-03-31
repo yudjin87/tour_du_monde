@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef COMPONENTINSTALLERTEST_H
-#define COMPONENTINSTALLERTEST_H
-
+#pragma once
 #include <QtCore/QObject>
 
 class ComponentInstallerTest : public QObject
@@ -58,4 +56,3 @@ private:
     const QString componentsDir;
 };
 
-#endif // COMPONENTINSTALLERTEST_H

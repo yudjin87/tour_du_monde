@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SCRIPTUNIT_H
-#define SCRIPTUNIT_H
-
+#pragma once
 #include <components/jsscripting/IScriptUnit.h>
 
 #include <QtCore/QScopedPointer>
@@ -209,4 +207,3 @@ private:
     QScriptEnginePtr m_engine;
 };
 
-#endif // SCRIPTUNIT_H

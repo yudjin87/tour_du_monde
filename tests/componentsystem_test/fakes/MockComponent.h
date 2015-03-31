@@ -1,6 +1,4 @@
-#ifndef MOCKCOMPONENT_H
-#define MOCKCOMPONENT_H
-
+#pragma once
 #include <carousel/componentsystem/BaseComponent.h>
 
 class MockComponent : public BaseComponent
@@ -31,4 +29,3 @@ public:
     QList<MockComponent *> *m_registrator;
 };
 
-#endif // MOCKCOMPONENT_H

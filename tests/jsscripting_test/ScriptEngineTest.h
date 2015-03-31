@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SCRIPTENGINETEST_H
-#define SCRIPTENGINETEST_H
-
+#pragma once
 #include <QtCore/QObject>
 
 class ScriptEngineTest: public QObject
@@ -42,4 +40,3 @@ private:
     static const QByteArray simpleScript;
 };
 
-#endif // SCRIPTENGINETEST_H

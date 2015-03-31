@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef LEXEMEAPPEARANCE_H
-#define LEXEMEAPPEARANCE_H
-
+#pragma once
 #include <components/jsscriptingui/jsscriptingui_global.h>
 
 #include <QtCore/QObject>
@@ -72,4 +70,3 @@ private:
     QTextCharFormat *m_format;
 };
 
-#endif // LEXEMEAPPEARANCE_H

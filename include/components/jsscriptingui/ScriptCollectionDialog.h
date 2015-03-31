@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SCRIPTCOLLECTIONVIEW_H
-#define SCRIPTCOLLECTIONVIEW_H
-
+#pragma once
 #include <components/jsscriptingui/jsscriptingui_global.h>
 
 #include <QtCore/QMap>
@@ -73,4 +71,3 @@ private:
     ScriptCollectionModel *m_model;
 };
 
-#endif // SCRIPTCOLLECTIONVIEW_H

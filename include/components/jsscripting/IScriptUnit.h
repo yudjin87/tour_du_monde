@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef ISCRIPTUNIT_H
-#define ISCRIPTUNIT_H
-
+#pragma once
 #include <components/jsscripting/jsscripting_global.h>
 #include <components/jsscripting/IOutputHandler.h>
 
@@ -219,4 +217,3 @@ private:
     Q_DISABLE_COPY(IScriptUnit)
 };
 
-#endif // ISCRIPTUNIT_H

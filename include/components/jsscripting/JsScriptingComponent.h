@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef JSSCRIPTINGCOMPONENT_H
-#define JSSCRIPTINGCOMPONENT_H
-
+#pragma once
 #include <components/jsscripting/jsscripting_global.h>
 
 #include <carousel/componentsystem/BaseComponent.h>
@@ -108,4 +106,3 @@ private:
     QString getStartedScriptFromAgrs() const;
 };
 
-#endif // JSSCRIPTINGCOMPONENT_H

@@ -1,6 +1,4 @@
-#ifndef FAKEDEFINITIONPARSER_H
-#define FAKEDEFINITIONPARSER_H
-
+#pragma once
 #include <carousel/componentsystem/IDefinitionParser.h>
 #include <QtCore/QObject>
 
@@ -39,4 +37,3 @@ public:
     bool m_readResult;
 };
 
-#endif // FAKEDEFINITIONPARSER_H

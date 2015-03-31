@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef NAVIGATIONOPERATIONSCOMPONENT_H
-#define NAVIGATIONOPERATIONSCOMPONENT_H
-
+#pragma once
 #include "navigationOperations_api.h"
 
 #include <carousel/componentsystem/BaseComponent.h>
@@ -43,4 +41,3 @@ protected:
     void onShutdown(IServiceLocator *serviceLocator) override;
 };
 
-#endif // NAVIGATIONOPERATIONSCOMPONENT_H

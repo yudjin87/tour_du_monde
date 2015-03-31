@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef MENUCATALOG_H
-#define MENUCATALOG_H
-
+#pragma once
 #include "interactivity_global.h"
 #include "IMenuCatalog.h"
 
@@ -248,4 +246,3 @@ private:
     QList<QMenu *> m_popupMenus;
 };
 
-#endif // MENUCATALOG_H

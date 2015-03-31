@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef cartoUI_api_H
-#define cartoUI_api_H
-
+#pragma once
 #include <QtCore/qglobal.h>
 
 #if defined(CARTO_UI_LIB_IMPORT)
@@ -34,5 +32,3 @@
 #else
 #  define CARTO_UI_API Q_DECL_IMPORT
 #endif
-
-#endif // cartoUI_api_H

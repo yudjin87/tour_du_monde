@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef ISCRIPTINGSERVICE_H
-#define ISCRIPTINGSERVICE_H
-
+#pragma once
 #include <components/jsscripting/jsscripting_global.h>
 
 #include <QtCore/QObject>
@@ -103,4 +101,3 @@ private:
     Q_DISABLE_COPY(IScriptingService)
 };
 
-#endif // ISCRIPTINGSERVICE_H

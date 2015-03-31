@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef ITOOLBARCATALOG_H
-#define ITOOLBARCATALOG_H
-
+#pragma once
 #include "interactivity_global.h"
 
 #include <QtCore/QList>
@@ -128,4 +126,3 @@ signals:
     void toolbarAdded(QToolBar *toolbar);
 };
 
-#endif // ITOOLBARCATALOG_H

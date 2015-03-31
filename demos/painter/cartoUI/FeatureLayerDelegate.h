@@ -24,8 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef FEATURELAYERDELEGATE
-#define FEATURELAYERDELEGATE
+#pragma once
 
 #include <QtWidgets/QStyledItemDelegate>
 
@@ -41,5 +40,4 @@ public:
     void setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const override;
 };
 
-#endif // FEATURELAYERDELEGATE
 

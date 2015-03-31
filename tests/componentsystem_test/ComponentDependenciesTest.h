@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef COMPONENTDEPENDENCIESTEST_H
-#define COMPONENTDEPENDENCIESTEST_H
-
+#pragma once
 #include <QtCore/QObject>
 
 class ComponentDependenciesTest : public QObject
@@ -59,4 +57,3 @@ private slots:
     void completeListWithTheirChildren_shouldAddMissedComponentsForTransitiveIncompatibleOnes();
 };
 
-#endif // COMPONENTDEPENDENCIESTEST_H

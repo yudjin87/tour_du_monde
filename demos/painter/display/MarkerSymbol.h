@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef MARKERSYMBOL_H
-#define MARKERSYMBOL_H
-
+#pragma once
 #include "display/SymbolBase.h"
 
 #include <QtGui/QBrush>
@@ -85,4 +83,3 @@ private:
     double m_size;
 };
 
-#endif // MARKERSYMBOL_H

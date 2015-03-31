@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef PROXYCOMPONENTTEST_H
-#define PROXYCOMPONENTTEST_H
-
+#pragma once
 #include <QtCore/QObject>
 
 #include <carousel/utils/ServiceLocator.h>
@@ -63,4 +61,3 @@ private:
     ServiceLocator m_locator;
 };
 
-#endif // PROXYCOMPONENTTEST_H

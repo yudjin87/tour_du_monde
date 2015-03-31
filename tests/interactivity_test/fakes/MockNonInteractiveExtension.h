@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef MOCKNONINTERACTIVECOMPONENT_H
-#define MOCKNONINTERACTIVECOMPONENT_H
-
+#pragma once
 #include <carousel/componentsystem/BaseComponent.h>
 
 class MockNonInteractiveExtension : public BaseComponent
@@ -35,4 +33,3 @@ public:
     MockNonInteractiveExtension();
 };
 
-#endif // MOCKNONINTERACTIVECOMPONENT_H

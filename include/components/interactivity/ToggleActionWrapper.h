@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef TOGGLEACTIONWRAPPER_H
-#define TOGGLEACTIONWRAPPER_H
-
+#pragma once
 #include <components/interactivity/Operation.h>
 
 /*!
@@ -104,4 +102,3 @@ private:
     QAction *m_action;
 };
 
-#endif // TOGGLEACTIONWRAPPER_H

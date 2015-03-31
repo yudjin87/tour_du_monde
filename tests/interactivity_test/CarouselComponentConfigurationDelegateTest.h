@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef CAROUSELCOMPONENTCONFIGURATIONDELEGATETEST_H
-#define CAROUSELCOMPONENTCONFIGURATIONDELEGATETEST_H
-
+#pragma once
 #include <carousel/utils/ServiceLocator.h>
 
 #include <QtCore/QObject>
@@ -50,4 +48,3 @@ private:
     ServiceLocator m_locator;
 };
 
-#endif // CAROUSELCOMPONENTCONFIGURATIONDELEGATETEST_H

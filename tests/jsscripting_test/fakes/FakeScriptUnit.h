@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef FAKESCRIPTUNIT_H
-#define FAKESCRIPTUNIT_H
-
+#pragma once
 #include <components/jsscripting/ScriptUnit.h>
 
 class FakeScriptUnit : public ScriptUnit
@@ -48,4 +46,3 @@ public:
     bool loadFileResult;
 };
 
-#endif // FAKESCRIPTUNIT_H

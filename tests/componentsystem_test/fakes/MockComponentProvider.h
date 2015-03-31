@@ -1,6 +1,4 @@
-#ifndef MOCKCOMPONENTPROVIDER_H
-#define MOCKCOMPONENTPROVIDER_H
-
+#pragma once
 #include <carousel/componentsystem/ComponentProvider.h>
 
 class MockComponentProvider : public ComponentProvider
@@ -19,4 +17,3 @@ private:
 
 };
 
-#endif // MOCKCOMPONENTPROVIDER_H

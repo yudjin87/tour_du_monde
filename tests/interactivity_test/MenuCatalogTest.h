@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef MENUCATALOGTEST_H
-#define MENUCATALOGTEST_H
-
+#pragma once
 #include <QtCore/QObject>
 
 class MenuCatalogTest : public QObject
@@ -63,4 +61,3 @@ private Q_SLOTS:
     void deleteMenu_shouldDeleteMenuByName();
 };
 
-#endif // MENUCATALOGTEST_H

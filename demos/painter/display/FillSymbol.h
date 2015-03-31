@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef FILLSYMBOL_H
-#define FILLSYMBOL_H
-
+#pragma once
 #include "display/SymbolBase.h"
 
 #include <QtGui/QColor>
@@ -74,4 +72,3 @@ private:
     QColor m_color;
 };
 
-#endif // FILLSYMBOL_H

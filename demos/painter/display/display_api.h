@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef DISPLAY_API_H
-#define DISPLAY_API_H
-
+#pragma once
 #include <QtCore/qglobal.h>
 
 #if defined(DISPLAY_LIB_IMPORT)
@@ -34,5 +32,3 @@
 #else
 #  define DISPLAY_API Q_DECL_IMPORT
 #endif
-
-#endif // DISPLAY_API_H

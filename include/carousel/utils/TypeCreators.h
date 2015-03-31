@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef TYPECREATORS_H
-#define TYPECREATORS_H
-
+#pragma once
 #include <carousel/utils/IServiceLocator.h>
 
 template <typename TType>
@@ -133,4 +131,3 @@ private:
     IServiceLocator *m_serviceLocator;
 };
 
-#endif // TYPECREATORS_H

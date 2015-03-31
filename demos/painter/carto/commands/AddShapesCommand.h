@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef ADDSHAPESCOMMAND_H
-#define ADDSHAPESCOMMAND_H
-
+#pragma once
 #include <carto/carto_api.h>
 #include <geodatabase/IShapeFileWorkspaceFactory.h>
 #include <carousel/commands/BaseUndoableCommand.h>
@@ -56,4 +54,3 @@ private:
     QList<AbstractLayer*> m_addedLayers;
 };
 
-#endif // ADDSHAPESCOMMAND_H

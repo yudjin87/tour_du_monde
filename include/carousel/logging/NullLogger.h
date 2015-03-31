@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef NULLLOGGER_H
-#define NULLLOGGER_H
-
+#pragma once
 #include <carousel/logging/ILoggerEngine.h>
 #include <carousel/logging/ILoggerEngineCreator.h>
 
@@ -91,4 +89,3 @@ public:
     void w(const QString &message) override;
 };
 
-#endif // NULLLOGGER_H

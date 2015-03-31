@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef ADDSHAPEOPERATION_H
-#define ADDSHAPEOPERATION_H
-
+#pragma once
 #include <components/interactivity/Operation.h>
 
 class AddShapeOperation : public Operation
@@ -41,4 +39,3 @@ private:
     IServiceLocator *m_serviceLocator;
 };
 
-#endif // ADDSHAPEOPERATION_H

@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef TOOGLEDIALOGOPERATION_H
-#define TOOGLEDIALOGOPERATION_H
-
+#pragma once
 #include <components/interactivity/Operation.h>
 
 /*!
@@ -76,4 +74,3 @@ private:
     QWidget *m_widget;
 };
 
-#endif // TOOGLEDIALOGOPERATION_H

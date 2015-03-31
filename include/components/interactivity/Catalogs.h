@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef CATALOGS_H
-#define CATALOGS_H
-
+#pragma once
 #include "ICatalogs.h"
 
 class IServiceLocator;
@@ -112,4 +110,3 @@ private:
     ToolBarCatalog *m_toolBarCatalog;
 };
 
-#endif // CATALOGS_H

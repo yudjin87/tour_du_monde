@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef BASEINPUTRECEIVER_H
-#define BASEINPUTRECEIVER_H
-
+#pragma once
 #include <components/interactivity/IInputReceiver.h>
 
 /*!
@@ -48,4 +46,3 @@ public:
     bool onMouseUp(QMouseEvent *event) override;
 };
 
-#endif // BASEINPUTRECEIVER_H

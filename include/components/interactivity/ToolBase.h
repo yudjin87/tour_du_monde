@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef TOOLBASE_H
-#define TOOLBASE_H
-
+#pragma once
 #include "Operation.h"
 #include "ITool.h"
 
@@ -164,4 +162,3 @@ private:
     IInteractionService *m_interactionService;
 };
 
-#endif // TOOLBASE_H

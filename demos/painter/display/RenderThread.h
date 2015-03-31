@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef RENDERTHREAD_H
-#define RENDERTHREAD_H
-
+#pragma once
 #include <display/IDisplay.h>
 #include <display/ThreadSafeQueue.h>
 
@@ -47,4 +45,3 @@ private:
     DrawingTaskQueue& m_queue;
 };
 
-#endif // RENDERTHREAD_H

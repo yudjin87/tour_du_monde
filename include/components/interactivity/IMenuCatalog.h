@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef IMENUCATALOG_H
-#define IMENUCATALOG_H
-
+#pragma once
 #include "interactivity_global.h"
 
 #include <QtCore/QList>
@@ -229,4 +227,3 @@ signals:
     void subMenuRemoved(QMenu *menu);
 };
 
-#endif // IMENUCATALOG_H

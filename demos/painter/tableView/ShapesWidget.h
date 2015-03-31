@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SHAPESWIDGET_H
-#define SHAPESWIDGET_H
-
+#pragma once
 #include <QtGui/QWidget>
 
 namespace Ui {
@@ -48,4 +46,3 @@ private:
     ShapesModel *mp_model;
 };
 
-#endif // SHAPESWIDGET_H

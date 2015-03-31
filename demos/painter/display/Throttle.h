@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef THROTTLE_H
-#define THROTTLE_H
-
+#pragma once
 #include <QtCore/QObject>
 
 class QTimer;
@@ -52,4 +50,3 @@ private:
     QTimer* m_timer;
 };
 
-#endif // THROTTLE_H

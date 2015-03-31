@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef FAKEENABLECOMPONENTCOMMAND_H
-#define FAKEENABLECOMPONENTCOMMAND_H
-
+#pragma once
 #include <carousel/commands/EnableComponentCommand.h>
 
 class ComponentDependencies;
@@ -44,4 +42,3 @@ private:
     ComponentDependencies *m_dependencies;
 };
 
-#endif // FAKEENABLECOMPONENTCOMMAND_H

@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SINGLELIBRARYFILECOMPONENTPROVIDER_H
-#define SINGLELIBRARYFILECOMPONENTPROVIDER_H
-
+#pragma once
 #include <carousel/componentsystem/ComponentProvider.h>
 
 class DefinitionConstuctor;
@@ -122,4 +120,3 @@ private:
     IComponent *m_lastLoadedComponent;
 };
 
-#endif // SINGLELIBRARYFILECOMPONENTPROVIDER_H

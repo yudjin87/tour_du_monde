@@ -1,6 +1,4 @@
-#ifndef BOOTLOADERMOCK_H
-#define BOOTLOADERMOCK_H
-
+#pragma once
 #include <carousel/booting/BootloaderBase.h>
 
 class BootloaderMock : public BootloaderBase
@@ -30,4 +28,3 @@ private:
     int m_runAttemptsCount;
 };
 
-#endif // BOOTLOADERMOCK_H

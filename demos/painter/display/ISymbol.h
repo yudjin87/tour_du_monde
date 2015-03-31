@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef ISYMBOL_H
-#define ISYMBOL_H
-
+#pragma once
 #include "display/display_api.h"
 
 #include <QtCore/QObject>
@@ -69,4 +67,3 @@ private:
 
 typedef std::unique_ptr<ISymbol> ISymbolUPtr;
 
-#endif // ISYMBOL_H

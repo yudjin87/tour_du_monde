@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef LAYERITEMCREATOR_H
-#define LAYERITEMCREATOR_H
-
+#pragma once
 #include <carto/ILayerVisitor.h>
 
 #include <QtCore/QObject>
@@ -52,4 +50,3 @@ private:
     IServiceLocator* m_serviceLocator;
 };
 
-#endif // LAYERITEMCREATOR_H

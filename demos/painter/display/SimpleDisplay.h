@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef DISPLAY_H
-#define DISPLAY_H
-
+#pragma once
 #include <display/IDisplay.h>
 #include <QtCore/QMutex>
 #include <QtCore/QVector>
@@ -89,4 +87,3 @@ private:
 
     QMutex m_pixmapMutex;
 };
-#endif // DISPLAY_H

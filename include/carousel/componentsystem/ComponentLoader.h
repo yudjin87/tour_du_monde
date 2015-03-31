@@ -1,6 +1,4 @@
-#ifndef COMPONENTLOADER_H
-#define COMPONENTLOADER_H
-
+#pragma once
 #include <carousel/componentsystem/IComponentLoader.h>
 
 #include <QtCore/QObject>
@@ -188,4 +186,3 @@ private:
     QLibrary *m_library;
 };
 
-#endif // COMPONENTLOADER_H

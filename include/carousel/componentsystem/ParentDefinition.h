@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef PARENTCOMPONENT_H
-#define PARENTCOMPONENT_H
-
+#pragma once
 #include <carousel/carousel_global.h>
 
 #include <QtCore/QObject>
@@ -134,4 +132,3 @@ private:
     Version *m_version;
 };
 
-#endif // PARENTCOMPONENT_H

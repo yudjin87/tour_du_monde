@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef OPERATION_H
-#define OPERATION_H
-
+#pragma once
 #include "interactivity_global.h"
 
 #include "IOperation.h"
@@ -196,4 +194,3 @@ private:
     QMetaObject::Connection m_toggledConnection;
 };
 
-#endif // OPERATION_H

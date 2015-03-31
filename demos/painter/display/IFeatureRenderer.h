@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef IFEATURERENDERER_H
-#define IFEATURERENDERER_H
-
+#pragma once
 #include "display/display_api.h"
 
 #include <QtCore/QObject>
@@ -74,5 +72,4 @@ signals:
     void symbolChanged(const ISymbol* newSymbol);
 };
 
-#endif // IFEATURERENDERER_H
 

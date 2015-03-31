@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef INSTALLCOMPONENTSCOMMAND_H
-#define INSTALLCOMPONENTSCOMMAND_H
-
+#pragma once
 #include <carousel/carousel_global.h>
 #include <carousel/commands/BaseUndoableCommand.h>
 
@@ -72,4 +70,3 @@ private:
     bool m_startAfterInstallation;
 };
 
-#endif // INSTALLCOMPONENTSCOMMAND_H

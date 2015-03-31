@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef ICOMPONENT_H
-#define ICOMPONENT_H
-
+#pragma once
 #include <carousel/carousel_global.h>
 #include <carousel/componentsystem/IComponentExtension.h>
 
@@ -287,4 +285,3 @@ const TExtension *IComponent::extension() const
 Q_DECLARE_METATYPE(IComponent*)
 Q_DECLARE_METATYPE(IComponent::Availability)
 
-#endif // ICOMPONENT_H

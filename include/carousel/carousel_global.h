@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef CAROUSEL_GLOBAL_H
-#define CAROUSEL_GLOBAL_H
-
+#pragma once
 #include <QtCore/qglobal.h>
 
 #if defined(STATIC_BUILD)
@@ -37,6 +35,5 @@
 #   else
 #       define CAROUSEL_API Q_DECL_IMPORT
 #   endif //#if defined(CAROUSEL_LIBRARY)
-#endif //#if defined(STATIC_BUILD)
+#endif
 
-#endif // CAROUSEL_GLOBAL_H

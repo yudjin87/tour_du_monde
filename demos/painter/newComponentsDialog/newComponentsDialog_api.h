@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef NEWCOMPONENTSDIALOG_API_H
-#define NEWCOMPONENTSDIALOG_API_H
-
+#pragma once
 #include <QtCore/qglobal.h>
 
 #if defined(NEWCOMPONENTSDIALOG_LIB_IMPORT)
@@ -34,5 +32,3 @@
 #else
 #  define NEWCOMPONENTSDIALOG_API Q_DECL_IMPORT
 #endif
-
-#endif // NEWCOMPONENTSDIALOG_API_H

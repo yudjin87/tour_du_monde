@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SERVICELOCATORWRAPPER_H
-#define SERVICELOCATORWRAPPER_H
-
+#pragma once
 #include <components/jsscripting/jsscripting_global.h>
 
 #include <QtCore/QObject>
@@ -59,4 +57,3 @@ private:
     IServiceLocator *m_locator;
 };
 
-#endif // SERVICELOCATORWRAPPER_H

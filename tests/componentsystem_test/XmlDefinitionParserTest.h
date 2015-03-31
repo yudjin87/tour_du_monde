@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef XMLDESCRIPTIONPARSERTEST_H
-#define XMLDESCRIPTIONPARSERTEST_H
-
+#pragma once
 #include <QtCore/QObject>
 #include <QtCore/QByteArray>
 
@@ -58,4 +56,3 @@ private:
 
 };
 
-#endif // XMLDESCRIPTIONPARSERTEST_H

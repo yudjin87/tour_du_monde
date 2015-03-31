@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SERVICELOCATORWRAPPERTEST_H
-#define SERVICELOCATORWRAPPERTEST_H
-
+#pragma once
 #include <QtCore/QObject>
 
 class ServiceLocatorWrapperTest: public QObject
@@ -39,4 +37,3 @@ private Q_SLOTS:
     void findService_shouldReturnService();
 };
 
-#endif // SERVICELOCATORWRAPPERTEST_H

@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef GEOMETRYFACTORYTEST_H
-#define GEOMETRYFACTORYTEST_H
-
+#pragma once
 #include <geodatabase/ShapeType.h>
 #include <QtCore/QObject>
 
@@ -50,4 +48,3 @@ private:
     void fillPolyTestData(ShapeType type);
 };
 
-#endif // GEOMETRYFACTORYTEST_H

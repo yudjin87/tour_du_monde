@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef PROXYCOMPONENT_H
-#define PROXYCOMPONENT_H
-
+#pragma once
 #include <carousel/componentsystem/BaseComponent.h>
 
 class IDefinitionParser;
@@ -131,4 +129,3 @@ private:
     bool m_initialized;
 };
 
-#endif // PROXYCOMPONENT_H

@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SCRIPTCOLLECTIONMODEL_H
-#define SCRIPTCOLLECTIONMODEL_H
-
+#pragma once
 #include <components/jsscriptingui/jsscriptingui_global.h>
 #include <components/jsscripting/IScriptCollection.h>
 
@@ -66,4 +64,3 @@ private:
     IServiceLocator *m_locator;
 };
 
-#endif // SCRIPTCOLLECTIONMODEL_H

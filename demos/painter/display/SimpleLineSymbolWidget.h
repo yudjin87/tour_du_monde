@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SIMPLELINESYMBOLWIDGET_H
-#define SIMPLELINESYMBOLWIDGET_H
-
+#pragma once
 #include <display/SymbolWidget.h>
 #include <QtCore/QStringListModel>
 #include <memory>
@@ -71,4 +69,3 @@ private:
 
 };
 
-#endif // SIMPLELINESYMBOLWIDGET_H

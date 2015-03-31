@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SIMPLEMARKERSYMBOL_H
-#define SIMPLEMARKERSYMBOL_H
-
+#pragma once
 #include "display/MarkerSymbol.h"
 
 #include <QtGui/QPen>
@@ -109,4 +107,3 @@ private:
     QTransform m_painterTransform;
 };
 
-#endif // SIMPLEMARKERSYMBOL_H

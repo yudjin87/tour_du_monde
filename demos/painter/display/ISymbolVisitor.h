@@ -24,8 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef ISYMBOLVISITOR
-#define ISYMBOLVISITOR
+#pragma once
 
 #include "display/display_api.h"
 
@@ -43,5 +42,4 @@ public:
     virtual void visit(SimpleMarkerSymbol& symbol) = 0;
 };
 
-#endif // ISYMBOLVISITOR
 

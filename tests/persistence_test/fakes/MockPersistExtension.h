@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef MOCKPERSISTEXTENSION_H
-#define MOCKPERSISTEXTENSION_H
-
+#pragma once
 #include <components/persistence/IPersistExtension.h>
 #include <QtCore/QObject>
 
@@ -42,4 +40,3 @@ public:
     bool loadCalled;
 };
 
-#endif // MOCKPERSISTEXTENSION_H

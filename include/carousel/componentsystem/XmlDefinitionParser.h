@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef XMLDEFINITIONPARSER_H
-#define XMLDEFINITIONPARSER_H
-
+#pragma once
 #include <carousel/componentsystem/IDefinitionParser.h>
 
 #include <QtCore/QObject>
@@ -180,5 +178,4 @@ protected:
     ParentsList m_parents;
 };
 
-#endif // XMLDEFINITIONPARSER_H
 

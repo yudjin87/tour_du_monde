@@ -24,18 +24,14 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef TABLEVIEW_API_H
-#define TABLEVIEW_API_H
-
+#pragma once
 #include <QtCore/qglobal.h>
 
 #if defined(TABLEVIEW_LIB_IMPORT)
 #  define TABLEVIEW_API Q_DECL_EXPORT
 #else
 #  define TABLEVIEW_API Q_DECL_IMPORT
-#endif
 
 // Should be removed
 #define nullptr 0
 
-#endif // TABLEVIEW_API_H

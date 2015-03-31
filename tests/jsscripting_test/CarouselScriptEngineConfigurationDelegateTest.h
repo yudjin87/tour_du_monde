@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef CAROUSELENGINECONFIGURATIONDELEGATETEST_H
-#define CAROUSELENGINECONFIGURATIONDELEGATETEST_H
-
+#pragma once
 #include <QtCore/QObject>
 
 class CarouselScriptEngineConfigurationDelegateTest : public QObject
@@ -49,4 +47,3 @@ private:
     QString m_testScriptPath;
 };
 
-#endif // CAROUSELENGINECONFIGURATIONDELEGATETEST_H

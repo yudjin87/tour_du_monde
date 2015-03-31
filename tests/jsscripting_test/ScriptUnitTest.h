@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SCRIPTUNITTEST_H
-#define SCRIPTUNITTEST_H
-
+#pragma once
 #include <components/jsscripting/IScriptEngineFactory.h>
 #include <QtCore/QObject>
 
@@ -61,4 +59,3 @@ private:
     ScriptUnit *m_unit;
 };
 
-#endif // SCRIPTUNITTEST_H

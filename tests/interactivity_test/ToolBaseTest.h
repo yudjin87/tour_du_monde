@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef TOOLBASETEST_H
-#define TOOLBASETEST_H
-
+#pragma once
 #include <QtCore/QObject>
 
 class ToolBaseTest : public QObject
@@ -40,4 +38,3 @@ private Q_SLOTS:
     void shouldSubstituteActiveToolByItself();
 };
 
-#endif // TOOLBASETEST_H

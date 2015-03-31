@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef COMPONENTCOLLECTION_H
-#define COMPONENTCOLLECTION_H
-
+#pragma once
 #include <carousel/carousel_global.h>
 #include <carousel/utils/ObservableList.h>
 
@@ -50,4 +48,3 @@ protected:
     void removed(IComponent *component) override;
 };
 
-#endif // COMPONENTCOLLECTION_H

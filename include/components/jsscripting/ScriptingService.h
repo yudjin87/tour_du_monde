@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SCRIPTSERVICE_H
-#define SCRIPTSERVICE_H
-
+#pragma once
 #include <components/jsscripting/IScriptEngineFactory.h>
 #include <components/jsscripting/IScriptingService.h>
 
@@ -157,4 +155,3 @@ private:
     QString m_startScript;
 };
 
-#endif // SCRIPTSERVICE_H

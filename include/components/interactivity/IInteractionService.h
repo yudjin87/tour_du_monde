@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef IINTERACTIVITYSERVICE_H
-#define IINTERACTIVITYSERVICE_H
-
+#pragma once
 #include "interactivity_global.h"
 
 #include <QtCore/QObject>
@@ -176,4 +174,3 @@ private:
     Q_DISABLE_COPY(IInteractionService)
 };
 
-#endif // IINTERACTIVITYSERVICE_H

@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef IPERSISTENCESERVICE_H
-#define IPERSISTENCESERVICE_H
-
+#pragma once
 #include <components/persistence/persistence_global.h>
 
 #include <QtCore/QObject>
@@ -116,4 +114,3 @@ private:
     Q_DISABLE_COPY(IPersistenceService)
 };
 
-#endif // IPERSISTENCESERVICE_H

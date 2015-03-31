@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef IINTERACTIVEEXTENSION_H
-#define IINTERACTIVEEXTENSION_H
-
+#pragma once
 #include "interactivity_global.h"
 
 #include <carousel/componentsystem/IComponentExtension.h>
@@ -68,4 +66,3 @@ private:
     Q_DISABLE_COPY(IInteractiveExtension)
 };
 
-#endif // IINTERACTIVEEXTENSION_H

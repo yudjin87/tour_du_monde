@@ -1,6 +1,4 @@
-#ifndef TESTCOMPONENT1_H
-#define TESTCOMPONENT1_H
-
+#pragma once
 #include <carousel/componentsystem/BaseComponent.h>
 
 class TestComponent1 : public BaseComponent
@@ -9,4 +7,3 @@ public:
     TestComponent1();
 };
 
-#endif // TESTCOMPONENT1_H

@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SIMPLELINESYMBOL_H
-#define SIMPLELINESYMBOL_H
-
+#pragma once
 #include "display/LineSymbol.h"
 
 #include <QtGui/QPen>
@@ -66,4 +64,3 @@ private:
     QPen m_oldPen;
 };
 
-#endif // SIMPLELINESYMBOL_H

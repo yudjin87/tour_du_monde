@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef IDISPLAY_H
-#define IDISPLAY_H
-
+#pragma once
 #include <display/display_api.h>
 #include <display/IDrawingTask.h>
 #include <display/ThreadSafeQueue.h>
@@ -85,4 +83,3 @@ private:
 
 typedef ThreadSafeQueue<IDrawingTaskPtr> DrawingTaskQueue;
 
-#endif // IDISPLAY_H

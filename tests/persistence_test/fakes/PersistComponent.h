@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef PERSISTCOMPONENT_H
-#define PERSISTCOMPONENT_H
-
+#pragma once
 #include <carousel/componentsystem/BaseComponent.h>
 
 class MockPersistExtension;
@@ -42,4 +40,3 @@ public:
     MockPersistExtension *persistExtension;
 };
 
-#endif // PERSISTCOMPONENT_H

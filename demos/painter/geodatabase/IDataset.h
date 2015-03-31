@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef IDATASET_H
-#define IDATASET_H
-
+#pragma once
 #include "geodatabase_api.h"
 
 #include <QtCore/QString>
@@ -49,4 +47,3 @@ private:
     Q_DISABLE_COPY(IDataset)
 };
 
-#endif // IDATASET_H

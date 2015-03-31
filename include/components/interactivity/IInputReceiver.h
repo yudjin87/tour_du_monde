@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef IINPUTRECEIVER_H
-#define IINPUTRECEIVER_H
-
+#pragma once
 #include "interactivity_global.h"
 
 #include "IOperation.h"
@@ -99,4 +97,3 @@ public:
     virtual bool onMouseUp(QMouseEvent *event) = 0;
 };
 
-#endif // IINPUTRECEIVER_H

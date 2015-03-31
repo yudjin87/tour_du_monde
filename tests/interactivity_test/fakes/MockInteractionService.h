@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef MOCKINTERACTIONSERVICE_H
-#define MOCKINTERACTIONSERVICE_H
-
+#pragma once
 #include <components/interactivity/IInteractionService.h>
 
 class MockInteractionService : public IInteractionService
@@ -50,4 +48,3 @@ public:
     ITool *m_activeTool;
 };
 
-#endif // MOCKINTERACTIONSERVICE_H

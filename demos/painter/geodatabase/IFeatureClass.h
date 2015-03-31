@@ -1,6 +1,4 @@
-#ifndef IFEATURECLASS_H
-#define IFEATURECLASS_H
-
+#pragma once
 #include "geodatabase/geodatabase_api.h"
 #include "geodatabase/IFeature.h"
 #include <geometry/GeometryType.h>
@@ -44,4 +42,3 @@ private:
 
 typedef std::unique_ptr<IFeatureClass> IFeatureClassUPtr;
 
-#endif // IFEATURECLASS_H

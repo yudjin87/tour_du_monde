@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef ICATALOGS_H
-#define ICATALOGS_H
-
+#pragma once
 #include "interactivity_global.h"
 
 class IOperationCatalog;
@@ -98,4 +96,3 @@ private:
     Q_DISABLE_COPY(ICatalogs)
 };
 
-#endif // ICATALOGS_H

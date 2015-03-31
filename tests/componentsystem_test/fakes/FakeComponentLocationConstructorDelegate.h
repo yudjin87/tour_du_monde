@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef FAKECOMPONENTLOCATIONCONSTRUCTORDELEGATE_H
-#define FAKECOMPONENTLOCATIONCONSTRUCTORDELEGATE_H
-
+#pragma once
 #include <carousel/componentsystem/IComponentLocationConstructorDelegate.h>
 
 class FakeComponentLocationConstructorDelegate : public IComponentLocationConstructorDelegate
@@ -40,4 +38,3 @@ public:
     QString toReturn;
 };
 
-#endif // FAKECOMPONENTLOCATIONCONSTRUCTORDELEGATE_H

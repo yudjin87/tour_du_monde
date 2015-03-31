@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef IDOCKWINDOWCATALOG_H
-#define IDOCKWINDOWCATALOG_H
-
+#pragma once
 #include "interactivity_global.h"
 
 #include <QtCore/QList>
@@ -109,4 +107,3 @@ signals:
     void dockWidgetAdded(QDockWidget *widget);
 };
 
-#endif // IDOCKWINDOWCATALOG_H

@@ -1,6 +1,4 @@
-#ifndef VERSIONTEST_H
-#define VERSIONTEST_H
-
+#pragma once
 #include <QtCore/QObject>
 
 class VersionTest : public QObject
@@ -19,4 +17,3 @@ private slots:
     void fromString_shouldReturnNullIfFailed();
 };
 
-#endif // VERSIONTEST_H

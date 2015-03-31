@@ -1,6 +1,4 @@
-#ifndef INPUTDISPATCHERTEST_H
-#define INPUTDISPATCHERTEST_H
-
+#pragma once
 #include <QtCore/QObject>
 
 class InputDispatcherTest : public QObject
@@ -35,4 +33,3 @@ private Q_SLOTS:
     void shouldInvokeKeyboardHandlerAfterReactivating();
 };
 
-#endif // INPUTDISPATCHERTEST_H

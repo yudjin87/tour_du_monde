@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef PROPERTIESWIDGET_H
-#define PROPERTIESWIDGET_H
-
+#pragma once
 #include <components/interactivity/interactivity_global.h>
 #include <QtWidgets/QWidget>
 
@@ -45,4 +43,3 @@ signals:
     void propertyChanged();
 };
 
-#endif // PROPERTIESWIDGET_H

@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef ISERVICE_H
-#define ISERVICE_H
-
+#pragma once
 #include <QtCore/QObject>
 
 class IService : public QObject
@@ -43,4 +41,3 @@ protected:
     int m_id;
 };
 
-#endif // ISERVICE_H

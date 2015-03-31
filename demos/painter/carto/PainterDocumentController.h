@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef PAINTERDOCUMENTCONTROLLER_H
-#define PAINTERDOCUMENTCONTROLLER_H
-
+#pragma once
 #include "IPainterDocumentController.h"
 
 class IDisplay;
@@ -44,4 +42,3 @@ private:
     IPainterDocument *m_document;
 };
 
-#endif // PAINTERDOCUMENTCONTROLLER_H

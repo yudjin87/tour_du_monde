@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef IDIRECTORYCOMPONENTPROVIDER_H
-#define IDIRECTORYCOMPONENTPROVIDER_H
-
+#pragma once
 #include <carousel/carousel_global.h>
 #include <carousel/componentsystem/IComponentProvider.h>
 
@@ -193,4 +191,3 @@ private:
     Q_DISABLE_COPY(IDirectoryComponentProvider)
 };
 
-#endif // IDIRECTORYCOMPONENTPROVIDER_H

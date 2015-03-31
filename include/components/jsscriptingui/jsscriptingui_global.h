@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef JSSCRIPTINGUI_GLOBAL_H
-#define JSSCRIPTINGUI_GLOBAL_H
-
+#pragma once
 #include <QtCore/qglobal.h>
 
 #if defined(STATIC_BUILD)
@@ -37,6 +35,4 @@
 #   else
 #       define JSSCRIPTING_UI_API Q_DECL_IMPORT
 #   endif //#if defined(ORG_CAROUSEL_JSSCRIPTINGUI_LIBRARY)
-#endif //#if defined(STATIC_BUILD)
-
-#endif // JSSCRIPTINGUI_GLOBAL_H
+#endif

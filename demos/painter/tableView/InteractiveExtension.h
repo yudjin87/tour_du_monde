@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef INTERACTIVEEXTENSION_H
-#define INTERACTIVEEXTENSION_H
-
+#pragma once
 #include <interactivity/IInteractiveExtension.h>
 
 #include <QtCore/QObject>
@@ -40,4 +38,3 @@ public:
     void configureGui(ICatalogs &i_inCatalogs, AbstractApplication &i_application);
 };
 
-#endif // INTERACTIVEEXTENSION_H

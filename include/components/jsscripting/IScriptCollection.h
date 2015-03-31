@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef ISCRIPTCOLLECTION_H
-#define ISCRIPTCOLLECTION_H
-
+#pragma once
 #include <components/jsscripting/jsscripting_global.h>
 
 #include <QtCore/QObject>
@@ -133,4 +131,3 @@ private:
     Q_DISABLE_COPY(IScriptCollection)
 };
 
-#endif // ISCRIPTCOLLECTION_H

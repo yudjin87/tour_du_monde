@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef RECTRUBBERBAND_H
-#define RECTRUBBERBAND_H
-
+#pragma once
 #include <display/display_api.h>
 #include <components/interactivity/InputDispatcher.h>
 #include <components/interactivity/BaseInputReceiver.h>
@@ -60,4 +58,3 @@ private:
    std::unique_ptr<InputDispatcher> m_dispatcher;
 };
 
-#endif // RECTRUBBERBAND_H

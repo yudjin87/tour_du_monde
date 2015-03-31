@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef PAINTERAPPLICATION_H
-#define PAINTERAPPLICATION_H
-
+#pragma once
 #include <QtWidgets/QApplication>
 
 class PainterApplication : public QApplication
@@ -36,4 +34,3 @@ public:
     PainterApplication(int &argc, char **argv);
 };
 
-#endif // PAINTERAPPLICATION_H

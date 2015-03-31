@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef IMAP_H
-#define IMAP_H
-
+#pragma once
 #include <carto/carto_api.h>
 
 #include <QtCore/QList>
@@ -70,4 +68,3 @@ private:
     Q_DISABLE_COPY(IMap)
 };
 
-#endif // IMAP_H

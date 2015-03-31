@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef COMPONENTDEPENDENCIES_H
-#define COMPONENTDEPENDENCIES_H
-
+#pragma once
 #include <carousel/componentsystem/IComponentDependencies.h>
 
 #include <QtCore/QObject>
@@ -220,4 +218,3 @@ private:
 };
 
 
-#endif // COMPONENTDEPENDENCIES_H

@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef GEOMETRYCOMPONENT_H
-#define GEOMETRYCOMPONENT_H
-
+#pragma once
 #include "geometry_api.h"
 
 #include <carousel/componentsystem/BaseComponent.h>
@@ -41,4 +39,3 @@ protected:
     bool onStartup(IServiceLocator *serviceLocator) override;
 };
 
-#endif // GEOMETRYCOMPONENT_H

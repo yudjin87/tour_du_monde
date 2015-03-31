@@ -1,6 +1,4 @@
-#ifndef MOCKCOMPONENTMANAGER_H
-#define MOCKCOMPONENTMANAGER_H
-
+#pragma once
 #include <carousel/componentsystem/ComponentManager.h>
 
 class MockComponentManager : public ComponentManager
@@ -23,4 +21,3 @@ public:
     QList<IComponent *> m_shutdownComponents;
 };
 
-#endif // MOCKCOMPONENTMANAGER_H

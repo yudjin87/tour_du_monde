@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef CARTOUI_INTERACTIVEEXTENSION_H
-#define CARTOUI_INTERACTIVEEXTENSION_H
-
+#pragma once
 #include <components/interactivity/IInteractiveExtension.h>
 
 #include <QtCore/QObject>
@@ -41,4 +39,3 @@ public:
 };
 
 
-#endif // CARTOUI_INTERACTIVEEXTENSION_H

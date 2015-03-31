@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef ISCRIPTENGINECONFIGURATIONDELEGATE_H
-#define ISCRIPTENGINECONFIGURATIONDELEGATE_H
-
+#pragma once
 #include <components/jsscripting/jsscripting_global.h>
 
 #include <QtCore/QObject>
@@ -79,4 +77,3 @@ private:
     Q_DISABLE_COPY(IScriptEngineConfigurationDelegate)
 };
 
-#endif // ISCRIPTENGINECONFIGURATIONDELEGATE_H

@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef IBOOTLOADER_H
-#define IBOOTLOADER_H
-
+#pragma once
 #include <carousel/carousel_global.h>
 
 #include <QtCore/QObject>
@@ -103,4 +101,3 @@ private:
     Q_DISABLE_COPY(IBootloader)
 };
 
-#endif // IBOOTLOADER_H

@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef FEATURERENDERER_H
-#define FEATURERENDERER_H
-
+#pragma once
 #include "display/IFeatureRenderer.h"
 #include "display/ISymbol.h"
 
@@ -49,5 +47,4 @@ private:
     ISymbolUPtr m_symbol;
 };
 
-#endif // FEATURERENDERER_H
 

@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef DEFAULTNAVIGATIONHANDLER_H
-#define DEFAULTNAVIGATIONHANDLER_H
-
+#pragma once
 #include <components/interactivity/BaseInputReceiver.h>
 #include <components/interactivity/IInputDispatcher.h>
 #include <QtCore/QObject>
@@ -51,4 +49,3 @@ private:
     bool m_tracked;
 };
 
-#endif // DEFAULTNAVIGATIONHANDLER_H

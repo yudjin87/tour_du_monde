@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef MOCKCOMPONENTDEPENDENCIES_H
-#define MOCKCOMPONENTDEPENDENCIES_H
-
+#pragma once
 #include <carousel/componentsystem/ComponentDependencies.h>
 
 class MockComponentDependencies : public ComponentDependencies
@@ -47,4 +45,3 @@ public:
     mutable int completeListWithChildrenCalled;
 };
 
-#endif // MOCKCOMPONENTDEPENDENCIES_H

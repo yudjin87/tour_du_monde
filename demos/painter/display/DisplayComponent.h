@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef DISPLAYCOMPONENT_H
-#define DISPLAYCOMPONENT_H
-
+#pragma once
 #include "display_api.h"
 
 #include <carousel/componentsystem/BaseComponent.h>
@@ -48,4 +46,3 @@ private:
     Q_DISABLE_COPY(DisplayComponent)
 };
 
-#endif // DISPLAYCOMPONENT_H

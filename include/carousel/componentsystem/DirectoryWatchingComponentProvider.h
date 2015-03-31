@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef DIRECTORYWATCHINGCOMPONENTPROVIDER_H
-#define DIRECTORYWATCHINGCOMPONENTPROVIDER_H
-
+#pragma once
 #include <carousel/carousel_global.h>
 #include <carousel/componentsystem/ComponentProvider.h>
 #include <carousel/componentsystem/IDirectoryComponentProvider.h>
@@ -75,4 +73,3 @@ private:
     QFileSystemWatcher *m_watcher;
 };
 
-#endif // DIRECTORYWATCHINGCOMPONENTPROVIDER_H

@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef DISPLAYTRANSFORMATION_H
-#define DISPLAYTRANSFORMATION_H
-
+#pragma once
 #include "display/display_api.h"
 
 #include <QtCore/QObject>
@@ -162,4 +160,3 @@ private:
     double m_scale;
 };
 
-#endif // DISPLAYTRANSFORMATION_H

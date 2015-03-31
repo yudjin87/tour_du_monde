@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef COMPONENTDEFINITION_H
-#define COMPONENTDEFINITION_H
-
+#pragma once
 #include <carousel/carousel_global.h>
 #include <carousel/componentsystem/ParentDefinitions.h>
 
@@ -285,4 +283,3 @@ private:
     bool m_isBuiltIn;
 };
 
-#endif // COMPONENTDEFINITION_H

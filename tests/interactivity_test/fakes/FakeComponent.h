@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef FAKEOMPONENT_H
-#define FAKEOMPONENT_H
-
+#pragma once
 #include <carousel/componentsystem/BaseComponent.h>
 
 class FakeComponent : public BaseComponent
@@ -36,4 +34,3 @@ public:
     FakeComponent(const QString &name = "FakeComponent");
 };
 
-#endif // FAKEOMPONENT_H

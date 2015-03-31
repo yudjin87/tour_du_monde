@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SYMBOLBASE_H
-#define SYMBOLBASE_H
-
+#pragma once
 #include "display/ISymbol.h"
 
 class Point;
@@ -54,4 +52,3 @@ protected:
     virtual void drawPolyline(const Polyline &polyline, QPainter &painter);
 };
 
-#endif // SYMBOLBASE_H

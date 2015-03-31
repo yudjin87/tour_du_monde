@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef ISCRIPTEXTENSION_H
-#define ISCRIPTEXTENSION_H
-
+#pragma once
 #include <carousel/componentsystem/IComponentExtension.h>
 #include <components/jsscripting/jsscripting_global.h>
 
@@ -101,4 +99,3 @@ private:
     Q_UNUSED(ConstType##Id)
 
 
-#endif // ISCRIPTEXTENSION_H

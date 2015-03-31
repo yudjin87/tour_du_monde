@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef GEODATABASECOMPONENT_H
-#define GEODATABASECOMPONENT_H
-
+#pragma once
 #include "geodatabase_api.h"
 
 #include <carousel/componentsystem/BaseComponent.h>
@@ -41,4 +39,3 @@ protected:
     bool onStartup(IServiceLocator *serviceLocator) override;
 };
 
-#endif // GEODATABASECOMPONENT_H

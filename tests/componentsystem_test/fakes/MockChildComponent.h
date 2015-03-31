@@ -1,6 +1,4 @@
-#ifndef MOCKCHILDCOMPONENT_H
-#define MOCKCHILDCOMPONENT_H
-
+#pragma once
 #include <carousel/componentsystem/BaseComponent.h>
 
 class ComponentDefinition;
@@ -24,4 +22,3 @@ signals:
     void whenShutdown(const QString &name);
 };
 
-#endif // MOCKCHILDCOMPONENT_H

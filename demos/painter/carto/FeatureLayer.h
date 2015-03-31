@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef FEATURELAYER_H
-#define FEATURELAYER_H
-
+#pragma once
 #include "AbstractLayer.h"
 
 #include <geometry/GeometryType.h>
@@ -71,4 +69,3 @@ private:
     IFeatureRenderer *m_featureRenderer;
 };
 
-#endif // FEATURELAYER_H

@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef OPERATIONTEST_H
-#define OPERATIONTEST_H
-
+#pragma once
 #include <QtCore/QObject>
 
 class OperationTest : public QObject
@@ -44,4 +42,3 @@ private Q_SLOTS:
     
 };
 
-#endif // OPERATIONTEST_H

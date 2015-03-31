@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef DIALOGSERVICETEST_H
-#define DIALOGSERVICETEST_H
-
+#pragma once
 #include <QtCore/QObject>
 
 class DialogServiceTest : public QObject
@@ -51,4 +49,3 @@ private Q_SLOTS:
     void showDialog_shouldInjectLocatorToTheModel();
 };
 
-#endif // DIALOGSERVICETEST_H

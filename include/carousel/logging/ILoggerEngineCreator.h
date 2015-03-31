@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef ILOGGERENGINECREATOR_H
-#define ILOGGERENGINECREATOR_H
-
+#pragma once
 #include <carousel/carousel_global.h>
 #include <QtCore/QString>
 
@@ -52,4 +50,3 @@ public:
     virtual ILoggerEngine *getLogger(const QString &name) = 0;
 };
 
-#endif // ILOGGERENGINECREATOR_H

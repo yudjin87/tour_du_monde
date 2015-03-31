@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SHAPEFILEREADER_H
-#define SHAPEFILEREADER_H
-
+#pragma once
 #include "IShapeFileReader.h"
 
 class ShapeFileReader : public IShapeFileReader
@@ -57,4 +55,3 @@ private:
     QIODevice *m_inputDevice;
 };
 
-#endif // SHAPEFILEREADER_H

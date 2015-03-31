@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SCRIPTCONSOLEVIEW_H
-#define SCRIPTCONSOLE_H
-
+#pragma once
 #include <components/jsscriptingui/jsscriptingui_global.h>
 
 #include <QtWidgets/QWidget>
@@ -71,4 +69,3 @@ private:
     QSyntaxHighlighter *m_hilighter;
 };
 
-#endif // SCRIPTCONSOLEVIEW_H

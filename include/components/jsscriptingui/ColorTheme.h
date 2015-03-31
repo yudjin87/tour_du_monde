@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef COLORTHEME_H
-#define COLORTHEME_H
-
+#pragma once
 #include <components/jsscriptingui/jsscriptingui_global.h>
 
 #include <QtCore/QObject>
@@ -74,4 +72,3 @@ private:
     QList<LexemeAppearance *> m_blockLexemes;
 };
 
-#endif // COLORTHEME_H

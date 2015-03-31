@@ -1,6 +1,4 @@
-#ifndef MOCKDIRECTORYCOMPONENTPROVIDER_H
-#define MOCKDIRECTORYCOMPONENTPROVIDER_H
-
+#pragma once
 #include <carousel/componentsystem/DirectoryComponentProvider.h>
 #include <carousel/componentsystem/FileComponentProvider.h>
 
@@ -42,4 +40,3 @@ public:
     static bool initializeReturnValue;
 };
 
-#endif // MOCKDIRECTORYCOMPONENTPROVIDER_H

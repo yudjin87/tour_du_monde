@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef LINESYMBOL_H
-#define LINESYMBOL_H
-
+#pragma once
 #include "display/SymbolBase.h"
 
 #include <QtGui/QColor>
@@ -65,4 +63,3 @@ private:
 };
 
 
-#endif // LINESYMBOL_H

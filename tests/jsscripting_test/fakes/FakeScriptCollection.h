@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef FAKESCRIPTMANAGER_H
-#define FAKESCRIPTMANAGER_H
-
+#pragma once
 #include <components/jsscripting/ScriptCollection.h>
 
 class FakeScriptCollection : public ScriptCollection
@@ -41,4 +39,3 @@ public:
     IScriptUnit *unitForCreating;
 };
 
-#endif // FAKESCRIPTMANAGER_H

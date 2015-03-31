@@ -23,9 +23,7 @@
  * Boston, MA 02110-1301 USA
  *
  * END_COMMON_COPYRIGHT_HEADER */
-#ifndef CAROUSELBOOTLOADER_H
-#define CAROUSELBOOTLOADER_H
-
+#pragma once
 #include <carousel/booting/BootloaderBase.h>
 
 /*!
@@ -93,4 +91,3 @@ protected:
     void safeRun() override;
 };
 
-#endif // CAROUSELBOOTLOADER_H

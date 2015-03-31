@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef COMPONENTDEFINITIONPROTOTYPE_H
-#define COMPONENTDEFINITIONPROTOTYPE_H
-
+#pragma once
 #include <carousel/componentsystem/ComponentDefinition.h>
 
 #include <QtCore/QObject>
@@ -87,4 +85,3 @@ private:
 Q_DECLARE_METATYPE(ComponentDefinition *)
 Q_DECLARE_METATYPE(const ComponentDefinition *)
 
-#endif // COMPONENTDEFINITIONPROTOTYPE_H

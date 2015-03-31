@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef ISHAPEFILEWORKSPACEFACTORY_H
-#define ISHAPEFILEWORKSPACEFACTORY_H
-
+#pragma once
 #include "IWorkspaceFactory.h"
 
 class GEODATABASE_API IShapeFileWorkspaceFactory : public IWorkspaceFactory
@@ -42,4 +40,3 @@ private:
     Q_DISABLE_COPY(IShapeFileWorkspaceFactory)
 };
 
-#endif // ISHAPEFILEWORKSPACEFACTORY_H

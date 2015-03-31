@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef MOCKOUTPUTHANDLER_H
-#define MOCKOUTPUTHANDLER_H
-
+#pragma once
 #include <components/jsscripting/IOutputHandler.h>
 
 #include <QtCore/QObject>
@@ -45,4 +43,3 @@ public:
     QString lastMessage;
 };
 
-#endif // MOCKOUTPUTHANDLER_H

@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef FEATURELAYERITEM_H
-#define FEATURELAYERITEM_H
-
+#pragma once
 #include <QtCore/QObject>
 #include <QtGui/QStandardItem>
 
@@ -51,4 +49,3 @@ private:
     IServiceLocator* m_serviceLocator;
 };
 
-#endif // FEATURELAYERITEM_H

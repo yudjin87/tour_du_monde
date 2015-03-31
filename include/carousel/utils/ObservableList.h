@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef OBSERVABLELIST_H
-#define OBSERVABLELIST_H
-
+#pragma once
 #include <QtCore/QList>
 #include <QtCore/QSet>
 #include <QtCore/QtAlgorithms>
@@ -610,4 +608,3 @@ void ObservableList<TItem>::sort(LessThan<TItem> &lessThan)
 }
 
 
-#endif // OBSERVABLELIST_H

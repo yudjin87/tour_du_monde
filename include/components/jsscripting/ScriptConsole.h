@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SCRIPTCONSOLE_H
-#define SCRIPTCONSOLE_H
-
+#pragma once
 #include <components/jsscripting/IScriptConsole.h>
 
 class QScriptEngine;
@@ -155,4 +153,3 @@ private:
     int m_historyCapacity;
 };
 
-#endif // SCRIPTCONSOLE_H

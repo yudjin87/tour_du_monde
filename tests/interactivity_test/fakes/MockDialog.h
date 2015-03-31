@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef MOCKDIALOG_H
-#define MOCKDIALOG_H
-
+#pragma once
 #include "MockDialogModel.h"
 
 #include <QtWidgets/QDialog>
@@ -45,4 +43,3 @@ public:
     MockDialogModel *m_model;
 };
 
-#endif // MOCKDIALOG_H

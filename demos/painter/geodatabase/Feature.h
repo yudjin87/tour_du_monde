@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef FEATURE_H
-#define FEATURE_H
-
+#pragma once
 #include "geodatabase/IFeature.h"
 
 class Feature : public IFeature
@@ -57,4 +55,3 @@ private:
     AbstractGeometry* m_geometry;
 };
 
-#endif // FEATURE_H

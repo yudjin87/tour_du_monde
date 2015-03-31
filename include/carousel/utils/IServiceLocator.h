@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef ISERVICELOCATOR_H
-#define ISERVICELOCATOR_H
-
+#pragma once
 #include <carousel/carousel_global.h>
 
 #include <QtCore/QObject>
@@ -520,4 +518,3 @@ TService *IServiceLocator::unregisterInstance(const QString &tag)
     return reinterpret_cast<TService *>(service);
 }
 
-#endif // ISERVICELOCATOR_H

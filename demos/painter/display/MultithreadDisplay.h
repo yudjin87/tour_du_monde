@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef MULTITHREADDISPLAY_H
-#define MULTITHREADDISPLAY_H
-
+#pragma once
 #include <display/SimpleDisplay.h>
 
 #include <QtCore/QMutex>
@@ -64,5 +62,4 @@ private:
     mutable QMutex m_mutex;
 };
 
-#endif // MULTITHREADDISPLAY_H
 

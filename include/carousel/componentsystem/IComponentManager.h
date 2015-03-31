@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef ICOMPONENTMANAGER_H
-#define ICOMPONENTMANAGER_H
-
+#pragma once
 #include <carousel/carousel_global.h>
 #include <carousel/componentsystem/DependenciesSolvingResult.h>
 
@@ -339,4 +337,3 @@ signals:
     void componentStarted(IComponent *component);
 };
 
-#endif // ICOMPONENTMANAGER_H

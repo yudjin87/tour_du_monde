@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SHAPEFILEWORKSPACEFACTORY_H
-#define SHAPEFILEWORKSPACEFACTORY_H
-
+#pragma once
 #include "IShapeFileWorkspaceFactory.h"
 
 class IServiceLocator;
@@ -44,4 +42,3 @@ private:
     IServiceLocator *m_locator;
 };
 
-#endif // SHAPEFILEWORKSPACEFACTORY_H

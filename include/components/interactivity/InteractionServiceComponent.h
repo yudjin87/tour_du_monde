@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef INTERACTIONSERVICECOMPONENT_H
-#define INTERACTIONSERVICECOMPONENT_H
-
+#pragma once
 #include "interactivity_global.h"
 
 #include <carousel/componentsystem/BaseComponent.h>
@@ -80,4 +78,3 @@ private:
     InteractionServiceComponentPrivate *d;
 };
 
-#endif // INTERACTIONSERVICECOMPONENT_H

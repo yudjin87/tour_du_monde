@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef BOOTLOADER_H
-#define BOOTLOADER_H
-
+#pragma once
 #include "MainWindow.h"
 
 #include <carousel/booting/CarouselBootloader.h>
@@ -49,4 +47,3 @@ private:
     MainWindow m_mainWindow;
 };
 
-#endif // BOOTLOADER_H

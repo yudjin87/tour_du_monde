@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef PARENTCOMPONENTS_H
-#define PARENTCOMPONENTS_H
-
+#pragma once
 #include <carousel/carousel_global.h>
 
 #include <QtCore/QList>
@@ -137,4 +135,3 @@ private:
     QList<ParentDefinition *> m_parents;
 };
 
-#endif // PARENTCOMPONENTS_H

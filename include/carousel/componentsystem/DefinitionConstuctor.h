@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef DEFINITIONCONSTUCTOR_H
-#define DEFINITIONCONSTUCTOR_H
-
+#pragma once
 #include <carousel/carousel_global.h>
 
 #include <QtCore/QString>
@@ -56,4 +54,3 @@ private:
     IComponentLocationConstructorDelegate *m_delegate;
 };
 
-#endif // DEFINITIONCONSTUCTOR_H

@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef ICOMPONENTLOCATIONCONSTRUCTORDELEGATE_H
-#define ICOMPONENTLOCATIONCONSTRUCTORDELEGATE_H
-
+#pragma once
 #include <carousel/carousel_global.h>
 
 #include <QtCore/QString>
@@ -53,4 +51,3 @@ public:
     virtual QString constructLocation(const QString &ending) = 0;
 };
 
-#endif // ICOMPONENTLOCATIONCONSTRUCTORDELEGATE_H

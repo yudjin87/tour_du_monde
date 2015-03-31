@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef DIRECTORYCOMPONENTPROVIDER_H
-#define DIRECTORYCOMPONENTPROVIDER_H
-
+#pragma once
 #include <carousel/componentsystem/IDirectoryComponentProvider.h>
 
 #include <QtCore/QStringList>
@@ -250,4 +248,3 @@ private:
     ComponentProvider *m_provider;
 };
 
-#endif // DIRECTORYCOMPONENTPROVIDER_H

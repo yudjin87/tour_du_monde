@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef MOCKDIALOGSERVICE_H
-#define MOCKDIALOGSERVICE_H
-
+#pragma once
 #include <components/interactivity/DialogService.h>
 
 class MockDialogService : public DialogService
@@ -39,4 +37,3 @@ public:
     mutable QDialog *m_created_dlg;
 };
 
-#endif // MOCKDIALOGSERVICE_H

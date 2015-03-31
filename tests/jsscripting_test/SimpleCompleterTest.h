@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SIMPLECOMPLETERTEST_H
-#define SIMPLECOMPLETERTEST_H
-
+#pragma once
 #include <QtCore/QObject>
 
 class SimpleCompleterTest: public QObject
@@ -40,4 +38,3 @@ private Q_SLOTS:
     void completeGlobals_shouldReturnNewObjectObject();
 };
 
-#endif // SIMPLECOMPLETERTEST_H

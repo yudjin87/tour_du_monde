@@ -24,7 +24,4 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef WEBINSTALLER_H
-#define WEBINSTALLER_H
-
-#endif // WEBINSTALLER_H
+#pragma once

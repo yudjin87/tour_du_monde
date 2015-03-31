@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef COMPONENTINSTALLER_H
-#define COMPONENTINSTALLER_H
-
+#pragma once
 #include <carousel/componentsystem/IComponentInstaller.h>
 
 #include <QtCore/QList>
@@ -98,4 +96,3 @@ private:
     QList<IComponent *> m_componentsToInstall;
 };
 
-#endif // COMPONENTINSTALLER_H

@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef POINTPROTOTYPE_H
-#define POINTPROTOTYPE_H
-
+#pragma once
 #include <QtCore/QPoint>
 #include <QtCore/QObject>
 #include <QtScript/QScriptable>
@@ -55,4 +53,3 @@ private:
 Q_DECLARE_METATYPE(QPoint *)
 Q_DECLARE_METATYPE(QPoint)
 
-#endif // POINTPROTOTYPE_H

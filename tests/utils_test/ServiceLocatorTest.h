@@ -1,6 +1,4 @@
-#ifndef SERVICELOCATORTEST_H
-#define SERVICELOCATORTEST_H
-
+#pragma once
 #include <QtCore/QObject>
 
 class ServiceLocatorTest: public QObject
@@ -39,4 +37,3 @@ private Q_SLOTS:
 
 };
 
-#endif // SERVICELOCATORTEST_H

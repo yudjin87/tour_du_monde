@@ -1,6 +1,4 @@
-#ifndef FAKECOMPONENTLOADER_H
-#define FAKECOMPONENTLOADER_H
-
+#pragma once
 #include "MockComponent.h"
 
 #include <carousel/componentsystem/IComponentLoader.h>
@@ -41,4 +39,3 @@ public:
     QString passedFileName;
     IComponent *mockComponent;
 };
-#endif // FAKECOMPONENTLOADER_H

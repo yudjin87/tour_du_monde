@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef DEPENDENCIESSOLVINGRESULT_H
-#define DEPENDENCIESSOLVINGRESULT_H
-
+#pragma once
 #include <carousel/carousel_global.h>
 
 #include <QtCore/QStringList>
@@ -129,4 +127,3 @@ private:
     bool m_hasCyclic;
 };
 
-#endif // DEPENDENCIESSOLVINGRESULT_H

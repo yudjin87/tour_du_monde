@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef CAROUSELINTERACTIONSERVICE_H
-#define CAROUSELINTERACTIONSERVICE_H
-
+#pragma once
 #include "IInteractionService.h"
 
 class IComponent;
@@ -222,4 +220,3 @@ private:
     QMainWindow *m_mainWindow;
 };
 
-#endif // CAROUSELINTERACTIONSERVICE_H

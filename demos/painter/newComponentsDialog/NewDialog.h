@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef NEWDIALOG_H
-#define NEWDIALOG_H
-
+#pragma once
 #include <components/componentsystemui/ComponentsDialog.h>
 
 class NewDialog : public ComponentsDialog
@@ -39,4 +37,3 @@ private slots:
     void onOpenComponentsDirectory(bool) const;
 };
 
-#endif // NEWDIALOG_H

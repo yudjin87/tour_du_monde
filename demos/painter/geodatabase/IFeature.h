@@ -1,6 +1,4 @@
-#ifndef IFEATURE_H
-#define IFEATURE_H
-
+#pragma once
 #include "geodatabase_api.h"
 
 #include <geometry/GeometryType.h>
@@ -44,4 +42,3 @@ private:
 
 typedef QVector<IFeature *> IFeatureCollection;
 
-#endif // IFEATURE_H

@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef LISTDICTIONARY_H
-#define LISTDICTIONARY_H
-
+#pragma once
 #include <QtCore/QList>
 #include <QtCore/QMap>
 
@@ -96,4 +94,3 @@ typename ListDictionary<TKey, TValue>::Container* ListDictionary<TKey, TValue>::
 }
 
 
-#endif // LISTDICTIONARY_H

@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef CAROUSELPERSISTENCEDELEGATETEST_H
-#define CAROUSELPERSISTENCEDELEGATETEST_H
-
+#pragma once
 #include <QtCore/QObject>
 
 class CarouselPersistenceDelegateTest: public QObject
@@ -42,4 +40,3 @@ private Q_SLOTS:
     void load_shouldCallLoadForSpecificComponents();
 
 };
-#endif // CAROUSELPERSISTENCEDELEGATETEST_H

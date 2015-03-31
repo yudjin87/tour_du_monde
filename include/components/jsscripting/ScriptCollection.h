@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SCRIPTCOLLECTION_H
-#define SCRIPTCOLLECTION_H
-
+#pragma once
 #include <components/jsscripting/IScriptCollection.h>
 
 class IScriptEngineFactory;
@@ -119,4 +117,3 @@ private:
     Scripts m_scripts;
 };
 
-#endif // SCRIPTCOLLECTION_H

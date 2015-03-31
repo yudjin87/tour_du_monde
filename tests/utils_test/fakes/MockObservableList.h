@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef MOCKLISTOBSERVER_H
-#define MOCKLISTOBSERVER_H
-
+#pragma once
 #include <carousel/utils/ObservableList.h>
 
 #include <QtCore/QObject>
@@ -43,4 +41,3 @@ public:
     bool removedCalled;
 };
 
-#endif // MOCKLISTOBSERVER_H

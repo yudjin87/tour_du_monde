@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef MOCKOPERATION_H
-#define MOCKOPERATION_H
-
+#pragma once
 #include <components/interactivity/Operation.h>
 
 class MockOperation : public Operation
@@ -47,4 +45,3 @@ public:
     IServiceLocator *m_serviceLocator;
 };
 
-#endif // MOCKOPERATION_H

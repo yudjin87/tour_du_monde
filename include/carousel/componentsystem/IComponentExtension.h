@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef ICOMPONENTEXTENSION_H
-#define ICOMPONENTEXTENSION_H
-
+#pragma once
 #include <carousel/carousel_global.h>
 
 class IComponent;
@@ -51,4 +49,3 @@ private:
     Q_DISABLE_COPY(IComponentExtension)
 };
 
-#endif // ICOMPONENTEXTENSION_H

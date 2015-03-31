@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef COMPONENTWITHEXTENSIONS_H
-#define COMPONENTWITHEXTENSIONS_H
-
+#pragma once
 #include <carousel/componentsystem/BaseComponent.h>
 #include <carousel/componentsystem/IComponentExtension.h>
 
@@ -47,4 +45,3 @@ public:
 class IComponentExtension1 : public IComponentExtension {};
 class IComponentExtension2 : public IComponentExtension {};
 
-#endif // COMPONENTWITHEXTENSIONS_H

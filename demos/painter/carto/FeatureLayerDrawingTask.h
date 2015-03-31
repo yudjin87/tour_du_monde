@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef FEATURELAYERDRAWINGTASK_H
-#define FEATURELAYERDRAWINGTASK_H
-
+#pragma once
 #include <display/IDrawingTask.h>
 #include <geodatabase/IFeatureClass.h>
 #include <QtCore/QObject>
@@ -47,5 +45,4 @@ private:
     IFeatureRenderer* m_renderer;
 };
 
-#endif // FEATURELAYERDRAWINGTASK_H
 

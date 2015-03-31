@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef ILOGGERENGINE_H
-#define ILOGGERENGINE_H
-
+#pragma once
 #include <carousel/carousel_global.h>
 #include <QtCore/QString>
 
@@ -83,4 +81,3 @@ public:
     virtual void w(const QString &message) = 0;
 };
 
-#endif // ILOGGERENGINE_H

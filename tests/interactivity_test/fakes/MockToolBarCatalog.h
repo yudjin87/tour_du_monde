@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef MOCKTOOLBARCATALOG_H
-#define MOCKTOOLBARCATALOG_H
-
+#pragma once
 #include <components/interactivity/ToolBarCatalog.h>
 
 class MockToolBarCatalog : public ToolBarCatalog
@@ -37,4 +35,3 @@ public:
     QMainWindow& getShell();
 };
 
-#endif // MOCKTOOLBARCATALOG_H

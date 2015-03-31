@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef GROUPUNDOABLECOMMAND_H
-#define GROUPUNDOABLECOMMAND_H
-
+#pragma once
 #include <carousel/commands/BaseUndoableCommand.h>
 #include <QtCore/QList>
 
@@ -49,4 +47,3 @@ private:
     QList<IUndoableCommand*> m_children;
 };
 
-#endif // GROUPUNDOABLECOMMAND_H

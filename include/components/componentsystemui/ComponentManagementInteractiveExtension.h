@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef COMPONENTMANAGEMENTINTERACTIVEEXTENSION_H
-#define COMPONENTMANAGEMENTINTERACTIVEEXTENSION_H
-
+#pragma once
 #include <components/interactivity/IInteractiveExtension.h>
 
 #include <QtCore/QObject>
@@ -40,4 +38,3 @@ public:
     void configureGui(ICatalogs &inCatalogs, IServiceLocator *serviceLocator) override;
 };
 
-#endif // COMPONENTMANAGEMENTINTERACTIVEEXTENSION_H

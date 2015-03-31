@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef MOCKDIRECTORYWATCHINGCOMPONENTPROVIDER_H
-#define MOCKDIRECTORYWATCHINGCOMPONENTPROVIDER_H
-
+#pragma once
 #include "MockFileSystemWatcher.h"
 
 #include <carousel/componentsystem/DirectoryWatchingComponentProvider.h>
@@ -44,4 +42,3 @@ public:
     mutable MockFileSystemWatcher *mockWatcher;
 };
 
-#endif // MOCKDIRECTORYWATCHINGCOMPONENTPROVIDER_H

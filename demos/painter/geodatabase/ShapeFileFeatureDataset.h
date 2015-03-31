@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SHAPEFILEFEATUREDATASET_H
-#define SHAPEFILEFEATUREDATASET_H
-
+#pragma once
 #include "IFeatureDataset.h"
 #include "geodatabase/IShapeFileReader.h"
 
@@ -68,5 +66,4 @@ private:
     bool m_isOpen;
 };
 
-#endif // SHAPEFILEFEATUREDATASET_H
 

@@ -1,6 +1,4 @@
-#ifndef FAKECOMPONENTLOADER_H
-#define FAKECOMPONENTLOADER_H
-
+#pragma once
 #include <carousel/componentsystem/ComponentLoader.h>
 
 class MockComponentLoader : public ComponentLoader
@@ -25,4 +23,3 @@ public:
     int unloadCalled;
 };
 
-#endif // FAKECOMPONENTLOADER_H

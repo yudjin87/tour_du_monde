@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SYMBOLWIDGETCREATOR_H
-#define SYMBOLWIDGETCREATOR_H
-
+#pragma once
 #include "display/ISymbolVisitor.h"
 
 class ISymbol;
@@ -50,4 +48,3 @@ private:
     SymbolWidget* m_widget;
 };
 
-#endif // SYMBOLWIDGETCREATOR_H

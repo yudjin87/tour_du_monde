@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef TYPEOBJECTSMAP_H
-#define TYPEOBJECTSMAP_H
-
+#pragma once
 #include <QtCore/QStringList>
 #include <QtCore/QString>
 #include <QtCore/QVector>
@@ -239,4 +237,3 @@ InstanceObject<TValue> *TypeObjectsMap<TValue>::findInstance(const QString &key,
     return foundInstance;
 }
 
-#endif // TYPEOBJECTSMAP_H

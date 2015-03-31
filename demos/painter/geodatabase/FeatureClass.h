@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef FEATURECLASS_H
-#define FEATURECLASS_H
-
+#pragma once
 #include "IFeatureClass.h"
 
 class FeatureClass : public IFeatureClass
@@ -56,4 +54,3 @@ private:
     QString m_source;
 };
 
-#endif // FEATURECLASS_H

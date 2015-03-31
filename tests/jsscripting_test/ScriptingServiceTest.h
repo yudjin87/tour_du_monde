@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SCRIPTSERVICETEST_H
-#define SCRIPTSERVICETEST_H
-
+#pragma once
 #include <QtCore/QObject>
 
 class ScriptingServiceTest: public QObject
@@ -42,4 +40,3 @@ private Q_SLOTS:
     void shouldCallConfigureForConsoleEngineWhenComponentStarted();
 };
 
-#endif // SCRIPTSERVICETEST_H

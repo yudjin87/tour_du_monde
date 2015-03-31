@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SYMBOLITEM_H
-#define SYMBOLITEM_H
-
+#pragma once
 #include <geometry/GeometryType.h>
 #include <display/ISymbol.h>
 
@@ -51,4 +49,3 @@ private:
     const Geometry::Type m_geometry;
 };
 
-#endif // SYMBOLITEM_H

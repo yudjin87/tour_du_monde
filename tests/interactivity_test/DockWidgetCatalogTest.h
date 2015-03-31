@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef DOCKWIDGETCATALOGTEST_H
-#define DOCKWIDGETCATALOGTEST_H
-
+#pragma once
 #include <QtCore/QObject>
 
 class DockWidgetCatalogTest : public QObject
@@ -46,4 +44,3 @@ private Q_SLOTS:
     void shouldDeleteDockWidget();
 };
 
-#endif // DOCKWIDGETCATALOGTEST_H

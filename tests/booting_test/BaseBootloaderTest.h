@@ -1,6 +1,4 @@
-#ifndef BASEBOOTLOADERTEST_H
-#define BASEBOOTLOADERTEST_H
-
+#pragma once
 #include <QtCore/QObject>
 
 class BaseBootloaderTest : public QObject
@@ -17,4 +15,3 @@ private Q_SLOTS:
     void canRunOnlyOncePerInstance();
 };
 
-#endif // BASEBOOTLOADERTEST_H

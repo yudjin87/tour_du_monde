@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef LAYERPROPERTYDIALOGVISITOR_H
-#define LAYERPROPERTYDIALOGVISITOR_H
-
+#pragma once
 #include <QtCore/QObject>
 #include <carto/ILayerVisitor.h>
 
@@ -51,4 +49,3 @@ private:
     QWidget* m_parent;
 };
 
-#endif // LAYERPROPERTYDIALOGVISITOR_H

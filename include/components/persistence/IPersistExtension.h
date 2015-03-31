@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef IPERSISTEXTENSION_H
-#define IPERSISTEXTENSION_H
-
+#pragma once
 #include <carousel/componentsystem/IComponentExtension.h>
 #include <components/persistence/persistence_global.h>
 
@@ -53,4 +51,3 @@ public:
 private:
     Q_DISABLE_COPY(IPersistExtension)
 };
-#endif // IPERSISTEXTENSION_H

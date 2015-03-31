@@ -1,6 +1,4 @@
-#ifndef LOGGERENGINE_H
-#define LOGGERENGINE_H
-
+#pragma once
 #include <carousel/logging/ILoggerEngine.h>
 #include <carousel/logging/ILoggerEngineCreator.h>
 
@@ -26,4 +24,3 @@ public:
     ILoggerEngine *getLogger(const QString &name);
 };
 
-#endif // LOGGERENGINE_H

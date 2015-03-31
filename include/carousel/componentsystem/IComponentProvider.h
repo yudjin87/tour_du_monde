@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef ICOMPONENTPROVIDER_H
-#define ICOMPONENTPROVIDER_H
-
+#pragma once
 #include <carousel/carousel_global.h>
 
 #include <QtCore/QList>
@@ -90,4 +88,3 @@ private:
     Q_DISABLE_COPY(IComponentProvider)
 };
 
-#endif // ICOMPONENTPROVIDER_H

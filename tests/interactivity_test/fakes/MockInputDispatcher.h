@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef MOCKINPUTDISPATCHER_H
-#define MOCKINPUTDISPATCHER_H
-
+#pragma once
 #include <components/interactivity/InputDispatcher.h>
 
 class MockInputDispatcher : public InputDispatcher
@@ -41,4 +39,3 @@ private:
     bool *m_wasDestructorCalled;
 };
 
-#endif // MOCKINPUTDISPATCHER_H

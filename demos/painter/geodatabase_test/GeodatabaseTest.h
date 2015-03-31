@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef GEODATABASETEST_H
-#define GEODATABASETEST_H
-
+#pragma once
 #include <QtCore/QObject>
 
 class GeodatabaseTest : public QObject
@@ -48,4 +46,3 @@ private:
     QString m_polygonShp;
 };
 
-#endif // GEODATABASETEST_H

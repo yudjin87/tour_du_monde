@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef DIRECTORYWATCHINGCOMPONENTPROVIDERTEST_H
-#define DIRECTORYWATCHINGCOMPONENTPROVIDERTEST_H
-
+#pragma once
 #include <QtCore/QObject>
 
 class DirectoryWatchingComponentProviderTest : public QObject
@@ -45,4 +43,3 @@ private slots:
     void shouldEmitChangesAfter_directoryChanged_signal();
 };
 
-#endif // DIRECTORYWATCHINGCOMPONENTPROVIDERTEST_H

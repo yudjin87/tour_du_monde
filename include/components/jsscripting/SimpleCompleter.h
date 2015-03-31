@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SIMPLECOMPLETER_H
-#define SIMPLECOMPLETER_H
-
+#pragma once
 #include <components/jsscripting/jsscripting_global.h>
 
 #include <QtCore/QObject>
@@ -55,4 +53,3 @@ private:
     QScriptEngine *m_engine;
 };
 
-#endif // SIMPLECOMPLETER_H

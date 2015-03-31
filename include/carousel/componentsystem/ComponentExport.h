@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef COMPONENTEXPORT_H
-#define COMPONENTEXPORT_H
-
+#pragma once
 #include <QtCore/QPointer>
 
 // This header has been written by influence of the similiar QtCore/qplugin.h
@@ -35,13 +33,13 @@
 #  define EXTERN_C extern "C"
 #else
 #  define EXTERN_C extern
-#endif
+#endif // #ifdef __cplusplus
 
 #if defined (Q_OS_WIN32) && defined(Q_CC_BOR)
 #   define STANDARD_CALL __stdcall
 #else
 #   define STANDARD_CALL
-#endif
+#endif // #if defined (Q_OS_WIN32) && defined(Q_CC_BOR)
 
 #define CREATE_INSTANCE createInstance
 #define RELEASE_INSTANCE releaseInstance
@@ -69,6 +67,5 @@
     RELEASE_INSTANCE_FUNCTION(COMPONENT_CLASS)                                                  \
 
 
-#endif // COMPONENTEXPORT_H
 
 

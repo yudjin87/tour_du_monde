@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef CARTO_API_H
-#define CARTO_API_H
-
+#pragma once
 #include <QtCore/qglobal.h>
 
 #if defined(CARTO_LIB_IMPORT)
@@ -34,5 +32,3 @@
 #else
 #  define CARTO_API Q_DECL_IMPORT
 #endif
-
-#endif // CARTO_API_H

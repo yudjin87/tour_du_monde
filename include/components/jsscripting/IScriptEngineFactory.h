@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef ISCRIPTENGINEFACTORY_H
-#define ISCRIPTENGINEFACTORY_H
-
+#pragma once
 #include <components/jsscripting/jsscripting_global.h>
 
 class IOutputHandler;
@@ -81,4 +79,3 @@ private:
     Q_DISABLE_COPY(IScriptEngineFactory)
 };
 
-#endif // ISCRIPTENGINEFACTORY_H

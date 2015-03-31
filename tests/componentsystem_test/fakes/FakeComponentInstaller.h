@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef FAKECOMPONENTINSTALLER_H
-#define FAKECOMPONENTINSTALLER_H
-
+#pragma once
 #include "MockComponentDependencies.h"
 
 #include <carousel/componentsystem/ComponentInstaller.h>
@@ -51,4 +49,3 @@ public:
     MockComponentDependencies *dependencies;
 };
 
-#endif // FAKECOMPONENTINSTALLER_H

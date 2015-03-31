@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef UPDATETASK_H
-#define UPDATETASK_H
-
+#pragma once
 #include <display/IDrawingTask.h>
 #include <QtCore/QObject>
 
@@ -47,4 +45,3 @@ private:
     MultithreadDisplay* m_display;
 };
 
-#endif // UPDATETASK_H

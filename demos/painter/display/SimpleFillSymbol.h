@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SIMPLEFILLSYMBOL_H
-#define SIMPLEFILLSYMBOL_H
-
+#pragma once
 #include "display/FillSymbol.h"
 
 #include <QtGui/QBrush>
@@ -66,4 +64,3 @@ private:
     QBrush m_oldBrush;
 };
 
-#endif // SIMPLEFILLSYMBOL_H

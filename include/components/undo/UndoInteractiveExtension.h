@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef UNDOINTERACTIVEEXTENSION_H
-#define UNDOINTERACTIVEEXTENSION_H
-
+#pragma once
 #include <components/interactivity/IInteractiveExtension.h>
 
 #include <QtCore/QObject>
@@ -56,4 +54,3 @@ public:
     void configureGui(ICatalogs &inCatalogs, IServiceLocator *serviceLocator) override;
 };
 
-#endif // UNDOINTERACTIVEEXTENSION_H

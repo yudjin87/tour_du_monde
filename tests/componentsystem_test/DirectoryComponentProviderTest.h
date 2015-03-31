@@ -1,6 +1,4 @@
-#ifndef DIRECTORYCOMPONENTPROVIDERTEST_H
-#define DIRECTORYCOMPONENTPROVIDERTEST_H
-
+#pragma once
 #include <QtCore/QObject>
 
 class DirectoryComponentProviderTest : public QObject
@@ -29,4 +27,3 @@ private:
     const QString definitionsLocation;
 };
 
-#endif // DIRECTORYCOMPONENTPROVIDERTEST_H

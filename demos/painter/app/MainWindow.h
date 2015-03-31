@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
-
+#pragma once
 #include <QtWidgets/QMainWindow>
 
 namespace Ui {
@@ -45,4 +43,3 @@ private:
     Ui::MainWindow *m_ui;
 };
 
-#endif // MAINWINDOW_H

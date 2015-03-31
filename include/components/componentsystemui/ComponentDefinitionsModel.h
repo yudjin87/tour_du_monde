@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef COMPONENTMANAGERMODEL_H
-#define COMPONENTMANAGERMODEL_H
-
+#pragma once
 #include <components/componentsystemui/componentsystem_ui_global.h>
 
 #include <QtCore/QAbstractTableModel>
@@ -71,4 +69,3 @@ private:
     IServiceLocator *m_locator;
 };
 
-#endif // COMPONENTMANAGERMODEL_H

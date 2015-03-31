@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef COMPONENTSDIALOG_H
-#define COMPONENTSDIALOG_H
-
+#pragma once
 #include <components/componentsystemui/componentsystem_ui_global.h>
 
 #include <QtWidgets/QDialog>
@@ -50,4 +48,3 @@ private:
     Ui::ComponentsDialog *m_ui;
 };
 
-#endif // COMPONENTSDIALOG_H

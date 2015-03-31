@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef MOCKSCRIPTEXTENSIONCOMPONENT_H
-#define MOCKSCRIPTEXTENSIONCOMPONENT_H
-
+#pragma once
 #include <carousel/componentsystem/BaseComponent.h>
 #include <components/jsscripting/IScriptExtension.h>
 
@@ -67,4 +65,3 @@ public:
 };
 
 
-#endif // MOCKSCRIPTEXTENSIONCOMPONENT_H

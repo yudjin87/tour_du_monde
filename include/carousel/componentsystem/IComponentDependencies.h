@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef ICOMPONENTDEPENDENCIES_H
-#define ICOMPONENTDEPENDENCIES_H
-
+#pragma once
 #include <carousel/carousel_global.h>
 #include <carousel/componentsystem/DependenciesSolvingResult.h>
 
@@ -212,4 +210,3 @@ private:
     Q_DISABLE_COPY(IComponentDependencies)
 };
 
-#endif // ICOMPONENTDEPENDENCIES_H

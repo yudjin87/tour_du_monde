@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef IFEATUREWORKSPACE_H
-#define IFEATUREWORKSPACE_H
-
+#pragma once
 #include "geodatabase_api.h"
 #include "IWorkspace.h"
 
@@ -45,4 +43,3 @@ private:
     Q_DISABLE_COPY(IFeatureWorkspace)
 };
 
-#endif // IFEATUREWORKSPACE_H

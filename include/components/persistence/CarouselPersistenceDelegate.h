@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef CAROUSELPERSISTENCEDELEGATE_H
-#define CAROUSELPERSISTENCEDELEGATE_H
-
+#pragma once
 #include <components/persistence/IPersistenceDelegate.h>
 
 class IPersistExtension;
@@ -61,4 +59,3 @@ private:
     IServiceLocator *m_locator;
 };
 
-#endif // CAROUSELPERSISTENCEDELEGATE_H

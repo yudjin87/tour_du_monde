@@ -1,6 +1,4 @@
-#ifndef COMPONENTMANAGERTEST_H
-#define COMPONENTMANAGERTEST_H
-
+#pragma once
 #include <carousel/utils/ServiceLocator.h>
 
 #include <QtCore/QObject>
@@ -70,6 +68,5 @@ private:
     ServiceLocator m_locator;
 };
 
-#endif // COMPONENTMANAGERTEST_H
 
 

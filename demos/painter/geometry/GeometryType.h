@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef GEOMETRYTYPE_H
-#define GEOMETRYTYPE_H
-
+#pragma once
 namespace Geometry
 {
 enum class Type
@@ -53,7 +51,6 @@ enum class Type
 };
 }
 
-#endif // GEOMETRYTYPE_H
 
 
 

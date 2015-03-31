@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef RECTFPROTOTYPE_H
-#define RECTFPROTOTYPE_H
-
+#pragma once
 #include <QtCore/QRectF>
 #include <QtCore/QObject>
 #include <QtScript/QScriptable>
@@ -53,4 +51,3 @@ public slots:
 Q_DECLARE_METATYPE(QRectF *)
 Q_DECLARE_METATYPE(QRectF)
 
-#endif // RECTFPROTOTYPE_H

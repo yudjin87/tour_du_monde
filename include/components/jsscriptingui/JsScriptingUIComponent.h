@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef JSSCRIPTINGUICOMPONENT_H
-#define JSSCRIPTINGUICOMPONENT_H
-
+#pragma once
 #include <components/jsscriptingui/jsscriptingui_global.h>
 
 #include <carousel/componentsystem/BaseComponent.h>
@@ -71,4 +69,3 @@ protected:
     bool onStartup(IServiceLocator *serviceLocator) override;
 };
 
-#endif // JSSCRIPTINGUICOMPONENT_H

@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef CAROUSELINTERACTIONSERVICETEST_H
-#define CAROUSELINTERACTIONSERVICETEST_H
-
+#pragma once
 #include <QtCore/QObject>
 
 #include <carousel/utils/ServiceLocator.h>
@@ -80,5 +78,4 @@ private:
     ServiceLocator m_serviceLocator;
 };
 
-#endif // CAROUSELINTERACTIONSERVICETEST_H
 

@@ -1,6 +1,4 @@
-#ifndef COMPONENTLOADERTEST_H
-#define COMPONENTLOADERTEST_H
-
+#pragma once
 #include <QtCore/QObject>
 
 class ComponentLoaderTest : public QObject
@@ -38,4 +36,3 @@ private slots:
 
 };
 
-#endif // COMPONENTLOADERTEST_H

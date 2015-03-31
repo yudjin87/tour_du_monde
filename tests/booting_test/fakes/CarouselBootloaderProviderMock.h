@@ -1,6 +1,4 @@
-#ifndef CAROUSELBOOTLOADERPROVIDERMOCK_H
-#define CAROUSELBOOTLOADERPROVIDERMOCK_H
-
+#pragma once
 #include <carousel/booting/CarouselBootloader.h>
 #include <carousel/componentsystem/ComponentProvider.h>
 
@@ -34,4 +32,3 @@ private:
     ComponentProviderMock* m_componentProviderMock;
 };
 
-#endif // CAROUSELBOOTLOADERPROVIDERMOCK_H

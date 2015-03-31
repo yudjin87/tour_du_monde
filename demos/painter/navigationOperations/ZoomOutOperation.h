@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef ZOOMOUTOPERATION_H
-#define ZOOMOUTOPERATION_H
-
+#pragma once
 #include <components/interactivity/Operation.h>
 
 class ZoomOutOperation : public Operation
@@ -41,4 +39,3 @@ private:
     IServiceLocator *m_serviceLocator;
 };
 
-#endif // ZOOMOUTOPERATION_H

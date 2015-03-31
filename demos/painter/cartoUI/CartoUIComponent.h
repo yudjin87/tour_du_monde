@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SHAPESVIEWCOMPONENT_H
-#define SHAPESVIEWCOMPONENT_H
-
+#pragma once
 #include "cartoUI_api.h"
 
 #include <carousel/componentsystem/BaseComponent.h>
@@ -43,4 +41,3 @@ protected:
     void onShutdown(IServiceLocator *serviceLocator) override;
 };
 
-#endif // SHAPESVIEWCOMPONENT_H

@@ -1,6 +1,4 @@
-#ifndef MOCKTOOL_H
-#define MOCKTOOL_H
-
+#pragma once
 #include <components/interactivity/ITool.h>
 
 #include <QtCore/QObject>
@@ -47,4 +45,3 @@ public:
     bool mouseMoveCalled;
 };
 
-#endif // MOCKTOOL_H

@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef ICOMPONENTCONFIGURATIONDELEGATE_H
-#define ICOMPONENTCONFIGURATIONDELEGATE_H
-
+#pragma once
 #include "interactivity_global.h"
 
 #include <QtCore/QObject>
@@ -85,4 +83,3 @@ private:
     Q_DISABLE_COPY(IComponentConfigurationDelegate)
 };
 
-#endif // ICOMPONENTCONFIGURATIONDELEGATE_H

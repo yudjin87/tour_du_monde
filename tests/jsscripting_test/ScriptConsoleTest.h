@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SCRIPTCONSOLETEST_H
-#define SCRIPTCONSOLETEST_H
-
+#pragma once
 #include <QtCore/QObject>
 
 class ScriptConsoleTest: public QObject
@@ -52,4 +50,3 @@ private:
 };
 
 
-#endif // SCRIPTCONSOLETEST_H

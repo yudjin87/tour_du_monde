@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef CONFIGURATIONCHANGES_H
-#define CONFIGURATIONCHANGES_H
-
+#pragma once
 #include "interactivity_global.h"
 
 #include <QtCore/QList>
@@ -161,4 +159,3 @@ private:
     ToolBars m_addedToolbars;
 };
 
-#endif // CONFIGURATIONCHANGES_H

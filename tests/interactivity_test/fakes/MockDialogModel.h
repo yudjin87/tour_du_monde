@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef MOCKDIALOGMODEL_H
-#define MOCKDIALOGMODEL_H
-
+#pragma once
 #include <QtCore/QObject>
 
 class IServiceLocator;
@@ -44,4 +42,3 @@ public:
     
 };
 
-#endif // MOCKDIALOGMODEL_H

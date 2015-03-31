@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef TEXTLOGGER_H
-#define TEXTLOGGER_H
-
+#pragma once
 #include <carousel/logging/ILoggerEngine.h>
 #include <carousel/logging/ILoggerEngineCreator.h>
 
@@ -148,4 +146,3 @@ private:
     QString m_name;
 };
 
-#endif // TEXTLOGGER_H

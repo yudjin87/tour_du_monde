@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef BASEUNDOABLECOMMAND_H
-#define BASEUNDOABLECOMMAND_H
-
+#pragma once
 #include <carousel/commands/IUndoableCommand.h>
 
 class IUndoStack;
@@ -54,4 +52,3 @@ private:
     QString m_text;
 };
 
-#endif // BASEUNDOABLECOMMAND_H

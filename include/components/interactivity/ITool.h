@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef ITOOL_H
-#define ITOOL_H
-
+#pragma once
 #include "IOperation.h"
 #include "IInputReceiver.h"
 
@@ -47,4 +45,3 @@ public:
     ~ITool(){}
 };
 
-#endif // ITOOL_H

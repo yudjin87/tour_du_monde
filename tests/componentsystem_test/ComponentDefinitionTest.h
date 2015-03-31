@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef COMPONENTDEFINITIONTEST_H
-#define COMPONENTDEFINITIONTEST_H
-
+#pragma once
 #include <QtCore/QObject>
 
 class ComponentDefinitionTest : public QObject
@@ -41,4 +39,3 @@ private slots:
     void isCompatible_shouldReturnFalseIfAtLeastOneDoesNotMatch();
 };
 
-#endif // COMPONENTDEFINITIONTEST_H

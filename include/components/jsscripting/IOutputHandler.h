@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef IOUTPUTHANDLER_H
-#define IOUTPUTHANDLER_H
-
+#pragma once
 #include <components/jsscripting/jsscripting_global.h>
 
 /*!
@@ -66,4 +64,3 @@ private:
     Q_DISABLE_COPY(IOutputHandler)
 };
 
-#endif // IOUTPUTHANDLER_H

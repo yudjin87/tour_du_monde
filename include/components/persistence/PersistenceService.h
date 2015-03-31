@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef PERSISTENCESERVICE_H
-#define PERSISTENCESERVICE_H
-
+#pragma once
 #include <components/persistence/IPersistenceService.h>
 
 class IServiceLocator;
@@ -122,4 +120,3 @@ private:
     QString m_filePath;
 };
 
-#endif // PERSISTENCESERVICE_H

@@ -24,8 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef IDRAWINGTASK
-#define IDRAWINGTASK
+#pragma once
 
 #include <display/display_api.h>
 
@@ -47,5 +46,4 @@ private:
 
 typedef std::unique_ptr<IDrawingTask> IDrawingTaskPtr;
 
-#endif // IDRAWINGTASK
 

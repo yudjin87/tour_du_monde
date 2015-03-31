@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef IGEODATASET_H
-#define IGEODATASET_H
-
+#pragma once
 #include "IDataset.h"
 
 #include <geometry/GeometryType.h>
@@ -46,4 +44,3 @@ public:
     virtual QRectF extent() = 0;
 };
 
-#endif // IGEODATASET_H

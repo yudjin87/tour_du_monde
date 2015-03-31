@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef IWORKSPACE_H
-#define IWORKSPACE_H
-
+#pragma once
 #include "geodatabase_api.h"
 
 #include <QtCore/QList>
@@ -68,4 +66,3 @@ private:
 };
 
 
-#endif // IWORKSPACE_H

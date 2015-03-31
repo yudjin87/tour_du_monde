@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef FILEUTILS_H
-#define FILEUTILS_H
-
+#pragma once
 #include <carousel/carousel_global.h>
 
 #include <QtCore/QString>
@@ -43,4 +41,3 @@ CAROUSEL_API bool removeTree(const QString &dirName);
 
 } //namespace fileUtils
 
-#endif // FILEUTILS_H

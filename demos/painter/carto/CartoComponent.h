@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef CARTOCOMPONENT_H
-#define CARTOCOMPONENT_H
-
+#pragma once
 #include "carto_api.h"
 
 #include <carousel/componentsystem/BaseComponent.h>
@@ -42,4 +40,3 @@ protected:
     void onShutdown(IServiceLocator *serviceLocator) override;
 };
 
-#endif // CARTOCOMPONENT_H

@@ -1,6 +1,4 @@
-#ifndef COMPOSITECOMPONENTPROVIDERTEST_H
-#define COMPOSITECOMPONENTPROVIDERTEST_H
-
+#pragma once
 #include <QtCore/QObject>
 
 class CompositeComponentProviderTest : public QObject
@@ -14,4 +12,3 @@ private Q_SLOTS:
     void shouldMergeComponentsBothFromProvidersAndFromComponentsList();
 };
 
-#endif // COMPOSITECOMPONENTPROVIDERTEST_H

@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SHAPEFILEFEATUREWORKSPACE_H
-#define SHAPEFILEFEATUREWORKSPACE_H
-
+#pragma once
 #include "geodatabase_api.h"
 #include "IFeatureWorkspace.h"
 
@@ -47,4 +45,3 @@ private:
     QString m_workspacePath;
 };
 
-#endif // SHAPEFILEFEATUREWORKSPACE_H

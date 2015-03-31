@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef IUNDOSTACK_H
-#define IUNDOSTACK_H
-
+#pragma once
 #include <carousel/carousel_global.h>
 #include <QtCore/QObject>
 
@@ -72,4 +70,3 @@ public:
     virtual void redo() = 0;
 };
 
-#endif // IUNDOSTACK_H

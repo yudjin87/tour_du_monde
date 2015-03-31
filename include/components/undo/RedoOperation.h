@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef REDOOPERATION_H
-#define REDOOPERATION_H
-
+#pragma once
 #include <components/interactivity/Operation.h>
 
 class QAction;
@@ -67,4 +65,3 @@ private:
     QAction *m_action;
 };
 
-#endif // REDOOPERATION_H

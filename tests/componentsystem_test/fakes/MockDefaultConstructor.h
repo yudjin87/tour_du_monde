@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef MOCKDEFAULTCONSTRUCTOR_H
-#define MOCKDEFAULTCONSTRUCTOR_H
-
+#pragma once
 #include <carousel/componentsystem/DefinitionConstuctor.h>
 
 #include <QtCore/QObject>
@@ -46,4 +44,3 @@ public:
     bool *m_constructResult;
 };
 
-#endif // MOCKDEFAULTCONSTRUCTOR_H

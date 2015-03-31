@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef CHANGELAYERSYMBOLCOMMAND_H
-#define CHANGELAYERSYMBOLCOMMAND_H
-
+#pragma once
 #include <carto/carto_api.h>
 #include <display/ISymbol.h>
 #include <carousel/commands/BaseUndoableCommand.h>
@@ -53,4 +51,3 @@ private:
     ISymbolUPtr m_oldSymbol;
 };
 
-#endif // CHANGELAYERSYMBOLCOMMAND_H

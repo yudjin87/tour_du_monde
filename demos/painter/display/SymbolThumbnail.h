@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SYMBOLTHUMBNAIL_H
-#define SYMBOLTHUMBNAIL_H
-
+#pragma once
 #include <display/display_api.h>
 #include <geometry/GeometryType.h>
 
@@ -56,4 +54,3 @@ private:
     QMap<Geometry::Type, AbstractGeometry *> m_thumbnails;
 };
 
-#endif // SYMBOLTHUMBNAIL_H

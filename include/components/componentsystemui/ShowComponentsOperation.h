@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SHOWCOMPONENTSOPERATION_H
-#define SHOWCOMPONENTSOPERATION_H
-
+#pragma once
 #include <components/interactivity/Operation.h>
 
 class ShowComponentsOperation : public Operation
@@ -42,4 +40,3 @@ private:
     IServiceLocator *m_serviceLocator;
 };
 
-#endif // SHOWCOMPONENTSOPERATION_H

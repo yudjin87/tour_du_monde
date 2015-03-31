@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SCRIPTUNITVIEW_H
-#define SCRIPTUNITVIEW_H
-
+#pragma once
 #include <components/jsscriptingui/jsscriptingui_global.h>
 
 #include <QtWidgets/QWidget>
@@ -75,4 +73,3 @@ private:
     IScriptUnit *m_data;
 };
 
-#endif // SCRIPTUNITVIEW_H

@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef FAKECOMPONENT_H
-#define FAKECOMPONENT_H
-
+#pragma once
 #include <carousel/componentsystem/BaseComponent.h>
 
 class JustComponent : public BaseComponent
@@ -36,4 +34,3 @@ public:
     JustComponent(QObject *parent = nullptr);
 };
 
-#endif // FAKECOMPONENT_H

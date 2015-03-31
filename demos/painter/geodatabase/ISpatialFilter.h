@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef ISPATIALFILTER_H
-#define ISPATIALFILTER_H
-
+#pragma once
 #include "geodatabase_api.h"
 
 #include <QtCore/QObject>
@@ -54,4 +52,3 @@ private:
     Q_DISABLE_COPY(ISpatialFilter)
 };
 
-#endif // ISPATIALFILTER_H

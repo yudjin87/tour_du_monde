@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef BASECOMPONENT_H
-#define BASECOMPONENT_H
-
+#pragma once
 #include <carousel/componentsystem/IComponent.h>
 #include <carousel/componentsystem/ComponentDefinition.h>
 
@@ -295,4 +293,3 @@ void BaseComponent::registerExtension(TExtension *instance)
     registerExtensionInstance(reinterpret_cast<void *>(instance), extension_name);
 }
 
-#endif // BASECOMPONENT_H

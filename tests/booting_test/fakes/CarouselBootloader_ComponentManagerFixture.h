@@ -1,6 +1,4 @@
-#ifndef CAROUSELBOOTLOADER_COMPONENTPROVIDERFIXTURE_H
-#define CAROUSELBOOTLOADER_COMPONENTPROVIDERFIXTURE_H
-
+#pragma once
 #include <carousel/booting/CarouselBootloader.h>
 #include <carousel/componentsystem/IComponentManager.h>
 
@@ -13,4 +11,3 @@ protected:
     void configureComponentProvider();
 };
 
-#endif // CAROUSELBOOTLOADER_COMPONENTPROVIDERFIXTURE_H

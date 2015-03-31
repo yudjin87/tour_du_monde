@@ -1,6 +1,4 @@
-#ifndef MOCKSERVICELOCATOR_H
-#define MOCKSERVICELOCATOR_H
-
+#pragma once
 #include <carousel/utils/ServiceLocator.h>
 #include <carousel/utils/TypeObjectsMap.h>
 
@@ -14,4 +12,3 @@ public:
     const TypeObjectsMap<factoryMethod> &creators() const;
 };
 
-#endif // MOCKSERVICELOCATOR_H

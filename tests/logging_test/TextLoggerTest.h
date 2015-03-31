@@ -1,6 +1,4 @@
-#ifndef TEXTLOGGERTEST_H
-#define TEXTLOGGERTEST_H
-
+#pragma once
 #include <QtCore/QObject>
 
 class TextLoggerTest : public QObject
@@ -13,4 +11,3 @@ private Q_SLOTS:
     void writeToStream();
 };
 
-#endif // TEXTLOGGERTEST_H

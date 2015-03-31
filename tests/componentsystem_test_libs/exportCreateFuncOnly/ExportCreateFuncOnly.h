@@ -1,6 +1,4 @@
-#ifndef EXPORTCREATEFUNCONLY_H
-#define EXPORTCREATEFUNCONLY_H
-
+#pragma once
 #include <carousel/componentsystem/BaseComponent.h>
 
 class TestComponent : public BaseComponent
@@ -9,4 +7,3 @@ public:
     TestComponent();
 };
 
-#endif // EXPORTCREATEFUNCONLY_H

@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef BOOTLOADERBASE_H
-#define BOOTLOADERBASE_H
-
+#pragma once
 #include <carousel/carousel_global.h>
 #include <carousel/booting/IBootloader.h>
 
@@ -214,4 +212,3 @@ private:
     bool m_alreadyRunned;
 };
 
-#endif // BOOTLOADERBASE_H

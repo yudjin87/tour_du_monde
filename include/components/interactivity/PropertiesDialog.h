@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef PROPERTIESDIALOG_H
-#define PROPERTIESDIALOG_H
-
+#pragma once
 #include <components/interactivity/interactivity_global.h>
 #include <QtWidgets/QDialog>
 
@@ -65,4 +63,3 @@ private:
     PropertiesWidget *m_propertiesWidget;
 };
 
-#endif // PROPERTIESDIALOG_H

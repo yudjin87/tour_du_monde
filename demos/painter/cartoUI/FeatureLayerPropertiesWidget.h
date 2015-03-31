@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef FEATURELAYERPROPERTIESWIDGET_H
-#define FEATURELAYERPROPERTIESWIDGET_H
-
+#pragma once
 #include <components/interactivity/PropertiesWidget.h>
 #include <geometry/GeometryType.h>
 #include <display/ISymbol.h>
@@ -59,4 +57,3 @@ private:
     QString m_newName;
 };
 
-#endif // FEATURELAYERPROPERTIESWIDGET_H

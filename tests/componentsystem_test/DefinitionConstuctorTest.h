@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef FILEDEFINITIONCONSTUCTORTEST_H
-#define FILEDEFINITIONCONSTUCTORTEST_H
-
+#pragma once
 #include <QtCore/QObject>
 
 class DefinitionConstuctorTest : public QObject
@@ -47,4 +45,3 @@ private Q_SLOTS:
     void construct_ShouldSetupFileNameAsComponentNameIfLocationIsAbsent();
 };
 
-#endif // FILEDEFINITIONCONSTUCTORTEST_H

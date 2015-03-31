@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef OPERATIONCATALOGTEST_H
-#define OPERATIONCATALOGTEST_H
-
+#pragma once
 #include <QtCore/QObject>
 
 class OperationCatalogTest : public QObject
@@ -47,4 +45,3 @@ private Q_SLOTS:
     void shouldDeleteOperationByName();
 };
 
-#endif // OPERATIONCATALOGTEST_H

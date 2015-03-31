@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef IPAINTERDOCUMENT_H
-#define IPAINTERDOCUMENT_H
-
+#pragma once
 #include "carto/carto_api.h"
 
 #include <QtCore/QObject>
@@ -51,4 +49,3 @@ private:
     Q_DISABLE_COPY(IPainterDocument)
 };
 
-#endif // IPAINTERDOCUMENT_H

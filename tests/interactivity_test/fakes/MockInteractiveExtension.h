@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef MOCKINTERACTIVECOMPONENT_H
-#define MOCKINTERACTIVECOMPONENT_H
-
+#pragma once
 #include <carousel/componentsystem/BaseComponent.h>
 #include <components/interactivity/IInteractiveExtension.h>
 
@@ -73,4 +71,3 @@ public:
     configuredFunc m_func;
 };
 
-#endif // MOCKINTERACTIVECOMPONENT_H

@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef POINTFPROTOTYPE_H
-#define POINTFPROTOTYPE_H
-
+#pragma once
 #include <QtCore/QPointF>
 #include <QtCore/QObject>
 #include <QtScript/QScriptable>
@@ -52,4 +50,3 @@ public slots:
 Q_DECLARE_METATYPE(QPointF *)
 Q_DECLARE_METATYPE(QPointF)
 
-#endif // POINTFPROTOTYPE_H

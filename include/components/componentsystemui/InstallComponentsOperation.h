@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef INSTALLCOMPONENTSOPERATION_H
-#define INSTALLCOMPONENTSOPERATION_H
-
+#pragma once
 #include <components/interactivity/Operation.h>
 
 class InstallComponentsOperation : public Operation
@@ -41,4 +39,3 @@ private:
     IServiceLocator *m_serviceLocator;
 };
 
-#endif // INSTALLCOMPONENTSOPERATION_H

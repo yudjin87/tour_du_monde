@@ -1,6 +1,4 @@
-#ifndef NEWMOCKDIALOG_H
-#define NEWMOCKDIALOG_H
-
+#pragma once
 #include "MockDialogModel.h"
 
 #include <QtWidgets/QDialog>
@@ -12,4 +10,3 @@ public:
     explicit NewMockDialog(MockDialogModel *model, QWidget *mainWindow = nullptr);
 };
 
-#endif // NEWMOCKDIALOG_H

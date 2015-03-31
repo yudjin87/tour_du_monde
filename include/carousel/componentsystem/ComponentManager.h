@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef COMPONENTMANAGER_H
-#define COMPONENTMANAGER_H
-
+#pragma once
 #include <carousel/componentsystem/IComponentManager.h>
 
 #include <QtCore/QStringList>
@@ -408,4 +406,3 @@ private:
     bool m_started;
 };
 
-#endif // COMPONENTMANAGER_H

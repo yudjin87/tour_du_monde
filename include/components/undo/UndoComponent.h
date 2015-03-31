@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef UNDOCOMPONENT_H
-#define UNDOCOMPONENT_H
-
+#pragma once
 #include <components/undo/undo_global.h>
 
 #include <carousel/componentsystem/BaseComponent.h>
@@ -74,4 +72,3 @@ private:
     Q_DISABLE_COPY(UndoComponent)
 };
 
-#endif // UNDOCOMPONENT_H

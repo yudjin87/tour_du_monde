@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef FILECOMPONENTPROVIDERTEST_H
-#define FILECOMPONENTPROVIDERTEST_H
-
+#pragma once
 #include <QtCore/QObject>
 
 class FileComponentProviderTest : public QObject
@@ -57,4 +55,3 @@ private:
     const QString definitionPath;
 };
 
-#endif // FILECOMPONENTPROVIDERTEST_H

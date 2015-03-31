@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef IOPERATIONCATALOG_H
-#define IOPERATIONCATALOG_H
-
+#pragma once
 #include "interactivity_global.h"
 
 #include <QtCore/QList>
@@ -132,4 +130,3 @@ signals:
     void operationAdded(Operation *operation);
 };
 
-#endif // IOPERATIONCATALOG_H

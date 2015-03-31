@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SHAPESMODEL_H
-#define SHAPESMODEL_H
-
+#pragma once
 #include <utils/ObservableList.h>
 
 #include <QtCore/QAbstractListModel>
@@ -48,4 +46,3 @@ private:
     const ObservableList<IShape *> &m_data;
 };
 
-#endif // SHAPESMODEL_H

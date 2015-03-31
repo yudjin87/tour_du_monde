@@ -1,6 +1,4 @@
-#ifndef CAROUSELBOOTLOADERMOCK_H
-#define CAROUSELBOOTLOADERMOCK_H
-
+#pragma once
 #include <carousel/booting/CarouselBootloader.h>
 
 #include <QtCore/QStringList>
@@ -54,4 +52,3 @@ private:
     QStringList m_methodCalls;
 };
 
-#endif // CAROUSELBOOTLOADERMOCK_H

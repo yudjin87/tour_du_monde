@@ -1,6 +1,4 @@
-#ifndef TESTCONFIGUREDCOMPONENT_H
-#define TESTCONFIGUREDCOMPONENT_H
-
+#pragma once
 #include <carousel/componentsystem/ComponentDefinition.h>
 #include <carousel/componentsystem/BaseComponent.h>
 
@@ -23,4 +21,3 @@ public:
     bool startUpResult;
 };
 
-#endif // TESTCONFIGUREDCOMPONENT_H

@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef CAROUSELENGINECONFIGURATIONDELEGATE_H
-#define CAROUSELENGINECONFIGURATIONDELEGATE_H
-
+#pragma once
 #include <components/jsscripting/IScriptEngineConfigurationDelegate.h>
 
 class IOutputHandler;
@@ -99,4 +97,3 @@ private:
     IServiceLocator *m_locator;
 };
 
-#endif // CAROUSELENGINECONFIGURATIONDELEGATE_H

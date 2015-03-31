@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SPATIALFILTER_H
-#define SPATIALFILTER_H
-
+#pragma once
 #include "geodatabase/ISpatialFilter.h"
 
 class GEODATABASE_API SpatialFilter : public ISpatialFilter
@@ -49,4 +47,3 @@ private:
     const AbstractGeometry *m_geometry;
 };
 
-#endif // SPATIALFILTER_H

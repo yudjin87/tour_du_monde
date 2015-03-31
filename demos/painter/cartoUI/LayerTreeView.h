@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef LAYERTREEVIEW_H
-#define LAYERTREEVIEW_H
-
+#pragma once
 #include <QtWidgets/QTreeView>
 
 class LayerTreeModel;
@@ -50,4 +48,3 @@ private:
     QModelIndex m_contexMenuItemIndex;
 };
 
-#endif // LAYERTREEVIEW_H

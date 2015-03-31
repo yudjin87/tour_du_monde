@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef ISHAPEFILEREADER_H
-#define ISHAPEFILEREADER_H
-
+#pragma once
 #include "geodatabase_api.h"
 
 #include <QtCore/QObject>
@@ -85,4 +83,3 @@ struct Record
     char*       shapeBlob;
 };
 
-#endif // ISHAPEFILEREADER_H

@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef LOGGERFACADE_H
-#define LOGGERFACADE_H
-
+#pragma once
 #include <carousel/carousel_global.h>
 
 #include <QtCore/QString>
@@ -151,4 +149,3 @@ private:
     QString m_name;
 };
 
-#endif // LOGGERFACADE_H

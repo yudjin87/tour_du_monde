@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef ZOOMINTOOL_H
-#define ZOOMINTOOL_H
-
+#pragma once
 #include <components/interactivity/ToolBase.h>
 
 class ZoomInTool : public ToolBase
@@ -46,4 +44,3 @@ private:
     IServiceLocator *m_serviceLocator;
 };
 
-#endif // ZOOMINTOOL_H

@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef ILAYERVISITOR_H
-#define ILAYERVISITOR_H
-
+#pragma once
 #include <carto/carto_api.h>
 
 class FeatureLayer;
@@ -40,4 +38,3 @@ public:
     virtual void visit(FeatureLayer& layer) = 0;
 };
 
-#endif // ILAYERVISITOR_H

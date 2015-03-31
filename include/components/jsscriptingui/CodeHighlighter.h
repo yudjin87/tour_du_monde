@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef CODEHIGHLIGHTER_H
-#define CODEHIGHLIGHTER_H
-
+#pragma once
 #include <components/jsscriptingui/jsscriptingui_global.h>
 
 #include <QtGui/QSyntaxHighlighter>
@@ -61,4 +59,3 @@ private:
     ColorTheme *m_theme;
 };
 
-#endif // CODEHIGHLIGHTER_H

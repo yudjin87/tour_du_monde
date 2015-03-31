@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SERVICELOCATOR_H
-#define SERVICELOCATOR_H
-
+#pragma once
 #include <carousel/utils/IServiceLocator.h>
 
 template<typename TValue>
@@ -148,4 +146,3 @@ protected:
     TypeObjectsMap<factoryMethod> *m_creators;
 };
 
-#endif // SERVICELOCATOR_H

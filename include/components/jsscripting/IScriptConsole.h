@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef ISCRIPTCONSOLE_H
-#define ISCRIPTCONSOLE_H
-
+#pragma once
 #include <components/jsscripting/jsscripting_global.h>
 #include <components/jsscripting/IOutputHandler.h>
 
@@ -163,4 +161,3 @@ private:
     Q_DISABLE_COPY(IScriptConsole)
 };
 
-#endif // ISCRIPTCONSOLE_H

@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef QUNDOCOMMANDADAPTER_H
-#define QUNDOCOMMANDADAPTER_H
-
+#pragma once
 #include <components/undo/undo_global.h>
 #include <QtWidgets/QUndoCommand>
 
@@ -50,5 +48,4 @@ private:
     IUndoableCommand *m_wrappedCmd;
 };
 
-#endif // QUNDOCOMMANDADAPTER_H
 

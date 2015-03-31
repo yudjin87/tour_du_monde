@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef LAYER_H
-#define LAYER_H
-
+#pragma once
 #include <carto/carto_api.h>
 
 #include <QtCore/QObject>
@@ -82,4 +80,3 @@ private:
     double m_maximumScale;
 };
 
-#endif // LAYER_H

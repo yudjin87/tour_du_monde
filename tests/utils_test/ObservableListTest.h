@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef OBSERVABLELISTTEST_H
-#define OBSERVABLELISTTEST_H
-
+#pragma once
 #include <QtCore/QObject>
 
 class ObservableListTest: public QObject
@@ -49,4 +47,3 @@ private Q_SLOTS:
     void shouldSortItemsWithCustomPredicate();
 };
 
-#endif // OBSERVABLELISTTEST_H

@@ -24,9 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef COMPONENTSYSTEM_UI_GLOBAL_H
-#define COMPONENTSYSTEM_UI_GLOBAL_H
-
+#pragma once
 #include <QtCore/qglobal.h>
 
 #if defined(STATIC_BUILD)
@@ -37,6 +35,4 @@
 #   else
 #       define COMP_SYSTEM_UI_API Q_DECL_IMPORT
 #   endif //#if defined(ORG_CAROUSEL_COMPONENTSYSTEMUI_LIBRARY)
-#endif //#if defined(STATIC_BUILD)
-
-#endif // COMPONENTSYSTEM_UI_GLOBAL_H
+#endif
