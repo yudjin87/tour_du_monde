@@ -71,15 +71,29 @@ IFeature *FeatureClass::createFeature()
 
 const IFeature *FeatureClass::featureById(const int id) const
 {
-    if (id < m_features.size())
+    // in shape files, feature id start from 1, in DB the same
+    const int vectorId = id - 1;
+    if (vectorId < m_features.size())
     {
-        return m_features[id];
+        const IFeature *feature = m_features[vectorId];
+        Q_ASSERT(feature->id() == id);
+        return feature;
+    }
+    return nullptr;
+}
+
+const IFeature *FeatureClass::featureByIndex(const int index) const
+{
+    if (index < m_features.size())
+    {
+        return m_features[index];
     }
     return nullptr;
 }
 
 IFeatureCollection FeatureClass::search(const ISpatialFilter &filter) const
 {
+    // TODO: dispatch to filter
     const AbstractGeometry *geometry = filter.geometry();
     const QRectF &extent = geometry->extent();
     IFeatureCollection toReturn;
@@ -95,6 +109,11 @@ IFeatureCollection FeatureClass::search(const ISpatialFilter &filter) const
 const QString &FeatureClass::source() const
 {
     return m_source;
+}
+
+int FeatureClass::featuresCount() const
+{
+    return m_features.size();
 }
 
 

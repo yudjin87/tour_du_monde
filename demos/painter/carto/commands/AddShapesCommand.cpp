@@ -80,7 +80,7 @@ void AddShapesCommand::undo()
     IPainterDocument *doc = m_docContr->document();
     IMap* map = doc->map();
     for (AbstractLayer* layer : m_addedLayers) {
-        map->removeLayer(layer);
+        map->removeLayer(layer); // TODO: takeLayer
     }
     m_addedLayers.clear();
     map->refresh();

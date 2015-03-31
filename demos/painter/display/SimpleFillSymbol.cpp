@@ -32,6 +32,7 @@
 #include <geometry/Ring.h>
 
 #include <QtGui/QPainter>
+#include <QtGui/QPainterPath>
 
 SimpleFillSymbol::SimpleFillSymbol(QObject *parent)
     : FillSymbol(parent)
@@ -87,11 +88,14 @@ void SimpleFillSymbol::setStyle(Qt::BrushStyle style)
 
 void SimpleFillSymbol::drawPolygon(const Polygon &polygon, QPainter &painter)
 {
+    QPainterPath path;
     for (const Ring *ring : polygon.rings()) {
         for (const Segment *segment : ring->segments()) {
             const QPolygonF &poly = segment->curve();
-            painter.drawPolygon(poly);
+            path.addPolygon(poly);
         }
     }
+
+    painter.drawPath(path);
 }
 

@@ -42,10 +42,12 @@ public:
 
     IFeature *createFeature() override;
     const IFeature *featureById(const int id) const override;
+    const IFeature *featureByIndex(const int index) const override;
 
     IFeatureCollection search(const ISpatialFilter &filter) const override;
 
     const QString &source() const override;
+    int featuresCount() const override;
 
 private:
     Geometry::Type m_type;

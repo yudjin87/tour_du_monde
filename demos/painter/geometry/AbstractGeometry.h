@@ -36,16 +36,12 @@
 class GEOMETRY_API AbstractGeometry : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(int id READ id)
     Q_PROPERTY(Geometry::Type type READ type)
     Q_PROPERTY(QRectF extent READ extent)
 public:
     explicit AbstractGeometry(QObject *parent = nullptr);
     explicit AbstractGeometry(const QRectF &extent, QObject *parent = nullptr);
     virtual ~AbstractGeometry();
-
-    int id() const;
-    void setId(int id);
 
     virtual Geometry::Type type() const = 0;
 
@@ -55,7 +51,6 @@ protected:
     void setExtent(const QRectF &extent);
 
 private:
-    int m_id;
     QRectF m_extent;
 };
 

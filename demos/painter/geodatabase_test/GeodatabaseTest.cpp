@@ -37,19 +37,101 @@
 #include <geometry/Segment.h>
 
 #include <QtCore/QByteArray>
+#include <QtCore/QCoreApplication>
 #include <QtGui/QPolygonF>
 #include <QtTest/QTest>
 
 GeodatabaseTest::GeodatabaseTest(QObject *parent)
     : QObject(parent)
-    , m_workspace()
-    , m_pointShp()
-    , m_lineShp()
-    , m_polygonShp()
+    , m_workspace(QCoreApplication::applicationDirPath() + "/geodatabase_data")
+    , m_pointShp("points")
+    , m_lineShp("roads")
+    , m_polygonShp("buildings")
 {
 }
 
 GeodatabaseTest::~GeodatabaseTest()
 {
+}
+
+void GeodatabaseTest::shouldLoadPointShapes()
+{
+    ShapeFileFeatureWorkspace workspace(m_workspace);
+    IFeatureClassUPtr pointsClass(workspace.openFeatureClass(m_pointShp));
+    QVERIFY(pointsClass->shapeType() == Geometry::Type::Point);
+    QCOMPARE(pointsClass->featuresCount(), 54);
+    QCOMPARE(pointsClass->extent().topLeft().x(), -0.7035498);
+    QCOMPARE(pointsClass->extent().bottomRight().y(), 52.153908);
+
+    const int FEATURE_ID = 48;
+    const IFeature* feature = pointsClass->featureById(FEATURE_ID);
+    const IFeature* feature1 = pointsClass->featureByIndex(FEATURE_ID - 1);
+    QCOMPARE(feature, feature1);
+    QCOMPARE(feature->id(), FEATURE_ID);
+    //QCOMPARE(feature->record()->at(0), "1666355140");
+
+    const Point* point = static_cast<const Point*>(feature->geometry());
+    QCOMPARE(point->point().x(), -0.7023426);
+    QCOMPARE(point->point().y(), 52.1532809);
+}
+
+void GeodatabaseTest::shouldLoadLineShapes()
+{
+    ShapeFileFeatureWorkspace workspace(m_workspace);
+    IFeatureClassUPtr pointsClass(workspace.openFeatureClass(m_lineShp));
+    QVERIFY(pointsClass->shapeType() == Geometry::Type::Polyline);
+    QCOMPARE(pointsClass->featuresCount(), 41);
+    QCOMPARE(pointsClass->extent().topLeft().x(), -0.7035622);
+    QCOMPARE(pointsClass->extent().bottomRight().y(), 52.154232);
+
+    const int FEATURE_ID = 8;
+    const IFeature* feature = pointsClass->featureById(FEATURE_ID);
+    const IFeature* feature1 = pointsClass->featureByIndex(FEATURE_ID - 1);
+    QCOMPARE(feature, feature1);
+    QCOMPARE(feature->id(), FEATURE_ID);
+    //QCOMPARE(feature->record()->at("name"), "Freemans Gardens");
+
+    const Polyline* line = static_cast<const Polyline*>(feature->geometry());
+    QCOMPARE(line->rings().size(), 1);
+
+    const Ring* ring = line->rings()[0];
+    QCOMPARE(ring->segments().size(), 1);
+
+    const Segment* segment = ring->segments()[0];
+    QCOMPARE(segment->curve().size(), 6);
+
+    const QPointF point = segment->curve()[3];
+    QCOMPARE(point.x(), -0.7002893);
+    QCOMPARE(point.y(), 52.1521591);
+}
+
+void GeodatabaseTest::shouldLoadPolygonShapes()
+{
+    ShapeFileFeatureWorkspace workspace(m_workspace);
+    IFeatureClassUPtr pointsClass(workspace.openFeatureClass(m_polygonShp));
+    QVERIFY(pointsClass->shapeType() == Geometry::Type::Polygon);
+    QCOMPARE(pointsClass->featuresCount(), 149);
+    QCOMPARE(pointsClass->extent().topLeft().x(), -0.7034284);
+    QCOMPARE(pointsClass->extent().bottomRight().y(), 52.1553076);
+
+    const int FEATURE_ID = 149;
+    const IFeature* feature = pointsClass->featureById(FEATURE_ID);
+    const IFeature* feature1 = pointsClass->featureByIndex(FEATURE_ID - 1);
+    QCOMPARE(feature, feature1);
+    QCOMPARE(feature->id(), FEATURE_ID);
+    //QCOMPARE(feature->record()->at("name"), "With rings");
+
+    const Polygon * line = static_cast<const Polygon*>(feature->geometry());
+    QCOMPARE(line->rings().size(), 2);
+
+//    const Ring* ring = line->rings()[0];
+//    QCOMPARE(ring->segments().size(), 1);
+
+//    const Segment* segment = ring->segments()[0];
+//    QCOMPARE(segment->curve().size(), 6);
+
+//    const QPointF point = segment->curve()[3];
+//    QCOMPARE(point.x(), -0.7002893);
+//    QCOMPARE(point.y(), 52.1521591);
 }
 

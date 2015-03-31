@@ -28,30 +28,18 @@
 
 AbstractGeometry::AbstractGeometry(QObject *parent)
     : QObject(parent)
-    , m_id(-1)
     , m_extent()
 {
 }
 
 AbstractGeometry::AbstractGeometry(const QRectF &extent, QObject *parent)
     : QObject(parent)
-    , m_id(-1)
     , m_extent(extent)
 {
 }
 
 AbstractGeometry::~AbstractGeometry()
 {
-}
-
-int AbstractGeometry::id() const
-{
-    return m_id;
-}
-
-void AbstractGeometry::setId(int id)
-{
-    m_id = id;
 }
 
 const QRectF &AbstractGeometry::extent() const

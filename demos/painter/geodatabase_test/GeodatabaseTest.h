@@ -37,7 +37,9 @@ public:
     ~GeodatabaseTest();
 
 private slots:
-    void shouldLoadFeatureClasses();
+    void shouldLoadPointShapes();
+    void shouldLoadLineShapes();
+    void shouldLoadPolygonShapes();
 
 private:
     QString m_workspace;

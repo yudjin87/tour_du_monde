@@ -22,3 +22,10 @@ SOURCES += \
 HEADERS += \
     GeometryFactoryTest.h \
     GeodatabaseTest.h
+
+TEST_DATA += geodatabase_data/*
+
+OTHER_FILES += \
+    $$TEST_DATA
+
+copyExtraFiles($$TEST_DATA, $$DESTDIR/geodatabase_data/)

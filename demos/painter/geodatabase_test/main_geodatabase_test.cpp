@@ -27,12 +27,19 @@
 #include "GeometryFactoryTest.h"
 #include "GeodatabaseTest.h"
 
+#include <carousel/logging/LoggerFacade.h>
+#include <carousel/logging/TextLogger.h>
+
 #include <QtCore/QCoreApplication>
 #include <QtTest/QtTest>
 
 int main(int argc, char *argv[])
 {
     QCoreApplication app(argc, argv);
+
+    QTextStream out(stdout);
+    TextLogger logger(out);
+    LoggerFacade::installLoggerEngineCreator(&logger);
 
     GeometryFactoryTest geometryFactoryTest;
     QTest::qExec(&geometryFactoryTest, argc, argv);

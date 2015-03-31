@@ -134,36 +134,36 @@ IFeatureClass *ShapeFileFeatureDataset::classByName(const QString &className)
         m_fileReader->readShapeRecord(record);
 
         AbstractGeometry *geometry = GeometryFactory::createGeometry(record.contentLength, record.shapeBlob);
-        geometry->setId(record.recordNumber);
         IFeature *feature = featureClass->createFeature();
         feature->setGeometry(geometry);
+        feature->setId(record.recordNumber);
 
         delete[] record.shapeBlob;
     }
 
     //---------------------- database
 
-    QString dbName = QString("DRIVER={Microsoft dBase Driver (*.dbf)};FIL={dBase IV;};DefaultDir=%1").arg(m_workspace.pathName());
-    QSqlDatabase db = QSqlDatabase::addDatabase("QODBC");
-    db.setDatabaseName(dbName);
-    if (!db.open())
-    {
-        Log.e(db.lastError().text());
-    }
+//    QString dbName = QString("DRIVER={Microsoft dBase Driver (*.dbf)};FIL={dBase IV;};DefaultDir=%1").arg(m_workspace.pathName());
+//    QSqlDatabase db = QSqlDatabase::addDatabase("QODBC");
+//    db.setDatabaseName(dbName);
+//    if (!db.open())
+//    {
+//        Log.e(db.lastError().text());
+//    }
 
-    QSqlQuery query(db);
-    query.prepare(QString("SELECT * FROM %1.%2").arg(className).arg(DBF_FILE_EXT));
-    if (query.exec())
-    {
-        while (query.next())
-        {
-            Log.d(query.value(1).toString());
-        }
-    }
-    else
-    {
-        Log.e(query.lastError().text());
-    }
+//    QSqlQuery query(db);
+//    query.prepare(QString("SELECT * FROM %1.%2").arg(className).arg(DBF_FILE_EXT));
+//    if (query.exec())
+//    {
+//        while (query.next())
+//        {
+//            Log.d(query.value(1).toString());
+//        }
+//    }
+//    else
+//    {
+//        Log.e(query.lastError().text());
+//    }
 
     //---------------------- /database
 
