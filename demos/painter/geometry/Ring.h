@@ -24,10 +24,9 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef RING_H
-#define RING_H
+#pragma once
 
-#include "AbstractGeometry.h"
+#include <geometry/Path.h>
 
 #include <QtCore/QVector>
 
@@ -37,7 +36,7 @@ class Segment;
 
 typedef QVector<Segment *> SegmentList;
 
-class GEOMETRY_API Ring : public AbstractGeometry
+class GEOMETRY_API Ring : public Path
 {
     Q_OBJECT
     Q_PROPERTY(QVector<Segment *> segments READ segments)
@@ -59,6 +58,4 @@ private:
 private:
     SegmentList m_segments;
 };
-
-#endif // RING_H
 

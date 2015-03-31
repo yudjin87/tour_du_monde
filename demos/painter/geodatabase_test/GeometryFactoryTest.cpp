@@ -68,8 +68,8 @@ void GeometryFactoryTest::shouldCreatePointInstance()
 
     QVERIFY(geometry != nullptr);
 
-    QCOMPARE(geometry->point().x(), 13.5233553);
-    QCOMPARE(geometry->point().y(), 52.4837034);
+    QCOMPARE(geometry->x(), 13.5233553);
+    QCOMPARE(geometry->y(), 52.4837034);
 }
 
 void GeometryFactoryTest::shouldCreatePolylineInstance_data()
@@ -94,25 +94,24 @@ void GeometryFactoryTest::shouldCreatePolylineInstance()
     QCOMPARE(geometry->extent().bottom(), 52.4996706);
 
     // Meta data
-    QCOMPARE(geometry->rings().size(), 1);                 // rings
-    QCOMPARE(geometry->rings()[0]->segments().size(), 1);  // segments
+    QCOMPARE(geometry->paths().size(), 1);                 // paths
+    //QCOMPARE(geometry->paths()[0]->segments().size(), ??);  // segments // TODO
 
-    Segment *segment = geometry->rings()[0]->segments()[0];
-    QPolygonF &poly = segment->curve();
-    QCOMPARE(poly.size(), 4);
+    PointList &points = geometry->paths()[0]->points();
+    QCOMPARE(points.size(), 4);
 
     // Points
-    QCOMPARE(poly[0].x(), 13.4516076);
-    QCOMPARE(poly[0].y(), 52.4996706);
+    QCOMPARE(points[0]->x(), 13.4516076);
+    QCOMPARE(points[0]->y(), 52.4996706);
 
-    QCOMPARE(poly[1].x(), 13.4506721);
-    QCOMPARE(poly[1].y(), 52.4989287);
+    QCOMPARE(points[1]->x(), 13.4506721);
+    QCOMPARE(points[1]->y(), 52.4989287);
 
-    QCOMPARE(poly[2].x(), 13.4504993);
-    QCOMPARE(poly[2].y(), 52.4988033);
+    QCOMPARE(points[2]->x(), 13.4504993);
+    QCOMPARE(points[2]->y(), 52.4988033);
 
-    QCOMPARE(poly[3].x(), 13.4497101);
-    QCOMPARE(poly[3].y(), 52.4981699);
+    QCOMPARE(points[3]->x(), 13.4497101);
+    QCOMPARE(points[3]->y(), 52.4981699);
 }
 
 void GeometryFactoryTest::shouldCreatePolygonInstance_data()
@@ -138,24 +137,27 @@ void GeometryFactoryTest::shouldCreatePolygonInstance()
 
     // Meta data
     QCOMPARE(geometry->rings().size(), 1);                 // rings
-    QCOMPARE(geometry->rings()[0]->segments().size(), 1);  // segments
+   // QCOMPARE(geometry->rings()[0]->segments().size(), 1);  // segments
 
-    Segment *segment = geometry->rings()[0]->segments()[0];
-    QPolygonF &poly = segment->curve();
-    QCOMPARE(poly.size(), 4);
+//    Segment *segment = geometry->rings()[0]->segments()[0]; // TODO
+//    QPolygonF &poly = segment->curve();
+//    QCOMPARE(poly.size(), 4);
+
+    const PointList &points = geometry->rings()[0]->points();
+    QCOMPARE(points.size(), 4);
 
     // Points
-    QCOMPARE(poly[0].x(), 13.4516076);
-    QCOMPARE(poly[0].y(), 52.4996706);
+    QCOMPARE(points[0]->x(), 13.4516076);
+    QCOMPARE(points[0]->y(), 52.4996706);
 
-    QCOMPARE(poly[1].x(), 13.4506721);
-    QCOMPARE(poly[1].y(), 52.4989287);
+    QCOMPARE(points[1]->x(), 13.4506721);
+    QCOMPARE(points[1]->y(), 52.4989287);
 
-    QCOMPARE(poly[2].x(), 13.4504993);
-    QCOMPARE(poly[2].y(), 52.4988033);
+    QCOMPARE(points[2]->x(), 13.4504993);
+    QCOMPARE(points[2]->y(), 52.4988033);
 
-    QCOMPARE(poly[3].x(), 13.4497101);
-    QCOMPARE(poly[3].y(), 52.4981699);
+    QCOMPARE(points[3]->x(), 13.4497101);
+    QCOMPARE(points[3]->y(), 52.4981699);
 }
 
 void GeometryFactoryTest::fillPolyTestData(ShapeType type)

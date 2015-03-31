@@ -25,7 +25,10 @@ HEADERS += \
     Polyline.h \
     Polycurve.h \
     GeometryComponent.h \
-    GeometryScriptExtension.h
+    GeometryScriptExtension.h \
+    Curve.h \
+    Path.h \
+    Line.h
 
 SOURCES += \
     AbstractGeometry.cpp \
@@ -36,7 +39,10 @@ SOURCES += \
     Polyline.cpp \
     Polycurve.cpp \
     GeometryComponent.cpp \
-    GeometryScriptExtension.cpp
+    GeometryScriptExtension.cpp \
+    Curve.cpp \
+    Path.cpp \
+    Line.cpp
 
 OTHER_FILES += org.carousel.demos.Geometry.definition
 

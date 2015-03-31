@@ -28,7 +28,7 @@
 #include "display/ISymbolVisitor.h"
 
 #include <geometry/Polygon.h>
-#include <geometry/Segment.h>
+#include <geometry/Point.h>
 #include <geometry/Ring.h>
 
 #include <QtGui/QPainter>
@@ -89,11 +89,15 @@ void SimpleFillSymbol::setStyle(Qt::BrushStyle style)
 void SimpleFillSymbol::drawPolygon(const Polygon &polygon, QPainter &painter)
 {
     QPainterPath path;
-    for (const Ring *ring : polygon.rings()) {
-        for (const Segment *segment : ring->segments()) {
-            const QPolygonF &poly = segment->curve();
-            path.addPolygon(poly);
+    for (const Ring *ring : polygon.rings())
+    {
+        QPolygonF poly;
+        for (const Point* point : ring->points())
+        {
+            // bool closed = poly.isClosed(); // TODO: thumbnail is not closed, fix it
+            poly.push_back(QPointF(point->x(), point->y()));
         }
+        path.addPolygon(poly);
     }
 
     painter.drawPath(path);

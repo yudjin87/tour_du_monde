@@ -24,10 +24,13 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef POLYLINE_H
-#define POLYLINE_H
+#pragma once
 
-#include "Polycurve.h"
+#include <geometry/Polycurve.h>
+#include <QtCore/QVector>
+
+class Path;
+typedef QVector<Path *> PathList;
 
 class GEOMETRY_API Polyline : public Polycurve
 {
@@ -39,7 +42,11 @@ public:
     explicit Polyline(std::initializer_list<QPointF> points, QObject *parent = nullptr);
 
     ~Polyline();
-    Geometry::Type type() const override;
-};
+    PathList &paths();
+    const PathList &paths() const;
 
-#endif // POLYLINE_H
+    Geometry::Type type() const override;
+
+private:
+    PathList m_paths;
+};

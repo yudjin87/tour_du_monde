@@ -24,29 +24,28 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef POINT_H
-#define POINT_H
+#pragma once
 
-#include "AbstractGeometry.h"
-
-#include <QtCore/QPointF>
+#include <geometry/AbstractGeometry.h>
 
 class GEOMETRY_API Point : public AbstractGeometry
 {
     Q_OBJECT
-    Q_PROPERTY(QPointF point READ point WRITE setPoint)
 public:
     explicit Point(QObject *parent = nullptr);
-    explicit Point(qreal x, qreal y, QObject *parent = nullptr);
+    explicit Point(const qreal x, const qreal y, QObject *parent = nullptr);
 
-    QPointF &point();
-    const QPointF &point() const;
-    void setPoint(const QPointF &point);
+    qreal x() const {return m_x;}
+    qreal y() const {return m_y;}
+
+    void setX(const qreal x) {m_x = x;}
+    void setY(const qreal y) {m_y = y;}
+
+    void putCoords(const qreal x, const qreal y);
 
     Geometry::Type type() const override;
 
 private:
-    QPointF m_value;
+    qreal m_x;
+    qreal m_y;
 };
-
-#endif // POINT_H

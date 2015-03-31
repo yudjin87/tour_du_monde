@@ -24,31 +24,51 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "Polygon.h"
+#include "geometry/Polygon.h"
+#include "geometry/Ring.h"
 
 Polygon::Polygon(QObject *parent)
-    : Polycurve(parent)
+    : Polycurve(parent)    
+    , m_rings()
 {
 }
 
 Polygon::Polygon(int size, QObject *parent)
     : Polycurve(size, parent)
+    , m_rings(size)
 {
 
 }
 
 Polygon::Polygon(const QRectF &extent, QObject *parent)
     : Polycurve(extent, parent)
+    , m_rings()
 {
 }
 
 Polygon::Polygon(std::initializer_list<QPointF> points, QObject *parent)
     : Polycurve(points, parent)
+    , m_rings()
 {
+    m_rings.push_back(new Ring(points));
 }
 
 Polygon::~Polygon()
 {
+    for (Ring *ring : m_rings)
+        delete ring;
+
+    m_rings.clear();
+}
+
+RingList &Polygon::rings()
+{
+    return m_rings;
+}
+
+const RingList &Polygon::rings() const
+{
+    return m_rings;
 }
 
 Geometry::Type Polygon::type() const

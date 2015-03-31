@@ -24,10 +24,13 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef POLYGON_H
-#define POLYGON_H
+#pragma once
 
-#include "Polycurve.h"
+#include <geometry/Polycurve.h>
+#include <QtCore/QVector>
+
+class Ring;
+typedef QVector<Ring *> RingList;
 
 class GEOMETRY_API Polygon : public Polycurve
 {
@@ -40,8 +43,11 @@ public:
 
     ~Polygon();
 
+    RingList &rings();
+    const RingList &rings() const;
+
     Geometry::Type type() const override;
+
+private:
+    RingList m_rings;
 };
-
-
-#endif // POLYGON_H

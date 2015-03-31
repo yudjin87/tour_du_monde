@@ -24,55 +24,32 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "Polycurve.h"
-#include "Ring.h"
+#include "geometry/Polycurve.h"
+#include "geometry/Ring.h"
 
 Polycurve::Polycurve(QObject *parent)
-    : AbstractGeometry(parent)
-    , m_rings()
+    : Curve(parent)
 {
 }
 
 Polycurve::Polycurve(int size, QObject *parent)
-    : AbstractGeometry(parent)
-    , m_rings(size)
+    : Curve(parent)
 {
 
 }
 
 Polycurve::Polycurve(const QRectF &extent, QObject *parent)
-    : AbstractGeometry(extent, parent)
-    , m_rings()
+    : Curve(extent, parent)
 {
 }
 
 Polycurve::Polycurve(std::initializer_list<QPointF> points, QObject *parent)
-    : AbstractGeometry(parent)
-    , m_rings()
+    : Curve(parent)
 {
-    m_rings.push_back(new Ring(points));
 }
 
 Polycurve::~Polycurve()
 {
-    clearData();
 }
 
-RingList &Polycurve::rings()
-{
-    return m_rings;
-}
-
-const RingList &Polycurve::rings() const
-{
-    return m_rings;
-}
-
-void Polycurve::clearData()
-{
-    for (Ring *ring : m_rings)
-        delete ring;
-
-    m_rings.clear();
-}
 

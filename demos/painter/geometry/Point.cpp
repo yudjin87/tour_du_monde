@@ -28,30 +28,22 @@
 
 Point::Point(QObject *parent)
     : AbstractGeometry(parent)
-    , m_value()
+    , m_x(0)
+    , m_y(0)
 {
 }
 
-Point::Point(qreal x, qreal y, QObject *parent)
+Point::Point(const qreal x, const qreal y, QObject *parent)
     : AbstractGeometry(parent)
-    , m_value(x, y)
+    , m_x(x)
+    , m_y(y)
 {
 }
 
-QPointF &Point::point()
+void Point::putCoords(const qreal x, const qreal y)
 {
-    return m_value;
-}
-
-const QPointF &Point::point() const
-{
-    return m_value;
-}
-
-void Point::setPoint(const QPointF &value)
-{
-    m_value = value;
-    setExtent(QRectF(value, QSize(1, 1)));
+    m_x = x;
+    m_y = y;
 }
 
 Geometry::Type Point::type() const

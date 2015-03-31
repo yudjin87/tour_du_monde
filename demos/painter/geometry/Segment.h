@@ -24,33 +24,19 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef SEGMENT_H
-#define SEGMENT_H
+#pragma once
 
-#include "AbstractGeometry.h"
+#include <geometry/Curve.h>
 
-#include <QtGui/QPolygonF>
-
-#include <initializer_list>
-
-class GEOMETRY_API Segment : public AbstractGeometry
+class GEOMETRY_API Segment : public Curve
 {
     Q_OBJECT
-    Q_PROPERTY(QPolygonF curve READ curve WRITE setCurve)
 public:
     explicit Segment(QObject *parent = nullptr);
-    explicit Segment(int size, QObject *parent = nullptr);
     explicit Segment(const QRectF &extent, QObject *parent = nullptr);
-    explicit Segment(std::initializer_list<QPointF> points, QObject *parent = nullptr);
+//    explicit Segment(std::initializer_list<QPointF> points, QObject *parent = nullptr);
 
-    QPolygonF &curve();
-    const QPolygonF &curve() const;
-    void setCurve(const QPolygonF &curve);
-
-    Geometry::Type type() const override;
-
-private:
-    QPolygonF m_value;
+//    QPolygonF &curve(); // TODO: remove
+//    const QPolygonF &curve() const;    // TODO: remove
+//    void setCurve(const QPolygonF &curve);  // TODO: remove
 };
-
-#endif // SEGMENT_H

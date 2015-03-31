@@ -34,7 +34,9 @@
 
 class AbstractGeometry;
 class Point;
-class Polycurve;
+class Polygon;
+class Polyline;
+
 class QDataStream;
 class QRectF;
 
@@ -51,6 +53,7 @@ private:
     static const QMap<ShapeType, Geometry::Type> m_typesMap;
 
     static void createPoint(QDataStream &stream, Point *point);
-    static void createPoly(QDataStream &stream, Polycurve *polycurve);
+    static void createPolyline(QDataStream &stream, Polyline *polyline);
+    static void createPolygon(QDataStream &stream, Polygon *polycurve);
     static void readBoundingBox(QDataStream &stream, QRectF &bBox);
 };

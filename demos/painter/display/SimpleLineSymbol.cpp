@@ -28,8 +28,8 @@
 #include "display/ISymbolVisitor.h"
 
 #include <geometry/Polyline.h>
-#include <geometry/Segment.h>
-#include <geometry/Ring.h>
+#include <geometry/Point.h>
+#include <geometry/Path.h>
 
 #include <QtGui/QPainter>
 
@@ -85,10 +85,15 @@ void SimpleLineSymbol::setStyle(Qt::PenStyle style)
 
 void SimpleLineSymbol::drawPolyline(const Polyline &polyline, QPainter &painter)
 {
-    for (const Ring *ring : polyline.rings()) {
-        for (const Segment *segment : ring->segments()) {
-            painter.drawPolyline(segment->curve());
+    QPolygonF poly;
+    for (const Path *path : polyline.paths())
+    {
+        for (const Point *point: path->points())
+        {
+            poly.push_back(QPointF(point->x(), point->y()));
         }
     }
+
+    painter.drawPolyline(poly);
 }
 

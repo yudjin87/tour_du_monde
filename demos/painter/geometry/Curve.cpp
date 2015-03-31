@@ -3,7 +3,7 @@
  *
  * Carousel - Qt-based managed component library.
  *
- * Copyright: 2011-2013 Carousel team
+ * Copyright: 2011-2015 Carousel team
  * Authors:
  *   Eugene Chuguy <eugene.chuguy@gmail.com>
  *
@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- 
+
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -24,15 +24,19 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "geometry/Segment.h"
+#include "geometry/Curve.h"
 
-Segment::Segment(QObject *parent)
-    : Curve(parent)
+
+Curve::Curve(QObject *parent)
+    : AbstractGeometry(parent)
 {
 }
 
-Segment::Segment(const QRectF &extent, QObject *parent)
-    : Curve(extent, parent)
+Curve::Curve(const QRectF &extent, QObject *parent)
+    : AbstractGeometry(extent, parent)
 {
 }
 
+Curve::~Curve()
+{
+}

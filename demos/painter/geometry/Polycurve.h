@@ -24,20 +24,12 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef POLYCURVE_H
-#define POLYCURVE_H
+#pragma once
+#include <geometry/Curve.h>
 
-#include "AbstractGeometry.h"
-#include <QtCore/QVector>
-#include <initializer_list>
-
-class Ring;
-typedef QVector<Ring *> RingList;
-
-class GEOMETRY_API Polycurve : public AbstractGeometry
+class GEOMETRY_API Polycurve : public Curve
 {
     Q_OBJECT
-    Q_PROPERTY(QVector<Ring *> rings READ rings)
 public:
     explicit Polycurve(QObject *parent = nullptr);
     explicit Polycurve(int size, QObject *parent = nullptr);
@@ -46,16 +38,7 @@ public:
 
     ~Polycurve();
 
-    RingList &rings();
-    const RingList &rings() const;
-
-    Geometry::Type type() const = 0;
-
 private:
     void clearData();
 
-private:
-    RingList m_rings;
 };
-
-#endif // POLYCURVE_H

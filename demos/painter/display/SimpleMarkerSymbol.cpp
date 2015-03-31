@@ -157,13 +157,13 @@ void SimpleMarkerSymbol::drawPoint(const Point &point, QPainter &painter)
 
 void SimpleMarkerSymbol::drawCircle(const Point &point, QPainter &painter)
 {
-    QPointF p = m_painterTransform.map(point.point());
+    QPointF p = m_painterTransform.map(QPointF(point.x(), point.y()));
     painter.drawEllipse(p, size() / 2, size() / 2);
 }
 
 void SimpleMarkerSymbol::drawSquare(const Point &point, QPainter &painter)
 {
-    QPointF p = m_painterTransform.map(point.point());
+    QPointF p = m_painterTransform.map(QPointF(point.x(), point.y()));
 
     const int left = p.x() - (size() / 2);
     const int top = p.y() - (size() / 2);
@@ -187,7 +187,7 @@ void SimpleMarkerSymbol::drawCross(const Point &point, QPainter &painter)
     //          /        \
     //         7          5
 
-    QPointF p = m_painterTransform.map(point.point());
+    QPointF p = m_painterTransform.map(QPointF(point.x(), point.y()));
 
     const int offset = size() / 2;
     const int third = size() / 3;
@@ -216,7 +216,7 @@ void SimpleMarkerSymbol::drawCross(const Point &point, QPainter &painter)
 
 void SimpleMarkerSymbol::drawX(const Point &point, QPainter &painter)
 {
-    QPointF p = m_painterTransform.map(point.point());
+    QPointF p = m_painterTransform.map(QPointF(point.x(), point.y()));
 
     const int offset = size() / 2;
 
@@ -231,7 +231,7 @@ void SimpleMarkerSymbol::drawX(const Point &point, QPainter &painter)
 
 void SimpleMarkerSymbol::drawDiamond(const Point &point, QPainter &painter)
 {
-    QPointF p = m_painterTransform.map(point.point());
+    QPointF p = m_painterTransform.map(QPointF(point.x(), point.y()));
 
     const int offset = size() / 2;
 

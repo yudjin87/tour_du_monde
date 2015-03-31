@@ -24,8 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef GEOMETRY_API_H
-#define GEOMETRY_API_H
+#pragma once
 
 #include <QtCore/qglobal.h>
 
@@ -38,5 +37,3 @@
 #    define GEOMETRY_API Q_DECL_IMPORT
 #  endif //#if defined(GEOMETRY_LIB_IMPORT)
 #endif
-
-#endif // GEOMETRY_API_H

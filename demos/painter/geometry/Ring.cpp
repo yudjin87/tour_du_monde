@@ -24,33 +24,45 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "Ring.h"
-#include "Segment.h"
+#include "geometry/Ring.h"
+#include "geometry/Segment.h"
+#include "geometry/Point.h"
 
 Ring::Ring(QObject *parent)
-    : AbstractGeometry(parent)
+    : Path(parent)
     , m_segments()
 {
 }
 
 Ring::Ring(int size, QObject *parent)
-    : AbstractGeometry(parent)
+    : Path(size, parent)
     , m_segments(size)
 {
 
 }
 
 Ring::Ring(const QRectF &extent, QObject *parent)
-    : AbstractGeometry(extent, parent)
+    : Path(extent, parent)
     , m_segments()
 {
 }
 
 Ring::Ring(std::initializer_list<QPointF> points, QObject *parent)
-    : AbstractGeometry(parent)
+    : Path(points, parent) // TODO: points ?
     , m_segments()
 {
-    m_segments.push_back(new Segment(points));
+    //m_segments.push_back(new Segment(points));
+
+    Q_ASSERT(2 < points.size() && "It's not a ring!");
+
+    // TODO: don't close automatically
+    const QPointF& first = *points.begin();
+    const QPointF& last = *points.end();
+
+    if (first != last)
+    {
+        this->points().push_back(new Point(first.x(), first.y())); // TODO: close() method
+    }
 }
 
 Ring::~Ring()

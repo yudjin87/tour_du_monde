@@ -24,11 +24,10 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef ABSTRACTGEOMETRY_H
-#define ABSTRACTGEOMETRY_H
+#pragma once
 
-#include "geometry_api.h"
-#include "GeometryType.h"
+#include <geometry/geometry_api.h>
+#include <geometry/GeometryType.h>
 
 #include <QtCore/QObject>
 #include <QtCore/QRectF>
@@ -53,5 +52,3 @@ protected:
 private:
     QRectF m_extent;
 };
-
-#endif // ABSTRACTGEOMETRY_H

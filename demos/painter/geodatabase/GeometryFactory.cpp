@@ -77,7 +77,7 @@ AbstractGeometry *GeometryFactory::createGeometry(int bytesCount, const char *ge
         QRectF bBox;
         readBoundingBox(stream, bBox);
         Polyline *polyline = new Polyline(bBox);
-        createPoly(stream, polyline);
+        createPolyline(stream, polyline);
         return polyline;
     }
 
@@ -85,7 +85,7 @@ AbstractGeometry *GeometryFactory::createGeometry(int bytesCount, const char *ge
         QRectF bBox;
         readBoundingBox(stream, bBox);
         Polygon *polygon = new Polygon(bBox);
-        createPoly(stream, polygon);
+        createPolygon(stream, polygon);
         return polygon;
     }
 
@@ -102,10 +102,10 @@ void GeometryFactory::createPoint(QDataStream &stream, Point *point)
     double y = 0;
     stream.readRawData(reinterpret_cast<char *>(&x), sizeof(double));
     stream.readRawData(reinterpret_cast<char *>(&y), sizeof(double));
-    point->setPoint(QPointF(x, y));
+    point->putCoords(x, y);
 }
 
-void GeometryFactory::createPoly(QDataStream &stream, Polycurve *polycurve)
+void GeometryFactory::createPolygon(QDataStream &stream, Polygon *polygon)
 {
     int numParts = -1;
     stream.readRawData(reinterpret_cast<char *>(&numParts), sizeof(int));
@@ -115,31 +115,69 @@ void GeometryFactory::createPoly(QDataStream &stream, Polycurve *polycurve)
     int* parts = new int[numParts];
     stream.readRawData(reinterpret_cast<char *>(parts), sizeof(int) * numParts);
 
-    RingList &rings = polycurve->rings();
-    for (int i = 0; i < numParts; ++i) {
-        Ring *ring = new Ring();
-        rings.push_back(ring);
+    RingList &rings = polygon->rings();
+//    for (int i = 0; i < numParts; ++i)
+//    {
 
-        SegmentList &segments = ring->segments();
-        for (int partN = 0; partN < numParts; ++partN) {
-            Segment *segment = new Segment();
-            segments.push_back(segment);
+
+        //SegmentList &segments = path->segments();
+        for (int partN = 0; partN < numParts; ++partN)
+        {
+            Ring *ring = new Ring(polygon);
+            rings.push_back(ring);
+
+            PointList &points = ring->points();
             int start = parts[partN];
             int end = ((partN + 1) == numParts) ? numPoints : parts[partN + 1];
 
-            QPolygonF polygon;//(end - start);
-            for (int i = start; i < end; ++i) {
+            //QPolygonF polygon;//(end - start);
+            for (int i = start; i < end; ++i)
+            {
                 double x, y;
                 stream.readRawData(reinterpret_cast<char *>(&x), sizeof(double));
                 stream.readRawData(reinterpret_cast<char *>(&y), sizeof(double));
-                polygon.append(QPointF(x, y));
+                points.push_back(new Point(x, y));
             }
-
-            segment->setCurve(polygon);
-
         }
+//    }
 
+    delete[] parts;
+}
+
+void GeometryFactory::createPolyline(QDataStream &stream, Polyline *polyline)
+{
+    int numParts = -1;
+    stream.readRawData(reinterpret_cast<char *>(&numParts), sizeof(int));
+    int numPoints = -1;
+    stream.readRawData(reinterpret_cast<char *>(&numPoints), sizeof(int));
+
+    int* parts = new int[numParts];
+    stream.readRawData(reinterpret_cast<char *>(parts), sizeof(int) * numParts);
+
+    PathList &paths = polyline->paths();
+    for (int i = 0; i < numParts; ++i)
+    {
+        Path *path = new Path(polyline);
+        paths.push_back(path);
+
+        //SegmentList &segments = path->segments();
+        for (int partN = 0; partN < numParts; ++partN)
+        {
+            PointList &points = path->points();
+            int start = parts[partN];
+            int end = ((partN + 1) == numParts) ? numPoints : parts[partN + 1];
+
+            //QPolygonF polygon;//(end - start);
+            for (int i = start; i < end; ++i)
+            {
+                double x, y;
+                stream.readRawData(reinterpret_cast<char *>(&x), sizeof(double));
+                stream.readRawData(reinterpret_cast<char *>(&y), sizeof(double));
+                points.push_back(new Point(x, y));
+            }
+        }
     }
+
     delete[] parts;
 }
 

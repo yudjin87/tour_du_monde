@@ -71,8 +71,8 @@ void GeodatabaseTest::shouldLoadPointShapes()
     //QCOMPARE(feature->record()->at(0), "1666355140");
 
     const Point* point = static_cast<const Point*>(feature->geometry());
-    QCOMPARE(point->point().x(), -0.7023426);
-    QCOMPARE(point->point().y(), 52.1532809);
+    QCOMPARE(point->x(), -0.7023426);
+    QCOMPARE(point->y(), 52.1532809);
 }
 
 void GeodatabaseTest::shouldLoadLineShapes()
@@ -92,17 +92,15 @@ void GeodatabaseTest::shouldLoadLineShapes()
     //QCOMPARE(feature->record()->at("name"), "Freemans Gardens");
 
     const Polyline* line = static_cast<const Polyline*>(feature->geometry());
-    QCOMPARE(line->rings().size(), 1);
+    QCOMPARE(line->paths().size(), 1);                 // paths
+    //QCOMPARE(line->paths()[0]->segments().size(), 5);  // segments // TODO
 
-    const Ring* ring = line->rings()[0];
-    QCOMPARE(ring->segments().size(), 1);
+    PointList &points = line->paths()[0]->points();
+    QCOMPARE(points.size(), 6);
 
-    const Segment* segment = ring->segments()[0];
-    QCOMPARE(segment->curve().size(), 6);
-
-    const QPointF point = segment->curve()[3];
-    QCOMPARE(point.x(), -0.7002893);
-    QCOMPARE(point.y(), 52.1521591);
+    const Point* point = points[3];
+    QCOMPARE(point->x(), -0.7002893);
+    QCOMPARE(point->y(), 52.1521591);
 }
 
 void GeodatabaseTest::shouldLoadPolygonShapes()
@@ -121,11 +119,18 @@ void GeodatabaseTest::shouldLoadPolygonShapes()
     QCOMPARE(feature->id(), FEATURE_ID);
     //QCOMPARE(feature->record()->at("name"), "With rings");
 
-    const Polygon * line = static_cast<const Polygon*>(feature->geometry());
-    QCOMPARE(line->rings().size(), 2);
+    const Polygon * poly = static_cast<const Polygon*>(feature->geometry());
+    QCOMPARE(poly->rings().size(), 2);
 
-//    const Ring* ring = line->rings()[0];
-//    QCOMPARE(ring->segments().size(), 1);
+    const Ring* outerRing = poly->rings()[0];
+    const Ring* innerRing = poly->rings()[1];
+
+    //    QCOMPARE(outerRing->segments().size(), 1);
+    QCOMPARE(outerRing->points().size(), 5);
+
+//    QCOMPARE(outerRing->segments().size(), 1);
+    QCOMPARE(innerRing->points().size(), 5);
+
 
 //    const Segment* segment = ring->segments()[0];
 //    QCOMPARE(segment->curve().size(), 6);

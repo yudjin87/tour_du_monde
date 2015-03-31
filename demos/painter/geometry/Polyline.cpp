@@ -24,31 +24,50 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "Polyline.h"
+#include "geometry/Polyline.h"
+#include "geometry/Path.h"
 
 Polyline::Polyline(QObject *parent)
     : Polycurve(parent)
+    , m_paths()
 {
 }
 
 Polyline::Polyline(int size, QObject *parent)
     : Polycurve(size, parent)
+    , m_paths(size)
 {
-
 }
 
 Polyline::Polyline(const QRectF &extent, QObject *parent)
     : Polycurve(extent, parent)
+    , m_paths()
 {
 }
 
 Polyline::Polyline(std::initializer_list<QPointF> points, QObject *parent)
     : Polycurve(points, parent)
+    , m_paths()
 {
+    m_paths.push_back(new Path(points));
 }
 
 Polyline::~Polyline()
 {
+    for (Path *path : m_paths)
+        delete path;
+
+    m_paths.clear();
+}
+
+PathList &Polyline::paths()
+{
+    return m_paths;
+}
+
+const PathList &Polyline::paths() const
+{
+    return m_paths;
 }
 
 Geometry::Type Polyline::type() const
