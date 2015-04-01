@@ -26,13 +26,13 @@
 
 #include "geometry/Segment.h"
 
-Segment::Segment(QObject *parent)
-    : Curve(parent)
+Segment::Segment()
+    : Curve()
 {
 }
 
-Segment::Segment(const QRectF &extent, QObject *parent)
-    : Curve(extent, parent)
+Segment::Segment(const QRectF &extent)
+    : Curve(extent)
 {
 }
 

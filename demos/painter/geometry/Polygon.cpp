@@ -27,27 +27,27 @@
 #include "geometry/Polygon.h"
 #include "geometry/Ring.h"
 
-Polygon::Polygon(QObject *parent)
-    : Polycurve(parent)    
+Polygon::Polygon()
+    : Polycurve()
     , m_rings()
 {
 }
 
-Polygon::Polygon(int size, QObject *parent)
-    : Polycurve(size, parent)
+Polygon::Polygon(int size)
+    : Polycurve(size)
     , m_rings(size)
 {
 
 }
 
-Polygon::Polygon(const QRectF &extent, QObject *parent)
-    : Polycurve(extent, parent)
+Polygon::Polygon(const QRectF &extent)
+    : Polycurve(extent)
     , m_rings()
 {
 }
 
-Polygon::Polygon(std::initializer_list<QPointF> points, QObject *parent)
-    : Polycurve(points, parent)
+Polygon::Polygon(std::initializer_list<QPointF> points)
+    : Polycurve()
     , m_rings()
 {
     m_rings.push_back(new Ring(points));
@@ -56,7 +56,9 @@ Polygon::Polygon(std::initializer_list<QPointF> points, QObject *parent)
 Polygon::~Polygon()
 {
     for (Ring *ring : m_rings)
+    {
         delete ring;
+    }
 
     m_rings.clear();
 }

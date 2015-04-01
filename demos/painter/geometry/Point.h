@@ -26,14 +26,13 @@
 
 #pragma once
 
-#include <geometry/AbstractGeometry.h>
+#include <geometry/GeometryBase.h>
 
-class GEOMETRY_API Point : public AbstractGeometry
+class GEOMETRY_API Point : public GeometryBase
 {
-    Q_OBJECT
 public:
-    explicit Point(QObject *parent = nullptr);
-    explicit Point(const qreal x, const qreal y, QObject *parent = nullptr);
+    Point();
+    explicit Point(const qreal x, const qreal y);
 
     qreal x() const {return m_x;}
     qreal y() const {return m_y;}

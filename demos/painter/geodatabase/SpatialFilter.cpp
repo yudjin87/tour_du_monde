@@ -31,12 +31,12 @@ SpatialFilter::SpatialFilter()
 {
 }
 
-const AbstractGeometry *SpatialFilter::geometry() const
+const IGeometry *SpatialFilter::geometry() const
 {
     return m_geometry;
 }
 
-void SpatialFilter::setGeometry(const AbstractGeometry *geometry)
+void SpatialFilter::setGeometry(const IGeometry *geometry)
 {
     m_geometry = geometry;
 }

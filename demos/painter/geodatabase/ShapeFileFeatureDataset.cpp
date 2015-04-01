@@ -32,7 +32,7 @@
 #include "ShapeFileReader.h"
 #include <geodatabase/GeometryFactory.h>
 
-#include <geometry/AbstractGeometry.h>
+#include <geometry/IGeometry.h>
 
 #include <carousel/logging/LoggerFacade.h>
 
@@ -133,7 +133,7 @@ IFeatureClass *ShapeFileFeatureDataset::classByName(const QString &className)
         memset(reinterpret_cast<char *>(&record), 0, sizeof(Record));
         m_fileReader->readShapeRecord(record);
 
-        AbstractGeometry *geometry = GeometryFactory::createGeometry(record.contentLength, record.shapeBlob);
+        IGeometry *geometry = GeometryFactory::createGeometry(record.contentLength, record.shapeBlob);
         IFeature *feature = featureClass->createFeature();
         feature->setGeometry(geometry);
         feature->setId(record.recordNumber);

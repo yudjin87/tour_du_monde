@@ -25,7 +25,7 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "GeometryScriptExtension.h"
-#include "AbstractGeometry.h"
+#include "IGeometry.h"
 #include "GeometryType.h"
 #include "Point.h"
 #include "Polycurve.h"
@@ -45,19 +45,19 @@ Q_DECLARE_METATYPE(Geometry::Type)
 
 namespace
 {
-int registerRingList(QScriptEngine *engine)
-{
-    return qScriptRegisterMetaType<QList<Ring *>>(engine,
-        qScriptValueFromSequence<QList<Ring *>>,
-        qScriptValueToSequence<QList<Ring *>>);
-}
+//int registerRingList(QScriptEngine *engine)
+//{
+//    return qScriptRegisterMetaType<QList<Ring *>>(engine,
+//        qScriptValueFromSequence<QList<Ring *>>,
+//        qScriptValueToSequence<QList<Ring *>>);
+//}
 
-int registerSegmentList(QScriptEngine *engine)
-{
-    return qScriptRegisterMetaType<QList<Segment *>>(engine,
-        qScriptValueFromSequence<QList<Segment *>>,
-        qScriptValueToSequence<QList<Segment *>>);
-}
+//int registerSegmentList(QScriptEngine *engine)
+//{
+//    return qScriptRegisterMetaType<QList<Segment *>>(engine,
+//        qScriptValueFromSequence<QList<Segment *>>,
+//        qScriptValueToSequence<QList<Segment *>>);
+//}
 
 } // namespace
 
@@ -71,15 +71,15 @@ void GeometryScriptExtension::configureEngine(IServiceLocator *locator, QScriptE
 {
     Q_UNUSED(locator)
 
-    int ringListId = registerRingList(engine); Q_UNUSED(ringListId);
-    int segmentListId = registerSegmentList(engine); Q_UNUSED(segmentListId);
+//    int ringListId = registerRingList(engine); Q_UNUSED(ringListId);
+//    int segmentListId = registerSegmentList(engine); Q_UNUSED(segmentListId);
 
-    REGISTER_METATYPE(AbstractGeometry);
-    REGISTER_METATYPE(Point);
-    REGISTER_METATYPE(Polycurve);
-    REGISTER_METATYPE(Polygon);
-    REGISTER_METATYPE(Polyline);
-    REGISTER_METATYPE(Ring);
-    REGISTER_METATYPE(Segment);
+//    REGISTER_METATYPE(IGeometry);
+//    REGISTER_METATYPE(Point);
+//    REGISTER_METATYPE(Polycurve);
+//    REGISTER_METATYPE(Polygon);
+//    REGISTER_METATYPE(Polyline);
+//    REGISTER_METATYPE(Ring);
+//    REGISTER_METATYPE(Segment);
 }
 

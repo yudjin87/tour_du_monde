@@ -16,7 +16,7 @@ LIBS += -L$${CAROUSEL_BIN} -lCarousel \
 
 HEADERS += \
     geometry_api.h \
-    AbstractGeometry.h \
+    IGeometry.h \
     Point.h \
     Segment.h \
     Ring.h \
@@ -28,10 +28,10 @@ HEADERS += \
     GeometryScriptExtension.h \
     Curve.h \
     Path.h \
-    Line.h
+    Line.h \
+    GeometryBase.h
 
 SOURCES += \
-    AbstractGeometry.cpp \
     Point.cpp \
     Segment.cpp \
     Ring.cpp \
@@ -42,7 +42,8 @@ SOURCES += \
     GeometryScriptExtension.cpp \
     Curve.cpp \
     Path.cpp \
-    Line.cpp
+    Line.cpp \
+    GeometryBase.cpp
 
 OTHER_FILES += org.carousel.demos.Geometry.definition
 

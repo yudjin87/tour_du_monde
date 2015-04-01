@@ -42,7 +42,7 @@ public slots:
      * @details
      *   Draws the specified shape.
      */
-    void draw(const AbstractGeometry *geometry, QPainter *painter) override;
+    void draw(const IGeometry *geometry, QPainter *painter) override;
 
 protected:
     explicit SymbolBase(QObject *parent = 0);

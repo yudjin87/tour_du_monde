@@ -42,7 +42,7 @@ SymbolBase::~SymbolBase()
 {
 }
 
-void SymbolBase::draw(const AbstractGeometry *geometry, QPainter *painter)
+void SymbolBase::draw(const IGeometry *geometry, QPainter *painter)
 {
     switch (geometry->type())
     {

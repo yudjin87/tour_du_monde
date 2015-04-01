@@ -30,7 +30,7 @@
 #include <QtCore/QObject>
 #include <memory>
 
-class AbstractGeometry;
+class IGeometry;
 class ISymbolVisitor;
 class QPainter;
 
@@ -46,7 +46,7 @@ public:
      *   Draws the specified shape, using prepared the painter.
      *   Use setupPainter() before, and resetPainter() after this method
      */
-    virtual void draw(const AbstractGeometry *geometry, QPainter *painter) = 0;
+    virtual void draw(const IGeometry *geometry, QPainter *painter) = 0;
 
     virtual ISymbol* clone(QObject* parent = nullptr) const = 0;
     /*!

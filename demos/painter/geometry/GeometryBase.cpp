@@ -24,22 +24,31 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#pragma once
+#include "geometry/GeometryBase.h"
 
-#include <geometry/GeometryBase.h>
-#include <QtCore/QVector>
-#include <initializer_list>
-
-class Ring;
-typedef QVector<Ring *> RingList;
-
-class GEOMETRY_API Curve : public GeometryBase
+GeometryBase::GeometryBase()
+    : IGeometry()
+    , m_extent()
 {
-public:
-    Curve();
-    explicit Curve(const QRectF &extent);
-    ~Curve();
+}
 
-    virtual bool isClosed() const { throw "Not implemented!";} // = 0
-    virtual double lenght() const { throw "Not implemented!";} // = 0
-};
+GeometryBase::GeometryBase(const QRectF &extent)
+    : IGeometry()
+    , m_extent(extent)
+{
+}
+
+GeometryBase::~GeometryBase()
+{
+}
+
+const QRectF &GeometryBase::extent() const
+{
+    return m_extent;
+}
+
+void GeometryBase::setExtent(const QRectF &extent)
+{
+    m_extent = extent;
+}
+

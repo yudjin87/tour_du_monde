@@ -27,24 +27,19 @@
 #include "geometry/Polycurve.h"
 #include "geometry/Ring.h"
 
-Polycurve::Polycurve(QObject *parent)
-    : Curve(parent)
+Polycurve::Polycurve()
+    : Curve()
 {
 }
 
-Polycurve::Polycurve(int size, QObject *parent)
-    : Curve(parent)
+Polycurve::Polycurve(int size)
+    : Curve()
 {
 
 }
 
-Polycurve::Polycurve(const QRectF &extent, QObject *parent)
-    : Curve(extent, parent)
-{
-}
-
-Polycurve::Polycurve(std::initializer_list<QPointF> points, QObject *parent)
-    : Curve(parent)
+Polycurve::Polycurve(const QRectF &extent)
+    : Curve(extent)
 {
 }
 

@@ -29,12 +29,10 @@
 
 class GEOMETRY_API Polycurve : public Curve
 {
-    Q_OBJECT
 public:
-    explicit Polycurve(QObject *parent = nullptr);
-    explicit Polycurve(int size, QObject *parent = nullptr);
-    explicit Polycurve(const QRectF &extent, QObject *parent = nullptr);
-    explicit Polycurve(std::initializer_list<QPointF> points, QObject *parent = nullptr);
+    Polycurve();
+    explicit Polycurve(int size);
+    explicit Polycurve(const QRectF &extent);
 
     ~Polycurve();
 

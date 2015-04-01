@@ -27,26 +27,26 @@
 #include "geometry/Polyline.h"
 #include "geometry/Path.h"
 
-Polyline::Polyline(QObject *parent)
-    : Polycurve(parent)
+Polyline::Polyline()
+    : Polycurve()
     , m_paths()
 {
 }
 
-Polyline::Polyline(int size, QObject *parent)
-    : Polycurve(size, parent)
+Polyline::Polyline(int size)
+    : Polycurve(size)
     , m_paths(size)
 {
 }
 
-Polyline::Polyline(const QRectF &extent, QObject *parent)
-    : Polycurve(extent, parent)
+Polyline::Polyline(const QRectF &extent)
+    : Polycurve(extent)
     , m_paths()
 {
 }
 
-Polyline::Polyline(std::initializer_list<QPointF> points, QObject *parent)
-    : Polycurve(points, parent)
+Polyline::Polyline(std::initializer_list<QPointF> points)
+    : Polycurve()
     , m_paths()
 {
     m_paths.push_back(new Path(points));
@@ -55,7 +55,9 @@ Polyline::Polyline(std::initializer_list<QPointF> points, QObject *parent)
 Polyline::~Polyline()
 {
     for (Path *path : m_paths)
+    {
         delete path;
+    }
 
     m_paths.clear();
 }

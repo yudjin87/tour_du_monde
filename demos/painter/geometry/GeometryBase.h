@@ -3,7 +3,7 @@
  *
  * Carousel - Qt-based managed component library.
  *
- * Copyright: 2011-2013 Carousel team
+ * Copyright: 2011-2015 Carousel team
  * Authors:
  *   Eugene Chuguy <eugene.chuguy@gmail.com>
  *
@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- 
+
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -26,25 +26,18 @@
 
 #pragma once
 
-#include <geometry/geometry_api.h>
-#include <geometry/GeometryType.h>
+#include <geometry/IGeometry.h>
 
-#include <QtCore/QObject>
 #include <QtCore/QRectF>
 
-class GEOMETRY_API AbstractGeometry : public QObject
+class GEOMETRY_API GeometryBase : public IGeometry
 {
-    Q_OBJECT
-    Q_PROPERTY(Geometry::Type type READ type)
-    Q_PROPERTY(QRectF extent READ extent)
 public:
-    explicit AbstractGeometry(QObject *parent = nullptr);
-    explicit AbstractGeometry(const QRectF &extent, QObject *parent = nullptr);
-    virtual ~AbstractGeometry();
+    GeometryBase();
+    explicit GeometryBase(const QRectF &extent);
+    virtual ~GeometryBase();
 
-    virtual Geometry::Type type() const = 0;
-
-    const QRectF &extent() const;
+    const QRectF &extent() const override;
 
 protected:
     void setExtent(const QRectF &extent);

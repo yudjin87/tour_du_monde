@@ -26,15 +26,15 @@
 
 #include "Point.h"
 
-Point::Point(QObject *parent)
-    : AbstractGeometry(parent)
+Point::Point()
+    : GeometryBase()
     , m_x(0)
     , m_y(0)
 {
 }
 
-Point::Point(const qreal x, const qreal y, QObject *parent)
-    : AbstractGeometry(parent)
+Point::Point(const qreal x, const qreal y)
+    : GeometryBase()
     , m_x(x)
     , m_y(y)
 {

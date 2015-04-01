@@ -24,31 +24,25 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "AbstractGeometry.h"
+#pragma once
 
-AbstractGeometry::AbstractGeometry(QObject *parent)
-    : QObject(parent)
-    , m_extent()
+#include <geometry/geometry_api.h>
+#include <geometry/GeometryType.h>
+
+#include <QtCore/QRectF>
+
+class GEOMETRY_API IGeometry
 {
-}
+public:
+    virtual ~IGeometry(){}
 
-AbstractGeometry::AbstractGeometry(const QRectF &extent, QObject *parent)
-    : QObject(parent)
-    , m_extent(extent)
-{
-}
+    virtual Geometry::Type type() const = 0;
+    virtual const QRectF &extent() const = 0;
 
-AbstractGeometry::~AbstractGeometry()
-{
-}
+protected:
+    IGeometry() = default;
 
-const QRectF &AbstractGeometry::extent() const
-{
-    return m_extent;
-}
-
-void AbstractGeometry::setExtent(const QRectF &extent)
-{
-    m_extent = extent;
-}
-
+private:
+    IGeometry(const IGeometry&) = delete;
+    IGeometry& operator=(const IGeometry&) = delete;
+};

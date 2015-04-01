@@ -58,7 +58,7 @@ Geometry::Type GeometryFactory::geometryTypeFromShapeType(ShapeType shapeType)
     return m_typesMap.value(shapeType);
 }
 
-AbstractGeometry *GeometryFactory::createGeometry(int bytesCount, const char *geometryBlob)
+IGeometry *GeometryFactory::createGeometry(int bytesCount, const char *geometryBlob)
 {
     QDataStream stream(QByteArray(geometryBlob, bytesCount));
 
@@ -123,12 +123,13 @@ void GeometryFactory::createPolygon(QDataStream &stream, Polygon *polygon)
         //SegmentList &segments = path->segments();
         for (int partN = 0; partN < numParts; ++partN)
         {
-            Ring *ring = new Ring(polygon);
+            int start = parts[partN];
+            int end = ((partN + 1) == numParts) ? numPoints : parts[partN + 1];
+
+            Ring *ring = new Ring();
             rings.push_back(ring);
 
             PointList &points = ring->points();
-            int start = parts[partN];
-            int end = ((partN + 1) == numParts) ? numPoints : parts[partN + 1];
 
             //QPolygonF polygon;//(end - start);
             for (int i = start; i < end; ++i)
@@ -157,7 +158,7 @@ void GeometryFactory::createPolyline(QDataStream &stream, Polyline *polyline)
     PathList &paths = polyline->paths();
     for (int i = 0; i < numParts; ++i)
     {
-        Path *path = new Path(polyline);
+        Path *path = new Path();
         paths.push_back(path);
 
         //SegmentList &segments = path->segments();

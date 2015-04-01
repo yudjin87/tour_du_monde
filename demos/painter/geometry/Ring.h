@@ -38,22 +38,17 @@ typedef QVector<Segment *> SegmentList;
 
 class GEOMETRY_API Ring : public Path
 {
-    Q_OBJECT
-    Q_PROPERTY(QVector<Segment *> segments READ segments)
 public:
-    explicit Ring(QObject *parent = nullptr);
-    explicit Ring(int size, QObject *parent = nullptr);
-    explicit Ring(const QRectF &extent, QObject *parent = nullptr);
-    explicit Ring(std::initializer_list<QPointF> points, QObject *parent = nullptr);
+    Ring();
+    explicit Ring(int size);
+    explicit Ring(const QRectF &extent);
+    explicit Ring(std::initializer_list<QPointF> points);
     ~Ring();
 
     SegmentList &segments();
     const SegmentList &segments() const;
 
     Geometry::Type type() const override;
-
-private:
-    void clearData();
 
 private:
     SegmentList m_segments;

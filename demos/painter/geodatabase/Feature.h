@@ -39,10 +39,10 @@ public:
 
     const QRectF &extent() const override;
 
-    AbstractGeometry *geometry() override;
-    const AbstractGeometry *geometry() const override;
+    IGeometry *geometry() override;
+    const IGeometry *geometry() const override;
 
-    void setGeometry(AbstractGeometry *geometry) override;
+    void setGeometry(IGeometry *geometry) override;
 
     Geometry::Type shapeType() const override;
 
@@ -52,6 +52,6 @@ public:
 private:
     Geometry::Type m_type;
     int m_id;
-    AbstractGeometry* m_geometry;
+    IGeometry* m_geometry;
 };
 

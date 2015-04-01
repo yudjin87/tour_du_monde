@@ -32,7 +32,7 @@
 
 #include <QtCore/QMap>
 
-class AbstractGeometry;
+class IGeometry;
 class Point;
 class Polygon;
 class Polyline;
@@ -47,7 +47,7 @@ public:
 
     static Geometry::Type geometryTypeFromShapeType(int shapeType);
     static Geometry::Type geometryTypeFromShapeType(ShapeType shapeType);
-    static AbstractGeometry *createGeometry(int bytesCount, const char *geometryBlob);
+    static IGeometry *createGeometry(int bytesCount, const char *geometryBlob);
 
 private:
     static const QMap<ShapeType, Geometry::Type> m_typesMap;

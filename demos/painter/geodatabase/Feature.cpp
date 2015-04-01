@@ -26,7 +26,7 @@
 
 #include "geodatabase/Feature.h"
 #include "geodatabase/IRecord.h"
-#include <geometry/AbstractGeometry.h>
+#include <geometry/IGeometry.h>
 
 Feature::Feature(Geometry::Type type)
     : m_type(type)
@@ -56,17 +56,17 @@ const QRectF &Feature::extent() const
     return m_geometry->extent();
 }
 
-AbstractGeometry *Feature::geometry()
+IGeometry *Feature::geometry()
 {
     return m_geometry;
 }
 
-const AbstractGeometry *Feature::geometry() const
+const IGeometry *Feature::geometry() const
 {
     return m_geometry;
 }
 
-void Feature::setGeometry(AbstractGeometry *geometry)
+void Feature::setGeometry(IGeometry *geometry)
 {
     delete m_geometry;
     m_geometry = geometry;

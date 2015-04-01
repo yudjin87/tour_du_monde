@@ -39,11 +39,11 @@ public:
      *
      * @note that filter does not take ownership for the geometry.
      */
-    const AbstractGeometry *geometry() const override;
+    const IGeometry *geometry() const override;
 
-    void setGeometry(const AbstractGeometry *geometry) override;
+    void setGeometry(const IGeometry *geometry) override;
 
 private:
-    const AbstractGeometry *m_geometry;
+    const IGeometry *m_geometry;
 };
 

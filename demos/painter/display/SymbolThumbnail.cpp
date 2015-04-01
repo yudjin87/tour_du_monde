@@ -27,7 +27,7 @@
 #include "display/SymbolThumbnail.h"
 #include "display/ISymbol.h"
 
-#include <geometry/AbstractGeometry.h>
+#include <geometry/IGeometry.h>
 #include <geometry/Point.h>
 #include <geometry/Polygon.h>
 #include <geometry/Polyline.h>
@@ -58,7 +58,7 @@ QPixmap SymbolThumbnail::createSymbolThumbnail(ISymbol *forSymbol, const Geometr
     pixmap.fill(m_bgColor);
     QPainter painter(&pixmap);
 
-    AbstractGeometry *geometry = m_thumbnails[type];
+    IGeometry *geometry = m_thumbnails[type];
 
     forSymbol->setupPainter(&painter);
     forSymbol->draw(geometry, &painter);

@@ -28,7 +28,7 @@
 #include "Feature.h"
 #include "ISpatialFilter.h"
 
-#include <geometry/AbstractGeometry.h>
+#include <geometry/IGeometry.h>
 
 #include <carousel/logging/LoggerFacade.h>
 
@@ -94,7 +94,7 @@ const IFeature *FeatureClass::featureByIndex(const int index) const
 IFeatureCollection FeatureClass::search(const ISpatialFilter &filter) const
 {
     // TODO: dispatch to filter
-    const AbstractGeometry *geometry = filter.geometry();
+    const IGeometry *geometry = filter.geometry();
     const QRectF &extent = geometry->extent();
     IFeatureCollection toReturn;
     for(int i = 0, end = m_features.size(); i != end; ++i) {

@@ -26,14 +26,13 @@
 
 #include "geometry/Curve.h"
 
-
-Curve::Curve(QObject *parent)
-    : AbstractGeometry(parent)
+Curve::Curve()
+    : GeometryBase()
 {
 }
 
-Curve::Curve(const QRectF &extent, QObject *parent)
-    : AbstractGeometry(extent, parent)
+Curve::Curve(const QRectF &extent)
+    : GeometryBase(extent)
 {
 }
 

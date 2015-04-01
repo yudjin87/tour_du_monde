@@ -28,27 +28,27 @@
 #include "geometry/Segment.h"
 #include "geometry/Point.h"
 
-Ring::Ring(QObject *parent)
-    : Path(parent)
+Ring::Ring()
+    : Path()
     , m_segments()
 {
 }
 
-Ring::Ring(int size, QObject *parent)
-    : Path(size, parent)
+Ring::Ring(int size)
+    : Path(size)
     , m_segments(size)
 {
 
 }
 
-Ring::Ring(const QRectF &extent, QObject *parent)
-    : Path(extent, parent)
+Ring::Ring(const QRectF &extent)
+    : Path(extent)
     , m_segments()
 {
 }
 
-Ring::Ring(std::initializer_list<QPointF> points, QObject *parent)
-    : Path(points, parent) // TODO: points ?
+Ring::Ring(std::initializer_list<QPointF> points)
+    : Path(points) // TODO: points ?
     , m_segments()
 {
     //m_segments.push_back(new Segment(points));
@@ -67,7 +67,12 @@ Ring::Ring(std::initializer_list<QPointF> points, QObject *parent)
 
 Ring::~Ring()
 {
-    clearData();
+    for (Segment *segment : m_segments)
+    {
+        delete segment;
+    }
+
+    m_segments.clear();
 }
 
 SegmentList &Ring::segments()
@@ -84,12 +89,3 @@ Geometry::Type Ring::type() const
 {
     return Geometry::Type::Ring;
 }
-
-void Ring::clearData()
-{
-    for (Segment *segment : m_segments)
-        delete segment;
-
-    m_segments.clear();
-}
-

@@ -30,10 +30,9 @@
 
 class GEOMETRY_API Segment : public Curve
 {
-    Q_OBJECT
 public:
-    explicit Segment(QObject *parent = nullptr);
-    explicit Segment(const QRectF &extent, QObject *parent = nullptr);
+    Segment();
+    explicit Segment(const QRectF &extent);
 //    explicit Segment(std::initializer_list<QPointF> points, QObject *parent = nullptr);
 
 //    QPolygonF &curve(); // TODO: remove

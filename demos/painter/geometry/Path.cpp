@@ -27,26 +27,26 @@
 #include "geometry/Path.h"
 #include "geometry/Point.h"
 
-Path::Path(QObject *parent)
-    : Curve(parent)
+Path::Path()
+    : Curve()
     , m_points()
 {
 }
 
-Path::Path(int size, QObject *parent)
-    : Curve(parent)
+Path::Path(int size)
+    : Curve()
     , m_points(size)
 {
 }
 
-Path::Path(const QRectF &extent, QObject *parent)
-    : Curve(extent, parent)
+Path::Path(const QRectF &extent)
+    : Curve(extent)
     , m_points()
 {
 }
 
-Path::Path(std::initializer_list<QPointF> points, QObject *parent)
-    : Curve(parent)
+Path::Path(std::initializer_list<QPointF> points)
+    : Curve()
     , m_points()
 {
     for (const QPointF& p : points)
@@ -58,7 +58,9 @@ Path::Path(std::initializer_list<QPointF> points, QObject *parent)
 Path::~Path()
 {
     for (Point *point : m_points)
+    {
         delete point;
+    }
 
     m_points.clear();
 }

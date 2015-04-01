@@ -35,12 +35,11 @@ typedef QVector<Point *> PointList;
 
 class GEOMETRY_API Path : public Curve
 {
-    Q_OBJECT
 public:
-    explicit Path(QObject *parent = nullptr);
-    explicit Path(int size, QObject *parent = nullptr);
-    explicit Path(const QRectF &extent, QObject *parent = nullptr);
-    explicit Path(std::initializer_list<QPointF> points, QObject *parent = nullptr);
+    Path();
+    explicit Path(int size);
+    explicit Path(const QRectF &extent);
+    explicit Path(std::initializer_list<QPointF> points);
     ~Path();
 
     PointList &points();

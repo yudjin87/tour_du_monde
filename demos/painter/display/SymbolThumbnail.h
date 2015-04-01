@@ -32,7 +32,7 @@
 #include <QtGui/QPixmap>
 #include <QtGui/QColor>
 
-class AbstractGeometry;
+class IGeometry;
 class ISymbol;
 
 class DISPLAY_API SymbolThumbnail
@@ -51,6 +51,6 @@ private:
     const int m_size;
     const int m_offset;
     QColor m_bgColor;
-    QMap<Geometry::Type, AbstractGeometry *> m_thumbnails;
+    QMap<Geometry::Type, IGeometry *> m_thumbnails;
 };
 
