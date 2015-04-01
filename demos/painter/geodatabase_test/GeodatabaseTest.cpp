@@ -78,15 +78,15 @@ void GeodatabaseTest::shouldLoadPointShapes()
 void GeodatabaseTest::shouldLoadLineShapes()
 {
     ShapeFileFeatureWorkspace workspace(m_workspace);
-    IFeatureClassUPtr pointsClass(workspace.openFeatureClass(m_lineShp));
-    QVERIFY(pointsClass->shapeType() == Geometry::Type::Polyline);
-    QCOMPARE(pointsClass->featuresCount(), 41);
-    QCOMPARE(pointsClass->extent().topLeft().x(), -0.7035622);
-    QCOMPARE(pointsClass->extent().bottomRight().y(), 52.154232);
+    IFeatureClassUPtr polylinesClass(workspace.openFeatureClass(m_lineShp));
+    QVERIFY(polylinesClass->shapeType() == Geometry::Type::Polyline);
+    QCOMPARE(polylinesClass->featuresCount(), 41);
+    QCOMPARE(polylinesClass->extent().topLeft().x(), -0.7035622);
+    QCOMPARE(polylinesClass->extent().bottomRight().y(), 52.154232);
 
     const int FEATURE_ID = 8;
-    const IFeature* feature = pointsClass->featureById(FEATURE_ID);
-    const IFeature* feature1 = pointsClass->featureByIndex(FEATURE_ID - 1);
+    const IFeature* feature = polylinesClass->featureById(FEATURE_ID);
+    const IFeature* feature1 = polylinesClass->featureByIndex(FEATURE_ID - 1);
     QCOMPARE(feature, feature1);
     QCOMPARE(feature->id(), FEATURE_ID);
     //QCOMPARE(feature->record()->at("name"), "Freemans Gardens");
@@ -106,15 +106,15 @@ void GeodatabaseTest::shouldLoadLineShapes()
 void GeodatabaseTest::shouldLoadPolygonShapes()
 {
     ShapeFileFeatureWorkspace workspace(m_workspace);
-    IFeatureClassUPtr pointsClass(workspace.openFeatureClass(m_polygonShp));
-    QVERIFY(pointsClass->shapeType() == Geometry::Type::Polygon);
-    QCOMPARE(pointsClass->featuresCount(), 149);
-    QCOMPARE(pointsClass->extent().topLeft().x(), -0.7034284);
-    QCOMPARE(pointsClass->extent().bottomRight().y(), 52.1553076);
+    IFeatureClassUPtr polygonClass(workspace.openFeatureClass(m_polygonShp));
+    QVERIFY(polygonClass->shapeType() == Geometry::Type::Polygon);
+    QCOMPARE(polygonClass->featuresCount(), 149);
+    QCOMPARE(polygonClass->extent().topLeft().x(), -0.7034284);
+    QCOMPARE(polygonClass->extent().bottomRight().y(), 52.1553076);
 
     const int FEATURE_ID = 149;
-    const IFeature* feature = pointsClass->featureById(FEATURE_ID);
-    const IFeature* feature1 = pointsClass->featureByIndex(FEATURE_ID - 1);
+    const IFeature* feature = polygonClass->featureById(FEATURE_ID);
+    const IFeature* feature1 = polygonClass->featureByIndex(FEATURE_ID - 1);
     QCOMPARE(feature, feature1);
     QCOMPARE(feature->id(), FEATURE_ID);
     //QCOMPARE(feature->record()->at("name"), "With rings");
