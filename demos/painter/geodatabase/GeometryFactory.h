@@ -37,7 +37,7 @@ class Point;
 class Polygon;
 class Polyline;
 
-class QDataStream;
+class BinaryReader;
 class QRectF;
 
 class GEODATABASE_API GeometryFactory
@@ -47,13 +47,13 @@ public:
 
     static Geometry::Type geometryTypeFromShapeType(int shapeType);
     static Geometry::Type geometryTypeFromShapeType(ShapeType shapeType);
-    static IGeometry *createGeometry(int bytesCount, const char *geometryBlob);
+    static IGeometry *createGeometry(BinaryReader& reader);
 
 private:
     static const QMap<ShapeType, Geometry::Type> m_typesMap;
 
-    static void createPoint(QDataStream &stream, Point *point);
-    static void createPolyline(QDataStream &stream, Polyline *polyline);
-    static void createPolygon(QDataStream &stream, Polygon *polycurve);
-    static void readBoundingBox(QDataStream &stream, QRectF &bBox);
+    static void createPoint(BinaryReader &stream, Point *point);
+    static void createPolyline(BinaryReader &stream, Polyline *polyline);
+    static void createPolygon(BinaryReader &stream, Polygon *polycurve);
+    static void readBoundingBox(BinaryReader &stream, QRectF &bBox);
 };

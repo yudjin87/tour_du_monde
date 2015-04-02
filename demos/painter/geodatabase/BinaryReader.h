@@ -25,45 +25,44 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
-#include "geodatabase_api.h"
+#include <geodatabase/geodatabase_api.h>
 
-#include <geometry/GeometryType.h>
+#include <cstdint>
+#include <sstream>
 
-#include <QtCore/QRectF>
-#include <QtCore/QObject>
-#include <QtCore/QVector>
-
-class IGeometry;
-class IRecord;
-
-class GEODATABASE_API IFeature : public QObject
+class GEODATABASE_API BinaryReader
 {
-    Q_OBJECT
-    Q_PROPERTY(int id READ id)
-    Q_PROPERTY(Geometry::Type shapeType READ shapeType)
-    Q_PROPERTY(QRectF extent READ extent)
-    Q_PROPERTY(IRecord *record READ record)
 public:
-    IFeature(){}
+    struct BigEndian {};
+    struct LittleEndian {};
 
-    virtual int id() const = 0;
-    virtual void setId(int id) = 0;
+public:
+    BinaryReader(std::istream&& binaryStream);
+    BinaryReader(const char* buffer, const size_t size);
+    BinaryReader(const uint8_t* buffer, const size_t size);
+    ~BinaryReader();
 
-    virtual const QRectF &extent() const = 0;
+    bool endOfBuffer() const;
 
-    virtual IGeometry *geometry() = 0;
-    virtual const IGeometry *geometry() const = 0;
+    int32_t readInt32(const BigEndian &);
+    int32_t readInt32(const LittleEndian&);
 
-    virtual void setGeometry(IGeometry *geometry) = 0;
+    double readDouble();
 
-    virtual Geometry::Type shapeType() const = 0;
-
-    virtual IRecord* record() = 0;
-    virtual const IRecord* record() const = 0;
+    void readRawData(char* destination, const size_t size);
+    void readRawData(uint8_t* destination, const size_t size);
 
 private:
-    Q_DISABLE_COPY(IFeature)
+    BinaryReader(const BinaryReader&) = delete;
+    BinaryReader& operator=(const BinaryReader&) = delete;
+
+    void shiftByteIterator();
+    void checkByteIterator();
+
+private:
+    std::stringstream m_binaryStream;
+    const uint8_t* m_buffer; // doesn't take the ownership
+    const size_t m_bufferSize;
+
+    size_t m_byteIter;
 };
-
-typedef QVector<IFeature *> IFeatureCollection;
-

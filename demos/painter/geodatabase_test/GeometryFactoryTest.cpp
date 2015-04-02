@@ -26,6 +26,7 @@
 
 #include "GeometryFactoryTest.h"
 
+#include <geodatabase/BinaryReader.h>
 #include <geodatabase/GeometryFactory.h>
 #include <geometry/Point.h>
 #include <geometry/Polygon.h>
@@ -63,8 +64,10 @@ void GeometryFactoryTest::shouldCreatePointInstance()
     QFETCH(int, bytesCount);
     QFETCH(QByteArray, geometryBlob);
 
+    BinaryReader reader(geometryBlob.data(), bytesCount);
     GeometryFactory factory;
-    Point *geometry = dynamic_cast<Point *>(factory.createGeometry(bytesCount, geometryBlob.data()));
+    Point *geometry = dynamic_cast<Point *>(factory.createGeometry(reader));
+    QVERIFY(reader.endOfBuffer());
 
     QVERIFY(geometry != nullptr);
 
@@ -82,8 +85,10 @@ void GeometryFactoryTest::shouldCreatePolylineInstance()
     QFETCH(int, bytesCount);
     QFETCH(QByteArray, geometryBlob);
 
+    BinaryReader reader(geometryBlob.data(), bytesCount);
     GeometryFactory factory;
-    Polyline *geometry = dynamic_cast<Polyline *>(factory.createGeometry(bytesCount, geometryBlob.data()));
+    Polyline *geometry = dynamic_cast<Polyline *>(factory.createGeometry(reader));
+    QVERIFY(reader.endOfBuffer());
 
     QVERIFY(geometry != nullptr);
 
@@ -124,8 +129,10 @@ void GeometryFactoryTest::shouldCreatePolygonInstance()
     QFETCH(int, bytesCount);
     QFETCH(QByteArray, geometryBlob);
 
+    BinaryReader reader(geometryBlob.data(), bytesCount);
     GeometryFactory factory;
-    Polygon *geometry = dynamic_cast<Polygon *>(factory.createGeometry(bytesCount, geometryBlob.data()));
+    Polygon *geometry = dynamic_cast<Polygon *>(factory.createGeometry(reader));
+    QVERIFY(reader.endOfBuffer());
 
     QVERIFY(geometry != nullptr);
 
@@ -137,11 +144,11 @@ void GeometryFactoryTest::shouldCreatePolygonInstance()
 
     // Meta data
     QCOMPARE(geometry->rings().size(), 1);                 // rings
-   // QCOMPARE(geometry->rings()[0]->segments().size(), 1);  // segments
+    // QCOMPARE(geometry->rings()[0]->segments().size(), 1);  // segments
 
-//    Segment *segment = geometry->rings()[0]->segments()[0]; // TODO
-//    QPolygonF &poly = segment->curve();
-//    QCOMPARE(poly.size(), 4);
+    //    Segment *segment = geometry->rings()[0]->segments()[0]; // TODO
+    //    QPolygonF &poly = segment->curve();
+    //    QCOMPARE(poly.size(), 4);
 
     const PointList &points = geometry->rings()[0]->points();
     QCOMPARE(points.size(), 4);

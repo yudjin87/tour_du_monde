@@ -25,6 +25,7 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "geodatabase/GeometryFactory.h"
+#include "geodatabase/BinaryReader.h"
 
 #include <geometry/Point.h>
 #include <geometry/Polygon.h>
@@ -32,9 +33,7 @@
 #include <geometry/Ring.h>
 #include <geometry/Segment.h>
 
-#include <QtCore/QByteArray>
-#include <QtCore/QDataStream>
-#include <QtCore/QPointF>
+#include <QtCore/QPointF> // todo remove
 
 const QMap<ShapeType, Geometry::Type> GeometryFactory::m_typesMap {
     {ShapeType::NullShape, Geometry::Type::Null},
@@ -58,34 +57,31 @@ Geometry::Type GeometryFactory::geometryTypeFromShapeType(ShapeType shapeType)
     return m_typesMap.value(shapeType);
 }
 
-IGeometry *GeometryFactory::createGeometry(int bytesCount, const char *geometryBlob)
+IGeometry *GeometryFactory::createGeometry(BinaryReader &reader)
 {
-    QDataStream stream(QByteArray(geometryBlob, bytesCount));
-
-    ShapeType shapeType = ShapeType::NullShape;
-    stream.readRawData(reinterpret_cast<char *>(&shapeType), sizeof(shapeType));
+    ShapeType shapeType = static_cast<ShapeType>(reader.readInt32(BinaryReader::LittleEndian()));
 
     switch (shapeType)
     {
     case ShapeType::Point: {
         Point *point = new Point();
-        createPoint(stream, point);
+        createPoint(reader, point);
         return point;
     }
 
     case ShapeType::PolyLine: {
         QRectF bBox;
-        readBoundingBox(stream, bBox);
+        readBoundingBox(reader, bBox);
         Polyline *polyline = new Polyline(bBox);
-        createPolyline(stream, polyline);
+        createPolyline(reader, polyline);
         return polyline;
     }
 
     case ShapeType::Polygon: {
         QRectF bBox;
-        readBoundingBox(stream, bBox);
+        readBoundingBox(reader, bBox);
         Polygon *polygon = new Polygon(bBox);
-        createPolygon(stream, polygon);
+        createPolygon(reader, polygon);
         return polygon;
     }
 
@@ -96,24 +92,25 @@ IGeometry *GeometryFactory::createGeometry(int bytesCount, const char *geometryB
     return nullptr;
 }
 
-void GeometryFactory::createPoint(QDataStream &stream, Point *point)
+void GeometryFactory::createPoint(BinaryReader &reader, Point *point)
 {
-    double x = 0;
-    double y = 0;
-    stream.readRawData(reinterpret_cast<char *>(&x), sizeof(double));
-    stream.readRawData(reinterpret_cast<char *>(&y), sizeof(double));
+    double x = reader.readDouble();
+    double y = reader.readDouble();
     point->putCoords(x, y);
 }
 
-void GeometryFactory::createPolygon(QDataStream &stream, Polygon *polygon)
+void GeometryFactory::createPolygon(BinaryReader &reader, Polygon *polygon)
 {
     int numParts = -1;
-    stream.readRawData(reinterpret_cast<char *>(&numParts), sizeof(int));
+    reader.readRawData(reinterpret_cast<char *>(&numParts), sizeof(int));
     int numPoints = -1;
-    stream.readRawData(reinterpret_cast<char *>(&numPoints), sizeof(int));
+    reader.readRawData(reinterpret_cast<char *>(&numPoints), sizeof(int));
 
     int* parts = new int[numParts];
-    stream.readRawData(reinterpret_cast<char *>(parts), sizeof(int) * numParts);
+    for (int i = 0; i < numParts; ++i)
+    {
+        parts[i] = reader.readInt32(BinaryReader::LittleEndian());
+    }
 
     RingList &rings = polygon->rings();
 //    for (int i = 0; i < numParts; ++i)
@@ -134,9 +131,8 @@ void GeometryFactory::createPolygon(QDataStream &stream, Polygon *polygon)
             //QPolygonF polygon;//(end - start);
             for (int i = start; i < end; ++i)
             {
-                double x, y;
-                stream.readRawData(reinterpret_cast<char *>(&x), sizeof(double));
-                stream.readRawData(reinterpret_cast<char *>(&y), sizeof(double));
+                double x = reader.readDouble();
+                double y = reader.readDouble();
                 points.push_back(new Point(x, y));
             }
         }
@@ -145,15 +141,16 @@ void GeometryFactory::createPolygon(QDataStream &stream, Polygon *polygon)
     delete[] parts;
 }
 
-void GeometryFactory::createPolyline(QDataStream &stream, Polyline *polyline)
+void GeometryFactory::createPolyline(BinaryReader &reader, Polyline *polyline)
 {
-    int numParts = -1;
-    stream.readRawData(reinterpret_cast<char *>(&numParts), sizeof(int));
-    int numPoints = -1;
-    stream.readRawData(reinterpret_cast<char *>(&numPoints), sizeof(int));
+    int numParts = reader.readInt32(BinaryReader::LittleEndian());
+    int numPoints = reader.readInt32(BinaryReader::LittleEndian());
 
     int* parts = new int[numParts];
-    stream.readRawData(reinterpret_cast<char *>(parts), sizeof(int) * numParts);
+    for (int i = 0; i < numParts; ++i)
+    {
+        parts[i] = reader.readInt32(BinaryReader::LittleEndian());
+    }
 
     PathList &paths = polyline->paths();
     for (int i = 0; i < numParts; ++i)
@@ -171,9 +168,8 @@ void GeometryFactory::createPolyline(QDataStream &stream, Polyline *polyline)
             //QPolygonF polygon;//(end - start);
             for (int i = start; i < end; ++i)
             {
-                double x, y;
-                stream.readRawData(reinterpret_cast<char *>(&x), sizeof(double));
-                stream.readRawData(reinterpret_cast<char *>(&y), sizeof(double));
+                double x = reader.readDouble();
+                double y = reader.readDouble();
                 points.push_back(new Point(x, y));
             }
         }
@@ -182,17 +178,12 @@ void GeometryFactory::createPolyline(QDataStream &stream, Polyline *polyline)
     delete[] parts;
 }
 
-void GeometryFactory::readBoundingBox(QDataStream &stream, QRectF &bBox)
+void GeometryFactory::readBoundingBox(BinaryReader &reader, QRectF &bBox)
 {
-    double xmin = 0;
-    double ymin = 0;
-    double xmax = 0;
-    double ymax = 0;
-
-    stream.readRawData(reinterpret_cast<char *>(&xmin), sizeof(double));
-    stream.readRawData(reinterpret_cast<char *>(&ymin), sizeof(double));
-    stream.readRawData(reinterpret_cast<char *>(&xmax), sizeof(double));
-    stream.readRawData(reinterpret_cast<char *>(&ymax), sizeof(double));
+    double xmin = reader.readDouble();
+    double ymin = reader.readDouble();
+    double xmax = reader.readDouble();
+    double ymax = reader.readDouble();
 
     bBox.setCoords(xmin, ymin, xmax, ymax);
 }

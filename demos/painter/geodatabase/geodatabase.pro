@@ -40,6 +40,7 @@ HEADERS += \
     SpatialFilter.h \
     GDBScriptExtension.h \
     GeometryFactory.h \
+    BinaryReader.h
 
 SOURCES += \
     Feature.cpp \
@@ -51,7 +52,8 @@ SOURCES += \
     GeodatabaseComponent.cpp \
     SpatialFilter.cpp \
     GDBScriptExtension.cpp \
-    GeometryFactory.cpp
+    GeometryFactory.cpp \
+    BinaryReader.cpp
 
 OTHER_FILES += org.carousel.demos.Geodatabase.definition
 

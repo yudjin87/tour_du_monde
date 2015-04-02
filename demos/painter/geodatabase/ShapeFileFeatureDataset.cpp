@@ -30,7 +30,8 @@
 #include "IWorkspace.h"
 #include "FeatureClass.h"
 #include "ShapeFileReader.h"
-#include <geodatabase/GeometryFactory.h>
+#include "geodatabase/BinaryReader.h"
+#include "geodatabase/GeometryFactory.h"
 
 #include <geometry/IGeometry.h>
 
@@ -133,7 +134,8 @@ IFeatureClass *ShapeFileFeatureDataset::classByName(const QString &className)
         memset(reinterpret_cast<char *>(&record), 0, sizeof(Record));
         m_fileReader->readShapeRecord(record);
 
-        IGeometry *geometry = GeometryFactory::createGeometry(record.contentLength, record.shapeBlob);
+        BinaryReader reader(record.shapeBlob, record.contentLength);
+        IGeometry *geometry = GeometryFactory::createGeometry(reader);
         IFeature *feature = featureClass->createFeature();
         feature->setGeometry(geometry);
         feature->setId(record.recordNumber);
