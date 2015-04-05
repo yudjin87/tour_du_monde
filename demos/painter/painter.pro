@@ -7,7 +7,6 @@ SUBDIRS += \
     display \
     geodatabase \
     carto \
-    #tableView \
     cartoUI \
     geodatabase_test \
     navigationOperations \
