@@ -45,6 +45,7 @@ static const int flipY = -1;
 
 SimpleDisplay::SimpleDisplay(QWidget *parent)
     : m_moveVisibleBound(true)
+    , m_wasDrawing(false)
     , m_conn()
     , m_offset(0, 0)
     , m_startPan(0, 0)
@@ -103,24 +104,31 @@ void SimpleDisplay::dumpDraft(const DispayCache inCache)
 
    // Log.d(QString("dumpDraft: %1").arg((int)inCache));
 
-    for (QPixmapPtr& pixmap : m_draftPixmaps) {
+    for (QPixmapPtr& pixmap : m_draftPixmaps)
+    {
         if (pixmap != nullptr)
             painter.drawPixmap(0, 0, *pixmap);
     }
 
     m_pixmapMutex.unlock();
     viewport()->update();
+    m_wasDrawing = true;
 }
 
 void SimpleDisplay::startDrawing(const DispayCache inCache)
 {
+    m_wasDrawing = false;
+
     delete m_draftPixmaps[(int)inCache];
     m_draftPixmaps[(int)inCache] = nullptr;
 
     //delete m_draftPixmaps[(int)inCache];
-    if (inCache == DispayCache::Geometry) {
+    if (inCache == DispayCache::Geometry)
+    {
         m_draftPixmaps[(int)inCache] = createPixmap(Qt::white);
-    } else {
+    }
+    else
+    {
         m_draftPixmaps[(int)inCache] = createPixmap(Qt::transparent);
     }
 
@@ -150,6 +158,10 @@ void SimpleDisplay::startDrawing(const DispayCache inCache)
 
 void SimpleDisplay::finishDrawing(const DispayCache inCache)
 {
+    if (!m_wasDrawing) // there wasn't any drawing between "start" and "finish" - because all layers were removed. So, clear background
+    {
+        dumpDraft(inCache);
+    }
     //Q_ASSERT(m_draftPixmap != nullptr && "Illegal state during the finishing drawing!");
     //Log.d("...... finishDrawing");
     m_offset = QPointF(0, 0);

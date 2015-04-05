@@ -100,7 +100,26 @@ AbstractLayer *Map::takeLayer(const int index)
     return layer;
 }
 
+AbstractLayer * Map::takeLayer(AbstractLayer *layer)
+{
+    const int layerIndex = getLayerIndex(layer);
+    return takeLayer(layerIndex);
+}
+
 int Map::removeLayer(AbstractLayer *layer)
+{
+    const int layerIndex = getLayerIndex(layer);
+
+    Log.d(QString("Removing layer \"%1\" from position %2").arg(layer->name()).arg(layerIndex));
+
+    AbstractLayer *foundLayer = takeLayer(layerIndex);
+    Q_ASSERT(foundLayer == layer);
+
+    delete layer;  // TODO: use smart ptr
+    return layerIndex;
+}
+
+int Map::getLayerIndex(const AbstractLayer *layer) const
 {
     if (layer == nullptr)
         return -1;
@@ -112,29 +131,15 @@ int Map::removeLayer(AbstractLayer *layer)
     }
 
     const size_t layerIndex = std::distance(std::begin(m_layers), it);
-
-    Log.d(QString("Removing layer \"%1\" from position %2").arg(layer->name()).arg(layerIndex));
-
-    AbstractLayer *foundLayer = takeLayer(layerIndex);
-    Q_ASSERT(foundLayer == layer);
-
-    delete layer;  // TODO: use smart ptr
-    return layerIndex;
+    return static_cast<int>(layerIndex);
 }
 
 int Map::moveLayer(AbstractLayer *layer, const int index)
 {
-    if (layer == nullptr)
-        return -1;
+    const int oldIndex = getLayerIndex(layer);
 
-    const auto it = std::find(std::begin(m_layers), std::end(m_layers), layer);
-    if (it == std::end(m_layers)) {
-        Log.d(QString("Layer \"%1\" wasn't found").arg(layer->name()));
-        return -1;
-    }
-
-    const int oldIndex = std::distance(std::begin(m_layers), it);
-    if (oldIndex == index) {
+    if (oldIndex == index)
+    {
         Log.d(QString("Trying to move layer \"%1\" to the same index %2. Skipping").arg(layer->name()).arg(index));
         return -1;
     }
@@ -201,12 +206,11 @@ const IPainterDocument *Map::document() const
 
 void Map::refresh()
 {
-    if (m_layers.isEmpty())
-        return;
-
     m_display->startDrawing(DispayCache::Geometry);
     for (AbstractLayer *layer : m_layers)
+    {
         layer->draw(m_display);
+    }
 
     m_display->finishDrawing(DispayCache::Geometry);
 }

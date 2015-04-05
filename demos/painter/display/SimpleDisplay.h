@@ -78,6 +78,7 @@ private:
 
 private:
     bool m_moveVisibleBound;
+    bool m_wasDrawing;
     QMetaObject::Connection m_conn;
     QPointF m_offset;
     QPoint m_startPan;

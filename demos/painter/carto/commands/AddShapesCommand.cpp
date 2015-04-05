@@ -58,18 +58,26 @@ void AddShapesCommand::redo()
     IPainterDocument *doc = m_docContr->document();
     IMap* map = doc->map();
 
-    for (const QString &fileName : m_files) {
-        QFileInfo shapeFile(fileName);
-        const QString &workingDirectory = shapeFile.absolutePath();
+    if (m_addedLayers.isEmpty())
+    {
+        for (QString fileName : m_files)
+        {
+            QFileInfo shapeFile(fileName);
+            const QString &workingDirectory = shapeFile.absolutePath();
 
-        std::unique_ptr<IFeatureWorkspace> workspace((IFeatureWorkspace *)m_factory->openFromFile(workingDirectory));
+            std::unique_ptr<IFeatureWorkspace> workspace((IFeatureWorkspace *)m_factory->openFromFile(workingDirectory));
 
-        IFeatureClass *railwaysClass = workspace->openFeatureClass(shapeFile.completeBaseName());
-        FeatureLayer *railwaysLayer = new FeatureLayer();
-        railwaysLayer->setFeatureClass(railwaysClass);
-        map->addLayer(railwaysLayer);
+            IFeatureClass *railwaysClass = workspace->openFeatureClass(shapeFile.completeBaseName());
+            FeatureLayer *railwaysLayer = new FeatureLayer();
+            railwaysLayer->setFeatureClass(railwaysClass);
 
-        m_addedLayers.push_back(railwaysLayer);
+            m_addedLayers.push_back(railwaysLayer);
+        }
+    }
+
+    for (AbstractLayer* layer : m_addedLayers)
+    {
+        map->addLayer(layer);
     }
 
     map->refresh();
@@ -79,10 +87,12 @@ void AddShapesCommand::undo()
 {
     IPainterDocument *doc = m_docContr->document();
     IMap* map = doc->map();
-    for (AbstractLayer* layer : m_addedLayers) {
-        map->removeLayer(layer); // TODO: takeLayer
+    for (AbstractLayer* layer : m_addedLayers)
+    {
+        AbstractLayer* theSame = map->takeLayer(layer);
+        Q_ASSERT(theSame == layer);
     }
-    m_addedLayers.clear();
+
     map->refresh();
 }
 
