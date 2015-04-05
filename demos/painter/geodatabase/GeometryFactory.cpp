@@ -71,7 +71,7 @@ IGeometry *GeometryFactory::createGeometry(BinaryReader &reader)
 
     case ShapeType::PolyLine: {
         QRectF bBox;
-        readBoundingBox(reader, bBox);
+        readBoundingBox(reader, &bBox);
         Polyline *polyline = new Polyline(bBox);
         createPolyline(reader, polyline);
         return polyline;
@@ -79,7 +79,7 @@ IGeometry *GeometryFactory::createGeometry(BinaryReader &reader)
 
     case ShapeType::Polygon: {
         QRectF bBox;
-        readBoundingBox(reader, bBox);
+        readBoundingBox(reader, &bBox);
         Polygon *polygon = new Polygon(bBox);
         createPolygon(reader, polygon);
         return polygon;
@@ -178,13 +178,13 @@ void GeometryFactory::createPolyline(BinaryReader &reader, Polyline *polyline)
     delete[] parts;
 }
 
-void GeometryFactory::readBoundingBox(BinaryReader &reader, QRectF &bBox)
+void GeometryFactory::readBoundingBox(BinaryReader &reader, QRectF *bBox)
 {
     double xmin = reader.readDouble();
     double ymin = reader.readDouble();
     double xmax = reader.readDouble();
     double ymax = reader.readDouble();
 
-    bBox.setCoords(xmin, ymin, xmax, ymax);
+    bBox->setCoords(xmin, ymin, xmax, ymax);
 }
 

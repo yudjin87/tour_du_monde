@@ -43,3 +43,5 @@ enum class ShapeType
     MultiPointM  = 28,
     MultiPatch   = 31
 };
+
+bool verifyEnum(const ShapeType type);

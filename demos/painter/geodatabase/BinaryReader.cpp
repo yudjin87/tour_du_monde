@@ -28,15 +28,32 @@
 #include <algorithm>
 #include <sstream>
 
-BinaryReader::BinaryReader(std::istream &&binaryStream)
+namespace
+{
+
+int32_t swapEndian(const int32_t data)
+{
+    int temp = 0;
+
+    reinterpret_cast<char *>(&temp)[0] = reinterpret_cast<const char *>(&data)[3];
+    reinterpret_cast<char *>(&temp)[1] = reinterpret_cast<const char *>(&data)[2];
+    reinterpret_cast<char *>(&temp)[2] = reinterpret_cast<const char *>(&data)[1];
+    reinterpret_cast<char *>(&temp)[3] = reinterpret_cast<const char *>(&data)[0];
+
+    return temp;
+}
+
+}
+
+BinaryReader::BinaryReader(std::unique_ptr<std::istream> binaryStream, const size_t bufferSize)
     : m_binaryStream(std::move(binaryStream))
-    , m_bufferSize(0)
+    , m_bufferSize(bufferSize)
     , m_byteIter(0)
 {
 }
 
 BinaryReader::BinaryReader(const char *buffer, const size_t size)
-    : m_binaryStream(std::stringstream(std::string(buffer, size)))
+    : m_binaryStream(new std::stringstream(std::string(buffer, size)))
     , m_bufferSize(size)
     , m_byteIter(0)
 {
@@ -51,42 +68,28 @@ BinaryReader::~BinaryReader()
 {
 }
 
-bool BinaryReader::endOfBuffer() const
+bool BinaryReader::endOfStream()
 {
-    return m_bufferSize <= m_byteIter;
+    const size_t currPos = m_binaryStream->tellg(); // eof doesn't work for stringstream
+    return currPos == m_bufferSize;
 }
 
 int32_t BinaryReader::readInt32(const BinaryReader::BigEndian&)
 {
-    checkByteIterator();
+    const int32_t value = readInt32(BinaryReader::LittleEndian());
+    const int32_t swapped = swapEndian(value);
 
-    int value = 0;
-//    value |= m_buffer[m_byteIter] << 24;
-//    shiftByteIterator();
-
-//    value |= m_buffer[m_byteIter] << 16;
-//    shiftByteIterator();
-
-//    value |= m_buffer[m_byteIter] << 8;
-//    shiftByteIterator();
-
-//    value |= m_buffer[m_byteIter] && 0xFF;
-//    shiftByteIterator();
-
-    return value;
+    return swapped;
 }
 
 int32_t BinaryReader::readInt32(const BinaryReader::LittleEndian &)
 {
     checkByteIterator();
 
-    int32_t value = 0;
-    m_binaryStream.read(reinterpret_cast<char*>(&value), sizeof(value));
+    int32_t value = 1;
+    m_binaryStream->read(reinterpret_cast<char*>(&value), sizeof(value));
 
-    shiftByteIterator();
-    shiftByteIterator();
-    shiftByteIterator();
-    shiftByteIterator();
+    shiftByteIterator(sizeof(value));
 
     return value;
 }
@@ -97,10 +100,9 @@ double BinaryReader::readDouble()
     Q_ASSERT(doubleLimit <= m_bufferSize);
 
     double value = 0.0;
-    m_binaryStream.read(reinterpret_cast<char*>(&value), sizeof(value));
-    //std::copy(m_buffer + m_byteIter, m_buffer + doubleLimit, reinterpret_cast<uint8_t*>(&value));
+    m_binaryStream->read(reinterpret_cast<char*>(&value), sizeof(value));
 
-    m_byteIter += sizeof(double);
+    shiftByteIterator(sizeof(value));
 
     return value;
 }
@@ -109,7 +111,7 @@ void BinaryReader::readRawData(char *destination, const size_t size)
 {
     Q_ASSERT((m_byteIter + size) <= m_bufferSize && "readRawData: size is too much");
 
-    m_binaryStream.read(destination, size);
+    m_binaryStream->read(destination, size);
     m_byteIter += size;
 }
 
@@ -118,10 +120,10 @@ void BinaryReader::readRawData(uint8_t *destination, const size_t size)
     readRawData(reinterpret_cast<char*>(destination), size);
 }
 
-void BinaryReader::shiftByteIterator()
+void BinaryReader::shiftByteIterator(const size_t offset)
 {
     checkByteIterator();
-    ++m_byteIter;
+    m_byteIter += offset;
 }
 
 void BinaryReader::checkByteIterator()

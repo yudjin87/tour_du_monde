@@ -41,6 +41,7 @@ void FeatureLayerDrawingTask::draw(IDisplay &display)
 
         QPainter painter(tmp);
         painter.setTransform(viewport, false);
+        painter.setRenderHint(QPainter::Antialiasing); // TODO: add to settings
         //QThread::msleep(1500);
         m_renderer->draw(m_features, &painter);
     }
@@ -50,6 +51,7 @@ void FeatureLayerDrawingTask::draw(IDisplay &display)
     QPixmap& pixmap = display.lockPixmap(DispayCache::Geometry);
     QPainter painter(&pixmap);
     painter.drawPixmap(0, 0, *tmp);
+
     display.unlockPixmap(DispayCache::Geometry);
 
     Clock::time_point finished = Clock::now();

@@ -57,7 +57,7 @@ static const char* SHAPE_FILE_EXT = "shp";
 static const char* DBF_FILE_EXT = "dbf";
 }
 
-ShapeFileFeatureDataset::ShapeFileFeatureDataset(IWorkspace &workspace, const QString &name)
+ShapeFileFeatureDataset::ShapeFileFeatureDataset(IWorkspace &workspace, const QString &name) // << name to // TODO: to loader)
     : m_workspace(workspace)
     , m_fileReader(new ShapeFileReader())
     , m_name(name)
@@ -84,6 +84,7 @@ IWorkspace *ShapeFileFeatureDataset::workspace() const
 
 QRectF ShapeFileFeatureDataset::extent()
 {
+    // TODO: to loader
     if (!prepareToReading(name()))
         return QRectF();
 
@@ -97,6 +98,7 @@ QRectF ShapeFileFeatureDataset::extent()
 
 IFeatureClass *ShapeFileFeatureDataset::classById(int id)
 {
+    // TODO: to loader
     // Standalone file dataset could work only with single feature class;
     if (id != 0)
         return nullptr;
@@ -106,6 +108,7 @@ IFeatureClass *ShapeFileFeatureDataset::classById(int id)
 
 IFeatureClass *ShapeFileFeatureDataset::classByName(const QString &className)
 {
+    // TODO: to loader
     QString clName = className.isEmpty() ? name() : className;
     if ((clName != name()) && (clName != (name() + SHAPE_FILE_EXT)))
     {
@@ -116,11 +119,6 @@ IFeatureClass *ShapeFileFeatureDataset::classByName(const QString &className)
 
     if (!prepareToReading(clName))
         return nullptr;
-
-    typedef std::chrono::system_clock Clock;
-    typedef std::chrono::milliseconds milliseconds;
-
-    const Clock::time_point started = Clock::now();
 
     ShapeFileHeader header;
     m_fileReader->readHeader(header);
@@ -169,11 +167,6 @@ IFeatureClass *ShapeFileFeatureDataset::classByName(const QString &className)
 
     //---------------------- /database
 
-    Clock::time_point finished = Clock::now();
-    milliseconds ms = std::chrono::duration_cast<milliseconds>(finished - started);
-
-    Log.d(QString("Reading %1 file: %2 ms").arg(className).arg(ms.count()));
-
     finishReading();
 
     return featureClass;
@@ -181,24 +174,26 @@ IFeatureClass *ShapeFileFeatureDataset::classByName(const QString &className)
 
 QList<IFeatureClass *> ShapeFileFeatureDataset::classes()
 {
+    // TODO: to loader
     QList<IFeatureClass *> features;
     features.push_back(classByName(name()));
     return features;
 }
 
-Geometry::Type ShapeFileFeatureDataset::geometryType()
-{
-    Geometry::Type type = Geometry::Type::Null;
-    if (!prepareToReading(name()))
-        return type;
+//Geometry::Type ShapeFileFeatureDataset::geometryType()
+//{
+//    // TODO: to loader
+//    Geometry::Type type = Geometry::Type::Null;
+//    if (!prepareToReading(name()))
+//        return type;
 
-    ShapeFileHeader header;
-    m_fileReader->readHeader(header);
+//    ShapeFileHeader header;
+//    m_fileReader->readHeader(header);
 
-    finishReading();
+//    finishReading();
 
-    return GeometryFactory::geometryTypeFromShapeType(header.shapeType);
-}
+//    return GeometryFactory::geometryTypeFromShapeType(header.shapeType);
+//}
 
 IFeatureClass *ShapeFileFeatureDataset::createFeatureClass(Geometry::Type geometryType, const QRectF &extent, const QString &source)
 {

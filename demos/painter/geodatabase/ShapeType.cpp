@@ -3,7 +3,7 @@
  *
  * Carousel - Qt-based managed component library.
  *
- * Copyright: 2011-2013 Carousel team
+ * Copyright: 2011-2015 Carousel team
  * Authors:
  *   Eugene Chuguy <eugene.chuguy@gmail.com>
  *
@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- 
+
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -24,20 +24,28 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#pragma once
-#include "IDataset.h"
+#include "geodatabase/ShapeType.h"
 
-#include <geometry/GeometryType.h>
-
-#include <QtCore/QRectF>
-
-class GEODATABASE_API IGeoDataset : public IDataset
+bool verifyEnum(const ShapeType type)
 {
-    Q_OBJECT
-    Q_PROPERTY(QRectF extent READ extent)
-public:
-    IGeoDataset(){}
+    switch (type)
+    {
+    case ShapeType::NullShape:
+    case ShapeType::Point:
+    case ShapeType::PolyLine:
+    case ShapeType::Polygon:
+    case ShapeType::MultiPoint:
+    case ShapeType::PointZ:
+    case ShapeType::PolyLineZ:
+    case ShapeType::PolygonZ:
+    case ShapeType::MultiPointZ:
+    case ShapeType::PointM:
+    case ShapeType::PolyLineM:
+    case ShapeType::PolygonM:
+    case ShapeType::MultiPointM:
+    case ShapeType::MultiPatch:
+        return true;
+    }
 
-    virtual QRectF extent() = 0;
-};
-
+    return false;
+}

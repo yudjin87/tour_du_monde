@@ -3,7 +3,7 @@
  *
  * Carousel - Qt-based managed component library.
  *
- * Copyright: 2011-2013 Carousel team
+ * Copyright: 2011-2015 Carousel team
  * Authors:
  *   Eugene Chuguy <eugene.chuguy@gmail.com>
  *
@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- 
+
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -25,19 +25,36 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
-#include "IDataset.h"
 
+#include <geodatabase/IFeature.h>
 #include <geometry/GeometryType.h>
 
+#include <QtCore/QString>
 #include <QtCore/QRectF>
 
-class GEODATABASE_API IGeoDataset : public IDataset
-{
-    Q_OBJECT
-    Q_PROPERTY(QRectF extent READ extent)
-public:
-    IGeoDataset(){}
+#include <memory>
 
-    virtual QRectF extent() = 0;
+class IFeatureClassLoader
+{
+public:
+    enum class LoadResult
+    {
+        Success,
+        Fail
+    };
+
+public:
+    virtual ~IFeatureClassLoader(){}
+
+    virtual LoadResult open(const QString &name) = 0;
+
+    virtual bool hasNext() = 0;
+    virtual void goToFirst() = 0;
+
+    virtual Geometry::Type geometryType() const = 0;
+    virtual QRectF boundingBox() const = 0;
+
+    virtual void loadFeature(IFeature* feature) = 0;
 };
 
+typedef std::unique_ptr<IFeatureClassLoader> IFeatureClassLoaderUPtr;

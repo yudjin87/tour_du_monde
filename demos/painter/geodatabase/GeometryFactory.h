@@ -49,11 +49,12 @@ public:
     static Geometry::Type geometryTypeFromShapeType(ShapeType shapeType);
     static IGeometry *createGeometry(BinaryReader& reader);
 
+    static void readBoundingBox(BinaryReader &stream, QRectF *bBox);
+
 private:
     static const QMap<ShapeType, Geometry::Type> m_typesMap;
 
     static void createPoint(BinaryReader &stream, Point *point);
     static void createPolyline(BinaryReader &stream, Polyline *polyline);
     static void createPolygon(BinaryReader &stream, Polygon *polycurve);
-    static void readBoundingBox(BinaryReader &stream, QRectF &bBox);
 };

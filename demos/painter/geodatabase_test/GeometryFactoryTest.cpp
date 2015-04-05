@@ -67,7 +67,7 @@ void GeometryFactoryTest::shouldCreatePointInstance()
     BinaryReader reader(geometryBlob.data(), bytesCount);
     GeometryFactory factory;
     Point *geometry = dynamic_cast<Point *>(factory.createGeometry(reader));
-    QVERIFY(reader.endOfBuffer());
+    QVERIFY(reader.endOfStream());
 
     QVERIFY(geometry != nullptr);
 
@@ -88,7 +88,7 @@ void GeometryFactoryTest::shouldCreatePolylineInstance()
     BinaryReader reader(geometryBlob.data(), bytesCount);
     GeometryFactory factory;
     Polyline *geometry = dynamic_cast<Polyline *>(factory.createGeometry(reader));
-    QVERIFY(reader.endOfBuffer());
+    QVERIFY(reader.endOfStream());
 
     QVERIFY(geometry != nullptr);
 
@@ -132,7 +132,7 @@ void GeometryFactoryTest::shouldCreatePolygonInstance()
     BinaryReader reader(geometryBlob.data(), bytesCount);
     GeometryFactory factory;
     Polygon *geometry = dynamic_cast<Polygon *>(factory.createGeometry(reader));
-    QVERIFY(reader.endOfBuffer());
+    QVERIFY(reader.endOfStream());
 
     QVERIFY(geometry != nullptr);
 

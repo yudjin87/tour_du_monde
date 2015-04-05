@@ -57,6 +57,7 @@ QPixmap SymbolThumbnail::createSymbolThumbnail(ISymbol *forSymbol, const Geometr
     QPixmap pixmap(m_size, m_size);
     pixmap.fill(m_bgColor);
     QPainter painter(&pixmap);
+    painter.setRenderHint(QPainter::Antialiasing); // TODO: add to settings
 
     IGeometry *geometry = m_thumbnails[type];
 

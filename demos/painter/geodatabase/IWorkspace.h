@@ -35,7 +35,7 @@ class IDataset;
 
 // strange hack... Memory management should be reviewed
 template <typename TPointer>
-class OwnedList: public QList<TPointer>
+class OwnedList: public QList<TPointer> // omg, todo!! so old and weir code
 {
     ~OwnedList()
     {

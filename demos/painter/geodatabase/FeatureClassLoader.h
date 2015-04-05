@@ -3,7 +3,7 @@
  *
  * Carousel - Qt-based managed component library.
  *
- * Copyright: 2011-2013 Carousel team
+ * Copyright: 2011-2015 Carousel team
  * Authors:
  *   Eugene Chuguy <eugene.chuguy@gmail.com>
  *
@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- 
+
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -25,19 +25,41 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
-#include "IDataset.h"
 
-#include <geometry/GeometryType.h>
+#include <geodatabase/IFeatureClassLoader.h>
+#include <geodatabase/ShapeType.h>
 
-#include <QtCore/QRectF>
+#include <QtCore/QFileInfo>
 
-class GEODATABASE_API IGeoDataset : public IDataset
+#include <memory>
+
+class BinaryReader;
+
+class FeatureClassLoader : public IFeatureClassLoader
 {
-    Q_OBJECT
-    Q_PROPERTY(QRectF extent READ extent)
 public:
-    IGeoDataset(){}
+    FeatureClassLoader(const QString &dirPath);
+    ~FeatureClassLoader();
 
-    virtual QRectF extent() = 0;
+    LoadResult open(const QString &name) override;
+
+    bool hasNext() override;
+    void goToFirst() override;
+
+    Geometry::Type geometryType() const override;
+    QRectF boundingBox() const override;
+
+    void loadFeature(IFeature* feature) override;
+
+    QFileInfo source() const;
+
+private:
+    LoadResult readHeader(const int64_t fileSize);
+
+private:
+    const QString m_dirPath;
+    QFileInfo m_file;
+    std::unique_ptr<BinaryReader> m_reader;
+    ShapeType m_shapeType;
+    QRectF m_boundingBox;
 };
-

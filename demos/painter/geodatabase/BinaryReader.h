@@ -28,7 +28,8 @@
 #include <geodatabase/geodatabase_api.h>
 
 #include <cstdint>
-#include <sstream>
+#include <istream>
+#include <memory>
 
 class GEODATABASE_API BinaryReader
 {
@@ -37,12 +38,12 @@ public:
     struct LittleEndian {};
 
 public:
-    BinaryReader(std::istream&& binaryStream);
+    BinaryReader(std::unique_ptr<std::istream> binaryStream, const size_t bufferSize);
     BinaryReader(const char* buffer, const size_t size);
     BinaryReader(const uint8_t* buffer, const size_t size);
     ~BinaryReader();
 
-    bool endOfBuffer() const;
+    bool endOfStream();
 
     int32_t readInt32(const BigEndian &);
     int32_t readInt32(const LittleEndian&);
@@ -56,11 +57,11 @@ private:
     BinaryReader(const BinaryReader&) = delete;
     BinaryReader& operator=(const BinaryReader&) = delete;
 
-    void shiftByteIterator();
+    void shiftByteIterator(const size_t offset);
     void checkByteIterator();
 
 private:
-    std::stringstream m_binaryStream;
+    std::unique_ptr<std::istream> m_binaryStream;
     const uint8_t* m_buffer; // doesn't take the ownership
     const size_t m_bufferSize;
 

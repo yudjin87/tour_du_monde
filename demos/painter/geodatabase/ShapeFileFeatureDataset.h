@@ -25,7 +25,7 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
-#include "IFeatureDataset.h"
+#include "geodatabase/IFeatureDataset.h"
 #include "geodatabase/IShapeFileReader.h"
 
 class IWorkspace;
@@ -38,8 +38,6 @@ class ShapeFileFeatureDataset : public IFeatureDataset
 public:
     ShapeFileFeatureDataset(IWorkspace &workspace, const QString &name);
     ~ShapeFileFeatureDataset();
-
-    Geometry::Type geometryType() override;
 
     QRectF extent() override;
 

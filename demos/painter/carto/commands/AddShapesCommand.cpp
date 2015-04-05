@@ -64,7 +64,7 @@ void AddShapesCommand::redo()
 
         std::unique_ptr<IFeatureWorkspace> workspace((IFeatureWorkspace *)m_factory->openFromFile(workingDirectory));
 
-        IFeatureClass *railwaysClass = workspace->openFeatureClass(fileName);
+        IFeatureClass *railwaysClass = workspace->openFeatureClass(shapeFile.completeBaseName());
         FeatureLayer *railwaysLayer = new FeatureLayer();
         railwaysLayer->setFeatureClass(railwaysClass);
         map->addLayer(railwaysLayer);
