@@ -89,6 +89,7 @@ void AddShapesCommand::undo()
     IMap* map = doc->map();
     for (AbstractLayer* layer : m_addedLayers)
     {
+        // TODO: memory leak, since AddShapesCommand doesn't take ownership for removed layers. shared_ptr?
         AbstractLayer* theSame = map->takeLayer(layer);
         Q_ASSERT(theSame == layer);
     }

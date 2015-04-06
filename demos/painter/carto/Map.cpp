@@ -146,15 +146,29 @@ int Map::moveLayer(AbstractLayer *layer, const int index)
 
     const int newIndex = ((0 < index) && (index < m_layers.size()))
             ? index
-            : 0;
+            : index; // 0
 
     const int actualNewIndex = newIndex < oldIndex ? newIndex : newIndex - 1; // since it will be removed from old position
 
-    Log.d(QString("Moving layer \"%1\" to position %2").arg(layer->name()).arg(actualNewIndex));
+#if 0
+    Log.d(QString("Moving layer \"%1\" (pos %2) to position %3").arg(layer->name()).arg(oldIndex).arg(actualNewIndex));
+
+    //AbstractLayer *foundLayer = takeLayer(oldIndex);
+    AbstractLayer *foundLayer = getLayer(oldIndex);
+    Q_ASSERT(foundLayer == layer);
+    insertLayer(newIndex, layer);
+
+    const int actualOldIndex = oldIndex < newIndex ? oldIndex : oldIndex + 1; // since it will be removed from old position
+    foundLayer = takeLayer(actualOldIndex);
+    Q_ASSERT(foundLayer == layer);
+#else
+    Log.d(QString("Moving layer \"%1\" (pos %2) to position %3").arg(layer->name()).arg(oldIndex).arg(actualNewIndex));
 
     AbstractLayer *foundLayer = takeLayer(oldIndex);
     Q_ASSERT(foundLayer == layer);
     insertLayer(actualNewIndex, layer);
+
+#endif
 
     return actualNewIndex;
 }
