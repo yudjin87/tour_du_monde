@@ -31,7 +31,9 @@ HEADERS += \
     FeatureLayerItem.h \
     SymbolItem.h \
     LayerItemCreator.h \
-    LayerTreeView.h
+    LayerTreeView.h \
+    FeatureClassModel.h \
+    FeatureClassTableView.h
 
 SOURCES += \
     CartoUIComponent.cpp \
@@ -44,7 +46,9 @@ SOURCES += \
     FeatureLayerItem.cpp \
     SymbolItem.cpp \
     LayerItemCreator.cpp \
-    LayerTreeView.cpp
+    LayerTreeView.cpp \
+    FeatureClassModel.cpp \
+    FeatureClassTableView.cpp
 
 FORMS += \
     FeatureLayerPropertiesWidget.ui

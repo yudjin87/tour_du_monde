@@ -25,45 +25,21 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
-#include "geodatabase_api.h"
+#include <geodatabase/ITable.h>
 
-#include <geometry/GeometryType.h>
+#include <QtSql/QSqlDatabase>
 
-#include <QtCore/QRectF>
-#include <QtCore/QObject>
-#include <QtCore/QVector>
-
-class IGeometry;
-class IRecord;
-
-class GEODATABASE_API IFeature : public QObject
+class Table : public ITable
 {
     Q_OBJECT
-    Q_PROPERTY(int id READ id)
-    Q_PROPERTY(Geometry::Type shapeType READ shapeType)
-    Q_PROPERTY(QRectF extent READ extent)
-   // Q_PROPERTY(IRecord *record READ record)
 public:
-    IFeature(){}
+    Table(const QString& tableName, const QSqlDatabase& database);
+    ~Table();
 
-    virtual int id() const = 0;
-    virtual void setId(int id) = 0;
-
-    virtual const QRectF &extent() const = 0;
-
-    virtual IGeometry *geometry() = 0;
-    virtual const IGeometry *geometry() const = 0;
-
-    virtual void setGeometry(IGeometry *geometry) = 0;
-
-    virtual Geometry::Type shapeType() const = 0;
-
-    //virtual IRecord* record() = 0;
-    virtual const IRecord* record() const = 0;
+    const IFields* fields() const override;
+    const IRecord* getRecord(const int index) const override;
 
 private:
-    Q_DISABLE_COPY(IFeature)
+    const QString m_tableName;
+    const QSqlDatabase& m_db;
 };
-
-typedef QVector<IFeature *> IFeatureCollection;
-

@@ -29,6 +29,7 @@
 #include <geodatabase/IFeature.h>
 #include <geodatabase/ShapeFileFeatureWorkspace.h>
 #include <geodatabase/IFeatureClass.h>
+#include <geodatabase/IRecord.h>
 
 #include <geometry/Point.h>
 #include <geometry/Polygon.h>
@@ -46,7 +47,7 @@ GeodatabaseTest::GeodatabaseTest(QObject *parent)
     , m_workspace(QCoreApplication::applicationDirPath() + "/geodatabase_data")
     , m_pointShp("points")
     , m_lineShp("roads")
-    , m_polygonShp("buildings")
+    , m_polygonShp("polygons")
 {
 }
 
@@ -68,7 +69,7 @@ void GeodatabaseTest::shouldLoadPointShapes()
     const IFeature* feature1 = pointsClass->featureByIndex(FEATURE_ID - 1);
     QCOMPARE(feature, feature1);
     QCOMPARE(feature->id(), FEATURE_ID);
-    //QCOMPARE(feature->record()->at(0), "1666355140");
+    QCOMPARE(feature->record()->value(0).toString(), QString("1666355140"));
 
     const Point* point = static_cast<const Point*>(feature->geometry());
     QCOMPARE(point->x(), -0.7023426);
@@ -89,7 +90,7 @@ void GeodatabaseTest::shouldLoadLineShapes()
     const IFeature* feature1 = polylinesClass->featureByIndex(FEATURE_ID - 1);
     QCOMPARE(feature, feature1);
     QCOMPARE(feature->id(), FEATURE_ID);
-    //QCOMPARE(feature->record()->at("name"), "Freemans Gardens");
+    QCOMPARE(feature->record()->value("name").toString(), QString("Freemans Gardens"));
 
     const Polyline* line = static_cast<const Polyline*>(feature->geometry());
     QCOMPARE(line->paths().size(), 1);                 // paths
@@ -117,7 +118,7 @@ void GeodatabaseTest::shouldLoadPolygonShapes()
     const IFeature* feature1 = polygonClass->featureByIndex(FEATURE_ID - 1);
     QCOMPARE(feature, feature1);
     QCOMPARE(feature->id(), FEATURE_ID);
-    //QCOMPARE(feature->record()->at("name"), "With rings");
+    QCOMPARE(feature->record()->value("name").toString(), QString("With ring"));
 
     const Polygon * poly = static_cast<const Polygon*>(feature->geometry());
     QCOMPARE(poly->rings().size(), 2);

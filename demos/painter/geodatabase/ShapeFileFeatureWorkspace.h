@@ -25,8 +25,11 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
-#include "geodatabase_api.h"
-#include "IFeatureWorkspace.h"
+#include <geodatabase/geodatabase_api.h>
+#include <geodatabase/IFeatureWorkspace.h>
+
+class ITable;
+class QSqlDatabase;
 
 class GEODATABASE_API ShapeFileFeatureWorkspace : public IFeatureWorkspace
 {
@@ -42,6 +45,11 @@ public:
     IFeatureClass *openFeatureClass(const QString &name) override;
 
 private:
+    bool checkWorkspace() const;
+    ITable* createTable(const QString &name);
+
+private:
     QString m_workspacePath;
+    QSqlDatabase *m_dbfDb;
 };
 

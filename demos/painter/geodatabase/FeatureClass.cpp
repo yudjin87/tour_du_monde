@@ -37,8 +37,9 @@ namespace
 static LoggerFacade Log = LoggerFacade::createLogger("FeatureClass");
 }
 
-FeatureClass::FeatureClass(Geometry::Type shapeType, const QRectF &extent, QString source)
+FeatureClass::FeatureClass(ITable *table, Geometry::Type shapeType, const QRectF &extent, QString source)
     : m_type(shapeType)
+    , m_table(table)
     , m_features()
     , m_extent(extent)
     , m_source(source)
@@ -63,7 +64,7 @@ Geometry::Type FeatureClass::shapeType() const
 
 IFeature *FeatureClass::createFeature()
 {
-    Feature *newFeature = new Feature(m_type);
+    Feature *newFeature = new Feature(*m_table, m_type);
     m_features.push_back(newFeature);
 
     return newFeature;
@@ -89,6 +90,11 @@ const IFeature *FeatureClass::featureByIndex(const int index) const
         return m_features[index];
     }
     return nullptr;
+}
+
+const ITable *FeatureClass::table() const
+{
+    return m_table.get();
 }
 
 IFeatureCollection FeatureClass::search(const ISpatialFilter &filter) const

@@ -30,6 +30,10 @@
 
 class IFeatureClass;
 
+// TODO: IWorkspace should be shared_ptr, since tables and feature classes should have pointer to it
+
+// Workspace in the geodatabase data model corresponds to a geodatabase,
+// an ArcInfo coverage workspace, or a folder with shapefiles.
 class GEODATABASE_API IFeatureWorkspace : public IWorkspace
 {
     Q_OBJECT

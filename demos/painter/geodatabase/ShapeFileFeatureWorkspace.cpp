@@ -28,20 +28,26 @@
 #include "geodatabase/ShapeFileFeatureDataset.h"
 #include "geodatabase/FeatureClassLoader.h"
 #include "geodatabase/FeatureClass.h"
+#include "geodatabase/Table.h"
+#include "geodatabase/winutils.h"
 #include <carousel/logging/LoggerFacade.h>
 
 #include <QtCore/QDir>
 #include <QtCore/QFileInfo>
+#include <QtSql/QSqlDatabase>
+#include <QtSql/QSqlError>
 
 #include <chrono>
 
 namespace
 {
 static LoggerFacade Log = LoggerFacade::createLogger("ShapeFileWorkspace");
+static const char* DBF_FILE_EXT = "dbf";
 }
 
 ShapeFileFeatureWorkspace::ShapeFileFeatureWorkspace(const QString &workspacePath)
     : m_workspacePath()
+    , m_dbfDb(nullptr)
 {
     QDir dir(workspacePath);
     m_workspacePath = dir.absolutePath();
@@ -49,6 +55,8 @@ ShapeFileFeatureWorkspace::ShapeFileFeatureWorkspace(const QString &workspacePat
 
 ShapeFileFeatureWorkspace::~ShapeFileFeatureWorkspace()
 {
+    delete m_dbfDb;
+    m_dbfDb = nullptr;
 }
 
 OwnedList<IDataset *> *ShapeFileFeatureWorkspace::datasets(IWorkspace::esriDatasetType byType)
@@ -64,6 +72,8 @@ QString ShapeFileFeatureWorkspace::pathName() const
 
 IFeatureClass *ShapeFileFeatureWorkspace::openFeatureClass(const QString &name)
 {
+    ITable* table = createTable(name);
+
     typedef std::chrono::system_clock Clock;
     typedef std::chrono::milliseconds milliseconds;
 
@@ -81,7 +91,7 @@ IFeatureClass *ShapeFileFeatureWorkspace::openFeatureClass(const QString &name)
         return nullptr;
     }
 
-    fc = new FeatureClass(loader.geometryType(), loader.boundingBox(), loader.source().absoluteFilePath());
+    fc = new FeatureClass(table, loader.geometryType(), loader.boundingBox(), loader.source().absoluteFilePath());
     while (loader.hasNext())
     {
         IFeature* feature = fc->createFeature();
@@ -97,4 +107,65 @@ IFeatureClass *ShapeFileFeatureWorkspace::openFeatureClass(const QString &name)
     return fc;
 }
 
+bool ShapeFileFeatureWorkspace::checkWorkspace() const
+{
+    const QDir dir(m_workspacePath);
+    if (!dir.exists())
+    {
+        Log.w(QString("Invalid workspace: path doesn't exist").arg(m_workspacePath));
+        return false;
+    }
 
+    return true;
+}
+
+ITable *ShapeFileFeatureWorkspace::createTable(const QString &name)
+{
+    if (!checkWorkspace())
+    {
+        return nullptr;
+    }
+
+    const QDir dir(m_workspacePath);
+    const QString dbfFileName = dir.absoluteFilePath(name);
+    QFileInfo file = QFileInfo(dbfFileName);
+    if (file.suffix().isEmpty())
+    {
+        file = dbfFileName + "." + DBF_FILE_EXT;
+    }
+
+    if (!file.exists())
+    {
+        return nullptr;
+    }
+
+    if (!file.isReadable())
+    {
+        return nullptr;
+    }
+
+    // TODO: refactor me
+    if (m_dbfDb == nullptr)
+    {
+        QString error;
+        QString shortPathName = utils::getShortPathName(pathName(), &error); // Windows workaround for long names for dBase
+        if (shortPathName.isEmpty())
+        {
+            Log.e(error);
+            return nullptr;
+        }
+
+        const QString dbfName = QString("DRIVER={Microsoft dBase Driver (*.dbf)};FIL={dBase IV;};DefaultDir=%1").arg(shortPathName);
+        QSqlDatabase db = QSqlDatabase::addDatabase("QODBC");
+        db.setDatabaseName(dbfName);
+        if (!db.open())
+        {
+            Log.e(db.lastError().text());
+            return nullptr;
+        }
+
+        m_dbfDb = new QSqlDatabase(db);
+    }
+
+    return new Table(file.completeBaseName(), *m_dbfDb);
+}

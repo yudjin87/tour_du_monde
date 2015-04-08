@@ -44,6 +44,12 @@ class OwnedList: public QList<TPointer> // omg, todo!! so old and weir code
     }
 };
 
+// Workspace in the geodatabase data model corresponds to a geodatabase,
+// an ArcInfo coverage workspace, or a folder with shapefiles.
+// A workspace is a container of spatial and non-spatial datasets such as feature classes,
+// raster datasets, and tables. It provides methods to instantiate existing datasets and to create new datasets.
+
+// Workspaces are classified into types specified by the WorkspaceType enumeration: FileSystemWorkspace, LocalDatabaseWorkspace, and RemoteDatabaseWorkspace.
 class GEODATABASE_API IWorkspace : public QObject
 {
     Q_OBJECT

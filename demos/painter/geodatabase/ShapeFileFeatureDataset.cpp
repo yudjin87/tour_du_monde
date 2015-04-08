@@ -197,7 +197,7 @@ QList<IFeatureClass *> ShapeFileFeatureDataset::classes()
 
 IFeatureClass *ShapeFileFeatureDataset::createFeatureClass(Geometry::Type geometryType, const QRectF &extent, const QString &source)
 {
-    return new FeatureClass(geometryType, extent, source);
+    return new FeatureClass(nullptr, geometryType, extent, source);
 }
 
 bool ShapeFileFeatureDataset::prepareToReading(const QString &name)

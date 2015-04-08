@@ -9,6 +9,7 @@
 #include <memory>
 
 class ISpatialFilter;
+class ITable;
 
 class GEODATABASE_API IFeatureClass : public QObject
 {
@@ -29,6 +30,7 @@ public:
     // Index starts from 0
     virtual const IFeature *featureByIndex(const int index) const = 0;
 
+    virtual const ITable* table() const = 0;
     virtual const QString &source() const = 0;
     virtual int featuresCount() const = 0;
 

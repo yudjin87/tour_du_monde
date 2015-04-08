@@ -25,45 +25,27 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
-#include "geodatabase_api.h"
 
-#include <geometry/GeometryType.h>
+#include "geodatabase/IRecord.h"
+#include "geodatabase/IFieldsEdit.h"
 
-#include <QtCore/QRectF>
-#include <QtCore/QObject>
-#include <QtCore/QVector>
+#include <QtSql/QSqlRecord>
+#include <memory>
 
-class IGeometry;
-class IRecord;
-
-class GEODATABASE_API IFeature : public QObject
+class Record : public IRecord
 {
     Q_OBJECT
-    Q_PROPERTY(int id READ id)
-    Q_PROPERTY(Geometry::Type shapeType READ shapeType)
-    Q_PROPERTY(QRectF extent READ extent)
-   // Q_PROPERTY(IRecord *record READ record)
 public:
-    IFeature(){}
+    Record(const QSqlRecord& record);
+    ~Record();
 
-    virtual int id() const = 0;
-    virtual void setId(int id) = 0;
+    QVariant value(int index) const override;
+    QVariant value(const QString& name) const override;
 
-    virtual const QRectF &extent() const = 0;
+    const IFields* fields() const override;
 
-    virtual IGeometry *geometry() = 0;
-    virtual const IGeometry *geometry() const = 0;
-
-    virtual void setGeometry(IGeometry *geometry) = 0;
-
-    virtual Geometry::Type shapeType() const = 0;
-
-    //virtual IRecord* record() = 0;
-    virtual const IRecord* record() const = 0;
+    //IFields* fields() override;
 
 private:
-    Q_DISABLE_COPY(IFeature)
+    std::unique_ptr<IFieldsEdit> m_fields;
 };
-
-typedef QVector<IFeature *> IFeatureCollection;
-

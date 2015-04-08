@@ -25,45 +25,18 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
-#include "geodatabase_api.h"
 
-#include <geometry/GeometryType.h>
+#include <QtWidgets/QTableView>
 
-#include <QtCore/QRectF>
-#include <QtCore/QObject>
-#include <QtCore/QVector>
+class FeatureClassModel;
 
-class IGeometry;
-class IRecord;
-
-class GEODATABASE_API IFeature : public QObject
+class FeatureClassTableView : public QTableView
 {
     Q_OBJECT
-    Q_PROPERTY(int id READ id)
-    Q_PROPERTY(Geometry::Type shapeType READ shapeType)
-    Q_PROPERTY(QRectF extent READ extent)
-   // Q_PROPERTY(IRecord *record READ record)
 public:
-    IFeature(){}
-
-    virtual int id() const = 0;
-    virtual void setId(int id) = 0;
-
-    virtual const QRectF &extent() const = 0;
-
-    virtual IGeometry *geometry() = 0;
-    virtual const IGeometry *geometry() const = 0;
-
-    virtual void setGeometry(IGeometry *geometry) = 0;
-
-    virtual Geometry::Type shapeType() const = 0;
-
-    //virtual IRecord* record() = 0;
-    virtual const IRecord* record() const = 0;
+    explicit FeatureClassTableView(FeatureClassModel* model, QWidget *parent = nullptr);
+    ~FeatureClassTableView();
 
 private:
-    Q_DISABLE_COPY(IFeature)
+    FeatureClassModel* m_model;
 };
-
-typedef QVector<IFeature *> IFeatureCollection;
-

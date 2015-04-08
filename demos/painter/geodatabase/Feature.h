@@ -27,11 +27,13 @@
 #pragma once
 #include "geodatabase/IFeature.h"
 
+class ITable;
+
 class Feature : public IFeature
 {
     Q_OBJECT
 public:
-    explicit Feature(Geometry::Type type);
+    explicit Feature(const ITable& table, Geometry::Type type);
     ~Feature();
 
     int id() const override;
@@ -46,12 +48,13 @@ public:
 
     Geometry::Type shapeType() const override;
 
-    IRecord* record() override;
+    //IRecord* record() override;
     const IRecord* record() const override;
 
 private:
     Geometry::Type m_type;
     int m_id;
+    const ITable& m_table;
     IGeometry* m_geometry;
 };
 

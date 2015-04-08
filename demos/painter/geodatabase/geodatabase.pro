@@ -42,7 +42,16 @@ HEADERS += \
     GeometryFactory.h \
     BinaryReader.h \
     FeatureClassLoader.h \
-    IFeatureClassLoader.h
+    IFeatureClassLoader.h \
+    IFields.h \
+    IField.h \
+    Field.h \
+    Fields.h \
+    Record.h \
+    IFieldsEdit.h \
+    ITable.h \
+    Table.h \
+    winutils.h
 
 SOURCES += \
     Feature.cpp \
@@ -57,7 +66,12 @@ SOURCES += \
     GeometryFactory.cpp \
     BinaryReader.cpp \
     ShapeType.cpp \
-    FeatureClassLoader.cpp
+    FeatureClassLoader.cpp \
+    Field.cpp \
+    Fields.cpp \
+    Record.cpp \
+    Table.cpp \
+    winutils.cpp
 
 OTHER_FILES += org.carousel.demos.Geodatabase.definition
 

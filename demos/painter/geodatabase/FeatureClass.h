@@ -25,13 +25,14 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
-#include "IFeatureClass.h"
+#include <geodatabase/IFeatureClass.h>
+#include <geodatabase/ITable.h>
 
 class FeatureClass : public IFeatureClass
 {
     Q_OBJECT
 public:
-    FeatureClass(Geometry::Type shapeType, const QRectF &extent, QString source);
+    FeatureClass(ITable* table, Geometry::Type shapeType, const QRectF &extent, QString source);
     ~FeatureClass();
 
     QRectF extent() const override;
@@ -42,6 +43,7 @@ public:
     const IFeature *featureById(const int id) const override;
     const IFeature *featureByIndex(const int index) const override;
 
+    const ITable* table() const override;
     IFeatureCollection search(const ISpatialFilter &filter) const override;
 
     const QString &source() const override;
@@ -49,6 +51,7 @@ public:
 
 private:
     Geometry::Type m_type;
+    ITableUPtr m_table;
     IFeatureCollection m_features;
     QRectF m_extent;
     QString m_source;

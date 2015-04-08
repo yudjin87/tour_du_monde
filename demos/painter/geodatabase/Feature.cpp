@@ -26,11 +26,13 @@
 
 #include "geodatabase/Feature.h"
 #include "geodatabase/IRecord.h"
+#include "geodatabase/ITable.h"
 #include <geometry/IGeometry.h>
 
-Feature::Feature(Geometry::Type type)
+Feature::Feature(const ITable &table, Geometry::Type type)
     : m_type(type)
     , m_id(-1)
+    , m_table(table)
     , m_geometry(nullptr)
 {
 }
@@ -77,12 +79,12 @@ Geometry::Type Feature::shapeType() const
     return m_type;
 }
 
-IRecord *Feature::record()
-{
-    return nullptr;
-}
+//IRecord *Feature::record()
+//{
+//    return m_table.getRecord(m_id);
+//}
 
 const IRecord *Feature::record() const
 {
-    return nullptr;
+    return m_table.getRecord(m_id);
 }
