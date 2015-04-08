@@ -37,6 +37,9 @@ FeatureLayerItem::FeatureLayerItem(IServiceLocator *serviceLocator, FeatureLayer
     , m_layer(layer)
     , m_serviceLocator(serviceLocator)
 {
+    Qt::ItemFlags defaultFlags = QStandardItem::flags();
+    setFlags(Qt::ItemIsDragEnabled | Qt::ItemIsDropEnabled | Qt::ItemIsEditable | defaultFlags);
+
     SymbolItem* symbolItem = new SymbolItem(layer.renderer()->symbol(), layer.shapeType());
     appendRow(symbolItem);
     QObject::connect(layer.renderer(), &IFeatureRenderer::symbolChanged, symbolItem, &SymbolItem::setSymbol);

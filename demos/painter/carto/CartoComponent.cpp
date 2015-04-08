@@ -26,6 +26,7 @@
 
 #include "CartoComponent.h"
 #include "commands/AddShapesCommand.h"
+#include "commands/RemoveLayerCommand.h"
 #include "commands/RenameLayerCommand.h"
 #include "commands/ChangeLayerSymbolCommand.h"
 #include "commands/MoveLayerCommand.h"
@@ -75,6 +76,9 @@ bool CartoComponent::onStartup(IServiceLocator *serviceLocator)
 {
     TypeCreator<AddShapesCommand, TypeLocator<IUndoStack>, TypeLocator<IPainterDocumentController>, TypeBuilder<IShapeFileWorkspaceFactory>> addShapesCreator{serviceLocator};
     serviceLocator->registerType<AddShapesCommand>(addShapesCreator);
+
+    TypeCreator<RemoveLayerCommand, TypeLocator<IUndoStack>, TypeLocator<IPainterDocumentController>, TypeBuilder<IShapeFileWorkspaceFactory>> removeLayerCommand{serviceLocator};
+    serviceLocator->registerType<RemoveLayerCommand>(removeLayerCommand);
 
     TypeCreator<RenameLayerCommand, TypeLocator<IUndoStack>> renameLayerCreator{serviceLocator};
     serviceLocator->registerType<RenameLayerCommand>(renameLayerCreator);

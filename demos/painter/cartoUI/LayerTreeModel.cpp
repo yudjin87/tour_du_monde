@@ -32,6 +32,7 @@
 #include <carto/IMap.h>
 #include <carto/FeatureLayer.h>
 #include <carto/commands/MoveLayerCommand.h>
+#include <carto/commands/RemoveLayerCommand.h>
 #include <display/IFeatureRenderer.h>
 #include <carousel/logging/LoggerFacade.h>
 #include <carousel/utils/IServiceLocator.h>
@@ -80,14 +81,40 @@ void LayerTreeModel::showPropertyDialog(const QModelIndex &index)
     dlg->show();
 }
 
+void LayerTreeModel::removeLayer(const QModelIndex &index)
+{
+    if (!index.isValid())
+        return;
+
+    const QList<AbstractLayer *>& layers = m_map->layers();
+    if (layers.size() <= index.row())
+    {
+        Log.e(QString("Invalid index %1").arg(index.row()));
+        return;
+    }
+
+    AbstractLayer *layer = layers.at(index.row());
+    RemoveLayerCommand* cmd = m_serviceLocator->buildInstance<RemoveLayerCommand>();
+    cmd->addLayer(layer);
+    cmd->pushToStack();
+}
+
 Qt::ItemFlags LayerTreeModel::flags(const QModelIndex &index) const
 {
-    Qt::ItemFlags defaultFlags = QStandardItemModel::flags(index);
+    if (!index.isValid())
+    {
+        return QStandardItemModel::flags(index) | Qt::ItemIsDropEnabled;
+    }
 
-    if (index.isValid())
-        return Qt::ItemIsDragEnabled | Qt::ItemIsDropEnabled | Qt::ItemIsEditable | defaultFlags; // TODO: rename command
+    QStandardItem* item = itemFromIndex(index);
+    return item->flags();
+//    Qt::ItemFlags defaultFlags = QStandardItemModel::flags(index);
 
-    return Qt::ItemIsDropEnabled | defaultFlags;
+//    m
+//    if (index.isValid())
+//        return Qt::ItemIsDragEnabled | Qt::ItemIsDropEnabled | Qt::ItemIsEditable | defaultFlags; // TODO: rename command
+
+//    return Qt::ItemIsDropEnabled | defaultFlags;
 }
 
 QStringList LayerTreeModel::mimeTypes() const

@@ -40,7 +40,7 @@ public:
     SymbolItem(const ISymbol *symbol, const Geometry::Type geometry);
     ~SymbolItem();
 
-    QVariant data(int role) const;
+    QVariant data(int role) const  override;
 
     void setSymbol(const ISymbol* symbol);
 

@@ -60,6 +60,7 @@ public:
     bool dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent) override;
 
     void showPropertyDialog(const QModelIndex &index);
+    void removeLayer(const QModelIndex &index);
 
 private slots:
     void onLayerAdded(AbstractLayer *layer, const int index);

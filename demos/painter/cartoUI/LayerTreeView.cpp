@@ -46,10 +46,14 @@ LayerTreeView::LayerTreeView(LayerTreeModel* model, QWidget *parent)
     setDropIndicatorShown(true);
     setAnimated(true);
 
+    QAction* removeLayerAction = new QAction("Remove layer", m_menu);
+    connect(removeLayerAction, &QAction::triggered, this, &LayerTreeView::onRemoveLayer);
+
     QAction* propertiesAction = new QAction("Properties", m_menu);
     connect(propertiesAction, &QAction::triggered, this, &LayerTreeView::onPropertyDialog);
 
     m_menu->addAction(propertiesAction);
+    m_menu->addAction(removeLayerAction);
 }
 
 LayerTreeView::~LayerTreeView()
@@ -76,6 +80,12 @@ void LayerTreeView::contextMenuEvent(QContextMenuEvent *event)
 void LayerTreeView::onPropertyDialog()
 {
     m_model->showPropertyDialog(m_contexMenuItemIndex);
+    m_contexMenuItemIndex = QModelIndex();
+}
+
+void LayerTreeView::onRemoveLayer()
+{
+    m_model->removeLayer(m_contexMenuItemIndex);
     m_contexMenuItemIndex = QModelIndex();
 }
 

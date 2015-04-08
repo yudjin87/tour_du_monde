@@ -25,27 +25,30 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
-#include <QtWidgets/QTreeView>
+#include <carto/carto_api.h>
+#include <carousel/commands/BaseUndoableCommand.h>
 
-class LayerTreeModel;
+#include <QtCore/QVector>
+#include <QtCore/QPair>
 
-class LayerTreeView : public QTreeView
+class IPainterDocumentController;
+class AbstractLayer;
+
+class CARTO_API RemoveLayerCommand : public BaseUndoableCommand
 {
     Q_OBJECT
 public:
-    explicit LayerTreeView(LayerTreeModel* model, QWidget *parent = nullptr);
-    ~LayerTreeView();
+    RemoveLayerCommand(IUndoStack *stack, IPainterDocumentController *docContr, QObject* parent = nullptr);
+    ~RemoveLayerCommand();
 
-protected:
-    void contextMenuEvent(QContextMenuEvent *event);
+    void addLayer(AbstractLayer* layer);
 
-private slots:
-    void onPropertyDialog();
-    void onRemoveLayer();
+    void redo() override;
+    void undo() override;
 
 private:
-    QMenu* m_menu;
-    LayerTreeModel *m_model;
-    QModelIndex m_contexMenuItemIndex;
-};
+    IPainterDocumentController *m_docContr;
+    QVector<AbstractLayer*> m_layersToRemove;
 
+    QVector<QPair<int, AbstractLayer*>> m_layersToRestore;
+};

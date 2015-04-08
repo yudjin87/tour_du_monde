@@ -38,7 +38,8 @@ HEADERS += \
     commands/AddShapesCommand.h \
     commands/RenameLayerCommand.h \
     commands/ChangeLayerSymbolCommand.h \
-    commands/MoveLayerCommand.h
+    commands/MoveLayerCommand.h \
+    commands/RemoveLayerCommand.h
 
 SOURCES += \
     AbstractLayer.cpp \
@@ -53,7 +54,8 @@ SOURCES += \
     commands/AddShapesCommand.cpp \
     commands/RenameLayerCommand.cpp \
     commands/ChangeLayerSymbolCommand.cpp \
-    commands/MoveLayerCommand.cpp
+    commands/MoveLayerCommand.cpp \
+    commands/RemoveLayerCommand.cpp
 
 OTHER_FILES += org.carousel.demos.Carto.definition
 

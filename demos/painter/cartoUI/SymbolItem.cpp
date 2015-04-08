@@ -33,6 +33,9 @@ SymbolItem::SymbolItem(const ISymbol *symbol, const Geometry::Type geometry)
     , m_symbol(symbol->clone())
     , m_geometry(geometry)
 {
+    Qt::ItemFlags defaultFlags = flags();
+    defaultFlags &= ~Qt::ItemIsEditable;
+    setFlags(defaultFlags);
 }
 
 SymbolItem::~SymbolItem()
@@ -47,7 +50,8 @@ void SymbolItem::setSymbol(const ISymbol *symbol)
 
 QVariant SymbolItem::data(int role) const
 {
-    switch (role) {
+    switch (role)
+    {
     case Qt::DecorationRole:
         SymbolThumbnail thumbnailCreator(16, 2);
         thumbnailCreator.setBackground(Qt::white);
@@ -55,5 +59,5 @@ QVariant SymbolItem::data(int role) const
         return symbol;
     }
 
-    return QVariant();
+    return QStandardItem::data(role);
 }
