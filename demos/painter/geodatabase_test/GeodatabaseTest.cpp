@@ -29,6 +29,9 @@
 #include <geodatabase/IFeature.h>
 #include <geodatabase/ShapeFileFeatureWorkspace.h>
 #include <geodatabase/IFeatureClass.h>
+#include <geodatabase/ITable.h>
+#include <geodatabase/IFields.h>
+#include <geodatabase/IField.h>
 #include <geodatabase/IRecord.h>
 
 #include <geometry/Point.h>
@@ -140,4 +143,17 @@ void GeodatabaseTest::shouldLoadPolygonShapes()
     QCOMPARE(point->x(), -0.702548287583833);
     QCOMPARE(point->y(), 52.1548340837575);
 }
+
+void GeodatabaseTest::shouldProvideFieldsInfo()
+{
+    ShapeFileFeatureWorkspace workspace(m_workspace);
+    IFeatureClassUPtr polygonClass(workspace.openFeatureClass(m_polygonShp));
+    const ITable* table = polygonClass->table();
+    QCOMPARE(table->fields()->fieldCount(), 3);
+
+    QCOMPARE(table->fields()->field(0)->name(), QString("osm_id"));
+    QCOMPARE(table->fields()->field(1)->name(), QString("name"));
+    QCOMPARE(table->fields()->field(2)->name(), QString("type"));
+}
+
 

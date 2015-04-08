@@ -26,6 +26,7 @@
 
 #include "geodatabase/Table.h"
 #include "geodatabase/Record.h"
+#include "geodatabase/Fields.h"
 
 #include <carousel/logging/LoggerFacade.h>
 
@@ -43,16 +44,24 @@ Table::Table(const QString &tableName, const QSqlDatabase &database)
     : ITable()
     , m_tableName(tableName)
     , m_db(database)
+    , m_fields(nullptr)
 {
 }
 
 Table::~Table()
 {
+    delete m_fields;
+    m_fields = nullptr;
 }
 
 const IFields *Table::fields() const
-{
-    return nullptr;
+{    
+    if (m_fields == nullptr)
+    {
+        const_cast<IFieldsEdit*>(m_fields) = new Fields(m_db.record(m_tableName));
+    }
+
+    return m_fields;
 }
 
 const IRecord *Table::getRecord(const int index) const

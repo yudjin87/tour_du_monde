@@ -24,9 +24,8 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "LayerTreeView.h"
-#include "LayerTreeModel.h"
-#include "FeatureLayerDelegate.h"
+#include "cartoUI/LayerTreeView.h"
+#include "cartoUI/LayerTreeModel.h"
 
 #include <QtGui/QContextMenuEvent>
 #include <QtWidgets/QMenu>
@@ -39,7 +38,6 @@ LayerTreeView::LayerTreeView(LayerTreeModel* model, QWidget *parent)
 {
     m_model->setParent(this);
     setModel(m_model);
-    //setItemDelegate(new FeatureLayerDelegate(this));
     setSelectionMode(QAbstractItemView::ExtendedSelection);
     setDragEnabled(true);
     setAcceptDrops(true);
@@ -48,12 +46,15 @@ LayerTreeView::LayerTreeView(LayerTreeModel* model, QWidget *parent)
 
     QAction* removeLayerAction = new QAction("Remove layer", m_menu);
     connect(removeLayerAction, &QAction::triggered, this, &LayerTreeView::onRemoveLayer);
+    m_menu->addAction(removeLayerAction);
+
+    QAction* showAttributeTableAction = new QAction("Show attributes", m_menu);
+    connect(showAttributeTableAction, &QAction::triggered, this, &LayerTreeView::onShowAttributeTable);
+    m_menu->addAction(showAttributeTableAction);
 
     QAction* propertiesAction = new QAction("Properties", m_menu);
     connect(propertiesAction, &QAction::triggered, this, &LayerTreeView::onPropertyDialog);
-
     m_menu->addAction(propertiesAction);
-    m_menu->addAction(removeLayerAction);
 }
 
 LayerTreeView::~LayerTreeView()
@@ -75,6 +76,11 @@ void LayerTreeView::contextMenuEvent(QContextMenuEvent *event)
     }
 
     m_menu->popup(viewport()->mapToGlobal(event->pos()));
+}
+
+void LayerTreeView::onShowAttributeTable()
+{
+    m_model->showAttributeTable(m_contexMenuItemIndex);
 }
 
 void LayerTreeView::onPropertyDialog()

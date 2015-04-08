@@ -26,6 +26,7 @@
 
 #pragma once
 #include <geodatabase/ITable.h>
+#include <geodatabase/IFieldsEdit.h>
 
 #include <QtSql/QSqlDatabase>
 
@@ -41,5 +42,6 @@ public:
 
 private:
     const QString m_tableName;
-    const QSqlDatabase& m_db;
+    QSqlDatabase m_db;
+    IFieldsEdit* m_fields;
 };

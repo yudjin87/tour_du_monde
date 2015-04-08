@@ -59,6 +59,7 @@ public:
     bool canDropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent) const override;
     bool dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent) override;
 
+    void showAttributeTable(const QModelIndex &index);
     void showPropertyDialog(const QModelIndex &index);
     void removeLayer(const QModelIndex &index);
 

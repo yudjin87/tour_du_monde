@@ -77,7 +77,7 @@ IField *Fields::field(const QString &name)
 
 const IField *Fields::field(const QString &name) const
 {
-    const auto byName = [name](const IField *f){return f->name() == name;};
+    const auto byName = [name](const IField *f){return f->name().toLower() == name.toLower();};
     const auto it = std::find_if(std::begin(m_fields), std::end(m_fields), byName);
     if (it == std::end(m_fields))
     {

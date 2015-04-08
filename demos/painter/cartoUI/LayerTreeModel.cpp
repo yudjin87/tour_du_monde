@@ -27,6 +27,7 @@
 #include "LayerTreeModel.h"
 #include "cartoUI/LayerPropertyWidgetCreator.h"
 #include "cartoUI/LayerItemCreator.h"
+#include "cartoUI/FeatureClassModel.h"
 
 #include <display/SymbolThumbnail.h>
 #include <carto/IMap.h>
@@ -41,6 +42,7 @@
 #include <components/interactivity/PropertiesWidget.h>
 
 #include <QtCore/QMimeData>
+#include <QtWidgets/QTableView>
 
 namespace
 {
@@ -59,6 +61,28 @@ LayerTreeModel::LayerTreeModel(IMap *map, IServiceLocator *serviceLocator, QObje
 
     connect(map, &IMap::layerAdded, this, &LayerTreeModel::onLayerAdded);
     connect(map, &IMap::layerRemoved, this, &LayerTreeModel::onLayerRemoved);
+}
+
+void LayerTreeModel::showAttributeTable(const QModelIndex &index)
+{
+    if (!index.isValid())
+        return;
+
+    const QList<AbstractLayer *>& layers = m_map->layers();
+    if (layers.size() <= index.row())
+    {
+        Log.e(QString("Invalid index %1").arg(index.row()));
+        return;
+    }
+
+    AbstractLayer *layer = layers.at(index.row());
+    FeatureLayer* featureLayer = static_cast<FeatureLayer*>(layer);
+
+    // TODO: memory leak, use dialog for it
+    QTableView* attributes = new QTableView();
+    FeatureClassModel* featureLayerModel = new FeatureClassModel(*featureLayer->featureClass(), attributes);
+    attributes->setModel(featureLayerModel);
+    attributes->show();
 }
 
 void LayerTreeModel::showPropertyDialog(const QModelIndex &index)
@@ -229,39 +253,6 @@ bool LayerTreeModel::dropMimeData(const QMimeData *data, Qt::DropAction action, 
 
     return true;
 }
-
-
-////------------------------------------------------------------------------------
-//QVariant LayerTreeModel::data(const QModelIndex &index, int role) const
-//{
-//    if (!index.isValid())
-//        return QVariant();
-
-//    const FeatureLayer *layer = static_cast<FeatureLayer *>(m_map->layers().at(index.row()));
-
-//    switch (role) {
-//    case Qt::DisplayRole:
-//    case Qt::EditRole:
-//        return layer->name();
-
-//    case Qt::DecorationRole:
-//        IFeatureRenderer *renderer = layer->renderer();
-//        SymbolThumbnail thumbnailCreator(16, 2);
-//        thumbnailCreator.setBackground(Qt::white);
-//        QPixmap symbol = thumbnailCreator.createSymbolThumbnail(renderer->symbol(), layer->shapeType());
-//        return symbol;
-//    }
-
-//    return QVariant();
-//}
-
-//QVariant LayerTreeModel::headerData(int section, Qt::Orientation orientation, int role) const
-//{
-//    if (section != 0 || role != Qt::DisplayRole || orientation != Qt::Horizontal)
-//        return QVariant();
-
-//    return "Layers";
-//}
 
 void LayerTreeModel::onLayerAdded(AbstractLayer *layer, const int index)
 {

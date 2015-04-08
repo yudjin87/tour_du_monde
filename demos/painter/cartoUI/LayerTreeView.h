@@ -40,6 +40,7 @@ protected:
     void contextMenuEvent(QContextMenuEvent *event);
 
 private slots:
+    void onShowAttributeTable();
     void onPropertyDialog();
     void onRemoveLayer();
 

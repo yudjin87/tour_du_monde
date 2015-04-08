@@ -38,6 +38,7 @@ private slots:
     void shouldLoadPointShapes();
     void shouldLoadLineShapes();
     void shouldLoadPolygonShapes();
+    void shouldProvideFieldsInfo();
 
 private:
     QString m_workspace;

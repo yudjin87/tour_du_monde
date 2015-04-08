@@ -26,6 +26,10 @@
 
 #include "cartoUI/FeatureClassModel.h"
 #include <geodatabase/IFeatureClass.h>
+#include <geodatabase/ITable.h>
+#include <geodatabase/IFields.h>
+#include <geodatabase/IField.h>
+#include <geodatabase/IRecord.h>
 
 FeatureClassModel::FeatureClassModel(IFeatureClass &featureClass, QObject *parent)
     : QAbstractTableModel(parent)
@@ -44,7 +48,9 @@ int FeatureClassModel::rowCount(const QModelIndex &) const
 
 int FeatureClassModel::columnCount(const QModelIndex &) const
 {
-    return -1;
+    const ITable* table = m_featureClass.table();
+    const IFields* fields = table->fields();
+    return fields->fieldCount();
 }
 
 QVariant FeatureClassModel::data(const QModelIndex &index, int role) const
@@ -54,6 +60,18 @@ QVariant FeatureClassModel::data(const QModelIndex &index, int role) const
 
 QVariant FeatureClassModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
-    return QVariant();
+    if (orientation == Qt::Vertical)
+    {
+        return QAbstractTableModel::headerData(section, orientation, role);
+    }
+
+    if (role != Qt::DisplayRole)
+    {
+        return QAbstractTableModel::headerData(section, orientation, role);
+    }
+
+    const ITable* table = m_featureClass.table();
+    const IFields* fields = table->fields();
+    return fields->field(section)->name();
 }
 
