@@ -49,7 +49,8 @@ HEADERS += \
     SimpleFillSymbolWidget.h \
     IFeatureRenderer.h \
     SimpleFeatureRenderer.h \
-    SimpleMarkerSymbolWidget.h
+    SimpleMarkerSymbolWidget.h \
+    PictureMarkerSymbol.h
 
 SOURCES += \
     RectRubberBand.cpp \
@@ -78,7 +79,8 @@ SOURCES += \
     SymbolWidget.cpp \
     SimpleFillSymbolWidget.cpp \
     SimpleFeatureRenderer.cpp \
-    SimpleMarkerSymbolWidget.cpp
+    SimpleMarkerSymbolWidget.cpp \
+    PictureMarkerSymbol.cpp
 
 FORMS += \
     SimpleLineSymbolWidget.ui \
@@ -90,3 +92,6 @@ OTHER_FILES += org.carousel.demos.Display.definition
 ###############################################################################
 # Copy definition to the output directory, right near the library
 copyExtraFiles($$OTHER_FILES, $$DESTDIR)
+
+RESOURCES += \
+    display.qrc

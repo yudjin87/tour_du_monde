@@ -25,23 +25,39 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
+#include "display/MarkerSymbol.h"
 
-#include "display/display_api.h"
+#include <QtGui/QPixmap>
 
-class SimpleFillSymbol;
-class SimpleLineSymbol;
-class SimpleMarkerSymbol;
-class PictureMarkerSymbol;
-
-class DISPLAY_API ISymbolVisitor
+class DISPLAY_API PictureMarkerSymbol : public MarkerSymbol
 {
+    Q_OBJECT
 public:
-    virtual ~ISymbolVisitor(){}
+    explicit PictureMarkerSymbol(QObject *parent = nullptr);
+    ~PictureMarkerSymbol();
 
-    virtual void visit(SimpleFillSymbol& symbol) = 0;
-    virtual void visit(SimpleLineSymbol& symbol) = 0;
-    virtual void visit(SimpleMarkerSymbol& symbol) = 0;
-    virtual void visit(PictureMarkerSymbol& symbol) = 0;
+    static PictureMarkerSymbol* createFromFilePicture(const QString& filePath);
+
+    void accept(ISymbolVisitor& visitor) override;
+
+    ISymbol* clone(QObject* parent = nullptr) const override;
+
+    /*!
+     * @details
+     *   Prepares the display for drawing the symbol by setting pen and brush.
+     */
+    void setupPainter(QPainter *painter) override;
+    void resetPainter(QPainter *painter) override;
+
+    QPixmap picture() const;
+    void setPicture(const QPixmap& picture);
+
+protected:
+    PictureMarkerSymbol(const PictureMarkerSymbol& o, QObject *parent = nullptr);
+
+    void drawPoint(const Point &point, QPainter &painter) override;
+
+private:
+    QPixmap m_picture;
+    QTransform m_painterTransform;
 };
-
-

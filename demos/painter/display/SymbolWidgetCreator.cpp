@@ -28,6 +28,7 @@
 #include "display/SimpleFillSymbol.h"
 #include "display/SimpleLineSymbol.h"
 #include "display/SimpleMarkerSymbol.h"
+#include "display/PictureMarkerSymbol.h"
 
 #include "display/SimpleFillSymbolWidget.h"
 #include "display/SimpleLineSymbolWidget.h"
@@ -75,4 +76,9 @@ void SymbolWidgetCreator::visit(SimpleMarkerSymbol &symbol)
 {
     delete m_widget;
     m_widget = new SimpleMarkerSymbolWidget(&symbol);
+}
+
+void SymbolWidgetCreator::visit(PictureMarkerSymbol &symbol)
+{
+    throw "Not implemented!";
 }

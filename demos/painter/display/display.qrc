@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/display">
+        <file>markers/bus_station.png</file>
+        <file>markers/hotel.png</file>
+    </qresource>
+</RCC>

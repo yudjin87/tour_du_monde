@@ -43,6 +43,7 @@ private:
     void visit(SimpleFillSymbol& symbol) override;
     void visit(SimpleLineSymbol& symbol) override;
     void visit(SimpleMarkerSymbol& symbol) override;
+    void visit(PictureMarkerSymbol& symbol) override;
 
 private:
     SymbolWidget* m_widget;
