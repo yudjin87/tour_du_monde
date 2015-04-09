@@ -51,6 +51,9 @@ public:
 
     QPixmap picture() const;
     void setPicture(const QPixmap& picture);
+    bool loadFromFile(const QString& filePath);
+
+    QString source() const;
 
 protected:
     PictureMarkerSymbol(const PictureMarkerSymbol& o, QObject *parent = nullptr);
@@ -60,4 +63,5 @@ protected:
 private:
     QPixmap m_picture;
     QTransform m_painterTransform;
+    QString m_source;
 };

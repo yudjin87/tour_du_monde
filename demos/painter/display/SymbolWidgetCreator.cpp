@@ -33,11 +33,18 @@
 #include "display/SimpleFillSymbolWidget.h"
 #include "display/SimpleLineSymbolWidget.h"
 #include "display/SimpleMarkerSymbolWidget.h"
+#include "display/PictureMarkerSymbolWidget.h"
+
+#include "display/MarkerSymbolEditorWidget.h"
+#include "display/LineSymbolEditorWidget.h"
+#include "display/FillSymbolEditorWidget.h"
 
 #include <QtWidgets/QWidget>
 
 SymbolWidgetCreator::SymbolWidgetCreator()
     : m_widget(nullptr)
+    , m_editor(nullptr)
+    , m_state(CreationState::Widget)
 {
 }
 
@@ -45,10 +52,15 @@ SymbolWidgetCreator::~SymbolWidgetCreator()
 {
     delete m_widget;
     m_widget = nullptr;
+
+    delete m_editor;
+    m_editor = nullptr;
 }
 
 SymbolWidget *SymbolWidgetCreator::createWidget(ISymbol *forSymbol, QWidget *parent)
 {
+    m_state = CreationState::Widget;
+
     forSymbol->accept(*this);
     m_widget->setParent(parent);
     SymbolWidget *tmp = m_widget;
@@ -56,29 +68,82 @@ SymbolWidget *SymbolWidgetCreator::createWidget(ISymbol *forSymbol, QWidget *par
     return tmp;
 }
 
+SymbolEditorWidget *SymbolWidgetCreator::createEditorWidget(ISymbol *forSymbol, QWidget *parent)
+{
+    m_state = CreationState::Editor;
+
+    forSymbol->accept(*this);
+    m_editor->setParent(parent);
+    SymbolEditorWidget *tmp = m_editor;
+    m_editor = nullptr;
+    return tmp;
+}
+
 void SymbolWidgetCreator::visit(SimpleFillSymbol &symbol)
 {
-    delete m_widget;
-    SymbolWidgetCreator lineWidgetCreator;
-    SymbolWidget *lineWidget = lineWidgetCreator.createWidget(symbol.outline(), nullptr);
-    lineWidget->prepareForEmbedding();
+    switch (m_state)
+    {
+    case CreationState::Widget:
+    {
+        delete m_widget;
+        SymbolWidgetCreator lineWidgetCreator;
+        SymbolWidget *lineWidget = lineWidgetCreator.createWidget(symbol.outline(), nullptr);
+        lineWidget->prepareForEmbedding();
 
-    m_widget = new SimpleFillSymbolWidget(&symbol, lineWidget);
+        m_widget = new SimpleFillSymbolWidget(&symbol, lineWidget);
+        break;
+    }
+
+    case CreationState::Editor:
+        delete m_editor;
+        m_editor = new FillSymbolEditorWidget(&symbol);
+        break;
+    }
 }
 
 void SymbolWidgetCreator::visit(SimpleLineSymbol &symbol)
 {
-    delete m_widget;
-    m_widget = new SimpleLineSymbolWidget(&symbol);
+    switch (m_state)
+    {
+    case CreationState::Widget:
+        delete m_widget;
+        m_widget = new SimpleLineSymbolWidget(&symbol);
+        break;
+    case CreationState::Editor:
+        delete m_editor;
+        m_editor = new LineSymbolEditorWidget(&symbol);
+        break;
+    }
 }
 
 void SymbolWidgetCreator::visit(SimpleMarkerSymbol &symbol)
 {
-    delete m_widget;
-    m_widget = new SimpleMarkerSymbolWidget(&symbol);
+    switch (m_state)
+    {
+    case CreationState::Widget:
+        delete m_widget;
+        m_widget = new SimpleMarkerSymbolWidget(&symbol);
+        break;
+
+    case CreationState::Editor:
+        delete m_editor;
+        m_editor = new MarkerSymbolEditorWidget(&symbol);
+        break;
+    }
 }
 
 void SymbolWidgetCreator::visit(PictureMarkerSymbol &symbol)
 {
-    throw "Not implemented!";
+    switch (m_state)
+    {
+    case CreationState::Widget:
+        delete m_widget;
+        m_widget = new PictureMarkerSymbolWidget(&symbol);
+        break;
+
+    case CreationState::Editor:
+        delete m_editor;
+        m_editor = new MarkerSymbolEditorWidget(&symbol);
+        break;
+    }
 }

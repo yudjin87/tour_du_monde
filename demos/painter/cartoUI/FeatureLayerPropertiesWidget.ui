@@ -40,13 +40,6 @@
      </item>
     </layout>
    </item>
-   <item>
-    <widget class="QPushButton" name="pushButton">
-     <property name="text">
-      <string>Feature layer</string>
-     </property>
-    </widget>
-   </item>
   </layout>
  </widget>
  <resources/>

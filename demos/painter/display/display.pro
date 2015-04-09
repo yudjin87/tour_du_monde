@@ -8,6 +8,8 @@ TEMPLATE = lib
 
 DEFINES += DISPLAY_LIB_IMPORT
 
+ROOT_DIR = $${DESTDIR}
+
 DESTDIR = $${DESTDIR}/externalSource
 
 LIBS += -L$${CAROUSEL_BIN} -lCarousel \
@@ -50,7 +52,12 @@ HEADERS += \
     IFeatureRenderer.h \
     SimpleFeatureRenderer.h \
     SimpleMarkerSymbolWidget.h \
-    PictureMarkerSymbol.h
+    PictureMarkerSymbol.h \
+    PictureMarkerSymbolWidget.h \
+    SymbolEditorWidget.h \
+    MarkerSymbolEditorWidget.h \
+    LineSymbolEditorWidget.h \
+    FillSymbolEditorWidget.h
 
 SOURCES += \
     RectRubberBand.cpp \
@@ -80,18 +87,30 @@ SOURCES += \
     SimpleFillSymbolWidget.cpp \
     SimpleFeatureRenderer.cpp \
     SimpleMarkerSymbolWidget.cpp \
-    PictureMarkerSymbol.cpp
+    PictureMarkerSymbol.cpp \
+    PictureMarkerSymbolWidget.cpp \
+    SymbolEditorWidget.cpp \
+    MarkerSymbolEditorWidget.cpp \
+    LineSymbolEditorWidget.cpp \
+    FillSymbolEditorWidget.cpp
 
 FORMS += \
     SimpleLineSymbolWidget.ui \
     SimpleFillSymbolWidget.ui \
-    SimpleMarkerSymbolWidget.ui
+    SimpleMarkerSymbolWidget.ui \
+    PictureMarkerSymbolWidget.ui \
+    SymbolEditorWidget.ui
 
-OTHER_FILES += org.carousel.demos.Display.definition
+MARKERS += \
+    markers/bus_station.png \
+    markers/hotel.png
+
+DEFINITION = org.carousel.demos.Display.definition
+
+OTHER_FILES += $$DEFINITION \
+               $$MARKERS
 
 ###############################################################################
 # Copy definition to the output directory, right near the library
-copyExtraFiles($$OTHER_FILES, $$DESTDIR)
-
-RESOURCES += \
-    display.qrc
+copyExtraFiles($$DEFINITION, $$DESTDIR)
+copyExtraFiles($$MARKERS, $$ROOT_DIR/markers)

@@ -36,6 +36,7 @@ PictureMarkerSymbol::PictureMarkerSymbol(QObject *parent)
     : MarkerSymbol(parent)
     , m_picture()
     , m_painterTransform()
+    , m_source()
 {
 }
 
@@ -43,6 +44,7 @@ PictureMarkerSymbol::PictureMarkerSymbol(const PictureMarkerSymbol &o, QObject *
     : MarkerSymbol(o, parent)
     , m_picture(o.m_picture)
     , m_painterTransform()
+    , m_source(o.m_source)
 {
 }
 
@@ -52,16 +54,13 @@ PictureMarkerSymbol::~PictureMarkerSymbol()
 
 PictureMarkerSymbol *PictureMarkerSymbol::createFromFilePicture(const QString &filePath)
 {
-    QPixmap pic;
-    const bool result = pic.load(filePath);
-    if (!result)
+    std::unique_ptr<PictureMarkerSymbol> symbol(new PictureMarkerSymbol());
+    if (!symbol->loadFromFile(filePath))
     {
         return nullptr;
     }
 
-    PictureMarkerSymbol* symbol = new PictureMarkerSymbol();
-    symbol->setPicture(pic);
-    return symbol;
+    return symbol.release();
 }
 
 void PictureMarkerSymbol::accept(ISymbolVisitor &visitor)
@@ -98,8 +97,30 @@ void PictureMarkerSymbol::setPicture(const QPixmap &picture)
     m_picture = picture;
 }
 
+bool PictureMarkerSymbol::loadFromFile(const QString &filePath)
+{
+    QPixmap pic;
+    const bool result = pic.load(filePath);
+    if (!result)
+    {
+        return false;
+    }
+
+    setPicture(pic);
+    m_source = filePath;
+    return true;
+}
+
+QString PictureMarkerSymbol::source() const
+{
+    return m_source;
+}
+
 void PictureMarkerSymbol::drawPoint(const Point &point, QPainter &painter)
 {
     const QPointF p = m_painterTransform.map(QPointF(point.x(), point.y()));
-    painter.drawPixmap(p, m_picture);
+    QRect bBox(QPoint(0, 0), m_picture.size());
+    bBox.moveCenter(p.toPoint());
+
+    painter.drawPixmap(bBox, m_picture);
 }

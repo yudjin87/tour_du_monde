@@ -26,42 +26,36 @@
 
 #pragma once
 #include <display/display_api.h>
-#include <geometry/GeometryType.h>
 
 #include <QtWidgets/QWidget>
+#include <memory>
 
 class ISymbol;
-class QLabel;
+class QComboBox;
 
-class DISPLAY_API SymbolWidget : public QWidget
+namespace Ui
+{
+class SymbolEditorWidget;
+}
+
+class DISPLAY_API SymbolEditorWidget : public QWidget
 {
     Q_OBJECT
 public:
-    SymbolWidget(const Geometry::Type type, QWidget *parent = nullptr);
-    ~SymbolWidget();
+    ~SymbolEditorWidget();
 
-    virtual const ISymbol* symbol() const = 0;
-    virtual bool wasChanged() const = 0;
-    void initializeSample();
+protected:
+    explicit SymbolEditorWidget(QWidget *parent = nullptr);
 
-    virtual void prepareForEmbedding() = 0; // TODO: looks from now it should be applyed for all subclasses automatically, w/o method invocation
+    QComboBox* symbolsCbox();
+    void installSymbolWidget(ISymbol *forSymbol);
+
+protected slots:
+    virtual void onSymbolStyleChanged(const int index) = 0;
 
 signals:
     void symbolChanged(const ISymbol* newSymbol);
 
-protected:
-    virtual void insertSampleWidget(QWidget* sample) = 0;
-    virtual ISymbol* symbol() = 0;
-
-private slots:
-    void onSymbolChanged(const ISymbol* newSymbol);
-    void updateSample();
-
-protected:
-    const int LABEL_COLUMN_WIDHT = 50; // have to synchronoze embedded widgets, because of 1st column width may be different
-
 private:
-    const Geometry::Type m_type;
-    QLabel* m_sample;
+    Ui::SymbolEditorWidget *m_ui;
 };
-

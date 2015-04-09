@@ -29,6 +29,7 @@
 
 class ISymbol;
 class SymbolWidget;
+class SymbolEditorWidget;
 class QWidget;
 
 class DISPLAY_API SymbolWidgetCreator : private ISymbolVisitor
@@ -38,6 +39,7 @@ public:
     ~SymbolWidgetCreator();
 
     SymbolWidget* createWidget(ISymbol* forSymbol, QWidget* parent);
+    SymbolEditorWidget* createEditorWidget(ISymbol* forSymbol, QWidget* parent);
 
 private:
     void visit(SimpleFillSymbol& symbol) override;
@@ -46,6 +48,14 @@ private:
     void visit(PictureMarkerSymbol& symbol) override;
 
 private:
+    enum class CreationState
+    {
+        Widget,
+        Editor,
+    };
+
     SymbolWidget* m_widget;
+    SymbolEditorWidget* m_editor;
+    CreationState m_state;
 };
 

@@ -25,43 +25,39 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
-#include <display/display_api.h>
-#include <geometry/GeometryType.h>
 
-#include <QtWidgets/QWidget>
+#include <display/SymbolWidget.h>
+#include <memory>
 
-class ISymbol;
-class QLabel;
+namespace Ui
+{
+class PictureMarkerSymbolWidget;
+}
 
-class DISPLAY_API SymbolWidget : public QWidget
+class PictureMarkerSymbol;
+
+class DISPLAY_API PictureMarkerSymbolWidget : public SymbolWidget
 {
     Q_OBJECT
 public:
-    SymbolWidget(const Geometry::Type type, QWidget *parent = nullptr);
-    ~SymbolWidget();
+    explicit PictureMarkerSymbolWidget(const PictureMarkerSymbol* symbol, QWidget *parent = nullptr);
+    ~PictureMarkerSymbolWidget();
 
-    virtual const ISymbol* symbol() const = 0;
-    virtual bool wasChanged() const = 0;
-    void initializeSample();
-
-    virtual void prepareForEmbedding() = 0; // TODO: looks from now it should be applyed for all subclasses automatically, w/o method invocation
-
-signals:
-    void symbolChanged(const ISymbol* newSymbol);
+    void prepareForEmbedding() override;
+    const ISymbol *symbol() const override;
+    bool wasChanged() const override;
 
 protected:
-    virtual void insertSampleWidget(QWidget* sample) = 0;
-    virtual ISymbol* symbol() = 0;
-
-private slots:
-    void onSymbolChanged(const ISymbol* newSymbol);
-    void updateSample();
-
-protected:
-    const int LABEL_COLUMN_WIDHT = 50; // have to synchronoze embedded widgets, because of 1st column width may be different
+    void insertSampleWidget(QWidget* sample) override;
+    ISymbol* symbol() override;
+    void onSelectFileClicked();
 
 private:
-    const Geometry::Type m_type;
-    QLabel* m_sample;
+    void notifySymbolChanged();
+
+private:
+    Ui::PictureMarkerSymbolWidget *m_ui;
+    std::unique_ptr<PictureMarkerSymbol> m_symbol;
+    bool m_wasChanged;
 };
 

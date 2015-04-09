@@ -25,43 +25,30 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
-#include <display/display_api.h>
-#include <geometry/GeometryType.h>
+#include <display/SymbolEditorWidget.h>
+#include <display/LineSymbol.h>
+#include <display/ISymbolVisitor.h>
 
-#include <QtWidgets/QWidget>
+#include <QtCore/QStringListModel>
+#include <memory>
 
-class ISymbol;
-class QLabel;
-
-class DISPLAY_API SymbolWidget : public QWidget
+class LineSymbolEditorWidget : public SymbolEditorWidget, private ISymbolVisitor
 {
     Q_OBJECT
 public:
-    SymbolWidget(const Geometry::Type type, QWidget *parent = nullptr);
-    ~SymbolWidget();
+    explicit LineSymbolEditorWidget(const LineSymbol *initialSymbol, QWidget *parent = nullptr);
+    ~LineSymbolEditorWidget();
 
-    virtual const ISymbol* symbol() const = 0;
-    virtual bool wasChanged() const = 0;
-    void initializeSample();
-
-    virtual void prepareForEmbedding() = 0; // TODO: looks from now it should be applyed for all subclasses automatically, w/o method invocation
-
-signals:
-    void symbolChanged(const ISymbol* newSymbol);
-
-protected:
-    virtual void insertSampleWidget(QWidget* sample) = 0;
-    virtual ISymbol* symbol() = 0;
-
-private slots:
-    void onSymbolChanged(const ISymbol* newSymbol);
-    void updateSample();
-
-protected:
-    const int LABEL_COLUMN_WIDHT = 50; // have to synchronoze embedded widgets, because of 1st column width may be different
+protected slots:
+    void onSymbolStyleChanged(const int index) override;
 
 private:
-    const Geometry::Type m_type;
-    QLabel* m_sample;
-};
+    void visit(SimpleFillSymbol& symbol) override;
+    void visit(SimpleLineSymbol& symbol) override;
+    void visit(SimpleMarkerSymbol& symbol) override;
+    void visit(PictureMarkerSymbol& symbol) override;
 
+private:
+    QStringListModel m_symbols;
+    std::unique_ptr<LineSymbol> m_symbol;
+};
