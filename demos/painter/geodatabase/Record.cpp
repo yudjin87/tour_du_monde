@@ -27,14 +27,20 @@
 #include "geodatabase/Record.h"
 #include "geodatabase/Fields.h"
 
-Record::Record(const QSqlRecord &record)
+Record::Record(const int index, const QSqlRecord &record)
     : IRecord()
+    , m_index(index)
     , m_fields(new Fields(record))
 {
 }
 
 Record::~Record()
 {
+}
+
+int Record::index() const
+{
+    return m_index;
 }
 
 QVariant Record::value(int index) const

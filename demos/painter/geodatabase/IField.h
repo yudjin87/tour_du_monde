@@ -41,6 +41,7 @@ public:
 
     virtual QString name() const = 0;
     virtual QVariant value() const = 0;
+    virtual QVariant::Type type() const = 0;
 
 private:
     Q_DISABLE_COPY(IField)

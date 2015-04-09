@@ -27,7 +27,9 @@
 #pragma once
 
 #include <QtCore/QAbstractTableModel>
+#include <QtCore/QMap>
 
+class IRecord;
 class IFeatureClass;
 
 class FeatureClassModel : public QAbstractTableModel
@@ -46,4 +48,5 @@ public:
 
 private:
     IFeatureClass& m_featureClass;
+    mutable QMap<int, const IRecord*> m_cachedRecords;
 };

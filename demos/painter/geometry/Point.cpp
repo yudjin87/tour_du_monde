@@ -25,6 +25,7 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "Point.h"
+#include <limits>
 
 Point::Point()
     : GeometryBase()
@@ -44,6 +45,8 @@ void Point::putCoords(const qreal x, const qreal y)
 {
     m_x = x;
     m_y = y;
+    const QRectF extent(x, y, 0.0001, 0.0001); // minimum rect?
+    setExtent(extent);
 }
 
 Geometry::Type Point::type() const

@@ -58,13 +58,18 @@ const IFields *Table::fields() const
 {    
     if (m_fields == nullptr)
     {
-        const_cast<IFieldsEdit*>(m_fields) = new Fields(m_db.record(m_tableName));
+        const QSqlRecord fields = m_db.record(m_tableName);
+        if (fields.count() == 0)
+        {
+            Log.e(QString("Can't read metadata from the table \"%1\". This could happen due to very long path to .dbf file").arg(m_tableName));
+        }
+        const_cast<IFieldsEdit*>(m_fields) = new Fields(fields);
     }
 
     return m_fields;
 }
 
-const IRecord *Table::getRecord(const int index) const
+IRecordUPtr Table::getRecord(const int index) const
 {
     QSqlQuery query(m_db);
     query.prepare(QString("SELECT * FROM \"%1\"").arg(m_tableName));
@@ -80,7 +85,7 @@ const IRecord *Table::getRecord(const int index) const
         return nullptr;
     }
 
-    if (!query.seek(index - 1)) // TODO: indexes start from 0, IDs from 1. Check it and make common
+    if (!query.seek(index))
     {
         Log.e(query.lastError().text());
         return nullptr;
@@ -88,7 +93,7 @@ const IRecord *Table::getRecord(const int index) const
 
    // Q_ASSERT(query.size() == 1);
 
-    Record* record = new Record(query.record()); // TODO!! take ownership!! memory leak!!
-    return record;
+    Record* record = new Record(index, query.record());
+    return IRecordUPtr(record);
 }
 

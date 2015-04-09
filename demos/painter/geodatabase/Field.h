@@ -39,6 +39,7 @@ public:
 
     QString name() const;
     QVariant value() const;
+    QVariant::Type type() const;
 
 private:
     QSqlField m_field;

@@ -40,6 +40,8 @@ public:
     // Read-only for now
     IRecord(){}
 
+    virtual int index() const = 0;
+
     virtual QVariant value(int index) const = 0;
     virtual QVariant value(const QString& name) const = 0;
 

@@ -122,7 +122,7 @@ void FeatureClassLoader::loadFeature(IFeature *feature)
 {
     // TODO: assert for EoF
     const int recordNumber = m_reader->readInt32(BinaryReader::BigEndian());
-    feature->setId(recordNumber);
+    feature->setId(recordNumber - 1); // in shape files, feature id start from 1
 
     const int contentLenght = m_reader->readInt32(BinaryReader::BigEndian()); Q_UNUSED(contentLenght)
 

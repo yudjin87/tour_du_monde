@@ -45,3 +45,8 @@ QVariant Field::value() const
 {
     return m_field.value();
 }
+
+QVariant::Type Field::type() const
+{
+    return m_field.type();
+}

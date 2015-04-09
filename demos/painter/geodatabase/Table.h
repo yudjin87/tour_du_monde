@@ -38,7 +38,7 @@ public:
     ~Table();
 
     const IFields* fields() const override;
-    const IRecord* getRecord(const int index) const override;
+    IRecordUPtr getRecord(const int index) const override;
 
 private:
     const QString m_tableName;

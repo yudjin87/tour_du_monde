@@ -26,6 +26,7 @@
 
 #pragma once
 #include <geodatabase/geodatabase_api.h>
+#include <geodatabase/IRecord.h>
 
 #include <QtCore/QObject>
 #include <memory>
@@ -41,7 +42,7 @@ public:
     virtual ~ITable(){}
 
     virtual const IFields* fields() const = 0;
-    virtual const IRecord* getRecord(const int index) const = 0;
+    virtual IRecordUPtr getRecord(const int index) const = 0;
 
 private:
     Q_DISABLE_COPY(ITable)

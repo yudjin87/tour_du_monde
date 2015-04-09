@@ -36,9 +36,10 @@ class Record : public IRecord
 {
     Q_OBJECT
 public:
-    Record(const QSqlRecord& record);
+    Record(const int index, const QSqlRecord& record);
     ~Record();
 
+    int index() const;
     QVariant value(int index) const override;
     QVariant value(const QString& name) const override;
 
@@ -47,5 +48,6 @@ public:
     //IFields* fields() override;
 
 private:
+    const int m_index;
     std::unique_ptr<IFieldsEdit> m_fields;
 };

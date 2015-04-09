@@ -73,7 +73,7 @@ IFeature *FeatureClass::createFeature()
 const IFeature *FeatureClass::featureById(const int id) const
 {
     // in shape files, feature id start from 1, in DB the same
-    const int vectorId = id - 1;
+    const int vectorId = id;// - 1;
     if (vectorId < m_features.size())
     {
         const IFeature *feature = m_features[vectorId];
@@ -103,7 +103,8 @@ IFeatureCollection FeatureClass::search(const ISpatialFilter &filter) const
     const IGeometry *geometry = filter.geometry();
     const QRectF &extent = geometry->extent();
     IFeatureCollection toReturn;
-    for(int i = 0, end = m_features.size(); i != end; ++i) {
+    for(int i = 0, end = m_features.size(); i != end; ++i)
+    {
         IFeature *feature = m_features[i];
         if (extent.intersects(feature->geometry()->extent()))
             toReturn.push_back(feature);

@@ -25,7 +25,8 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
-#include "geodatabase_api.h"
+#include <geodatabase/geodatabase_api.h>
+#include <geodatabase/IRecord.h>
 
 #include <geometry/GeometryType.h>
 
@@ -34,7 +35,6 @@
 #include <QtCore/QVector>
 
 class IGeometry;
-class IRecord;
 
 class GEODATABASE_API IFeature : public QObject
 {
@@ -59,7 +59,7 @@ public:
     virtual Geometry::Type shapeType() const = 0;
 
     //virtual IRecord* record() = 0;
-    virtual const IRecord* record() const = 0;
+    virtual IRecordUPtr record() const = 0;
 
 private:
     Q_DISABLE_COPY(IFeature)

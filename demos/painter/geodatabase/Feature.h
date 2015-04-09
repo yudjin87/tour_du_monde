@@ -49,7 +49,7 @@ public:
     Geometry::Type shapeType() const override;
 
     //IRecord* record() override;
-    const IRecord* record() const override;
+    IRecordUPtr record() const override;
 
 private:
     Geometry::Type m_type;
