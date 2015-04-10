@@ -24,51 +24,40 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "CartoUIComponent.h"
-#include "CartoUIInteractiveExtension.h"
-
-#include <carto/IPainterDocument.h>
-#include <carto/IPainterDocumentController.h>
+#include <displayWidgets/DisplayWidgetsComponent.h>
 
 #include <carousel/componentsystem/ComponentDefinition.h>
 #include <carousel/componentsystem/ComponentExport.h>
 #include <carousel/utils/IServiceLocator.h>
 
-#include <QtWidgets/QGraphicsScene>
+static const QByteArray productName("DisplayWidgets");
 
-static const QByteArray productName("CartoUI");
-
-CartoUIComponent::CartoUIComponent(QObject *parent /*= nullptr*/)
-    : BaseComponent("org.carousel.demos.CartoUI", parent)
+DisplayWidgetsComponent::DisplayWidgetsComponent(QObject *parent)
+    : BaseComponent("org.carousel.demos.DisplayWidgets", parent)
 {
-    IInteractiveExtension *interactiveExtension = new CartoUIInteractiveExtension(this);
-    registerExtension<IInteractiveExtension>(interactiveExtension);
-
-    addParent("org.carousel.demos.Geodatabase", 1, 0);
+    addParent("org.carousel.Interactivity", 1, 0);
+    addParent("org.carousel.demos.Geometry", 1, 0);
     addParent("org.carousel.demos.Display", 1, 0);
-    addParent("org.carousel.demos.DisplayWidgets", 1, 0);
-    addParent("org.carousel.demos.Carto", 1, 0);
-    setShortName("Carto UI");
+    setShortName("DisplayWidgets");
     setProductName(productName);
     setProvider("Carousel");
     setVersion(1, 0);
 }
 
-CartoUIComponent::~CartoUIComponent()
+DisplayWidgetsComponent::~DisplayWidgetsComponent()
 {
 }
 
-bool CartoUIComponent::onStartup(IServiceLocator *serviceLocator)
+void DisplayWidgetsComponent::onShutdown(IServiceLocator *serviceLocator)
+{
+    Q_UNUSED(serviceLocator)
+}
+
+bool DisplayWidgetsComponent::onStartup(IServiceLocator *serviceLocator)
 {
     Q_UNUSED(serviceLocator)
     return true;
 }
 
-void CartoUIComponent::onShutdown(IServiceLocator *serviceLocator)
-{
-    Q_UNUSED(serviceLocator)
-}
-
-EXPORT_COMPONENT(CartoUIComponent)
-
+EXPORT_COMPONENT(DisplayWidgetsComponent)
 

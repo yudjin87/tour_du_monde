@@ -5,6 +5,7 @@ SUBDIRS += \
     app \
     geometry \
     display \
+    displayWidgets \
     geodatabase \
     carto \
     cartoUI \

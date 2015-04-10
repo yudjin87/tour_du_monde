@@ -25,8 +25,8 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "SimpleMarkerSymbolWidget.h"
-#include "display/SimpleMarkerSymbol.h"
-#include "display/LineSymbol.h"
+#include <display/SimpleMarkerSymbol.h>
+#include <display/LineSymbol.h>
 #include "ui_SimpleMarkerSymbolWidget.h"
 
 #include <QtGui/QPixmap>

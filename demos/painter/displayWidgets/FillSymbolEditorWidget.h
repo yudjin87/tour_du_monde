@@ -25,48 +25,30 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
-#include <display/SymbolWidget.h>
+#include <display/FillSymbol.h>
+#include <display/ISymbolVisitor.h>
+#include <displayWidgets/SymbolEditorWidget.h>
+
 #include <QtCore/QStringListModel>
 #include <memory>
 
-namespace Ui
-{
-class SimpleMarkerSymbolWidget;
-}
-
-class SimpleMarkerSymbol;
-
-class DISPLAY_API SimpleMarkerSymbolWidget : public SymbolWidget
+class FillSymbolEditorWidget : public SymbolEditorWidget, private ISymbolVisitor
 {
     Q_OBJECT
 public:
-    explicit SimpleMarkerSymbolWidget(const SimpleMarkerSymbol* symbol, QWidget *parent = nullptr);
-    ~SimpleMarkerSymbolWidget();
+    explicit FillSymbolEditorWidget(const FillSymbol *initialSymbol, QWidget *parent = nullptr);
+    ~FillSymbolEditorWidget();
 
-    void prepareForEmbedding() override;
-    const ISymbol *symbol() const override;
-    bool wasChanged() const override;
-
-protected:
-    void insertSampleWidget(QWidget* sample) override;
-    ISymbol* symbol() override;
-
-private slots:
-    void onColorChanged(const QColor& newColor);
-    void onOutlineColorChanged(const QColor& newColor);
-    void onSizeEditingFinished();
-    void onOutlineSizeEditingFinished();
-
-    void onStyleChanged(const int index);
+protected slots:
+    void onSymbolStyleChanged(const int index) override;
 
 private:
-    void notifySymbolChanged();
+    void visit(SimpleFillSymbol& symbol) override;
+    void visit(SimpleLineSymbol& symbol) override;
+    void visit(SimpleMarkerSymbol& symbol) override;
+    void visit(PictureMarkerSymbol& symbol) override;
 
 private:
-    Ui::SimpleMarkerSymbolWidget *m_ui;
-    std::unique_ptr<SimpleMarkerSymbol> m_symbol;
-    QStringListModel m_styles;
-    bool m_wasChanged;
-
+    QStringListModel m_symbols;
+    std::unique_ptr<FillSymbol> m_symbol;
 };
-

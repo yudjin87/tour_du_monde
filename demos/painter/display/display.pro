@@ -43,21 +43,10 @@ HEADERS += \
     UpdateTask.h \
     CoordsTracker.h \
     SymbolThumbnail.h \
-    SimpleLineSymbolWidget.h \
     ISymbolVisitor.h \
-    SymbolWidgetCreator.h \
-    ColorPickerButtont.h \
-    SymbolWidget.h \
-    SimpleFillSymbolWidget.h \
     IFeatureRenderer.h \
     SimpleFeatureRenderer.h \
-    SimpleMarkerSymbolWidget.h \
     PictureMarkerSymbol.h \
-    PictureMarkerSymbolWidget.h \
-    SymbolEditorWidget.h \
-    MarkerSymbolEditorWidget.h \
-    LineSymbolEditorWidget.h \
-    FillSymbolEditorWidget.h
 
 SOURCES += \
     RectRubberBand.cpp \
@@ -80,26 +69,8 @@ SOURCES += \
     UpdateTask.cpp \
     CoordsTracker.cpp \
     SymbolThumbnail.cpp \
-    SimpleLineSymbolWidget.cpp \
-    SymbolWidgetCreator.cpp \
-    ColorPickerButtont.cpp \
-    SymbolWidget.cpp \
-    SimpleFillSymbolWidget.cpp \
     SimpleFeatureRenderer.cpp \
-    SimpleMarkerSymbolWidget.cpp \
     PictureMarkerSymbol.cpp \
-    PictureMarkerSymbolWidget.cpp \
-    SymbolEditorWidget.cpp \
-    MarkerSymbolEditorWidget.cpp \
-    LineSymbolEditorWidget.cpp \
-    FillSymbolEditorWidget.cpp
-
-FORMS += \
-    SimpleLineSymbolWidget.ui \
-    SimpleFillSymbolWidget.ui \
-    SimpleMarkerSymbolWidget.ui \
-    PictureMarkerSymbolWidget.ui \
-    SymbolEditorWidget.ui
 
 MARKERS += \
     markers/bus_station.png \

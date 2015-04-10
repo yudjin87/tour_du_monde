@@ -25,21 +25,22 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
-#include "display/ISymbolVisitor.h"
+#include <displayWidgets/SymbolEditorWidget.h>
+#include <display/MarkerSymbol.h>
+#include <display/ISymbolVisitor.h>
 
-class ISymbol;
-class SymbolWidget;
-class SymbolEditorWidget;
-class QWidget;
+#include <QtCore/QStringListModel>
+#include <memory>
 
-class DISPLAY_API SymbolWidgetCreator : private ISymbolVisitor
+class MarkerSymbolEditorWidget : public SymbolEditorWidget, private ISymbolVisitor
 {
+    Q_OBJECT
 public:
-    SymbolWidgetCreator();
-    ~SymbolWidgetCreator();
+    explicit MarkerSymbolEditorWidget(const MarkerSymbol *initialSymbol, QWidget *parent = nullptr);
+    ~MarkerSymbolEditorWidget();
 
-    SymbolWidget* createWidget(ISymbol* forSymbol, QWidget* parent);
-    SymbolEditorWidget* createEditorWidget(ISymbol* forSymbol, QWidget* parent);
+protected slots:
+    void onSymbolStyleChanged(const int index) override;
 
 private:
     void visit(SimpleFillSymbol& symbol) override;
@@ -48,14 +49,6 @@ private:
     void visit(PictureMarkerSymbol& symbol) override;
 
 private:
-    enum class CreationState
-    {
-        Widget,
-        Editor,
-    };
-
-    SymbolWidget* m_widget;
-    SymbolEditorWidget* m_editor;
-    CreationState m_state;
+    QStringListModel m_symbols;
+    std::unique_ptr<MarkerSymbol> m_symbol;
 };
-

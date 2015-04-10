@@ -24,10 +24,10 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "display/LineSymbolEditorWidget.h"
+#include "displayWidgets/LineSymbolEditorWidget.h"
 
-#include "display/SimpleLineSymbol.h"
-#include "display/PictureMarkerSymbol.h"
+#include <display/SimpleLineSymbol.h>
+#include <display/PictureMarkerSymbol.h>
 
 #include <QtWidgets/QComboBox>
 

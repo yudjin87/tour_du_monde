@@ -26,7 +26,7 @@
 
 #include "SimpleLineSymbolWidget.h"
 #include "ui_SimpleLineSymbolWidget.h"
-#include "display/SimpleLineSymbol.h"
+#include <display/SimpleLineSymbol.h>
 
 #include <QtGui/QPixmap>
 #include <QtGui/QIcon>

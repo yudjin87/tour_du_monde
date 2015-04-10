@@ -3,7 +3,7 @@
  *
  * Carousel - Qt-based managed component library.
  *
- * Copyright: 2011-2015 Carousel team
+ * Copyright: 2011-2013 Carousel team
  * Authors:
  *   Eugene Chuguy <eugene.chuguy@gmail.com>
  *
@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
-
+ 
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -25,37 +25,10 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
-#include <display/display_api.h>
+#include <QtCore/qglobal.h>
 
-#include <QtWidgets/QWidget>
-#include <memory>
-
-class ISymbol;
-class QComboBox;
-
-namespace Ui
-{
-class SymbolEditorWidget;
-}
-
-class DISPLAY_API SymbolEditorWidget : public QWidget
-{
-    Q_OBJECT
-public:
-    ~SymbolEditorWidget();
-
-protected:
-    explicit SymbolEditorWidget(QWidget *parent = nullptr);
-
-    QComboBox* symbolsCbox();
-    void installSymbolWidget(ISymbol *forSymbol);
-
-protected slots:
-    virtual void onSymbolStyleChanged(const int index) = 0;
-
-signals:
-    void symbolChanged(const ISymbol* newSymbol);
-
-private:
-    Ui::SymbolEditorWidget *m_ui;
-};
+#if defined(DISPLAY_WIDGETS_LIB_IMPORT)
+#  define DISPLAY_WIDGETS_API Q_DECL_EXPORT
+#else
+#  define DISPLAY_WIDGETS_API Q_DECL_IMPORT
+#endif

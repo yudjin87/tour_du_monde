@@ -24,20 +24,20 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "display/SymbolWidgetCreator.h"
-#include "display/SimpleFillSymbol.h"
-#include "display/SimpleLineSymbol.h"
-#include "display/SimpleMarkerSymbol.h"
-#include "display/PictureMarkerSymbol.h"
+#include "displayWidgets/SymbolWidgetCreator.h"
+#include <display/SimpleFillSymbol.h>
+#include <display/SimpleLineSymbol.h>
+#include <display/SimpleMarkerSymbol.h>
+#include <display/PictureMarkerSymbol.h>
 
-#include "display/SimpleFillSymbolWidget.h"
-#include "display/SimpleLineSymbolWidget.h"
-#include "display/SimpleMarkerSymbolWidget.h"
-#include "display/PictureMarkerSymbolWidget.h"
+#include "displayWidgets/SimpleFillSymbolWidget.h"
+#include "displayWidgets/SimpleLineSymbolWidget.h"
+#include "displayWidgets/SimpleMarkerSymbolWidget.h"
+#include "displayWidgets/PictureMarkerSymbolWidget.h"
 
-#include "display/MarkerSymbolEditorWidget.h"
-#include "display/LineSymbolEditorWidget.h"
-#include "display/FillSymbolEditorWidget.h"
+#include "displayWidgets/MarkerSymbolEditorWidget.h"
+#include "displayWidgets/LineSymbolEditorWidget.h"
+#include "displayWidgets/FillSymbolEditorWidget.h"
 
 #include <QtWidgets/QWidget>
 

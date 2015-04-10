@@ -3,7 +3,7 @@
  *
  * Carousel - Qt-based managed component library.
  *
- * Copyright: 2011-2015 Carousel team
+ * Copyright: 2011-2013 Carousel team
  * Authors:
  *   Eugene Chuguy <eugene.chuguy@gmail.com>
  *
@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
-
+ 
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -25,47 +25,24 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
-#include <display/SymbolWidget.h>
-#include <QtCore/QStringListModel>
-#include <memory>
+#include <displayWidgets/displayWidgets_api.h>
 
-namespace Ui
-{
-class SimpleLineSymbolWidget;
-}
+#include <carousel/componentsystem/BaseComponent.h>
 
-class SimpleLineSymbol;
+class IServiceLocator;
 
-class DISPLAY_API SimpleLineSymbolWidget : public SymbolWidget
+class DISPLAY_WIDGETS_API DisplayWidgetsComponent : public BaseComponent
 {
     Q_OBJECT
-
 public:
-    explicit SimpleLineSymbolWidget(const SimpleLineSymbol* symbol, QWidget *parent = nullptr);
-    ~SimpleLineSymbolWidget();
-
-    void prepareForEmbedding() override;
-
-    const ISymbol *symbol() const override;
-    bool wasChanged() const override;
+    DisplayWidgetsComponent(QObject *parent = nullptr);
+    ~DisplayWidgetsComponent();
 
 protected:
-    void insertSampleWidget(QWidget* sample) override;
-    ISymbol* symbol() override;
-
-private slots:
-    void onColorChanged(const QColor& newColor);
-    void onWidthEditingFinished();
-    void onLineStyleChanged(const int index);
+    bool onStartup(IServiceLocator *serviceLocator) override;
+    void onShutdown(IServiceLocator *serviceLocator) override;
 
 private:
-    void notifySymbolChanged();
-
-private:
-    Ui::SimpleLineSymbolWidget *m_ui;
-    std::unique_ptr<SimpleLineSymbol> m_symbol;
-    QStringListModel m_lineStyles;
-    bool m_wasChanged;
-
+    Q_DISABLE_COPY(DisplayWidgetsComponent)
 };
 

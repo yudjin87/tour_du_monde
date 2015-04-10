@@ -24,31 +24,49 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#pragma once
-#include <display/SymbolEditorWidget.h>
-#include <display/MarkerSymbol.h>
-#include <display/ISymbolVisitor.h>
+#include "SymbolWidget.h"
+#include <display/SymbolThumbnail.h>
+#include <display/ISymbol.h>
 
-#include <QtCore/QStringListModel>
-#include <memory>
+#include <QtWidgets/QLabel>
 
-class MarkerSymbolEditorWidget : public SymbolEditorWidget, private ISymbolVisitor
+SymbolWidget::SymbolWidget(const Geometry::Type type, QWidget *parent)
+    : QWidget(parent)
+    , m_type(type)
+    , m_sample(nullptr)
 {
-    Q_OBJECT
-public:
-    explicit MarkerSymbolEditorWidget(const MarkerSymbol *initialSymbol, QWidget *parent = nullptr);
-    ~MarkerSymbolEditorWidget();
+    connect(this, &SymbolWidget::symbolChanged, this, &SymbolWidget::onSymbolChanged);
+}
 
-protected slots:
-    void onSymbolStyleChanged(const int index) override;
+SymbolWidget::~SymbolWidget()
+{
+}
 
-private:
-    void visit(SimpleFillSymbol& symbol) override;
-    void visit(SimpleLineSymbol& symbol) override;
-    void visit(SimpleMarkerSymbol& symbol) override;
-    void visit(PictureMarkerSymbol& symbol) override;
+void SymbolWidget::initializeSample()
+{
+    m_sample = new QLabel(this);
+    insertSampleWidget(m_sample);
+    updateSample();
+}
 
-private:
-    QStringListModel m_symbols;
-    std::unique_ptr<MarkerSymbol> m_symbol;
-};
+void SymbolWidget::onSymbolChanged(const ISymbol *newSymbol)
+{
+    Q_UNUSED(newSymbol);
+
+    if (m_sample == nullptr)
+    {
+        return;
+    }
+
+    updateSample();
+}
+
+void SymbolWidget::updateSample()
+{
+    SymbolThumbnail thumbnailCreator(60, 4);
+    thumbnailCreator.setBackground(Qt::white);
+    QPixmap sample = thumbnailCreator.createSymbolThumbnail(symbol(), m_type);
+    m_sample->setPixmap(sample);
+    m_sample->setMinimumSize(sample.rect().size());
+}
+

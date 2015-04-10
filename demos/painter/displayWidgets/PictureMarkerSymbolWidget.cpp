@@ -24,8 +24,8 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "display/PictureMarkerSymbolWidget.h"
-#include "display/PictureMarkerSymbol.h"
+#include "displayWidgets/PictureMarkerSymbolWidget.h"
+#include <display/PictureMarkerSymbol.h>
 #include "ui_PictureMarkerSymbolWidget.h"
 
 #include <QtCore/QDir>

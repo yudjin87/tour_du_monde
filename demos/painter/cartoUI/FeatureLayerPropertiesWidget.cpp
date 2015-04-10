@@ -34,9 +34,8 @@
 #include <carousel/utils/IServiceLocator.h>
 
 #include <display/IFeatureRenderer.h>
-#include <display/SymbolWidgetCreator.h>
-//#include <display/SymbolWidget.h>
-#include <display/SymbolEditorWidget.h>
+#include <displayWidgets//SymbolWidgetCreator.h>
+#include <displayWidgets/SymbolEditorWidget.h>
 
 #include <QtGui/QIcon>
 
@@ -52,11 +51,6 @@ FeatureLayerPropertiesWidget::FeatureLayerPropertiesWidget(FeatureLayer *layer, 
     connect(m_ui->layerName, &QLineEdit::editingFinished, this, &FeatureLayerPropertiesWidget::onLayerNameEditingFinished);
 
     IFeatureRenderer *renderer = m_layer->renderer();
-//    SymbolWidgetCreator symbolWidgetCreator;
-//    SymbolWidget* symbolWidget = symbolWidgetCreator.createWidget(renderer->symbol(), this);
-//    symbolWidget->initializeSample();
-//    m_ui->symbolPlaceholder->addWidget(symbolWidget);
-//    connect(symbolWidget, &SymbolWidget::symbolChanged, this, &FeatureLayerPropertiesWidget::onSymbolChanged);
 
     SymbolWidgetCreator symbolWidgetCreator;
     SymbolEditorWidget* symbolWidget = symbolWidgetCreator.createEditorWidget(renderer->symbol(), this);

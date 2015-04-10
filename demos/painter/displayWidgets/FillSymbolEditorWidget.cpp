@@ -24,19 +24,17 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "display/MarkerSymbolEditorWidget.h"
+#include "displayWidgets/FillSymbolEditorWidget.h"
 
-#include "display/SimpleMarkerSymbol.h"
-#include "display/PictureMarkerSymbol.h"
+#include <display/SimpleFillSymbol.h>
+#include <display/PictureMarkerSymbol.h>
 
-#include <QtCore/QCoreApplication>
-#include <QtCore/QDir>
 #include <QtWidgets/QComboBox>
 
-MarkerSymbolEditorWidget::MarkerSymbolEditorWidget(const MarkerSymbol *initialSymbol, QWidget *parent)
+FillSymbolEditorWidget::FillSymbolEditorWidget(const FillSymbol *initialSymbol, QWidget *parent)
     : SymbolEditorWidget(parent)
-    , m_symbols({"Simple marker symbol", "Picture marker symbol"})
-    , m_symbol(static_cast<MarkerSymbol*>(initialSymbol->clone()))
+    , m_symbols({"Simple fill symbol"})
+    , m_symbol(static_cast<FillSymbol*>(initialSymbol->clone()))
 {
     symbolsCbox()->setModel(&m_symbols);
     m_symbol->accept(*this);
@@ -46,46 +44,32 @@ MarkerSymbolEditorWidget::MarkerSymbolEditorWidget(const MarkerSymbol *initialSy
     connect(symbolsCbox(), SIGNAL(currentIndexChanged(int)),this, SLOT(onSymbolStyleChanged(int)));
 }
 
-MarkerSymbolEditorWidget::~MarkerSymbolEditorWidget()
+FillSymbolEditorWidget::~FillSymbolEditorWidget()
 {
-
 }
 
-void MarkerSymbolEditorWidget::onSymbolStyleChanged(const int index)
+void FillSymbolEditorWidget::onSymbolStyleChanged(const int index)
 {
-    switch (index)
-    {
-    case 0:
-        m_symbol.reset(new SimpleMarkerSymbol());
-        break;
-    case 1:
-        QDir appDir(QCoreApplication::applicationDirPath());
-        appDir.cd("markers");
-        m_symbol.reset(PictureMarkerSymbol::createFromFilePicture(appDir.absoluteFilePath("hotel.png")));
-        break;
-    }
-
     installSymbolWidget(m_symbol.get());
     emit symbolChanged(m_symbol.get());
 }
 
-void MarkerSymbolEditorWidget::visit(SimpleFillSymbol &)
+void FillSymbolEditorWidget::visit(SimpleFillSymbol &)
+{
+}
+
+void FillSymbolEditorWidget::visit(SimpleLineSymbol &)
 {
     Q_ASSERT(false && "This is a marker symbol editor!");
 }
 
-void MarkerSymbolEditorWidget::visit(SimpleLineSymbol &)
+void FillSymbolEditorWidget::visit(SimpleMarkerSymbol &)
 {
     Q_ASSERT(false && "This is a marker symbol editor!");
 }
 
-void MarkerSymbolEditorWidget::visit(SimpleMarkerSymbol &)
+void FillSymbolEditorWidget::visit(PictureMarkerSymbol &)
 {
-    symbolsCbox()->setCurrentIndex(0);
-}
-
-void MarkerSymbolEditorWidget::visit(PictureMarkerSymbol &)
-{
-    symbolsCbox()->setCurrentIndex(1);
+    Q_ASSERT(false && "This is a marker symbol editor!");
 }
 

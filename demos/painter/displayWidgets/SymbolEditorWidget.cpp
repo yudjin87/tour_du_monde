@@ -24,10 +24,10 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "display/SymbolEditorWidget.h"
-#include "display/SymbolWidgetCreator.h"
-#include "display/SymbolWidget.h"
-#include "display/ISymbol.h"
+#include "displayWidgets/SymbolEditorWidget.h"
+#include "displayWidgets/SymbolWidgetCreator.h"
+#include "displayWidgets/SymbolWidget.h"
+#include <display/ISymbol.h>
 
 #include "ui_SymbolEditorWidget.h"
 

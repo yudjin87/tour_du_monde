@@ -24,7 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "ColorPickerButtont.h"
+#include "displayWidgets/ColorPickerButtont.h"
 #include <QtWidgets/QColorDialog>
 #include <QtGui/QPaintEvent>
 #include <QtGui/QPainter>

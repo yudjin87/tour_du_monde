@@ -25,39 +25,30 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
+#include <displayWidgets/SymbolEditorWidget.h>
+#include <display/LineSymbol.h>
+#include <display/ISymbolVisitor.h>
 
-#include <display/SymbolWidget.h>
+#include <QtCore/QStringListModel>
 #include <memory>
 
-namespace Ui
-{
-class PictureMarkerSymbolWidget;
-}
-
-class PictureMarkerSymbol;
-
-class DISPLAY_API PictureMarkerSymbolWidget : public SymbolWidget
+class LineSymbolEditorWidget : public SymbolEditorWidget, private ISymbolVisitor
 {
     Q_OBJECT
 public:
-    explicit PictureMarkerSymbolWidget(const PictureMarkerSymbol* symbol, QWidget *parent = nullptr);
-    ~PictureMarkerSymbolWidget();
+    explicit LineSymbolEditorWidget(const LineSymbol *initialSymbol, QWidget *parent = nullptr);
+    ~LineSymbolEditorWidget();
 
-    void prepareForEmbedding() override;
-    const ISymbol *symbol() const override;
-    bool wasChanged() const override;
-
-protected:
-    void insertSampleWidget(QWidget* sample) override;
-    ISymbol* symbol() override;
-    void onSelectFileClicked();
+protected slots:
+    void onSymbolStyleChanged(const int index) override;
 
 private:
-    void notifySymbolChanged();
+    void visit(SimpleFillSymbol& symbol) override;
+    void visit(SimpleLineSymbol& symbol) override;
+    void visit(SimpleMarkerSymbol& symbol) override;
+    void visit(PictureMarkerSymbol& symbol) override;
 
 private:
-    Ui::PictureMarkerSymbolWidget *m_ui;
-    std::unique_ptr<PictureMarkerSymbol> m_symbol;
-    bool m_wasChanged;
+    QStringListModel m_symbols;
+    std::unique_ptr<LineSymbol> m_symbol;
 };
-
