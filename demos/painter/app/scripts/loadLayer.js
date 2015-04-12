@@ -1,7 +1,7 @@
 function loadLayer(workspacePath, name) {
     print("Loading " + name + "...");
 
-    var factory = serviceLocator.build("IShapeFileWorkspaceFactory");
+    var factory = serviceLocator.locate("IShapeFileWorkspaceFactory");
     var workspace = factory.openFromFile(workspacePath);
     var featureClass = workspace.openFeatureClass(name);
 

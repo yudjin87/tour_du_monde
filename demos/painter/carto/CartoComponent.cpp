@@ -74,10 +74,10 @@ void CartoComponent::onShutdown(IServiceLocator *serviceLocator)
 
 bool CartoComponent::onStartup(IServiceLocator *serviceLocator)
 {
-    TypeCreator<AddShapesCommand, TypeLocator<IUndoStack>, TypeLocator<IPainterDocumentController>, TypeBuilder<IShapeFileWorkspaceFactory>> addShapesCreator{serviceLocator};
+    TypeCreator<AddShapesCommand, TypeLocator<IUndoStack>, TypeLocator<IPainterDocumentController>, TypeLocator<IShapeFileWorkspaceFactory>> addShapesCreator{serviceLocator};
     serviceLocator->registerType<AddShapesCommand>(addShapesCreator);
 
-    TypeCreator<RemoveLayerCommand, TypeLocator<IUndoStack>, TypeLocator<IPainterDocumentController>, TypeBuilder<IShapeFileWorkspaceFactory>> removeLayerCommand{serviceLocator};
+    TypeCreator<RemoveLayerCommand, TypeLocator<IUndoStack>, TypeLocator<IPainterDocumentController>, TypeLocator<IShapeFileWorkspaceFactory>> removeLayerCommand{serviceLocator};
     serviceLocator->registerType<RemoveLayerCommand>(removeLayerCommand);
 
     TypeCreator<RenameLayerCommand, TypeLocator<IUndoStack>> renameLayerCreator{serviceLocator};

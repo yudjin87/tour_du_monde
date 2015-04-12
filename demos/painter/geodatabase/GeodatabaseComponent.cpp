@@ -52,9 +52,16 @@ GeodatabaseComponent::~GeodatabaseComponent()
 {
 }
 
+void GeodatabaseComponent::onShutdown(IServiceLocator *serviceLocator)
+{
+    IShapeFileWorkspaceFactory* factory = serviceLocator->locate<IShapeFileWorkspaceFactory>();
+    delete factory;
+}
+
 bool GeodatabaseComponent::onStartup(IServiceLocator *serviceLocator)
 {
-    serviceLocator->bindType<IShapeFileWorkspaceFactory, ShapeFileWorkspaceFactory>();
+    IShapeFileWorkspaceFactory* factory = new ShapeFileWorkspaceFactory();
+    serviceLocator->registerInstance<IShapeFileWorkspaceFactory>(factory);
     return true;
 }
 

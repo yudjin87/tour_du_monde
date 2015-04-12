@@ -49,7 +49,7 @@ public:
 
 private:
     IPainterDocumentController *m_docContr;
-    std::unique_ptr<IShapeFileWorkspaceFactory> m_factory;
+    IShapeFileWorkspaceFactory *m_factory;
     QStringList m_files;
     QList<AbstractLayer*> m_addedLayers;
 };

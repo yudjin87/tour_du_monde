@@ -41,8 +41,7 @@ public:
     IWorkspace* openFromFile(const QString &workspacePath) override;
 
 private:
-    static QMap<QString, IWorkspace*> m_opennedWorkspaces; // TODO: some registry?
-
+    QMap<QString, IWorkspace*> m_opennedWorkspaces;
     IServiceLocator *m_locator;
 };
 

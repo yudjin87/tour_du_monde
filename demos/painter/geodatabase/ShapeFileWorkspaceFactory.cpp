@@ -30,16 +30,20 @@
 #include "geodatabase/FeatureClass.h"
 #include "geodatabase/ShapeFileFeatureWorkspace.h"
 
-QMap<QString, IWorkspace*> ShapeFileWorkspaceFactory::m_opennedWorkspaces; // TODO: Registry!!
-
 ShapeFileWorkspaceFactory::ShapeFileWorkspaceFactory()
     : IShapeFileWorkspaceFactory()
+    , m_opennedWorkspaces()
 {
     setObjectName("ShapeFileWorkspaceFactory");
 }
 
 ShapeFileWorkspaceFactory::~ShapeFileWorkspaceFactory()
 {
+    for (IWorkspace* ws : m_opennedWorkspaces)
+    {
+        delete ws;
+    }
+    m_opennedWorkspaces.clear();
     m_locator = nullptr;
 }
 
