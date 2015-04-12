@@ -25,7 +25,7 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
-#include "IWorkspaceFactory.h"
+#include <geodatabase/IWorkspaceFactory.h>
 
 class GEODATABASE_API IShapeFileWorkspaceFactory : public IWorkspaceFactory
 {

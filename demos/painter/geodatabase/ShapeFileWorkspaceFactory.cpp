@@ -24,11 +24,13 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "ShapeFileWorkspaceFactory.h"
+#include "geodatabase/ShapeFileWorkspaceFactory.h"
 
-#include "Feature.h"
-#include "FeatureClass.h"
-#include "ShapeFileFeatureWorkspace.h"
+#include "geodatabase/Feature.h"
+#include "geodatabase/FeatureClass.h"
+#include "geodatabase/ShapeFileFeatureWorkspace.h"
+
+QMap<QString, IWorkspace*> ShapeFileWorkspaceFactory::m_opennedWorkspaces; // TODO: Registry!!
 
 ShapeFileWorkspaceFactory::ShapeFileWorkspaceFactory()
     : IShapeFileWorkspaceFactory()
@@ -43,6 +45,14 @@ ShapeFileWorkspaceFactory::~ShapeFileWorkspaceFactory()
 
 IWorkspace *ShapeFileWorkspaceFactory::openFromFile(const QString &workspacePath)
 {
-    return new ShapeFileFeatureWorkspace(workspacePath);
+    const auto it = m_opennedWorkspaces.find(workspacePath);
+    if (it != std::end(m_opennedWorkspaces))
+    {
+        return it.value();
+    }
+
+    IWorkspace *ws = new ShapeFileFeatureWorkspace(workspacePath);
+    m_opennedWorkspaces.insert(workspacePath, ws);
+    return ws;
 }
 

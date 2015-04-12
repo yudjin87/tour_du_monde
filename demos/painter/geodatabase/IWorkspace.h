@@ -25,11 +25,13 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
-#include "geodatabase_api.h"
+#include <geodatabase/geodatabase_api.h>
 
 #include <QtCore/QList>
 #include <QtCore/QString>
 #include <QtCore/QObject>
+
+#include <memory>
 
 class IDataset;
 
@@ -71,4 +73,5 @@ private:
     Q_DISABLE_COPY(IWorkspace)
 };
 
+typedef std::shared_ptr<IWorkspace> IWorkspaceSPtr;
 

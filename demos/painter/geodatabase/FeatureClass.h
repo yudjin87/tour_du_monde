@@ -27,12 +27,13 @@
 #pragma once
 #include <geodatabase/IFeatureClass.h>
 #include <geodatabase/ITable.h>
+#include <geodatabase/IFeatureWorkspace.h>
 
 class FeatureClass : public IFeatureClass
 {
     Q_OBJECT
 public:
-    FeatureClass(ITable* table, Geometry::Type shapeType, const QRectF &extent, QString source);
+    FeatureClass(IFeatureWorkspace& workspace, ITable* table, Geometry::Type shapeType, const QRectF &extent, QString source);
     ~FeatureClass();
 
     QRectF extent() const override;
@@ -51,6 +52,7 @@ public:
 
 private:
     Geometry::Type m_type;
+    IFeatureWorkspace& m_workspace;
     ITableUPtr m_table;
     IFeatureCollection m_features;
     QRectF m_extent;

@@ -27,7 +27,6 @@ HEADERS += \
     IDataset.h \
     IGeoDataset.h \
     IFeatureDataset.h \
-    ShapeFileFeatureDataset.h \
     IShapeFileReader.h \
     ShapeFileReader.h \
     ShapeType.h \
@@ -58,7 +57,6 @@ SOURCES += \
     FeatureClass.cpp \
     ShapeFileWorkspaceFactory.cpp \
     ShapeFileFeatureWorkspace.cpp \
-    ShapeFileFeatureDataset.cpp \
     ShapeFileReader.cpp \
     GeodatabaseComponent.cpp \
     SpatialFilter.cpp \

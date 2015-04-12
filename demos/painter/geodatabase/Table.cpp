@@ -40,9 +40,10 @@ namespace
 static LoggerFacade Log = LoggerFacade::createLogger("Table");
 }
 
-Table::Table(const QString &tableName, const QSqlDatabase &database)
+Table::Table(IFeatureWorkspace &workspace, const QString &tableName, const QSqlDatabase &database)
     : ITable()
     , m_tableName(tableName)
+    , m_workspace(workspace)
     , m_db(database)
     , m_fields(nullptr)
 {

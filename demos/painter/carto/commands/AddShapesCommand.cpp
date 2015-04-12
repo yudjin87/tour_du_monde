@@ -65,8 +65,7 @@ void AddShapesCommand::redo()
             QFileInfo shapeFile(fileName);
             const QString &workingDirectory = shapeFile.absolutePath();
 
-            std::unique_ptr<IFeatureWorkspace> workspace((IFeatureWorkspace *)m_factory->openFromFile(workingDirectory));
-
+            IFeatureWorkspace* workspace = static_cast<IFeatureWorkspace*>(m_factory->openFromFile(workingDirectory));
             IFeatureClass *railwaysClass = workspace->openFeatureClass(shapeFile.completeBaseName());
             FeatureLayer *railwaysLayer = new FeatureLayer();
             railwaysLayer->setFeatureClass(railwaysClass);

@@ -27,6 +27,7 @@
 #pragma once
 #include <geodatabase/ITable.h>
 #include <geodatabase/IFieldsEdit.h>
+#include <geodatabase/IFeatureWorkspace.h>
 
 #include <QtSql/QSqlDatabase>
 
@@ -34,7 +35,7 @@ class Table : public ITable
 {
     Q_OBJECT
 public:
-    Table(const QString& tableName, const QSqlDatabase& database);
+    Table(IFeatureWorkspace &workspace, const QString& tableName, const QSqlDatabase& database);
     ~Table();
 
     const IFields* fields() const override;
@@ -42,6 +43,7 @@ public:
 
 private:
     const QString m_tableName;
+    IFeatureWorkspace& m_workspace;
     QSqlDatabase m_db;
     IFieldsEdit* m_fields;
 };

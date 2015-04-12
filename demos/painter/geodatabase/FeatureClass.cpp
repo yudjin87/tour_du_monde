@@ -24,9 +24,9 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "FeatureClass.h"
-#include "Feature.h"
-#include "ISpatialFilter.h"
+#include "geodatabase/FeatureClass.h"
+#include "geodatabase/Feature.h"
+#include "geodatabase/ISpatialFilter.h"
 
 #include <geometry/IGeometry.h>
 
@@ -37,8 +37,9 @@ namespace
 static LoggerFacade Log = LoggerFacade::createLogger("FeatureClass");
 }
 
-FeatureClass::FeatureClass(ITable *table, Geometry::Type shapeType, const QRectF &extent, QString source)
+FeatureClass::FeatureClass(IFeatureWorkspace &workspace, ITable *table, Geometry::Type shapeType, const QRectF &extent, QString source)
     : m_type(shapeType)
+    , m_workspace(workspace)
     , m_table(table)
     , m_features()
     , m_extent(extent)

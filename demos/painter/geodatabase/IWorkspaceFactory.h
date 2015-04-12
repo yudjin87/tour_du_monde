@@ -25,7 +25,7 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
-#include "geodatabase_api.h"
+#include <geodatabase/geodatabase_api.h>
 
 #include <QtCore/QObject>
 #include <QtCore/QString>
@@ -40,6 +40,7 @@ public:
     virtual ~IWorkspaceFactory(){}
 
 public slots:
+    // pointer only becuase of scripts. Shared_ptr should be here
     virtual IWorkspace* openFromFile(const QString &workspacePath) = 0;
 
 private:

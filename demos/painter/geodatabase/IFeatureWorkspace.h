@@ -25,8 +25,8 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
-#include "geodatabase_api.h"
-#include "IWorkspace.h"
+#include <geodatabase/geodatabase_api.h>
+#include <geodatabase/IWorkspace.h>
 
 class IFeatureClass;
 
@@ -46,4 +46,3 @@ public slots:
 private:
     Q_DISABLE_COPY(IFeatureWorkspace)
 };
-

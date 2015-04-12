@@ -25,7 +25,6 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "geodatabase/ShapeFileFeatureWorkspace.h"
-#include "geodatabase/ShapeFileFeatureDataset.h"
 #include "geodatabase/FeatureClassLoader.h"
 #include "geodatabase/FeatureClass.h"
 #include "geodatabase/Table.h"
@@ -79,25 +78,18 @@ IFeatureClass *ShapeFileFeatureWorkspace::openFeatureClass(const QString &name)
 
     const Clock::time_point started = Clock::now();
 
-    IFeatureClass* fc = nullptr;
-
-#if 0
-    ShapeFileFeatureDataset dataset(*this, name);
-    fc = dataset.classByName(name);
-#else
     FeatureClassLoader loader(m_workspacePath);
     if (loader.open(name) != IFeatureClassLoader::LoadResult::Success)
     {
         return nullptr;
     }
 
-    fc = new FeatureClass(table, loader.geometryType(), loader.boundingBox(), loader.source().absoluteFilePath());
+    IFeatureClass* fc = new FeatureClass(*this, table, loader.geometryType(), loader.boundingBox(), loader.source().absoluteFilePath());
     while (loader.hasNext())
     {
         IFeature* feature = fc->createFeature();
         loader.loadFeature(feature);
     }
-#endif
 
     Clock::time_point finished = Clock::now();
     milliseconds ms = std::chrono::duration_cast<milliseconds>(finished - started);
@@ -167,5 +159,5 @@ ITable *ShapeFileFeatureWorkspace::createTable(const QString &name)
         m_dbfDb = new QSqlDatabase(db);
     }
 
-    return new Table(file.completeBaseName(), *m_dbfDb);
+    return new Table(*this, file.completeBaseName(), *m_dbfDb);
 }

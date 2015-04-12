@@ -25,7 +25,9 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
-#include "IShapeFileWorkspaceFactory.h"
+#include <geodatabase/IShapeFileWorkspaceFactory.h>
+
+#include <QtCore/QMap>
 
 class IServiceLocator;
 
@@ -39,6 +41,8 @@ public:
     IWorkspace* openFromFile(const QString &workspacePath) override;
 
 private:
+    static QMap<QString, IWorkspace*> m_opennedWorkspaces; // TODO: some registry?
+
     IServiceLocator *m_locator;
 };
 
