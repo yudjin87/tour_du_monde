@@ -29,6 +29,7 @@
 #include "IPainterDocumentController.h"
 #include "IPainterDocument.h"
 #include "IMap.h"
+#include "IFeatureRenderer.h"
 
 #include <components/jsscripting/IScriptingService.h>
 #include <components/jsscripting/IScriptConsole.h>
@@ -37,6 +38,7 @@
 #include <QtScript/QScriptEngine>
 #include <QtScript/QScriptValueIterator>
 
+Q_DECLARE_METATYPE(IFeatureRenderer *)
 Q_DECLARE_METATYPE(IPainterDocument *)
 Q_DECLARE_METATYPE(IPainterDocumentController *)
 Q_DECLARE_METATYPE(IMap *)
@@ -65,6 +67,7 @@ void CartoScriptExtension::configureEngine(IServiceLocator *locator, QScriptEngi
     int cartoTypeIds = registerScriptMetaTypes(engine);
     Q_UNUSED(cartoTypeIds);
 
+    REGISTER_METATYPE(IFeatureRenderer);
     REGISTER_METATYPE(IPainterDocument);
     REGISTER_METATYPE(IMap);
 }

@@ -34,7 +34,7 @@
 #include <carto/FeatureLayer.h>
 #include <carto/commands/MoveLayerCommand.h>
 #include <carto/commands/RemoveLayerCommand.h>
-#include <display/IFeatureRenderer.h>
+#include <carto/IFeatureRenderer.h>
 #include <carousel/logging/LoggerFacade.h>
 #include <carousel/utils/IServiceLocator.h>
 #include <components/interactivity/IDialogService.h>

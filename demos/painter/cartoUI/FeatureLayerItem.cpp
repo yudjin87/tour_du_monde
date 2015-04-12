@@ -29,7 +29,7 @@
 
 #include <carto/commands/RenameLayerCommand.h>
 #include <carto/FeatureLayer.h>
-#include <display/IFeatureRenderer.h>
+#include <carto/IFeatureRenderer.h>
 #include <carousel/utils/IServiceLocator.h>
 
 FeatureLayerItem::FeatureLayerItem(IServiceLocator *serviceLocator, FeatureLayer &layer)

@@ -35,6 +35,8 @@ HEADERS += \
     CartoScriptExtension.h \
     FeatureLayerDrawingTask.h \
     DefaultNavigationHandler.h \
+    IFeatureRenderer.h \
+    SimpleFeatureRenderer.h \
     commands/AddShapesCommand.h \
     commands/RenameLayerCommand.h \
     commands/ChangeLayerSymbolCommand.h \
@@ -51,6 +53,7 @@ SOURCES += \
     CartoScriptExtension.cpp \
     FeatureLayerDrawingTask.cpp \
     DefaultNavigationHandler.cpp \
+    SimpleFeatureRenderer.cpp \
     commands/AddShapesCommand.cpp \
     commands/RenameLayerCommand.cpp \
     commands/ChangeLayerSymbolCommand.cpp \

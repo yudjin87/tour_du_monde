@@ -28,14 +28,14 @@
 #include "ui_FeatureLayerPropertiesWidget.h"
 #include <carto/commands/RenameLayerCommand.h>
 #include <carto/commands/ChangeLayerSymbolCommand.h>
-#include <carousel/commands/GroupUndoableCommand.h>
-
+#include <carto/IFeatureRenderer.h>
 #include <carto/FeatureLayer.h>
-#include <carousel/utils/IServiceLocator.h>
 
-#include <display/IFeatureRenderer.h>
 #include <displayWidgets//SymbolWidgetCreator.h>
 #include <displayWidgets/SymbolEditorWidget.h>
+
+#include <carousel/commands/GroupUndoableCommand.h>
+#include <carousel/utils/IServiceLocator.h>
 
 #include <QtGui/QIcon>
 

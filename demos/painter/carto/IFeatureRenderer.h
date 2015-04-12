@@ -25,7 +25,7 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
-#include "display/display_api.h"
+#include <carto/carto_api.h>
 
 #include <QtCore/QObject>
 
@@ -33,7 +33,7 @@ class IFeature;
 class ISymbol;
 class QPainter;
 
-class DISPLAY_API IFeatureRenderer : public QObject
+class CARTO_API IFeatureRenderer : public QObject
 {
     Q_OBJECT
 
@@ -44,8 +44,6 @@ class DISPLAY_API IFeatureRenderer : public QObject
      *   The symbol type matches the geometry of the layer being rendered,
      *   so marker symbols are used to draw point layers, line symbols are used
      *   to draw line features, and fill symbols are used to draw polygon features.
-     *
-     * @note that renderer does not take ownership for the symbol.
      */
     Q_PROPERTY(ISymbol *symbol READ symbol WRITE setSymbol NOTIFY symbolChanged)
 

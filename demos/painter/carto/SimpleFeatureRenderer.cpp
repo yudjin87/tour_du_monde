@@ -24,8 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "SimpleFeatureRenderer.h"
-
+#include "carto/SimpleFeatureRenderer.h"
 #include <display/ISymbol.h>
 #include <geodatabase/IFeature.h>
 

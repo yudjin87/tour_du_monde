@@ -1,5 +1,5 @@
 #include <carto/FeatureLayerDrawingTask.h>
-#include <display/IFeatureRenderer.h>
+#include <carto/IFeatureRenderer.h>
 #include <display/IDisplay.h>
 #include <display/DisplayTransformation.h>
 #include <carousel/logging/LoggerFacade.h>

@@ -27,8 +27,8 @@
 #include <carto/FeatureLayer.h>
 #include <carto/FeatureLayerDrawingTask.h>
 #include <carto/ILayerVisitor.h>
+#include <carto/SimpleFeatureRenderer.h>
 
-#include <display/SimpleFeatureRenderer.h>
 #include <display/IDisplay.h>
 #include <display/DisplayTransformation.h>
 #include <display/SimpleFillSymbol.h>

@@ -44,8 +44,6 @@ HEADERS += \
     CoordsTracker.h \
     SymbolThumbnail.h \
     ISymbolVisitor.h \
-    IFeatureRenderer.h \
-    SimpleFeatureRenderer.h \
     PictureMarkerSymbol.h \
 
 SOURCES += \
@@ -69,7 +67,6 @@ SOURCES += \
     UpdateTask.cpp \
     CoordsTracker.cpp \
     SymbolThumbnail.cpp \
-    SimpleFeatureRenderer.cpp \
     PictureMarkerSymbol.cpp \
 
 MARKERS += \

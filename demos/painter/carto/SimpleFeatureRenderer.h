@@ -25,12 +25,12 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
-#include "display/IFeatureRenderer.h"
-#include "display/ISymbol.h"
+#include <carto/IFeatureRenderer.h>
+#include <display/ISymbol.h>
 
 #include <QtCore/QVector>
 
-class DISPLAY_API SimpleFeatureRenderer : public IFeatureRenderer
+class CARTO_API SimpleFeatureRenderer : public IFeatureRenderer
 {
     Q_OBJECT
 public:
