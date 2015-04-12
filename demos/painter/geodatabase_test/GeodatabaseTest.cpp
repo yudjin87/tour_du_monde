@@ -67,9 +67,9 @@ void GeodatabaseTest::shouldLoadPointShapes()
     QCOMPARE(pointsClass->extent().topLeft().x(), -0.7035498);
     QCOMPARE(pointsClass->extent().bottomRight().y(), 52.153908);
 
-    const int FEATURE_ID = 48;
+    const int FEATURE_ID = 47;
     const IFeature* feature = pointsClass->featureById(FEATURE_ID);
-    const IFeature* feature1 = pointsClass->featureByIndex(FEATURE_ID - 1);
+    const IFeature* feature1 = pointsClass->featureByIndex(FEATURE_ID);
     QCOMPARE(feature, feature1);
     QCOMPARE(feature->id(), FEATURE_ID);
     QCOMPARE(feature->record()->value(0).toString(), QString("1666355140"));
@@ -88,9 +88,9 @@ void GeodatabaseTest::shouldLoadLineShapes()
     QCOMPARE(polylinesClass->extent().topLeft().x(), -0.7035622);
     QCOMPARE(polylinesClass->extent().bottomRight().y(), 52.154232);
 
-    const int FEATURE_ID = 8;
+    const int FEATURE_ID = 7;
     const IFeature* feature = polylinesClass->featureById(FEATURE_ID);
-    const IFeature* feature1 = polylinesClass->featureByIndex(FEATURE_ID - 1);
+    const IFeature* feature1 = polylinesClass->featureByIndex(FEATURE_ID);
     QCOMPARE(feature, feature1);
     QCOMPARE(feature->id(), FEATURE_ID);
     QCOMPARE(feature->record()->value("name").toString(), QString("Freemans Gardens"));
@@ -116,9 +116,9 @@ void GeodatabaseTest::shouldLoadPolygonShapes()
     QCOMPARE(polygonClass->extent().topLeft().x(), -0.7034284);
     QCOMPARE(polygonClass->extent().bottomRight().y(), 52.1553076);
 
-    const int FEATURE_ID = 149;
+    const int FEATURE_ID = 148;
     const IFeature* feature = polygonClass->featureById(FEATURE_ID);
-    const IFeature* feature1 = polygonClass->featureByIndex(FEATURE_ID - 1);
+    const IFeature* feature1 = polygonClass->featureByIndex(FEATURE_ID);
     QCOMPARE(feature, feature1);
     QCOMPARE(feature->id(), FEATURE_ID);
     QCOMPARE(feature->record()->value("name").toString(), QString("With ring"));
