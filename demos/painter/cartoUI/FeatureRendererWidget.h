@@ -25,27 +25,20 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
-#include <geometry/GeometryType.h>
-#include <display/ISymbol.h>
 
-#include <QtCore/QObject>
-#include <QtGui/QStandardItem>
+#include <QtWidgets/QWidget>
 
-class ISymbol;
+class IFeatureRenderer;
 
-class SymbolItem : public QObject, public QStandardItem
+class FeatureRendererWidget : public QWidget
 {
     Q_OBJECT
 public:
-    SymbolItem(const ISymbol *symbol, const Geometry::Type geometry);
-    ~SymbolItem();
+    explicit FeatureRendererWidget(QWidget *parent = nullptr);
+    ~FeatureRendererWidget();
 
-    QVariant data(int role) const  override;
+    virtual void applyChanges() = 0;
 
-    void setSymbol(const ISymbol* symbol);
-
-private:
-    ISymbolUPtr m_symbol;
-    const Geometry::Type m_geometry;
+signals:
+    void rendererChanged(const IFeatureRenderer* renderer);
 };
-

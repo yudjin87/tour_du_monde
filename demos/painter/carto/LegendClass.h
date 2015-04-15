@@ -25,32 +25,34 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
-#include <QtCore/QObject>
-#include <QtGui/QStandardItem>
+#include <carto/ILegendClass.h>
+#include <display/ISymbol.h>
 
-class AbstractLayer;
-class FeatureLayer;
-class IServiceLocator;
-class IFeatureRenderer;
-
-class FeatureLayerItem : public QObject, public QStandardItem
+class CARTO_API LegendClass : public ILegendClass
 {
 public:
-    FeatureLayerItem(IServiceLocator* serviceLocator, FeatureLayer &layer);
-    ~FeatureLayerItem();
+    LegendClass();
+    LegendClass(ISymbol* symbol);
+    ~LegendClass();
 
-    QVariant data(int role = Qt::UserRole + 1) const override;
-    void setData(const QVariant &value, int role = Qt::UserRole + 1) override;
+    QString description() const override;
+    void setDescription(const QString& description) override;
+
+    QString label() const override;
+    void setLabel(const QString& label) override;
+
+    ISymbol* symbol() override;
+    const ISymbol* symbol() const override;
+    void setSymbol(ISymbol* symbol) override;
+
+    ILegendClass* clone() const override;
 
 private:
-    void createNestedItems(const IFeatureRenderer *renderer);
-
-private slots:
-    void onNameChanged(AbstractLayer* sender, const QString &newName);
-    void onRendererChanged(const IFeatureRenderer *newRenderer);
+    LegendClass(const LegendClass& other);
+    LegendClass& operator=(const LegendClass& other);
 
 private:
-    FeatureLayer& m_layer;
-    IServiceLocator* m_serviceLocator;
+    ISymbolUPtr m_symbol;
+    QString m_description;
+    QString m_label;
 };
-

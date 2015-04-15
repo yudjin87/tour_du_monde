@@ -27,7 +27,9 @@
 #pragma once
 #include <components/interactivity/PropertiesWidget.h>
 #include <geometry/GeometryType.h>
-#include <display/ISymbol.h>
+#include <QtCore/QStringListModel>
+
+#include <memory>
 
 namespace Ui
 {
@@ -35,7 +37,7 @@ class FeatureLayerPropertiesWidget;
 }
 
 class FeatureLayer;
-class ISymbol;
+class IFeatureRenderer;
 
 class FeatureLayerPropertiesWidget : public PropertiesWidget
 {
@@ -47,13 +49,16 @@ public:
     void applyChanges(IServiceLocator *serviceLocator) override;
 
 private slots:
-    void onSymbolChanged(const ISymbol* newSymbol);
+    void onRendererChanged(const IFeatureRenderer* renderer);
     void onLayerNameEditingFinished();
 
+    void onSymbolCategoryChanged(int index);
+
 private:
+    QStringListModel m_symbolCategories;
     Ui::FeatureLayerPropertiesWidget *m_ui;
+    std::unique_ptr<IFeatureRenderer> m_renderer;
     FeatureLayer *m_layer;
-    ISymbolUPtr m_newSymbol;
     QString m_newName;
 };
 

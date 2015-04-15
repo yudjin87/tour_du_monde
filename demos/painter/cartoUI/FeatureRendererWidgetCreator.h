@@ -25,32 +25,24 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
-#include <QtCore/QObject>
-#include <QtGui/QStandardItem>
+#include <carto/IFeatureRenderer.h>
+#include <carto/IFeatureRendererVisitor.h>
+#include <cartoUI/FeatureRendererWidget.h>
 
-class AbstractLayer;
-class FeatureLayer;
-class IServiceLocator;
 class IFeatureRenderer;
 
-class FeatureLayerItem : public QObject, public QStandardItem
+class FeatureRendererWidgetCreator : private IFeatureRendererVisitor
 {
 public:
-    FeatureLayerItem(IServiceLocator* serviceLocator, FeatureLayer &layer);
-    ~FeatureLayerItem();
+    FeatureRendererWidgetCreator();
+    ~FeatureRendererWidgetCreator();
 
-    QVariant data(int role = Qt::UserRole + 1) const override;
-    void setData(const QVariant &value, int role = Qt::UserRole + 1) override;
-
-private:
-    void createNestedItems(const IFeatureRenderer *renderer);
-
-private slots:
-    void onNameChanged(AbstractLayer* sender, const QString &newName);
-    void onRendererChanged(const IFeatureRenderer *newRenderer);
+    FeatureRendererWidget* createWidget(IFeatureRenderer* renderer, QWidget *parent);
 
 private:
-    FeatureLayer& m_layer;
-    IServiceLocator* m_serviceLocator;
+    void visit(SimpleRenderer &renderer);
+
+private:
+    FeatureRendererWidget* m_rendererWidget;
+    QWidget *m_parent;
 };
-

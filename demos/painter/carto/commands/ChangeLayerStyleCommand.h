@@ -26,20 +26,20 @@
 
 #pragma once
 #include <carto/carto_api.h>
-#include <display/ISymbol.h>
+#include <carto/IFeatureRenderer.h>
 #include <carousel/commands/BaseUndoableCommand.h>
 
 class IPainterDocumentController;
 class FeatureLayer;
 
-class CARTO_API ChangeLayerSymbolCommand : public BaseUndoableCommand
+class CARTO_API ChangeLayerStyleCommand : public BaseUndoableCommand
 {
     Q_OBJECT
 public:
-    ChangeLayerSymbolCommand(IUndoStack *stack, IPainterDocumentController *docContr, QObject* parent = nullptr);
+    ChangeLayerStyleCommand(IUndoStack *stack, IPainterDocumentController *docContr, QObject* parent = nullptr);
 
     void setLayer(FeatureLayer* layer);
-    void setNewSymbol(const ISymbol *newSymbol);
+    void setNewRenderer(const IFeatureRenderer *renderer);
 
     void redo() override;
     void undo() override;
@@ -47,7 +47,7 @@ public:
 private:
     IPainterDocumentController* m_docContr;
     FeatureLayer* m_layer;
-    ISymbolUPtr m_newSymbol;
-    ISymbolUPtr m_oldSymbol;
+    IFeatureRendererUPtr m_newRenderer;
+    IFeatureRendererUPtr m_oldRenderer;
 };
 

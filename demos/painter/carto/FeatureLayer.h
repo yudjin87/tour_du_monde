@@ -25,8 +25,8 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
-#include "AbstractLayer.h"
-
+#include <carto/AbstractLayer.h>
+#include <carto/IFeatureRenderer.h>
 #include <geometry/GeometryType.h>
 
 #include <QtCore/QList>
@@ -46,7 +46,8 @@ public:
 
     Geometry::Type shapeType() const;
 
-    IFeatureRenderer *renderer() const;
+    IFeatureRenderer *renderer();
+    const IFeatureRenderer *renderer() const;
     void setRenderer(IFeatureRenderer *newRenderer);
 
     void draw(IDisplay *display) override;
@@ -60,12 +61,15 @@ public:
 
     void accept(ILayerVisitor& visitor) override;
 
+signals:
+    void rendererChanged(const IFeatureRenderer *newRenderer);
+
 protected:
     void show() override;
     void hide() override;
 
 private:
     IFeatureClass *m_featureClass;
-    IFeatureRenderer *m_featureRenderer;
+    IFeatureRendererUPtr m_featureRenderer;
 };
 

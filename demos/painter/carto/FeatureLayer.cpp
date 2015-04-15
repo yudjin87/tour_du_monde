@@ -27,7 +27,7 @@
 #include <carto/FeatureLayer.h>
 #include <carto/FeatureLayerDrawingTask.h>
 #include <carto/ILayerVisitor.h>
-#include <carto/SimpleFeatureRenderer.h>
+#include <carto/SimpleRenderer.h>
 
 #include <display/IDisplay.h>
 #include <display/DisplayTransformation.h>
@@ -51,7 +51,7 @@ static LoggerFacade Log = LoggerFacade::createLogger("FeatureLayer");
 FeatureLayer::FeatureLayer(QObject *parent)
     : AbstractLayer(parent)
     , m_featureClass(nullptr)
-    , m_featureRenderer(new SimpleFeatureRenderer())
+    , m_featureRenderer(nullptr)
 {
 }
 
@@ -59,9 +59,6 @@ FeatureLayer::~FeatureLayer()
 {
     delete m_featureClass;
     m_featureClass = nullptr;
-
-    delete m_featureRenderer;
-    m_featureRenderer = nullptr;
 }
 
 Geometry::Type FeatureLayer::shapeType() const
@@ -69,17 +66,22 @@ Geometry::Type FeatureLayer::shapeType() const
     return m_featureClass->shapeType();
 }
 
-IFeatureRenderer *FeatureLayer::renderer() const
+IFeatureRenderer *FeatureLayer::renderer()
 {
-    return m_featureRenderer;
+    return m_featureRenderer.get();
+}
+
+const IFeatureRenderer *FeatureLayer::renderer() const
+{
+    return m_featureRenderer.get();
 }
 
 void FeatureLayer::setRenderer(IFeatureRenderer *newRenderer)
 {
     Q_ASSERT(newRenderer != nullptr);
 
-    delete m_featureRenderer;
-    m_featureRenderer = newRenderer;
+    m_featureRenderer.reset(newRenderer);
+    emit rendererChanged(m_featureRenderer.get());
 }
 
 void FeatureLayer::draw(IDisplay *display)
@@ -93,7 +95,8 @@ void FeatureLayer::draw(IDisplay *display)
 
     IFeatureCollection features = m_featureClass->search(filter);
 
-    FeatureLayerDrawingTask* task = new FeatureLayerDrawingTask(std::move(features), m_featureRenderer);
+    // TODO: race condition, if renderer is changed during drawing
+    FeatureLayerDrawingTask* task = new FeatureLayerDrawingTask(std::move(features), m_featureRenderer.get());
     display->postDrawingTask(IDrawingTaskPtr(task));
 }
 
@@ -139,7 +142,10 @@ void FeatureLayer::setFeatureClass(IFeatureClass *featureClass)
         break;
     }
 
-    m_featureRenderer->setSymbol(defaultSymbol);
+    SimpleRenderer* defaultRenderer = new SimpleRenderer();
+    defaultRenderer->setSymbol(defaultSymbol);
+
+    m_featureRenderer.reset(defaultRenderer);
 }
 
 void FeatureLayer::accept(ILayerVisitor &visitor)

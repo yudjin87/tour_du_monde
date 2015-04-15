@@ -3,7 +3,7 @@
  *
  * Carousel - Qt-based managed component library.
  *
- * Copyright: 2011-2015 Carousel team
+ * Copyright: 2011-2013 Carousel team
  * Authors:
  *   Eugene Chuguy <eugene.chuguy@gmail.com>
  *
@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
-
+ 
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -25,32 +25,39 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
-#include <QtCore/QObject>
-#include <QtGui/QStandardItem>
+#include <carto/IFeatureRenderer.h>
+#include <carto/ILegendGroup.h>
 
-class AbstractLayer;
-class FeatureLayer;
-class IServiceLocator;
-class IFeatureRenderer;
+#include <display/ISymbol.h>
 
-class FeatureLayerItem : public QObject, public QStandardItem
+#include <QtCore/QVector>
+
+class CARTO_API SimpleRenderer : public IFeatureRenderer
 {
+    Q_OBJECT
 public:
-    FeatureLayerItem(IServiceLocator* serviceLocator, FeatureLayer &layer);
-    ~FeatureLayerItem();
+    SimpleRenderer(QObject *parent = nullptr);
+    ~SimpleRenderer();
 
-    QVariant data(int role = Qt::UserRole + 1) const override;
-    void setData(const QVariant &value, int role = Qt::UserRole + 1) override;
+    void draw(const QVector<IFeature *> &features, QPainter *painter) override;
+
+    ISymbol *symbol();
+    const ISymbol *symbol() const;
+    void setSymbol(ISymbol *symbol);
+
+    ILegendGroup *legend() override;
+    const ILegendGroup *legend() const override;
+
+    void accept(IFeatureRendererVisitor& visitor) override;
+
+    IFeatureRenderer* clone() const override;
 
 private:
-    void createNestedItems(const IFeatureRenderer *renderer);
-
-private slots:
-    void onNameChanged(AbstractLayer* sender, const QString &newName);
-    void onRendererChanged(const IFeatureRenderer *newRenderer);
+    SimpleRenderer(const SimpleRenderer& other);
+    SimpleRenderer& operator=(const SimpleRenderer& other);
 
 private:
-    FeatureLayer& m_layer;
-    IServiceLocator* m_serviceLocator;
+    ILegendGroupUPtr m_legend;
 };
+
 

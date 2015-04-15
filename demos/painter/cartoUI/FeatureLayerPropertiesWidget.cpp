@@ -26,13 +26,12 @@
 
 #include "FeatureLayerPropertiesWidget.h"
 #include "ui_FeatureLayerPropertiesWidget.h"
+#include "cartoUI/FeatureRendererWidgetCreator.h"
+
 #include <carto/commands/RenameLayerCommand.h>
-#include <carto/commands/ChangeLayerSymbolCommand.h>
+#include <carto/commands/ChangeLayerStyleCommand.h>
 #include <carto/IFeatureRenderer.h>
 #include <carto/FeatureLayer.h>
-
-#include <displayWidgets//SymbolWidgetCreator.h>
-#include <displayWidgets/SymbolEditorWidget.h>
 
 #include <carousel/commands/GroupUndoableCommand.h>
 #include <carousel/utils/IServiceLocator.h>
@@ -41,21 +40,32 @@
 
 FeatureLayerPropertiesWidget::FeatureLayerPropertiesWidget(FeatureLayer *layer, QWidget *parent)
     : PropertiesWidget(parent)
+    , m_symbolCategories({"Simple symbol", "Unique value symbols"})
     , m_ui(new Ui::FeatureLayerPropertiesWidget())
+    , m_renderer(nullptr)
     , m_layer(layer)
-    , m_newSymbol(nullptr)
     , m_newName(m_layer->name())
 {
     m_ui->setupUi(this);
+
+    m_ui->symbolCategoryCbox->setModel(&m_symbolCategories);
+    connect(m_ui->symbolCategoryCbox, SIGNAL(currentIndexChanged(int)),this, SLOT(onSymbolCategoryChanged(int)));
+
     m_ui->layerName->setText(m_newName);
     connect(m_ui->layerName, &QLineEdit::editingFinished, this, &FeatureLayerPropertiesWidget::onLayerNameEditingFinished);
 
     IFeatureRenderer *renderer = m_layer->renderer();
+    FeatureRendererWidgetCreator creator;
+    FeatureRendererWidget *rendererWidget = creator.createWidget(renderer, this);
 
-    SymbolWidgetCreator symbolWidgetCreator;
-    SymbolEditorWidget* symbolWidget = symbolWidgetCreator.createEditorWidget(renderer->symbol(), this);
-    m_ui->symbolPlaceholder->addWidget(symbolWidget);
-    connect(symbolWidget, &SymbolEditorWidget::symbolChanged, this, &FeatureLayerPropertiesWidget::onSymbolChanged);
+    // install widget
+    connect(rendererWidget, &FeatureRendererWidget::rendererChanged, this, &FeatureLayerPropertiesWidget::onRendererChanged);
+
+    m_ui->rendererLayout->removeWidget(m_ui->rendererWidgetPlaceholder);
+    m_ui->rendererLayout->addWidget(rendererWidget);
+    m_ui->rendererWidgetPlaceholder->setParent(nullptr);
+    delete m_ui->rendererWidgetPlaceholder;
+    m_ui->rendererWidgetPlaceholder = rendererWidget;
 }
 
 FeatureLayerPropertiesWidget::~FeatureLayerPropertiesWidget()
@@ -75,20 +85,20 @@ void FeatureLayerPropertiesWidget::applyChanges(IServiceLocator *serviceLocator)
         group->addChild(cmd);
     }
 
-    if (m_newSymbol != nullptr)
+    if (m_renderer != nullptr)
     {
-        ChangeLayerSymbolCommand* cmd = serviceLocator->buildInstance<ChangeLayerSymbolCommand>();
+        ChangeLayerStyleCommand* cmd = serviceLocator->buildInstance<ChangeLayerStyleCommand>();
         cmd->setLayer(m_layer);
-        cmd->setNewSymbol(m_newSymbol.get());
+        cmd->setNewRenderer(m_renderer.get());
         group->addChild(cmd);
     }
 
     group->pushToStack();
 }
 
-void FeatureLayerPropertiesWidget::onSymbolChanged(const ISymbol *newSymbol)
+void FeatureLayerPropertiesWidget::onRendererChanged(const IFeatureRenderer *renderer)
 {
-    m_newSymbol.reset(newSymbol->clone());
+    m_renderer.reset(renderer->clone());
     emit propertyChanged();
 }
 
@@ -101,4 +111,9 @@ void FeatureLayerPropertiesWidget::onLayerNameEditingFinished()
 
     m_newName = m_ui->layerName->text();
     emit propertyChanged();
+}
+
+void FeatureLayerPropertiesWidget::onSymbolCategoryChanged(int index)
+{
+
 }

@@ -30,11 +30,14 @@ HEADERS += \
     LayerPropertyWidgetCreator.h \
     LayerTreeModel.h \
     FeatureLayerItem.h \
-    SymbolItem.h \
     LayerItemCreator.h \
     LayerTreeView.h \
     FeatureClassModel.h \
-    FeatureClassTableView.h
+    FeatureClassTableView.h \
+    LegendClassItem.h \
+    FeatureRendererWidgetCreator.h \
+    SimpleRendererWidget.h \
+    FeatureRendererWidget.h
 
 SOURCES += \
     CartoUIComponent.cpp \
@@ -45,14 +48,18 @@ SOURCES += \
     LayerPropertyWidgetCreator.cpp \
     LayerTreeModel.cpp \
     FeatureLayerItem.cpp \
-    SymbolItem.cpp \
     LayerItemCreator.cpp \
     LayerTreeView.cpp \
     FeatureClassModel.cpp \
-    FeatureClassTableView.cpp
+    FeatureClassTableView.cpp \
+    LegendClassItem.cpp \
+    FeatureRendererWidgetCreator.cpp \
+    SimpleRendererWidget.cpp \
+    FeatureRendererWidget.cpp
 
 FORMS += \
-    FeatureLayerPropertiesWidget.ui
+    FeatureLayerPropertiesWidget.ui \
+    SimpleRendererWidget.ui
 
 OTHER_FILES += \
     org.carousel.demos.CartoUI.definition

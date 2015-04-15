@@ -25,11 +25,13 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "FeatureLayerItem.h"
-#include "SymbolItem.h"
+#include "LegendClassItem.h"
 
-#include <carto/commands/RenameLayerCommand.h>
+#include <carto/ILegendGroup.h>
+#include <carto/ILegendClass.h>
 #include <carto/FeatureLayer.h>
 #include <carto/IFeatureRenderer.h>
+#include <carto/commands/RenameLayerCommand.h>
 #include <carousel/utils/IServiceLocator.h>
 
 FeatureLayerItem::FeatureLayerItem(IServiceLocator *serviceLocator, FeatureLayer &layer)
@@ -40,11 +42,10 @@ FeatureLayerItem::FeatureLayerItem(IServiceLocator *serviceLocator, FeatureLayer
     Qt::ItemFlags defaultFlags = QStandardItem::flags();
     setFlags(Qt::ItemIsDragEnabled | Qt::ItemIsDropEnabled | Qt::ItemIsEditable | defaultFlags);
 
-    SymbolItem* symbolItem = new SymbolItem(layer.renderer()->symbol(), layer.shapeType());
-    appendRow(symbolItem);
-    QObject::connect(layer.renderer(), &IFeatureRenderer::symbolChanged, symbolItem, &SymbolItem::setSymbol);
+    connect(&layer, &FeatureLayer::nameChanged, this, &FeatureLayerItem::onNameChanged);
+    connect(&layer, &FeatureLayer::rendererChanged, this, &FeatureLayerItem::onRendererChanged);
 
-    connect(&layer, &AbstractLayer::nameChanged, this, &FeatureLayerItem::onNameChanged);
+    createNestedItems(layer.renderer());
 }
 
 FeatureLayerItem::~FeatureLayerItem()
@@ -75,8 +76,26 @@ void FeatureLayerItem::setData(const QVariant &value, int role)
     rename->pushToStack();
 }
 
+void FeatureLayerItem::createNestedItems(const IFeatureRenderer *renderer)
+{
+    const ILegendGroup* legendGroup = renderer->legend();
+    for (size_t i = 0; i < legendGroup->classCount(); ++i)
+    {
+        LegendClassItem* symbolItem = new LegendClassItem(legendGroup->getClass(i), m_layer.shapeType());
+        appendRow(symbolItem);
+    }
+}
+
 void FeatureLayerItem::onNameChanged(AbstractLayer *, const QString &)
 {
+    emitDataChanged();
+}
+
+void FeatureLayerItem::onRendererChanged(const IFeatureRenderer *newRenderer)
+{
+    removeRows(0, rowCount());
+    createNestedItems(newRenderer);
+
     emitDataChanged();
 }
 

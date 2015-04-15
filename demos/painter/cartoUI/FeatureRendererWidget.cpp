@@ -3,7 +3,7 @@
  *
  * Carousel - Qt-based managed component library.
  *
- * Copyright: 2011-2013 Carousel team
+ * Copyright: 2011-2015 Carousel team
  * Authors:
  *   Eugene Chuguy <eugene.chuguy@gmail.com>
  *
@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- 
+
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -24,45 +24,14 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "carto/SimpleFeatureRenderer.h"
-#include <display/ISymbol.h>
-#include <geodatabase/IFeature.h>
+#include "cartoUI/FeatureRendererWidget.h"
 
-#include <QtGui/QPainter>
-
-SimpleFeatureRenderer::SimpleFeatureRenderer(QObject *parent)
-    : IFeatureRenderer(parent)
-    , m_symbol(nullptr)
+FeatureRendererWidget::FeatureRendererWidget(QWidget *parent)
+    : QWidget(parent)
 {
 }
 
-SimpleFeatureRenderer::~SimpleFeatureRenderer()
+FeatureRendererWidget::~FeatureRendererWidget()
 {
-}
-
-void SimpleFeatureRenderer::draw(const QVector<IFeature *> &features, QPainter *painter)
-{
-    m_symbol->setupPainter(painter);
-    for (const IFeature *feature : features) {
-        m_symbol->draw(feature->geometry(), painter);
-    }
-
-    m_symbol->resetPainter(painter);
-}
-
-ISymbol *SimpleFeatureRenderer::symbol()
-{
-    return m_symbol.get();
-}
-
-const ISymbol *SimpleFeatureRenderer::symbol() const
-{
-    return m_symbol.get();
-}
-
-void SimpleFeatureRenderer::setSymbol(ISymbol *symbol)
-{
-    m_symbol.reset(symbol);
-    emit symbolChanged(symbol);
 }
 

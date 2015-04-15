@@ -24,40 +24,16 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "SymbolItem.h"
-#include <display/SymbolThumbnail.h>
-#include <QtGui/QPixmap>
+#pragma once
+#include <carto/carto_api.h>
 
-SymbolItem::SymbolItem(const ISymbol *symbol, const Geometry::Type geometry)
-    : QStandardItem()
-    , m_symbol(symbol->clone())
-    , m_geometry(geometry)
+class SimpleRenderer;
+
+class CARTO_API IFeatureRendererVisitor
 {
-    Qt::ItemFlags defaultFlags = flags();
-    defaultFlags &= ~Qt::ItemIsEditable;
-    setFlags(defaultFlags);
-}
+public:
+    IFeatureRendererVisitor(){}
+    virtual ~IFeatureRendererVisitor(){}
 
-SymbolItem::~SymbolItem()
-{
-}
-
-void SymbolItem::setSymbol(const ISymbol *symbol)
-{
-    m_symbol.reset(symbol->clone());
-    emitDataChanged();
-}
-
-QVariant SymbolItem::data(int role) const
-{
-    switch (role)
-    {
-    case Qt::DecorationRole:
-        SymbolThumbnail thumbnailCreator(16, 2);
-        thumbnailCreator.setBackground(Qt::white);
-        QPixmap symbol = thumbnailCreator.createSymbolThumbnail(m_symbol.get(), m_geometry);
-        return symbol;
-    }
-
-    return QStandardItem::data(role);
-}
+    virtual void visit(SimpleRenderer& renderer) = 0;
+};

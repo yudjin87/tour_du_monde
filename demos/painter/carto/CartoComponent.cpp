@@ -28,7 +28,7 @@
 #include "commands/AddShapesCommand.h"
 #include "commands/RemoveLayerCommand.h"
 #include "commands/RenameLayerCommand.h"
-#include "commands/ChangeLayerSymbolCommand.h"
+#include "commands/ChangeLayerStyleCommand.h"
 #include "commands/MoveLayerCommand.h"
 #include "PainterDocumentController.h"
 #include "CartoScriptExtension.h"
@@ -86,8 +86,8 @@ bool CartoComponent::onStartup(IServiceLocator *serviceLocator)
     TypeCreator<MoveLayerCommand, TypeLocator<IUndoStack>, TypeLocator<IPainterDocumentController>> moveLayerCreator{serviceLocator};
     serviceLocator->registerType<MoveLayerCommand>(moveLayerCreator);
 
-    TypeCreator<ChangeLayerSymbolCommand, TypeLocator<IUndoStack>, TypeLocator<IPainterDocumentController>> changeLayerSymbolCommandCreator{serviceLocator};
-    serviceLocator->registerType<ChangeLayerSymbolCommand>(changeLayerSymbolCommandCreator);
+    TypeCreator<ChangeLayerStyleCommand, TypeLocator<IUndoStack>, TypeLocator<IPainterDocumentController>> changeLayerSymbolCommandCreator{serviceLocator};
+    serviceLocator->registerType<ChangeLayerStyleCommand>(changeLayerSymbolCommandCreator);
 
     IDisplay *display = serviceLocator->locate<IDisplay>();
     IPainterDocumentController *controller = new PainterDocumentController(display);

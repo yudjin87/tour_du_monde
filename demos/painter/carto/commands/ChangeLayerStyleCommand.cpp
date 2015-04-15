@@ -24,48 +24,48 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include <carto/commands/ChangeLayerSymbolCommand.h>
+#include <carto/commands/ChangeLayerStyleCommand.h>
 #include <carto/IMap.h>
 #include <carto/FeatureLayer.h>
 #include <carto/IPainterDocument.h>
 #include <carto/IPainterDocumentController.h>
 #include <carto/IFeatureRenderer.h>
 
-ChangeLayerSymbolCommand::ChangeLayerSymbolCommand(IUndoStack *stack, IPainterDocumentController *docContr, QObject *parent)
+ChangeLayerStyleCommand::ChangeLayerStyleCommand(IUndoStack *stack, IPainterDocumentController *docContr, QObject *parent)
     : BaseUndoableCommand(stack, parent)
     , m_docContr(docContr)
     , m_layer(nullptr)
-    , m_newSymbol(nullptr)
-    , m_oldSymbol(nullptr)
+    , m_newRenderer(nullptr)
+    , m_oldRenderer(nullptr)
 {
-    setText("layer symbol changing");
+    setText("layer style changing");
 }
 
-void ChangeLayerSymbolCommand::setLayer(FeatureLayer *layer)
+void ChangeLayerStyleCommand::setLayer(FeatureLayer *layer)
 {
     m_layer = layer;
 }
 
-void ChangeLayerSymbolCommand::setNewSymbol(const ISymbol *newSymbol)
+void ChangeLayerStyleCommand::setNewRenderer(const IFeatureRenderer *renderer)
 {
-    m_newSymbol.reset(newSymbol->clone());
+    m_newRenderer.reset(renderer->clone());
 }
 
-void ChangeLayerSymbolCommand::redo()
+void ChangeLayerStyleCommand::redo()
 {
-    if (m_oldSymbol == nullptr)
+    if (m_oldRenderer == nullptr)
     {
-        m_oldSymbol.reset(m_layer->renderer()->symbol()->clone());
+        m_oldRenderer.reset(m_layer->renderer()->clone());
     }
-    m_layer->renderer()->setSymbol(m_newSymbol->clone());
+    m_layer->setRenderer(m_newRenderer->clone());
     IPainterDocument *doc = m_docContr->document();
     IMap* map = doc->map();
     map->refresh();
 }
 
-void ChangeLayerSymbolCommand::undo()
+void ChangeLayerStyleCommand::undo()
 {
-    m_layer->renderer()->setSymbol(m_oldSymbol->clone());
+    m_layer->setRenderer(m_oldRenderer->clone());
 
     IPainterDocument *doc = m_docContr->document();
     IMap* map = doc->map();

@@ -93,6 +93,11 @@ void Map::insertLayer(const int index, AbstractLayer *layer)
 AbstractLayer *Map::takeLayer(const int index)
 {
     AbstractLayer *layer = getLayer(index);
+    if (layer == nullptr)
+    {
+        return nullptr;
+    }
+
     m_layers.removeAt(index);
 
     emit layerRemoved(layer, index);
@@ -146,7 +151,7 @@ int Map::moveLayer(AbstractLayer *layer, const int index)
 
     const int newIndex = ((0 < index) && (index < m_layers.size()))
             ? index
-            : index; // 0
+            : index; // 0 // TODO! FIX ME!!
 
     const int actualNewIndex = newIndex < oldIndex ? newIndex : newIndex - 1; // since it will be removed from old position
 

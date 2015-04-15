@@ -3,7 +3,7 @@
  *
  * Carousel - Qt-based managed component library.
  *
- * Copyright: 2011-2013 Carousel team
+ * Copyright: 2011-2015 Carousel team
  * Authors:
  *   Eugene Chuguy <eugene.chuguy@gmail.com>
  *
@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- 
+
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -25,26 +25,31 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
-#include <carto/IFeatureRenderer.h>
+
+#include <cartoUI/FeatureRendererWidget.h>
 #include <display/ISymbol.h>
 
-#include <QtCore/QVector>
+namespace Ui
+{
+class SimpleRendererWidget;
+}
 
-class CARTO_API SimpleFeatureRenderer : public IFeatureRenderer
+class SimpleRenderer;
+
+class SimpleRendererWidget : public FeatureRendererWidget
 {
     Q_OBJECT
 public:
-    SimpleFeatureRenderer(QObject *parent = nullptr);
-    ~SimpleFeatureRenderer();
+    explicit SimpleRendererWidget(SimpleRenderer* renderer, QWidget *parent = nullptr);
+    ~SimpleRendererWidget();
 
-    void draw(const QVector<IFeature *> &features, QPainter *painter) override;
+    void applyChanges();
 
-    ISymbol *symbol() override;
-    const ISymbol *symbol() const override;
-    void setSymbol(ISymbol *symbol) override;
+private slots:
+    void onSymbolChanged(const ISymbol* newSymbol);
 
 private:
-    ISymbolUPtr m_symbol;
+    Ui::SimpleRendererWidget *m_ui;
+    std::unique_ptr<SimpleRenderer> m_renderer;
+    ISymbolUPtr m_newSymbol;
 };
-
-

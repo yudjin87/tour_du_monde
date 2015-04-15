@@ -25,32 +25,29 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
+#include <geometry/GeometryType.h>
+#include <carto/ILegendClass.h>
+
 #include <QtCore/QObject>
 #include <QtGui/QStandardItem>
 
-class AbstractLayer;
-class FeatureLayer;
-class IServiceLocator;
-class IFeatureRenderer;
+class ILegendClass;
 
-class FeatureLayerItem : public QObject, public QStandardItem
+class LegendClassItem : public QObject, public QStandardItem
 {
+    Q_OBJECT
 public:
-    FeatureLayerItem(IServiceLocator* serviceLocator, FeatureLayer &layer);
-    ~FeatureLayerItem();
+    LegendClassItem(const ILegendClass *legend, const Geometry::Type geometry);
+    ~LegendClassItem();
 
-    QVariant data(int role = Qt::UserRole + 1) const override;
-    void setData(const QVariant &value, int role = Qt::UserRole + 1) override;
-
-private:
-    void createNestedItems(const IFeatureRenderer *renderer);
-
-private slots:
-    void onNameChanged(AbstractLayer* sender, const QString &newName);
-    void onRendererChanged(const IFeatureRenderer *newRenderer);
+    QVariant data(int role) const  override;
 
 private:
-    FeatureLayer& m_layer;
-    IServiceLocator* m_serviceLocator;
+    void onSymbolChanged(const ISymbol* symbol);
+    void onLabelChanged(const QString& label);
+
+private:
+    const ILegendClass* m_legend;
+    const Geometry::Type m_geometry;
 };
 

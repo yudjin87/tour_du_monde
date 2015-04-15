@@ -3,7 +3,7 @@
  *
  * Carousel - Qt-based managed component library.
  *
- * Copyright: 2011-2013 Carousel team
+ * Copyright: 2011-2015 Carousel team
  * Authors:
  *   Eugene Chuguy <eugene.chuguy@gmail.com>
  *
@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- 
+
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -26,41 +26,38 @@
 
 #pragma once
 #include <carto/carto_api.h>
-
 #include <QtCore/QObject>
-
+#include <QtCore/QString>
 #include <memory>
 
-class IFeature;
-class IFeatureRendererVisitor;
 class ISymbol;
-class ILegendGroup;
-class QPainter;
 
-class CARTO_API IFeatureRenderer : public QObject
+class CARTO_API ILegendClass : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(QString description READ description WRITE setDescription NOTIFY descriptionChanged)
+    Q_PROPERTY(QString label READ label WRITE setLabel NOTIFY labelChanged)
+    Q_PROPERTY(ISymbol *symbol READ symbol WRITE setSymbol NOTIFY symbolChanged)
 public:
-    IFeatureRenderer(QObject *parent = nullptr) : QObject(parent){}
-    virtual ~IFeatureRenderer(){}
+    ILegendClass(){}
+    virtual ~ILegendClass(){}
 
-    /*!
-     * @details
-     *   Draws features from the specified cursor on the given device.
-     *
-     *   This method is typically called by the framework to renderer features
-     *   to a device. This could be in response to a refresh on the map.
-     *   This method typically iterates through all the features and renders each
-     *   feature with an appropriate symbol.
-     */
-    virtual void draw(const QVector<IFeature *> &features, QPainter *painter) = 0;
+    virtual QString description() const = 0;
+    virtual void setDescription(const QString& description) = 0;
 
-    virtual ILegendGroup *legend() = 0;
-    virtual const ILegendGroup *legend() const = 0;
+    virtual QString label() const = 0;
+    virtual void setLabel(const QString& label) = 0;
 
-    virtual void accept(IFeatureRendererVisitor& visitor) = 0;
-    virtual IFeatureRenderer* clone() const = 0;
+    virtual ISymbol* symbol() = 0;
+    virtual const ISymbol* symbol() const = 0;
+    virtual void setSymbol(ISymbol* symbol) = 0;
+
+    virtual ILegendClass* clone() const = 0;
+
+signals:
+    void descriptionChanged(const QString& description);
+    void labelChanged(const QString& description);
+    void symbolChanged(const ISymbol* newSymbol);
 };
 
-typedef std::unique_ptr<IFeatureRenderer> IFeatureRendererUPtr;
-
+typedef std::unique_ptr<ILegendClass> ILegendClassUPtr;

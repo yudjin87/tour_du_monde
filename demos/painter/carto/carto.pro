@@ -36,12 +36,17 @@ HEADERS += \
     FeatureLayerDrawingTask.h \
     DefaultNavigationHandler.h \
     IFeatureRenderer.h \
-    SimpleFeatureRenderer.h \
+    ILegendClass.h \
+    ILegendGroup.h \
+    LegendClass.h \
     commands/AddShapesCommand.h \
     commands/RenameLayerCommand.h \
-    commands/ChangeLayerSymbolCommand.h \
     commands/MoveLayerCommand.h \
-    commands/RemoveLayerCommand.h
+    commands/RemoveLayerCommand.h \
+    LegendGroup.h \
+    SimpleRenderer.h \
+    IFeatureRendererVisitor.h \
+    commands/ChangeLayerStyleCommand.h
 
 SOURCES += \
     AbstractLayer.cpp \
@@ -53,12 +58,14 @@ SOURCES += \
     CartoScriptExtension.cpp \
     FeatureLayerDrawingTask.cpp \
     DefaultNavigationHandler.cpp \
-    SimpleFeatureRenderer.cpp \
+    LegendClass.cpp \
     commands/AddShapesCommand.cpp \
     commands/RenameLayerCommand.cpp \
-    commands/ChangeLayerSymbolCommand.cpp \
     commands/MoveLayerCommand.cpp \
-    commands/RemoveLayerCommand.cpp
+    commands/RemoveLayerCommand.cpp \
+    LegendGroup.cpp \
+    SimpleRenderer.cpp \
+    commands/ChangeLayerStyleCommand.cpp
 
 OTHER_FILES += org.carousel.demos.Carto.definition
 

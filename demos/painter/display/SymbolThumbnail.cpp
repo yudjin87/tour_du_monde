@@ -52,7 +52,7 @@ void SymbolThumbnail::setBackground(const QColor color)
     m_bgColor = color;
 }
 
-QPixmap SymbolThumbnail::createSymbolThumbnail(ISymbol *forSymbol, const Geometry::Type type) const
+QPixmap SymbolThumbnail::createSymbolThumbnail(const ISymbol *forSymbol, const Geometry::Type type) const
 {
     QPixmap pixmap(m_size, m_size);
     pixmap.fill(m_bgColor);
@@ -61,9 +61,10 @@ QPixmap SymbolThumbnail::createSymbolThumbnail(ISymbol *forSymbol, const Geometr
 
     IGeometry *geometry = m_thumbnails[type];
 
-    forSymbol->setupPainter(&painter);
-    forSymbol->draw(geometry, &painter);
-    forSymbol->resetPainter(&painter);
+    ISymbolUPtr symbol(forSymbol->clone());
+    symbol->setupPainter(&painter);
+    symbol->draw(geometry, &painter);
+    symbol->resetPainter(&painter);
 
     return pixmap;
 }

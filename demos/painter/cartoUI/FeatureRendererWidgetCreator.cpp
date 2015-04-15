@@ -24,33 +24,33 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#pragma once
-#include <QtCore/QObject>
-#include <QtGui/QStandardItem>
+#include "cartoUI/FeatureRendererWidgetCreator.h"
+#include "cartoUI/SimpleRendererWidget.h"
+#include <carto/SimpleRenderer.h>
 
-class AbstractLayer;
-class FeatureLayer;
-class IServiceLocator;
-class IFeatureRenderer;
-
-class FeatureLayerItem : public QObject, public QStandardItem
+FeatureRendererWidgetCreator::FeatureRendererWidgetCreator()
+    : IFeatureRendererVisitor()
+    , m_rendererWidget(nullptr)
+    , m_parent(nullptr)
 {
-public:
-    FeatureLayerItem(IServiceLocator* serviceLocator, FeatureLayer &layer);
-    ~FeatureLayerItem();
+}
 
-    QVariant data(int role = Qt::UserRole + 1) const override;
-    void setData(const QVariant &value, int role = Qt::UserRole + 1) override;
+FeatureRendererWidgetCreator::~FeatureRendererWidgetCreator()
+{
+    Q_ASSERT(m_rendererWidget == nullptr);
+}
 
-private:
-    void createNestedItems(const IFeatureRenderer *renderer);
+FeatureRendererWidget *FeatureRendererWidgetCreator::createWidget(IFeatureRenderer *renderer, QWidget *parent)
+{
+    m_parent = parent;
+    renderer->accept(*this);
+    FeatureRendererWidget *tmp = m_rendererWidget;
+    m_rendererWidget = nullptr;
+    m_parent = nullptr;
+    return tmp;
+}
 
-private slots:
-    void onNameChanged(AbstractLayer* sender, const QString &newName);
-    void onRendererChanged(const IFeatureRenderer *newRenderer);
-
-private:
-    FeatureLayer& m_layer;
-    IServiceLocator* m_serviceLocator;
-};
-
+void FeatureRendererWidgetCreator::visit(SimpleRenderer &renderer)
+{
+    m_rendererWidget = new SimpleRendererWidget(&renderer, m_parent);
+}
