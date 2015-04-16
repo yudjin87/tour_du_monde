@@ -64,3 +64,8 @@ SymbolEditorWidget::~SymbolEditorWidget()
     delete m_ui;
     m_ui = nullptr;
 }
+
+void SymbolEditorWidget::prepareForEmbedding()
+{
+    m_ui->verticalLayout->setContentsMargins(QMargins());
+}

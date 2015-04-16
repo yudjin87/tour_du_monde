@@ -40,12 +40,13 @@ SimpleRendererWidget::SimpleRendererWidget(SimpleRenderer *renderer, QWidget *pa
 
     SymbolWidgetCreator symbolWidgetCreator;
     SymbolEditorWidget* symbolWidget = symbolWidgetCreator.createEditorWidget(m_renderer->symbol(), this);
+    symbolWidget->prepareForEmbedding();
 
     // install widget
     connect(symbolWidget, &SymbolEditorWidget::symbolChanged, this, &SimpleRendererWidget::onSymbolChanged);
-
+    m_ui->horizontalLayout->insertWidget(0, symbolWidget);
     m_ui->horizontalLayout->removeWidget(m_ui->symbolWidgetPlaceholder);
-    m_ui->horizontalLayout->addWidget(symbolWidget);
+
     m_ui->symbolWidgetPlaceholder->setParent(nullptr);
     delete m_ui->symbolWidgetPlaceholder;
     m_ui->symbolWidgetPlaceholder = symbolWidget;
@@ -59,6 +60,11 @@ SimpleRendererWidget::~SimpleRendererWidget()
 
 void SimpleRendererWidget::applyChanges()
 {
+}
+
+void SimpleRendererWidget::prepareForEmbedding()
+{
+    m_ui->horizontalLayout->setContentsMargins(QMargins());
 }
 
 void SimpleRendererWidget::onSymbolChanged(const ISymbol *newSymbol)

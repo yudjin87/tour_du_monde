@@ -43,7 +43,8 @@ public:
     explicit SimpleRendererWidget(SimpleRenderer* renderer, QWidget *parent = nullptr);
     ~SimpleRendererWidget();
 
-    void applyChanges();
+    void applyChanges() override;
+    void prepareForEmbedding() override;
 
 private slots:
     void onSymbolChanged(const ISymbol* newSymbol);

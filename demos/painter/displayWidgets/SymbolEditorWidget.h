@@ -44,6 +44,8 @@ class DISPLAY_WIDGETS_API SymbolEditorWidget : public QWidget
 public:
     ~SymbolEditorWidget();
 
+    void prepareForEmbedding();
+
 protected:
     explicit SymbolEditorWidget(QWidget *parent = nullptr);
 

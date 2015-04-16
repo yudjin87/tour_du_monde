@@ -57,12 +57,13 @@ FeatureLayerPropertiesWidget::FeatureLayerPropertiesWidget(FeatureLayer *layer, 
     IFeatureRenderer *renderer = m_layer->renderer();
     FeatureRendererWidgetCreator creator;
     FeatureRendererWidget *rendererWidget = creator.createWidget(renderer, this);
+    rendererWidget->prepareForEmbedding();
 
     // install widget
     connect(rendererWidget, &FeatureRendererWidget::rendererChanged, this, &FeatureLayerPropertiesWidget::onRendererChanged);
 
+    m_ui->rendererLayout->insertWidget(0, rendererWidget);
     m_ui->rendererLayout->removeWidget(m_ui->rendererWidgetPlaceholder);
-    m_ui->rendererLayout->addWidget(rendererWidget);
     m_ui->rendererWidgetPlaceholder->setParent(nullptr);
     delete m_ui->rendererWidgetPlaceholder;
     m_ui->rendererWidgetPlaceholder = rendererWidget;
@@ -71,6 +72,7 @@ FeatureLayerPropertiesWidget::FeatureLayerPropertiesWidget(FeatureLayer *layer, 
 FeatureLayerPropertiesWidget::~FeatureLayerPropertiesWidget()
 {
     delete m_ui;
+    m_ui = nullptr;
 }
 
 void FeatureLayerPropertiesWidget::applyChanges(IServiceLocator *serviceLocator)

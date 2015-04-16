@@ -38,6 +38,7 @@ public:
     ~FeatureRendererWidget();
 
     virtual void applyChanges() = 0;
+    virtual void prepareForEmbedding() = 0;
 
 signals:
     void rendererChanged(const IFeatureRenderer* renderer);
