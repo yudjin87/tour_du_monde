@@ -28,11 +28,26 @@
 #include "carto/LegendGroup.h"
 #include "carto/LegendClass.h"
 #include "carto/IFeatureRendererVisitor.h"
+#include "carto/DefaultSymbol.h"
 
 #include <display/ISymbol.h>
 #include <geodatabase/IFeature.h>
 
 #include <QtGui/QPainter>
+
+SimpleRenderer::SimpleRenderer(QObject *parent)
+    : IFeatureRenderer(parent)
+    , m_legend(new LegendGroup())
+{
+}
+
+SimpleRenderer::SimpleRenderer(const Geometry::Type forType, QObject *parent)
+    : IFeatureRenderer(parent)
+    , m_legend(new LegendGroup())
+{
+    ISymbol* defaultSymbol = StyleGallery::defaultSymbol(forType);
+    setSymbol(defaultSymbol);
+}
 
 SimpleRenderer::SimpleRenderer(const SimpleRenderer &other)
     : IFeatureRenderer()
@@ -50,12 +65,6 @@ SimpleRenderer &SimpleRenderer::operator=(const SimpleRenderer &other)
     m_legend.reset(other.m_legend->clone());
 
     return *this;
-}
-
-SimpleRenderer::SimpleRenderer(QObject *parent)
-    : IFeatureRenderer(parent)
-    , m_legend(new LegendGroup())
-{
 }
 
 SimpleRenderer::~SimpleRenderer()

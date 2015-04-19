@@ -3,7 +3,7 @@
  *
  * Carousel - Qt-based managed component library.
  *
- * Copyright: 2011-2013 Carousel team
+ * Copyright: 2011-2015 Carousel team
  * Authors:
  *   Eugene Chuguy <eugene.chuguy@gmail.com>
  *
@@ -25,43 +25,28 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
-#include <components/interactivity/PropertiesWidget.h>
-#include <geometry/GeometryType.h>
-#include <QtCore/QStringListModel>
 
+#include <cartoUI/FeatureRendererWidget.h>
+#include <carto/CategorizedRenderer.h>
 #include <memory>
 
 namespace Ui
 {
-class FeatureLayerPropertiesWidget;
+class CategorizedRendererWidget;
 }
 
-class FeatureLayer;
-class IFeatureRenderer;
-class FeatureRendererWidget;
-
-class FeatureLayerPropertiesWidget : public PropertiesWidget
+class CategorizedRendererWidget : public FeatureRendererWidget
 {
     Q_OBJECT
+
 public:
-    explicit FeatureLayerPropertiesWidget(FeatureLayer *layer, QWidget *parent = nullptr);
-    ~FeatureLayerPropertiesWidget();
+    explicit CategorizedRendererWidget(const CategorizedRenderer* renderer, QWidget *parent = nullptr);
+    ~CategorizedRendererWidget();
 
-    void applyChanges(IServiceLocator *serviceLocator) override;
-
-private slots:
-    void onRendererChanged(const IFeatureRenderer* renderer);
-    void onLayerNameEditingFinished();
-    void onSymbolCategoryChanged(int index);
+    void applyChanges() override;
+    void prepareForEmbedding() override;
 
 private:
-    void installRendererWidget(FeatureRendererWidget *rendererWidget);
-
-private:
-    QStringListModel m_symbolCategories;
-    Ui::FeatureLayerPropertiesWidget *m_ui;
-    std::unique_ptr<IFeatureRenderer> m_renderer;
-    FeatureLayer *m_layer;
-    QString m_newName;
+    Ui::CategorizedRendererWidget *m_ui;
+    std::unique_ptr<CategorizedRenderer> m_renderer;
 };
-

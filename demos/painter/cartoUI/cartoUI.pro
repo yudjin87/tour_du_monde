@@ -37,7 +37,8 @@ HEADERS += \
     LegendClassItem.h \
     FeatureRendererWidgetCreator.h \
     SimpleRendererWidget.h \
-    FeatureRendererWidget.h
+    FeatureRendererWidget.h \
+    CategorizedRendererWidget.h
 
 SOURCES += \
     CartoUIComponent.cpp \
@@ -55,11 +56,13 @@ SOURCES += \
     LegendClassItem.cpp \
     FeatureRendererWidgetCreator.cpp \
     SimpleRendererWidget.cpp \
-    FeatureRendererWidget.cpp
+    FeatureRendererWidget.cpp \
+    CategorizedRendererWidget.cpp
 
 FORMS += \
     FeatureLayerPropertiesWidget.ui \
-    SimpleRendererWidget.ui
+    SimpleRendererWidget.ui \
+    CategorizedRendererWidget.ui
 
 OTHER_FILES += \
     org.carousel.demos.CartoUI.definition

@@ -31,9 +31,6 @@
 
 #include <display/IDisplay.h>
 #include <display/DisplayTransformation.h>
-#include <display/SimpleFillSymbol.h>
-#include <display/SimpleMarkerSymbol.h>
-#include <display/SimpleLineSymbol.h>
 
 #include <geodatabase/Feature.h>
 #include <geodatabase/IFeatureClass.h>
@@ -123,28 +120,7 @@ void FeatureLayer::setFeatureClass(IFeatureClass *featureClass)
     QFileInfo fileName(featureClass->source());
     setName(fileName.baseName());
 
-    ISymbol* defaultSymbol = nullptr;
-    switch (m_featureClass->shapeType())
-    {
-    case Geometry::Type::Point:
-        defaultSymbol = new SimpleMarkerSymbol();
-        break;
-
-    case Geometry::Type::Polyline:
-        defaultSymbol = new SimpleLineSymbol();
-        break;
-
-    case Geometry::Type::Polygon:
-        defaultSymbol = new SimpleFillSymbol();
-        break;
-
-    default:
-        break;
-    }
-
-    SimpleRenderer* defaultRenderer = new SimpleRenderer();
-    defaultRenderer->setSymbol(defaultSymbol);
-
+    SimpleRenderer* defaultRenderer = new SimpleRenderer(m_featureClass->shapeType());
     m_featureRenderer.reset(defaultRenderer);
 }
 

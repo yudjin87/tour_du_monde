@@ -30,8 +30,11 @@
 
 #include <carto/commands/RenameLayerCommand.h>
 #include <carto/commands/ChangeLayerStyleCommand.h>
-#include <carto/IFeatureRenderer.h>
+#include <carto/CategorizedRenderer.h>
+#include <carto/SimpleRenderer.h>
 #include <carto/FeatureLayer.h>
+#include <geodatabase/IFeatureClass.h>
+#include <geometry/GeometryType.h>
 
 #include <carousel/commands/GroupUndoableCommand.h>
 #include <carousel/utils/IServiceLocator.h>
@@ -40,7 +43,7 @@
 
 FeatureLayerPropertiesWidget::FeatureLayerPropertiesWidget(FeatureLayer *layer, QWidget *parent)
     : PropertiesWidget(parent)
-    , m_symbolCategories({"Simple symbol", "Unique value symbols"})
+    , m_symbolCategories({"Simple symbol", "Categorized"})
     , m_ui(new Ui::FeatureLayerPropertiesWidget())
     , m_renderer(nullptr)
     , m_layer(layer)
@@ -57,16 +60,17 @@ FeatureLayerPropertiesWidget::FeatureLayerPropertiesWidget(FeatureLayer *layer, 
     IFeatureRenderer *renderer = m_layer->renderer();
     FeatureRendererWidgetCreator creator;
     FeatureRendererWidget *rendererWidget = creator.createWidget(renderer, this);
-    rendererWidget->prepareForEmbedding();
+    installRendererWidget(rendererWidget);
 
     // install widget
-    connect(rendererWidget, &FeatureRendererWidget::rendererChanged, this, &FeatureLayerPropertiesWidget::onRendererChanged);
+//    rendererWidget->prepareForEmbedding();
+//    connect(rendererWidget, &FeatureRendererWidget::rendererChanged, this, &FeatureLayerPropertiesWidget::onRendererChanged);
 
-    m_ui->rendererLayout->insertWidget(0, rendererWidget);
-    m_ui->rendererLayout->removeWidget(m_ui->rendererWidgetPlaceholder);
-    m_ui->rendererWidgetPlaceholder->setParent(nullptr);
-    delete m_ui->rendererWidgetPlaceholder;
-    m_ui->rendererWidgetPlaceholder = rendererWidget;
+//    m_ui->rendererLayout->insertWidget(0, rendererWidget);
+//    m_ui->rendererLayout->removeWidget(m_ui->rendererWidgetPlaceholder);
+//    m_ui->rendererWidgetPlaceholder->setParent(nullptr);
+//    delete m_ui->rendererWidgetPlaceholder;
+//    m_ui->rendererWidgetPlaceholder = rendererWidget;
 }
 
 FeatureLayerPropertiesWidget::~FeatureLayerPropertiesWidget()
@@ -117,5 +121,33 @@ void FeatureLayerPropertiesWidget::onLayerNameEditingFinished()
 
 void FeatureLayerPropertiesWidget::onSymbolCategoryChanged(int index)
 {
+    switch (index)
+    {
+    case 0:
+        m_renderer.reset(new SimpleRenderer(m_layer->featureClass()->shapeType()));
+        break;
+    case 1:
+        m_renderer.reset(new CategorizedRenderer());
+        break;
+    }
 
+    FeatureRendererWidgetCreator creator;
+    FeatureRendererWidget *rendererWidget = creator.createWidget(m_renderer.get(), this);
+    installRendererWidget(rendererWidget);
+
+    emit propertyChanged();
+}
+
+void FeatureLayerPropertiesWidget::installRendererWidget(FeatureRendererWidget *rendererWidget)
+{
+    rendererWidget->prepareForEmbedding();
+
+    // install widget
+    connect(rendererWidget, &FeatureRendererWidget::rendererChanged, this, &FeatureLayerPropertiesWidget::onRendererChanged);
+
+    m_ui->rendererLayout->insertWidget(0, rendererWidget);
+    m_ui->rendererLayout->removeWidget(m_ui->rendererWidgetPlaceholder);
+    m_ui->rendererWidgetPlaceholder->setParent(nullptr);
+    delete m_ui->rendererWidgetPlaceholder;
+    m_ui->rendererWidgetPlaceholder = rendererWidget;
 }

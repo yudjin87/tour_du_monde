@@ -24,39 +24,29 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "cartoUI/FeatureRendererWidgetCreator.h"
-#include "cartoUI/SimpleRendererWidget.h"
 #include "cartoUI/CategorizedRendererWidget.h"
-#include <carto/SimpleRenderer.h>
+#include "ui_CategorizedRendererWidget.h"
 
-FeatureRendererWidgetCreator::FeatureRendererWidgetCreator()
-    : IFeatureRendererVisitor()
-    , m_rendererWidget(nullptr)
-    , m_parent(nullptr)
+CategorizedRendererWidget::CategorizedRendererWidget(const CategorizedRenderer *renderer, QWidget *parent)
+    : FeatureRendererWidget(parent)
+    , m_ui(new Ui::CategorizedRendererWidget())
+    , m_renderer(static_cast<CategorizedRenderer*>(renderer->clone()))
+{
+    m_ui->setupUi(this);
+}
+
+CategorizedRendererWidget::~CategorizedRendererWidget()
+{
+    delete m_ui;
+    m_ui = nullptr;
+}
+
+
+void CategorizedRendererWidget::applyChanges()
 {
 }
 
-FeatureRendererWidgetCreator::~FeatureRendererWidgetCreator()
+void CategorizedRendererWidget::prepareForEmbedding()
 {
-    Q_ASSERT(m_rendererWidget == nullptr);
-}
-
-FeatureRendererWidget *FeatureRendererWidgetCreator::createWidget(IFeatureRenderer *renderer, QWidget *parent)
-{
-    m_parent = parent;
-    renderer->accept(*this);
-    FeatureRendererWidget *tmp = m_rendererWidget;
-    m_rendererWidget = nullptr;
-    m_parent = nullptr;
-    return tmp;
-}
-
-void FeatureRendererWidgetCreator::visit(SimpleRenderer &renderer)
-{
-    m_rendererWidget = new SimpleRendererWidget(&renderer, m_parent);
-}
-
-void FeatureRendererWidgetCreator::visit(CategorizedRenderer &renderer)
-{
-    m_rendererWidget = new CategorizedRendererWidget(&renderer, m_parent);
+    m_ui->verticalLayout->setContentsMargins(QMargins());
 }
