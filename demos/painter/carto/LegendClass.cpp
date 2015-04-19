@@ -42,6 +42,14 @@ LegendClass::LegendClass(ISymbol *symbol)
 {
 }
 
+LegendClass::LegendClass(ISymbol *symbol, const QString &label)
+    : ILegendClass()
+    , m_symbol(symbol)
+    , m_description()
+    , m_label(label)
+{
+}
+
 LegendClass::LegendClass(const LegendClass &other)
     : ILegendClass()
     , m_symbol(other.m_symbol->clone())

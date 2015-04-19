@@ -26,6 +26,7 @@
 
 #include "cartoUI/FeatureRendererWidgetCreator.h"
 #include "cartoUI/SimpleRendererWidget.h"
+//#include "cartoUI/CategorizedRendererWidget.h"
 #include <carto/SimpleRenderer.h>
 
 FeatureRendererWidgetCreator::FeatureRendererWidgetCreator()
@@ -53,4 +54,9 @@ FeatureRendererWidget *FeatureRendererWidgetCreator::createWidget(IFeatureRender
 void FeatureRendererWidgetCreator::visit(SimpleRenderer &renderer)
 {
     m_rendererWidget = new SimpleRendererWidget(&renderer, m_parent);
+}
+
+void FeatureRendererWidgetCreator::visit(CategorizedRenderer &renderer)
+{
+    //m_rendererWidget = new CategorizedRendererWidget(&renderer, m_parent);
 }

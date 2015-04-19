@@ -46,7 +46,8 @@ HEADERS += \
     LegendGroup.h \
     SimpleRenderer.h \
     IFeatureRendererVisitor.h \
-    commands/ChangeLayerStyleCommand.h
+    commands/ChangeLayerStyleCommand.h \
+    CategorizedRenderer.h
 
 SOURCES += \
     AbstractLayer.cpp \
@@ -65,7 +66,8 @@ SOURCES += \
     commands/RemoveLayerCommand.cpp \
     LegendGroup.cpp \
     SimpleRenderer.cpp \
-    commands/ChangeLayerStyleCommand.cpp
+    commands/ChangeLayerStyleCommand.cpp \
+    CategorizedRenderer.cpp
 
 OTHER_FILES += org.carousel.demos.Carto.definition
 

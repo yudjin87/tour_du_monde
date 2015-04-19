@@ -3,7 +3,7 @@
  *
  * Carousel - Qt-based managed component library.
  *
- * Copyright: 2011-2013 Carousel team
+ * Copyright: 2011-2015 Carousel team
  * Authors:
  *   Eugene Chuguy <eugene.chuguy@gmail.com>
  *
@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- 
+
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -30,22 +30,17 @@
 
 #include <display/ISymbol.h>
 
-#include <QtCore/QVector>
+#include <QtCore/QVariant>
+#include <map>
 
-class CARTO_API SimpleRenderer : public IFeatureRenderer
+class CARTO_API CategorizedRenderer : public IFeatureRenderer
 {
     Q_OBJECT
 public:
-    SimpleRenderer(QObject *parent = nullptr);
-    ~SimpleRenderer();
+    CategorizedRenderer(QObject *parent = nullptr);
+    ~CategorizedRenderer();
 
     void draw(const QVector<IFeature *> &features, QPainter *painter) override;
-
-    ISymbol *symbol();
-    const ISymbol *symbol() const;
-
-    // takes ownership
-    void setSymbol(ISymbol *symbol);
 
     ILegendGroup *legend() override;
     const ILegendGroup *legend() const override;
@@ -54,12 +49,22 @@ public:
 
     IFeatureRenderer* clone() const override;
 
+    void setCategoryFieldIndex(const int index);
+    int categoryFieldIndex() const;
+
+public slots:
+    // takes ownership
+    void addCategory(const QVariant& value, const QString& label, ISymbol *symbol);
+
+    ISymbol* symbol(const QVariant& value);
+    const ISymbol* symbol(const QVariant& value) const;
+
 private:
-    SimpleRenderer(const SimpleRenderer& other);
-    SimpleRenderer& operator=(const SimpleRenderer& other);
+    CategorizedRenderer(const CategorizedRenderer& other);
+    CategorizedRenderer& operator=(const CategorizedRenderer& other);
 
 private:
     ILegendGroupUPtr m_legend;
+    int m_categoryFieldIndex;
+    std::map<QVariant, ISymbolUPtr> m_categories;
 };
-
-

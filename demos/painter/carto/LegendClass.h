@@ -33,6 +33,7 @@ class CARTO_API LegendClass : public ILegendClass
 public:
     LegendClass();
     LegendClass(ISymbol* symbol);
+    LegendClass(ISymbol* symbol, const QString& label);
     ~LegendClass();
 
     QString description() const override;

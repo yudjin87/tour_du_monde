@@ -41,6 +41,7 @@ public:
 
 private:
     void visit(SimpleRenderer &renderer);
+    void visit(CategorizedRenderer &renderer);
 
 private:
     FeatureRendererWidget* m_rendererWidget;

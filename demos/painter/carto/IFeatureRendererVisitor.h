@@ -28,6 +28,7 @@
 #include <carto/carto_api.h>
 
 class SimpleRenderer;
+class CategorizedRenderer;
 
 class CARTO_API IFeatureRendererVisitor
 {
@@ -36,4 +37,5 @@ public:
     virtual ~IFeatureRendererVisitor(){}
 
     virtual void visit(SimpleRenderer& renderer) = 0;
+    virtual void visit(CategorizedRenderer& renderer) = 0;
 };
