@@ -29,6 +29,7 @@
 #include <carto/IFeatureRendererVisitor.h>
 #include <cartoUI/FeatureRendererWidget.h>
 
+class FeatureLayer;
 class IFeatureRenderer;
 
 class FeatureRendererWidgetCreator : private IFeatureRendererVisitor
@@ -37,7 +38,7 @@ public:
     FeatureRendererWidgetCreator();
     ~FeatureRendererWidgetCreator();
 
-    FeatureRendererWidget* createWidget(IFeatureRenderer* renderer, QWidget *parent);
+    FeatureRendererWidget* createWidget(IFeatureRenderer* renderer, FeatureLayer *layer, QWidget *parent);
 
 private:
     void visit(SimpleRenderer &renderer);
@@ -46,4 +47,5 @@ private:
 private:
     FeatureRendererWidget* m_rendererWidget;
     QWidget *m_parent;
+    FeatureLayer *m_layer;
 };

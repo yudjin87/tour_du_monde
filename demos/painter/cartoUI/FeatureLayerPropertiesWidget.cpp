@@ -59,7 +59,7 @@ FeatureLayerPropertiesWidget::FeatureLayerPropertiesWidget(FeatureLayer *layer, 
 
     IFeatureRenderer *renderer = m_layer->renderer();
     FeatureRendererWidgetCreator creator;
-    FeatureRendererWidget *rendererWidget = creator.createWidget(renderer, this);
+    FeatureRendererWidget *rendererWidget = creator.createWidget(renderer, m_layer, this);
     installRendererWidget(rendererWidget);
 
     // install widget
@@ -132,7 +132,7 @@ void FeatureLayerPropertiesWidget::onSymbolCategoryChanged(int index)
     }
 
     FeatureRendererWidgetCreator creator;
-    FeatureRendererWidget *rendererWidget = creator.createWidget(m_renderer.get(), this);
+    FeatureRendererWidget *rendererWidget = creator.createWidget(m_renderer.get(), m_layer,this);
     installRendererWidget(rendererWidget);
 
     emit propertyChanged();

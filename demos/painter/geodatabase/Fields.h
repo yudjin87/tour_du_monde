@@ -44,6 +44,9 @@ public:
     const IField* field(const int index) const override;
     const IField* field(const QString& name) const override;
 
+    ConstListenerVector::const_iterator begin() const override;
+    ConstListenerVector::const_iterator end() const override;
+
     // IFieldsEdit:
     IField* field(const int index) override;
     IField* field(const QString& name) override;

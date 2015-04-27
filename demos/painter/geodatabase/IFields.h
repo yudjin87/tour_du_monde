@@ -29,6 +29,7 @@
 #include <geodatabase/geodatabase_api.h>
 
 #include <QtCore/QObject>
+#include <QtCore/QVector>
 
 class IField;
 
@@ -36,12 +37,18 @@ class GEODATABASE_API IFields : public QObject
 {
     Q_OBJECT
 public:
+    typedef QVector<const IField*> ConstListenerVector;
+
+public:
     IFields(){}
     virtual ~IFields(){}
 
     virtual int fieldCount() const = 0;
     virtual const IField* field(const int index) const = 0;
     virtual const IField* field(const QString& name) const = 0;
+
+    virtual ConstListenerVector::const_iterator begin() const = 0;
+    virtual ConstListenerVector::const_iterator end() const = 0;
 
 private:
     Q_DISABLE_COPY(IFields)

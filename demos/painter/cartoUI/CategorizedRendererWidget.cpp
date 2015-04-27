@@ -27,12 +27,30 @@
 #include "cartoUI/CategorizedRendererWidget.h"
 #include "ui_CategorizedRendererWidget.h"
 
-CategorizedRendererWidget::CategorizedRendererWidget(const CategorizedRenderer *renderer, QWidget *parent)
+#include <geodatabase/IFeatureClass.h>
+#include <geodatabase/ITable.h>
+#include <geodatabase/IField.h>
+#include <geodatabase/IFields.h>
+
+CategorizedRendererWidget::CategorizedRendererWidget(const CategorizedRenderer *renderer, const FeatureLayer &layer, QWidget *parent)
     : FeatureRendererWidget(parent)
     , m_ui(new Ui::CategorizedRendererWidget())
     , m_renderer(static_cast<CategorizedRenderer*>(renderer->clone()))
+    , m_columns(nullptr)
+    , m_layer(layer)
 {
+    const ITable* table = layer.featureClass()->table();
+    Q_ASSERT(table != nullptr);
+    const IFields* fields = table->fields();
+    QStringList columns;
+    for (const IField* field : *fields)
+    {
+        columns.push_back(field->name());
+    }
+
+    m_columns.reset(new QStringListModel(columns));
     m_ui->setupUi(this);
+    m_ui->columnNameCbox->setModel(m_columns.get());
 }
 
 CategorizedRendererWidget::~CategorizedRendererWidget()
@@ -40,7 +58,6 @@ CategorizedRendererWidget::~CategorizedRendererWidget()
     delete m_ui;
     m_ui = nullptr;
 }
-
 
 void CategorizedRendererWidget::applyChanges()
 {

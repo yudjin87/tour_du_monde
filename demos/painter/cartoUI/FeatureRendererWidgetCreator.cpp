@@ -28,11 +28,13 @@
 #include "cartoUI/SimpleRendererWidget.h"
 #include "cartoUI/CategorizedRendererWidget.h"
 #include <carto/SimpleRenderer.h>
+#include <carto/FeatureLayer.h>
 
 FeatureRendererWidgetCreator::FeatureRendererWidgetCreator()
     : IFeatureRendererVisitor()
     , m_rendererWidget(nullptr)
     , m_parent(nullptr)
+    , m_layer(nullptr)
 {
 }
 
@@ -41,9 +43,10 @@ FeatureRendererWidgetCreator::~FeatureRendererWidgetCreator()
     Q_ASSERT(m_rendererWidget == nullptr);
 }
 
-FeatureRendererWidget *FeatureRendererWidgetCreator::createWidget(IFeatureRenderer *renderer, QWidget *parent)
+FeatureRendererWidget *FeatureRendererWidgetCreator::createWidget(IFeatureRenderer *renderer, FeatureLayer* layer, QWidget *parent)
 {
     m_parent = parent;
+    m_layer = layer;
     renderer->accept(*this);
     FeatureRendererWidget *tmp = m_rendererWidget;
     m_rendererWidget = nullptr;
@@ -58,5 +61,5 @@ void FeatureRendererWidgetCreator::visit(SimpleRenderer &renderer)
 
 void FeatureRendererWidgetCreator::visit(CategorizedRenderer &renderer)
 {
-    m_rendererWidget = new CategorizedRendererWidget(&renderer, m_parent);
+    m_rendererWidget = new CategorizedRendererWidget(&renderer, *m_layer, m_parent);
 }

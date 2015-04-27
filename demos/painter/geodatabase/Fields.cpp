@@ -88,6 +88,16 @@ const IField *Fields::field(const QString &name) const
     return field;
 }
 
+IFields::ConstListenerVector::const_iterator Fields::begin() const
+{
+    return m_fields.begin();
+}
+
+IFields::ConstListenerVector::const_iterator Fields::end() const
+{
+    return m_fields.end();
+}
+
 void Fields::addField(IField *field)
 {
     m_fields.push_back(field);

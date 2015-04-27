@@ -27,7 +27,9 @@
 #pragma once
 
 #include <cartoUI/FeatureRendererWidget.h>
+#include <carto/FeatureLayer.h>
 #include <carto/CategorizedRenderer.h>
+#include <QtCore/QStringListModel>
 #include <memory>
 
 namespace Ui
@@ -40,7 +42,7 @@ class CategorizedRendererWidget : public FeatureRendererWidget
     Q_OBJECT
 
 public:
-    explicit CategorizedRendererWidget(const CategorizedRenderer* renderer, QWidget *parent = nullptr);
+    explicit CategorizedRendererWidget(const CategorizedRenderer* renderer, const FeatureLayer &layer, QWidget *parent = nullptr);
     ~CategorizedRendererWidget();
 
     void applyChanges() override;
@@ -49,4 +51,6 @@ public:
 private:
     Ui::CategorizedRendererWidget *m_ui;
     std::unique_ptr<CategorizedRenderer> m_renderer;
+    std::unique_ptr<QStringListModel> m_columns;
+    const FeatureLayer &m_layer;
 };
