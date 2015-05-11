@@ -26,35 +26,29 @@
 
 #pragma once
 
-#include <carto/IRendererCategory.h>
+#include <carto/carto_api.h>
+#include <QtCore/QObject>
+#include <QtCore/QVariant>
+#include <memory>
 
-class RendererCategory : public IRendererCategory
+class ILegendClass;
+
+class CARTO_API IRendererCategory : public QObject
 {
     Q_OBJECT
 public:
-    explicit RendererCategory();
-    RendererCategory(const QVariant& value, ILegendClass *legendClass);
+    virtual QVariant value() const = 0;
+    virtual void setValue(const QVariant &value) = 0;
 
-    QVariant value() const override;
-    void setValue(const QVariant &value) override;
+    virtual QString label() const = 0;
+    virtual void setLabel(const QString &label) = 0;
 
-    QString label() const override;
-    void setLabel(const QString &label) override;
+    virtual const ILegendClass *legendClass() const = 0;
+    virtual void setLegendClass(ILegendClass *legendClass) = 0;
 
-    const ILegendClass *legendClass() const override;
-    void setLegendClass(ILegendClass *legendClass) override;
+    virtual bool match(const QVariant &value) const = 0;
 
-    bool match(const QVariant &value) const override;
-
-    RendererCategory* clone() const override;
-
-private:
-    RendererCategory(const RendererCategory& other);
-    RendererCategory& operator=(const RendererCategory& other);
-
-private:
-    QVariant m_value;
-    ILegendClass *m_legendClass; // does't take ownership
+    virtual IRendererCategory* clone() const = 0;
 };
 
-typedef std::unique_ptr<RendererCategory> RendererCategoryUPtr;
+typedef std::unique_ptr<IRendererCategory> IRendererCategoryUPtr;

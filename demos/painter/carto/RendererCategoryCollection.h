@@ -26,35 +26,35 @@
 
 #pragma once
 
-#include <carto/IRendererCategory.h>
+#include <carto/IRendererCategoryCollection.h>
 
-class RendererCategory : public IRendererCategory
+class RendererCategoryCollection : public IRendererCategoryCollection
 {
     Q_OBJECT
 public:
-    explicit RendererCategory();
-    RendererCategory(const QVariant& value, ILegendClass *legendClass);
+    RendererCategoryCollection();
 
-    QVariant value() const override;
-    void setValue(const QVariant &value) override;
+    void addCategory(IRendererCategory* category);
+    IRendererCategory* findByValue(const QVariant& value);
+    const IRendererCategory* findByValue(const QVariant& value) const;
 
-    QString label() const override;
-    void setLabel(const QString &label) override;
+    IRendererCategoryCollection* clone() const;
 
-    const ILegendClass *legendClass() const override;
-    void setLegendClass(ILegendClass *legendClass) override;
-
-    bool match(const QVariant &value) const override;
-
-    RendererCategory* clone() const override;
+    IRendererCategoryVector::const_iterator begin() const override;
+    IRendererCategoryVector::const_iterator end() const override;
 
 private:
-    RendererCategory(const RendererCategory& other);
-    RendererCategory& operator=(const RendererCategory& other);
+    RendererCategoryCollection(const RendererCategoryCollection& other);
+    RendererCategoryCollection& operator=(const RendererCategoryCollection& other);
 
 private:
-    QVariant m_value;
-    ILegendClass *m_legendClass; // does't take ownership
+    struct CategoryPredicate
+    {
+        const QVariant m_value;
+        CategoryPredicate(const QVariant &value);
+        bool operator()(const IRendererCategoryUPtr& category);
+    };
+
+private:
+    std::vector<IRendererCategoryUPtr> m_categories;
 };
-
-typedef std::unique_ptr<RendererCategory> RendererCategoryUPtr;

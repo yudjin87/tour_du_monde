@@ -26,35 +26,33 @@
 
 #pragma once
 
+#include <carto/carto_api.h>
 #include <carto/IRendererCategory.h>
+#include <QtCore/QVariant>
+#include <QtCore/QObject>
 
-class RendererCategory : public IRendererCategory
+#include <memory>
+#include <vector>
+
+class CARTO_API IRendererCategoryCollection : public QObject
 {
     Q_OBJECT
 public:
-    explicit RendererCategory();
-    RendererCategory(const QVariant& value, ILegendClass *legendClass);
+    typedef std::vector<const IRendererCategoryUPtr> IRendererCategoryVector;
 
-    QVariant value() const override;
-    void setValue(const QVariant &value) override;
+public:
+    virtual void addCategory(IRendererCategory* category) = 0;
+    virtual IRendererCategory* findByValue(const QVariant& value) = 0;
+    virtual const IRendererCategory* findByValue(const QVariant& value) const = 0;
 
-    QString label() const override;
-    void setLabel(const QString &label) override;
+    virtual IRendererCategoryCollection* clone() const = 0;
 
-    const ILegendClass *legendClass() const override;
-    void setLegendClass(ILegendClass *legendClass) override;
+    virtual IRendererCategoryVector::const_iterator begin() const = 0;
+    virtual IRendererCategoryVector::const_iterator end() const = 0;
 
-    bool match(const QVariant &value) const override;
-
-    RendererCategory* clone() const override;
-
-private:
-    RendererCategory(const RendererCategory& other);
-    RendererCategory& operator=(const RendererCategory& other);
-
-private:
-    QVariant m_value;
-    ILegendClass *m_legendClass; // does't take ownership
+signals:
+    void categoryAdded(IRendererCategory* category);
+    void categoryRemoved();
 };
 
-typedef std::unique_ptr<RendererCategory> RendererCategoryUPtr;
+typedef std::unique_ptr<IRendererCategoryCollection> IRendererCategoryCollectionUPtr;

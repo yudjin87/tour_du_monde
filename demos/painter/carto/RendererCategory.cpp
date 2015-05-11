@@ -27,22 +27,22 @@
 #include "carto/RendererCategory.h"
 #include "carto/ILegendClass.h"
 
-RendererCategory::RendererCategory(QObject *parent)
-    : QObject(parent)
+RendererCategory::RendererCategory()
+    : IRendererCategory()
     , m_value()
     , m_legendClass(nullptr)
 {
 }
 
-RendererCategory::RendererCategory(const QVariant &value, ILegendClass *legendClass, QObject *parent)
-    : QObject(parent)
+RendererCategory::RendererCategory(const QVariant &value, ILegendClass *legendClass)
+    : IRendererCategory()
     , m_value(value)
     , m_legendClass(legendClass)
 {
 }
 
 RendererCategory::RendererCategory(const RendererCategory &other)
-    : QObject()
+    : IRendererCategory()
     , m_value(other.m_value)
     , m_legendClass(other.m_legendClass)
 {
