@@ -24,27 +24,27 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#pragma once
-#include <QtCore/QObject>
+#include "geodatabase/ColumnClassificator.h"
+#include "geodatabase/ITable.h"
+#include "geodatabase/IRecord.h"
 
-class GeodatabaseTest : public QObject
+ColumnClassificator::ColumnClassificator(const ITable &table)
+    : m_table(table)
 {
-    Q_OBJECT
-public:
-    explicit GeodatabaseTest(QObject *parent = nullptr);
-    ~GeodatabaseTest();
+}
 
-private slots:
-    void shouldLoadPointShapes();
-    void shouldLoadLineShapes();
-    void shouldLoadPolygonShapes();
-    void shouldProvideFieldsInfo();
-    void shouldClassifyColumnValues();
+QStringList ColumnClassificator::classify(const QString &columntName) const
+{
+    const QString query = QString("SELECT \"%1\" ").arg(columntName);
+    const QString order = QString("GROUP BY \"%1\" ORDER BY \"%2\" ").arg(columntName).arg(columntName);
+    const std::vector<IRecordUPtr> records = m_table.execute(query + "FROM %1 " + order);
 
-private:
-    QString m_workspace;
-    QString m_pointShp;
-    QString m_lineShp;
-    QString m_polygonShp;
-};
+    QStringList result;
+    for (const IRecordUPtr& record : records)
+    {
+        result.push_back(record->value(columntName).toString());
+    }
+
+    return result;
+}
 

@@ -33,6 +33,7 @@
 #include <geodatabase/IFields.h>
 #include <geodatabase/IField.h>
 #include <geodatabase/IRecord.h>
+#include <geodatabase/ColumnClassificator.h>
 
 #include <geometry/Point.h>
 #include <geometry/Polygon.h>
@@ -154,6 +155,23 @@ void GeodatabaseTest::shouldProvideFieldsInfo()
     QCOMPARE(table->fields()->field(0)->name(), QString("osm_id"));
     QCOMPARE(table->fields()->field(1)->name(), QString("name"));
     QCOMPARE(table->fields()->field(2)->name(), QString("type"));
+}
+
+void GeodatabaseTest::shouldClassifyColumnValues()
+{
+    ShapeFileFeatureWorkspace workspace(m_workspace);
+    IFeatureClassUPtr polygonClass(workspace.openFeatureClass(m_polygonShp));
+    const ITable* table = polygonClass->table();
+
+    ColumnClassificator categorizer(*table);
+    const QStringList actual = categorizer.classify("type");
+    const QStringList expected{"", "museum", "pub", "restaurant"};
+    QCOMPARE(actual.size(), expected.size());
+
+    for (int i = 0; i < expected.size(); ++i)
+    {
+        QCOMPARE(expected[i], actual[i]);
+    }
 }
 
 

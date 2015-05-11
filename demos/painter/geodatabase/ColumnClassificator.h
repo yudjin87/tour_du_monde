@@ -25,26 +25,19 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
-#include <QtCore/QObject>
+#include <geodatabase/geodatabase_api.h>
 
-class GeodatabaseTest : public QObject
+#include <QtCore/QStringList>
+
+class ITable;
+
+class GEODATABASE_API ColumnClassificator
 {
-    Q_OBJECT
 public:
-    explicit GeodatabaseTest(QObject *parent = nullptr);
-    ~GeodatabaseTest();
+    ColumnClassificator(const ITable& table);
 
-private slots:
-    void shouldLoadPointShapes();
-    void shouldLoadLineShapes();
-    void shouldLoadPolygonShapes();
-    void shouldProvideFieldsInfo();
-    void shouldClassifyColumnValues();
+    QStringList classify(const QString& columntName) const;
 
 private:
-    QString m_workspace;
-    QString m_pointShp;
-    QString m_lineShp;
-    QString m_polygonShp;
+    const ITable& m_table;
 };
-
