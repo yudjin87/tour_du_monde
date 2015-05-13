@@ -64,9 +64,18 @@ RendererCategoryCollection &RendererCategoryCollection::operator=(const Renderer
     return *this;
 }
 
-IRendererCategoryCollection *RendererCategoryCollection::clone() const
+IRendererCategoryCollection *RendererCategoryCollection::clone(ILegendGroup &clonedGroup) const
 {
-    return new RendererCategoryCollection(*this);
+    RendererCategoryCollection* cloned = new RendererCategoryCollection(*this);
+
+    for (const IRendererCategoryUPtr& category : cloned->m_categories)
+    {
+        ILegendClass* clonedClass = clonedGroup.getClass(category->label());
+        Q_ASSERT(clonedClass != nullptr);
+        category->setLegendClass(clonedClass);
+    }
+
+    return cloned;
 }
 
 IRendererCategoryCollection::IRendererCategoryVector::const_iterator RendererCategoryCollection::begin() const

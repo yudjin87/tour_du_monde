@@ -53,12 +53,14 @@ public:
 public slots:
     ILegendClass* getClass(const size_t index) override;
     const ILegendClass* getClass(const size_t index) const override;
+    ILegendClass* getClass(const QString& label) override;
+    const ILegendClass* getClass(const QString& label) const override;
 
     void addClass(ILegendClass* legendClass) override;
-    void insertClass(const size_t index, ILegendClass* legendClass) override;
+    void insertClass(const int index, ILegendClass* legendClass) override;
     void clearClasses() override;
     void removeClass(ILegendClass *legendClass) override;
-    ILegendClass* takeClass(const size_t index) override;
+    ILegendClass* takeClass(const int index) override;
 
 private:
     LegendGroup(const LegendGroup& other);

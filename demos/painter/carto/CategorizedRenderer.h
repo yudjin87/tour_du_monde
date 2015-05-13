@@ -27,11 +27,9 @@
 #pragma once
 #include <carto/IFeatureRenderer.h>
 #include <carto/ILegendGroup.h>
+#include <carto/IRendererCategoryCollection.h>
 
 #include <display/ISymbol.h>
-
-#include <QtCore/QVariant>
-#include <map>
 
 class CARTO_API CategorizedRenderer : public IFeatureRenderer
 {
@@ -41,6 +39,8 @@ public:
     ~CategorizedRenderer();
 
     void draw(const QVector<IFeature *> &features, QPainter *painter) override;
+
+    const IRendererCategoryCollection& categories() const;
 
     ILegendGroup *legend() override;
     const ILegendGroup *legend() const override;
@@ -53,11 +53,15 @@ public:
     int categoryFieldIndex() const;
 
 public slots:
-    // takes ownership
+    // takes ownership for symbol
     void addCategory(const QVariant& value, const QString& label, ISymbol *symbol);
 
     ISymbol* symbol(const QVariant& value);
     const ISymbol* symbol(const QVariant& value) const;
+
+signals:
+    void categoryAdded();
+    void categoryRemoved();
 
 private:
     CategorizedRenderer(const CategorizedRenderer& other);
@@ -66,5 +70,6 @@ private:
 private:
     ILegendGroupUPtr m_legend;
     int m_categoryFieldIndex;
-    std::map<QVariant, ISymbolUPtr> m_categories;
+    IRendererCategoryCollectionUPtr m_categories;
 };
+

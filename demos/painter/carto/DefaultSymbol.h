@@ -25,6 +25,7 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
+
 #include <carto/carto_api.h>
 #include <display/ISymbol.h>
 #include <geometry/GeometryType.h>
@@ -32,7 +33,7 @@
 namespace StyleGallery
 {
 
-ISymbol *defaultSymbol(Geometry::Type forType);
+CARTO_API ISymbol *defaultSymbol(Geometry::Type forType);
 
 } // namespace StyleGallery
 

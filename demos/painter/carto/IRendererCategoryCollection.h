@@ -28,6 +28,8 @@
 
 #include <carto/carto_api.h>
 #include <carto/IRendererCategory.h>
+#include <carto/ILegendGroup.h>
+
 #include <QtCore/QVariant>
 #include <QtCore/QObject>
 
@@ -45,7 +47,7 @@ public:
     virtual IRendererCategory* findByValue(const QVariant& value) = 0;
     virtual const IRendererCategory* findByValue(const QVariant& value) const = 0;
 
-    virtual IRendererCategoryCollection* clone() const = 0;
+    virtual IRendererCategoryCollection* clone(ILegendGroup& clonedGroup) const = 0;
 
     virtual IRendererCategoryVector::const_iterator begin() const = 0;
     virtual IRendererCategoryVector::const_iterator end() const = 0;

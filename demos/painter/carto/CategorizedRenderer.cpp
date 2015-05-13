@@ -29,6 +29,8 @@
 #include "carto/IFeatureRendererVisitor.h"
 #include "carto/LegendGroup.h"
 #include "carto/LegendClass.h"
+#include "carto/RendererCategory.h"
+#include "carto/RendererCategoryCollection.h"
 
 #include <geodatabase/IFeatureClass.h>
 #include <geodatabase/IFeature.h>
@@ -47,7 +49,7 @@ CategorizedRenderer::CategorizedRenderer(QObject *parent)
     : IFeatureRenderer(parent)
     , m_legend(new LegendGroup())
     , m_categoryFieldIndex(0)
-    , m_categories()
+    , m_categories(new RendererCategoryCollection())
 {
 }
 
@@ -55,14 +57,8 @@ CategorizedRenderer::CategorizedRenderer(const CategorizedRenderer &other)
     : IFeatureRenderer()
     , m_legend(other.m_legend->clone())
     , m_categoryFieldIndex(other.m_categoryFieldIndex)
-    , m_categories()
+    , m_categories(other.m_categories->clone(*m_legend))
 {
-    for (const auto& symbolPair : other.m_categories)
-    {
-        const QVariant& value = symbolPair.first;
-        const ISymbolUPtr& symbol = symbolPair.second;
-        m_categories.insert(std::make_pair(value, ISymbolUPtr(symbol->clone())));
-    }
 }
 
 CategorizedRenderer &CategorizedRenderer::operator=(const CategorizedRenderer &other)
@@ -74,13 +70,7 @@ CategorizedRenderer &CategorizedRenderer::operator=(const CategorizedRenderer &o
 
     m_legend.reset(other.m_legend->clone());
     m_categoryFieldIndex = other.m_categoryFieldIndex;
-
-    for (const auto& symbolPair : other.m_categories)
-    {
-        const QVariant& value = symbolPair.first;
-        const ISymbolUPtr& symbol = symbolPair.second;
-        m_categories.insert(std::make_pair(value, ISymbolUPtr(symbol->clone())));
-    }
+    m_categories = IRendererCategoryCollectionUPtr(other.m_categories->clone(*m_legend));
 
     return *this;
 }
@@ -96,12 +86,21 @@ void CategorizedRenderer::draw(const QVector<IFeature *> &features, QPainter *pa
         const IRecordUPtr& rec = feature->record();
         const QVariant& featureValue = rec->value(m_categoryFieldIndex);
         ISymbol* symbolForCategory = symbol(featureValue);
-        Q_ASSERT(symbolForCategory != nullptr && "Default symbols are not implemented yet");
+        if (symbolForCategory == nullptr)
+        {
+            Log.d(QString("No symbol for value \"%1\"").arg(featureValue.toString()));
+            continue;
+        }
 
         symbolForCategory->setupPainter(painter);
         symbolForCategory->draw(feature->geometry(), painter);
         symbolForCategory->resetPainter(painter);
     }
+}
+
+const IRendererCategoryCollection &CategorizedRenderer::categories() const
+{
+    return *m_categories;
 }
 
 ILegendGroup *CategorizedRenderer::legend()
@@ -136,15 +135,15 @@ int CategorizedRenderer::categoryFieldIndex() const
 
 void CategorizedRenderer::addCategory(const QVariant &value, const QString &label, ISymbol *symbol)
 {
-    const auto it = m_categories.find(value);
-    if (it == std::end(m_categories))
+    const IRendererCategory* existedCategory = m_categories->findByValue(value);
+    if (existedCategory != nullptr)
     {
         Log.w(QString("Value \"%1\" is already existed. Symbol won't be changed").arg(value.toString()));
         return;
     }
 
     ILegendClass* legendClass = new LegendClass(symbol, label);
-    m_categories.insert(std::make_pair(value, ISymbolUPtr(legendClass->symbol()->clone())));
+    m_categories->addCategory(new RendererCategory(value, legendClass));
     m_legend->addClass(legendClass);
 }
 
@@ -155,13 +154,14 @@ ISymbol *CategorizedRenderer::symbol(const QVariant &value)
 
 const ISymbol *CategorizedRenderer::symbol(const QVariant &value) const
 {
-    const auto it = m_categories.find(value);
-    if (it == std::end(m_categories))
+    const IRendererCategory* category = m_categories->findByValue(value);
+    if (category == nullptr)
     {
         return nullptr;
     }
 
-    const ISymbolUPtr& symbol = it->second;
-    return symbol.get();
+    const ILegendClass* legendClass = category->legendClass();
+    return legendClass->symbol();
 }
+
 

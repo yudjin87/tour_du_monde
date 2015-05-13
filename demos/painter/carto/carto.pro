@@ -48,7 +48,11 @@ HEADERS += \
     IFeatureRendererVisitor.h \
     commands/ChangeLayerStyleCommand.h \
     CategorizedRenderer.h \
-    DefaultSymbol.h
+    DefaultSymbol.h \
+    RendererCategory.h \
+    RendererCategoryCollection.h \
+    IRendererCategory.h \
+    IRendererCategoryCollection.h
 
 SOURCES += \
     AbstractLayer.cpp \
@@ -69,7 +73,9 @@ SOURCES += \
     SimpleRenderer.cpp \
     commands/ChangeLayerStyleCommand.cpp \
     CategorizedRenderer.cpp \
-    DefaultSymbol.cpp
+    DefaultSymbol.cpp \
+    RendererCategory.cpp \
+    RendererCategoryCollection.cpp
 
 OTHER_FILES += org.carousel.demos.Carto.definition
 

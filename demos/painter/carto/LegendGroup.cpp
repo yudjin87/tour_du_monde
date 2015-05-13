@@ -147,6 +147,24 @@ const ILegendClass *LegendGroup::getClass(const size_t index) const
     return legend.get();
 }
 
+ILegendClass *LegendGroup::getClass(const QString &label)
+{
+    return const_cast<ILegendClass *>(const_cast<const LegendGroup*>(this)->getClass(label));
+}
+
+const ILegendClass *LegendGroup::getClass(const QString &label) const
+{
+    const auto labelFinder = [label](const ILegendClassUPtr& u) { return u->label() == label; };
+    const auto it = std::find_if(std::begin(m_legendClasses), std::end(m_legendClasses), labelFinder);
+    if (it == std::end(m_legendClasses))
+    {
+        return nullptr;
+    }
+
+    const ILegendClassUPtr& legendClass = *it;
+    return legendClass.get();
+}
+
 void LegendGroup::addClass(ILegendClass *legendClass)
 {
     if (legendClass == nullptr)
@@ -158,19 +176,20 @@ void LegendGroup::addClass(ILegendClass *legendClass)
     emit classAdded(legendClass, m_legendClasses.size() - 1);
 }
 
-void LegendGroup::insertClass(const size_t index, ILegendClass *legendClass)
+void LegendGroup::insertClass(const int index, ILegendClass *legendClass)
 {
-    if (legendClass == nullptr)
-    {
-        return;
-    }
+    Q_ASSERT(false && "Not implemeted!");
+//    if (legendClass == nullptr)
+//    {
+//        return;
+//    }
 
-    const size_t newIndex = ((0 < index) && (index < m_legendClasses.size()))
-            ? index
-            : -1; // append
+//    const size_t newIndex = ((0 < index) && (index < m_legendClasses.size()))
+//            ? index
+//            : -1; // append // TODO: if collection is empty, then begin() -1 will lead to crash
 
-    m_legendClasses.emplace(m_legendClasses.begin() + newIndex, legendClass);
-    emit classAdded(legendClass, index);
+//    m_legendClasses.emplace(m_legendClasses.begin() + newIndex, legendClass);
+//    emit classAdded(legendClass, index);
 }
 
 void LegendGroup::clearClasses()
@@ -202,7 +221,7 @@ void LegendGroup::removeClass(ILegendClass *legendClass)
     m_legendClasses.erase(it);
 }
 
-ILegendClass *LegendGroup::takeClass(const size_t index)
+ILegendClass *LegendGroup::takeClass(const int index)
 {
     ILegendClass *legendClass = getClass(index);
     if (legendClass == nullptr)

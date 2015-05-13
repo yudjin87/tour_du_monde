@@ -38,7 +38,7 @@ public:
     IRendererCategory* findByValue(const QVariant& value);
     const IRendererCategory* findByValue(const QVariant& value) const;
 
-    IRendererCategoryCollection* clone() const;
+    IRendererCategoryCollection* clone(ILegendGroup& clonedGroup) const;
 
     IRendererCategoryVector::const_iterator begin() const override;
     IRendererCategoryVector::const_iterator end() const override;
