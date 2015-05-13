@@ -30,6 +30,7 @@
 
 #include <QtCore/QObject>
 #include <memory>
+#include <vector>
 
 class IFields;
 class IRecord;
@@ -43,6 +44,8 @@ public:
 
     virtual const IFields* fields() const = 0;
     virtual IRecordUPtr getRecord(const int index) const = 0;
+
+    virtual std::vector<IRecordUPtr> execute(const QString& query) const = 0;
 
 private:
     Q_DISABLE_COPY(ITable)

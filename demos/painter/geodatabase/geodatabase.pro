@@ -50,7 +50,8 @@ HEADERS += \
     IFieldsEdit.h \
     ITable.h \
     Table.h \
-    winutils.h
+    winutils.h \
+    ColumnClassificator.h
 
 SOURCES += \
     Feature.cpp \
@@ -69,7 +70,8 @@ SOURCES += \
     Fields.cpp \
     Record.cpp \
     Table.cpp \
-    winutils.cpp
+    winutils.cpp \
+    ColumnClassificator.cpp
 
 OTHER_FILES += org.carousel.demos.Geodatabase.definition
 

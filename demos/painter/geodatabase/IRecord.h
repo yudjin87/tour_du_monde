@@ -29,6 +29,7 @@
 #include "geodatabase/geodatabase_api.h"
 
 #include <QtCore/QObject>
+#include <QtCore/QVariant>
 #include <memory>
 
 class IFields;

@@ -98,3 +98,22 @@ IRecordUPtr Table::getRecord(const int index) const
     return IRecordUPtr(record);
 }
 
+std::vector<IRecordUPtr> Table::execute(const QString &sqlQuery) const
+{
+    QSqlQuery query(m_db);
+    query.prepare(QString(sqlQuery).arg(m_tableName));
+    if (!query.exec())
+    {
+        Log.e(query.lastError().text());
+        return std::vector<IRecordUPtr>();
+    }
+
+    std::vector<IRecordUPtr> result;
+    while (query.next())
+    {
+        result.emplace_back(new Record(-1, query.record())); // TODO: index should not be passed at all
+    }
+
+    return result;
+}
+
