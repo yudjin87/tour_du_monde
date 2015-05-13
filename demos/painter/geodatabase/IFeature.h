@@ -59,7 +59,7 @@ public:
     virtual Geometry::Type shapeType() const = 0;
 
     //virtual IRecord* record() = 0;
-    virtual IRecordUPtr record() const = 0;
+    virtual IRecord* record() const = 0;
 
 private:
     Q_DISABLE_COPY(IFeature)

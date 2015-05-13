@@ -46,6 +46,7 @@ Table::Table(IFeatureWorkspace &workspace, const QString &tableName, const QSqlD
     , m_workspace(workspace)
     , m_db(database)
     , m_fields(nullptr)
+    , m_records()
 {
 }
 
@@ -70,8 +71,18 @@ const IFields *Table::fields() const
     return m_fields;
 }
 
-IRecordUPtr Table::getRecord(const int index) const
+IRecord *Table::getRecord(const int index) const
 {
+    if (index < m_records.size())
+    {
+        return m_records[index].get();
+    }
+
+    if (!m_records.empty())
+    {
+        return nullptr;
+    }
+
     QSqlQuery query(m_db);
     query.prepare(QString("SELECT * FROM \"%1\"").arg(m_tableName));
     if (!query.exec())
@@ -86,16 +97,23 @@ IRecordUPtr Table::getRecord(const int index) const
         return nullptr;
     }
 
-    if (!query.seek(index))
+//    if (!query.seek(index))
+//    {
+//        Log.e(query.lastError().text());
+//        return nullptr;
+//    }
+
+    while (query.next())
     {
-        Log.e(query.lastError().text());
-        return nullptr;
+        m_records.emplace_back(new Record(-1, query.record())); // TODO: index should not be passed at all
     }
 
-   // Q_ASSERT(query.size() == 1);
+    if (index < m_records.size())
+    {
+        return m_records[index].get();
+    }
 
-    Record* record = new Record(index, query.record());
-    return IRecordUPtr(record);
+    return nullptr;
 }
 
 std::vector<IRecordUPtr> Table::execute(const QString &sqlQuery) const

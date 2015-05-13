@@ -84,7 +84,7 @@ Geometry::Type Feature::shapeType() const
 //    return m_table.getRecord(m_id);
 //}
 
-IRecordUPtr Feature::record() const
+IRecord* Feature::record() const
 {
     // TODO: indexes start from 0, IDs from 1. Check it and make common
     return m_table.getRecord(m_id);

@@ -43,7 +43,7 @@ public:
     virtual ~ITable(){}
 
     virtual const IFields* fields() const = 0;
-    virtual IRecordUPtr getRecord(const int index) const = 0;
+    virtual IRecord* getRecord(const int index) const = 0;
 
     virtual std::vector<IRecordUPtr> execute(const QString& query) const = 0;
 

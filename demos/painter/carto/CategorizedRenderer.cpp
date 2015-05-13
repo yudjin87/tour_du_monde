@@ -83,7 +83,7 @@ void CategorizedRenderer::draw(const QVector<IFeature *> &features, QPainter *pa
 {
     for (const IFeature *feature : features)
     {
-        const IRecordUPtr& rec = feature->record();
+        const IRecord* rec = feature->record();
         const QVariant& featureValue = rec->value(m_categoryFieldIndex);
         ISymbol* symbolForCategory = symbol(featureValue);
         if (symbolForCategory == nullptr)

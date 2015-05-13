@@ -39,7 +39,7 @@ public:
     ~Table();
 
     const IFields* fields() const override;
-    IRecordUPtr getRecord(const int index) const override;
+    IRecord* getRecord(const int index) const override;
 
     std::vector<IRecordUPtr> execute(const QString& sqlQuery) const override;
 
@@ -48,4 +48,5 @@ private:
     IFeatureWorkspace& m_workspace;
     QSqlDatabase m_db;
     IFieldsEdit* m_fields;
+    mutable std::vector<IRecordUPtr> m_records;
 };
