@@ -31,6 +31,11 @@
 #include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QPushButton>
 
+PropertiesDialog::PropertiesDialog(QWidget *parent, Qt::WindowFlags f)
+    : PropertiesDialog(nullptr, parent, f)
+{
+}
+
 PropertiesDialog::PropertiesDialog(IServiceLocator *serviceLocator, QWidget *parent, Qt::WindowFlags f)
     : QDialog(parent, f)
     , m_isDirty(false)

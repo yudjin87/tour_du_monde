@@ -42,7 +42,8 @@ class INTERACTIVITY_API PropertiesDialog : public QDialog
 {
     Q_OBJECT
 public:
-    explicit PropertiesDialog(IServiceLocator *serviceLocator, QWidget *parent = 0, Qt::WindowFlags f = 0);
+    explicit PropertiesDialog(QWidget *parent = nullptr, Qt::WindowFlags f = 0);
+    explicit PropertiesDialog(IServiceLocator *serviceLocator, QWidget *parent = nullptr, Qt::WindowFlags f = 0);
     ~PropertiesDialog();
 
     void installCentralWidget(PropertiesWidget *propertiesWidget);
