@@ -70,8 +70,16 @@ SOURCES += \
     PictureMarkerSymbol.cpp \
 
 MARKERS += \
-    markers/bus_station.png \
-    markers/hotel.png
+    markers/Education/* \
+    markers/EntertainmentArtsCulture/* \
+    markers/Healthcare/* \
+    markers/Historic/* \
+    markers/Leisure/* \
+    markers/Others/* \
+    markers/Shop/* \
+    markers/Sustenance/* \
+    markers/Tourism/* \
+    markers/Transportation/* \
 
 DEFINITION = org.carousel.demos.Display.definition
 
