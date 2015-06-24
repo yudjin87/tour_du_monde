@@ -32,10 +32,15 @@
 #include "ui_SymbolEditorWidget.h"
 
 SymbolEditorWidget::SymbolEditorWidget(QWidget *parent)
-    : QWidget(parent)
+    : PropertiesWidget(parent)
     , m_ui(new Ui::SymbolEditorWidget())
 {
     m_ui->setupUi(this);
+}
+
+void SymbolEditorWidget::applyChanges(IServiceLocator *)
+{
+   // Q_ASSERT(false && "Implemente me!");
 }
 
 QComboBox *SymbolEditorWidget::symbolsCbox()
@@ -51,6 +56,7 @@ void SymbolEditorWidget::installSymbolWidget(ISymbol *forSymbol)
     symbolWidget->prepareForEmbedding();
 
     connect(symbolWidget, &SymbolWidget::symbolChanged, this, &SymbolEditorWidget::symbolChanged);
+    connect(symbolWidget, &SymbolWidget::symbolChanged, this, &SymbolEditorWidget::propertyChanged);
 
     m_ui->verticalLayout->removeWidget(m_ui->placeholder);
     m_ui->verticalLayout->addWidget(symbolWidget);

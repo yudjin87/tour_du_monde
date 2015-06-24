@@ -71,6 +71,11 @@ SimpleRenderer::~SimpleRenderer()
 {
 }
 
+IFeatureRenderer::RendererType SimpleRenderer::type() const
+{
+    return RendererType::Simple;
+}
+
 void SimpleRenderer::draw(const QVector<IFeature *> &features, QPainter *painter)
 {
     ISymbol *symb = symbol();

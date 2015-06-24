@@ -24,36 +24,36 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#pragma once
+#include "cartoUI/RendererCategoryItem.h"
+#include <carto/IRendererCategory.h>
+#include <display/SymbolThumbnail.h>
+#include <display/ISymbol.h>
+#include <QtGui/QPixmap>
 
-#include <carto/carto_api.h>
-#include <QtCore/QObject>
-#include <QtCore/QVariant>
-#include <memory>
-
-class ILegendClass;
-class ISymbol;
-
-class CARTO_API IRendererCategory : public QObject
+RendererCategoryItem::RendererCategoryItem(IRendererCategory &category, const Geometry::Type geometry, QObject *parent)
+    : QObject(parent)
+    , QStandardItem()
+    , m_category(category)
+    , m_geometry(geometry)
 {
-    Q_OBJECT
-public:
-    virtual QVariant value() const = 0;
-    virtual void setValue(const QVariant &value) = 0;
+}
 
-    virtual QString label() const = 0;
-    virtual void setLabel(const QString &label) = 0;
 
-    virtual ISymbol* symbol() = 0;
-    virtual const ISymbol* symbol() const = 0;
-    virtual void setSymbol(ISymbol* symbol) = 0;
+QVariant RendererCategoryItem::data(int role) const
+{
+    switch (role)
+    {
+    case Qt::DecorationRole:
+        SymbolThumbnail thumbnailCreator(16, 2);
+        thumbnailCreator.setBackground(Qt::white);
+        QPixmap legend = thumbnailCreator.createSymbolThumbnail(m_category.symbol(), m_geometry);
+        return legend;
+    }
 
-    virtual const ILegendClass *legendClass() const = 0;
-    virtual void setLegendClass(ILegendClass *legendClass) = 0;
+    return QStandardItem::data(role);
+}
 
-    virtual bool match(const QVariant &value) const = 0;
-
-    virtual IRendererCategory* clone() const = 0;
-};
-
-typedef std::unique_ptr<IRendererCategory> IRendererCategoryUPtr;
+IRendererCategory &RendererCategoryItem::category()
+{
+    return m_category;
+}

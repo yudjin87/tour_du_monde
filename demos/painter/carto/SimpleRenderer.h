@@ -41,6 +41,8 @@ public:
     SimpleRenderer(const Geometry::Type forType, QObject *parent = nullptr);
     ~SimpleRenderer();
 
+    RendererType type() const override;
+
     static ISymbol *defaultSymbol(Geometry::Type forType);
 
     void draw(const QVector<IFeature *> &features, QPainter *painter) override;

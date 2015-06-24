@@ -34,17 +34,11 @@
 FeatureClassModel::FeatureClassModel(IFeatureClass &featureClass, QObject *parent)
     : QAbstractTableModel(parent)
     , m_featureClass(featureClass)
-    , m_cachedRecords()
 {
 }
 
 FeatureClassModel::~FeatureClassModel()
 {
-    for (const IRecord* rec : m_cachedRecords)
-    {
-        delete rec;
-    }
-    m_cachedRecords.clear();
 }
 
 int FeatureClassModel::rowCount(const QModelIndex &) const
@@ -71,23 +65,14 @@ QVariant FeatureClassModel::data(const QModelIndex &index, int role) const
         return QVariant();
     }
 
-    const auto it = m_cachedRecords.find(index.row());
-    if (it == std::end(m_cachedRecords))
+    const ITable* table = m_featureClass.table();
+    const IRecord* rec = table->getRecord(index.row());
+    if (rec == nullptr)
     {
-        const ITable* table = m_featureClass.table();
-        IRecordUPtr rec = table->getRecord(index.row());
-        if (rec == nullptr)
-        {
-            return QVariant();
-        }
-        QVariant data = rec->value(index.column());
-        m_cachedRecords.insert(index.row(), rec.release());
-        return data;
+        return QVariant();
     }
-    const IRecord* rec = *it;
-    const IField* field = rec->fields()->field(index.column());
-    const QVariant data = field->value();
-    return data.toString();
+    QVariant data = rec->value(index.column());
+    return data;
 }
 
 QVariant FeatureClassModel::headerData(int section, Qt::Orientation orientation, int role) const

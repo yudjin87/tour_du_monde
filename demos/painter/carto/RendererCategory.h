@@ -41,6 +41,10 @@ public:
     QString label() const override;
     void setLabel(const QString &label) override;
 
+    ISymbol* symbol() override;
+    const ISymbol* symbol() const override;
+    void setSymbol(ISymbol* symbol) override;
+
     const ILegendClass *legendClass() const override;
     void setLegendClass(ILegendClass *legendClass) override;
 

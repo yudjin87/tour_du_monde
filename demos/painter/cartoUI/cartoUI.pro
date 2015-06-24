@@ -17,7 +17,8 @@ LIBS += -L$${CAROUSEL_BIN} -lCarousel \
 LIBS += -L$${DESTDIR} -lorg.carousel.demos.Display \
                       -lorg.carousel.demos.DisplayWidgets \
                       -lorg.carousel.demos.Carto \
-                      -lorg.carousel.demos.Geometry
+                      -lorg.carousel.demos.Geometry \
+                      -lorg.carousel.demos.Geodatabase
 
 
 HEADERS += \
@@ -38,7 +39,9 @@ HEADERS += \
     FeatureRendererWidgetCreator.h \
     SimpleRendererWidget.h \
     FeatureRendererWidget.h \
-    CategorizedRendererWidget.h
+    CategorizedRendererWidget.h \
+    RendererCategoryItem.h \
+    RendererCategoryCollectionModel.h
 
 SOURCES += \
     CartoUIComponent.cpp \
@@ -57,7 +60,9 @@ SOURCES += \
     FeatureRendererWidgetCreator.cpp \
     SimpleRendererWidget.cpp \
     FeatureRendererWidget.cpp \
-    CategorizedRendererWidget.cpp
+    CategorizedRendererWidget.cpp \
+    RendererCategoryItem.cpp \
+    RendererCategoryCollectionModel.cpp
 
 FORMS += \
     FeatureLayerPropertiesWidget.ui \

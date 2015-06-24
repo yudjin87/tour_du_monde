@@ -41,8 +41,17 @@ class CARTO_API IFeatureRenderer : public QObject
 {
     Q_OBJECT
 public:
+    enum class RendererType
+    {
+        Simple = 0,
+        Categorized
+    };
+
+public:
     IFeatureRenderer(QObject *parent = nullptr) : QObject(parent){}
     virtual ~IFeatureRenderer(){}
+
+    virtual RendererType type() const = 0;
 
     /*!
      * @details

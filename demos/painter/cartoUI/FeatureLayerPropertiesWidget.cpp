@@ -51,9 +51,6 @@ FeatureLayerPropertiesWidget::FeatureLayerPropertiesWidget(FeatureLayer *layer, 
 {
     m_ui->setupUi(this);
 
-    m_ui->symbolCategoryCbox->setModel(&m_symbolCategories);
-    connect(m_ui->symbolCategoryCbox, SIGNAL(currentIndexChanged(int)),this, SLOT(onSymbolCategoryChanged(int)));
-
     m_ui->layerName->setText(m_newName);
     connect(m_ui->layerName, &QLineEdit::editingFinished, this, &FeatureLayerPropertiesWidget::onLayerNameEditingFinished);
 
@@ -61,6 +58,11 @@ FeatureLayerPropertiesWidget::FeatureLayerPropertiesWidget(FeatureLayer *layer, 
     FeatureRendererWidgetCreator creator;
     FeatureRendererWidget *rendererWidget = creator.createWidget(renderer, m_layer, this);
     installRendererWidget(rendererWidget);
+
+    const int type = static_cast<int>(renderer->type());
+    m_ui->symbolCategoryCbox->setModel(&m_symbolCategories);
+    m_ui->symbolCategoryCbox->setCurrentIndex(type);
+    connect(m_ui->symbolCategoryCbox, SIGNAL(currentIndexChanged(int)),this, SLOT(onSymbolCategoryChanged(int)));
 
     // install widget
 //    rendererWidget->prepareForEmbedding();

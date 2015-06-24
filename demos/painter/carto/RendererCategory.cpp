@@ -77,6 +77,22 @@ void RendererCategory::setLabel(const QString &label)
 {
     m_legendClass->setLabel(label);
 }
+
+ISymbol *RendererCategory::symbol()
+{
+    return m_legendClass->symbol();
+}
+
+const ISymbol *RendererCategory::symbol() const
+{
+    return m_legendClass->symbol();
+}
+
+void RendererCategory::setSymbol(ISymbol *symbol)
+{
+    m_legendClass->setSymbol(symbol);
+}
+
 const ILegendClass *RendererCategory::legendClass() const
 {
     return m_legendClass;

@@ -38,6 +38,8 @@ public:
     CategorizedRenderer(QObject *parent = nullptr);
     ~CategorizedRenderer();
 
+    RendererType type() const override;
+
     void draw(const QVector<IFeature *> &features, QPainter *painter) override;
 
     const IRendererCategoryCollection& categories() const;

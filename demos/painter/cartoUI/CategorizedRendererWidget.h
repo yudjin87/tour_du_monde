@@ -37,20 +37,29 @@ namespace Ui
 class CategorizedRendererWidget;
 }
 
+class RendererCategoryCollectionModel;
+
 class CategorizedRendererWidget : public FeatureRendererWidget
 {
     Q_OBJECT
 
 public:
-    explicit CategorizedRendererWidget(const CategorizedRenderer* renderer, const FeatureLayer &layer, QWidget *parent = nullptr);
+    explicit CategorizedRendererWidget(const CategorizedRenderer* renderer, FeatureLayer &layer, QWidget *parent = nullptr);
     ~CategorizedRendererWidget();
 
     void applyChanges() override;
     void prepareForEmbedding() override;
 
+private slots:
+    void onCategoryColumnChanged(int index);
+    void onClassifyBtnClicked();
+    void onChangeBtnClicked();
+    void onSymbolChanged(const ISymbol* symbol, const QModelIndex& selectedRow);
+
 private:
     Ui::CategorizedRendererWidget *m_ui;
     std::unique_ptr<CategorizedRenderer> m_renderer;
     std::unique_ptr<QStringListModel> m_columns;
-    const FeatureLayer &m_layer;
+    RendererCategoryCollectionModel* m_tableModel;
+    FeatureLayer &m_layer;
 };

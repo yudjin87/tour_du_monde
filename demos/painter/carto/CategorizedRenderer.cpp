@@ -79,6 +79,11 @@ CategorizedRenderer::~CategorizedRenderer()
 {
 }
 
+IFeatureRenderer::RendererType CategorizedRenderer::type() const
+{
+    return RendererType::Categorized;
+}
+
 void CategorizedRenderer::draw(const QVector<IFeature *> &features, QPainter *painter)
 {
     for (const IFeature *feature : features)

@@ -26,34 +26,23 @@
 
 #pragma once
 
-#include <carto/carto_api.h>
-#include <QtCore/QObject>
-#include <QtCore/QVariant>
-#include <memory>
+#include <geometry/GeometryType.h>
+#include <carto/IRendererCategoryCollection.h>
+#include <QtGui/QStandardItemModel>
 
-class ILegendClass;
-class ISymbol;
-
-class CARTO_API IRendererCategory : public QObject
+class RendererCategoryCollectionModel : public QStandardItemModel
 {
     Q_OBJECT
 public:
-    virtual QVariant value() const = 0;
-    virtual void setValue(const QVariant &value) = 0;
+    RendererCategoryCollectionModel(const IRendererCategoryCollection& categories, const Geometry::Type geometry, QObject* parent = nullptr);
 
-    virtual QString label() const = 0;
-    virtual void setLabel(const QString &label) = 0;
+    IRendererCategory* category(const QModelIndex& index);
 
-    virtual ISymbol* symbol() = 0;
-    virtual const ISymbol* symbol() const = 0;
-    virtual void setSymbol(ISymbol* symbol) = 0;
+private slots:
+    void onCategoryAdded(IRendererCategory* category);
 
-    virtual const ILegendClass *legendClass() const = 0;
-    virtual void setLegendClass(ILegendClass *legendClass) = 0;
-
-    virtual bool match(const QVariant &value) const = 0;
-
-    virtual IRendererCategory* clone() const = 0;
+private:
+    const IRendererCategoryCollection& m_categories;
+    const Geometry::Type m_geometry;
 };
 
-typedef std::unique_ptr<IRendererCategory> IRendererCategoryUPtr;

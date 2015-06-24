@@ -26,8 +26,8 @@
 
 #pragma once
 #include <displayWidgets/displayWidgets_api.h>
+#include <components/interactivity/PropertiesWidget.h>
 
-#include <QtWidgets/QWidget>
 #include <memory>
 
 class ISymbol;
@@ -38,11 +38,13 @@ namespace Ui
 class SymbolEditorWidget;
 }
 
-class DISPLAY_WIDGETS_API SymbolEditorWidget : public QWidget
+class DISPLAY_WIDGETS_API SymbolEditorWidget : public PropertiesWidget
 {
     Q_OBJECT
 public:
     ~SymbolEditorWidget();
+
+    void applyChanges(IServiceLocator *serviceLocator) override;
 
     void prepareForEmbedding();
 
