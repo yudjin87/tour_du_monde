@@ -59,14 +59,17 @@ bool CarouselPersistenceDelegate::save(const QList<IComponent *> &components, QB
     for (IComponent *component : components) {
         IPersistExtension *extension = component->extension<IPersistExtension>();
         if (extension == nullptr)
+        {
+            Log.d(QString("Component \"%1\" is not persistance, skip it.").arg(component->name()));
             continue;
+        }
 
         QJsonObject componentJson;
         componentJson.insert("name", component->name());
         QJsonObject data;
 
         bool result = saveExtension(extension, data);
-        Log.d(QString("Saving \"%1\" component... %2").arg(component->name()).arg(result ? "Success" : "Fail"));
+        Log.i(QString("Saving \"%1\" component... %2").arg(component->name()).arg(result ? "Success" : "Fail"));
 
         if (!result)
             return false;
