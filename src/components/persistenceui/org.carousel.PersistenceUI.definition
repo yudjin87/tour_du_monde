@@ -1,0 +1,6 @@
+ <component name="org.carousel.Persistence" shortName="Persistence">
+     <version>1.0</version>
+     <productName>Persistence</productName>
+     <provider>Carousel</provider>
+     <location>./org.carousel.Persistence</location>
+ </component>

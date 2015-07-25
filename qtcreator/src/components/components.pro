@@ -8,3 +8,5 @@ SUBDIRS += \
     jsscripting \
     jsscriptingui \
     persistence \
+    persistenceui \
+
