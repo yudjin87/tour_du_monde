@@ -64,7 +64,7 @@ public:
      *   QMenu *fileMenu = menuCatalog.findMenuEverywhere(tr("File"));
      *   fileMenu->addAction(operationCatalog->add(new MyPrintOperation()));
      * @endcode
-     * @sa OperationCatalog::register();
+     * @sa OperationCatalog::add();
      */
     virtual QMenu *addMenu(const QString &title) = 0;
 
