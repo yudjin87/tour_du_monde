@@ -29,7 +29,15 @@
 
 #include <carousel/componentsystem/BaseComponent.h>
 
-
+/*!
+ * @brief
+ *   This class represents a component, that creates and registers
+ *   persistence service in the service locator.
+ * @details
+ *
+ *   Registered services:
+ * @li IPersistenceService;
+ */
 class PERSISTENCE_API PersistenceComponent : public BaseComponent
 {
     Q_OBJECT

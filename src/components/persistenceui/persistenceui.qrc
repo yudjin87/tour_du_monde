@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix="/cartoPersistUI">
+    <qresource prefix="/persistenceui">
         <file>images/load.png</file>
         <file>images/save.png</file>
     </qresource>

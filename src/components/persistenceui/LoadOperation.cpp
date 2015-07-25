@@ -25,7 +25,20 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "components/persistenceui/LoadOperation.h"
+#include <components/persistence/IPersistenceService.h>
 #include <carousel/utils/IServiceLocator.h>
+#include <carousel/commands/IUndoStack.h>
+#include <carousel/logging/LoggerFacade.h>
+
+#include <QtCore/QFileInfo>
+#include <QtCore/QSettings>
+#include <QtWidgets/QFileDialog>
+#include <QtWidgets/QMainWindow>
+
+namespace
+{
+static LoggerFacade Log = LoggerFacade::createLogger("LoadOperation");
+}
 
 LoadOperation::LoadOperation()
     : Operation("Open project")
@@ -37,13 +50,22 @@ LoadOperation::LoadOperation()
 
 void LoadOperation::execute()
 {
-//    IDisplay *display = m_serviceLocator->locate<IDisplay>();
-//    display->transformation()->setVisibleBounds(display->transformation()->bounds());
+    QFileDialog fileDialog(m_serviceLocator->locate<QMainWindow>(), "Load project");
+    fileDialog.setAcceptMode(QFileDialog::AcceptOpen);
+    fileDialog.setFileMode(QFileDialog::ExistingFile);
+    if (!fileDialog.exec())
+    {
+        Log.d("Loading was canceled by user");
+        return;
+    }
 
-//    IPainterDocumentController* docController = m_serviceLocator->locate<IPainterDocumentController>();
-//    IPainterDocument *doc = docController->document();
-//    IMap *map = doc->map();
-//    map->refresh();
+    const QFileInfo opennedFile = fileDialog.selectedFiles().first();
+
+    IPersistenceService* persistenceService = m_serviceLocator->locate<IPersistenceService>();
+    bool result = persistenceService->load(opennedFile.absoluteFilePath());
+    Q_UNUSED(result); // TODO: check
+    IUndoStack *undoStack = m_serviceLocator->locate<IUndoStack>();
+    undoStack->cleanIndex();
 }
 
 void LoadOperation::initialize(IServiceLocator *serviceLocator)

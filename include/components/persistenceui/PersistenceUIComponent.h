@@ -29,6 +29,15 @@
 #include <components/persistenceui/persistenceUI_api.h>
 #include <carousel/componentsystem/BaseComponent.h>
 
+/*!
+ * @brief
+ *   This class represents a component, that creates and registers
+ *   "Save project" and "Load project" UI items as interactive extension.
+ * @details
+ *   This component has a very simple functionality and should be used for
+ *   prototyping purposes only or as an starting point, how to create customized
+ *   save/load UI items in terms of Carousel.
+ */
 class PERSISTENCE_UI_API PersistenceUIComponent : public BaseComponent
 {
 public:
