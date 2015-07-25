@@ -42,6 +42,7 @@ QUndoStackAdapter::QUndoStackAdapter(QObject *parent)
     : IUndoStack(parent)
     , m_stack(new QUndoStack(this))
 {
+    connect(m_stack, &QUndoStack::cleanChanged, this, &IUndoStack::cleanChanged);
 }
 
 QUndoStack *QUndoStackAdapter::wrappedStack()
