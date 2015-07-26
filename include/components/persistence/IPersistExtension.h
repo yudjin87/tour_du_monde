@@ -45,7 +45,7 @@ public:
      */
     IPersistExtension(){}
 
-    virtual bool save(IServiceLocator *locator, QJsonObject &obj, QString *error = nullptr) = 0;
+    virtual bool save(IServiceLocator *locator, const QString& name, QJsonObject &obj, QString *error = nullptr) = 0;
     virtual bool load(IServiceLocator *locator, const QJsonObject &obj, QString *error = nullptr) = 0;
 
 private:

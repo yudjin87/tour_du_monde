@@ -49,7 +49,7 @@ CarouselPersistenceDelegate::CarouselPersistenceDelegate(IServiceLocator *locato
     setParent(parent);
 }
 
-bool CarouselPersistenceDelegate::save(const QList<IComponent *> &components, QByteArray &saveStream)
+bool CarouselPersistenceDelegate::save(const QList<IComponent *> &components, const QString &name, QByteArray &saveStream)
 {
     QJsonDocument document;
     QJsonObject root;
@@ -68,7 +68,7 @@ bool CarouselPersistenceDelegate::save(const QList<IComponent *> &components, QB
         componentJson.insert("name", component->name());
         QJsonObject data;
 
-        bool result = saveExtension(extension, data);
+        bool result = saveExtension(extension, name, data);
         Log.i(QString("Saving \"%1\" component... %2").arg(component->name()).arg(result ? "Success" : "Fail"));
 
         if (!result)
@@ -114,10 +114,10 @@ bool CarouselPersistenceDelegate::load(const QList<IComponent *> &components, co
     return true;
 }
 
-bool CarouselPersistenceDelegate::saveExtension(IPersistExtension *extension, QJsonObject &toWrite)
+bool CarouselPersistenceDelegate::saveExtension(IPersistExtension *extension, const QString &name, QJsonObject &toWrite)
 {
     QString error;
-    if (extension->save(m_locator, toWrite, &error))
+    if (extension->save(m_locator, name, toWrite, &error))
         return true;
 
     Log.e(QString("Failed to load component: %1").arg(error));

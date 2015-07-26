@@ -43,13 +43,13 @@ public:
      */
     explicit CarouselPersistenceDelegate(IServiceLocator *locator, QObject *parent = nullptr);
 
-    bool save(const QList<IComponent *> &components, QByteArray &saveStream) override;
-    bool load(const QList<IComponent *> &components,  const QByteArray &loadStream) override;
+    bool save(const QList<IComponent *> &components, const QString& name, QByteArray &saveStream) override;
+    bool load(const QList<IComponent *> &components, const QByteArray &loadStream) override;
 
 protected:
     static IPersistExtension *extensionByName(const QList<IComponent *> &components, const QString &compName);
     IServiceLocator *locator();
-    virtual bool saveExtension(IPersistExtension *extension, QJsonObject &toWrite);
+    virtual bool saveExtension(IPersistExtension *extension, const QString& name, QJsonObject &toWrite);
     virtual bool loadExtension(IPersistExtension *extension, const QJsonObject &json);
 
 private:

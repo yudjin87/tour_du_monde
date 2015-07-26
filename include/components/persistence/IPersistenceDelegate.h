@@ -46,7 +46,7 @@ public:
      */
     IPersistenceDelegate(){}
 
-    virtual bool save(const QList<IComponent *> &components, QByteArray &saveStream) = 0;
+    virtual bool save(const QList<IComponent *> &components, const QString& name, QByteArray &saveStream) = 0;
     virtual bool load(const QList<IComponent *> &components,  const QByteArray &loadStream) = 0;
 
 private:

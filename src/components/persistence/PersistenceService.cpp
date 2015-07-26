@@ -169,9 +169,10 @@ bool PersistenceService::saveToFile(const QString &filePath)
 
     Log.i(QString("Saving to the \"%1\"").arg(filePath));
 
+    const QFileInfo fileName(filePath);
     QTextStream out(&documentFile);
     QByteArray savedDoc;
-    if (!m_delegate->save(m_manager->startedComponents(), savedDoc)) {
+    if (!m_delegate->save(m_manager->startedComponents(), fileName.baseName(), savedDoc)) {
         Log.w("Failed to save document");
         return false;
     }
