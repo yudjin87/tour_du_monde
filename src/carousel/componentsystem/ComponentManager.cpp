@@ -258,6 +258,11 @@ DependenciesSolvingResult ComponentManager::startupComponents(QList<IComponent *
     QSet<IComponent *> skippedComponents;
     QList<IComponent *> componentsToStart = solvingResult.ordered();
     QList<IComponent *> reallyStartedComponents;
+    Log.i("Components to start:");
+    for (IComponent *comp : componentsToStart) {
+        Log.i(QString("\"%1\"").arg(comp->name()));
+    }
+
     for (IComponent *comp : componentsToStart) {
         if (comp->started() || skippedComponents.contains(comp))
             continue;
@@ -377,10 +382,9 @@ bool ComponentManager::tryToStartComponent(IComponent *component)
         return false;
     }
 
-    // TODO: use static initialization with initializer list
-    QList<IComponent::State> startableStates;
-    startableStates << IComponent::Initialized << IComponent::Stopped << IComponent::Orphan;
+    Log.i(QString("Starting \"%1\" component").arg(component->name()));
 
+    const QList<IComponent::State> startableStates { IComponent::Initialized, IComponent::Stopped, IComponent::Orphan};
     if (!startableStates.contains(component->state())) {
         Log.i(QString("Could not start component \"%1\" with state %2.").arg(component->name()).arg(component->state()));
         return false;
@@ -391,7 +395,7 @@ bool ComponentManager::tryToStartComponent(IComponent *component)
         return false;
     }
 
-    Log.i(QString("\"%1\" component is started.").arg(component->name()));
+    Log.i(QString("Component \"%1\" is started.").arg(component->name()));
     return true;
 }
 
