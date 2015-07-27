@@ -24,19 +24,35 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#pragma once
-#include <carto/IPainterDocument.h>
+#include "cartoPersist/LayerPersistCreator.h"
+#include "cartoPersist/FeatureLayerPersist.h"
+#include <carto/FeatureLayer.h>
 
-class IServiceLocator;
-
-class PainterDocumentPersist
+LayerPersistCreator::LayerPersistCreator()
+    : ILayerVisitor()
+    , m_persist()
 {
-public:
-    explicit PainterDocumentPersist(IServiceLocator &serviceLocator);
+}
 
-    void save(QJsonObject &obj, const IPainterDocument& document);
-    IPainterDocumentUPtr load(const QJsonObject &obj, QString *error);
+ILayerPersistUPtr LayerPersistCreator::create(const AbstractLayer &forLayer)
+{
+    const_cast<AbstractLayer&>(forLayer).accept(*this);
+    return std::move(m_persist);
+}
 
-private:
-    IServiceLocator &m_serviceLocator;
-};
+ILayerPersistUPtr LayerPersistCreator::create(const LayerType type)
+{
+    switch (type)
+    {
+        case LayerType::FeatureLayer:
+            return ILayerPersistUPtr(new FeatureLayerPersist());
+    }
+
+    return nullptr;
+}
+
+void LayerPersistCreator::visit(FeatureLayer &layer)
+{
+    m_persist.reset(new FeatureLayerPersist(layer));
+}
+

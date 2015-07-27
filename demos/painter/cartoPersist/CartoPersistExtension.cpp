@@ -48,7 +48,7 @@ bool CartoPersistExtension::save(IServiceLocator *locator, const QString &name, 
 
     IPainterDocumentController* controller = locator->locate<IPainterDocumentController>();
     controller->document()->setName(name);
-    PainterDocumentPersist documentPersist;
+    PainterDocumentPersist documentPersist(*locator);
     documentPersist.save(obj, *controller->document());
 
     return true;
@@ -61,12 +61,14 @@ bool CartoPersistExtension::load(IServiceLocator *locator, const QJsonObject &ob
         error->clear();
     }
 
-    IPainterDocumentController* controller = locator->locate<IPainterDocumentController>();
-    PainterDocumentPersist documentPersist;
-    if (documentPersist.load(obj, *controller->document(), error))
+    PainterDocumentPersist documentPersist(*locator);
+    IPainterDocumentUPtr document = documentPersist.load(obj, error);
+    if (document == nullptr)
     {
-        return true;
+        return false;
     }
 
-    return false;
+    IPainterDocumentController* controller = locator->locate<IPainterDocumentController>();
+    controller->setDocument(document.release());
+    return true;
 }

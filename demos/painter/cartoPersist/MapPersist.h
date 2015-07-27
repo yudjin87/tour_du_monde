@@ -25,17 +25,18 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
-#include <carto/IPainterDocument.h>
+
+#include <carto/IMap.h>
 
 class IServiceLocator;
 
-class PainterDocumentPersist
+class MapPersist
 {
 public:
-    explicit PainterDocumentPersist(IServiceLocator &serviceLocator);
+    explicit MapPersist(IServiceLocator &serviceLocator);
 
-    void save(QJsonObject &obj, const IPainterDocument& document);
-    IPainterDocumentUPtr load(const QJsonObject &obj, QString *error);
+    void save(QJsonObject &obj, const IMap& map);
+    IMapUPtr load(const QJsonObject &obj, QString *error);
 
 private:
     IServiceLocator &m_serviceLocator;

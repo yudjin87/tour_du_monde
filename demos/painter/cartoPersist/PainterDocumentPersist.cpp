@@ -25,30 +25,56 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "cartoPersist/PainterDocumentPersist.h"
-#include <carto/IPainterDocument.h>
+#include "cartoPersist/MapPersist.h"
+#include <carto/IMap.h>
+#include <carto/PainterDocument.h>
+#include <carousel/utils/IServiceLocator.h>
 #include <QtCore/QJsonObject>
 #include <QtCore/QVariant>
 
-PainterDocumentPersist::PainterDocumentPersist(QObject *parent)
-    : QObject(parent)
+PainterDocumentPersist::PainterDocumentPersist(IServiceLocator &serviceLocator)
+    : m_serviceLocator(serviceLocator)
 {
 }
 
 void PainterDocumentPersist::save(QJsonObject &obj, const IPainterDocument &document)
 {
     obj.insert("documentName", document.name());
+
+    QJsonObject jsonMap;
+    MapPersist mapPersist(m_serviceLocator);
+    mapPersist.save(jsonMap, *document.map());
+
+    obj.insert("map", jsonMap);
 }
 
-bool PainterDocumentPersist::load(const QJsonObject &obj, IPainterDocument &document, QString *error)
+IPainterDocumentUPtr PainterDocumentPersist::load(const QJsonObject &obj, QString *error)
 {
+    IPainterDocumentUPtr document(new PainterDocument());
     const QVariant docName = obj.value("documentName");
     if (!docName.isValid())
     {
         if (error) *error = "Invalid document name";
-        return false;
+        return nullptr;
     }
 
-    document.setName(docName.toString());
-    return true;
-}
+    document->setName(docName.toString());
 
+    const QJsonValue jsonMap = obj.value("map");
+    if (!jsonMap.isObject())
+    {
+        if (error) *error = "Invalid \"map\" object";
+        return nullptr;
+    }
+
+    MapPersist mapPersist(m_serviceLocator);
+    IMapUPtr map = mapPersist.load(jsonMap.toObject(), error);
+    if (map == nullptr)
+    {
+        return nullptr;
+    }
+
+    document->addMap(map.release());
+
+    return document;
+}

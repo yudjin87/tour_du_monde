@@ -25,18 +25,24 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
-#include <carto/IPainterDocument.h>
 
-class IServiceLocator;
+#include <carto/ILayerVisitor.h>
+#include <carto/LayerType.h>
+#include <cartoPersist/ILayerPersist.h>
 
-class PainterDocumentPersist
+class AbstractLayer;
+
+class LayerPersistCreator : private ILayerVisitor
 {
 public:
-    explicit PainterDocumentPersist(IServiceLocator &serviceLocator);
+    LayerPersistCreator();
 
-    void save(QJsonObject &obj, const IPainterDocument& document);
-    IPainterDocumentUPtr load(const QJsonObject &obj, QString *error);
+    ILayerPersistUPtr create(const AbstractLayer& forLayer);
+    ILayerPersistUPtr create(const LayerType type);
 
 private:
-    IServiceLocator &m_serviceLocator;
+    void visit(FeatureLayer &layer) override;
+
+private:
+    ILayerPersistUPtr m_persist;
 };
