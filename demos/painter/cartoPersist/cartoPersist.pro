@@ -17,10 +17,12 @@ HEADERS += \
     cartoPersist_api.h \
     CartoPersistComponent.h \
     CartoPersistExtension.h \
+    PainterDocumentPersist.h
 
 SOURCES += \
     CartoPersistComponent.cpp \
     CartoPersistExtension.cpp \
+    PainterDocumentPersist.cpp
 
 OTHER_FILES += org.carousel.demos.CartoPersist.definition
 

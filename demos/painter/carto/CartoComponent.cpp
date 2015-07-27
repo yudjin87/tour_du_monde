@@ -24,15 +24,16 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "CartoComponent.h"
-#include "commands/AddShapesCommand.h"
-#include "commands/RemoveLayerCommand.h"
-#include "commands/RenameLayerCommand.h"
-#include "commands/ChangeLayerStyleCommand.h"
-#include "commands/MoveLayerCommand.h"
-#include "PainterDocumentController.h"
-#include "CartoScriptExtension.h"
-#include "FeatureLayer.h"
+#include "carto/CartoComponent.h"
+#include "carto/commands/AddShapesCommand.h"
+#include "carto/commands/RemoveLayerCommand.h"
+#include "carto/commands/RenameLayerCommand.h"
+#include "carto/commands/ChangeLayerStyleCommand.h"
+#include "carto/commands/MoveLayerCommand.h"
+#include "carto/PainterDocumentController.h"
+#include "carto/IPainterDocument.h"
+#include "carto/FeatureLayer.h"
+#include "carto/CartoScriptExtension.h"
 
 #include <geodatabase/IShapeFileWorkspaceFactory.h>
 #include <carto/DefaultNavigationHandler.h>
@@ -41,8 +42,11 @@
 #include <carousel/commands/IUndoStack.h>
 #include <carousel/componentsystem/ComponentDefinition.h>
 #include <carousel/componentsystem/ComponentExport.h>
+#include <carousel/componentsystem/IComponentManager.h>
 #include <carousel/utils/IServiceLocator.h>
 #include <carousel/utils/TypeCreators.h>
+
+#include <QtWidgets/QMainWindow>
 
 static const QByteArray productName("Carto");
 
@@ -90,7 +94,7 @@ bool CartoComponent::onStartup(IServiceLocator *serviceLocator)
     serviceLocator->registerType<ChangeLayerStyleCommand>(changeLayerSymbolCommandCreator);
 
     IDisplay *display = serviceLocator->locate<IDisplay>();
-    IPainterDocumentController *controller = new PainterDocumentController(display);
+    IPainterDocumentController *controller = new PainterDocumentController(display); // TODO:  controller doesn't needed, remove it
     serviceLocator->registerInstance<IPainterDocumentController>(controller);
 
     // For creating from scripting
@@ -99,7 +103,22 @@ bool CartoComponent::onStartup(IServiceLocator *serviceLocator)
     DefaultNavigationHandler* defaultNavigationHandler = new DefaultNavigationHandler(display, controller, this);
     Q_UNUSED(defaultNavigationHandler)
 
+    // Binding document name to the Application window title:
+    QMainWindow* mainWindow = serviceLocator->locate<QMainWindow>();
+    mainWindow->setWindowTitle(controller->document()->name() + "[*]");
+    connect(controller->document(), &IPainterDocument::nameChanged, [mainWindow](const QString& n) { mainWindow->setWindowTitle(n + "[*]");});
+
+    IComponentManager* componentManager = serviceLocator->locate<IComponentManager>();
+    connect(componentManager, &IComponentManager::startedUp, [serviceLocator, this]() { onComponentsStartedUp(serviceLocator);});
+
     return true;
+}
+
+void CartoComponent::onComponentsStartedUp(IServiceLocator *serviceLocator)
+{
+    QMainWindow* mainWindow = serviceLocator->locate<QMainWindow>();
+    IUndoStack *undoStack = serviceLocator->locate<IUndoStack>();
+    connect(undoStack, &IUndoStack::cleanChanged, [mainWindow](bool c) { mainWindow->setWindowModified(!c); });
 }
 
 EXPORT_COMPONENT(CartoComponent)

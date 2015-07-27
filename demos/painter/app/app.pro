@@ -15,6 +15,8 @@ LIBS += -L$${CAROUSEL_BIN} -lCarousel \
                            -lorg.carousel.JsScriptingUI \
                            -lorg.carousel.ComponentSystemUI \
                            -lorg.carousel.Undo \
+                           -lorg.carousel.Persistence \
+                           -lorg.carousel.PersistenceUI \
 
 SOURCES += \
     main.cpp\

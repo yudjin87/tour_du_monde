@@ -25,7 +25,7 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
-#include "IPainterDocument.h"
+#include <carto/IPainterDocument.h>
 
 class PainterDocument : public IPainterDocument
 {
@@ -34,10 +34,10 @@ public:
     ~PainterDocument();
 
     IMap *map() override;
-
     void addMap(IMap *map) override;
 
     const QString &name() const override;
+    void setName(const QString &name) override;
 
 private:
     QString m_name;

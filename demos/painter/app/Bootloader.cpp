@@ -39,6 +39,8 @@
 #include <components/jsscriptingui/JsScriptingUIComponent.h>
 #include <components/interactivity/InteractionServiceComponent.h>
 #include <components/undo/UndoComponent.h>
+#include <components/persistence/PersistenceComponent.h>
+#include <components/persistenceui/PersistenceUIComponent.h>
 
 Bootloader::Bootloader()
     : CarouselBootloader()
@@ -55,6 +57,8 @@ void Bootloader::configureComponentProvider()
     provider->registerComponent(new JsScriptingComponent());
     provider->registerComponent(new JsScriptingUIComponent());
     provider->registerComponent(new UndoComponent());
+    provider->registerComponent(new PersistenceComponent());
+    provider->registerComponent(new PersistenceUIComponent());
 }
 
 IComponentProvider *Bootloader::createComponentProvider()

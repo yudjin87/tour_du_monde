@@ -28,7 +28,7 @@
 #include "IMap.h"
 
 PainterDocument::PainterDocument()
-    : m_name("Demo PainterDocument")
+    : m_name("New PainterDocument")
     , m_map(nullptr)
 {
 }
@@ -54,3 +54,13 @@ const QString &PainterDocument::name() const
     return m_name;
 }
 
+void PainterDocument::setName(const QString &name)
+{
+    if (m_name == name)
+    {
+        return;
+    }
+
+    m_name = name;
+    emit nameChanged(name);
+}

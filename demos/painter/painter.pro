@@ -8,6 +8,7 @@ SUBDIRS += \
     displayWidgets \
     geodatabase \
     carto \
+    cartoPersist \
     cartoUI \
     geodatabase_test \
     navigationOperations \

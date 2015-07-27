@@ -3,7 +3,7 @@
  *
  * Carousel - Qt-based managed component library.
  *
- * Copyright: 2011-2013 Carousel team
+ * Copyright: 2011-2015 Carousel team
  * Authors:
  *   Eugene Chuguy <eugene.chuguy@gmail.com>
  *
@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- 
+
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -24,49 +24,31 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "cartoPersist/CartoPersistExtension.h"
 #include "cartoPersist/PainterDocumentPersist.h"
-
-#include <carto/AbstractLayer.h>
 #include <carto/IPainterDocument.h>
-#include <carto/IPainterDocumentController.h>
-#include <carousel/utils/IServiceLocator.h>
-
 #include <QtCore/QJsonObject>
+#include <QtCore/QVariant>
 
-CartoPersistExtension::CartoPersistExtension(QObject *parent)
+PainterDocumentPersist::PainterDocumentPersist(QObject *parent)
     : QObject(parent)
 {
 }
 
-bool CartoPersistExtension::save(IServiceLocator *locator, const QString &name, QJsonObject &obj, QString *error)
+void PainterDocumentPersist::save(QJsonObject &obj, const IPainterDocument &document)
 {
-    if (error != nullptr)
+    obj.insert("documentName", document.name());
+}
+
+bool PainterDocumentPersist::load(const QJsonObject &obj, IPainterDocument &document, QString *error)
+{
+    const QVariant docName = obj.value("documentName");
+    if (!docName.isValid())
     {
-        error->clear();
+        if (error) *error = "Invalid document name";
+        return false;
     }
 
-    IPainterDocumentController* controller = locator->locate<IPainterDocumentController>();
-    controller->document()->setName(name);
-    PainterDocumentPersist documentPersist;
-    documentPersist.save(obj, *controller->document());
-
+    document.setName(docName.toString());
     return true;
 }
 
-bool CartoPersistExtension::load(IServiceLocator *locator, const QJsonObject &obj, QString *error)
-{
-    if (error != nullptr)
-    {
-        error->clear();
-    }
-
-    IPainterDocumentController* controller = locator->locate<IPainterDocumentController>();
-    PainterDocumentPersist documentPersist;
-    if (documentPersist.load(obj, *controller->document(), error))
-    {
-        return true;
-    }
-
-    return false;
-}

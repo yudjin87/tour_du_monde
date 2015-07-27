@@ -25,7 +25,8 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
-#include "carto/carto_api.h"
+
+#include <carto/carto_api.h>
 
 #include <QtCore/QObject>
 
@@ -34,16 +35,19 @@ class IMap;
 class CARTO_API IPainterDocument : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QString name READ name)
+    Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
     Q_PROPERTY(IMap *map READ map)
 public:
-    IPainterDocument(){}
-
     virtual IMap *map() = 0;
-
+    virtual const QString &name() const = 0;
+    virtual void setName(const QString &name) = 0;
     virtual void addMap(IMap *map) = 0;
 
-    virtual const QString &name() const = 0;
+signals:
+    void nameChanged(QString name);
+
+protected:
+    IPainterDocument() = default;
 
 private:
     Q_DISABLE_COPY(IPainterDocument)

@@ -38,5 +38,8 @@ public:
 protected:
     bool onStartup(IServiceLocator *serviceLocator) override;
     void onShutdown(IServiceLocator *serviceLocator) override;
+
+private:
+    void onComponentsStartedUp(IServiceLocator *serviceLocator);
 };
 
