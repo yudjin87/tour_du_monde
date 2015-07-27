@@ -24,25 +24,40 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "PainterDocumentController.h"
-#include "PainterDocument.h"
-#include "Map.h"
+#include "carto/PainterDocumentController.h"
+#include "carto/PainterDocument.h"
+#include "carto/Map.h"
 
 PainterDocumentController::PainterDocumentController(IDisplay *display)
-    : m_document(nullptr)
+    : m_document(new PainterDocument())
 {
-    m_document = new PainterDocument();
-    m_document->addMap(new Map(m_document, display));
+    m_document->addMap(new Map(m_document.get(), display));
+    connect(m_document.get(), &IPainterDocument::nameChanged, this, &IPainterDocumentController::activeDocumentNameChanged);
 }
 
 PainterDocumentController::~PainterDocumentController()
 {
-    delete m_document;
-    m_document = nullptr;
 }
 
 IPainterDocument *PainterDocumentController::document()
 {
-    return m_document;
+    return m_document.get();
+}
+
+void PainterDocumentController::setDocument(IPainterDocument *doc)
+{
+    m_document.reset(doc);
+    if (m_document)
+    {
+        connect(m_document.get(), &IPainterDocument::nameChanged, this, &IPainterDocumentController::activeDocumentNameChanged);
+    }
+
+    emit activeDocumentChanged(m_document.get());
+    emit activeDocumentNameChanged(activeDocumentName());
+}
+
+QString PainterDocumentController::activeDocumentName() const
+{
+    return m_document == nullptr ? "Empty" : m_document->name();
 }
 

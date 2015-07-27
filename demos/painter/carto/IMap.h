@@ -29,6 +29,7 @@
 
 #include <QtCore/QList>
 #include <QtCore/QObject>
+#include <memory>
 
 class AbstractLayer;
 class IPainterDocument;
@@ -69,4 +70,6 @@ signals:
 private:
     Q_DISABLE_COPY(IMap)
 };
+
+typedef std::unique_ptr<IMap> IMapUPtr;
 

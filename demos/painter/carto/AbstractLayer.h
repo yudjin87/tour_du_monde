@@ -26,10 +26,12 @@
 
 #pragma once
 #include <carto/carto_api.h>
+#include <carto/LayerType.h>
 
 #include <QtCore/QObject>
 #include <QtCore/QString>
 #include <QtCore/QRectF>
+#include <memory>
 
 class IDisplay;
 class ILayerVisitor;
@@ -49,7 +51,8 @@ public:
 
     virtual QRectF extent() const = 0;
 
-    const QString &name() const;
+    virtual LayerType type() const = 0;
+    const QString &name() const; // TODO: displayName, because we have FeatureClass name which can't be changed
     void setName(const QString &name);
 
     bool isVisible() const;
@@ -80,3 +83,4 @@ private:
     double m_maximumScale;
 };
 
+typedef std::unique_ptr<AbstractLayer> AbstractLayerUPtr;

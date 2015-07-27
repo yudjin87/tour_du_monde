@@ -38,8 +38,6 @@
 #include <geometry/Polygon.h>
 #include <carousel/logging/LoggerFacade.h>
 
-#include <QtCore/QFileInfo>
-
 namespace
 {
 static LoggerFacade Log = LoggerFacade::createLogger("FeatureLayer");
@@ -56,6 +54,11 @@ FeatureLayer::~FeatureLayer()
 {
     delete m_featureClass;
     m_featureClass = nullptr;
+}
+
+LayerType FeatureLayer::type() const
+{
+    return LayerType::FeatureLayer;
 }
 
 Geometry::Type FeatureLayer::shapeType() const
@@ -99,6 +102,11 @@ void FeatureLayer::draw(IDisplay *display)
 
 QRectF FeatureLayer::extent() const
 {
+    if (m_featureClass == nullptr)
+    {
+        return QRect();
+    }
+
     return m_featureClass->extent();
 }
 
@@ -117,11 +125,13 @@ void FeatureLayer::setFeatureClass(IFeatureClass *featureClass)
     delete m_featureClass;
     m_featureClass = featureClass;
 
-    QFileInfo fileName(featureClass->source());
-    setName(fileName.baseName());
+    setName(featureClass->name());
 
-    SimpleRenderer* defaultRenderer = new SimpleRenderer(m_featureClass->shapeType());
-    m_featureRenderer.reset(defaultRenderer);
+    if (m_featureRenderer == nullptr)
+    {
+        SimpleRenderer* defaultRenderer = new SimpleRenderer(m_featureClass->shapeType());
+        m_featureRenderer.reset(defaultRenderer);
+    }
 }
 
 void FeatureLayer::accept(ILayerVisitor &visitor)

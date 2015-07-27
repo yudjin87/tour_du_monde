@@ -27,13 +27,14 @@
 #pragma once
 #include <carto/IPainterDocument.h>
 
-class PainterDocument : public IPainterDocument
+class CARTO_API PainterDocument : public IPainterDocument
 {
 public:
     PainterDocument();
     ~PainterDocument();
 
     IMap *map() override;
+    const IMap *map() const override;
     void addMap(IMap *map) override;
 
     const QString &name() const override;

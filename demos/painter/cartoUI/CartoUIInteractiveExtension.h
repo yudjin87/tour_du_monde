@@ -29,6 +29,9 @@
 
 #include <QtCore/QObject>
 
+class IPainterDocument;
+class LayerTreeView;
+
 class CartoUIInteractiveExtension : public QObject, public IInteractiveExtension
 {
     Q_OBJECT
@@ -36,6 +39,13 @@ public:
     CartoUIInteractiveExtension(QObject *parent = nullptr);
 
     void configureGui(ICatalogs &inCatalogs, IServiceLocator *serviceLocator) override;
+
+private:
+    void onActiveDocumentChanged(IPainterDocument* document);
+
+private:
+    LayerTreeView *m_layersTree;
+    IServiceLocator *m_serviceLocator;
 };
 
 

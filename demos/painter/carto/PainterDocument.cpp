@@ -44,6 +44,11 @@ IMap *PainterDocument::map()
     return m_map;
 }
 
+const IMap *PainterDocument::map() const
+{
+    return m_map;
+}
+
 void PainterDocument::addMap(IMap *map)
 {
     m_map = map;

@@ -3,7 +3,7 @@
  *
  * Carousel - Qt-based managed component library.
  *
- * Copyright: 2011-2013 Carousel team
+ * Copyright: 2011-2015 Carousel team
  * Authors:
  *   Eugene Chuguy <eugene.chuguy@gmail.com>
  *
@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- 
+
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -27,33 +27,13 @@
 #pragma once
 
 #include <carto/carto_api.h>
+#include <QtCore/QString>
 
-#include <QtCore/QObject>
-#include <memory>
-
-class IMap;
-
-class CARTO_API IPainterDocument : public QObject
+enum class LayerType
 {
-    Q_OBJECT
-    Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
-    Q_PROPERTY(IMap *map READ map)
-public:
-    virtual IMap *map() = 0;
-    virtual const IMap *map() const = 0;
-    virtual const QString &name() const = 0;
-    virtual void setName(const QString &name) = 0;
-    virtual void addMap(IMap *map) = 0;
-
-signals:
-    void nameChanged(QString name);
-
-protected:
-    IPainterDocument() = default;
-
-private:
-    Q_DISABLE_COPY(IPainterDocument)
+    FeatureLayer = 0
 };
 
-
-typedef std::unique_ptr<IPainterDocument> IPainterDocumentUPtr;
+CARTO_API bool verifyEnum(const LayerType type);
+CARTO_API QString toString(const LayerType type);
+CARTO_API LayerType fromString(const QString& name);

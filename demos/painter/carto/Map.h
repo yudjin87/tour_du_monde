@@ -34,6 +34,7 @@ class CARTO_API Map : public IMap
 {
     Q_OBJECT
 public:
+    Map(IDisplay *display);
     Map(IPainterDocument *parentDocument, IDisplay *display);
     ~Map();
 
@@ -41,6 +42,7 @@ public:
 
     IPainterDocument *document() override;
     const IPainterDocument *document() const override;
+    void setDocument(IPainterDocument *parentDocument);
 
 public slots:
     void refresh() override;

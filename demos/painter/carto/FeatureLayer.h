@@ -30,6 +30,7 @@
 #include <geometry/GeometryType.h>
 
 #include <QtCore/QList>
+#include <memory>
 
 class IFeatureRenderer;
 class IFeatureClass;
@@ -44,6 +45,7 @@ public:
     FeatureLayer(QObject *parent = nullptr);
     ~FeatureLayer();
 
+    LayerType type() const;
     Geometry::Type shapeType() const;
 
     IFeatureRenderer *renderer();
@@ -72,4 +74,6 @@ private:
     IFeatureClass *m_featureClass;
     IFeatureRendererUPtr m_featureRenderer;
 };
+
+typedef std::unique_ptr<FeatureLayer> FeatureLayerUPtr;
 

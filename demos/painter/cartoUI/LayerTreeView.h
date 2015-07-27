@@ -33,8 +33,10 @@ class LayerTreeView : public QTreeView
 {
     Q_OBJECT
 public:
-    explicit LayerTreeView(LayerTreeModel* model, QWidget *parent = nullptr);
+    explicit LayerTreeView(QWidget *parent = nullptr);
     ~LayerTreeView();
+
+    void setLayerTreeModel(LayerTreeModel* model);
 
 protected:
     void contextMenuEvent(QContextMenuEvent *event);

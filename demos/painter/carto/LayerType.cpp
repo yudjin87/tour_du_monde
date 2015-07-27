@@ -3,7 +3,7 @@
  *
  * Carousel - Qt-based managed component library.
  *
- * Copyright: 2011-2013 Carousel team
+ * Copyright: 2011-2015 Carousel team
  * Authors:
  *   Eugene Chuguy <eugene.chuguy@gmail.com>
  *
@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- 
+
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -24,36 +24,38 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#pragma once
+#include "carto/LayerType.h"
 
-#include <carto/carto_api.h>
-
-#include <QtCore/QObject>
-#include <memory>
-
-class IMap;
-
-class CARTO_API IPainterDocument : public QObject
+QString toString(const LayerType type)
 {
-    Q_OBJECT
-    Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
-    Q_PROPERTY(IMap *map READ map)
-public:
-    virtual IMap *map() = 0;
-    virtual const IMap *map() const = 0;
-    virtual const QString &name() const = 0;
-    virtual void setName(const QString &name) = 0;
-    virtual void addMap(IMap *map) = 0;
+    switch (type)
+    {
+    case LayerType::FeatureLayer:
+        return "FeatureLayer";
+    }
 
-signals:
-    void nameChanged(QString name);
-
-protected:
-    IPainterDocument() = default;
-
-private:
-    Q_DISABLE_COPY(IPainterDocument)
-};
+    return "UNKNOWN";
+}
 
 
-typedef std::unique_ptr<IPainterDocument> IPainterDocumentUPtr;
+bool verifyEnum(const LayerType type)
+{
+    switch (type)
+    {
+    case LayerType::FeatureLayer:
+        return true;
+    }
+
+    return false;
+}
+
+
+LayerType fromString(const QString &name)
+{
+    if (name.toUpper() == QString("FeatureLayer").toUpper())
+    {
+        return LayerType::FeatureLayer;
+    }
+
+    return static_cast<LayerType>(-1);
+}

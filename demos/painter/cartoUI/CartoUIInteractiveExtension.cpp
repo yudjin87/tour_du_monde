@@ -46,20 +46,26 @@
 #include <QtWidgets/QTreeView>
 #include <QtWidgets/QToolBar>
 
-CartoUIInteractiveExtension::CartoUIInteractiveExtension(QObject *parent /*= nullptr*/)
+CartoUIInteractiveExtension::CartoUIInteractiveExtension(QObject *parent)
+    : QObject(parent)
+    , m_layersTree(nullptr)
+    , m_serviceLocator(nullptr)
 {
-    setParent(parent);
 }
 
 void CartoUIInteractiveExtension::configureGui(ICatalogs &inCatalogs, IServiceLocator *serviceLocator)
 {
+    m_serviceLocator = serviceLocator;
+
     IPainterDocumentController* docController = serviceLocator->locate<IPainterDocumentController>();
+    connect(docController, &IPainterDocumentController::activeDocumentChanged, this, &CartoUIInteractiveExtension::onActiveDocumentChanged);
     IPainterDocument *doc = docController->document();
 
     IDockWidgetCatalog &catalog = inCatalogs.dockWidgetCatalog();
-    QTreeView *layersTree = new LayerTreeView(new LayerTreeModel(doc->map(), serviceLocator));
+    m_layersTree = new LayerTreeView();
+    m_layersTree->setLayerTreeModel(new LayerTreeModel(doc->map(), serviceLocator));
 
-    QDockWidget *layersDock = catalog.addDockWidget(layersTree, "Layers tree");
+    QDockWidget *layersDock = catalog.addDockWidget(m_layersTree, "Layers tree");
 
     Operation *toogleTree = new ToggleActionWrapper(layersDock->toggleViewAction(), QIcon(":/cartoUI/images/layerTree.png"));
     inCatalogs.operationCatalog().add(toogleTree);
@@ -78,5 +84,10 @@ void CartoUIInteractiveExtension::configureGui(ICatalogs &inCatalogs, IServiceLo
     IMenuCatalog &menuCatalog = inCatalogs.menuCatalog();
     QMenu *toolMenu = menuCatalog.addMenu("Tools");
     toolMenu->addAction(addShape);
+}
+
+void CartoUIInteractiveExtension::onActiveDocumentChanged(IPainterDocument *document)
+{
+    m_layersTree->setLayerTreeModel(new LayerTreeModel(document->map(), m_serviceLocator));
 }
 

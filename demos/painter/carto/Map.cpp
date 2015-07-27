@@ -38,6 +38,11 @@ namespace
 static LoggerFacade Log = LoggerFacade::createLogger("Map");
 }
 
+Map::Map(IDisplay *display)
+    : Map(nullptr, display)
+{
+}
+
 Map::Map(IPainterDocument *parentDocument, IDisplay *display)
     : m_parentDocument(parentDocument)
     , m_display(display)
@@ -86,7 +91,6 @@ void Map::insertLayer(const int index, AbstractLayer *layer)
 
         m_display->transformation()->setBounds(newExt);
     }
-
     emit layerAdded(layer, index);
 }
 
@@ -211,6 +215,11 @@ const AbstractLayer *Map::getLayer(const QString &name) const
 QList<AbstractLayer *> Map::layers() const
 {
     return m_layers;
+}
+
+void Map::setDocument(IPainterDocument *parentDocument)
+{
+    m_parentDocument = parentDocument;
 }
 
 IPainterDocument *Map::document()

@@ -34,13 +34,19 @@ class IPainterDocument;
 class CARTO_API IPainterDocumentController : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(IPainterDocument *document READ document)
+    Q_PROPERTY(IPainterDocument *document READ document NOTIFY activeDocumentChanged)
+    Q_PROPERTY(QString activeDocumentName READ activeDocumentName NOTIFY activeDocumentNameChanged)
 public:
     IPainterDocumentController(){}
 
     virtual IPainterDocument *document() = 0;
+    virtual void setDocument(IPainterDocument *doc) = 0;
+    virtual QString activeDocumentName() const = 0;
+
+signals:
+    void activeDocumentNameChanged(QString activeDocumentName);
+    void activeDocumentChanged(IPainterDocument *document);
 
 private:
     Q_DISABLE_COPY(IPainterDocumentController)
 };
-

@@ -30,14 +30,12 @@
 #include <QtGui/QContextMenuEvent>
 #include <QtWidgets/QMenu>
 
-LayerTreeView::LayerTreeView(LayerTreeModel* model, QWidget *parent)
+LayerTreeView::LayerTreeView(QWidget *parent)
   : QTreeView(parent)
   , m_menu(new QMenu(this))
-  , m_model(model)
+  , m_model(nullptr)
   , m_contexMenuItemIndex()
 {
-    m_model->setParent(this);
-    setModel(m_model);
     setSelectionMode(QAbstractItemView::ExtendedSelection);
     setDragEnabled(true);
     setAcceptDrops(true);
@@ -59,6 +57,18 @@ LayerTreeView::LayerTreeView(LayerTreeModel* model, QWidget *parent)
 
 LayerTreeView::~LayerTreeView()
 {
+}
+
+void LayerTreeView::setLayerTreeModel(LayerTreeModel *model)
+{
+    delete m_model;
+    m_model = model;
+    setModel(m_model);
+
+    if (m_model != nullptr)
+    {
+        m_model->setParent(this);
+    }
 }
 
 void LayerTreeView::contextMenuEvent(QContextMenuEvent *event)

@@ -25,7 +25,8 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
-#include "IPainterDocumentController.h"
+#include <carto/IPainterDocumentController.h>
+#include <carto/IPainterDocument.h>
 
 class IDisplay;
 
@@ -37,8 +38,10 @@ public:
     ~PainterDocumentController();
 
     IPainterDocument *document() override;
+    void setDocument(IPainterDocument *doc) override;
+    QString activeDocumentName() const override;
 
 private:
-    IPainterDocument *m_document;
+    IPainterDocumentUPtr m_document;
 };
 

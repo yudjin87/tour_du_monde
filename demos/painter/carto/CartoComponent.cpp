@@ -31,12 +31,11 @@
 #include "carto/commands/ChangeLayerStyleCommand.h"
 #include "carto/commands/MoveLayerCommand.h"
 #include "carto/PainterDocumentController.h"
-#include "carto/IPainterDocument.h"
 #include "carto/FeatureLayer.h"
 #include "carto/CartoScriptExtension.h"
-
+#include "carto/Map.h"
+#include "carto/DefaultNavigationHandler.h"
 #include <geodatabase/IShapeFileWorkspaceFactory.h>
-#include <carto/DefaultNavigationHandler.h>
 #include <display/IDisplay.h>
 
 #include <carousel/commands/IUndoStack.h>
@@ -94,8 +93,11 @@ bool CartoComponent::onStartup(IServiceLocator *serviceLocator)
     serviceLocator->registerType<ChangeLayerStyleCommand>(changeLayerSymbolCommandCreator);
 
     IDisplay *display = serviceLocator->locate<IDisplay>();
-    IPainterDocumentController *controller = new PainterDocumentController(display); // TODO:  controller doesn't needed, remove it
+    IPainterDocumentController *controller = new PainterDocumentController(display); // TODO:  rename controller
     serviceLocator->registerInstance<IPainterDocumentController>(controller);
+
+    TypeCreator<Map, TypeLocator<IDisplay>> mapCreator{serviceLocator};
+    serviceLocator->registerType<IMap>(mapCreator);
 
     // For creating from scripting
     serviceLocator->bindType<FeatureLayer, FeatureLayer>();
@@ -105,8 +107,8 @@ bool CartoComponent::onStartup(IServiceLocator *serviceLocator)
 
     // Binding document name to the Application window title:
     QMainWindow* mainWindow = serviceLocator->locate<QMainWindow>();
-    mainWindow->setWindowTitle(controller->document()->name() + "[*]");
-    connect(controller->document(), &IPainterDocument::nameChanged, [mainWindow](const QString& n) { mainWindow->setWindowTitle(n + "[*]");});
+    mainWindow->setWindowTitle(controller->activeDocumentName() + "[*]");
+    connect(controller, &IPainterDocumentController::activeDocumentNameChanged, [mainWindow](const QString& n) { mainWindow->setWindowTitle(n + "[*]");});
 
     IComponentManager* componentManager = serviceLocator->locate<IComponentManager>();
     connect(componentManager, &IComponentManager::startedUp, [serviceLocator, this]() { onComponentsStartedUp(serviceLocator);});
