@@ -84,7 +84,7 @@ IFeatureClass *ShapeFileFeatureWorkspace::openFeatureClass(const QString &name)
         return nullptr;
     }
 
-    IFeatureClass* fc = new FeatureClass(*this, table, loader.geometryType(), loader.boundingBox(), loader.source().absoluteFilePath());
+    IFeatureClass* fc = new FeatureClass(*this, table, loader.geometryType(), loader.boundingBox(), loader.source().completeBaseName());
     while (loader.hasNext())
     {
         IFeature* feature = fc->createFeature();

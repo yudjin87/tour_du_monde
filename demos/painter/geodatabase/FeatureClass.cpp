@@ -27,9 +27,7 @@
 #include "geodatabase/FeatureClass.h"
 #include "geodatabase/Feature.h"
 #include "geodatabase/ISpatialFilter.h"
-
 #include <geometry/IGeometry.h>
-
 #include <carousel/logging/LoggerFacade.h>
 
 namespace
@@ -37,13 +35,14 @@ namespace
 static LoggerFacade Log = LoggerFacade::createLogger("FeatureClass");
 }
 
-FeatureClass::FeatureClass(IFeatureWorkspace &workspace, ITable *table, Geometry::Type shapeType, const QRectF &extent, QString source)
-    : m_type(shapeType)
+FeatureClass::FeatureClass(IFeatureWorkspace &workspace, ITable *table, Geometry::Type shapeType, const QRectF &extent, QString name)
+    : IFeatureClass()
+    , m_name(name)
+    , m_type(shapeType)
     , m_workspace(workspace)
     , m_table(table)
     , m_features()
     , m_extent(extent)
-    , m_source(source)
 {
 }
 
@@ -114,14 +113,24 @@ IFeatureCollection FeatureClass::search(const ISpatialFilter &filter) const
     return toReturn;
 }
 
-const QString &FeatureClass::source() const
-{
-    return m_source;
-}
-
 int FeatureClass::featuresCount() const
 {
     return m_features.size();
+}
+
+QString FeatureClass::name() const
+{
+    return m_name;
+}
+
+IWorkspace *FeatureClass::workspace()
+{
+    return &m_workspace;
+}
+
+const IWorkspace *FeatureClass::workspace() const
+{
+    return &m_workspace;
 }
 
 

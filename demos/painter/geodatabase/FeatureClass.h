@@ -33,7 +33,7 @@ class FeatureClass : public IFeatureClass
 {
     Q_OBJECT
 public:
-    FeatureClass(IFeatureWorkspace& workspace, ITable* table, Geometry::Type shapeType, const QRectF &extent, QString source);
+    FeatureClass(IFeatureWorkspace& workspace, ITable* table, Geometry::Type shapeType, const QRectF &extent, QString name);
     ~FeatureClass();
 
     QRectF extent() const override;
@@ -47,15 +47,18 @@ public:
     const ITable* table() const override;
     IFeatureCollection search(const ISpatialFilter &filter) const override;
 
-    const QString &source() const override;
     int featuresCount() const override;
 
+    QString name() const override;
+    IWorkspace *workspace() override;
+    const IWorkspace *workspace() const override;
+
 private:
+    const QString m_name;
     Geometry::Type m_type;
     IFeatureWorkspace& m_workspace;
     ITableUPtr m_table;
     IFeatureCollection m_features;
     QRectF m_extent;
-    QString m_source;
 };
 

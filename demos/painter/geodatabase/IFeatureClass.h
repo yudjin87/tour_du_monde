@@ -1,6 +1,8 @@
 #pragma once
 #include "geodatabase/geodatabase_api.h"
+#include "geodatabase/IDataset.h"
 #include "geodatabase/IFeature.h"
+
 #include <geometry/GeometryType.h>
 
 #include <QtCore/QObject>
@@ -11,12 +13,11 @@
 class ISpatialFilter;
 class ITable;
 
-class GEODATABASE_API IFeatureClass : public QObject
+class GEODATABASE_API IFeatureClass : public IDataset
 {
     Q_OBJECT
     Q_PROPERTY(Geometry::Type shapeType READ shapeType)
     Q_PROPERTY(QRectF extent READ extent)
-    Q_PROPERTY(QString source READ source)
     Q_PROPERTY(int featuresCount READ featuresCount)
 public:
     IFeatureClass(){}
@@ -31,7 +32,6 @@ public:
     virtual const IFeature *featureByIndex(const int index) const = 0;
 
     virtual const ITable* table() const = 0;
-    virtual const QString &source() const = 0;
     virtual int featuresCount() const = 0;
 
 public slots:

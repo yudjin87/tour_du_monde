@@ -41,7 +41,8 @@ public:
     IDataset(){}
 
     virtual QString name() const = 0;
-    virtual IWorkspace *workspace() const = 0;
+    virtual IWorkspace *workspace() = 0;
+    virtual const IWorkspace *workspace() const = 0;
 
 private:
     Q_DISABLE_COPY(IDataset)
