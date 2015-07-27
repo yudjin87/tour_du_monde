@@ -69,7 +69,7 @@ void SaveOperation::execute()
     bool result = persistenceService->saveAs(currentFile.absoluteFilePath());
     Q_UNUSED(result); // TODO: check
     IUndoStack *undoStack = m_serviceLocator->locate<IUndoStack>();
-    undoStack->cleanIndex();
+    undoStack->setClean();
 }
 
 void SaveOperation::initialize(IServiceLocator *serviceLocator)
