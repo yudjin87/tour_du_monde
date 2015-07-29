@@ -26,11 +26,11 @@
 
 #pragma once
 #include <carto/carto_api.h>
+#include <carto/ILegendClass.h>
 #include <QtCore/QObject>
 #include <QtCore/QString>
 #include <memory>
-
-class ILegendClass;
+#include <vector>
 
 class CARTO_API ILegendGroup : public QObject
 {
@@ -39,6 +39,9 @@ class CARTO_API ILegendGroup : public QObject
     Q_PROPERTY(bool isEditable READ isEditable WRITE setEditable NOTIFY editableChanged)
     Q_PROPERTY(bool isVisible READ isVisible WRITE setVisible NOTIFY visibilityChanged)
     Q_PROPERTY(size_t classCount READ classCount)
+public:
+    typedef std::vector<const ILegendClassUPtr> ILegendClassVector;
+
 public:
     ILegendGroup(){}
     virtual ~ILegendGroup(){}
@@ -55,6 +58,9 @@ public:
     virtual size_t classCount() const = 0;
 
     virtual ILegendGroup* clone() const = 0;
+
+    virtual ILegendClassVector::const_iterator begin() const = 0;
+    virtual ILegendClassVector::const_iterator end() const = 0;
 
 public slots:
     virtual ILegendClass* getClass(const size_t index) = 0;

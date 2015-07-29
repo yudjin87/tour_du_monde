@@ -50,6 +50,9 @@ public:
 
     ILegendGroup* clone() const override;
 
+    ILegendClassVector::const_iterator begin() const override;
+    ILegendClassVector::const_iterator end() const override;
+
 public slots:
     ILegendClass* getClass(const size_t index) override;
     const ILegendClass* getClass(const size_t index) const override;
@@ -73,3 +76,5 @@ private:
     QString m_heading;
 
 };
+
+typedef std::unique_ptr<LegendGroup> LegendGroupUPtr;

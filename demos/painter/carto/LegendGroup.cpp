@@ -78,6 +78,16 @@ ILegendGroup *LegendGroup::clone() const
     return new LegendGroup(*this);
 }
 
+ILegendGroup::ILegendClassVector::const_iterator LegendGroup::begin() const
+{
+    return m_legendClasses.begin();
+}
+
+ILegendGroup::ILegendClassVector::const_iterator LegendGroup::end() const
+{
+    return m_legendClasses.end();
+}
+
 QString LegendGroup::heading() const
 {
     return m_heading;
