@@ -56,7 +56,7 @@ LayerTreeModel::LayerTreeModel(IMap *map, IServiceLocator *serviceLocator, QObje
     , m_serviceLocator(serviceLocator)
 {
     for (AbstractLayer* layer : m_map->layers()) {
-        onLayerAdded(layer, 0);
+        onLayerAdded(layer, rowCount(QModelIndex()));
     }
 
     connect(map, &IMap::layerAdded, this, &LayerTreeModel::onLayerAdded);
