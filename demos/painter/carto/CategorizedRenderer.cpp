@@ -79,7 +79,7 @@ CategorizedRenderer::~CategorizedRenderer()
 {
 }
 
-IFeatureRenderer::RendererType CategorizedRenderer::type() const
+RendererType CategorizedRenderer::type() const
 {
     return RendererType::Categorized;
 }

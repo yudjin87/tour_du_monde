@@ -29,11 +29,12 @@
 #include <carto/carto_api.h>
 #include <QtCore/QString>
 
-enum class LayerType
+enum class RendererType
 {
-    FeatureLayer = 0
+    Simple = 0,
+    Categorized
 };
 
-CARTO_API bool verifyEnum(const LayerType type);
-CARTO_API QString toString(const LayerType type);
-CARTO_API LayerType layerTypeFromString(const QString& name);
+CARTO_API bool verifyEnum(const RendererType type);
+CARTO_API QString toString(const RendererType type);
+CARTO_API RendererType rendererTypeFromString(const QString& name);

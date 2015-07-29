@@ -26,14 +26,20 @@
 
 #pragma once
 
-#include <carto/carto_api.h>
-#include <QtCore/QString>
+#include <cartoPersist/ILayerPersist.h>
+#include <QtCore/QJsonObject>
 
-enum class LayerType
+class FeatureLayer;
+
+class FeatureLayerPersist : public ILayerPersist
 {
-    FeatureLayer = 0
-};
+public:
+    FeatureLayerPersist();
+    explicit FeatureLayerPersist(const FeatureLayer &layer);
 
-CARTO_API bool verifyEnum(const LayerType type);
-CARTO_API QString toString(const LayerType type);
-CARTO_API LayerType layerTypeFromString(const QString& name);
+    void save(QJsonObject &obj) override;
+    AbstractLayerUPtr load(const QJsonObject &obj, IServiceLocator &serviceLocator, QString *error) override;
+
+private:
+    const FeatureLayer *m_layer;
+};

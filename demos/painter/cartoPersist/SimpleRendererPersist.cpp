@@ -24,16 +24,34 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#pragma once
+#include "cartoPersist/SimpleRendererPersist.h"
+#include <carto/SimpleRenderer.h>
+#include <QtCore/QJsonArray>
+#include <QtCore/QJsonObject>
+#include <QtCore/QVariant>
 
-#include <carto/carto_api.h>
-#include <QtCore/QString>
-
-enum class LayerType
+SimpleRendererPersist::SimpleRendererPersist()
+    : IFeatureRendererPersist()
+    , m_renderer(nullptr)
 {
-    FeatureLayer = 0
-};
 
-CARTO_API bool verifyEnum(const LayerType type);
-CARTO_API QString toString(const LayerType type);
-CARTO_API LayerType layerTypeFromString(const QString& name);
+}
+
+SimpleRendererPersist::SimpleRendererPersist(const SimpleRenderer &renderer)
+    : IFeatureRendererPersist()
+    , m_renderer(&renderer)
+{
+}
+
+void SimpleRendererPersist::save(QJsonObject &obj)
+{
+
+}
+
+IFeatureRendererUPtr SimpleRendererPersist::load(const QJsonObject &obj, QString *error)
+{
+    SimpleRendererUPtr renderer(new SimpleRenderer(Geometry::Type::Point));
+
+    return std::move(renderer);
+}
+

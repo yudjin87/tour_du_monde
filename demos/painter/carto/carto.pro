@@ -53,7 +53,8 @@ HEADERS += \
     RendererCategoryCollection.h \
     IRendererCategory.h \
     IRendererCategoryCollection.h \
-    LayerType.h
+    LayerType.h \
+    RendererType.h
 
 SOURCES += \
     AbstractLayer.cpp \
@@ -77,7 +78,8 @@ SOURCES += \
     DefaultSymbol.cpp \
     RendererCategory.cpp \
     RendererCategoryCollection.cpp \
-    LayerType.cpp
+    LayerType.cpp \
+    RendererType.cpp
 
 OTHER_FILES += org.carousel.demos.Carto.definition
 

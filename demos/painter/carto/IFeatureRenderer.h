@@ -26,9 +26,9 @@
 
 #pragma once
 #include <carto/carto_api.h>
+#include <carto/RendererType.h>
 
 #include <QtCore/QObject>
-
 #include <memory>
 
 class IFeature;
@@ -40,12 +40,6 @@ class QPainter;
 class CARTO_API IFeatureRenderer : public QObject
 {
     Q_OBJECT
-public:
-    enum class RendererType
-    {
-        Simple = 0,
-        Categorized
-    };
 
 public:
     IFeatureRenderer(QObject *parent = nullptr) : QObject(parent){}

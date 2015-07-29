@@ -68,4 +68,5 @@ private:
     ILegendGroupUPtr m_legend;
 };
 
+typedef std::unique_ptr<SimpleRenderer> SimpleRendererUPtr;
 

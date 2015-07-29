@@ -69,7 +69,7 @@ IMapUPtr MapPersist::load(const QJsonObject &obj, QString *error)
     {
         const QJsonObject jsonLayer = value.toObject();
         const QString typeName = jsonLayer.value("type").toString();
-        const LayerType type = fromString(typeName);
+        const LayerType type = layerTypeFromString(typeName);
         if (!verifyEnum(type))
         {
             if (error) *error = "Invalid layer type";
@@ -78,11 +78,13 @@ IMapUPtr MapPersist::load(const QJsonObject &obj, QString *error)
 
         const QJsonObject jsonLayerData = jsonLayer.value("data").toObject();
         ILayerPersistUPtr layerPersist = creator.create(type);
-        AbstractLayerUPtr layer = layerPersist->load(jsonLayerData, error);
-        if (layer != nullptr)
+        AbstractLayerUPtr layer = layerPersist->load(jsonLayerData, m_serviceLocator, error);
+        if (layer == nullptr)
         {
-            map->addLayer(layer.release());
+            return nullptr;
         }
+
+        map->addLayer(layer.release());
     }
 
     return map;

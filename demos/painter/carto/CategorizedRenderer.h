@@ -75,3 +75,4 @@ private:
     IRendererCategoryCollectionUPtr m_categories;
 };
 
+typedef std::unique_ptr<CategorizedRenderer> CategorizedRendererUPtr;

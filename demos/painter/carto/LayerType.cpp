@@ -50,7 +50,7 @@ bool verifyEnum(const LayerType type)
 }
 
 
-LayerType fromString(const QString &name)
+LayerType layerTypeFromString(const QString &name)
 {
     if (name.toUpper() == QString("FeatureLayer").toUpper())
     {

@@ -26,14 +26,20 @@
 
 #pragma once
 
-#include <carto/carto_api.h>
-#include <QtCore/QString>
+#include <cartoPersist/IFeatureRendererPersist.h>
 
-enum class LayerType
+class SimpleRenderer;
+
+class SimpleRendererPersist : public IFeatureRendererPersist
 {
-    FeatureLayer = 0
+public:
+    SimpleRendererPersist();
+    explicit SimpleRendererPersist(const SimpleRenderer &renderer);
+
+    void save(QJsonObject &obj) override;
+    IFeatureRendererUPtr load(const QJsonObject &obj, QString *error) override;
+
+private:
+    const SimpleRenderer *m_renderer;
 };
 
-CARTO_API bool verifyEnum(const LayerType type);
-CARTO_API QString toString(const LayerType type);
-CARTO_API LayerType layerTypeFromString(const QString& name);

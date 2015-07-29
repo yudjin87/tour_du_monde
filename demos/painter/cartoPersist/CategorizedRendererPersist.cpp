@@ -24,16 +24,34 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#pragma once
+#include "cartoPersist/CategorizedRendererPersist.h"
+#include <carto/CategorizedRenderer.h>
+#include <QtCore/QJsonArray>
+#include <QtCore/QJsonObject>
+#include <QtCore/QVariant>
 
-#include <carto/carto_api.h>
-#include <QtCore/QString>
-
-enum class LayerType
+CategorizedRendererPersist::CategorizedRendererPersist()
+    : IFeatureRendererPersist()
+    , m_renderer(nullptr)
 {
-    FeatureLayer = 0
-};
 
-CARTO_API bool verifyEnum(const LayerType type);
-CARTO_API QString toString(const LayerType type);
-CARTO_API LayerType layerTypeFromString(const QString& name);
+}
+
+CategorizedRendererPersist::CategorizedRendererPersist(const CategorizedRenderer &renderer)
+    : IFeatureRendererPersist()
+    , m_renderer(&renderer)
+{
+}
+
+void CategorizedRendererPersist::save(QJsonObject &obj)
+{
+
+}
+
+IFeatureRendererUPtr CategorizedRendererPersist::load(const QJsonObject &obj, QString *error)
+{
+    CategorizedRendererUPtr renderer;
+
+    return std::move(renderer);
+}
+

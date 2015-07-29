@@ -71,7 +71,7 @@ SimpleRenderer::~SimpleRenderer()
 {
 }
 
-IFeatureRenderer::RendererType SimpleRenderer::type() const
+RendererType SimpleRenderer::type() const
 {
     return RendererType::Simple;
 }

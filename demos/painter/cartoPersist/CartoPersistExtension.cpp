@@ -29,6 +29,7 @@
 
 #include <carto/AbstractLayer.h>
 #include <carto/IPainterDocument.h>
+#include <carto/IMap.h>
 #include <carto/IPainterDocumentController.h>
 #include <carousel/utils/IServiceLocator.h>
 
@@ -70,5 +71,6 @@ bool CartoPersistExtension::load(IServiceLocator *locator, const QJsonObject &ob
 
     IPainterDocumentController* controller = locator->locate<IPainterDocumentController>();
     controller->setDocument(document.release());
+    controller->document()->map()->refresh();
     return true;
 }

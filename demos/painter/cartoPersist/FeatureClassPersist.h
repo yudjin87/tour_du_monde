@@ -26,14 +26,16 @@
 
 #pragma once
 
-#include <carto/carto_api.h>
-#include <QtCore/QString>
+#include <geodatabase/IFeatureClass.h>
 
-enum class LayerType
+class IServiceLocator;
+
+class FeatureClassPersist
 {
-    FeatureLayer = 0
-};
+public:
+    FeatureClassPersist();
 
-CARTO_API bool verifyEnum(const LayerType type);
-CARTO_API QString toString(const LayerType type);
-CARTO_API LayerType layerTypeFromString(const QString& name);
+    void save(QJsonObject &obj, const IFeatureClass& featureClass);
+    IFeatureClassUPtr load(const QJsonObject &obj, IServiceLocator &serviceLocator, QString *error);
+
+};

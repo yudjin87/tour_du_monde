@@ -24,16 +24,46 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#pragma once
+#include "carto/RendererType.h"
 
-#include <carto/carto_api.h>
-#include <QtCore/QString>
-
-enum class LayerType
+QString toString(const RendererType type)
 {
-    FeatureLayer = 0
-};
+    switch (type)
+    {
+    case RendererType::Simple:
+        return "Simple";
+    case RendererType::Categorized:
+        return "Categorized";
+    }
 
-CARTO_API bool verifyEnum(const LayerType type);
-CARTO_API QString toString(const LayerType type);
-CARTO_API LayerType layerTypeFromString(const QString& name);
+    return "UNKNOWN";
+}
+
+
+bool verifyEnum(const RendererType type)
+{
+    switch (type)
+    {
+    case RendererType::Simple:
+    case RendererType::Categorized:
+        return true;
+    }
+
+    return false;
+}
+
+
+RendererType rendererTypeFromString(const QString &name)
+{
+    if (name.toUpper() == QString("Simple").toUpper())
+    {
+        return RendererType::Simple;
+    }
+
+    if (name.toUpper() == QString("Categorized").toUpper())
+    {
+        return RendererType::Categorized;
+    }
+
+    return static_cast<RendererType>(-1);
+}
