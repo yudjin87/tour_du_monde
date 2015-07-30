@@ -24,23 +24,41 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#pragma once
+#include "cartoPersist/PictureMarkerSymbolPersist.h"
+#include "cartoPersist/LegendGroupPersist.h"
+#include <display/PictureMarkerSymbol.h>
+#include <QtCore/QJsonArray>
+#include <QtCore/QJsonObject>
+#include <QtCore/QVariant>
 
-#include <cartoPersist/ILayerPersist.h>
-
-class QJsonObject;
-class QString;
-class FeatureLayer;
-
-class FeatureLayerPersist : public ILayerPersist
+PictureMarkerSymbolPersist::PictureMarkerSymbolPersist()
+    : ISymbolPersist()
+    , m_symbol(nullptr)
 {
-public:
-    FeatureLayerPersist();
-    explicit FeatureLayerPersist(const FeatureLayer &layer);
 
-    void save(QJsonObject &obj) override;
-    AbstractLayerUPtr load(const QJsonObject &obj, IServiceLocator &serviceLocator, QString *error) override;
+}
 
-private:
-    const FeatureLayer *m_layer;
-};
+PictureMarkerSymbolPersist::PictureMarkerSymbolPersist(const PictureMarkerSymbol &symbol)
+    : ISymbolPersist()
+    , m_symbol(&symbol)
+{
+}
+
+void PictureMarkerSymbolPersist::save(QJsonObject &obj)
+{
+
+}
+
+ISymbolUPtr PictureMarkerSymbolPersist::load(const QJsonObject &obj, QString *error)
+{
+//    if (obj.isEmpty())
+//    {
+//        if (error) *error = "PictureMarkerSymbolPersist: empty object";
+//        return nullptr;
+//    }
+
+    PictureMarkerSymbolUPtr symbol(new PictureMarkerSymbol());
+
+    return std::move(symbol);
+}
+

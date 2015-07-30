@@ -62,6 +62,12 @@ void MapPersist::save(QJsonObject &obj, const IMap &map)
 
 IMapUPtr MapPersist::load(const QJsonObject &obj, QString *error)
 {
+    if (obj.isEmpty())
+    {
+        if (error) *error = "MapPersist: empty object";
+        return nullptr;
+    }
+
     IMapUPtr map(m_serviceLocator.buildInstance<IMap>());
     const QJsonArray jsonLayers = obj.value("layers").toArray();
     LayerPersistCreator creator;

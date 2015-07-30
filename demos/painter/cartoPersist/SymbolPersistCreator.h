@@ -26,21 +26,26 @@
 
 #pragma once
 
-#include <cartoPersist/ILayerPersist.h>
+#include <display/ISymbolVisitor.h>
+#include <display/SymbolType.h>
+#include <cartoPersist/ISymbolPersist.h>
 
-class QJsonObject;
-class QString;
-class FeatureLayer;
+class ISymbol;
 
-class FeatureLayerPersist : public ILayerPersist
+class SymbolPersistCreator : private ISymbolVisitor
 {
 public:
-    FeatureLayerPersist();
-    explicit FeatureLayerPersist(const FeatureLayer &layer);
+    SymbolPersistCreator();
 
-    void save(QJsonObject &obj) override;
-    AbstractLayerUPtr load(const QJsonObject &obj, IServiceLocator &serviceLocator, QString *error) override;
+    ISymbolPersistUPtr create(const ISymbol& forSymbol);
+    ISymbolPersistUPtr create(const SymbolType type);
 
 private:
-    const FeatureLayer *m_layer;
+    void visit(SimpleFillSymbol& symbol) override;
+    void visit(SimpleLineSymbol& symbol) override;
+    void visit(SimpleMarkerSymbol& symbol) override;
+    void visit(PictureMarkerSymbol& symbol) override;
+
+private:
+    ISymbolPersistUPtr m_persist;
 };

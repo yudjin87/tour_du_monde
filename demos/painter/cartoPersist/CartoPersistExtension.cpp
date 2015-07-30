@@ -62,6 +62,12 @@ bool CartoPersistExtension::load(IServiceLocator *locator, const QJsonObject &ob
         error->clear();
     }
 
+    if (obj.isEmpty())
+    {
+        if (error) *error = "CartoPersistExtension: empty object";
+        return nullptr;
+    }
+
     PainterDocumentPersist documentPersist(*locator);
     IPainterDocumentUPtr document = documentPersist.load(obj, error);
     if (document == nullptr)

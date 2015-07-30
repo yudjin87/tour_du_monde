@@ -36,6 +36,8 @@ class CARTO_API CategorizedRenderer : public IFeatureRenderer
     Q_OBJECT
 public:
     CategorizedRenderer(QObject *parent = nullptr);
+    CategorizedRenderer(ILegendGroupUPtr legend, IRendererCategoryCollectionUPtr categories);
+
     ~CategorizedRenderer();
 
     RendererType type() const override;

@@ -48,7 +48,7 @@ SimpleMarkerSymbol::SimpleMarkerSymbol(QObject *parent)
 
 SymbolType SimpleMarkerSymbol::type() const
 {
-    return SymbolType::PictureMarkerSymbol;
+    return SymbolType::SimpleMarkerSymbol;
 }
 
 SimpleMarkerSymbol::SimpleMarkerSymbol(const SimpleMarkerSymbol &o, QObject *parent)

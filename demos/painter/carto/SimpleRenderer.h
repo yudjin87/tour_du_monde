@@ -59,6 +59,7 @@ public:
     void accept(IFeatureRendererVisitor& visitor) override;
 
     IFeatureRenderer* clone() const override;
+    void resetLegend(ILegendGroupUPtr legend);
 
 private:
     SimpleRenderer(const SimpleRenderer& other);

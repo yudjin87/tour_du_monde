@@ -25,6 +25,8 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "cartoPersist/CategorizedRendererPersist.h"
+#include "cartoPersist/LegendGroupPersist.h"
+#include "cartoPersist/RendererCategoryCollectionPersist.h"
 #include <carto/CategorizedRenderer.h>
 #include <QtCore/QJsonArray>
 #include <QtCore/QJsonObject>
@@ -45,13 +47,53 @@ CategorizedRendererPersist::CategorizedRendererPersist(const CategorizedRenderer
 
 void CategorizedRendererPersist::save(QJsonObject &obj)
 {
+    obj.insert("categoryFieldIndex", m_renderer->categoryFieldIndex());
 
+    LegendGroupPersist legend;
+    QJsonObject jsonLegend;
+    legend.save(jsonLegend, *m_renderer->legend());
+    obj.insert("legendGroup", jsonLegend);
+
+    RendererCategoryCollectionPersist categoriesPersist;
+    QJsonObject jsonCategories;
+    categoriesPersist.save(jsonCategories, m_renderer->categories());
+    obj.insert("categoryCollection", jsonCategories);
 }
 
 IFeatureRendererUPtr CategorizedRendererPersist::load(const QJsonObject &obj, QString *error)
 {
-    CategorizedRendererUPtr renderer;
+    if (obj.isEmpty())
+    {
+        if (error) *error = "CategorizedRendererPersist: empty object";
+        return nullptr;
+    }
 
+    const QJsonObject jsonLegend = obj.value("legendGroup").toObject();
+    LegendGroupPersist legendGroupPersist;
+    ILegendGroupUPtr legend = legendGroupPersist.load(jsonLegend, error);
+    if (legend == nullptr)
+    {
+        return nullptr;
+    }
+
+    const QJsonObject jsonCategories = obj.value("categoryCollection").toObject();
+    RendererCategoryCollectionPersist categoriesPersist;
+    IRendererCategoryCollectionUPtr categories = categoriesPersist.load(jsonCategories, *legend, error);
+    if (categories == nullptr)
+    {
+        return nullptr;
+    }
+
+    CategorizedRendererUPtr renderer(new CategorizedRenderer(std::move(legend), std::move(categories)));
+
+    const QJsonValue index = obj.value("categoryFieldIndex");
+    if (index.isUndefined())
+    {
+        if (error) *error = "CategorizedRendererPersist: empty categoryFieldIndex";
+        return nullptr;
+    }
+
+    renderer->setCategoryFieldIndex(index.toInt());
     return std::move(renderer);
 }
 

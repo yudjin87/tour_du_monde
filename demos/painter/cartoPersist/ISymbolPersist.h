@@ -26,21 +26,19 @@
 
 #pragma once
 
-#include <cartoPersist/ILayerPersist.h>
+#include <display/ISymbol.h>
+#include <memory>
 
 class QJsonObject;
 class QString;
-class FeatureLayer;
 
-class FeatureLayerPersist : public ILayerPersist
+class ISymbolPersist
 {
 public:
-    FeatureLayerPersist();
-    explicit FeatureLayerPersist(const FeatureLayer &layer);
+    virtual ~ISymbolPersist() = default;
 
-    void save(QJsonObject &obj) override;
-    AbstractLayerUPtr load(const QJsonObject &obj, IServiceLocator &serviceLocator, QString *error) override;
-
-private:
-    const FeatureLayer *m_layer;
+    virtual void save(QJsonObject &obj) = 0;
+    virtual ISymbolUPtr load(const QJsonObject &obj, QString *error) = 0;
 };
+
+typedef std::unique_ptr<ISymbolPersist> ISymbolPersistUPtr;

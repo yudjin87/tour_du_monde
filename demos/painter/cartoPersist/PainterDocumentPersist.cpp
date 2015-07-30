@@ -50,6 +50,12 @@ void PainterDocumentPersist::save(QJsonObject &obj, const IPainterDocument &docu
 
 IPainterDocumentUPtr PainterDocumentPersist::load(const QJsonObject &obj, QString *error)
 {
+    if (obj.isEmpty())
+    {
+        if (error) *error = "PainterDocumentPersist: empty object";
+        return nullptr;
+    }
+
     IPainterDocumentUPtr document(new PainterDocument());
     const QVariant docName = obj.value("documentName");
     if (!docName.isValid())

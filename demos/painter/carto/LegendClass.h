@@ -57,3 +57,5 @@ private:
     QString m_description;
     QString m_label;
 };
+
+typedef std::unique_ptr<LegendClass> LegendClassUPtr;

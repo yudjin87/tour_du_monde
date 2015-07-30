@@ -24,23 +24,41 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#pragma once
+#include "cartoPersist/SimpleLineSymbolPersist.h"
+#include "cartoPersist/LegendGroupPersist.h"
+#include <display/SimpleLineSymbol.h>
+#include <QtCore/QJsonArray>
+#include <QtCore/QJsonObject>
+#include <QtCore/QVariant>
 
-#include <cartoPersist/ILayerPersist.h>
-
-class QJsonObject;
-class QString;
-class FeatureLayer;
-
-class FeatureLayerPersist : public ILayerPersist
+SimpleLineSymbolPersist::SimpleLineSymbolPersist()
+    : ISymbolPersist()
+    , m_symbol(nullptr)
 {
-public:
-    FeatureLayerPersist();
-    explicit FeatureLayerPersist(const FeatureLayer &layer);
 
-    void save(QJsonObject &obj) override;
-    AbstractLayerUPtr load(const QJsonObject &obj, IServiceLocator &serviceLocator, QString *error) override;
+}
 
-private:
-    const FeatureLayer *m_layer;
-};
+SimpleLineSymbolPersist::SimpleLineSymbolPersist(const SimpleLineSymbol &symbol)
+    : ISymbolPersist()
+    , m_symbol(&symbol)
+{
+}
+
+void SimpleLineSymbolPersist::save(QJsonObject &obj)
+{
+
+}
+
+ISymbolUPtr SimpleLineSymbolPersist::load(const QJsonObject &obj, QString *error)
+{
+//    if (obj.isEmpty())
+//    {
+//        if (error) *error = "SimpleLineSymbolPersist: empty object";
+//        return nullptr;
+//    }
+
+    SimpleLineSymbolUPtr symbol(new SimpleLineSymbol());
+
+    return std::move(symbol);
+}
+

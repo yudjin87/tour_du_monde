@@ -52,6 +52,8 @@ public:
     virtual IRendererCategoryVector::const_iterator begin() const = 0;
     virtual IRendererCategoryVector::const_iterator end() const = 0;
 
+    virtual void reset(ILegendGroup& newLegend) = 0;
+
 signals:
     void categoryAdded(IRendererCategory* category);
     void categoryRemoved();

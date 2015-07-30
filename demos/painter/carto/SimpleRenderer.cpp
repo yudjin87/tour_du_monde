@@ -133,3 +133,8 @@ IFeatureRenderer *SimpleRenderer::clone() const
 {
     return new SimpleRenderer(*this);
 }
+
+void SimpleRenderer::resetLegend(ILegendGroupUPtr legend)
+{
+    m_legend = std::move(legend);
+}

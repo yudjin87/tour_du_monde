@@ -53,6 +53,14 @@ CategorizedRenderer::CategorizedRenderer(QObject *parent)
 {
 }
 
+CategorizedRenderer::CategorizedRenderer(ILegendGroupUPtr legend, IRendererCategoryCollectionUPtr categories)
+    : IFeatureRenderer()
+    , m_legend(std::move(legend))
+    , m_categoryFieldIndex(0)
+    , m_categories(std::move(categories))
+{
+}
+
 CategorizedRenderer::CategorizedRenderer(const CategorizedRenderer &other)
     : IFeatureRenderer()
     , m_legend(other.m_legend->clone())

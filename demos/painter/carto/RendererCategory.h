@@ -28,7 +28,7 @@
 
 #include <carto/IRendererCategory.h>
 
-class RendererCategory : public IRendererCategory
+class CARTO_API RendererCategory : public IRendererCategory
 {
     Q_OBJECT
 public:

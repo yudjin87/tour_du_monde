@@ -24,52 +24,45 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "cartoPersist/SimpleRendererPersist.h"
-#include "cartoPersist/LegendGroupPersist.h"
-#include <carto/SimpleRenderer.h>
+#include "cartoPersist/RendererCategoryPersist.h"
+#include "cartoPersist/ISymbolPersist.h"
+#include "cartoPersist/SymbolPersistCreator.h"
+#include <carto/RendererCategory.h>
+#include <carto/ILegendGroup.h>
+
 #include <QtCore/QJsonArray>
 #include <QtCore/QJsonObject>
 #include <QtCore/QVariant>
 
-SimpleRendererPersist::SimpleRendererPersist()
-    : IFeatureRendererPersist()
-    , m_renderer(nullptr)
-{
-
-}
-
-SimpleRendererPersist::SimpleRendererPersist(const SimpleRenderer &renderer)
-    : IFeatureRendererPersist()
-    , m_renderer(&renderer)
+RendererCategoryPersist::RendererCategoryPersist()
 {
 }
 
-void SimpleRendererPersist::save(QJsonObject &obj)
+void RendererCategoryPersist::save(QJsonObject &obj, const IRendererCategory &category)
 {
-    LegendGroupPersist legendGroupPersist;
-    QJsonObject jsonLegend;
-    legendGroupPersist.save(jsonLegend, *m_renderer->legend());
-    obj.insert("legendGroup", jsonLegend);
+    obj.insert("value", category.value().toString());
+    obj.insert("label", category.label());
 }
 
-IFeatureRendererUPtr SimpleRendererPersist::load(const QJsonObject &obj, QString *error)
+IRendererCategoryUPtr RendererCategoryPersist::load(const QJsonObject &obj, ILegendGroup &legend, QString *error)
 {
     if (obj.isEmpty())
     {
-        if (error) *error = "SimpleRendererPersist: empty object";
+        if (error) *error = "RendererCategoryPersist: empty object";
         return nullptr;
     }
 
-    SimpleRendererUPtr renderer(new SimpleRenderer());
-    const QJsonObject jsonLegend = obj.value("legendGroup").toObject();
-    LegendGroupPersist legendGroupPersist;
-    ILegendGroupUPtr legend = legendGroupPersist.load(jsonLegend, error);
-    if (legend == nullptr)
+    const QString value = obj.value("value").toString();
+    const QString label = obj.value("label").toString();
+
+    ILegendClass* categorySymbol = legend.getClass(label);
+    if (categorySymbol == nullptr)
     {
+        if (error) *error = QString("RendererCategoryPersist: No Legend class found for \"%1\" category").arg(label);
         return nullptr;
     }
 
-    renderer->resetLegend(std::move(legend));
-    return std::move(renderer);
-}
+    RendererCategoryUPtr category(new RendererCategory(value, categorySymbol));
 
+    return std::move(category);
+}

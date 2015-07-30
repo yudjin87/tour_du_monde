@@ -24,23 +24,41 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#pragma once
+#include "cartoPersist/SimpleFillSymbolPersist.h"
+#include "cartoPersist/LegendGroupPersist.h"
+#include <display/SimpleFillSymbol.h>
+#include <QtCore/QJsonArray>
+#include <QtCore/QJsonObject>
+#include <QtCore/QVariant>
 
-#include <cartoPersist/ILayerPersist.h>
-
-class QJsonObject;
-class QString;
-class FeatureLayer;
-
-class FeatureLayerPersist : public ILayerPersist
+SimpleFillSymbolPersist::SimpleFillSymbolPersist()
+    : ISymbolPersist()
+    , m_symbol(nullptr)
 {
-public:
-    FeatureLayerPersist();
-    explicit FeatureLayerPersist(const FeatureLayer &layer);
 
-    void save(QJsonObject &obj) override;
-    AbstractLayerUPtr load(const QJsonObject &obj, IServiceLocator &serviceLocator, QString *error) override;
+}
 
-private:
-    const FeatureLayer *m_layer;
-};
+SimpleFillSymbolPersist::SimpleFillSymbolPersist(const SimpleFillSymbol &symbol)
+    : ISymbolPersist()
+    , m_symbol(&symbol)
+{
+}
+
+void SimpleFillSymbolPersist::save(QJsonObject &obj)
+{
+
+}
+
+ISymbolUPtr SimpleFillSymbolPersist::load(const QJsonObject &obj, QString *error)
+{
+//    if (obj.isEmpty())
+//    {
+//        if (error) *error = "SimpleFillSymbolPersist: empty object";
+//        return nullptr;
+//    }
+
+    SimpleFillSymbolUPtr symbol(new SimpleFillSymbol());
+
+    return std::move(symbol);
+}
+

@@ -45,7 +45,13 @@ void FeatureClassPersist::save(QJsonObject &obj, const IFeatureClass &featureCla
 }
 
 IFeatureClassUPtr FeatureClassPersist::load(const QJsonObject &obj, IServiceLocator &serviceLocator, QString *error)
-{    
+{
+    if (obj.isEmpty())
+    {
+        if (error) *error = "FeatureClassPersist: empty object";
+        return nullptr;
+    }
+
     const QVariant workspacePath = obj.value("workspacePath");
     if (!workspacePath.isValid())
     {

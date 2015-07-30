@@ -24,23 +24,19 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#pragma once
+#include <cartoPersist/ISymbolPersist.h>
 
-#include <cartoPersist/ILayerPersist.h>
+class PictureMarkerSymbol;
 
-class QJsonObject;
-class QString;
-class FeatureLayer;
-
-class FeatureLayerPersist : public ILayerPersist
+class PictureMarkerSymbolPersist : public ISymbolPersist
 {
 public:
-    FeatureLayerPersist();
-    explicit FeatureLayerPersist(const FeatureLayer &layer);
+    PictureMarkerSymbolPersist();
+    explicit PictureMarkerSymbolPersist(const PictureMarkerSymbol &symbol);
 
     void save(QJsonObject &obj) override;
-    AbstractLayerUPtr load(const QJsonObject &obj, IServiceLocator &serviceLocator, QString *error) override;
+    ISymbolUPtr load(const QJsonObject &obj, QString *error) override;
 
 private:
-    const FeatureLayer *m_layer;
+    const PictureMarkerSymbol *m_symbol;
 };

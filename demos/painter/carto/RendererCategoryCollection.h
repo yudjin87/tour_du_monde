@@ -28,7 +28,7 @@
 
 #include <carto/IRendererCategoryCollection.h>
 
-class RendererCategoryCollection : public IRendererCategoryCollection
+class CARTO_API RendererCategoryCollection : public IRendererCategoryCollection
 {
     Q_OBJECT
 public:
@@ -42,6 +42,8 @@ public:
 
     IRendererCategoryVector::const_iterator begin() const override;
     IRendererCategoryVector::const_iterator end() const override;
+
+    void reset(ILegendGroup& newLegend) override;
 
 private:
     RendererCategoryCollection(const RendererCategoryCollection& other);
@@ -58,3 +60,5 @@ private:
 private:
     std::vector<IRendererCategoryUPtr> m_categories;
 };
+
+typedef std::unique_ptr<RendererCategoryCollection> RendererCategoryCollectionUPtr;

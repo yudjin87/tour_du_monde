@@ -26,21 +26,16 @@
 
 #pragma once
 
-#include <cartoPersist/ILayerPersist.h>
+#include <carto/IRendererCategory.h>
 
-class QJsonObject;
-class QString;
-class FeatureLayer;
+class ILegendGroup;
 
-class FeatureLayerPersist : public ILayerPersist
+class RendererCategoryPersist
 {
 public:
-    FeatureLayerPersist();
-    explicit FeatureLayerPersist(const FeatureLayer &layer);
+    RendererCategoryPersist();
 
-    void save(QJsonObject &obj) override;
-    AbstractLayerUPtr load(const QJsonObject &obj, IServiceLocator &serviceLocator, QString *error) override;
-
-private:
-    const FeatureLayer *m_layer;
+    void save(QJsonObject &obj, const IRendererCategory &legend);
+    IRendererCategoryUPtr load(const QJsonObject &obj, ILegendGroup &legend, QString *error);
 };
+

@@ -78,6 +78,12 @@ void FeatureLayerPersist::save(QJsonObject &obj)
 
 AbstractLayerUPtr FeatureLayerPersist::load(const QJsonObject &obj, IServiceLocator &serviceLocator, QString *error)
 {
+    if (obj.isEmpty())
+    {
+        if (error) *error = "FeatureLayerPersist: empty object";
+        return nullptr;
+    }
+
     FeatureLayerUPtr layer(new FeatureLayer());
 
     // feature class
@@ -102,7 +108,7 @@ AbstractLayerUPtr FeatureLayerPersist::load(const QJsonObject &obj, IServiceLoca
         return nullptr;
     }
 
-    const QJsonObject jsonFeatureRendererData = obj.value("data").toObject();
+    const QJsonObject jsonFeatureRendererData = jsonFeatureRenderer.value("data").toObject();
     FeatureRendererPersistCreator creator;
     IFeatureRendererPersistUPtr featureLayerRendererPersist = creator.create(type);
     IFeatureRendererUPtr renderer = featureLayerRendererPersist->load(jsonFeatureRendererData, error);
