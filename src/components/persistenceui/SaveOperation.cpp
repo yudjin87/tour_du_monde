@@ -67,7 +67,11 @@ void SaveOperation::execute()
     }
 
     bool result = persistenceService->saveAs(currentFile.absoluteFilePath());
-    Q_UNUSED(result); // TODO: check
+    if (!result)
+    {
+        return;
+    }
+
     IUndoStack *undoStack = m_serviceLocator->locate<IUndoStack>();
     undoStack->setClean();
 }

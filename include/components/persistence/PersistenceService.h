@@ -92,13 +92,6 @@ public slots:
 
     /*!
      * @details
-     *   Tries to load document from the filePath().
-     *   Returns @a true, if loading was successful.
-     */
-    bool load() override;
-
-    /*!
-     * @details
      *   Tries to load document from a @a filePath.
      *   Sets @a filePath as a current file name and returns @a true, if loading was successful.
      *

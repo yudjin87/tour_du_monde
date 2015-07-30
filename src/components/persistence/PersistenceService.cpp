@@ -118,37 +118,33 @@ bool PersistenceService::saveAs(const QString &filePath)
 
 bool PersistenceService::load(const QString &filePath)
 {
-    m_filePath = absolutePath(filePath);
-    emit fileNameChanged();
-    return load();
-}
-
-bool PersistenceService::load()
-{
     if (m_delegate == nullptr) {
         Log.e("Null delegate - cannot save");
         return false;
     }
 
-    if (m_filePath.isEmpty()) {
+    if (filePath.isEmpty()) {
         Log.w("No file name specified");
         return false;
     }
 
-    QFile documentFile(m_filePath);
+    QFile documentFile(filePath);
     if (!documentFile.open(QIODevice::ReadOnly)) {
-        QString error = QString("Selected file \"%1\" could not be opened!").arg(m_filePath);
+        QString error = QString("Selected file \"%1\" could not be opened!").arg(filePath);
         Log.w(error);
         return false;
     }
 
-    Log.i(QString("Loading from the \"%1\"").arg(m_filePath));
+    Log.i(QString("Loading from the \"%1\"").arg(filePath));
 
     QByteArray loadedDoc = documentFile.readAll();
     if (!m_delegate->load(m_manager->startedComponents(), loadedDoc)) {
         Log.w("Failed to load document");
         return false;
     }
+
+    m_filePath = filePath;
+    emit fileNameChanged();
 
     return true;
 }
