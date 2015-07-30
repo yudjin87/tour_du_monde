@@ -37,10 +37,11 @@ MockPersistExtension::MockPersistExtension(QObject *parent)
 {
 }
 
-bool MockPersistExtension::save(IServiceLocator *locator, QJsonObject &obj, QString *error)
+bool MockPersistExtension::save(IServiceLocator *locator, const QString &name, QJsonObject &obj, QString *error)
 {
     Q_UNUSED(locator)
     Q_UNUSED(error)
+    Q_UNUSED(name)
     saveCalled = true;
     obj.insert("mockField", QJsonValue(QString("mockValue")));
     return true;

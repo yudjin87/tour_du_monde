@@ -32,11 +32,10 @@ class MockPersistExtension : public QObject, public IPersistExtension
 {
 public:
     MockPersistExtension(QObject *parent = nullptr);
-    bool save(IServiceLocator *locator, QJsonObject &obj, QString *error = nullptr);
+    bool save(IServiceLocator *locator, const QString& name, QJsonObject &obj, QString *error = nullptr);
     bool load(IServiceLocator *locator, const QJsonObject &obj, QString *error = nullptr);
 
 public:
     bool saveCalled;
     bool loadCalled;
 };
-

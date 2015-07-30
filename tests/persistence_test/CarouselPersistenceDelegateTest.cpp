@@ -52,7 +52,7 @@ void CarouselPersistenceDelegateTest::save_shouldCallSaveForPersistComponents()
     PersistComponent comp3; components.append(&comp3);
 
     CarouselPersistenceDelegate delegate(&locator);
-    delegate.save(components, stream);
+    delegate.save(components, "", stream);
 
     QVERIFY(comp1.persistExtension->saveCalled);
     QVERIFY(comp3.persistExtension->saveCalled);
@@ -67,7 +67,7 @@ void CarouselPersistenceDelegateTest::save_shouldCreateJsonDocument()
     PersistComponent comp3; components.append(&comp3);
 
     CarouselPersistenceDelegate delegate(&locator);
-    delegate.save(components, stream);
+    delegate.save(components, "", stream);
 
     QJsonParseError error;
     QJsonDocument doc = QJsonDocument::fromJson(stream, &error);
@@ -84,7 +84,7 @@ void CarouselPersistenceDelegateTest::save_shouldAddObjectsToDocument()
     PersistComponent comp3("PersistComponent3"); components.append(&comp3);
 
     CarouselPersistenceDelegate delegate(&locator);
-    delegate.save(components, stream);
+    delegate.save(components, "", stream);
 
     QJsonParseError error;
     QJsonDocument doc = QJsonDocument::fromJson(stream, &error);
@@ -111,7 +111,7 @@ void CarouselPersistenceDelegateTest::load_shouldCallLoadForSpecificComponents()
     PersistComponent comp3("PersistComponent3"); components.append(&comp3);
 
     CarouselPersistenceDelegate delegate(&locator);
-    delegate.save(components, stream);
+    delegate.save(components, "", stream);
 
     PersistComponent comp4("PersistComponent4"); components.append(&comp4);
     delegate.load(components, stream);
