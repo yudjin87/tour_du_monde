@@ -41,6 +41,8 @@ class DISPLAY_API SimpleFillSymbol : public FillSymbol
 public:
     explicit SimpleFillSymbol(QObject *parent = 0);
 
+    SymbolType type() const override;
+
     void accept(ISymbolVisitor& visitor) override;
 
     ISymbol* clone(QObject* parent = nullptr) const override;
@@ -64,3 +66,4 @@ private:
     QBrush m_oldBrush;
 };
 
+typedef std::unique_ptr<SimpleFillSymbol> SimpleFillSymbolUPtr;

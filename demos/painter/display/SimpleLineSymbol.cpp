@@ -41,6 +41,11 @@ SimpleLineSymbol::SimpleLineSymbol(QObject *parent)
     m_pen.setCosmetic(true);
 }
 
+SymbolType SimpleLineSymbol::type() const
+{
+    return SymbolType::SimpleLineSymbol;
+}
+
 void SimpleLineSymbol::accept(ISymbolVisitor &visitor)
 {
     visitor.visit(*this);

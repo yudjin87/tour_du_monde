@@ -27,21 +27,16 @@
 #pragma once
 
 #include <display/display_api.h>
+#include <QtCore/QString>
 
-class SimpleFillSymbol;
-class SimpleLineSymbol;
-class SimpleMarkerSymbol;
-class PictureMarkerSymbol;
-
-class DISPLAY_API ISymbolVisitor
+enum class SymbolType
 {
-public:
-    virtual ~ISymbolVisitor(){}
-
-    virtual void visit(SimpleFillSymbol& symbol) = 0;
-    virtual void visit(SimpleLineSymbol& symbol) = 0;
-    virtual void visit(SimpleMarkerSymbol& symbol) = 0;
-    virtual void visit(PictureMarkerSymbol& symbol) = 0;
+    SimpleFillSymbol = 0,
+    SimpleLineSymbol,
+    SimpleMarkerSymbol,
+    PictureMarkerSymbol
 };
 
-
+DISPLAY_API bool verifyEnum(const SymbolType type);
+DISPLAY_API QString toString(const SymbolType type);
+DISPLAY_API SymbolType symbolTypeFromString(const QString& name);

@@ -38,6 +38,7 @@ public:
 
     static PictureMarkerSymbol* createFromFilePicture(const QString& filePath);
 
+    SymbolType type() const override;
     void accept(ISymbolVisitor& visitor) override;
 
     ISymbol* clone(QObject* parent = nullptr) const override;
@@ -65,3 +66,5 @@ private:
     QTransform m_painterTransform;
     QString m_source;
 };
+
+typedef std::unique_ptr<PictureMarkerSymbol> PictureMarkerSymbolUPtr;

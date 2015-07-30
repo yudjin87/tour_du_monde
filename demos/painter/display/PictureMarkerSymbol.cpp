@@ -63,6 +63,11 @@ PictureMarkerSymbol *PictureMarkerSymbol::createFromFilePicture(const QString &f
     return symbol.release();
 }
 
+SymbolType PictureMarkerSymbol::type() const
+{
+    return SymbolType::PictureMarkerSymbol;
+}
+
 void PictureMarkerSymbol::accept(ISymbolVisitor &visitor)
 {
     visitor.visit(*this);

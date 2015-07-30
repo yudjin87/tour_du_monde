@@ -40,6 +40,7 @@ class DISPLAY_API SimpleLineSymbol : public LineSymbol
 
 public:
     explicit SimpleLineSymbol(QObject *parent = 0);
+    SymbolType type() const override;
 
     void accept(ISymbolVisitor& visitor) override;
 
@@ -64,3 +65,4 @@ private:
     QPen m_oldPen;
 };
 
+typedef std::unique_ptr<SimpleLineSymbol> SimpleLineSymbolUPtr;

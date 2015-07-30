@@ -46,6 +46,11 @@ SimpleMarkerSymbol::SimpleMarkerSymbol(QObject *parent)
     m_outlinePen.setCosmetic(true);
 }
 
+SymbolType SimpleMarkerSymbol::type() const
+{
+    return SymbolType::PictureMarkerSymbol;
+}
+
 SimpleMarkerSymbol::SimpleMarkerSymbol(const SimpleMarkerSymbol &o, QObject *parent)
     : MarkerSymbol(o, parent)
     , m_outline(o.m_outline)

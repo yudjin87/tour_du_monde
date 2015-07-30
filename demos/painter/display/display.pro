@@ -45,6 +45,7 @@ HEADERS += \
     SymbolThumbnail.h \
     ISymbolVisitor.h \
     PictureMarkerSymbol.h \
+    SymbolType.h
 
 SOURCES += \
     RectRubberBand.cpp \
@@ -68,6 +69,7 @@ SOURCES += \
     CoordsTracker.cpp \
     SymbolThumbnail.cpp \
     PictureMarkerSymbol.cpp \
+    SymbolType.cpp
 
 MARKERS += \
     markers/Education/* \

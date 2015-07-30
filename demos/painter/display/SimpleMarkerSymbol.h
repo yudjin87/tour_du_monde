@@ -64,7 +64,8 @@ public:
 
 public:
     explicit SimpleMarkerSymbol(QObject *parent = 0);
-    
+    SymbolType type() const override;
+
     void accept(ISymbolVisitor& visitor) override;
 
     ISymbol* clone(QObject* parent = nullptr) const override;
@@ -107,3 +108,4 @@ private:
     QTransform m_painterTransform;
 };
 
+typedef std::unique_ptr<SimpleMarkerSymbol> SimpleMarkerSymbolUPtr;

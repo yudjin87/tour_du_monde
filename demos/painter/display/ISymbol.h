@@ -25,7 +25,8 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
-#include "display/display_api.h"
+#include <display/display_api.h>
+#include <display/SymbolType.h>
 
 #include <QtCore/QObject>
 #include <memory>
@@ -37,10 +38,9 @@ class QPainter;
 class DISPLAY_API ISymbol : public QObject
 {
 public:
-    ISymbol(){}
-
     virtual void accept(ISymbolVisitor& visitor) = 0;
 
+    virtual SymbolType type() const = 0;
     /*!
      * @details
      *   Draws the specified shape, using prepared the painter.
@@ -60,6 +60,9 @@ public:
      *   Restores painter to original state.
      */
     virtual void resetPainter(QPainter *painter) = 0;
+
+protected:
+    ISymbol() = default;
 
 private:
     Q_DISABLE_COPY(ISymbol)

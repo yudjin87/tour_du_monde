@@ -42,6 +42,11 @@ SimpleFillSymbol::SimpleFillSymbol(QObject *parent)
     m_brush.setStyle(Qt::SolidPattern);
 }
 
+SymbolType SimpleFillSymbol::type() const
+{
+    return SymbolType::SimpleFillSymbol;
+}
+
 SimpleFillSymbol::SimpleFillSymbol(const SimpleFillSymbol &o, QObject *parent)
     : FillSymbol(o, parent)
     , m_brush(o.m_brush)
