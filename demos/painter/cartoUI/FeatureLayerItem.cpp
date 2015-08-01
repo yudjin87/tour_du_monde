@@ -79,9 +79,16 @@ void FeatureLayerItem::setData(const QVariant &value, int role)
 void FeatureLayerItem::createNestedItems(const IFeatureRenderer *renderer)
 {
     const ILegendGroup* legendGroup = renderer->legend();
-    for (size_t i = 0; i < legendGroup->classCount(); ++i)
+    if (legendGroup->classCount() == 0)
     {
-        LegendClassItem* symbolItem = new LegendClassItem(legendGroup->getClass(i), m_layer.shapeType());
+        // If layer doesn't have nested items, context menu won't be raised for it (see LayerTreeView)
+        appendRow(new QStandardItem("No legend"));
+        return;
+    }
+
+    for (const ILegendClassUPtr& legendClass : *legendGroup)
+    {
+        LegendClassItem* symbolItem = new LegendClassItem(legendClass.get(), m_layer.shapeType());
         appendRow(symbolItem);
     }
 }
