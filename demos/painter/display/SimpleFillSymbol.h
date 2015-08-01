@@ -74,7 +74,6 @@ protected:
     void drawPolygon(const Polygon &polygon, QPainter &painter) override;
 
 private:
-    QColor m_color;
     QBrush m_brush;
     QBrush m_oldBrush;
 };
