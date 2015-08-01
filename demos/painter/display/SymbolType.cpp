@@ -49,9 +49,9 @@ bool verifyEnum(const SymbolType type)
     switch (type)
     {
     case SymbolType::SimpleFillSymbol:
-        case SymbolType::SimpleLineSymbol:
-        case SymbolType::SimpleMarkerSymbol:
-        case SymbolType::PictureMarkerSymbol:
+    case SymbolType::SimpleLineSymbol:
+    case SymbolType::SimpleMarkerSymbol:
+    case SymbolType::PictureMarkerSymbol:
         return true;
     }
 

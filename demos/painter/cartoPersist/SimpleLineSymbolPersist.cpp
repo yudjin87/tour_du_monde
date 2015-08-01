@@ -46,18 +46,27 @@ SimpleLineSymbolPersist::SimpleLineSymbolPersist(const SimpleLineSymbol &symbol)
 
 void SimpleLineSymbolPersist::save(QJsonObject &obj)
 {
-
+    obj.insert("penStyle", m_symbol->style());
+    obj.insert("width", m_symbol->width());
+    obj.insert("color", m_symbol->color().name());
 }
 
 ISymbolUPtr SimpleLineSymbolPersist::load(const QJsonObject &obj, QString *error)
 {
-//    if (obj.isEmpty())
-//    {
-//        if (error) *error = "SimpleLineSymbolPersist: empty object";
-//        return nullptr;
-//    }
+    if (obj.isEmpty())
+    {
+        if (error) *error = "SimpleLineSymbolPersist: empty object";
+        return nullptr;
+    }
+
+    const QJsonValue jsonPenStyle = obj.value("penStyle");
+    const QJsonValue jsonWidth = obj.value("width");
+    const QJsonValue jsonColor = obj.value("color");
 
     SimpleLineSymbolUPtr symbol(new SimpleLineSymbol());
+    symbol->setStyle(static_cast<Qt::PenStyle>(jsonPenStyle.toInt()));
+    symbol->setWidth(jsonWidth.toDouble());
+    symbol->setColor(QColor(jsonColor.toString()));
 
     return std::move(symbol);
 }

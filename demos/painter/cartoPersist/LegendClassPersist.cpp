@@ -75,7 +75,7 @@ ILegendClassUPtr LegendClassPersist::load(const QJsonObject &obj, QString *error
     const SymbolType type = symbolTypeFromString(typeName);
     if (!verifyEnum(type))
     {
-        if (error) *error = "Invalid symbol type";
+        if (error) *error = "LegendClassPersist: Invalid symbol type";
         return nullptr;
     }
 

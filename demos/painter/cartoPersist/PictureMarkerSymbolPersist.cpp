@@ -46,18 +46,40 @@ PictureMarkerSymbolPersist::PictureMarkerSymbolPersist(const PictureMarkerSymbol
 
 void PictureMarkerSymbolPersist::save(QJsonObject &obj)
 {
+    obj.insert("source", m_symbol->source());
 
+    // MarkerSymbol
+    obj.insert("angle", m_symbol->angle());
+    obj.insert("size", m_symbol->size());
+    obj.insert("color", m_symbol->color().name());
 }
 
 ISymbolUPtr PictureMarkerSymbolPersist::load(const QJsonObject &obj, QString *error)
 {
-//    if (obj.isEmpty())
-//    {
-//        if (error) *error = "PictureMarkerSymbolPersist: empty object";
-//        return nullptr;
-//    }
+    if (obj.isEmpty())
+    {
+        if (error) *error = "PictureMarkerSymbolPersist: empty object";
+        return nullptr;
+    }
+
+    // MarkerSymbol
+    const QJsonValue jsonAngle = obj.value("angle");
+    const QJsonValue jsonSize = obj.value("size");
+    const QJsonValue jsonColor = obj.value("color");
+
+    // PictureMarkerSymbol
+    const QJsonValue jsonSource = obj.value("source");
 
     PictureMarkerSymbolUPtr symbol(new PictureMarkerSymbol());
+    symbol->setAngle(jsonAngle.toDouble());
+    symbol->setSize(jsonSize.toDouble());
+    symbol->setColor(QColor(jsonColor.toString()));
+
+    if (!symbol->loadFromFile(jsonSource.toString()))
+    {
+        if (error) *error = QString("PictureMarkerSymbolPersist: can't load picture \"%1\"").arg(jsonSource.toString());
+        return nullptr;
+    }
 
     return std::move(symbol);
 }

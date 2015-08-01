@@ -46,18 +46,45 @@ SimpleMarkerSymbolPersist::SimpleMarkerSymbolPersist(const SimpleMarkerSymbol &s
 
 void SimpleMarkerSymbolPersist::save(QJsonObject &obj)
 {
+    obj.insert("style", static_cast<int>(m_symbol->style()));
+    obj.insert("outlineSize", m_symbol->outlineSize());
+    obj.insert("isOutline", m_symbol->isOutline());
+    obj.insert("outlineColor", m_symbol->outlineColor().name());
 
+    // MarkerSymbol
+    obj.insert("angle", m_symbol->angle());
+    obj.insert("size", m_symbol->size());
+    obj.insert("color", m_symbol->color().name());
 }
 
 ISymbolUPtr SimpleMarkerSymbolPersist::load(const QJsonObject &obj, QString *error)
 {
-//    if (obj.isEmpty())
-//    {
-//        if (error) *error = "SimpleMarkerSymbolPersist: empty object";
-//        return nullptr;
-//    }
+    if (obj.isEmpty())
+    {
+        if (error) *error = "SimpleMarkerSymbolPersist: empty object";
+        return nullptr;
+    }
+
+    // MarkerSymbol
+    const QJsonValue jsonAngle = obj.value("angle");
+    const QJsonValue jsonSize = obj.value("size");
+    const QJsonValue jsonColor = obj.value("color");
+
+    // SimpleMarkerSymbol
+    const QJsonValue jsonStyle = obj.value("style");
+    const QJsonValue jsonOutlineSize = obj.value("outlineSize");
+    const QJsonValue jsonIsOutline = obj.value("isOutline");
+    const QJsonValue jsonOutlineColor = obj.value("outlineColor");
 
     SimpleMarkerSymbolUPtr symbol(new SimpleMarkerSymbol());
+    symbol->setAngle(jsonAngle.toDouble());
+    symbol->setSize(jsonSize.toDouble());
+    symbol->setColor(QColor(jsonColor.toString()));
+
+    symbol->setStyle(static_cast<SimpleMarkerSymbol::Style>(jsonStyle.toInt()));
+    symbol->setOutlineSize(jsonOutlineSize.toDouble());
+    symbol->setOutline(jsonIsOutline.toBool());
+    symbol->setOutlineColor(QColor(jsonOutlineColor.toString()));
 
     return std::move(symbol);
 }
