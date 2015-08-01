@@ -33,7 +33,7 @@
 #include <QtGui/QIcon>
 #include <QtGui/QDoubleValidator>
 
-SimpleFillSymbolWidget::SimpleFillSymbolWidget(const SimpleFillSymbol *symbol, SymbolWidget *lineWidget,  QWidget *parent)
+SimpleFillSymbolWidget::SimpleFillSymbolWidget(const SimpleFillSymbol *symbol, SymbolWidget *lineWidget, QWidget *parent)
     : SymbolWidget(Geometry::Type::Polygon, parent)
     , m_ui(new Ui::SimpleFillSymbolWidget)
     , m_lineWidget(lineWidget)

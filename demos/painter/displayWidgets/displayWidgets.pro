@@ -31,7 +31,8 @@ HEADERS += \
     SymbolEditorWidget.h \
     MarkerSymbolEditorWidget.h \
     LineSymbolEditorWidget.h \
-    FillSymbolEditorWidget.h
+    FillSymbolEditorWidget.h \
+    PictureFillSymbolWidget.h
 
 SOURCES += \
     DisplayWidgetsComponent.cpp \
@@ -45,7 +46,8 @@ SOURCES += \
     SymbolEditorWidget.cpp \
     MarkerSymbolEditorWidget.cpp \
     LineSymbolEditorWidget.cpp \
-    FillSymbolEditorWidget.cpp
+    FillSymbolEditorWidget.cpp \
+    PictureFillSymbolWidget.cpp
 
 FORMS += \
     SimpleLineSymbolWidget.ui \
@@ -53,6 +55,7 @@ FORMS += \
     SimpleMarkerSymbolWidget.ui \
     PictureMarkerSymbolWidget.ui \
     SymbolEditorWidget.ui \
+    PictureFillSymbolWidget.ui
 
 DEFINITION = org.carousel.demos.DisplayWidgets.definition
 

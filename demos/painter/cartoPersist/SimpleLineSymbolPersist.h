@@ -24,6 +24,8 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
+#pragma once
+
 #include <cartoPersist/ISymbolPersist.h>
 
 class SimpleLineSymbol;

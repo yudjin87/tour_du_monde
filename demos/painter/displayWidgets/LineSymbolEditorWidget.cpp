@@ -60,6 +60,11 @@ void LineSymbolEditorWidget::visit(SimpleFillSymbol &)
     Q_ASSERT(false && "This is a marker symbol editor!");
 }
 
+void LineSymbolEditorWidget::visit(PictureFillSymbol &symbol)
+{
+    Q_ASSERT(false && "This is a marker symbol editor!");
+}
+
 void LineSymbolEditorWidget::visit(SimpleLineSymbol &)
 {
 }

@@ -44,6 +44,7 @@ public:
 
 private:
     void visit(SimpleFillSymbol& symbol) override;
+    void visit(PictureFillSymbol& symbol) override;
     void visit(SimpleLineSymbol& symbol) override;
     void visit(SimpleMarkerSymbol& symbol) override;
     void visit(PictureMarkerSymbol& symbol) override;

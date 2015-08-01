@@ -41,17 +41,8 @@ class DISPLAY_API FillSymbol : public SymbolBase
      */
     Q_PROPERTY(LineSymbol *outline READ outline WRITE setOutline)
 
-    /*!
-     * @details
-     *   Gets or sets the fill color.
-     */
-    Q_PROPERTY(QColor color READ color WRITE setColor)
-
 public:
     ~FillSymbol();
-
-    QColor color() const;
-    void setColor(const QColor &color);
 
     LineSymbol *outline();
     const LineSymbol *outline() const;
@@ -60,15 +51,11 @@ public:
     void setupPainter(QPainter *painter) override;
     void resetPainter(QPainter *painter) override;
 
-public slots:
-    void setColor(int r, int g, int b, int a = 255);
-
 protected:
     explicit FillSymbol(QObject *parent = 0);
     FillSymbol(const FillSymbol& o, QObject *parent = nullptr);
 
 private:
     LineSymbol *m_outline;
-    QColor m_color;
 };
 

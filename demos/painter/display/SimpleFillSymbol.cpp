@@ -36,6 +36,7 @@
 
 SimpleFillSymbol::SimpleFillSymbol(QObject *parent)
     : FillSymbol(parent)
+    , m_color(QColor(rand() % 255, rand() % 255, rand() % 255))
     , m_brush()
     , m_oldBrush()
 {
@@ -49,6 +50,7 @@ SymbolType SimpleFillSymbol::type() const
 
 SimpleFillSymbol::SimpleFillSymbol(const SimpleFillSymbol &o, QObject *parent)
     : FillSymbol(o, parent)
+    , m_color(o.m_color)
     , m_brush(o.m_brush)
     , m_oldBrush(o.m_oldBrush)
 {
@@ -79,6 +81,21 @@ void SimpleFillSymbol::resetPainter(QPainter *painter)
 {
     FillSymbol::resetPainter(painter);
     painter->setBrush(m_oldBrush);
+}
+
+QColor SimpleFillSymbol::color() const
+{
+    return m_brush.color();
+}
+
+void SimpleFillSymbol::setColor(const QColor &color)
+{
+    m_brush.setColor(color);
+}
+
+void SimpleFillSymbol::setColor(int r, int g, int b, int a)
+{
+    setColor(QColor(r, g, b, a));
 }
 
 Qt::BrushStyle SimpleFillSymbol::style() const

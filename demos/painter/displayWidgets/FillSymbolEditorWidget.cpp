@@ -27,13 +27,15 @@
 #include "displayWidgets/FillSymbolEditorWidget.h"
 
 #include <display/SimpleFillSymbol.h>
-#include <display/PictureMarkerSymbol.h>
+#include <display/PictureFillSymbol.h>
 
+#include <QtCore/QCoreApplication>
+#include <QtCore/QDir>
 #include <QtWidgets/QComboBox>
 
 FillSymbolEditorWidget::FillSymbolEditorWidget(const FillSymbol *initialSymbol, QWidget *parent)
     : SymbolEditorWidget(parent)
-    , m_symbols({"Simple fill symbol"})
+    , m_symbols({"Simple fill symbol", "Picture fill symbol"})
     , m_symbol(static_cast<FillSymbol*>(initialSymbol->clone()))
 {
     symbolsCbox()->setModel(&m_symbols);
@@ -50,12 +52,31 @@ FillSymbolEditorWidget::~FillSymbolEditorWidget()
 
 void FillSymbolEditorWidget::onSymbolStyleChanged(const int index)
 {
+    switch (index)
+    {
+    case 0:
+        m_symbol.reset(new SimpleFillSymbol());
+        break;
+    case 1:
+        QDir appDir(QCoreApplication::applicationDirPath());
+        appDir.cd("brushes");
+        m_symbol.reset(PictureFillSymbol::createFromFilePicture(appDir.absoluteFilePath("forest.png")));
+        m_symbol.reset(new PictureFillSymbol());
+        break;
+    }
+
     installSymbolWidget(m_symbol.get());
     emit symbolChanged(m_symbol.get());
 }
 
 void FillSymbolEditorWidget::visit(SimpleFillSymbol &)
 {
+    symbolsCbox()->setCurrentIndex(0);
+}
+
+void FillSymbolEditorWidget::visit(PictureFillSymbol &)
+{
+    symbolsCbox()->setCurrentIndex(1);
 }
 
 void FillSymbolEditorWidget::visit(SimpleLineSymbol &)

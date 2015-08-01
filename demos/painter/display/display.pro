@@ -45,7 +45,8 @@ HEADERS += \
     SymbolThumbnail.h \
     ISymbolVisitor.h \
     PictureMarkerSymbol.h \
-    SymbolType.h
+    SymbolType.h \
+    PictureFillSymbol.h
 
 SOURCES += \
     RectRubberBand.cpp \
@@ -69,7 +70,8 @@ SOURCES += \
     CoordsTracker.cpp \
     SymbolThumbnail.cpp \
     PictureMarkerSymbol.cpp \
-    SymbolType.cpp
+    SymbolType.cpp \
+    PictureFillSymbol.cpp
 
 MARKERS += \
     markers/Education/* \
@@ -83,6 +85,10 @@ MARKERS += \
     markers/Tourism/* \
     markers/Transportation/* \
 
+BRUSHES += \
+    brushes/Landuse/* \
+    brushes/Natural/* \
+
 DEFINITION = org.carousel.demos.Display.definition
 
 OTHER_FILES += $$DEFINITION \
@@ -92,3 +98,4 @@ OTHER_FILES += $$DEFINITION \
 # Copy definition to the output directory, right near the library
 copyExtraFiles($$DEFINITION, $$DESTDIR)
 copyExtraFiles($$MARKERS, $$ROOT_DIR/markers)
+copyExtraFiles($$BRUSHES, $$ROOT_DIR/brushes)

@@ -38,6 +38,12 @@ class DISPLAY_API SimpleFillSymbol : public FillSymbol
      */
     Q_PROPERTY(Qt::BrushStyle style READ style WRITE setStyle)
 
+    /*!
+     * @details
+     *   Gets or sets the fill color.
+     */
+    Q_PROPERTY(QColor color READ color WRITE setColor)
+
 public:
     explicit SimpleFillSymbol(QObject *parent = 0);
 
@@ -54,14 +60,21 @@ public:
     void setupPainter(QPainter *painter) override;
     void resetPainter(QPainter *painter) override;
 
+    QColor color() const;
+    void setColor(const QColor &color);
+
     Qt::BrushStyle style() const;
     void setStyle(Qt::BrushStyle style);
+
+public slots:
+    void setColor(int r, int g, int b, int a = 255);
 
 protected:
     SimpleFillSymbol(const SimpleFillSymbol& o, QObject *parent = nullptr);
     void drawPolygon(const Polygon &polygon, QPainter &painter) override;
 
 private:
+    QColor m_color;
     QBrush m_brush;
     QBrush m_oldBrush;
 };

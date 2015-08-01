@@ -38,7 +38,8 @@ HEADERS += \
     SimpleMarkerSymbolPersist.h \
     PictureMarkerSymbolPersist.h \
     RendererCategoryCollectionPersist.h \
-    RendererCategoryPersist.h
+    RendererCategoryPersist.h \
+    PictureFillSymbolPersist.h
 
 SOURCES += \
     CartoPersistComponent.cpp \
@@ -59,7 +60,8 @@ SOURCES += \
     SimpleMarkerSymbolPersist.cpp \
     PictureMarkerSymbolPersist.cpp \
     RendererCategoryCollectionPersist.cpp \
-    RendererCategoryPersist.cpp
+    RendererCategoryPersist.cpp \
+    PictureFillSymbolPersist.cpp
 
 OTHER_FILES += org.carousel.demos.CartoPersist.definition
 

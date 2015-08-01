@@ -30,15 +30,11 @@
 FillSymbol::FillSymbol(QObject *parent)
     : SymbolBase(parent)
     , m_outline(new SimpleLineSymbol())
-    , m_color(QColor(rand() % 255, rand() % 255, rand() % 255))
 {
-
 }
 
 FillSymbol::FillSymbol(const FillSymbol &o, QObject *parent)
     : m_outline(static_cast<LineSymbol*>(o.m_outline->clone(parent)))
-    , m_color(o.m_color)
-
 {
     setParent(parent);
 }
@@ -57,21 +53,6 @@ void FillSymbol::setupPainter(QPainter *painter)
 void FillSymbol::resetPainter(QPainter *painter)
 {
     m_outline->resetPainter(painter);
-}
-
-QColor FillSymbol::color() const
-{
-    return m_color;
-}
-
-void FillSymbol::setColor(const QColor &color)
-{
-    m_color = color;
-}
-
-void FillSymbol::setColor(int r, int g, int b, int a)
-{
-    setColor(QColor(r, g, b, a));
 }
 
 LineSymbol *FillSymbol::outline()

@@ -24,32 +24,31 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "cartoPersist/SimpleFillSymbolPersist.h"
+#include "cartoPersist/PictureFillSymbolPersist.h"
 #include "cartoPersist/SymbolPersistCreator.h"
 #include "cartoPersist/LegendGroupPersist.h"
-#include <display/SimpleFillSymbol.h>
+#include <display/PictureFillSymbol.h>
 #include <display/LineSymbol.h>
 #include <QtCore/QJsonArray>
 #include <QtCore/QJsonObject>
 #include <QtCore/QVariant>
 
-SimpleFillSymbolPersist::SimpleFillSymbolPersist()
+PictureFillSymbolPersist::PictureFillSymbolPersist()
     : ISymbolPersist()
     , m_symbol(nullptr)
 {
 
 }
 
-SimpleFillSymbolPersist::SimpleFillSymbolPersist(const SimpleFillSymbol &symbol)
+PictureFillSymbolPersist::PictureFillSymbolPersist(const PictureFillSymbol &symbol)
     : ISymbolPersist()
     , m_symbol(&symbol)
 {
 }
 
-void SimpleFillSymbolPersist::save(QJsonObject &obj)
+void PictureFillSymbolPersist::save(QJsonObject &obj)
 {
-    obj.insert("brushStyle", m_symbol->style());
-    obj.insert("color", m_symbol->color().name());
+    obj.insert("source", m_symbol->source());
 
     // FillSymbol
     QJsonObject jsonOutlineData;
@@ -64,16 +63,15 @@ void SimpleFillSymbolPersist::save(QJsonObject &obj)
     obj.insert("outline", jsonOutline);
 }
 
-ISymbolUPtr SimpleFillSymbolPersist::load(const QJsonObject &obj, QString *error)
+ISymbolUPtr PictureFillSymbolPersist::load(const QJsonObject &obj, QString *error)
 {
     if (obj.isEmpty())
     {
-        if (error) *error = "SimpleFillSymbolPersist: empty object";
+        if (error) *error = "PictureFillSymbolPersist: empty object";
         return nullptr;
     }
 
-    const QJsonValue jsonBrushStyle = obj.value("brushStyle");
-    const QJsonValue jsonColor = obj.value("color");
+    const QJsonValue jsonSource = obj.value("source");
 
     // FillSymbol
     const QJsonObject jsonOutline = obj.value("outline").toObject();
@@ -82,7 +80,7 @@ ISymbolUPtr SimpleFillSymbolPersist::load(const QJsonObject &obj, QString *error
     const SymbolType type = symbolTypeFromString(typeName);
     if (!verifyEnum(type))
     {
-        if (error) *error = "SimpleFillSymbolPersist: Invalid outline symbol type";
+        if (error) *error = "PictureFillSymbolPersist: Invalid outline symbol type";
         return nullptr;
     }
 
@@ -95,11 +93,14 @@ ISymbolUPtr SimpleFillSymbolPersist::load(const QJsonObject &obj, QString *error
         return nullptr;
     }
 
-    SimpleFillSymbolUPtr symbol(new SimpleFillSymbol());
-    symbol->setStyle(static_cast<Qt::BrushStyle>(jsonBrushStyle.toInt()));
-    symbol->setColor(QColor(jsonColor.toString()));
+    PictureFillSymbolUPtr symbol(new PictureFillSymbol());
     symbol->setOutline(static_cast<LineSymbol*>(outlineSymbol.release()));
+
+    if (!symbol->loadFromFile(jsonSource.toString()))
+    {
+        if (error) *error = QString("PictureFillSymbolPersist: can't load picture \"%1\"").arg(jsonSource.toString());
+        return nullptr;
+    }
 
     return std::move(symbol);
 }
-
