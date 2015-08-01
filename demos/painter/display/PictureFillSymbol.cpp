@@ -103,10 +103,8 @@ void PictureFillSymbol::setupPainter(QPainter *painter)
 
     m_oldBrush = painter->brush();
 
-    QBrush brush;
-    brush.setStyle(Qt::TexturePattern);
+    QBrush brush(m_picture);
     brush.setMatrix(painter->matrix().inverted()); // like setCosmetic
-    brush.setTexture(m_picture);
     painter->setBrush(brush);
 }
 
