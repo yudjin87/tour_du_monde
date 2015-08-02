@@ -60,12 +60,12 @@ BIN_OUTPUT_PATH = $${PAINTER_WD}/$${BIN_OUTPUT_PATH}
 DESTDIR         = $${BIN_OUTPUT_PATH}/bin
 
 # Store intermedia stuff somewhere else
-OBJECTS_DIR     = $${PAINTER_WD}/intermediate/obj/$${TARGET}
-MOC_DIR         = $${PAINTER_WD}/intermediate/moc/$${TARGET}
-RCC_DIR         = $${PAINTER_WD}/intermediate/rcc/$${TARGET}
-UI_DIR          = $${PAINTER_WD}/intermediate/ui/$${TARGET}
-UI_HEADERS_DIR  = $${PAINTER_WD}/intermediate/ui/$${TARGET}
-UI_SOURCES_DIR  = $${PAINTER_WD}/intermediate/ui/$${TARGET}
+OBJECTS_DIR     = $${BIN_OUTPUT_PATH}/intermediate/obj/$${TARGET}
+MOC_DIR         = $${BIN_OUTPUT_PATH}/intermediate/moc/$${TARGET}
+RCC_DIR         = $${BIN_OUTPUT_PATH}/intermediate/rcc/$${TARGET}
+UI_DIR          = $${BIN_OUTPUT_PATH}/intermediate/ui/$${TARGET}
+UI_HEADERS_DIR  = $${BIN_OUTPUT_PATH}/intermediate/ui/$${TARGET}
+UI_SOURCES_DIR  = $${BIN_OUTPUT_PATH}/intermediate/ui/$${TARGET}
 
 #########################################################
 # MSVC compiler shows this warning, but with virtual inheritance
