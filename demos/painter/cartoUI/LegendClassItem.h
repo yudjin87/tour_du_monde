@@ -32,22 +32,26 @@
 #include <QtGui/QStandardItem>
 
 class ILegendClass;
+class IServiceLocator;
 
 class LegendClassItem : public QObject, public QStandardItem
 {
     Q_OBJECT
 public:
-    LegendClassItem(const ILegendClass *legend, const Geometry::Type geometry);
+    LegendClassItem(IServiceLocator* serviceLocator, ILegendClass *legend, const Geometry::Type geometry);
     ~LegendClassItem();
 
     QVariant data(int role) const  override;
+    void setData(const QVariant &value, int role = Qt::UserRole + 1) override;
 
 private:
     void onSymbolChanged(const ISymbol* symbol);
     void onLabelChanged(const QString& label);
+    void onVisibilityChanged(bool visible);
 
 private:
-    const ILegendClass* m_legend;
+    IServiceLocator* m_serviceLocator;
+    ILegendClass* m_legend;
     const Geometry::Type m_geometry;
 };
 

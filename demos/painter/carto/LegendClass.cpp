@@ -31,6 +31,7 @@ LegendClass::LegendClass()
     , m_symbol(nullptr)
     , m_description()
     , m_label()
+    , m_visible(true)
 {
 }
 
@@ -39,6 +40,7 @@ LegendClass::LegendClass(ISymbol *symbol)
     , m_symbol(symbol)
     , m_description()
     , m_label()
+    , m_visible(true)
 {
 }
 
@@ -47,6 +49,7 @@ LegendClass::LegendClass(ISymbol *symbol, const QString &label)
     , m_symbol(symbol)
     , m_description()
     , m_label(label)
+    , m_visible(true)
 {
 }
 
@@ -55,6 +58,7 @@ LegendClass::LegendClass(const LegendClass &other)
     , m_symbol(other.m_symbol->clone())
     , m_description(other.m_description)
     , m_label(other.m_label)
+    , m_visible(other.m_visible)
 {
 }
 
@@ -111,6 +115,22 @@ void LegendClass::setLabel(const QString &label)
 
     m_label = label;
     emit descriptionChanged(m_label);
+}
+
+bool LegendClass::isVisible() const
+{
+    return m_visible;
+}
+
+void LegendClass::setVisible(const bool visible)
+{
+    if (m_visible == visible)
+    {
+        return;
+    }
+
+    m_visible = visible;
+    emit visibilityChanged(m_visible);
 }
 
 ISymbol *LegendClass::symbol()

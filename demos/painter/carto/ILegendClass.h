@@ -48,6 +48,9 @@ public:
     virtual QString label() const = 0;
     virtual void setLabel(const QString& label) = 0;
 
+    virtual bool isVisible() const = 0;
+    virtual void setVisible(const bool isVisible) = 0;
+
     virtual ISymbol* symbol() = 0;
     virtual const ISymbol* symbol() const = 0;
     virtual void setSymbol(ISymbol* symbol) = 0;
@@ -58,6 +61,7 @@ signals:
     void descriptionChanged(const QString& description);
     void labelChanged(const QString& description);
     void symbolChanged(const ISymbol* newSymbol);
+    void visibilityChanged(bool isVisible);
 };
 
 typedef std::unique_ptr<ILegendClass> ILegendClassUPtr;

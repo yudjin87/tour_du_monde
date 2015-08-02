@@ -56,6 +56,9 @@ public:
     ILegendGroup *legend() override;
     const ILegendGroup *legend() const override;
 
+    ILegendClass *legendClass();
+    const ILegendClass *legendClass() const;
+
     void accept(IFeatureRendererVisitor& visitor) override;
 
     IFeatureRenderer* clone() const override;

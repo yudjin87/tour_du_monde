@@ -54,7 +54,8 @@ HEADERS += \
     IRendererCategory.h \
     IRendererCategoryCollection.h \
     LayerType.h \
-    RendererType.h
+    RendererType.h \
+    commands/ChangeLegendClassCommand.h
 
 SOURCES += \
     AbstractLayer.cpp \
@@ -79,7 +80,8 @@ SOURCES += \
     RendererCategory.cpp \
     RendererCategoryCollection.cpp \
     LayerType.cpp \
-    RendererType.cpp
+    RendererType.cpp \
+    commands/ChangeLegendClassCommand.cpp
 
 OTHER_FILES += org.carousel.demos.Carto.definition
 

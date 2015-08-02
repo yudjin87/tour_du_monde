@@ -41,6 +41,7 @@ void LegendClassPersist::save(QJsonObject &obj, const ILegendClass &legend)
 {
     obj.insert("description", legend.description());
     obj.insert("label", legend.label());
+    obj.insert("visibility", legend.isVisible());
 
     // symbol
     QJsonObject jsonSymbolData;
@@ -66,8 +67,10 @@ ILegendClassUPtr LegendClassPersist::load(const QJsonObject &obj, QString *error
     LegendClassUPtr legend(new LegendClass());
     const QString description = obj.value("description").toString();
     const QString label = obj.value("label").toString();
+    const bool visibility = obj.value("visibility").toBool();
     legend->setDescription(description);
     legend->setLabel(label);
+    legend->setVisible(visibility);
 
     // symbol
     const QJsonObject jsonSymbol = obj.value("symbol").toObject();

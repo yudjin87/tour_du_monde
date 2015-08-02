@@ -40,7 +40,7 @@ FeatureLayerItem::FeatureLayerItem(IServiceLocator *serviceLocator, FeatureLayer
     , m_serviceLocator(serviceLocator)
 {
     Qt::ItemFlags defaultFlags = QStandardItem::flags();
-    setFlags(Qt::ItemIsDragEnabled | Qt::ItemIsDropEnabled | Qt::ItemIsEditable | defaultFlags);
+    setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsDragEnabled | Qt::ItemIsDropEnabled | Qt::ItemIsEditable | defaultFlags);
 
     connect(&layer, &FeatureLayer::nameChanged, this, &FeatureLayerItem::onNameChanged);
     connect(&layer, &FeatureLayer::rendererChanged, this, &FeatureLayerItem::onRendererChanged);
@@ -88,7 +88,7 @@ void FeatureLayerItem::createNestedItems(const IFeatureRenderer *renderer)
 
     for (const ILegendClassUPtr& legendClass : *legendGroup)
     {
-        LegendClassItem* symbolItem = new LegendClassItem(legendClass.get(), m_layer.shapeType());
+        LegendClassItem* symbolItem = new LegendClassItem(m_serviceLocator, legendClass.get(), m_layer.shapeType());
         appendRow(symbolItem);
     }
 }

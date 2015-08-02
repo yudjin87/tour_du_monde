@@ -98,7 +98,13 @@ void CategorizedRenderer::draw(const QVector<IFeature *> &features, QPainter *pa
     {
         const IRecord* rec = feature->record();
         const QVariant& featureValue = rec->value(m_categoryFieldIndex);
-        ISymbol* symbolForCategory = symbol(featureValue);
+        ILegendClass* legend = legendClass(featureValue);
+        if (!legend->isVisible())
+        {
+            continue;
+        }
+
+        ISymbol *symbolForCategory = legend->symbol();
         if (symbolForCategory == nullptr)
         {
             Log.d(QString("No symbol for value \"%1\"").arg(featureValue.toString()));
@@ -167,6 +173,22 @@ ISymbol *CategorizedRenderer::symbol(const QVariant &value)
 
 const ISymbol *CategorizedRenderer::symbol(const QVariant &value) const
 {
+    const ILegendClass* legend= legendClass(value);
+    if (legend == nullptr)
+    {
+        return nullptr;
+    }
+
+    return legend->symbol();
+}
+
+ILegendClass *CategorizedRenderer::legendClass(const QVariant &value)
+{
+    return const_cast<ILegendClass*>(const_cast<const CategorizedRenderer*>(this)->legendClass(value));
+}
+
+const ILegendClass *CategorizedRenderer::legendClass(const QVariant &value) const
+{
     const IRendererCategory* category = m_categories->findByValue(value);
     if (category == nullptr)
     {
@@ -174,7 +196,7 @@ const ISymbol *CategorizedRenderer::symbol(const QVariant &value) const
     }
 
     const ILegendClass* legendClass = category->legendClass();
-    return legendClass->symbol();
+    return legendClass;
 }
 
 

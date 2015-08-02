@@ -25,21 +25,25 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "cartoUI/LegendClassItem.h"
+#include <carto/commands/ChangeLegendClassCommand.h>
 #include <display/SymbolThumbnail.h>
 #include <display/ISymbol.h>
+#include <carousel/utils/IServiceLocator.h>
 #include <QtGui/QPixmap>
 
-LegendClassItem::LegendClassItem(const ILegendClass *legend, const Geometry::Type geometry)
+LegendClassItem::LegendClassItem(IServiceLocator *serviceLocator, ILegendClass *legend, const Geometry::Type geometry)
     : QStandardItem()
+    , m_serviceLocator(serviceLocator)
     , m_legend(legend)
     , m_geometry(geometry)
 {
-    Qt::ItemFlags defaultFlags = flags();
-    defaultFlags &= ~Qt::ItemIsEditable;
-    setFlags(defaultFlags);
+    const Qt::ItemFlags defaultFlags = flags();
+    //defaultFlags &= ~Qt::ItemIsEditable;
+    setFlags(Qt::ItemIsUserCheckable | defaultFlags);
 
     connect(m_legend, &ILegendClass::symbolChanged, this, &LegendClassItem::onSymbolChanged);
     connect(m_legend, &ILegendClass::labelChanged, this, &LegendClassItem::onLabelChanged);
+    connect(m_legend, &ILegendClass::visibilityChanged, this, &LegendClassItem::onVisibilityChanged);
 }
 
 LegendClassItem::~LegendClassItem()
@@ -56,12 +60,19 @@ void LegendClassItem::onLabelChanged(const QString &)
     emitDataChanged();
 }
 
+void LegendClassItem::onVisibilityChanged(bool)
+{
+    emitDataChanged();
+}
+
 QVariant LegendClassItem::data(int role) const
 {
     switch (role)
     {
     case Qt::DisplayRole:
         return m_legend->label();
+    case Qt::CheckStateRole:
+        return m_legend->isVisible() ? Qt::Checked : Qt::Unchecked;
     case Qt::DecorationRole:
         SymbolThumbnail thumbnailCreator(16, 2);
         thumbnailCreator.setBackground(Qt::white);
@@ -70,4 +81,21 @@ QVariant LegendClassItem::data(int role) const
     }
 
     return QStandardItem::data(role);
+}
+
+void LegendClassItem::setData(const QVariant &value, int role)
+{
+    QStandardItem::setData(value, role);
+    if (role != Qt::CheckStateRole)
+    {
+        return;
+    }
+
+    ChangeLegendClassCommand* changeLegend = m_serviceLocator->buildInstance<ChangeLegendClassCommand>();
+    changeLegend->setLegendClass(m_legend);
+    changeLegend->setDescription(m_legend->description());
+    changeLegend->setLabel(m_legend->label());
+    changeLegend->setVisible(value == Qt::Checked);
+
+    changeLegend->pushToStack();
 }

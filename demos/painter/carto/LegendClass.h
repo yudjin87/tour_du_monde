@@ -42,6 +42,9 @@ public:
     QString label() const override;
     void setLabel(const QString& label) override;
 
+    bool isVisible() const override;
+    void setVisible(const bool isVisible) override;
+
     ISymbol* symbol() override;
     const ISymbol* symbol() const override;
     void setSymbol(ISymbol* symbol) override;
@@ -56,6 +59,7 @@ private:
     ISymbolUPtr m_symbol;
     QString m_description;
     QString m_label;
+    bool m_visible;
 };
 
 typedef std::unique_ptr<LegendClass> LegendClassUPtr;

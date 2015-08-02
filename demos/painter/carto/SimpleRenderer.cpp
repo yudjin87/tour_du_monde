@@ -78,7 +78,13 @@ RendererType SimpleRenderer::type() const
 
 void SimpleRenderer::draw(const QVector<IFeature *> &features, QPainter *painter)
 {
-    ISymbol *symb = symbol();
+    ILegendClass* legend = legendClass();
+    if (!legend->isVisible())
+    {
+        return;
+    }
+
+    ISymbol *symb = legend->symbol();
     if (symb == nullptr)
     {
         return;
@@ -99,12 +105,13 @@ ISymbol *SimpleRenderer::symbol()
 
 const ISymbol *SimpleRenderer::symbol() const
 {
-    if (m_legend->classCount() == 0)
+    const ILegendClass* legend = legendClass();
+    if (legend == 0)
     {
         return nullptr;
     }
 
-    return m_legend->getClass(0)->symbol();
+    return legend->symbol();
 }
 
 void SimpleRenderer::setSymbol(ISymbol *symbol)
@@ -122,6 +129,21 @@ ILegendGroup *SimpleRenderer::legend()
 const ILegendGroup *SimpleRenderer::legend() const
 {
     return m_legend.get();
+}
+
+ILegendClass *SimpleRenderer::legendClass()
+{
+    return const_cast<ILegendClass*>(const_cast<const SimpleRenderer*>(this)->legendClass());
+}
+
+const ILegendClass *SimpleRenderer::legendClass() const
+{
+    if (m_legend->classCount() == 0)
+    {
+        return nullptr;
+    }
+
+    return m_legend->getClass(0);
 }
 
 void SimpleRenderer::accept(IFeatureRendererVisitor &visitor)

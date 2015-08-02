@@ -63,6 +63,9 @@ public slots:
     ISymbol* symbol(const QVariant& value);
     const ISymbol* symbol(const QVariant& value) const;
 
+    ILegendClass *legendClass(const QVariant& value);
+    const ILegendClass *legendClass(const QVariant& value) const;
+
 signals:
     void categoryAdded();
     void categoryRemoved();

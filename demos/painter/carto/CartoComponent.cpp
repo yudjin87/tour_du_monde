@@ -29,6 +29,7 @@
 #include "carto/commands/RemoveLayerCommand.h"
 #include "carto/commands/RenameLayerCommand.h"
 #include "carto/commands/ChangeLayerStyleCommand.h"
+#include "carto/commands/ChangeLegendClassCommand.h"
 #include "carto/commands/MoveLayerCommand.h"
 #include "carto/PainterDocumentController.h"
 #include "carto/FeatureLayer.h"
@@ -91,6 +92,9 @@ bool CartoComponent::onStartup(IServiceLocator *serviceLocator)
 
     TypeCreator<ChangeLayerStyleCommand, TypeLocator<IUndoStack>, TypeLocator<IPainterDocumentController>> changeLayerSymbolCommandCreator{serviceLocator};
     serviceLocator->registerType<ChangeLayerStyleCommand>(changeLayerSymbolCommandCreator);
+
+    TypeCreator<ChangeLegendClassCommand, TypeLocator<IUndoStack>, TypeLocator<IPainterDocumentController>> changeLegendClassCommand{serviceLocator};
+    serviceLocator->registerType<ChangeLegendClassCommand>(changeLegendClassCommand);
 
     IDisplay *display = serviceLocator->locate<IDisplay>();
     IPainterDocumentController *controller = new PainterDocumentController(display); // TODO:  rename controller

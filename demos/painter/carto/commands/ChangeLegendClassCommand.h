@@ -25,30 +25,34 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
-
 #include <carto/carto_api.h>
-#include <carto/IFeatureRenderer.h>
 #include <carousel/commands/BaseUndoableCommand.h>
 
 class IPainterDocumentController;
-class FeatureLayer;
+class ILegendClass;
 
-class CARTO_API ChangeLayerStyleCommand : public BaseUndoableCommand
+class CARTO_API ChangeLegendClassCommand : public BaseUndoableCommand
 {
     Q_OBJECT
 public:
-    ChangeLayerStyleCommand(IUndoStack *stack, IPainterDocumentController *docContr, QObject* parent = nullptr);
+    ChangeLegendClassCommand(IUndoStack *stack, IPainterDocumentController *docContr, QObject* parent = nullptr);
 
-    void setLayer(FeatureLayer* layer);
-    void setNewRenderer(const IFeatureRenderer *renderer);
+    void setLegendClass(ILegendClass* legendClass);
+
+    void setDescription(const QString& description);
+    void setLabel(const QString& label);
+    void setVisible(const bool isVisible);
 
     void redo() override;
     void undo() override;
 
 private:
-    IPainterDocumentController* m_docContr;
-    FeatureLayer* m_layer;
-    IFeatureRendererUPtr m_newRenderer;
-    IFeatureRendererUPtr m_oldRenderer;
+    IPainterDocumentController *m_docContr;
+    ILegendClass* m_legendClass;
+    QString m_newDescription;
+    QString m_newLabel;
+    bool m_newVisibility;
+    QString m_oldDescription;
+    QString m_oldLabel;
+    bool m_oldVisibility;
 };
-
