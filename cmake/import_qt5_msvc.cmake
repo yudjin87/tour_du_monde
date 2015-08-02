@@ -69,13 +69,7 @@ if(QT_COPY_LIBRARIES)
     ########################################################################################
     # Find Qt dependencies
 
-    # TODO: get from the parameters ICU usage. From Qt 5.3 ICU is not mandatory any more, if WebKit is not used
     # TODO: use windeployqt.exe
-    # set(__Qt5_DEPS
-    #    ${__QT_ROOT_DIR}/bin/icudt51.dll
-    #    ${__QT_ROOT_DIR}/bin/icuin51.dll
-    #    ${__QT_ROOT_DIR}/bin/icuuc51.dll)
-
     set(__Qt5_DEPS_DEBUG
         ${__Qt5_DEPS}
         ${__QT_ROOT_DIR}/bin/libEGLd.dll

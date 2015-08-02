@@ -13,11 +13,11 @@ add_subdirectory(testComponent2)
 
 ###############################################################################
 # Specify dependencies for correct build order
-add_dependencies(exportBothFuncs ComponentSystem)
-add_dependencies(exportCreateFuncOnly ComponentSystem)
-add_dependencies(exportDelFuncOnly ComponentSystem)
-add_dependencies(TestComponent1 ComponentSystem)
-add_dependencies(TestComponent2 ComponentSystem)
+add_dependencies(exportBothFuncs        Carousel)
+add_dependencies(exportCreateFuncOnly   Carousel)
+add_dependencies(exportDelFuncOnly      Carousel)
+add_dependencies(TestComponent1         Carousel)
+add_dependencies(TestComponent2         Carousel)
 
 ###############################################################################
 # Organize projects into folders/filters (for MSVC, xCode)
