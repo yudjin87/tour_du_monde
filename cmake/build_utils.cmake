@@ -30,7 +30,7 @@ function(crsl_build __CONFIGURATIONS __GENERATOR_NAME __BUILD_TREE_PATH __NATIVE
       return()
     endif()
 
-    crsl_install(${__CONF} ${__BUILD_TREE_PATH})
+    #crsl_install(${__CONF} ${__BUILD_TREE_PATH}) Not used
     crsl_run_tests(${__CONF} ${__BUILD_TREE_PATH})
   endforeach(__CONF)
 

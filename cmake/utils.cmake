@@ -157,21 +157,30 @@ function(crsl_copy_extra_files __TARGET __FILES __DIRECTORY)
 endfunction(crsl_copy_extra_files)
 
 ###############################################################################
-# Adds test in the static configuration
-function(crsl_add_test __TARGET)
-  if(WIN32)
+# Copies Qt5 binaries (on which __TARGET depends)
+#
+# windeployqt can't be called on non-qt library, neither on static library. Only
+function(deploy_qt __TARGET)
+
+  if(MSVC) # TODO: macdeployqt
       add_custom_command(
         TARGET ${__TARGET}
         POST_BUILD
         COMMAND "${__QT_ROOT_DIR}/bin/windeployqt.exe" "$<TARGET_FILE:${__TARGET}>"
         COMMENT "${__QT_ROOT_DIR}/bin/windeployqt.exe" "$<TARGET_FILE:${__TARGET}>"
       )
-  endif(WIN32)
+  endif(MSVC)
 
+endfunction(deploy_qt)
+
+###############################################################################
+# Adds test in the static configuration together with Qt5 dependencies
+function(crsl_add_test __TARGET)
   if(CMAKE_BUILD_TYPE MATCHES "static")
     add_test(NAME "${__TARGET}" COMMAND $<TARGET_FILE:${__TARGET}>)
     set_tests_properties(${__TARGET} PROPERTIES FAIL_REGULAR_EXPRESSION "[^a-z]FAIL!")
     #set_tests_properties(${__TARGET} PROPERTIES PASS_REGULAR_EXPRESSION "[^a-z]PASS")
+    deploy_qt(${__TARGET})
   endif()
 endfunction(crsl_add_test)
 

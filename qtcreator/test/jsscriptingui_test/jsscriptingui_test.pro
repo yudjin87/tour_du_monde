@@ -14,3 +14,5 @@ LIBS += -L$${DESTDIR}/../bin -lCarousel \
 ###############################################################################
 # Copy script files to the script directory
 copyExtraFilesToDir($$OTHER_FILES, $$DESTDIR/scripts)
+
+win32:QMAKE_POST_LINK += windeployqt $$shell_quote($$DESTDIR/$$TARGET.exe)
