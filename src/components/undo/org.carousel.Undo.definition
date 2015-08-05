@@ -1,9 +1,0 @@
- <component name="org.carousel.Undo" shortName="Undo">
-     <version>1.0</version>
-     <productName>Undo</productName>
-     <provider>Carousel</provider>
-     <parents>
-         <parentComponent name="org.carousel.Interactivity" version="1.0"/>
-     </parents>
-     <location>./org.carousel.Undo</location>
- </component>

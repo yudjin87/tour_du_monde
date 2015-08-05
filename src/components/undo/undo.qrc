@@ -1,6 +1,0 @@
-<RCC>
-    <qresource prefix="/undo">
-        <file>images/undo.png</file>
-        <file>images/redo.png</file>
-    </qresource>
-</RCC>

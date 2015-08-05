@@ -1,8 +1,8 @@
 Upstream Author:
-     Carousel team: Eugene Chuguy (eugene.chuguy@gmail.com)
+     Carousel team: Yevhen Chuhui (yevhen.chuhui@gmail.com)
 
 Copyright:
-    Copyright (C) 2011-2012 Carousel team
+    Copyright (C) 2011-2016 Carousel team
 
 License: LGPL-2.1+
  The full text of the licenses can be found in the 'LGPL.txt' file.

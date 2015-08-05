@@ -1,6 +1,0 @@
-<RCC>
-    <qresource prefix="/persistenceui">
-        <file>images/load.png</file>
-        <file>images/save.png</file>
-    </qresource>
-</RCC>

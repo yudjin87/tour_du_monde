@@ -1,39 +1,35 @@
-Carousel
+Tour du monde
 ========
 
 Note, that it is still in development. 
 ----------
-See demo project for available capabilities (partially described here http://youtu.be/ajz-kjwT990)
+Simple cartographic application, which began as a demo-project for the Carousel library (https://github.com/yudjin87/carousel), and then evolved to the self-contained application.
+This app has to help me to travel around the World in ~80 Days!
 
-Carousel is a library for building component-oriented desktop applications. It helps extend core functionality of the application by external or internal components. An extension (component) can provide a toolbar with new tools, menus, commands or dock widgets, listen for and respond to events, perform feature validation, or even expose API to JavaScript and so on.
-
-Documentation: http://yudjin87.github.io/carousel/
-
-Build
-=====
-Read the BUILD.txt to generate MSVS/Xcode solutions using cmake.
-
-Supported compilers (tested ones):
-==================================
+Features
+----------
 <ol>
-<li>
-msvc13 x32 </li>
-<li>
-msvc13 x64 </li>
-<li>
-mingw4.7 x32 </li>
-<li>
-mingw4.7 x64 </li>
-<li>
-gcc-4.7.2 x32 </li>
-<li>
-gcc-4.7.2 x64 </li>
-<li>
-Clang-4.2 x64 (MacOS 10.7) </li>
+<ul>
+Opening .shp files with geodata and their .dbf files with attributes
+</ul>
+<ul>
+Multithreading renderer
+</ul>
+<ul>
+Classification of layer shapes based on the column
+</ul>
+<ul>
+Custom styles for renderer symbols, including categorized renderer, picture brushes and picture points
+</ul>
+</ul>
+<ul>
+Saving/loading of the document to the json format
+</ul>
 </ol>
+
 
 Feedback
 ----------
 Feel free to contact me for any questions or propositions!
-Eugene Chuguy (eugene.chuguy@gmail.com)
+Yevhen Chuhui (yevhen.chuhui@gmail.com)
 
