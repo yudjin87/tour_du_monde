@@ -1,6 +1,8 @@
 Tour du monde
 ========
 
+http://yudjin87.github.io/tour_du_monde
+
 Note, that it is still in development. 
 ----------
 Simple cartographic application, which began as a demo-project for the Carousel library (https://github.com/yudjin87/carousel), and then evolved to the self-contained application.
