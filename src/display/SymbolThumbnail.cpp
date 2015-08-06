@@ -62,9 +62,9 @@ QPixmap SymbolThumbnail::createSymbolThumbnail(const ISymbol *forSymbol, const G
     IGeometry *geometry = m_thumbnails[type];
 
     ISymbolUPtr symbol(forSymbol->clone());
-    symbol->setupTourDeMonde(&painter);
+    symbol->setupTourDuMonde(&painter);
     symbol->draw(geometry, &painter);
-    symbol->resetTourDeMonde(&painter);
+    symbol->resetTourDuMonde(&painter);
 
     return pixmap;
 }

@@ -31,14 +31,14 @@
 #include <QtCore/QVector>
 #include <QtCore/QPair>
 
-class ITourDeMondeDocumentController;
+class ITourDuMondeDocumentController;
 class AbstractLayer;
 
 class CARTO_API RemoveLayerCommand : public BaseUndoableCommand
 {
     Q_OBJECT
 public:
-    RemoveLayerCommand(IUndoStack *stack, ITourDeMondeDocumentController *docContr, QObject* parent = nullptr);
+    RemoveLayerCommand(IUndoStack *stack, ITourDuMondeDocumentController *docContr, QObject* parent = nullptr);
     ~RemoveLayerCommand();
 
     void addLayer(AbstractLayer* layer);
@@ -47,7 +47,7 @@ public:
     void undo() override;
 
 private:
-    ITourDeMondeDocumentController *m_docContr;
+    ITourDuMondeDocumentController *m_docContr;
     QVector<AbstractLayer*> m_layersToRemove;
 
     QVector<QPair<int, AbstractLayer*>> m_layersToRestore;

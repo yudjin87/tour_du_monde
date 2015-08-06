@@ -2,8 +2,8 @@ include(../shared.pri)
 
 QT       += core widgets
 
-win32:TARGET = tour_de_monde
-unix:TARGET = tour_de_monde.bin
+win32:TARGET = tour_du_monde
+unix:TARGET = tour_du_monde.bin
 
 TEMPLATE = app
 
@@ -22,13 +22,13 @@ SOURCES += \
     main.cpp\
     MainWindow.cpp \
     Bootloader.cpp \
-    TourDeMondeApplication.cpp \
+    TourDuMondeApplication.cpp \
     LoggerEngine.cpp \
 
 HEADERS  += \
     MainWindow.h \
     Bootloader.h \
-    TourDeMondeApplication.h \
+    TourDuMondeApplication.h \
     LoggerEngine.h \
 
 FORMS += \
@@ -78,7 +78,7 @@ SHAPES += boeblingen/waterways.shx
 SHAPES += boeblingen/world.shp
 
 BOEBLINGEN_PROJECT += demo_project.proj
-START_UP = tour_de_monde.sh
+START_UP = tour_du_monde.sh
 
 SCRIPTS += scripts/startup.js
 SCRIPTS += scripts/components.js

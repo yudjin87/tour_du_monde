@@ -32,14 +32,14 @@
 #include <QtCore/QStringList>
 #include <memory>
 
-class ITourDeMondeDocumentController;
+class ITourDuMondeDocumentController;
 class AbstractLayer;
 
 class CARTO_API AddShapesCommand : public BaseUndoableCommand
 {
     Q_OBJECT
 public:
-    AddShapesCommand(IUndoStack *stack, ITourDeMondeDocumentController *docContr, IShapeFileWorkspaceFactory* factory, QObject* parent = nullptr);
+    AddShapesCommand(IUndoStack *stack, ITourDuMondeDocumentController *docContr, IShapeFileWorkspaceFactory* factory, QObject* parent = nullptr);
     ~AddShapesCommand();
 
     void addShapeFiles(const QStringList &files);
@@ -48,7 +48,7 @@ public:
     void undo() override;
 
 private:
-    ITourDeMondeDocumentController *m_docContr;
+    ITourDuMondeDocumentController *m_docContr;
     IShapeFileWorkspaceFactory *m_factory;
     QStringList m_files;
     QList<AbstractLayer*> m_addedLayers;

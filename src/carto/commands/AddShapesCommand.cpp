@@ -27,15 +27,15 @@
 #include <carto/commands/AddShapesCommand.h>
 #include <carto/IMap.h>
 #include <carto/FeatureLayer.h>
-#include <carto/ITourDeMondeDocument.h>
-#include <carto/ITourDeMondeDocumentController.h>
+#include <carto/ITourDuMondeDocument.h>
+#include <carto/ITourDuMondeDocumentController.h>
 
 #include <geodatabase/IFeatureWorkspace.h>
 #include <geodatabase/IFeatureClass.h>
 
 #include <QtCore/QFileInfo>
 
-AddShapesCommand::AddShapesCommand(IUndoStack *stack, ITourDeMondeDocumentController *docContr, IShapeFileWorkspaceFactory *factory, QObject *parent)
+AddShapesCommand::AddShapesCommand(IUndoStack *stack, ITourDuMondeDocumentController *docContr, IShapeFileWorkspaceFactory *factory, QObject *parent)
     : BaseUndoableCommand(stack, parent)
     , m_docContr(docContr)
     , m_factory(factory)
@@ -55,7 +55,7 @@ void AddShapesCommand::addShapeFiles(const QStringList &files)
 
 void AddShapesCommand::redo()
 {
-    ITourDeMondeDocument *doc = m_docContr->document();
+    ITourDuMondeDocument *doc = m_docContr->document();
     IMap* map = doc->map();
 
     if (m_addedLayers.isEmpty())
@@ -84,7 +84,7 @@ void AddShapesCommand::redo()
 
 void AddShapesCommand::undo()
 {
-    ITourDeMondeDocument *doc = m_docContr->document();
+    ITourDuMondeDocument *doc = m_docContr->document();
     IMap* map = doc->map();
     for (AbstractLayer* layer : m_addedLayers)
     {

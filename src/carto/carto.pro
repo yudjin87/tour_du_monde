@@ -22,10 +22,10 @@ LIBS += -L$${DESTDIR} -lorg.carousel.demos.Display \
 
 HEADERS += \
     carto_api.h \
-    TourDeMondeDocument.h \
-    TourDeMondeDocumentController.h \
-    ITourDeMondeDocumentController.h \
-    ITourDeMondeDocument.h \
+    TourDuMondeDocument.h \
+    TourDuMondeDocumentController.h \
+    ITourDuMondeDocumentController.h \
+    ITourDuMondeDocument.h \
     AbstractLayer.h \
     FeatureLayer.h \
     Map.h \
@@ -62,8 +62,8 @@ SOURCES += \
     FeatureLayer.cpp \
     Map.cpp \
     CartoComponent.cpp \
-    TourDeMondeDocumentController.cpp \
-    TourDeMondeDocument.cpp \
+    TourDuMondeDocumentController.cpp \
+    TourDuMondeDocument.cpp \
     CartoScriptExtension.cpp \
     FeatureLayerDrawingTask.cpp \
     DefaultNavigationHandler.cpp \

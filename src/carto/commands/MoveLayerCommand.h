@@ -29,14 +29,14 @@
 #include <carto/carto_api.h>
 #include <carousel/commands/BaseUndoableCommand.h>
 
-class ITourDeMondeDocumentController;
+class ITourDuMondeDocumentController;
 class AbstractLayer;
 
 class CARTO_API MoveLayerCommand : public BaseUndoableCommand
 {
     Q_OBJECT
 public:
-    MoveLayerCommand(IUndoStack *stack, ITourDeMondeDocumentController *docContr, QObject* parent = nullptr);
+    MoveLayerCommand(IUndoStack *stack, ITourDuMondeDocumentController *docContr, QObject* parent = nullptr);
     ~MoveLayerCommand();
 
     void setLayerIndex(const int layerToMove);
@@ -46,7 +46,7 @@ public:
     void undo() override;
 
 private:
-    ITourDeMondeDocumentController* m_docContr;
+    ITourDuMondeDocumentController* m_docContr;
     int m_layerToMove;
     int m_layerToMoveTo;
     bool m_withRefresh;

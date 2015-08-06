@@ -28,13 +28,13 @@
 #include <display/IDisplay.h>
 #include <display/DisplayTransformation.h>
 #include <carto/IMap.h>
-#include <carto/ITourDeMondeDocument.h>
-#include <carto/ITourDeMondeDocumentController.h>
+#include <carto/ITourDuMondeDocument.h>
+#include <carto/ITourDuMondeDocumentController.h>
 #include <components/interactivity/InputDispatcher.h>
 
 #include <QtGui/QMouseEvent>
 
-DefaultNavigationHandler::DefaultNavigationHandler(IDisplay *display, ITourDeMondeDocumentController *docCtrl, QObject *parent)
+DefaultNavigationHandler::DefaultNavigationHandler(IDisplay *display, ITourDuMondeDocumentController *docCtrl, QObject *parent)
     : QObject(parent)
     , BaseInputReceiver()
     , m_display(display)
@@ -79,7 +79,7 @@ bool DefaultNavigationHandler::onMouseUp(QMouseEvent *event)
     m_tracked = false;
     m_display->panStop();
 
-    ITourDeMondeDocument *doc = m_docCtrl->document();
+    ITourDuMondeDocument *doc = m_docCtrl->document();
     IMap *map = doc->map();
     map->refresh();
 

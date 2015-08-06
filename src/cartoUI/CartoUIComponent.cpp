@@ -27,8 +27,8 @@
 #include "CartoUIComponent.h"
 #include "CartoUIInteractiveExtension.h"
 
-#include <carto/ITourDeMondeDocument.h>
-#include <carto/ITourDeMondeDocumentController.h>
+#include <carto/ITourDuMondeDocument.h>
+#include <carto/ITourDuMondeDocumentController.h>
 
 #include <carousel/componentsystem/ComponentDefinition.h>
 #include <carousel/componentsystem/ComponentExport.h>

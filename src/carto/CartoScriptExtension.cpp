@@ -26,8 +26,8 @@
 
 #include "CartoScriptExtension.h"
 #include "AbstractLayer.h"
-#include "ITourDeMondeDocumentController.h"
-#include "ITourDeMondeDocument.h"
+#include "ITourDuMondeDocumentController.h"
+#include "ITourDuMondeDocument.h"
 #include "IMap.h"
 #include "IFeatureRenderer.h"
 
@@ -39,8 +39,8 @@
 #include <QtScript/QScriptValueIterator>
 
 Q_DECLARE_METATYPE(IFeatureRenderer *)
-Q_DECLARE_METATYPE(ITourDeMondeDocument *)
-Q_DECLARE_METATYPE(ITourDeMondeDocumentController *)
+Q_DECLARE_METATYPE(ITourDuMondeDocument *)
+Q_DECLARE_METATYPE(ITourDuMondeDocumentController *)
 Q_DECLARE_METATYPE(IMap *)
 Q_DECLARE_METATYPE(QList<AbstractLayer *>)
 
@@ -68,7 +68,7 @@ void CartoScriptExtension::configureEngine(IServiceLocator *locator, QScriptEngi
     Q_UNUSED(cartoTypeIds);
 
     REGISTER_METATYPE(IFeatureRenderer);
-    REGISTER_METATYPE(ITourDeMondeDocument);
+    REGISTER_METATYPE(ITourDuMondeDocument);
     REGISTER_METATYPE(IMap);
 }
 

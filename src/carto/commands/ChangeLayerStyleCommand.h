@@ -30,14 +30,14 @@
 #include <carto/IFeatureRenderer.h>
 #include <carousel/commands/BaseUndoableCommand.h>
 
-class ITourDeMondeDocumentController;
+class ITourDuMondeDocumentController;
 class FeatureLayer;
 
 class CARTO_API ChangeLayerStyleCommand : public BaseUndoableCommand
 {
     Q_OBJECT
 public:
-    ChangeLayerStyleCommand(IUndoStack *stack, ITourDeMondeDocumentController *docContr, QObject* parent = nullptr);
+    ChangeLayerStyleCommand(IUndoStack *stack, ITourDuMondeDocumentController *docContr, QObject* parent = nullptr);
 
     void setLayer(FeatureLayer* layer);
     void setNewRenderer(const IFeatureRenderer *renderer);
@@ -46,7 +46,7 @@ public:
     void undo() override;
 
 private:
-    ITourDeMondeDocumentController* m_docContr;
+    ITourDuMondeDocumentController* m_docContr;
     FeatureLayer* m_layer;
     IFeatureRendererUPtr m_newRenderer;
     IFeatureRendererUPtr m_oldRenderer;

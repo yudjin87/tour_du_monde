@@ -27,11 +27,11 @@
 #include <carto/commands/ChangeLayerStyleCommand.h>
 #include <carto/IMap.h>
 #include <carto/FeatureLayer.h>
-#include <carto/ITourDeMondeDocument.h>
-#include <carto/ITourDeMondeDocumentController.h>
+#include <carto/ITourDuMondeDocument.h>
+#include <carto/ITourDuMondeDocumentController.h>
 #include <carto/IFeatureRenderer.h>
 
-ChangeLayerStyleCommand::ChangeLayerStyleCommand(IUndoStack *stack, ITourDeMondeDocumentController *docContr, QObject *parent)
+ChangeLayerStyleCommand::ChangeLayerStyleCommand(IUndoStack *stack, ITourDuMondeDocumentController *docContr, QObject *parent)
     : BaseUndoableCommand(stack, parent)
     , m_docContr(docContr)
     , m_layer(nullptr)
@@ -58,7 +58,7 @@ void ChangeLayerStyleCommand::redo()
         m_oldRenderer.reset(m_layer->renderer()->clone());
     }
     m_layer->setRenderer(m_newRenderer->clone());
-    ITourDeMondeDocument *doc = m_docContr->document();
+    ITourDuMondeDocument *doc = m_docContr->document();
     IMap* map = doc->map();
     map->refresh();
 }
@@ -67,7 +67,7 @@ void ChangeLayerStyleCommand::undo()
 {
     m_layer->setRenderer(m_oldRenderer->clone());
 
-    ITourDeMondeDocument *doc = m_docContr->document();
+    ITourDuMondeDocument *doc = m_docContr->document();
     IMap* map = doc->map();
     map->refresh();
 }

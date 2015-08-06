@@ -65,8 +65,8 @@ public:
     const QColor &color() const;
     void setColor(const QColor &color);
 
-    void setupTourDeMonde(QPainter *painter) override;
-    void resetTourDeMonde(QPainter *painter) override;
+    void setupTourDuMonde(QPainter *painter) override;
+    void resetTourDuMonde(QPainter *painter) override;
 
 public slots:
     void setColor(int r, int g, int b, int a = 255);

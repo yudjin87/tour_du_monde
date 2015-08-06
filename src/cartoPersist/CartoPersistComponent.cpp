@@ -27,7 +27,7 @@
 #include "cartoPersist/CartoPersistComponent.h"
 #include "cartoPersist/CartoPersistExtension.h"
 
-#include <carto/TourDeMondeDocumentController.h>
+#include <carto/TourDuMondeDocumentController.h>
 #include <carto/FeatureLayer.h>
 
 #include <carousel/componentsystem/ComponentDefinition.h>

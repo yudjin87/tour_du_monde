@@ -35,7 +35,7 @@ carouselDir=`cd "${binDir}/../../../externals/carousel/product/%CONFIG%/bin" ; p
 
 LD_LIBRARY_PATH="${installedComponentsDir}:${carouselDir}:${LD_LIBRARY_PATH}"
 export LD_LIBRARY_PATH
-echo "starting ${binDir}/tour_de_monde.bin"
+echo "starting ${binDir}/tour_du_monde.bin"
 
-exec "${binDir}/tour_de_monde.bin" "$@" --start-script ./scripts/startup.js
+exec "${binDir}/tour_du_monde.bin" "$@" --start-script ./scripts/startup.js
 

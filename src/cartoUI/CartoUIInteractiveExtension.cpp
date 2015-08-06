@@ -29,8 +29,8 @@
 #include "LayerTreeView.h"
 #include "AddShapeOperation.h"
 
-#include <carto/ITourDeMondeDocument.h>
-#include <carto/ITourDeMondeDocumentController.h>
+#include <carto/ITourDuMondeDocument.h>
+#include <carto/ITourDuMondeDocumentController.h>
 
 #include <components/interactivity/ICatalogs.h>
 #include <components/interactivity/IDockWidgetCatalog.h>
@@ -57,9 +57,9 @@ void CartoUIInteractiveExtension::configureGui(ICatalogs &inCatalogs, IServiceLo
 {
     m_serviceLocator = serviceLocator;
 
-    ITourDeMondeDocumentController* docController = serviceLocator->locate<ITourDeMondeDocumentController>();
-    connect(docController, &ITourDeMondeDocumentController::activeDocumentChanged, this, &CartoUIInteractiveExtension::onActiveDocumentChanged);
-    ITourDeMondeDocument *doc = docController->document();
+    ITourDuMondeDocumentController* docController = serviceLocator->locate<ITourDuMondeDocumentController>();
+    connect(docController, &ITourDuMondeDocumentController::activeDocumentChanged, this, &CartoUIInteractiveExtension::onActiveDocumentChanged);
+    ITourDuMondeDocument *doc = docController->document();
 
     IDockWidgetCatalog &catalog = inCatalogs.dockWidgetCatalog();
     m_layersTree = new LayerTreeView();
@@ -86,7 +86,7 @@ void CartoUIInteractiveExtension::configureGui(ICatalogs &inCatalogs, IServiceLo
     toolMenu->addAction(addShape);
 }
 
-void CartoUIInteractiveExtension::onActiveDocumentChanged(ITourDeMondeDocument *document)
+void CartoUIInteractiveExtension::onActiveDocumentChanged(ITourDuMondeDocument *document)
 {
     m_layersTree->setLayerTreeModel(new LayerTreeModel(document->map(), m_serviceLocator));
 }

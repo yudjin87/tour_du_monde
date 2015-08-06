@@ -97,9 +97,9 @@ ISymbol* PictureFillSymbol::clone(QObject* parent) const
     return new PictureFillSymbol(*this, parent);
 }
 
-void PictureFillSymbol::setupTourDeMonde(QPainter *painter)
+void PictureFillSymbol::setupTourDuMonde(QPainter *painter)
 {
-    FillSymbol::setupTourDeMonde(painter);
+    FillSymbol::setupTourDuMonde(painter);
 
     m_oldBrush = painter->brush();
 
@@ -108,9 +108,9 @@ void PictureFillSymbol::setupTourDeMonde(QPainter *painter)
     painter->setBrush(brush);
 }
 
-void PictureFillSymbol::resetTourDeMonde(QPainter *painter)
+void PictureFillSymbol::resetTourDuMonde(QPainter *painter)
 {
-    FillSymbol::resetTourDeMonde(painter);
+    FillSymbol::resetTourDuMonde(painter);
     painter->setBrush(m_oldBrush);
 }
 

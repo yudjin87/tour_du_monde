@@ -78,17 +78,17 @@ ISymbol* PictureMarkerSymbol::clone(QObject* parent) const
     return new PictureMarkerSymbol(*this, parent);
 }
 
-void PictureMarkerSymbol::setupTourDeMonde(QPainter *painter)
+void PictureMarkerSymbol::setupTourDuMonde(QPainter *painter)
 {
-    MarkerSymbol::setupTourDeMonde(painter);
+    MarkerSymbol::setupTourDuMonde(painter);
 
     m_painterTransform = painter->transform();
     painter->setWorldMatrixEnabled(false);
 }
 
-void PictureMarkerSymbol::resetTourDeMonde(QPainter *painter)
+void PictureMarkerSymbol::resetTourDuMonde(QPainter *painter)
 {
-    MarkerSymbol::resetTourDeMonde(painter);
+    MarkerSymbol::resetTourDuMonde(painter);
     painter->setWorldMatrixEnabled(true);
 }
 

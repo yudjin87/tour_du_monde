@@ -64,7 +64,7 @@ ISymbol* SimpleLineSymbol::clone(QObject* parent) const
     return new SimpleLineSymbol(*this, parent);
 }
 
-void SimpleLineSymbol::setupTourDeMonde(QPainter *painter)
+void SimpleLineSymbol::setupTourDuMonde(QPainter *painter)
 {
     m_pen.setColor(color());
     m_pen.setWidthF(width());
@@ -73,7 +73,7 @@ void SimpleLineSymbol::setupTourDeMonde(QPainter *painter)
     painter->setPen(m_pen);
 }
 
-void SimpleLineSymbol::resetTourDeMonde(QPainter *painter)
+void SimpleLineSymbol::resetTourDuMonde(QPainter *painter)
 {
     painter->setPen(m_oldPen);
 }

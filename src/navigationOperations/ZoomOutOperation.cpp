@@ -31,8 +31,8 @@
 #include <display/IDisplay.h>
 #include <display/DisplayTransformation.h>
 #include <carto/IMap.h>
-#include <carto/ITourDeMondeDocument.h>
-#include <carto/ITourDeMondeDocumentController.h>
+#include <carto/ITourDuMondeDocument.h>
+#include <carto/ITourDuMondeDocumentController.h>
 
 ZoomOutOperation::ZoomOutOperation()
     : Operation("Zoom out")
@@ -47,8 +47,8 @@ void ZoomOutOperation::execute()
     IDisplay *display = m_serviceLocator->locate<IDisplay>();
     display->transformation()->setScale(display->transformation()->scale() / 1.3);
 
-    ITourDeMondeDocumentController* docController = m_serviceLocator->locate<ITourDeMondeDocumentController>();
-    ITourDeMondeDocument *doc = docController->document();
+    ITourDuMondeDocumentController* docController = m_serviceLocator->locate<ITourDuMondeDocumentController>();
+    ITourDuMondeDocument *doc = docController->document();
     IMap *map = doc->map();
     map->refresh();
 }

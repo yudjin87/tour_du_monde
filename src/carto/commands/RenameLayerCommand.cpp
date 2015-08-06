@@ -27,8 +27,8 @@
 #include <carto/commands/RenameLayerCommand.h>
 #include <carto/IMap.h>
 #include <carto/AbstractLayer.h>
-#include <carto/ITourDeMondeDocument.h>
-#include <carto/ITourDeMondeDocumentController.h>
+#include <carto/ITourDuMondeDocument.h>
+#include <carto/ITourDuMondeDocumentController.h>
 
 RenameLayerCommand::RenameLayerCommand(IUndoStack *stack, QObject *parent)
     : BaseUndoableCommand(stack, parent)

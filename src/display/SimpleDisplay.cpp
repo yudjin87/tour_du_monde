@@ -141,18 +141,18 @@ void SimpleDisplay::startDrawing(const DispayCache inCache)
     pen.setWidth(1);
     pen.setColor(Qt::black);
     pen.setCosmetic(true);
-    m_currentTourDeMonde->setPen(pen);
-    m_currentTourDeMonde->drawRect(r);
+    m_currentTourDuMonde->setPen(pen);
+    m_currentTourDuMonde->drawRect(r);
 
     pen.setStyle(Qt::DashLine);
     pen.setWidth(3);
     pen.setColor(Qt::red);
-    m_currentTourDeMonde->setPen(pen);
+    m_currentTourDuMonde->setPen(pen);
     r = transformation()->bounds().adjusted(3 / scale, 20 / scale, -20 / scale, -3 / scale);
-    m_currentTourDeMonde->drawRect(r);
+    m_currentTourDuMonde->drawRect(r);
 #endif
 
-    return m_currentTourDeMonde;
+    return m_currentTourDuMonde;
     */
 }
 

@@ -24,39 +24,39 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "carto/TourDeMondeDocumentController.h"
-#include "carto/TourDeMondeDocument.h"
+#include "carto/TourDuMondeDocumentController.h"
+#include "carto/TourDuMondeDocument.h"
 #include "carto/Map.h"
 
-TourDeMondeDocumentController::TourDeMondeDocumentController(IDisplay *display)
-    : m_document(new TourDeMondeDocument())
+TourDuMondeDocumentController::TourDuMondeDocumentController(IDisplay *display)
+    : m_document(new TourDuMondeDocument())
 {
     m_document->addMap(new Map(m_document.get(), display));
-    connect(m_document.get(), &ITourDeMondeDocument::nameChanged, this, &ITourDeMondeDocumentController::activeDocumentNameChanged);
+    connect(m_document.get(), &ITourDuMondeDocument::nameChanged, this, &ITourDuMondeDocumentController::activeDocumentNameChanged);
 }
 
-TourDeMondeDocumentController::~TourDeMondeDocumentController()
+TourDuMondeDocumentController::~TourDuMondeDocumentController()
 {
 }
 
-ITourDeMondeDocument *TourDeMondeDocumentController::document()
+ITourDuMondeDocument *TourDuMondeDocumentController::document()
 {
     return m_document.get();
 }
 
-void TourDeMondeDocumentController::setDocument(ITourDeMondeDocument *doc)
+void TourDuMondeDocumentController::setDocument(ITourDuMondeDocument *doc)
 {
     m_document.reset(doc);
     if (m_document)
     {
-        connect(m_document.get(), &ITourDeMondeDocument::nameChanged, this, &ITourDeMondeDocumentController::activeDocumentNameChanged);
+        connect(m_document.get(), &ITourDuMondeDocument::nameChanged, this, &ITourDuMondeDocumentController::activeDocumentNameChanged);
     }
 
     emit activeDocumentChanged(m_document.get());
     emit activeDocumentNameChanged(activeDocumentName());
 }
 
-QString TourDeMondeDocumentController::activeDocumentName() const
+QString TourDuMondeDocumentController::activeDocumentName() const
 {
     return m_document == nullptr ? "Empty" : m_document->name();
 }

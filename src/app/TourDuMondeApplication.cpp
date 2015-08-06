@@ -24,11 +24,11 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "TourDeMondeApplication.h"
+#include "TourDuMondeApplication.h"
 
-TourDeMondeApplication::TourDeMondeApplication(int &argc, char **argv)
+TourDuMondeApplication::TourDuMondeApplication(int &argc, char **argv)
     : QApplication(argc, argv)
 {
-    setApplicationName("Tour de Monde");
+    setApplicationName("Tour du Monde");
     setOrganizationName("carousel");
 }

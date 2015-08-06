@@ -43,7 +43,7 @@ Map::Map(IDisplay *display)
 {
 }
 
-Map::Map(ITourDeMondeDocument *parentDocument, IDisplay *display)
+Map::Map(ITourDuMondeDocument *parentDocument, IDisplay *display)
     : m_parentDocument(parentDocument)
     , m_display(display)
 {
@@ -217,17 +217,17 @@ QList<AbstractLayer *> Map::layers() const
     return m_layers;
 }
 
-void Map::setDocument(ITourDeMondeDocument *parentDocument)
+void Map::setDocument(ITourDuMondeDocument *parentDocument)
 {
     m_parentDocument = parentDocument;
 }
 
-ITourDeMondeDocument *Map::document()
+ITourDuMondeDocument *Map::document()
 {
     return m_parentDocument;
 }
 
-const ITourDeMondeDocument *Map::document() const
+const ITourDuMondeDocument *Map::document() const
 {
     return m_parentDocument;
 }

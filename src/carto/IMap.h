@@ -32,20 +32,20 @@
 #include <memory>
 
 class AbstractLayer;
-class ITourDeMondeDocument;
+class ITourDuMondeDocument;
 
 class CARTO_API IMap : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(ITourDeMondeDocument *document READ document)
+    Q_PROPERTY(ITourDuMondeDocument *document READ document)
     Q_PROPERTY(QList<AbstractLayer *> layers READ layers)
 public:
     IMap(){}
 
     virtual QList<AbstractLayer *> layers() const = 0;
 
-    virtual ITourDeMondeDocument *document() = 0;
-    virtual const ITourDeMondeDocument *document() const = 0;
+    virtual ITourDuMondeDocument *document() = 0;
+    virtual const ITourDuMondeDocument *document() const = 0;
 
 public slots:
     virtual void addLayer(AbstractLayer *layer) = 0;

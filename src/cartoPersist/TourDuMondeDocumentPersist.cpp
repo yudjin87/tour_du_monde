@@ -24,20 +24,20 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "cartoPersist/TourDeMondeDocumentPersist.h"
+#include "cartoPersist/TourDuMondeDocumentPersist.h"
 #include "cartoPersist/MapPersist.h"
 #include <carto/IMap.h>
-#include <carto/TourDeMondeDocument.h>
+#include <carto/TourDuMondeDocument.h>
 #include <carousel/utils/IServiceLocator.h>
 #include <QtCore/QJsonObject>
 #include <QtCore/QVariant>
 
-TourDeMondeDocumentPersist::TourDeMondeDocumentPersist(IServiceLocator &serviceLocator)
+TourDuMondeDocumentPersist::TourDuMondeDocumentPersist(IServiceLocator &serviceLocator)
     : m_serviceLocator(serviceLocator)
 {
 }
 
-void TourDeMondeDocumentPersist::save(QJsonObject &obj, const ITourDeMondeDocument &document)
+void TourDuMondeDocumentPersist::save(QJsonObject &obj, const ITourDuMondeDocument &document)
 {
     obj.insert("documentName", document.name());
 
@@ -48,15 +48,15 @@ void TourDeMondeDocumentPersist::save(QJsonObject &obj, const ITourDeMondeDocume
     obj.insert("map", jsonMap);
 }
 
-ITourDeMondeDocumentUPtr TourDeMondeDocumentPersist::load(const QJsonObject &obj, QString *error)
+ITourDuMondeDocumentUPtr TourDuMondeDocumentPersist::load(const QJsonObject &obj, QString *error)
 {
     if (obj.isEmpty())
     {
-        if (error) *error = "TourDeMondeDocumentPersist: empty object";
+        if (error) *error = "TourDuMondeDocumentPersist: empty object";
         return nullptr;
     }
 
-    ITourDeMondeDocumentUPtr document(new TourDeMondeDocument());
+    ITourDuMondeDocumentUPtr document(new TourDuMondeDocument());
     const QVariant docName = obj.value("documentName");
     if (!docName.isValid())
     {

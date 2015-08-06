@@ -27,10 +27,10 @@
 #include <carto/commands/RemoveLayerCommand.h>
 #include <carto/IMap.h>
 #include <carto/AbstractLayer.h>
-#include <carto/ITourDeMondeDocument.h>
-#include <carto/ITourDeMondeDocumentController.h>
+#include <carto/ITourDuMondeDocument.h>
+#include <carto/ITourDuMondeDocumentController.h>
 
-RemoveLayerCommand::RemoveLayerCommand(IUndoStack *stack, ITourDeMondeDocumentController *docContr, QObject *parent)
+RemoveLayerCommand::RemoveLayerCommand(IUndoStack *stack, ITourDuMondeDocumentController *docContr, QObject *parent)
     : BaseUndoableCommand(stack, parent)
     , m_docContr(docContr)
     , m_layersToRemove()
@@ -57,7 +57,7 @@ void RemoveLayerCommand::addLayer(AbstractLayer *layer)
 
 void RemoveLayerCommand::redo()
 {
-    ITourDeMondeDocument *doc = m_docContr->document();
+    ITourDuMondeDocument *doc = m_docContr->document();
     IMap* map = doc->map();
 
     // TODO: group layers?
@@ -74,7 +74,7 @@ void RemoveLayerCommand::redo()
 
 void RemoveLayerCommand::undo()
 {
-    ITourDeMondeDocument *doc = m_docContr->document();
+    ITourDuMondeDocument *doc = m_docContr->document();
     IMap* map = doc->map();
 
     for (QPair<int, AbstractLayer*>& layer : m_layersToRestore)

@@ -12,7 +12,7 @@ function loadLayer(workspacePath, name) {
 }
 
 var scriptService = serviceLocator.locate("IScriptingService");
-var docController = serviceLocator.locate("ITourDeMondeDocumentController");
+var docController = serviceLocator.locate("ITourDuMondeDocumentController");
 var doc = docController.document;
 var map = doc.map;
 

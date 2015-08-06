@@ -25,23 +25,28 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
-#include <carto/ITourDeMondeDocument.h>
+#include "carto/carto_api.h"
 
-class CARTO_API TourDeMondeDocument : public ITourDeMondeDocument
+#include <QtCore/QObject>
+
+class ITourDuMondeDocument;
+
+class CARTO_API ITourDuMondeDocumentController : public QObject
 {
+    Q_OBJECT
+    Q_PROPERTY(ITourDuMondeDocument *document READ document NOTIFY activeDocumentChanged)
+    Q_PROPERTY(QString activeDocumentName READ activeDocumentName NOTIFY activeDocumentNameChanged)
 public:
-    TourDeMondeDocument();
-    ~TourDeMondeDocument();
+    ITourDuMondeDocumentController(){}
 
-    IMap *map() override;
-    const IMap *map() const override;
-    void addMap(IMap *map) override;
+    virtual ITourDuMondeDocument *document() = 0;
+    virtual void setDocument(ITourDuMondeDocument *doc) = 0;
+    virtual QString activeDocumentName() const = 0;
 
-    const QString &name() const override;
-    void setName(const QString &name) override;
+signals:
+    void activeDocumentNameChanged(QString activeDocumentName);
+    void activeDocumentChanged(ITourDuMondeDocument *document);
 
 private:
-    QString m_name;
-    IMap *m_map;
+    Q_DISABLE_COPY(ITourDuMondeDocumentController)
 };
-

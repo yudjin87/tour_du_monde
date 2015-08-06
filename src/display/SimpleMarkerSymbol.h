@@ -83,8 +83,8 @@ public:
      * @details
      *   Prepares the display for drawing the symbol by setting pen and brush.
      */
-    void setupTourDeMonde(QPainter *painter) override;
-    void resetTourDeMonde(QPainter *painter) override;
+    void setupTourDuMonde(QPainter *painter) override;
+    void resetTourDuMonde(QPainter *painter) override;
 
     Style style() const;
     void setStyle(const Style style);

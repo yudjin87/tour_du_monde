@@ -1,9 +1,9 @@
-TOUR_DE_MONDE_WD  = $$PWD/..
+TOUR_DU_MONDE_WD  = $$PWD/..
 IDE_SOURCE_TREE = $$PWD
 CPP_SOURCE_TREE = $$IDE_SOURCE_TREE
 HPP_SOURCE_TREE = $$IDE_SOURCE_TREE
 
-EXTERNALS_WD = $$TOUR_DE_MONDE_WD/externals
+EXTERNALS_WD = $$TOUR_DU_MONDE_WD/externals
 CAROUSEL_WD = $$EXTERNALS_WD/carousel
 CAROUSEL_HPP_SOURCE_TREE = $$CAROUSEL_WD/include
 
@@ -57,7 +57,7 @@ macx {
 
 CAROUSEL_BIN    = $$CAROUSEL_WD/product/$${BUILD_CONFIG}/bin
 
-BIN_OUTPUT_PATH = $${TOUR_DE_MONDE_WD}/product/$${BUILD_CONFIG}
+BIN_OUTPUT_PATH = $${TOUR_DU_MONDE_WD}/product/$${BUILD_CONFIG}
 DESTDIR         = $${BIN_OUTPUT_PATH}/bin
 
 # Store intermedia stuff somewhere else
@@ -102,7 +102,7 @@ defineTest(copyExtraFiles) {
 }
 
 #########################################################
-# Change %CONFIG% placeholder in the tour_de_monde.sh startup script
+# Change %CONFIG% placeholder in the tour_du_monde.sh startup script
 defineTest(prepareStartupScript) {
     file = $$1
     QMAKE_POST_LINK +=  sed -i 's/%CONFIG%/$${BUILD_CONFIG}/g' $$file

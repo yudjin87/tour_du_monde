@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
-
+ 
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -25,18 +25,35 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
-#include <carto/ITourDeMondeDocument.h>
 
-class IServiceLocator;
+#include <carto/carto_api.h>
 
-class TourDeMondeDocumentPersist
+#include <QtCore/QObject>
+#include <memory>
+
+class IMap;
+
+class CARTO_API ITourDuMondeDocument : public QObject
 {
+    Q_OBJECT
+    Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
+    Q_PROPERTY(IMap *map READ map)
 public:
-    explicit TourDeMondeDocumentPersist(IServiceLocator &serviceLocator);
+    virtual IMap *map() = 0;
+    virtual const IMap *map() const = 0;
+    virtual const QString &name() const = 0;
+    virtual void setName(const QString &name) = 0;
+    virtual void addMap(IMap *map) = 0;
 
-    void save(QJsonObject &obj, const ITourDeMondeDocument& document);
-    ITourDeMondeDocumentUPtr load(const QJsonObject &obj, QString *error);
+signals:
+    void nameChanged(QString name);
+
+protected:
+    ITourDuMondeDocument() = default;
 
 private:
-    IServiceLocator &m_serviceLocator;
+    Q_DISABLE_COPY(ITourDuMondeDocument)
 };
+
+
+typedef std::unique_ptr<ITourDuMondeDocument> ITourDuMondeDocumentUPtr;

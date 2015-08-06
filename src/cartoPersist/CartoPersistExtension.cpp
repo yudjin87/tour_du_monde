@@ -25,12 +25,12 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "cartoPersist/CartoPersistExtension.h"
-#include "cartoPersist/TourDeMondeDocumentPersist.h"
+#include "cartoPersist/TourDuMondeDocumentPersist.h"
 
 #include <carto/AbstractLayer.h>
-#include <carto/ITourDeMondeDocument.h>
+#include <carto/ITourDuMondeDocument.h>
 #include <carto/IMap.h>
-#include <carto/ITourDeMondeDocumentController.h>
+#include <carto/ITourDuMondeDocumentController.h>
 #include <carousel/utils/IServiceLocator.h>
 
 #include <QtCore/QJsonObject>
@@ -47,9 +47,9 @@ bool CartoPersistExtension::save(IServiceLocator *locator, const QString &name, 
         error->clear();
     }
 
-    ITourDeMondeDocumentController* controller = locator->locate<ITourDeMondeDocumentController>();
+    ITourDuMondeDocumentController* controller = locator->locate<ITourDuMondeDocumentController>();
     controller->document()->setName(name);
-    TourDeMondeDocumentPersist documentPersist(*locator);
+    TourDuMondeDocumentPersist documentPersist(*locator);
     documentPersist.save(obj, *controller->document());
 
     return true;
@@ -68,14 +68,14 @@ bool CartoPersistExtension::load(IServiceLocator *locator, const QJsonObject &ob
         return nullptr;
     }
 
-    TourDeMondeDocumentPersist documentPersist(*locator);
-    ITourDeMondeDocumentUPtr document = documentPersist.load(obj, error);
+    TourDuMondeDocumentPersist documentPersist(*locator);
+    ITourDuMondeDocumentUPtr document = documentPersist.load(obj, error);
     if (document == nullptr)
     {
         return false;
     }
 
-    ITourDeMondeDocumentController* controller = locator->locate<ITourDeMondeDocumentController>();
+    ITourDuMondeDocumentController* controller = locator->locate<ITourDuMondeDocumentController>();
     controller->setDocument(document.release());
     controller->document()->map()->refresh();
     return true;

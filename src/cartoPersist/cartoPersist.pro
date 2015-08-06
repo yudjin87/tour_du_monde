@@ -19,7 +19,7 @@ HEADERS += \
     cartoPersist_api.h \
     CartoPersistComponent.h \
     CartoPersistExtension.h \
-    TourDeMondeDocumentPersist.h \
+    TourDuMondeDocumentPersist.h \
     MapPersist.h \
     ILayerPersist.h \
     FeatureLayerPersist.h \
@@ -44,7 +44,7 @@ HEADERS += \
 SOURCES += \
     CartoPersistComponent.cpp \
     CartoPersistExtension.cpp \
-    TourDeMondeDocumentPersist.cpp \
+    TourDuMondeDocumentPersist.cpp \
     MapPersist.cpp \
     FeatureLayerPersist.cpp \
     LayerPersistCreator.cpp \

@@ -27,10 +27,10 @@
 #include <carto/commands/ChangeLegendClassCommand.h>
 #include <carto/IMap.h>
 #include <carto/ILegendClass.h>
-#include <carto/ITourDeMondeDocument.h>
-#include <carto/ITourDeMondeDocumentController.h>
+#include <carto/ITourDuMondeDocument.h>
+#include <carto/ITourDuMondeDocumentController.h>
 
-ChangeLegendClassCommand::ChangeLegendClassCommand(IUndoStack *stack, ITourDeMondeDocumentController *docContr, QObject *parent)
+ChangeLegendClassCommand::ChangeLegendClassCommand(IUndoStack *stack, ITourDuMondeDocumentController *docContr, QObject *parent)
     : BaseUndoableCommand(stack, parent)
     , m_docContr(docContr)
     , m_legendClass(nullptr)
@@ -74,7 +74,7 @@ void ChangeLegendClassCommand::redo()
     m_legendClass->setLabel(m_newLabel);
     m_legendClass->setVisible(m_newVisibility);
 
-    ITourDeMondeDocument *doc = m_docContr->document();
+    ITourDuMondeDocument *doc = m_docContr->document();
     IMap* map = doc->map();
     map->refresh();
 }
@@ -85,7 +85,7 @@ void ChangeLegendClassCommand::undo()
     m_legendClass->setLabel(m_oldLabel);
     m_legendClass->setVisible(m_oldVisibility);
 
-    ITourDeMondeDocument *doc = m_docContr->document();
+    ITourDuMondeDocument *doc = m_docContr->document();
     IMap* map = doc->map();
     map->refresh();
 }

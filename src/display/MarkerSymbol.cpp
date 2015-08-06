@@ -77,13 +77,13 @@ void MarkerSymbol::setColor(const QColor &color)
     m_brush.setColor(color);
 }
 
-void MarkerSymbol::setupTourDeMonde(QPainter *painter)
+void MarkerSymbol::setupTourDuMonde(QPainter *painter)
 {
     m_oldBrush = painter->brush();
     painter->setBrush(m_brush);
 }
 
-void MarkerSymbol::resetTourDeMonde(QPainter *painter)
+void MarkerSymbol::resetTourDuMonde(QPainter *painter)
 {
     painter->setBrush(m_oldBrush);
 }

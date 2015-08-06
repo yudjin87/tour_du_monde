@@ -27,8 +27,8 @@
 #include <carto/commands/MoveLayerCommand.h>
 #include <carto/IMap.h>
 #include <carto/AbstractLayer.h>
-#include <carto/ITourDeMondeDocument.h>
-#include <carto/ITourDeMondeDocumentController.h>
+#include <carto/ITourDuMondeDocument.h>
+#include <carto/ITourDuMondeDocumentController.h>
 #include <carousel/logging/LoggerFacade.h>
 
 #include <algorithm>
@@ -38,7 +38,7 @@ namespace
 static LoggerFacade Log = LoggerFacade::createLogger("MoveLayerCommand");
 }
 
-MoveLayerCommand::MoveLayerCommand(IUndoStack *stack, ITourDeMondeDocumentController *docContr, QObject *parent)
+MoveLayerCommand::MoveLayerCommand(IUndoStack *stack, ITourDuMondeDocumentController *docContr, QObject *parent)
     : BaseUndoableCommand(stack, parent)
     , m_docContr(docContr)
     , m_layerToMove(-1)
@@ -65,7 +65,7 @@ void MoveLayerCommand::setNewLayerIndex(const int layerToMoveTo)
 void MoveLayerCommand::redo()
 {
     Log.d(QString("Trying to move layer from position %1 to position %2").arg(m_layerToMove).arg(m_layerToMoveTo));
-    ITourDeMondeDocument *doc = m_docContr->document();
+    ITourDuMondeDocument *doc = m_docContr->document();
     IMap* map = doc->map();
     AbstractLayer* layerToMove = map->getLayer(m_layerToMove);
     if (layerToMove  == nullptr)

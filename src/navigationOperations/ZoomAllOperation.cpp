@@ -31,8 +31,8 @@
 #include <display/IDisplay.h>
 #include <display/DisplayTransformation.h>
 #include <carto/IMap.h>
-#include <carto/ITourDeMondeDocument.h>
-#include <carto/ITourDeMondeDocumentController.h>
+#include <carto/ITourDuMondeDocument.h>
+#include <carto/ITourDuMondeDocumentController.h>
 
 ZoomAllOperation::ZoomAllOperation()
     : Operation("Zoom all")
@@ -47,8 +47,8 @@ void ZoomAllOperation::execute()
     IDisplay *display = m_serviceLocator->locate<IDisplay>();
     display->transformation()->setVisibleBounds(display->transformation()->bounds());
 
-    ITourDeMondeDocumentController* docController = m_serviceLocator->locate<ITourDeMondeDocumentController>();
-    ITourDeMondeDocument *doc = docController->document();
+    ITourDuMondeDocumentController* docController = m_serviceLocator->locate<ITourDuMondeDocumentController>();
+    ITourDuMondeDocument *doc = docController->document();
     IMap *map = doc->map();
     map->refresh();
 }

@@ -35,14 +35,14 @@ class CARTO_API Map : public IMap
     Q_OBJECT
 public:
     Map(IDisplay *display);
-    Map(ITourDeMondeDocument *parentDocument, IDisplay *display);
+    Map(ITourDuMondeDocument *parentDocument, IDisplay *display);
     ~Map();
 
     QList<AbstractLayer *> layers() const override;
 
-    ITourDeMondeDocument *document() override;
-    const ITourDeMondeDocument *document() const override;
-    void setDocument(ITourDeMondeDocument *parentDocument);
+    ITourDuMondeDocument *document() override;
+    const ITourDuMondeDocument *document() const override;
+    void setDocument(ITourDuMondeDocument *parentDocument);
 
 public slots:
     void refresh() override;
@@ -63,7 +63,7 @@ private slots:
     void onDeviceFrameChanged(const QRectF &deviceFrame);
 
 private:
-    ITourDeMondeDocument *m_parentDocument;
+    ITourDuMondeDocument *m_parentDocument;
     IDisplay *m_display;
     QList<AbstractLayer *> m_layers;    
 };

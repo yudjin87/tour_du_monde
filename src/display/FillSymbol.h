@@ -48,8 +48,8 @@ public:
     const LineSymbol *outline() const;
     void setOutline(LineSymbol *outline);
 
-    void setupTourDeMonde(QPainter *painter) override;
-    void resetTourDeMonde(QPainter *painter) override;
+    void setupTourDuMonde(QPainter *painter) override;
+    void resetTourDuMonde(QPainter *painter) override;
 
 protected:
     explicit FillSymbol(QObject *parent = 0);

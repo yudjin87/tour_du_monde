@@ -5,8 +5,8 @@
 #include <display/IDisplay.h>
 #include <display/DisplayTransformation.h>
 #include <carto/IMap.h>
-#include <carto/ITourDeMondeDocument.h>
-#include <carto/ITourDeMondeDocumentController.h>
+#include <carto/ITourDuMondeDocument.h>
+#include <carto/ITourDuMondeDocumentController.h>
 
 #include <QtGui/QMouseEvent>
 
@@ -71,8 +71,8 @@ bool PanTool::onMouseUp(QMouseEvent *event)
     display->panStop();
     display->setCursor(Qt::OpenHandCursor);
 
-    ITourDeMondeDocumentController* docController = m_serviceLocator->locate<ITourDeMondeDocumentController>();
-    ITourDeMondeDocument *doc = docController->document();
+    ITourDuMondeDocumentController* docController = m_serviceLocator->locate<ITourDuMondeDocumentController>();
+    ITourDuMondeDocument *doc = docController->document();
     IMap *map = doc->map();
     map->refresh();
 

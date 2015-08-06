@@ -31,7 +31,7 @@
 #include "carto/commands/ChangeLayerStyleCommand.h"
 #include "carto/commands/ChangeLegendClassCommand.h"
 #include "carto/commands/MoveLayerCommand.h"
-#include "carto/TourDeMondeDocumentController.h"
+#include "carto/TourDuMondeDocumentController.h"
 #include "carto/FeatureLayer.h"
 #include "carto/CartoScriptExtension.h"
 #include "carto/Map.h"
@@ -72,33 +72,33 @@ CartoComponent::~CartoComponent()
 
 void CartoComponent::onShutdown(IServiceLocator *serviceLocator)
 {
-    ITourDeMondeDocumentController *controller = serviceLocator->unregisterInstance<ITourDeMondeDocumentController>();
+    ITourDuMondeDocumentController *controller = serviceLocator->unregisterInstance<ITourDuMondeDocumentController>();
     delete controller;
 }
 
 bool CartoComponent::onStartup(IServiceLocator *serviceLocator)
 {
-    TypeCreator<AddShapesCommand, TypeLocator<IUndoStack>, TypeLocator<ITourDeMondeDocumentController>, TypeLocator<IShapeFileWorkspaceFactory>> addShapesCreator{serviceLocator};
+    TypeCreator<AddShapesCommand, TypeLocator<IUndoStack>, TypeLocator<ITourDuMondeDocumentController>, TypeLocator<IShapeFileWorkspaceFactory>> addShapesCreator{serviceLocator};
     serviceLocator->registerType<AddShapesCommand>(addShapesCreator);
 
-    TypeCreator<RemoveLayerCommand, TypeLocator<IUndoStack>, TypeLocator<ITourDeMondeDocumentController>> removeLayerCommand{serviceLocator};
+    TypeCreator<RemoveLayerCommand, TypeLocator<IUndoStack>, TypeLocator<ITourDuMondeDocumentController>> removeLayerCommand{serviceLocator};
     serviceLocator->registerType<RemoveLayerCommand>(removeLayerCommand);
 
     TypeCreator<RenameLayerCommand, TypeLocator<IUndoStack>> renameLayerCreator{serviceLocator};
     serviceLocator->registerType<RenameLayerCommand>(renameLayerCreator);
 
-    TypeCreator<MoveLayerCommand, TypeLocator<IUndoStack>, TypeLocator<ITourDeMondeDocumentController>> moveLayerCreator{serviceLocator};
+    TypeCreator<MoveLayerCommand, TypeLocator<IUndoStack>, TypeLocator<ITourDuMondeDocumentController>> moveLayerCreator{serviceLocator};
     serviceLocator->registerType<MoveLayerCommand>(moveLayerCreator);
 
-    TypeCreator<ChangeLayerStyleCommand, TypeLocator<IUndoStack>, TypeLocator<ITourDeMondeDocumentController>> changeLayerSymbolCommandCreator{serviceLocator};
+    TypeCreator<ChangeLayerStyleCommand, TypeLocator<IUndoStack>, TypeLocator<ITourDuMondeDocumentController>> changeLayerSymbolCommandCreator{serviceLocator};
     serviceLocator->registerType<ChangeLayerStyleCommand>(changeLayerSymbolCommandCreator);
 
-    TypeCreator<ChangeLegendClassCommand, TypeLocator<IUndoStack>, TypeLocator<ITourDeMondeDocumentController>> changeLegendClassCommand{serviceLocator};
+    TypeCreator<ChangeLegendClassCommand, TypeLocator<IUndoStack>, TypeLocator<ITourDuMondeDocumentController>> changeLegendClassCommand{serviceLocator};
     serviceLocator->registerType<ChangeLegendClassCommand>(changeLegendClassCommand);
 
     IDisplay *display = serviceLocator->locate<IDisplay>();
-    ITourDeMondeDocumentController *controller = new TourDeMondeDocumentController(display); // TODO:  rename controller
-    serviceLocator->registerInstance<ITourDeMondeDocumentController>(controller);
+    ITourDuMondeDocumentController *controller = new TourDuMondeDocumentController(display); // TODO:  rename controller
+    serviceLocator->registerInstance<ITourDuMondeDocumentController>(controller);
 
     TypeCreator<Map, TypeLocator<IDisplay>> mapCreator{serviceLocator};
     serviceLocator->registerType<IMap>(mapCreator);
@@ -112,7 +112,7 @@ bool CartoComponent::onStartup(IServiceLocator *serviceLocator)
     // Binding document name to the Application window title:
     QMainWindow* mainWindow = serviceLocator->locate<QMainWindow>();
     mainWindow->setWindowTitle(controller->activeDocumentName() + "[*]");
-    connect(controller, &ITourDeMondeDocumentController::activeDocumentNameChanged, [mainWindow](const QString& n) { mainWindow->setWindowTitle(n + "[*]");});
+    connect(controller, &ITourDuMondeDocumentController::activeDocumentNameChanged, [mainWindow](const QString& n) { mainWindow->setWindowTitle(n + "[*]");});
 
     IComponentManager* componentManager = serviceLocator->locate<IComponentManager>();
     connect(componentManager, &IComponentManager::startedUp, [serviceLocator, this]() { onComponentsStartedUp(serviceLocator);});

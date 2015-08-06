@@ -29,7 +29,7 @@
 
 #include <QtCore/QObject>
 
-class ITourDeMondeDocument;
+class ITourDuMondeDocument;
 class LayerTreeView;
 
 class CartoUIInteractiveExtension : public QObject, public IInteractiveExtension
@@ -41,7 +41,7 @@ public:
     void configureGui(ICatalogs &inCatalogs, IServiceLocator *serviceLocator) override;
 
 private:
-    void onActiveDocumentChanged(ITourDeMondeDocument* document);
+    void onActiveDocumentChanged(ITourDuMondeDocument* document);
 
 private:
     LayerTreeView *m_layersTree;

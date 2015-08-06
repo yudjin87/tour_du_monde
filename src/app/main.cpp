@@ -24,12 +24,12 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "TourDeMondeApplication.h"
+#include "TourDuMondeApplication.h"
 #include "Bootloader.h"
 
 int main(int argc, char *argv[])
 {
-    TourDeMondeApplication application(argc, argv);
+    TourDuMondeApplication application(argc, argv);
 
     Bootloader bootloader;
     bootloader.run();

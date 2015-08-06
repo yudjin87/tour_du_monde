@@ -27,10 +27,10 @@
 #pragma once
 #include <QtWidgets/QApplication>
 
-class TourDeMondeApplication : public QApplication
+class TourDuMondeApplication : public QApplication
 {
     Q_OBJECT
 public:
-    TourDeMondeApplication(int &argc, char **argv);
+    TourDuMondeApplication(int &argc, char **argv);
 };
 

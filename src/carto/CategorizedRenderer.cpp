@@ -111,9 +111,9 @@ void CategorizedRenderer::draw(const QVector<IFeature *> &features, QPainter *pa
         }
 
         ISymbol *symbolForCategory = legend->symbol();
-        symbolForCategory->setupTourDeMonde(painter);
+        symbolForCategory->setupTourDuMonde(painter);
         symbolForCategory->draw(feature->geometry(), painter);
-        symbolForCategory->resetTourDeMonde(painter);
+        symbolForCategory->resetTourDuMonde(painter);
     }
 }
 

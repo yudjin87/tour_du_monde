@@ -24,48 +24,24 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "TourDeMondeDocument.h"
-#include "IMap.h"
+#pragma once
+#include <carto/ITourDuMondeDocument.h>
 
-TourDeMondeDocument::TourDeMondeDocument()
-    : m_name("New Tour De Monde")
-    , m_map(nullptr)
+class CARTO_API TourDuMondeDocument : public ITourDuMondeDocument
 {
-}
+public:
+    TourDuMondeDocument();
+    ~TourDuMondeDocument();
 
-TourDeMondeDocument::~TourDeMondeDocument()
-{
-    delete m_map;
-    m_map = nullptr;
-}
+    IMap *map() override;
+    const IMap *map() const override;
+    void addMap(IMap *map) override;
 
-IMap *TourDeMondeDocument::map()
-{
-    return m_map;
-}
+    const QString &name() const override;
+    void setName(const QString &name) override;
 
-const IMap *TourDeMondeDocument::map() const
-{
-    return m_map;
-}
+private:
+    QString m_name;
+    IMap *m_map;
+};
 
-void TourDeMondeDocument::addMap(IMap *map)
-{
-    m_map = map;
-}
-
-const QString &TourDeMondeDocument::name() const
-{
-    return m_name;
-}
-
-void TourDeMondeDocument::setName(const QString &name)
-{
-    if (m_name == name)
-    {
-        return;
-    }
-
-    m_name = name;
-    emit nameChanged(name);
-}

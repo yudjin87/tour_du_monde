@@ -28,14 +28,14 @@
 #include <carto/carto_api.h>
 #include <carousel/commands/BaseUndoableCommand.h>
 
-class ITourDeMondeDocumentController;
+class ITourDuMondeDocumentController;
 class ILegendClass;
 
 class CARTO_API ChangeLegendClassCommand : public BaseUndoableCommand
 {
     Q_OBJECT
 public:
-    ChangeLegendClassCommand(IUndoStack *stack, ITourDeMondeDocumentController *docContr, QObject* parent = nullptr);
+    ChangeLegendClassCommand(IUndoStack *stack, ITourDuMondeDocumentController *docContr, QObject* parent = nullptr);
 
     void setLegendClass(ILegendClass* legendClass);
 
@@ -47,7 +47,7 @@ public:
     void undo() override;
 
 private:
-    ITourDeMondeDocumentController *m_docContr;
+    ITourDuMondeDocumentController *m_docContr;
     ILegendClass* m_legendClass;
     QString m_newDescription;
     QString m_newLabel;

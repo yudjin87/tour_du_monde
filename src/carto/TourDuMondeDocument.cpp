@@ -24,24 +24,48 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#pragma once
-#include <carto/ITourDeMondeDocumentController.h>
-#include <carto/ITourDeMondeDocument.h>
+#include "TourDuMondeDocument.h"
+#include "IMap.h"
 
-class IDisplay;
-
-class TourDeMondeDocumentController : public ITourDeMondeDocumentController
+TourDuMondeDocument::TourDuMondeDocument()
+    : m_name("New Tour Du Monde")
+    , m_map(nullptr)
 {
-    Q_OBJECT
-public:
-    TourDeMondeDocumentController(IDisplay *display);
-    ~TourDeMondeDocumentController();
+}
 
-    ITourDeMondeDocument *document() override;
-    void setDocument(ITourDeMondeDocument *doc) override;
-    QString activeDocumentName() const override;
+TourDuMondeDocument::~TourDuMondeDocument()
+{
+    delete m_map;
+    m_map = nullptr;
+}
 
-private:
-    ITourDeMondeDocumentUPtr m_document;
-};
+IMap *TourDuMondeDocument::map()
+{
+    return m_map;
+}
 
+const IMap *TourDuMondeDocument::map() const
+{
+    return m_map;
+}
+
+void TourDuMondeDocument::addMap(IMap *map)
+{
+    m_map = map;
+}
+
+const QString &TourDuMondeDocument::name() const
+{
+    return m_name;
+}
+
+void TourDuMondeDocument::setName(const QString &name)
+{
+    if (m_name == name)
+    {
+        return;
+    }
+
+    m_name = name;
+    emit nameChanged(name);
+}

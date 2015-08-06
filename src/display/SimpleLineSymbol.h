@@ -50,8 +50,8 @@ public:
      * @details
      *   Prepares the display for drawing the symbol by setting pen.
      */
-    void setupTourDeMonde(QPainter *painter) override;
-    void resetTourDeMonde(QPainter *painter) override;
+    void setupTourDuMonde(QPainter *painter) override;
+    void resetTourDuMonde(QPainter *painter) override;
 
     Qt::PenStyle style() const;
     void setStyle(Qt::PenStyle style);

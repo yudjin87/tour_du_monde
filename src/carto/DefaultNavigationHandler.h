@@ -32,19 +32,19 @@
 #include <memory>
 
 class IDisplay;
-class ITourDeMondeDocumentController;
+class ITourDuMondeDocumentController;
 
 class DefaultNavigationHandler : public QObject, public BaseInputReceiver
 {
 public:
-    DefaultNavigationHandler(IDisplay *display, ITourDeMondeDocumentController* docCtrl, QObject *parent);
+    DefaultNavigationHandler(IDisplay *display, ITourDuMondeDocumentController* docCtrl, QObject *parent);
     bool onMouseMove(QMouseEvent *event) override;
     bool onMouseDown(QMouseEvent *event) override;
     bool onMouseUp(QMouseEvent *event) override;
 
 private:
     IDisplay *m_display;
-    ITourDeMondeDocumentController *m_docCtrl;
+    ITourDuMondeDocumentController *m_docCtrl;
     std::unique_ptr<IInputDispatcher> m_dispatcher;
     bool m_tracked;
 };
