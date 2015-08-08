@@ -96,8 +96,8 @@ OTHER_FILES += $$DEFINITION \
 
 ###############################################################################
 # Copy definition to the output directory, right near the library
-copyExtraFiles($$DEFINITION, $$DESTDIR)
+copyExtraFiles($$DEFINITION, $${DESTDIR})
 copyExtraFiles($$MARKERS, $$ROOT_DIR/markers)
 copyExtraFiles($$BRUSHES, $$ROOT_DIR/brushes)
 
-win32:QMAKE_POST_LINK += windeployqt $$shell_quote($$DESTDIR/$$TARGET.dll)
+win32:QMAKE_POST_LINK += windeployqt $$shell_quote($${DESTDIR}/$${TARGET}.dll)

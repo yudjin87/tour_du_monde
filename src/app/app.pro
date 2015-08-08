@@ -95,10 +95,10 @@ OTHER_FILES += \
 
 ###############################################################################
 # Copy demo data files to the output dir
-copyExtraFiles($$SHAPES, $$DESTDIR/data)
-copyExtraFiles($$SCRIPTS, $$DESTDIR/scripts)
-copyExtraFiles($$BOEBLINGEN_PROJECT, $$DESTDIR/)
-unix:copyExtraFiles($$START_UP, $$DESTDIR/)
-unix:prepareStartupScript($$DESTDIR/$$START_UP)
+copyExtraFiles($$SHAPES, $${DESTDIR}/data)
+copyExtraFiles($$SCRIPTS, $${DESTDIR}/scripts)
+copyExtraFiles($$BOEBLINGEN_PROJECT, $${DESTDIR}/)
+unix:copyExtraFiles($$START_UP, $${DESTDIR}/)
+unix:prepareStartupScript($${DESTDIR}/$$START_UP)
 
-win32:QMAKE_POST_LINK += windeployqt $$shell_quote($$DESTDIR/$$TARGET.exe)
+win32:QMAKE_POST_LINK += windeployqt $$shell_quote($${DESTDIR}/$${TARGET}.exe)

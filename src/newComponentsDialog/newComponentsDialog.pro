@@ -30,4 +30,4 @@ OTHER_FILES += \
 
 ###############################################################################
 # Copy definition to the output directory, right near the library
-copyExtraFiles($$OTHER_FILES, $$DESTDIR)
+copyExtraFiles($$OTHER_FILES, $${DESTDIR})

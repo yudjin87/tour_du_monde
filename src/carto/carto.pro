@@ -87,6 +87,6 @@ OTHER_FILES += org.carousel.demos.Carto.definition
 
 ###############################################################################
 # Copy definition to the output directory, right near the library
-copyExtraFiles($$OTHER_FILES, $$DESTDIR)
+copyExtraFiles($$OTHER_FILES, $${DESTDIR})
 
-win32:QMAKE_POST_LINK += windeployqt $$shell_quote($$DESTDIR/$$TARGET.dll)
+win32:QMAKE_POST_LINK += windeployqt $$shell_quote($${DESTDIR}/$${TARGET}.dll)
