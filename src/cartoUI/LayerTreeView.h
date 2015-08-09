@@ -28,12 +28,13 @@
 #include <QtWidgets/QTreeView>
 
 class LayerTreeModel;
+class IMenuCatalog;
 
 class LayerTreeView : public QTreeView
 {
     Q_OBJECT
 public:
-    explicit LayerTreeView(QWidget *parent = nullptr);
+    explicit LayerTreeView(class IMenuCatalog& menuCatalog, QWidget *parent = nullptr);
     ~LayerTreeView();
 
     void setLayerTreeModel(LayerTreeModel* model);

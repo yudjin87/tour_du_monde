@@ -27,10 +27,12 @@
 #include "cartoUI/LayerTreeView.h"
 #include "cartoUI/LayerTreeModel.h"
 
+#include <components/interactivity/IMenuCatalog.h>
+
 #include <QtGui/QContextMenuEvent>
 #include <QtWidgets/QMenu>
 
-LayerTreeView::LayerTreeView(QWidget *parent)
+LayerTreeView::LayerTreeView(IMenuCatalog &menuCatalog, QWidget *parent)
   : QTreeView(parent)
   , m_menu(new QMenu(this))
   , m_model(nullptr)
@@ -41,6 +43,8 @@ LayerTreeView::LayerTreeView(QWidget *parent)
     setAcceptDrops(true);
     setDropIndicatorShown(true);
     setAnimated(true);
+
+    m_menu = menuCatalog.addPopup("CartoUI.LayerTreePopup");
 
     QAction* removeLayerAction = new QAction("Remove layer", m_menu);
     connect(removeLayerAction, &QAction::triggered, this, &LayerTreeView::onRemoveLayer);

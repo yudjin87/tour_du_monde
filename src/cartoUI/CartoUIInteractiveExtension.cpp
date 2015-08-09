@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- 
+
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -61,8 +61,9 @@ void CartoUIInteractiveExtension::configureGui(ICatalogs &inCatalogs, IServiceLo
     connect(docController, &ITourDuMondeDocumentController::activeDocumentChanged, this, &CartoUIInteractiveExtension::onActiveDocumentChanged);
     ITourDuMondeDocument *doc = docController->document();
 
+    IMenuCatalog &menuCatalog = inCatalogs.menuCatalog();
     IDockWidgetCatalog &catalog = inCatalogs.dockWidgetCatalog();
-    m_layersTree = new LayerTreeView();
+    m_layersTree = new LayerTreeView(menuCatalog);
     m_layersTree->setLayerTreeModel(new LayerTreeModel(doc->map(), serviceLocator));
 
     QDockWidget *layersDock = catalog.addDockWidget(m_layersTree, "Layers tree");
@@ -81,7 +82,6 @@ void CartoUIInteractiveExtension::configureGui(ICatalogs &inCatalogs, IServiceLo
     QToolBar *toolBar = toolbarCatalog.add("Shapes");
     toolBar->addAction(addShape);
 
-    IMenuCatalog &menuCatalog = inCatalogs.menuCatalog();
     QMenu *toolMenu = menuCatalog.addMenu("Tools");
     toolMenu->addAction(addShape);
 }
