@@ -12,6 +12,5 @@ SUBDIRS += \
     cartoUI \
     geodatabase_test \
     navigationOperations \
-    newComponentsDialog \
 
 

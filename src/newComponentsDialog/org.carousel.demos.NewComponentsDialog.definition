@@ -1,9 +1,0 @@
- <component name="org.carousel.demos.NewComponentsDialog" shortName="New Components Dialog">
-     <version>1.0</version>
-     <productName>NewComponentsDialog</productName>
-     <provider>Carousel</provider>
-     <location>./org.carousel.demos.NewComponentsDialog</location>
-     <parents>
-         <parentComponent name="org.carousel.Interactivity" version="1.0"/>
-     </parents>
- </component>
