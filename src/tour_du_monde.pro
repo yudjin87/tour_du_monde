@@ -10,6 +10,7 @@ SUBDIRS += \
     carto \
     cartoPersist \
     cartoUI \
+    styles \
     geodatabase_test \
     navigationOperations \
 
