@@ -34,6 +34,8 @@ class StyleGalery : public IStyleGalery
 public:
     StyleGalery();
 
+    QString defaultStylesLocationPath() const override;
+
     ILayerStyleCollectionUPtr load() const override;
     bool save(const ILayerStyleCollection& collection) override;
 

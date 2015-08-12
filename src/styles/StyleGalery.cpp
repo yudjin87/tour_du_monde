@@ -27,21 +27,78 @@
 #include "styles/StyleGalery.h"
 #include "styles/LayerStyleCollection.h"
 #include "styles/FeatureLayerStyle.h"
+#include "styles/FeatureLayerStylePersist.h"
+
+#include <carousel/logging/LoggerFacade.h>
+
+#include <QtCore/QDir>
+#include <QtCore/QCoreApplication>
+
+namespace
+{
+static LoggerFacade Log = LoggerFacade::createLogger("StyleGalery");
+}
 
 StyleGalery::StyleGalery()
     : IStyleGalery()
     , m_styles()
-
 {
+}
+
+QString StyleGalery::defaultStylesLocationPath() const
+{
+    QDir stylesDir(QCoreApplication::applicationDirPath());
+    stylesDir.cd("styles");
+    return stylesDir.absolutePath();
 }
 
 ILayerStyleCollectionUPtr StyleGalery::load() const
 {
-    return nullptr;
+    const QDir stylesDir(defaultStylesLocationPath());
+    if (!stylesDir.exists())
+    {
+        Log.w(QString("Styles directory \"%1\" doesn't exist").arg(stylesDir.absolutePath()));
+        return nullptr;
+    }
+
+    FeatureLayerStylePersist persist;
+    LayerStyleCollectionUPtr collection(new LayerStyleCollection());
+    const QStringList files = stylesDir.entryList(QDir::Files, QDir::Name);
+    for (const QString& styleFile : files)
+    {
+        IFeatureLayerStyleUPtr style = persist.load(styleFile);
+        if (style == nullptr)
+        {
+            Log.w(QString("Can't load style \"%1\"").arg(styleFile));
+        }
+        else
+        {
+            collection->add(std::move(style));
+        }
+    }
+
+    return std::move(collection);
 }
 
 bool StyleGalery::save(const ILayerStyleCollection &collection)
 {
-    return false;
+    const QDir stylesDir(defaultStylesLocationPath());
+    if (!stylesDir.exists())
+    {
+        Log.w(QString("Styles directory \"%1\" doesn't exist").arg(stylesDir.absolutePath()));
+        return false;
+    }
+
+    FeatureLayerStylePersist persist;
+    for (const IFeatureLayerStyleUPtr& layerStyle : collection)
+    {
+        const QString& styleFile = stylesDir.absoluteFilePath(layerStyle->name() + ".json");
+        if (!persist.save(*layerStyle, styleFile))
+        {
+            Log.w(QString("Can't save \"%1\" layer style").arg(layerStyle->name()));
+        }
+    }
+
+    return true;
 }
 

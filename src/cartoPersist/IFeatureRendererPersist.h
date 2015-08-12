@@ -26,13 +26,14 @@
 
 #pragma once
 
+#include <cartoPersist/cartoPersist_api.h>
 #include <carto/IFeatureRenderer.h>
 #include <memory>
 
 class QJsonObject;
 class QString;
 
-class IFeatureRendererPersist
+class CARTO_PERSIST_API IFeatureRendererPersist
 {
 public:
     virtual ~IFeatureRendererPersist() = default;

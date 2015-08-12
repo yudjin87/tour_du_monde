@@ -26,18 +26,13 @@
 
 #pragma once
 
-#include <styles/styles_api.h>
-#include <styles/ILayerStyleCollection.h>
-#include <QtCore/QObject>
-#include <memory>
+#include <styles/IFeatureLayerStyle.h>
 
-class STYLES_API IStyleGalery : public QObject
+class FeatureLayerStylePersist
 {
-    Q_OBJECT
 public:
-    virtual QString defaultStylesLocationPath() const = 0;
-    virtual ILayerStyleCollectionUPtr load() const = 0;
-    virtual bool save(const ILayerStyleCollection& collection) = 0;
-};
+    FeatureLayerStylePersist();
 
-typedef std::unique_ptr<IStyleGalery> IStyleGaleryUPtr;
+    bool save(const IFeatureLayerStyle& style, const QString& fileName);
+    IFeatureLayerStyleUPtr load(const QString& fileName);
+};

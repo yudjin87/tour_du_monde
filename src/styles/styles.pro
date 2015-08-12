@@ -14,7 +14,8 @@ LIBS += -L$${CAROUSEL_BIN} -lCarousel \
 DESTDIR = $${DESTDIR}/externalSource
 
 LIBS += -L$${DESTDIR} -lorg.carousel.demos.Carto \
-                      -lorg.carousel.demos.Geometry
+                      -lorg.carousel.demos.Geometry \
+                      -lorg.carousel.demos.CartoPersist \
 
 HEADERS += \
     styles_api.h \
@@ -25,14 +26,16 @@ HEADERS += \
     ILayerStyleCollection.h \
     LayerStyleCollection.h \
     IStyleGalery.h \
-    StyleGalery.h
+    StyleGalery.h \
+    FeatureLayerStylePersist.h
 
 SOURCES += \
     StylesComponent.cpp \
 #    commands/ChangeLayerStyleCommand.cpp \
     FeatureLayerStyle.cpp \
     LayerStyleCollection.cpp \
-    StyleGalery.cpp
+    StyleGalery.cpp \
+    FeatureLayerStylePersist.cpp
 
 OTHER_FILES += org.carousel.demos.Styles.definition
 

@@ -26,13 +26,14 @@
 
 #pragma once
 
+#include <cartoPersist/cartoPersist_api.h>
+#include <cartoPersist/IFeatureRendererPersist.h>
 #include <carto/IFeatureRenderer.h>
 #include <carto/IFeatureRendererVisitor.h>
-#include <cartoPersist/IFeatureRendererPersist.h>
 
 class IFeatureRendererPersist;
 
-class FeatureRendererPersistCreator : private IFeatureRendererVisitor
+class CARTO_PERSIST_API FeatureRendererPersistCreator : private IFeatureRendererVisitor
 {
 public:
     FeatureRendererPersistCreator();
