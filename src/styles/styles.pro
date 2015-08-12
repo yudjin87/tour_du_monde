@@ -20,10 +20,19 @@ HEADERS += \
     styles_api.h \
     StylesComponent.h \
 #    commands/ChangeLayerStyleCommand.h \
+    IFeatureLayerStyle.h \
+    FeatureLayerStyle.h \
+    ILayerStyleCollection.h \
+    LayerStyleCollection.h \
+    IStyleGalery.h \
+    StyleGalery.h
 
 SOURCES += \
     StylesComponent.cpp \
 #    commands/ChangeLayerStyleCommand.cpp \
+    FeatureLayerStyle.cpp \
+    LayerStyleCollection.cpp \
+    StyleGalery.cpp
 
 OTHER_FILES += org.carousel.demos.Styles.definition
 

@@ -25,6 +25,7 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "styles/StylesComponent.h"
+#include "styles/StyleGalery.h"
 
 #include <carousel/commands/IUndoStack.h>
 #include <carousel/componentsystem/ComponentDefinition.h>
@@ -50,12 +51,14 @@ StylesComponent::~StylesComponent()
 
 void StylesComponent::onShutdown(IServiceLocator *serviceLocator)
 {
-    ITourDuMondeDocumentController *controller = serviceLocator->unregisterInstance<ITourDuMondeDocumentController>();
-    delete controller;
+    IStyleGalery *galery = serviceLocator->unregisterInstance<IStyleGalery>();
+    delete galery;
 }
 
 bool StylesComponent::onStartup(IServiceLocator *serviceLocator)
 {
+    IStyleGalery* galery = new StyleGalery();
+    serviceLocator->registerInstance(galery);
 //    TypeCreator<AddShapesCommand, TypeLocator<IUndoStack>, TypeLocator<ITourDuMondeDocumentController>, TypeLocator<IShapeFileWorkspaceFactory>> addShapesCreator{serviceLocator};
 //    serviceLocator->registerType<AddShapesCommand>(addShapesCreator);
 
