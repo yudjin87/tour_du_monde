@@ -1,4 +1,0 @@
-[submodule "externals/carousel"]
-	path = externals/carousel
-	url = https://github.com/yudjin87/carousel.git
-	branch = master
