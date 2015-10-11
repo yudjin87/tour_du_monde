@@ -40,7 +40,7 @@ class CARTO_API IRendererCategoryCollection : public QObject
 {
     Q_OBJECT
 public:
-    typedef std::vector<const IRendererCategoryUPtr> IRendererCategoryVector;
+    typedef std::vector<IRendererCategoryUPtr> IRendererCategoryVector;
 
 public:
     virtual void addCategory(IRendererCategory* category) = 0;

@@ -40,7 +40,7 @@ class CARTO_API ILegendGroup : public QObject
     Q_PROPERTY(bool isVisible READ isVisible WRITE setVisible NOTIFY visibilityChanged)
     Q_PROPERTY(size_t classCount READ classCount)
 public:
-    typedef std::vector<const ILegendClassUPtr> ILegendClassVector;
+    typedef std::vector<ILegendClassUPtr> ILegendClassVector;
 
 public:
     ILegendGroup(){}

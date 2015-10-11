@@ -47,6 +47,6 @@ private:
     const QString m_tableName;
     IFeatureWorkspace& m_workspace;
     QSqlDatabase m_db;
-    IFieldsEdit* m_fields;
+    mutable IFieldsEdit* m_fields;
     mutable std::vector<IRecordUPtr> m_records;
 };

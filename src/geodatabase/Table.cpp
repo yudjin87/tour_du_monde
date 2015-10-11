@@ -57,7 +57,7 @@ Table::~Table()
 }
 
 const IFields *Table::fields() const
-{    
+{
     if (m_fields == nullptr)
     {
         const QSqlRecord fields = m_db.record(m_tableName);
@@ -65,7 +65,8 @@ const IFields *Table::fields() const
         {
             Log.e(QString("Can't read metadata from the table \"%1\". This could happen due to very long path to .dbf file").arg(m_tableName));
         }
-        const_cast<IFieldsEdit*>(m_fields) = new Fields(fields);
+
+        m_fields = new Fields(fields);
     }
 
     return m_fields;

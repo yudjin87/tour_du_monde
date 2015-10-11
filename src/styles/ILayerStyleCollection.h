@@ -36,7 +36,7 @@ class STYLES_API ILayerStyleCollection : public QObject
 {
     Q_OBJECT
 public:
-    typedef std::vector<const IFeatureLayerStyleUPtr> ILayerStyleVector;
+    typedef std::vector<IFeatureLayerStyleUPtr> ILayerStyleVector;
 
 public:
     virtual void add(IFeatureLayerStyleUPtr layerStyle) = 0;
