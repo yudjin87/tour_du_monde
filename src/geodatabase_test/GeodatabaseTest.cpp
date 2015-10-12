@@ -152,9 +152,9 @@ void GeodatabaseTest::shouldProvideFieldsInfo()
     const ITable* table = polygonClass->table();
     QCOMPARE(table->fields()->fieldCount(), 3);
 
-    QCOMPARE(table->fields()->field(0)->name(), QString("osm_id"));
-    QCOMPARE(table->fields()->field(1)->name(), QString("name"));
-    QCOMPARE(table->fields()->field(2)->name(), QString("type"));
+    QCOMPARE(table->fields()->field(0)->name().toLower(), QString("osm_id"));
+    QCOMPARE(table->fields()->field(1)->name().toLower(), QString("name"));
+    QCOMPARE(table->fields()->field(2)->name().toLower(), QString("type"));
 }
 
 void GeodatabaseTest::shouldClassifyColumnValues()

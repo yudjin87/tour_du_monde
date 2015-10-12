@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- 
+
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -139,24 +139,42 @@ ITable *ShapeFileFeatureWorkspace::createTable(const QString &name)
     // TODO: refactor me
     if (m_dbfDb == nullptr)
     {
-        QString error;
-        QString shortPathName = utils::getShortPathName(pathName(), &error); // Windows workaround for long names for dBase
-        if (shortPathName.isEmpty())
+        // TODO: refactor me
+        const QString sqliteDbFileName = dir.absoluteFilePath("db.sqlite");
+        const QFileInfo sqliteDbFile(sqliteDbFileName);
+        if (sqliteDbFile.exists())
         {
-            Log.e(error);
-            return nullptr;
-        }
+            QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+            db.setDatabaseName(sqliteDbFileName);
+            if (!db.open())
+            {
+                Log.e(db.lastError().text());
+                return nullptr;
+            }
 
-        const QString dbfName = QString("DRIVER={Microsoft dBase Driver (*.dbf)};FIL={dBase IV;};DefaultDir=%1").arg(shortPathName);
-        QSqlDatabase db = QSqlDatabase::addDatabase("QODBC");
-        db.setDatabaseName(dbfName);
-        if (!db.open())
+            m_dbfDb = new QSqlDatabase(db);
+        }
+        else
         {
-            Log.e(db.lastError().text());
-            return nullptr;
-        }
+            QString error;
+            QString shortPathName = utils::getShortPathName(pathName(), &error); // Windows workaround for long names for dBase
+            if (shortPathName.isEmpty())
+            {
+                Log.e(error);
+                return nullptr;
+            }
 
-        m_dbfDb = new QSqlDatabase(db);
+            const QString dbfName = QString("DRIVER={Microsoft dBase Driver (*.dbf)};FIL={dBase IV;};DefaultDir=%1").arg(shortPathName);
+            QSqlDatabase db = QSqlDatabase::addDatabase("QODBC");
+            db.setDatabaseName(dbfName);
+            if (!db.open())
+            {
+                Log.e(db.lastError().text());
+                return nullptr;
+            }
+
+            m_dbfDb = new QSqlDatabase(db);
+        }
     }
 
     return new Table(*this, file.completeBaseName(), *m_dbfDb);
