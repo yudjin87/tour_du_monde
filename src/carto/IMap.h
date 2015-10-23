@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- 
+
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -32,6 +32,7 @@
 #include <memory>
 
 class AbstractLayer;
+class ILayerCollection;
 class ITourDuMondeDocument;
 
 class CARTO_API IMap : public QObject
@@ -49,6 +50,7 @@ public:
 
 public slots:
     virtual void addLayer(AbstractLayer *layer) = 0;
+    virtual void addLayers(const ILayerCollection& layers, const bool autoArrange) = 0;
     virtual void insertLayer(const int index, AbstractLayer *layer) = 0;
     virtual int removeLayer(AbstractLayer *layer) = 0;
     virtual int getLayerIndex(const AbstractLayer *layer) const = 0;

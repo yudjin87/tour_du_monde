@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- 
+
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -47,6 +47,8 @@ public:
 public slots:
     void refresh() override;
     void addLayer(AbstractLayer *layer) override;
+    void addLayers(const ILayerCollection& layers, const bool autoArrange) override;
+
     void insertLayer(const int index, AbstractLayer *layer) override;
     int removeLayer(AbstractLayer *layer) override;
     int getLayerIndex(const AbstractLayer *layer) const override;
@@ -65,6 +67,6 @@ private slots:
 private:
     ITourDuMondeDocument *m_parentDocument;
     IDisplay *m_display;
-    QList<AbstractLayer *> m_layers;    
+    QList<AbstractLayer *> m_layers;
 };
 

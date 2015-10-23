@@ -24,8 +24,9 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "Map.h"
-#include "AbstractLayer.h"
+#include "carto/Map.h"
+#include "carto/AbstractLayer.h"
+#include "carto/ILayerCollection.h"
 
 #include <carousel/logging/LoggerFacade.h>
 #include <display/IDisplay.h>
@@ -56,12 +57,17 @@ Map::~Map()
         delete layer;
 
     m_layers.clear();
-
 }
 
 void Map::addLayer(AbstractLayer *layer)
 {
     insertLayer(m_layers.size(), layer);
+}
+
+void Map::addLayers(const ILayerCollection &layers, const bool autoArrange)
+{
+    Q_UNUSED(layers)
+    Q_UNUSED(autoArrange)
 }
 
 void Map::insertLayer(const int index, AbstractLayer *layer)
