@@ -38,11 +38,11 @@ class IDisplay;
 class CoordsTracker : public QObject, public BaseInputReceiver
 {
 public:
-    CoordsTracker(const IDisplay *display, QStatusBar* statusBar, QObject *parent);
+    CoordsTracker(IDisplay *display, QStatusBar* statusBar, QObject *parent);
     bool onMouseMove(QMouseEvent *event) override;
 
 private:
-    const IDisplay *m_display;
+    IDisplay *m_display;
     QStatusBar *m_statusBar;
     std::unique_ptr<IInputDispatcher> m_dispatcher;
 };

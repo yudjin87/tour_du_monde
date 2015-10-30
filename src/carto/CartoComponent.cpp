@@ -35,7 +35,6 @@
 #include "carto/FeatureLayer.h"
 #include "carto/CartoScriptExtension.h"
 #include "carto/Map.h"
-#include "carto/DefaultNavigationHandler.h"
 #include <geodatabase/IShapeFileWorkspaceFactory.h>
 #include <display/IDisplay.h>
 
@@ -105,9 +104,6 @@ bool CartoComponent::onStartup(IServiceLocator *serviceLocator)
 
     // For creating from scripting
     serviceLocator->bindType<FeatureLayer, FeatureLayer>();
-
-    DefaultNavigationHandler* defaultNavigationHandler = new DefaultNavigationHandler(display, controller, this);
-    Q_UNUSED(defaultNavigationHandler)
 
     // Binding document name to the Application window title:
     QMainWindow* mainWindow = serviceLocator->locate<QMainWindow>();

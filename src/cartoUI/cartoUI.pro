@@ -41,7 +41,8 @@ HEADERS += \
     FeatureRendererWidget.h \
     CategorizedRendererWidget.h \
     RendererCategoryItem.h \
-    RendererCategoryCollectionModel.h
+    RendererCategoryCollectionModel.h \
+    DefaultNavigationHandler.h \
 
 SOURCES += \
     CartoUIComponent.cpp \
@@ -62,7 +63,8 @@ SOURCES += \
     FeatureRendererWidget.cpp \
     CategorizedRendererWidget.cpp \
     RendererCategoryItem.cpp \
-    RendererCategoryCollectionModel.cpp
+    RendererCategoryCollectionModel.cpp \
+    DefaultNavigationHandler.cpp \
 
 FORMS += \
     FeatureLayerPropertiesWidget.ui \

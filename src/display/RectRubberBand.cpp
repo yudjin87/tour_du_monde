@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- 
+
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -50,7 +50,7 @@ bool RectRubberBand::newRect(IDisplay *display, const QPoint &start, QRect *out)
     m_display = display;
     m_dispatcher.reset(new InputDispatcher(this));
     m_dispatcher->setReceiver(this);
-    m_dispatcher->setSender(m_display->viewport());
+    m_dispatcher->setSender(m_display);
     m_dispatcher->activate();
 
     m_eventLoop.exec();

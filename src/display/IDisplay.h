@@ -30,7 +30,7 @@
 #include <display/ThreadSafeQueue.h>
 
 #include <QtGui/QPixmap>
-#include <QtWidgets/QAbstractScrollArea>
+#include <QtWidgets/QWidget>
 
 class DisplayTransformation;
 
@@ -44,7 +44,7 @@ enum class DispayCache
     Annotations = 2
 };
 
-class DISPLAY_API IDisplay : public QAbstractScrollArea
+class DISPLAY_API IDisplay : public QWidget
 {
     Q_OBJECT
     Q_PROPERTY(DisplayTransformation *transformation READ transformation)

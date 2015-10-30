@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- 
+
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -24,11 +24,13 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "CartoUIComponent.h"
-#include "CartoUIInteractiveExtension.h"
+#include "cartoUI/CartoUIComponent.h"
+#include "cartoUI/CartoUIInteractiveExtension.h"
+#include "cartoUI/DefaultNavigationHandler.h"
 
 #include <carto/ITourDuMondeDocument.h>
 #include <carto/ITourDuMondeDocumentController.h>
+#include <display/IDisplay.h>
 
 #include <carousel/componentsystem/ComponentDefinition.h>
 #include <carousel/componentsystem/ComponentExport.h>
@@ -60,7 +62,11 @@ CartoUIComponent::~CartoUIComponent()
 
 bool CartoUIComponent::onStartup(IServiceLocator *serviceLocator)
 {
-    Q_UNUSED(serviceLocator)
+    IDisplay *display = serviceLocator->locate<IDisplay>();
+    ITourDuMondeDocumentController* controller = serviceLocator->locate<ITourDuMondeDocumentController>();
+    DefaultNavigationHandler* defaultNavigationHandler = new DefaultNavigationHandler(display, controller, this);
+    Q_UNUSED(defaultNavigationHandler)
+
     return true;
 }
 

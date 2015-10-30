@@ -26,14 +26,11 @@
 
 #include <display/SimpleDisplay.h>
 #include <display/DisplayTransformation.h>
-#include <display/Throttle.h>
 #include <carousel/logging/LoggerFacade.h>
 
 #include <QtGui/QShowEvent>
 #include <QtGui/QPaintDevice>
 #include <QtGui/QPainter>
-
-#include <QtWidgets/QScrollBar>
 
 
 namespace
@@ -44,23 +41,19 @@ static LoggerFacade Log = LoggerFacade::createLogger("SimpleDisplay");
 static const int flipY = -1;
 
 SimpleDisplay::SimpleDisplay(QWidget *parent)
-    : m_moveVisibleBound(true)
+    : IDisplay()
+    , m_initialized(false)
+    , m_moveVisibleBound(true)
     , m_wasDrawing(false)
     , m_conn()
     , m_offset(0, 0)
     , m_startPan(0, 0)
+    , m_transform(new DisplayTransformation())
     , m_pixmap(createPixmap())
     , m_draftPixmaps(3)
-    , m_transform(new DisplayTransformation())
 {
     setMouseTracking(true);
     setParent(parent);
-    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
-    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
-
-    // Throttle* throttle = new Throttle(150, this);
-    // connect(this, SIGNAL(needChange()), throttle, SLOT(start()));
-    // connect(throttle, SIGNAL(elapsed()), this, SLOT(emitChanged()));
 
     connect(this, &SimpleDisplay::needChange, this, &SimpleDisplay::emitChanged);
 
@@ -70,8 +63,6 @@ SimpleDisplay::SimpleDisplay(QWidget *parent)
     connect(m_transform, &DisplayTransformation::boundsChanged, this, &SimpleDisplay::boundsChanged);
     connect(m_transform, &DisplayTransformation::deviceFrameChanged, this, &SimpleDisplay::deviceFrameChanged);
     connect(m_transform, &DisplayTransformation::visibleBoundsChanged, this, &SimpleDisplay::visibleBoundsChanged);
-
-    m_transform->setDeviceFrame(QRectF(0, 0, width(), height()));
 }
 
 SimpleDisplay::~SimpleDisplay()
@@ -81,11 +72,8 @@ SimpleDisplay::~SimpleDisplay()
 void SimpleDisplay::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event)
-    //    Log.d(QString("Updating view .................................................. x: %1, y:%2")
-    //          .arg(m_offset.x())
-    //          .arg(m_offset.y()));
 
-    QPainter painter(viewport());
+    QPainter painter(this);
     drawOut(&painter);
 }
 
@@ -97,16 +85,11 @@ void SimpleDisplay::drawOut(QPainter *toPainter) const
 
 void SimpleDisplay::dumpDraft(const DispayCache inCache)
 {
-    //    if (m_draftPixmap == nullptr) {
-    //        return;
-    //    }
-
+    Q_UNUSED(inCache)
     m_offset = QPointF(0, 0);
 
     m_pixmapMutex.lock();
     QPainter painter(m_pixmap);
-
-    // Log.d(QString("dumpDraft: %1").arg((int)inCache));
 
     for (QPixmapPtr& pixmap : m_draftPixmaps)
     {
@@ -115,7 +98,7 @@ void SimpleDisplay::dumpDraft(const DispayCache inCache)
     }
 
     m_pixmapMutex.unlock();
-    viewport()->update();
+    update();
     m_wasDrawing = true;
 }
 
@@ -126,7 +109,6 @@ void SimpleDisplay::startDrawing(const DispayCache inCache)
     delete m_draftPixmaps[(int)inCache];
     m_draftPixmaps[(int)inCache] = nullptr;
 
-    //delete m_draftPixmaps[(int)inCache];
     if (inCache == DispayCache::Geometry)
     {
         m_draftPixmaps[(int)inCache] = createPixmap(Qt::white);
@@ -166,11 +148,8 @@ void SimpleDisplay::finishDrawing(const DispayCache inCache)
     {
         dumpDraft(inCache);
     }
-    //Q_ASSERT(m_draftPixmap != nullptr && "Illegal state during the finishing drawing!");
-    //Log.d("...... finishDrawing");
+
     m_offset = QPointF(0, 0);
-    //    delete m_draftPixmaps[(int)inCache];
-    //    m_draftPixmaps[(int)inCache] = nullptr;
 }
 
 QPixmap& SimpleDisplay::lockPixmap(const DispayCache inCache)
@@ -197,7 +176,7 @@ const DisplayTransformation *SimpleDisplay::transformation() const
 void SimpleDisplay::panMoveTo(const QPoint &screenPoint)
 {
     m_offset = (screenPoint - m_startPan);
-    viewport()->update();
+    update();
 }
 
 void SimpleDisplay::panStart(const QPoint &screenPoint)
@@ -208,22 +187,19 @@ void SimpleDisplay::panStart(const QPoint &screenPoint)
 QRectF SimpleDisplay::panStop()
 {
     moveVisibleBounds(m_offset.x(), m_offset.y());
-    adjustScrollBars();
-    viewport()->update(); // TODO: remove
-    //m_offset = QPointF(0, 0);
+    update(); // TODO: remove
     emit needChange(); // TODO: don't neet this signal
     return QRectF();
 }
 
 void SimpleDisplay::emitChanged()
 {
-    //m_offset = QPointF(0, 0);
-    viewport()->update();
+    update();
 }
 
 void SimpleDisplay::updateWindow()
 {
-    viewport()->update();
+    update();
 }
 
 void SimpleDisplay::postDrawingTask(IDrawingTaskPtr task)
@@ -232,18 +208,9 @@ void SimpleDisplay::postDrawingTask(IDrawingTaskPtr task)
     task->draw(*this);
 }
 
-void SimpleDisplay::scrollContentsBy(int dx, int dy)
-{
-    m_offset += QPointF(dx, dy);
-    moveVisibleBounds(dx, dy);
-
-    viewport()->update();
-    emit needChange();
-}
-
 QPixmapPtr SimpleDisplay::createPixmap(const QColor &fillColor) const
 {
-    QPixmapPtr pixmap(new QPixmap(this->width(), this->height()));
+    QPixmapPtr pixmap(new QPixmap(transformation()->deviceFrame().width(), transformation()->deviceFrame().height()));
     pixmap->fill(fillColor);
     return pixmap;
 }
@@ -251,10 +218,6 @@ QPixmapPtr SimpleDisplay::createPixmap(const QColor &fillColor) const
 void SimpleDisplay::mouseMoveEvent(QMouseEvent *event)
 {
     Q_UNUSED(event)
-    //QPoint point = event->pos();
-
-    // QPointF mapPoint = transformation()->toMapPoint(point.x(), point.y());
-    // qDebug("x:%f; y:%f", mapPoint.x(), mapPoint.y());
 }
 
 void SimpleDisplay::showEvent(QShowEvent *event)
@@ -265,43 +228,15 @@ void SimpleDisplay::showEvent(QShowEvent *event)
 
 void SimpleDisplay::resizeEvent(QResizeEvent *event)
 {
-    Q_UNUSED(event)
-    transformation()->setDeviceFrame(QRectF(0, 0, width(), height()));
+    transformation()->setDeviceFrame(QRectF(QPointF(0, 0), event->size()));
     transformation()->setVisibleBounds(transformation()->visibleBounds());
     m_pixmap = createPixmap();
-    // todo: map refresh
 }
 
 void SimpleDisplay::onVisibleBoundChanged(const QRectF &visibleBounds)
 {
     Q_UNUSED(visibleBounds)
-    adjustScrollBars();
     emit needChange();
-}
-
-void SimpleDisplay::adjustScrollBars()
-{
-    // TODO: in Multiothreading dispay, this method works incorrect, with little movement
-    //    double scale = transformation()->scale();
-    //    int dx = getDx(scale);
-    //    int dy = getDy(scale);
-
-    //    QRectF visibleBounds = transformation()->visibleBounds();
-    //    QRectF bounds = transformation()->bounds();
-
-    //    qreal verticalRelative = (visibleBounds.bottom() * flipY - bounds.bottom() * flipY) * scale; // top for flipping
-    //    qreal horizontalRelative = (visibleBounds.left() - bounds.left()) * scale;
-
-    //    // Do not move visible bounds during scroll changing
-    //    m_moveVisibleBound = false;
-
-    //    horizontalScrollBar()->setRange(0, dx);
-    //    verticalScrollBar()->setRange(0, dy);
-
-    //    horizontalScrollBar()->setValue(horizontalRelative);
-    //    verticalScrollBar()->setValue(verticalRelative);
-
-    //    m_moveVisibleBound = true;
 }
 
 void SimpleDisplay::moveVisibleBounds(int dx, int dy)
@@ -325,17 +260,17 @@ int SimpleDisplay::getDy(double scale)
     // instead of those max/min calculations
     // int min_y = std::min(m_extent.top(), m_visibleExtent.top());
     // int max_y = std::max(m_extent.bottom(), m_visibleExtent.bottom());
-    int dy = transformation()->bounds().height() * scale;
-    dy = std::max(dy, height());
-    dy -= height();
+    qreal dy = transformation()->bounds().height() * scale;
+    dy = std::max(dy, transformation()->deviceFrame().height());
+    dy -= transformation()->deviceFrame().height();
     return dy;
 }
 
 int SimpleDisplay::getDx(double scale)
 {
-    int dx = (transformation()->bounds().width() * scale);
-    dx = std::max(dx, width());
-    dx -= width();
+    qreal dx = (transformation()->bounds().width() * scale);
+    dx = std::max(dx, transformation()->deviceFrame().width());
+    dx -= transformation()->deviceFrame().width();
     return dx;
 }
 

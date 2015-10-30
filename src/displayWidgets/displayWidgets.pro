@@ -32,7 +32,7 @@ HEADERS += \
     MarkerSymbolEditorWidget.h \
     LineSymbolEditorWidget.h \
     FillSymbolEditorWidget.h \
-    PictureFillSymbolWidget.h
+    PictureFillSymbolWidget.h \
 
 SOURCES += \
     DisplayWidgetsComponent.cpp \
@@ -47,7 +47,7 @@ SOURCES += \
     MarkerSymbolEditorWidget.cpp \
     LineSymbolEditorWidget.cpp \
     FillSymbolEditorWidget.cpp \
-    PictureFillSymbolWidget.cpp
+    PictureFillSymbolWidget.cpp \
 
 FORMS += \
     SimpleLineSymbolWidget.ui \

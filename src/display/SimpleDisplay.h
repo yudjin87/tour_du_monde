@@ -61,8 +61,6 @@ protected:
     void paintEvent(QPaintEvent *event) override;
     void showEvent(QShowEvent * event) override;
 
-    void scrollContentsBy(int dx, int dy) override;
-
 signals:
     void needChange();
 
@@ -76,17 +74,17 @@ private:
     void moveVisibleBounds(int dx, int dy);
     int getDy(double scale);
     int getDx(double scale);
-    void adjustScrollBars();
 
 private:
+    bool m_initialized;
     bool m_moveVisibleBound;
     bool m_wasDrawing;
     QMetaObject::Connection m_conn;
     QPointF m_offset;
     QPoint m_startPan;
+    DisplayTransformation *m_transform;
     QPixmapPtr m_pixmap;
     QVector<QPixmapPtr> m_draftPixmaps;
-    DisplayTransformation *m_transform;
 
     mutable QMutex m_pixmapMutex;
 };

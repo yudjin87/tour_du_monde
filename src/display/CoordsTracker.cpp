@@ -32,7 +32,7 @@
 #include <QtGui/QMouseEvent>
 #include <QtWidgets/QStatusBar>
 
-CoordsTracker::CoordsTracker(const IDisplay *display, QStatusBar *statusBar, QObject *parent)
+CoordsTracker::CoordsTracker(IDisplay *display, QStatusBar *statusBar, QObject *parent)
     : QObject(parent)
     , BaseInputReceiver()
     , m_display(display)
@@ -40,7 +40,7 @@ CoordsTracker::CoordsTracker(const IDisplay *display, QStatusBar *statusBar, QOb
     , m_dispatcher(new InputDispatcher())
 {
     m_dispatcher->setReceiver(this);
-    m_dispatcher->setSender(m_display->viewport());
+    m_dispatcher->setSender(m_display);
     m_dispatcher->activate();
 }
 

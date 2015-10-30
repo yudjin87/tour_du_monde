@@ -34,7 +34,6 @@ HEADERS += \
     ILayerVisitor.h \
     CartoScriptExtension.h \
     FeatureLayerDrawingTask.h \
-    DefaultNavigationHandler.h \
     IFeatureRenderer.h \
     ILegendClass.h \
     ILegendGroup.h \
@@ -68,7 +67,6 @@ SOURCES += \
     TourDuMondeDocument.cpp \
     CartoScriptExtension.cpp \
     FeatureLayerDrawingTask.cpp \
-    DefaultNavigationHandler.cpp \
     LegendClass.cpp \
     commands/AddShapesCommand.cpp \
     commands/RenameLayerCommand.cpp \

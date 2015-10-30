@@ -24,7 +24,8 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include <carto/DefaultNavigationHandler.h>
+#include "cartoUI/DefaultNavigationHandler.h"
+
 #include <display/IDisplay.h>
 #include <display/DisplayTransformation.h>
 #include <carto/IMap.h>
@@ -43,7 +44,7 @@ DefaultNavigationHandler::DefaultNavigationHandler(IDisplay *display, ITourDuMon
     , m_tracked(false)
 {
     m_dispatcher->setReceiver(this);
-    m_dispatcher->setSender(m_display->viewport());
+    m_dispatcher->setSender(m_display);
     m_dispatcher->activate();
 }
 

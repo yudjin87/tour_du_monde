@@ -25,7 +25,6 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include <displayWidgets/DisplayWidgetsComponent.h>
-
 #include <display/IDisplay.h>
 #include <display/CoordsTracker.h>
 
@@ -68,12 +67,11 @@ bool DisplayWidgetsComponent::onStartup(IServiceLocator *serviceLocator)
 
     IInteractionService* interactionService = serviceLocator->locate<IInteractionService>();
     interactionService->setDispatcher(new InputDispatcher());
-    interactionService->dispatcher()->setSender(display->viewport());
+    interactionService->dispatcher()->setSender(display);
     interactionService->dispatcher()->activate();
 
     CoordsTracker* tracker = new CoordsTracker(display, mainWindow->statusBar(), this);
     Q_UNUSED(tracker)
-
     return true;
 }
 
