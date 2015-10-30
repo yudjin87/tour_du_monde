@@ -28,12 +28,9 @@
 #include <display/SimpleDisplay.h>
 #include <display/DisplayScriptExtension.h>
 #include <display/MultithreadDisplay.h>
-#include <display/CoordsTracker.h>
 
 #include <carousel/componentsystem/ComponentDefinition.h>
 #include <carousel/componentsystem/ComponentExport.h>
-#include <components/interactivity/IInteractionService.h>
-#include <components/interactivity/InputDispatcher.h>
 #include <carousel/utils/IServiceLocator.h>
 
 #include <QtWidgets/QMainWindow>
@@ -63,9 +60,6 @@ void DisplayComponent::onShutdown(IServiceLocator *serviceLocator)
 {
     IDisplay *display = serviceLocator->unregisterInstance<IDisplay>();
     delete display;
-
-    IInteractionService* interactionService = serviceLocator->locate<IInteractionService>();
-    interactionService->setDispatcher(nullptr); // TODO: leak
 }
 
 bool DisplayComponent::onStartup(IServiceLocator *serviceLocator)
@@ -76,14 +70,6 @@ bool DisplayComponent::onStartup(IServiceLocator *serviceLocator)
     IDisplay *display = new MultithreadDisplay(mainWindow);
     mainWindow->setCentralWidget(display);
     serviceLocator->registerInstance<IDisplay>(display);
-
-    IInteractionService* interactionService = serviceLocator->locate<IInteractionService>();
-    interactionService->setDispatcher(new InputDispatcher());
-    interactionService->dispatcher()->setSender(display->viewport());
-    interactionService->dispatcher()->activate();
-
-    CoordsTracker* tracker = new CoordsTracker(display, mainWindow->statusBar(), this);
-    Q_UNUSED(tracker)
 
     return true;
 }

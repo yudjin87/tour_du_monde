@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- 
+
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -53,6 +53,8 @@ public:
     void postDrawingTask(IDrawingTaskPtr task) override;
     QPixmapPtr createPixmap(const QColor &fillColor = Qt::transparent) const override;
 
+    void drawOut(QPainter* toPainter) const override;
+
 protected:
     void mouseMoveEvent(QMouseEvent *event) override;
     void resizeEvent(QResizeEvent *event) override;
@@ -86,5 +88,5 @@ private:
     QVector<QPixmapPtr> m_draftPixmaps;
     DisplayTransformation *m_transform;
 
-    QMutex m_pixmapMutex;
+    mutable QMutex m_pixmapMutex;
 };

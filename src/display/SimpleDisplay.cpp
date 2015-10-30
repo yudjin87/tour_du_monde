@@ -52,7 +52,7 @@ SimpleDisplay::SimpleDisplay(QWidget *parent)
     , m_pixmap(createPixmap())
     , m_draftPixmaps(3)
     , m_transform(new DisplayTransformation())
-{    
+{
     setMouseTracking(true);
     setParent(parent);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
@@ -81,28 +81,32 @@ SimpleDisplay::~SimpleDisplay()
 void SimpleDisplay::paintEvent(QPaintEvent *event)
 {
     Q_UNUSED(event)
-//    Log.d(QString("Updating view .................................................. x: %1, y:%2")
-//          .arg(m_offset.x())
-//          .arg(m_offset.y()));
+    //    Log.d(QString("Updating view .................................................. x: %1, y:%2")
+    //          .arg(m_offset.x())
+    //          .arg(m_offset.y()));
 
     QPainter painter(viewport());
+    drawOut(&painter);
+}
 
+void SimpleDisplay::drawOut(QPainter *toPainter) const
+{
     QMutexLocker guard(&m_pixmapMutex);
-    painter.drawPixmap(m_offset.x(), m_offset.y(), m_pixmap->width(), m_pixmap->height(), *m_pixmap);
+    toPainter->drawPixmap(m_offset.x(), m_offset.y(), m_pixmap->width(), m_pixmap->height(), *m_pixmap);
 }
 
 void SimpleDisplay::dumpDraft(const DispayCache inCache)
 {
-//    if (m_draftPixmap == nullptr) {
-//        return;
-//    }
+    //    if (m_draftPixmap == nullptr) {
+    //        return;
+    //    }
 
     m_offset = QPointF(0, 0);
 
     m_pixmapMutex.lock();
     QPainter painter(m_pixmap);
 
-   // Log.d(QString("dumpDraft: %1").arg((int)inCache));
+    // Log.d(QString("dumpDraft: %1").arg((int)inCache));
 
     for (QPixmapPtr& pixmap : m_draftPixmaps)
     {
@@ -165,8 +169,8 @@ void SimpleDisplay::finishDrawing(const DispayCache inCache)
     //Q_ASSERT(m_draftPixmap != nullptr && "Illegal state during the finishing drawing!");
     //Log.d("...... finishDrawing");
     m_offset = QPointF(0, 0);
-//    delete m_draftPixmaps[(int)inCache];
-//    m_draftPixmaps[(int)inCache] = nullptr;
+    //    delete m_draftPixmaps[(int)inCache];
+    //    m_draftPixmaps[(int)inCache] = nullptr;
 }
 
 QPixmap& SimpleDisplay::lockPixmap(const DispayCache inCache)
@@ -219,7 +223,7 @@ void SimpleDisplay::emitChanged()
 
 void SimpleDisplay::updateWindow()
 {
-   viewport()->update();
+    viewport()->update();
 }
 
 void SimpleDisplay::postDrawingTask(IDrawingTaskPtr task)
@@ -277,27 +281,27 @@ void SimpleDisplay::onVisibleBoundChanged(const QRectF &visibleBounds)
 
 void SimpleDisplay::adjustScrollBars()
 {
-// TODO: in Multiothreading dispay, this method works incorrect, with little movement
-//    double scale = transformation()->scale();
-//    int dx = getDx(scale);
-//    int dy = getDy(scale);
+    // TODO: in Multiothreading dispay, this method works incorrect, with little movement
+    //    double scale = transformation()->scale();
+    //    int dx = getDx(scale);
+    //    int dy = getDy(scale);
 
-//    QRectF visibleBounds = transformation()->visibleBounds();
-//    QRectF bounds = transformation()->bounds();
+    //    QRectF visibleBounds = transformation()->visibleBounds();
+    //    QRectF bounds = transformation()->bounds();
 
-//    qreal verticalRelative = (visibleBounds.bottom() * flipY - bounds.bottom() * flipY) * scale; // top for flipping
-//    qreal horizontalRelative = (visibleBounds.left() - bounds.left()) * scale;
+    //    qreal verticalRelative = (visibleBounds.bottom() * flipY - bounds.bottom() * flipY) * scale; // top for flipping
+    //    qreal horizontalRelative = (visibleBounds.left() - bounds.left()) * scale;
 
-//    // Do not move visible bounds during scroll changing
-//    m_moveVisibleBound = false;
+    //    // Do not move visible bounds during scroll changing
+    //    m_moveVisibleBound = false;
 
-//    horizontalScrollBar()->setRange(0, dx);
-//    verticalScrollBar()->setRange(0, dy);
+    //    horizontalScrollBar()->setRange(0, dx);
+    //    verticalScrollBar()->setRange(0, dy);
 
-//    horizontalScrollBar()->setValue(horizontalRelative);
-//    verticalScrollBar()->setValue(verticalRelative);
+    //    horizontalScrollBar()->setValue(horizontalRelative);
+    //    verticalScrollBar()->setValue(verticalRelative);
 
-//    m_moveVisibleBound = true;
+    //    m_moveVisibleBound = true;
 }
 
 void SimpleDisplay::moveVisibleBounds(int dx, int dy)

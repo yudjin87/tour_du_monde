@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- 
+
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -64,6 +64,7 @@ public:
     virtual void postDrawingTask(IDrawingTaskPtr task) = 0;
 
     virtual QPixmapPtr createPixmap(const QColor &fillColor = Qt::transparent) const = 0;
+    virtual void drawOut(QPainter* toPainter) const = 0;
 
 public slots:
     virtual void panMoveTo(const QPoint &screenPoint) = 0;

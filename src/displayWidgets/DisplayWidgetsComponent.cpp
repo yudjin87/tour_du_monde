@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- 
+
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -26,9 +26,16 @@
 
 #include <displayWidgets/DisplayWidgetsComponent.h>
 
+#include <display/IDisplay.h>
+#include <display/CoordsTracker.h>
+
 #include <carousel/componentsystem/ComponentDefinition.h>
 #include <carousel/componentsystem/ComponentExport.h>
+#include <components/interactivity/IInteractionService.h>
+#include <components/interactivity/InputDispatcher.h>
 #include <carousel/utils/IServiceLocator.h>
+
+#include <QtWidgets/QMainWindow>
 
 static const QByteArray productName("DisplayWidgets");
 
@@ -50,12 +57,23 @@ DisplayWidgetsComponent::~DisplayWidgetsComponent()
 
 void DisplayWidgetsComponent::onShutdown(IServiceLocator *serviceLocator)
 {
-    Q_UNUSED(serviceLocator)
+    IInteractionService* interactionService = serviceLocator->locate<IInteractionService>();
+    interactionService->setDispatcher(nullptr);
 }
 
 bool DisplayWidgetsComponent::onStartup(IServiceLocator *serviceLocator)
 {
-    Q_UNUSED(serviceLocator)
+    QMainWindow *mainWindow = serviceLocator->locate<QMainWindow>();
+    IDisplay *display = serviceLocator->locate<IDisplay>();
+
+    IInteractionService* interactionService = serviceLocator->locate<IInteractionService>();
+    interactionService->setDispatcher(new InputDispatcher());
+    interactionService->dispatcher()->setSender(display->viewport());
+    interactionService->dispatcher()->activate();
+
+    CoordsTracker* tracker = new CoordsTracker(display, mainWindow->statusBar(), this);
+    Q_UNUSED(tracker)
+
     return true;
 }
 
