@@ -25,16 +25,10 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include <displayWidgets/DisplayWidgetsComponent.h>
-#include <display/IDisplay.h>
-#include <display/CoordsTracker.h>
 
 #include <carousel/componentsystem/ComponentDefinition.h>
 #include <carousel/componentsystem/ComponentExport.h>
-#include <components/interactivity/IInteractionService.h>
-#include <components/interactivity/InputDispatcher.h>
 #include <carousel/utils/IServiceLocator.h>
-
-#include <QtWidgets/QMainWindow>
 
 static const QByteArray productName("DisplayWidgets");
 
@@ -56,22 +50,12 @@ DisplayWidgetsComponent::~DisplayWidgetsComponent()
 
 void DisplayWidgetsComponent::onShutdown(IServiceLocator *serviceLocator)
 {
-    IInteractionService* interactionService = serviceLocator->locate<IInteractionService>();
-    interactionService->setDispatcher(nullptr);
+    Q_UNUSED(serviceLocator)
 }
 
 bool DisplayWidgetsComponent::onStartup(IServiceLocator *serviceLocator)
 {
-    QMainWindow *mainWindow = serviceLocator->locate<QMainWindow>();
-    IDisplay *display = serviceLocator->locate<IDisplay>();
-
-    IInteractionService* interactionService = serviceLocator->locate<IInteractionService>();
-    interactionService->setDispatcher(new InputDispatcher());
-    interactionService->dispatcher()->setSender(display);
-    interactionService->dispatcher()->activate();
-
-    CoordsTracker* tracker = new CoordsTracker(display, mainWindow->statusBar(), this);
-    Q_UNUSED(tracker)
+    Q_UNUSED(serviceLocator)
     return true;
 }
 

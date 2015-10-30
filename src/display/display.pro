@@ -41,7 +41,6 @@ HEADERS += \
     MultithreadDisplay.h \
     StartDrawingTask.h \
     UpdateTask.h \
-    CoordsTracker.h \
     SymbolThumbnail.h \
     ISymbolVisitor.h \
     PictureMarkerSymbol.h \
@@ -67,7 +66,6 @@ SOURCES += \
     MultithreadDisplay.cpp \
     StartDrawingTask.cpp \
     UpdateTask.cpp \
-    CoordsTracker.cpp \
     SymbolThumbnail.cpp \
     PictureMarkerSymbol.cpp \
     SymbolType.cpp \

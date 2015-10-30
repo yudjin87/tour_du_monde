@@ -43,6 +43,7 @@ HEADERS += \
     RendererCategoryItem.h \
     RendererCategoryCollectionModel.h \
     DefaultNavigationHandler.h \
+    CoordsTracker.h \
 
 SOURCES += \
     CartoUIComponent.cpp \
@@ -65,6 +66,7 @@ SOURCES += \
     RendererCategoryItem.cpp \
     RendererCategoryCollectionModel.cpp \
     DefaultNavigationHandler.cpp \
+    CoordsTracker.cpp \
 
 FORMS += \
     FeatureLayerPropertiesWidget.ui \

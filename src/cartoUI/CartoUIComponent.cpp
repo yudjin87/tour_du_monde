@@ -26,6 +26,7 @@
 
 #include "cartoUI/CartoUIComponent.h"
 #include "cartoUI/CartoUIInteractiveExtension.h"
+#include "cartoUI/CoordsTracker.h"
 #include "cartoUI/DefaultNavigationHandler.h"
 
 #include <carto/ITourDuMondeDocument.h>
@@ -35,8 +36,10 @@
 #include <carousel/componentsystem/ComponentDefinition.h>
 #include <carousel/componentsystem/ComponentExport.h>
 #include <carousel/utils/IServiceLocator.h>
+#include <components/interactivity/IInteractionService.h>
+#include <components/interactivity/InputDispatcher.h>
 
-#include <QtWidgets/QGraphicsScene>
+#include <QtWidgets/QMainWindow>
 
 static const QByteArray productName("CartoUI");
 
@@ -67,12 +70,23 @@ bool CartoUIComponent::onStartup(IServiceLocator *serviceLocator)
     DefaultNavigationHandler* defaultNavigationHandler = new DefaultNavigationHandler(display, controller, this);
     Q_UNUSED(defaultNavigationHandler)
 
+    QMainWindow *mainWindow = serviceLocator->locate<QMainWindow>();
+
+    IInteractionService* interactionService = serviceLocator->locate<IInteractionService>();
+    interactionService->setDispatcher(new InputDispatcher());
+    interactionService->dispatcher()->setSender(display);
+    interactionService->dispatcher()->activate();
+
+    CoordsTracker* tracker = new CoordsTracker(display, mainWindow->statusBar(), this);
+    Q_UNUSED(tracker)
+
     return true;
 }
 
 void CartoUIComponent::onShutdown(IServiceLocator *serviceLocator)
 {
-    Q_UNUSED(serviceLocator)
+    IInteractionService* interactionService = serviceLocator->locate<IInteractionService>();
+    interactionService->setDispatcher(nullptr);
 }
 
 EXPORT_COMPONENT(CartoUIComponent)
