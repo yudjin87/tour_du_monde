@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- 
+
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -29,29 +29,32 @@
 #include "IDisplay.h"
 #include "ISymbol.h"
 
-#include <components/jsscripting/IScriptingService.h>
-#include <components/jsscripting/IScriptConsole.h>
+#include <components/qmlscripting/IScriptingService.h>
+#include <carousel/utils/IServiceLocator.h>
 
-#include <QtCore/QMetaType>
-#include <QtScript/QScriptEngine>
-#include <QtScript/QScriptValueIterator>
-
-Q_DECLARE_METATYPE(ISymbol *)
-Q_DECLARE_METATYPE(DisplayTransformation *)
-Q_DECLARE_METATYPE(IDisplay *)
+#include <QtWidgets/QMainWindow>
+#include <QtQml/QQmlEngine>
+#include <QtQml/QJSValue>
+#include <QtQml/QtQml>
 
 DisplayScriptExtension::DisplayScriptExtension(QObject *parent)
     : QObject(parent)
 {
-
 }
 
-void DisplayScriptExtension::configureEngine(IServiceLocator *locator, QScriptEngine *engine)
+void DisplayScriptExtension::configureEngine(IServiceLocator *locator, QJSEngine *engine)
 {
-    Q_UNUSED(locator)
-    Q_UNUSED(engine);
-    REGISTER_METATYPE(ISymbol);
-    REGISTER_METATYPE(DisplayTransformation);
-    REGISTER_METATYPE(IDisplay);
+    QMainWindow *mainWindow = locator->locate<QMainWindow>();
+    QJSValue jsMainWindow = engine->newQObject(mainWindow);
+    QQmlEngine::setObjectOwnership(mainWindow, QQmlEngine::CppOwnership);
+    engine->globalObject().setProperty("mainWindow", jsMainWindow);
+
+    IDisplay *display = locator->locate<IDisplay>();
+    QJSValue jsDisplay = engine->newQObject(display);
+    QQmlEngine::setObjectOwnership(display, QQmlEngine::CppOwnership);
+    engine->globalObject().setProperty("display", jsDisplay);
+
+    qmlRegisterInterface<DisplayTransformation>("DisplayTransformation");
+    qmlRegisterInterface<DisplayTransformation>("ISymbol");
 }
 

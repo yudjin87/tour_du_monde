@@ -12,7 +12,7 @@ LIBS += -L$${DESTDIR} -lorg.carousel.demos.Geometry \
                       -lorg.carousel.demos.Geodatabase
 
 LIBS += -L$${CAROUSEL_BIN} -lCarousel \
-                           -lorg.carousel.JsScripting \
+                           -lorg.carousel.QmlScripting \
 
 SOURCES += \
     main_geodatabase_test.cpp \

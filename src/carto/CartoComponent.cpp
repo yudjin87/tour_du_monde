@@ -56,7 +56,7 @@ CartoComponent::CartoComponent()
     IScriptExtension *scriptExtension = new CartoScriptExtension(this);
     registerExtension<IScriptExtension>(scriptExtension);
 
-    addParent("org.carousel.JsScripting", 1, 0);
+    addParent("org.carousel.QmlScripting", 1, 0);
     addParent("org.carousel.demos.Display", 1, 0);
     addParent("org.carousel.demos.Geodatabase", 1, 0);
     addParent("org.carousel.demos.Geometry", 1, 0);

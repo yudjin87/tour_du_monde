@@ -11,8 +11,8 @@ DESTDIR = $${BIN_OUTPUT_PATH}/bin
 
 LIBS += -L$${CAROUSEL_BIN} -lCarousel \
                            -lorg.carousel.Interactivity \
-                           -lorg.carousel.JsScripting \
-                           -lorg.carousel.JsScriptingUI \
+                           -lorg.carousel.QmlScripting \
+                           -lorg.carousel.QmlScriptingUI \
                            -lorg.carousel.ComponentSystemUI \
                            -lorg.carousel.Undo \
                            -lorg.carousel.Persistence \
@@ -81,11 +81,8 @@ BOEBLINGEN_PROJECT += demo_project.proj
 START_UP = tour_du_monde.sh
 
 SCRIPTS += scripts/startup.js
-SCRIPTS += scripts/components.js
 SCRIPTS += scripts/loadLayer.js
 SCRIPTS += scripts/navigation.js
-SCRIPTS += scripts/uiManipulations.js
-SCRIPTS += scripts/scripting.js
 
 OTHER_FILES += \
     $${START_UP} \

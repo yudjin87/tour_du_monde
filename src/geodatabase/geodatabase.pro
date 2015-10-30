@@ -1,6 +1,6 @@
 include(../shared.pri)
 
-QT       += script sql
+QT       += qml sql
 
 TEMPLATE = lib
 
@@ -11,7 +11,7 @@ DEFINES += GEODATABASE_LIB_IMPORT
 DESTDIR = $${DESTDIR}/externalSource
 
 LIBS += -L$${CAROUSEL_BIN} -lCarousel \
-                           -lorg.carousel.JsScripting \
+                           -lorg.carousel.QmlScripting \
 
 LIBS += -L$${DESTDIR} -lorg.carousel.demos.Geometry \
 

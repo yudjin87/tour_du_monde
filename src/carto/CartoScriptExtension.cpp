@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- 
+
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -31,28 +31,13 @@
 #include "IMap.h"
 #include "IFeatureRenderer.h"
 
-#include <components/jsscripting/IScriptingService.h>
-#include <components/jsscripting/IScriptConsole.h>
+#include <components/qmlscripting/IScriptingService.h>
+#include <carousel/utils/IServiceLocator.h>
 
-#include <QtCore/QMetaType>
-#include <QtScript/QScriptEngine>
-#include <QtScript/QScriptValueIterator>
+#include <QtQml/QQmlEngine>
+#include <QtQml/QJSValue>
+#include <QtQml/QtQml>
 
-Q_DECLARE_METATYPE(IFeatureRenderer *)
-Q_DECLARE_METATYPE(ITourDuMondeDocument *)
-Q_DECLARE_METATYPE(ITourDuMondeDocumentController *)
-Q_DECLARE_METATYPE(IMap *)
-Q_DECLARE_METATYPE(QList<AbstractLayer *>)
-
-namespace
-{
-int registerScriptMetaTypes(QScriptEngine *engine)
-{
-    return qScriptRegisterMetaType<QList<AbstractLayer *>>(engine,
-        qScriptValueFromSequence<QList<AbstractLayer *>>,
-        qScriptValueToSequence<QList<AbstractLayer *>>);
-}
-} // namespace
 
 CartoScriptExtension::CartoScriptExtension(QObject *parent)
     : QObject(parent)
@@ -60,15 +45,16 @@ CartoScriptExtension::CartoScriptExtension(QObject *parent)
 
 }
 
-void CartoScriptExtension::configureEngine(IServiceLocator *locator, QScriptEngine *engine)
+void CartoScriptExtension::configureEngine(IServiceLocator *locator, QJSEngine *engine)
 {
-    Q_UNUSED(locator)
+    ITourDuMondeDocumentController* controller = locator->locate<ITourDuMondeDocumentController>();
+    QJSValue jsController = engine->newQObject(controller);
+    QQmlEngine::setObjectOwnership(controller, QQmlEngine::CppOwnership);
+    engine->globalObject().setProperty("documentController", jsController);
 
-    int cartoTypeIds = registerScriptMetaTypes(engine);
-    Q_UNUSED(cartoTypeIds);
-
-    REGISTER_METATYPE(IFeatureRenderer);
-    REGISTER_METATYPE(ITourDuMondeDocument);
-    REGISTER_METATYPE(IMap);
+    qmlRegisterInterface<ITourDuMondeDocument>("ITourDuMondeDocument");
+    qmlRegisterInterface<IMap>("IMap");
+    qmlRegisterInterface<AbstractLayer>("AbstractLayer");
+    qmlRegisterInterface<IFeatureRenderer>("IFeatureRenderer");
 }
 

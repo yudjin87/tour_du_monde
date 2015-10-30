@@ -25,7 +25,7 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
-#include <components/jsscripting/IScriptExtension.h>
+#include <components/qmlscripting/IScriptExtension.h>
 
 #include <QtCore/QObject>
 
@@ -35,6 +35,6 @@ class CartoScriptExtension : public QObject, public IScriptExtension
 public:
     explicit CartoScriptExtension(QObject *parent = nullptr);
     
-    void configureEngine(IServiceLocator *locator, QScriptEngine *engine) override;
+    void configureEngine(IServiceLocator *locator, QJSEngine *engine) override;
 };
 

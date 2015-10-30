@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- 
+
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -35,8 +35,8 @@
 #include <carousel/logging/ILoggerEngineCreator.h>
 
 #include <components/componentsystemui/ComponentSystemUIComponent.h>
-#include <components/jsscripting/JsScriptingComponent.h>
-#include <components/jsscriptingui/JsScriptingUIComponent.h>
+#include <components/qmlscripting/QmlScriptingComponent.h>
+#include <components/qmlscriptingui/QmlScriptingUIComponent.h>
 #include <components/interactivity/InteractionServiceComponent.h>
 #include <components/undo/UndoComponent.h>
 #include <components/persistence/PersistenceComponent.h>
@@ -54,8 +54,8 @@ void Bootloader::configureComponentProvider()
     provider->addProvider(new DirectoryComponentProvider("./externalSource"));
     provider->registerComponent(new ComponentSystemUIComponent());
     provider->registerComponent(new InteractionServiceComponent());
-    provider->registerComponent(new JsScriptingComponent());
-    provider->registerComponent(new JsScriptingUIComponent());
+    provider->registerComponent(new QmlScriptingComponent());
+    provider->registerComponent(new QmlScriptingUIComponent());
     provider->registerComponent(new UndoComponent());
     provider->registerComponent(new PersistenceComponent());
     provider->registerComponent(new PersistenceUIComponent());

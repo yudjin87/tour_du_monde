@@ -1,6 +1,6 @@
 include(../shared.pri)
 
-QT       += core script
+QT       += core qml
 
 TEMPLATE = lib
 
@@ -12,7 +12,7 @@ DEFINES += GEOMETRY_LIB_IMPORT
 DESTDIR = $${DESTDIR}/externalSource
 
 LIBS += -L$${CAROUSEL_BIN} -lCarousel \
-                           -lorg.carousel.JsScripting \
+                           -lorg.carousel.QmlScripting \
 
 HEADERS += \
     geometry_api.h \

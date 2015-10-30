@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- 
+
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -37,32 +37,12 @@
 #include "IWorkspace.h"
 #include "IWorkspaceFactory.h"
 
-#include <components/jsscripting/IScriptingService.h>
-#include <components/jsscripting/IScriptConsole.h>
+#include <components/qmlscripting/IScriptingService.h>
+#include <carousel/utils/IServiceLocator.h>
 
-#include <QtCore/QMetaType>
-#include <QtScript/QScriptEngine>
-#include <QtScript/QScriptValueIterator>
-
-Q_DECLARE_METATYPE(Geometry::Type)
-
-namespace
-{
-int registerFeatureList(QScriptEngine *engine)
-{
-    return qScriptRegisterMetaType<QVector<IFeature *>>(engine,
-        qScriptValueFromSequence<QVector<IFeature *>>,
-        qScriptValueToSequence<QVector<IFeature *>>);
-}
-
-int registerFeatureClassList(QScriptEngine *engine)
-{
-    return qScriptRegisterMetaType<QVector<IFeatureClass *>>(engine,
-        qScriptValueFromSequence<QVector<IFeatureClass *>>,
-        qScriptValueToSequence<QVector<IFeatureClass *>>);
-}
-
-} // namespace
+#include <QtQml/QQmlEngine>
+#include <QtQml/QJSValue>
+#include <QtQml/QtQml>
 
 GDBScriptExtension::GDBScriptExtension(QObject *parent)
     : QObject(parent)
@@ -70,23 +50,19 @@ GDBScriptExtension::GDBScriptExtension(QObject *parent)
 
 }
 
-void GDBScriptExtension::configureEngine(IServiceLocator *locator, QScriptEngine *engine)
+void GDBScriptExtension::configureEngine(IServiceLocator *locator, QJSEngine *engine)
 {
-    Q_UNUSED(locator)
+    IShapeFileWorkspaceFactory* factory = locator->locate<IShapeFileWorkspaceFactory>();
+    QJSValue jsFactory = engine->newQObject(factory);
+    QQmlEngine::setObjectOwnership(factory, QQmlEngine::CppOwnership);
+    engine->globalObject().setProperty("shapeFileWorkspaceFactory", jsFactory);
 
-    int featureListId = registerFeatureList(engine); Q_UNUSED(featureListId);
-    int featureClassListId = registerFeatureClassList(engine); Q_UNUSED(featureClassListId);
-
-    REGISTER_METATYPE(IDataset);
-    REGISTER_METATYPE(IFeature);
-    REGISTER_METATYPE(IRecord);
-    REGISTER_METATYPE(IFeatureWorkspace);
-    REGISTER_METATYPE(IFeatureClass);
-    REGISTER_METATYPE(IFeatureDataset);
-    REGISTER_METATYPE(IGeoDataset);
-    REGISTER_METATYPE(IShapeFileWorkspaceFactory);
-    REGISTER_METATYPE(ISpatialFilter);
-    REGISTER_METATYPE(IWorkspace);
-    REGISTER_METATYPE(IWorkspaceFactory);
+    qmlRegisterInterface<IDataset>("IDataset");
+    qmlRegisterInterface<IFeature>("IFeature");
+    qmlRegisterInterface<IWorkspace>("IWorkspace");
+    qmlRegisterInterface<IRecord>("IRecord");
+    qmlRegisterInterface<IFeatureClass>("IFeatureClass");
+    qmlRegisterInterface<IFeatureWorkspace>("IFeatureWorkspace");
+    qmlRegisterInterface<IFeatureDataset>("IFeatureDataset");
 }
 

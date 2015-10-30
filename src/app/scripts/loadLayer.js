@@ -1,8 +1,7 @@
 function loadLayer(workspacePath, name) {
-    print("Loading " + name + "...");
+    console.log("Loading " + name + "...");
 
-    var factory = serviceLocator.locate("IShapeFileWorkspaceFactory");
-    var workspace = factory.openFromFile(workspacePath);
+    var workspace = shapeFileWorkspaceFactory.openFromFile(workspacePath);
     var featureClass = workspace.openFeatureClass(name);
 
     var featureLayer = serviceLocator.build("FeatureLayer");
@@ -11,9 +10,7 @@ function loadLayer(workspacePath, name) {
     return featureLayer;
 }
 
-var scriptService = serviceLocator.locate("IScriptingService");
-var docController = serviceLocator.locate("ITourDuMondeDocumentController");
-var doc = docController.document;
+var doc = documentController.document;
 var map = doc.map;
 
 map.addLayer(loadLayer("./data", "natural"))

@@ -38,7 +38,7 @@ GeometryComponent::GeometryComponent()
     IScriptExtension *scriptExtension = new GeometryScriptExtension(this);
     registerExtension<IScriptExtension>(scriptExtension);
 
-    addParent("org.carousel.JsScripting", 1, 0);
+    addParent("org.carousel.QmlScripting", 1, 0);
     setShortName("Geometry");
     setProductName(productName);
     setProvider("Carousel");

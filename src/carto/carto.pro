@@ -1,7 +1,7 @@
 include(../shared.pri)
 
 QT       += widgets
-QT       += script
+QT       += qml
 
 TEMPLATE = lib
 
@@ -10,7 +10,7 @@ TARGET = org.carousel.demos.Carto
 DEFINES += CARTO_LIB_IMPORT
 
 LIBS += -L$${CAROUSEL_BIN} -lCarousel \
-                           -lorg.carousel.JsScripting \
+                           -lorg.carousel.QmlScripting \
                            -lorg.carousel.Interactivity \
 
 DESTDIR = $${DESTDIR}/externalSource

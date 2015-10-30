@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- 
+
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -46,7 +46,7 @@ DisplayComponent::DisplayComponent(QObject *parent)
     IScriptExtension *scriptExtension = new DisplayScriptExtension(this);
     registerExtension<IScriptExtension>(scriptExtension);
 
-    addParent("org.carousel.JsScripting", 1, 0);
+    addParent("org.carousel.QmlScripting", 1, 0);
     addParent("org.carousel.Interactivity", 1, 0);
     addParent("org.carousel.demos.Geometry", 1, 0);
     setShortName("Display");
@@ -65,7 +65,7 @@ void DisplayComponent::onShutdown(IServiceLocator *serviceLocator)
     delete display;
 
     IInteractionService* interactionService = serviceLocator->locate<IInteractionService>();
-    interactionService->setDispatcher(nullptr);
+    interactionService->setDispatcher(nullptr); // TODO: leak
 }
 
 bool DisplayComponent::onStartup(IServiceLocator *serviceLocator)

@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- 
+
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -29,6 +29,8 @@
 #include "geodatabase/Feature.h"
 #include "geodatabase/FeatureClass.h"
 #include "geodatabase/ShapeFileFeatureWorkspace.h"
+
+#include <QtQml/QQmlEngine>
 
 ShapeFileWorkspaceFactory::ShapeFileWorkspaceFactory()
     : IShapeFileWorkspaceFactory()
@@ -56,6 +58,7 @@ IWorkspace *ShapeFileWorkspaceFactory::openFromFile(const QString &workspacePath
     }
 
     IWorkspace *ws = new ShapeFileFeatureWorkspace(workspacePath);
+    QQmlEngine::setObjectOwnership(ws, QQmlEngine::CppOwnership); // TODO: script wrapped for the factory?
     m_opennedWorkspaces.insert(workspacePath, ws);
     return ws;
 }

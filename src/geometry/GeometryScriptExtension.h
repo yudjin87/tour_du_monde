@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- 
+
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -25,7 +25,7 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
-#include <components/jsscripting/IScriptExtension.h>
+#include <components/qmlscripting/IScriptExtension.h>
 
 #include <QtCore/QObject>
 
@@ -35,6 +35,6 @@ class GeometryScriptExtension : public QObject, public IScriptExtension
 public:
     explicit GeometryScriptExtension(QObject *parent = nullptr);
 
-    void configureEngine(IServiceLocator *locator, QScriptEngine *engine) override;
+    void configureEngine(IServiceLocator *locator, QJSEngine *engine) override;
 };
 

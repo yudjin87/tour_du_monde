@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- 
+
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -34,32 +34,12 @@
 #include "Ring.h"
 #include "Segment.h"
 
-#include <components/jsscripting/IScriptingService.h>
-#include <components/jsscripting/IScriptConsole.h>
+#include <components/qmlscripting/IScriptingService.h>
 
 #include <QtCore/QMetaType>
-#include <QtScript/QScriptEngine>
-#include <QtScript/QScriptValueIterator>
+#include <QtQml/QJSEngine>
 
 Q_DECLARE_METATYPE(Geometry::Type)
-
-namespace
-{
-//int registerRingList(QScriptEngine *engine)
-//{
-//    return qScriptRegisterMetaType<QList<Ring *>>(engine,
-//        qScriptValueFromSequence<QList<Ring *>>,
-//        qScriptValueToSequence<QList<Ring *>>);
-//}
-
-//int registerSegmentList(QScriptEngine *engine)
-//{
-//    return qScriptRegisterMetaType<QList<Segment *>>(engine,
-//        qScriptValueFromSequence<QList<Segment *>>,
-//        qScriptValueToSequence<QList<Segment *>>);
-//}
-
-} // namespace
 
 GeometryScriptExtension::GeometryScriptExtension(QObject *parent)
     : QObject(parent)
@@ -67,19 +47,9 @@ GeometryScriptExtension::GeometryScriptExtension(QObject *parent)
 
 }
 
-void GeometryScriptExtension::configureEngine(IServiceLocator *locator, QScriptEngine *engine)
+void GeometryScriptExtension::configureEngine(IServiceLocator *locator, QJSEngine *engine)
 {
     Q_UNUSED(locator)
-
-//    int ringListId = registerRingList(engine); Q_UNUSED(ringListId);
-//    int segmentListId = registerSegmentList(engine); Q_UNUSED(segmentListId);
-
-//    REGISTER_METATYPE(IGeometry);
-//    REGISTER_METATYPE(Point);
-//    REGISTER_METATYPE(Polycurve);
-//    REGISTER_METATYPE(Polygon);
-//    REGISTER_METATYPE(Polyline);
-//    REGISTER_METATYPE(Ring);
-//    REGISTER_METATYPE(Segment);
+    Q_UNUSED(engine)
 }
 
