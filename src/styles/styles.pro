@@ -1,6 +1,6 @@
 include(../shared.pri)
 
-QT       += widgets
+QT       += gui qml
 
 TEMPLATE = lib
 
@@ -9,7 +9,6 @@ TARGET = org.carousel.demos.Styles
 DEFINES += STYLES_LIB_IMPORT
 
 LIBS += -L$${CAROUSEL_BIN} -lCarousel \
-                           -lorg.carousel.Interactivity \
 
 DESTDIR = $${DESTDIR}/externalSource
 

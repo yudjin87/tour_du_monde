@@ -53,9 +53,9 @@ CartoUIComponent::CartoUIComponent(QObject *parent /*= nullptr*/)
     IScriptExtension *scriptingExtension = new CartoUIScriptExtension(this);
     registerExtension<IScriptExtension>(scriptingExtension);
 
+    addParent("org.carousel.Interactivity", 1, 0);
     addParent("org.carousel.demos.Geodatabase", 1, 0);
     addParent("org.carousel.demos.Display", 1, 0);
-    addParent("org.carousel.demos.Interactivity", 1, 0);
     addParent("org.carousel.demos.DisplayWidgets", 1, 0);
     addParent("org.carousel.demos.Carto", 1, 0);
     setShortName("Carto UI");

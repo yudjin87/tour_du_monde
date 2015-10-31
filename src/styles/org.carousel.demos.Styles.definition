@@ -4,6 +4,5 @@
      <provider>Carousel</provider>
      <parents>
          <parentComponent name="org.carousel.demos.Carto" version="1.0"/>
-         <parentComponent name="org.carousel.Interactivity" version="1.0"/>
      </parents>
  </component>

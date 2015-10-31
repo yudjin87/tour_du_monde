@@ -101,6 +101,8 @@ bool CartoComponent::onStartup(IServiceLocator *serviceLocator)
 
     // For creating from scripting
     serviceLocator->bindType<FeatureLayer, FeatureLayer>();
+
+    return true;
 }
 
 EXPORT_COMPONENT(CartoComponent)

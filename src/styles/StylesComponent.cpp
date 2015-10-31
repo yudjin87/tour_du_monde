@@ -37,7 +37,6 @@
 StylesComponent::StylesComponent()
     : BaseComponent("org.carousel.demos.Styles")
 {
-    addParent("org.carousel.Interactivity", 1, 0);
     addParent("org.carousel.demos.Carto", 1, 0);
     setShortName("Styles");
     setProductName("Styles");
