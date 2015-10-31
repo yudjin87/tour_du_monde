@@ -44,7 +44,7 @@ DefaultNavigationHandler::DefaultNavigationHandler(IDisplay *display, ITourDuMon
     , m_tracked(false)
 {
     m_dispatcher->setReceiver(this);
-    m_dispatcher->setSender(m_display->attachedWidget());
+    m_dispatcher->setSender(static_cast<QWidget*>(m_display->attachedWidget()));
     m_dispatcher->activate();
 }
 

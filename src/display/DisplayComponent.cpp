@@ -33,8 +33,6 @@
 #include <carousel/componentsystem/ComponentExport.h>
 #include <carousel/utils/IServiceLocator.h>
 
-#include <QtWidgets/QMainWindow>
-
 static const QByteArray productName("Display");
 
 DisplayComponent::DisplayComponent(QObject *parent)
@@ -44,7 +42,6 @@ DisplayComponent::DisplayComponent(QObject *parent)
     registerExtension<IScriptExtension>(scriptExtension);
 
     addParent("org.carousel.QmlScripting", 1, 0);
-    addParent("org.carousel.Interactivity", 1, 0);
     addParent("org.carousel.demos.Geometry", 1, 0);
     setShortName("Display");
     setProductName(productName);

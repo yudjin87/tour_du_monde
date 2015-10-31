@@ -24,7 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include <display/RectRubberBand.h>
+#include <cartoUI/RectRubberBand.h>
 #include <display/IDisplay.h>
 
 #include <QtCore/QtDebug>
@@ -50,7 +50,7 @@ bool RectRubberBand::newRect(IDisplay *display, const QPoint &start, QRect *out)
     m_display = display;
     m_dispatcher.reset(new InputDispatcher(this));
     m_dispatcher->setReceiver(this);
-    m_dispatcher->setSender(m_display->attachedWidget());
+    m_dispatcher->setSender(static_cast<QWidget*>(m_display->attachedWidget()));
     m_dispatcher->activate();
 
     m_eventLoop.exec();

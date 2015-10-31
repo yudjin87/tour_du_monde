@@ -28,12 +28,12 @@
 
 #include <carousel/utils/IServiceLocator.h>
 
-#include <display/RectRubberBand.h>
-#include <display/IDisplay.h>
-#include <display/DisplayTransformation.h>
 #include <carto/IMap.h>
 #include <carto/ITourDuMondeDocument.h>
 #include <carto/ITourDuMondeDocumentController.h>
+#include <cartoUI/RectRubberBand.h>
+#include <display/IDisplay.h>
+#include <display/DisplayTransformation.h>
 #include <carousel/logging/LoggerFacade.h>
 
 #include <QtGui/QMouseEvent>

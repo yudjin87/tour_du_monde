@@ -40,7 +40,7 @@ static LoggerFacade Log = LoggerFacade::createLogger("MT Display");
 static const int flipY = -1;
 static const size_t QUEUE_LIMIT = 100;
 
-MultithreadDisplay::MultithreadDisplay(QWidget *parent)
+MultithreadDisplay::MultithreadDisplay(QObject *parent)
     : SimpleDisplay(parent)
     , m_taskQueue(QUEUE_LIMIT)
     , m_renderer(new RenderThread(*this, m_taskQueue, this))
@@ -80,7 +80,7 @@ void MultithreadDisplay::startDrawing(const DispayCache inCache)
 }
 
 void MultithreadDisplay::finishDrawing(const DispayCache inCache)
-{    
+{
     if (inCache == DispayCache::Geometry) {
         Log.d("Finish drawing: create UpdateTask");
         m_taskQueue.push(IDrawingTaskPtr(new UpdateTask(this)));

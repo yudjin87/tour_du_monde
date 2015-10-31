@@ -24,19 +24,26 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#pragma once
-#include "carto_api.h"
+#include "CartoUIScriptExtension.h"
 
-#include <carousel/componentsystem/BaseComponent.h>
+#include <components/qmlscripting/IScriptingService.h>
+#include <carousel/utils/IServiceLocator.h>
 
-class CARTO_API CartoComponent : public BaseComponent
+#include <QtQml/QQmlEngine>
+#include <QtQml/QJSValue>
+#include <QtQml/QtQml>
+#include <QtWidgets/QMainWindow>
+
+CartoUIScriptExtension::CartoUIScriptExtension(QObject *parent)
+    : QObject(parent)
 {
-public:
-    CartoComponent();
-    ~CartoComponent();
+}
 
-protected:
-    bool onStartup(IServiceLocator *serviceLocator) override;
-    void onShutdown(IServiceLocator *serviceLocator) override;
-};
+void CartoUIScriptExtension::configureEngine(IServiceLocator *locator, QJSEngine *engine)
+{
+    QMainWindow *mainWindow = locator->locate<QMainWindow>();
+    QJSValue jsMainWindow = engine->newQObject(mainWindow);
+    QQmlEngine::setObjectOwnership(mainWindow, QQmlEngine::CppOwnership);
+    engine->globalObject().setProperty("mainWindow", jsMainWindow);
+}
 

@@ -25,18 +25,16 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
-#include "carto_api.h"
+#include <components/qmlscripting/IScriptExtension.h>
 
-#include <carousel/componentsystem/BaseComponent.h>
+#include <QtCore/QObject>
 
-class CARTO_API CartoComponent : public BaseComponent
+class CartoUIScriptExtension : public QObject, public IScriptExtension
 {
+    Q_OBJECT
 public:
-    CartoComponent();
-    ~CartoComponent();
+    explicit CartoUIScriptExtension(QObject *parent = nullptr);
 
-protected:
-    bool onStartup(IServiceLocator *serviceLocator) override;
-    void onShutdown(IServiceLocator *serviceLocator) override;
+    void configureEngine(IServiceLocator *locator, QJSEngine *engine) override;
 };
 

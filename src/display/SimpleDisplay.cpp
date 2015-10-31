@@ -74,12 +74,12 @@ void SimpleDisplay::drawOut(QPainter *toPainter) const
     toPainter->drawPixmap(m_offset.x(), m_offset.y(), m_pixmap->width(), m_pixmap->height(), *m_pixmap);
 }
 
-QWidget *SimpleDisplay::attachedWidget() const
+QObject *SimpleDisplay::attachedWidget() const
 {
     return m_attachedWidget;
 }
 
-void SimpleDisplay::setAttachedWidget(QWidget *attachedWidget)
+void SimpleDisplay::setAttachedWidget(QObject *attachedWidget)
 {
     if (m_attachedWidget == attachedWidget)
         return;

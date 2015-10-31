@@ -41,11 +41,8 @@
 #include <carousel/commands/IUndoStack.h>
 #include <carousel/componentsystem/ComponentDefinition.h>
 #include <carousel/componentsystem/ComponentExport.h>
-#include <carousel/componentsystem/IComponentManager.h>
 #include <carousel/utils/IServiceLocator.h>
 #include <carousel/utils/TypeCreators.h>
-
-#include <QtWidgets/QMainWindow>
 
 static const QByteArray productName("Carto");
 
@@ -104,23 +101,6 @@ bool CartoComponent::onStartup(IServiceLocator *serviceLocator)
 
     // For creating from scripting
     serviceLocator->bindType<FeatureLayer, FeatureLayer>();
-
-    // Binding document name to the Application window title:
-    QMainWindow* mainWindow = serviceLocator->locate<QMainWindow>();
-    mainWindow->setWindowTitle(controller->activeDocumentName() + "[*]");
-    connect(controller, &ITourDuMondeDocumentController::activeDocumentNameChanged, [mainWindow](const QString& n) { mainWindow->setWindowTitle(n + "[*]");});
-
-    IComponentManager* componentManager = serviceLocator->locate<IComponentManager>();
-    connect(componentManager, &IComponentManager::startedUp, [serviceLocator, this]() { onComponentsStartedUp(serviceLocator);});
-
-    return true;
-}
-
-void CartoComponent::onComponentsStartedUp(IServiceLocator *serviceLocator)
-{
-    QMainWindow* mainWindow = serviceLocator->locate<QMainWindow>();
-    IUndoStack *undoStack = serviceLocator->locate<IUndoStack>();
-    connect(undoStack, &IUndoStack::cleanChanged, [mainWindow](bool c) { mainWindow->setWindowModified(!c); });
 }
 
 EXPORT_COMPONENT(CartoComponent)

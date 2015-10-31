@@ -26,12 +26,16 @@
 
 #include "cartoUI/CartoUIComponent.h"
 #include "cartoUI/CartoUIInteractiveExtension.h"
+#include "cartoUI/CartoUIScriptExtension.h"
 #include "cartoUI/MapView.h"
+#include <carto/ITourDuMondeDocumentController.h>
 
 #include <display/IDisplay.h>
 
+#include <carousel/commands/IUndoStack.h>
 #include <carousel/componentsystem/ComponentDefinition.h>
 #include <carousel/componentsystem/ComponentExport.h>
+#include <carousel/componentsystem/IComponentManager.h>
 #include <carousel/utils/IServiceLocator.h>
 #include <components/interactivity/IInteractionService.h>
 #include <components/interactivity/InputDispatcher.h>
@@ -46,8 +50,12 @@ CartoUIComponent::CartoUIComponent(QObject *parent /*= nullptr*/)
     IInteractiveExtension *interactiveExtension = new CartoUIInteractiveExtension(this);
     registerExtension<IInteractiveExtension>(interactiveExtension);
 
+    IScriptExtension *scriptingExtension = new CartoUIScriptExtension(this);
+    registerExtension<IScriptExtension>(scriptingExtension);
+
     addParent("org.carousel.demos.Geodatabase", 1, 0);
     addParent("org.carousel.demos.Display", 1, 0);
+    addParent("org.carousel.demos.Interactivity", 1, 0);
     addParent("org.carousel.demos.DisplayWidgets", 1, 0);
     addParent("org.carousel.demos.Carto", 1, 0);
     setShortName("Carto UI");
@@ -74,7 +82,22 @@ bool CartoUIComponent::onStartup(IServiceLocator *serviceLocator)
     interactionService->dispatcher()->setSender(mapView);
     interactionService->dispatcher()->activate();
 
+    // Binding document name to the Application window title:
+    ITourDuMondeDocumentController* controller = serviceLocator->locate<ITourDuMondeDocumentController>();
+    mainWindow->setWindowTitle(controller->activeDocumentName() + "[*]");
+    connect(controller, &ITourDuMondeDocumentController::activeDocumentNameChanged, [mainWindow](const QString& n) { mainWindow->setWindowTitle(n + "[*]");});
+
+    IComponentManager* componentManager = serviceLocator->locate<IComponentManager>();
+    connect(componentManager, &IComponentManager::startedUp, [serviceLocator, this]() { onComponentsStartedUp(serviceLocator);});
+
     return true;
+}
+
+void CartoUIComponent::onComponentsStartedUp(IServiceLocator *serviceLocator)
+{
+    QMainWindow* mainWindow = serviceLocator->locate<QMainWindow>();
+    IUndoStack *undoStack = serviceLocator->locate<IUndoStack>();
+    connect(undoStack, &IUndoStack::cleanChanged, [mainWindow](bool c) { mainWindow->setWindowModified(!c); });
 }
 
 void CartoUIComponent::onShutdown(IServiceLocator *serviceLocator)

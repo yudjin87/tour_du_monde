@@ -23,6 +23,7 @@ LIBS += -L$${DESTDIR} -lorg.carousel.demos.Display \
 
 HEADERS += \
     cartoUI_api.h \
+    RectRubberBand.h \
     CartoUIComponent.h \
     CartoUIInteractiveExtension.h \
     FeatureLayerDelegate.h \
@@ -44,10 +45,12 @@ HEADERS += \
     RendererCategoryCollectionModel.h \
     DefaultNavigationHandler.h \
     CoordsTracker.h \
-    MapView.h
+    MapView.h \
+    CartoUIScriptExtension.h \
 
 SOURCES += \
     CartoUIComponent.cpp \
+    RectRubberBand.cpp \
     CartoUIInteractiveExtension.cpp \
     FeatureLayerDelegate.cpp \
     AddShapeOperation.cpp \
@@ -68,7 +71,8 @@ SOURCES += \
     RendererCategoryCollectionModel.cpp \
     DefaultNavigationHandler.cpp \
     CoordsTracker.cpp \
-    MapView.cpp
+    MapView.cpp \
+    CartoUIScriptExtension.cpp
 
 FORMS += \
     FeatureLayerPropertiesWidget.ui \

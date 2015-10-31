@@ -24,15 +24,14 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "DisplayScriptExtension.h"
-#include "DisplayTransformation.h"
-#include "IDisplay.h"
-#include "ISymbol.h"
+#include "display/DisplayScriptExtension.h"
+#include "display/DisplayTransformation.h"
+#include "display/IDisplay.h"
+#include "display/ISymbol.h"
 
 #include <components/qmlscripting/IScriptingService.h>
 #include <carousel/utils/IServiceLocator.h>
 
-#include <QtWidgets/QMainWindow>
 #include <QtQml/QQmlEngine>
 #include <QtQml/QJSValue>
 #include <QtQml/QtQml>
@@ -44,11 +43,6 @@ DisplayScriptExtension::DisplayScriptExtension(QObject *parent)
 
 void DisplayScriptExtension::configureEngine(IServiceLocator *locator, QJSEngine *engine)
 {
-    QMainWindow *mainWindow = locator->locate<QMainWindow>();
-    QJSValue jsMainWindow = engine->newQObject(mainWindow);
-    QQmlEngine::setObjectOwnership(mainWindow, QQmlEngine::CppOwnership);
-    engine->globalObject().setProperty("mainWindow", jsMainWindow);
-
     IDisplay *display = locator->locate<IDisplay>();
     QJSValue jsDisplay = engine->newQObject(display);
     QQmlEngine::setObjectOwnership(display, QQmlEngine::CppOwnership);

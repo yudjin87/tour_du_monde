@@ -41,7 +41,7 @@ CoordsTracker::CoordsTracker(IDisplay *display, QStatusBar *statusBar, QObject *
     , m_dispatcher(new InputDispatcher())
 {
     m_dispatcher->setReceiver(this);
-    m_dispatcher->setSender(m_display->attachedWidget());
+    m_dispatcher->setSender(static_cast<QWidget*>(m_display->attachedWidget()));
     m_dispatcher->activate();
 }
 

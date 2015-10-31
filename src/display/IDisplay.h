@@ -47,7 +47,7 @@ class DISPLAY_API IDisplay : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(DisplayTransformation *transformation READ transformation)
-    Q_PROPERTY(QWidget* attachedWidget READ attachedWidget WRITE setAttachedWidget NOTIFY attachedWidgetChanged)
+    Q_PROPERTY(QObject* attachedWidget READ attachedWidget WRITE setAttachedWidget NOTIFY attachedWidgetChanged)
 public:
     IDisplay(){}
     virtual ~IDisplay(){}
@@ -66,8 +66,8 @@ public:
     virtual QPixmapPtr createPixmap(const QColor &fillColor = Qt::transparent) const = 0;
     virtual void drawOut(QPainter* toPainter) const = 0;
 
-    virtual QWidget* attachedWidget() const = 0;
-    virtual void setAttachedWidget(QWidget* attachedWidget) = 0;
+    virtual QObject* attachedWidget() const = 0;
+    virtual void setAttachedWidget(QObject* attachedWidget) = 0;
 
 public slots:
     virtual void panMoveTo(const QPoint &screenPoint) = 0;
@@ -82,7 +82,7 @@ signals:
 
 signals:
     void needChange();
-    void attachedWidgetChanged(QWidget* attachedWidget);
+    void attachedWidgetChanged(QObject* attachedWidget);
 
 private:
     Q_DISABLE_COPY(IDisplay)

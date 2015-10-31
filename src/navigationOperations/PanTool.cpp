@@ -25,7 +25,7 @@ void PanTool::execute()
     IDisplay *display = m_serviceLocator->locate<IDisplay>();
 
     // TODO: move cursors to base class
-    display->attachedWidget()->setCursor(Qt::OpenHandCursor);
+    static_cast<QWidget*>(display->attachedWidget())->setCursor(Qt::OpenHandCursor);
 }
 
 void PanTool::initialize(IServiceLocator *serviceLocator)
@@ -42,7 +42,7 @@ bool PanTool::onMouseDown(QMouseEvent *event)
     m_tracked = true;
     IDisplay *display = m_serviceLocator->locate<IDisplay>();
     display->panStart(event->pos());
-    display->attachedWidget()->setCursor(Qt::ClosedHandCursor);
+    static_cast<QWidget*>(display->attachedWidget())->setCursor(Qt::ClosedHandCursor);
 
     return true;
 }
@@ -69,7 +69,7 @@ bool PanTool::onMouseUp(QMouseEvent *event)
     m_tracked = false;
     IDisplay *display = m_serviceLocator->locate<IDisplay>();
     display->panStop();
-    display->attachedWidget()->setCursor(Qt::OpenHandCursor);
+    static_cast<QWidget*>(display->attachedWidget())->setCursor(Qt::OpenHandCursor);
 
     ITourDuMondeDocumentController* docController = m_serviceLocator->locate<ITourDuMondeDocumentController>();
     ITourDuMondeDocument *doc = docController->document();
@@ -84,6 +84,6 @@ void PanTool::stopExecuting()
     ToolBase::stopExecuting();
 
     IDisplay *display = m_serviceLocator->locate<IDisplay>();
-    display->attachedWidget()->unsetCursor();
+    static_cast<QWidget*>(display->attachedWidget())->unsetCursor();
 }
 

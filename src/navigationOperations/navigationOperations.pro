@@ -15,6 +15,7 @@ LIBS += -L$${CAROUSEL_BIN} -lCarousel \
 
 LIBS += -L$${DESTDIR} -lorg.carousel.demos.Display \
                       -lorg.carousel.demos.Carto \
+                      -lorg.carousel.demos.CartoUI \
                       -lorg.carousel.demos.Geometry
 
 

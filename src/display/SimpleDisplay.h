@@ -54,8 +54,8 @@ public:
 
     void drawOut(QPainter* toPainter) const override;
 
-    QWidget* attachedWidget() const override;
-    void setAttachedWidget(QWidget* attachedWidget) override;
+    QObject* attachedWidget() const override;
+    void setAttachedWidget(QObject* attachedWidget) override;
 
 private slots:
     void onVisibleBoundChanged(const QRectF &visibleBounds);
@@ -78,7 +78,7 @@ private:
     DisplayTransformation *m_transform;
     QPixmapPtr m_pixmap;
     QVector<QPixmapPtr> m_draftPixmaps;
-    QWidget* m_attachedWidget;
+    QObject* m_attachedWidget;
 
     mutable QMutex m_pixmapMutex;
 };
