@@ -1,7 +1,7 @@
 include(../shared.pri)
 
+QT       += core gui qml
 QT       -= widgets
-QT       += qml gui
 
 TEMPLATE = lib
 
@@ -17,7 +17,6 @@ DESTDIR = $${DESTDIR}/externalSource
 LIBS += -L$${DESTDIR} -lorg.carousel.demos.Display \
                       -lorg.carousel.demos.Geodatabase \
                       -lorg.carousel.demos.Geometry
-
 
 HEADERS += \
     carto_api.h \

@@ -29,12 +29,11 @@
 #include <display/IDrawingTask.h>
 #include <display/ThreadSafeQueue.h>
 
+#include <QtCore/QObject>
 #include <QtGui/QPixmap>
-#include <QtWidgets/QWidget>
 
 class DisplayTransformation;
 
-//typedef std::unique_ptr<QPixmap> QPixmapPtr;
 typedef QPixmap* QPixmapPtr;
 
 enum class DispayCache
@@ -44,10 +43,11 @@ enum class DispayCache
     Annotations = 2
 };
 
-class DISPLAY_API IDisplay : public QWidget
+class DISPLAY_API IDisplay : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(DisplayTransformation *transformation READ transformation)
+    Q_PROPERTY(QWidget* attachedWidget READ attachedWidget WRITE setAttachedWidget NOTIFY attachedWidgetChanged)
 public:
     IDisplay(){}
     virtual ~IDisplay(){}
@@ -66,17 +66,23 @@ public:
     virtual QPixmapPtr createPixmap(const QColor &fillColor = Qt::transparent) const = 0;
     virtual void drawOut(QPainter* toPainter) const = 0;
 
+    virtual QWidget* attachedWidget() const = 0;
+    virtual void setAttachedWidget(QWidget* attachedWidget) = 0;
+
 public slots:
     virtual void panMoveTo(const QPoint &screenPoint) = 0;
     virtual void panStart(const QPoint &screenPoint) = 0;
     virtual QRectF panStop() = 0;
-    virtual void updateWindow() = 0;
 
 signals:
     /* from DisplayTransformation */
     void boundsChanged(const QRectF &bounds);
     void deviceFrameChanged(const QRectF &deviceFrame);
     void visibleBoundsChanged(const QRectF &visibleBounds);
+
+signals:
+    void needChange();
+    void attachedWidgetChanged(QWidget* attachedWidget);
 
 private:
     Q_DISABLE_COPY(IDisplay)

@@ -24,68 +24,38 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "cartoUI/DefaultNavigationHandler.h"
-
+#include "cartoUI/CoordsTracker.h"
 #include <display/IDisplay.h>
 #include <display/DisplayTransformation.h>
-#include <carto/IMap.h>
-#include <carto/ITourDuMondeDocument.h>
-#include <carto/ITourDuMondeDocumentController.h>
 #include <components/interactivity/InputDispatcher.h>
 
 #include <QtGui/QMouseEvent>
+#include <QtWidgets/QStatusBar>
+#include <QtWidgets/QWidget>
 
-DefaultNavigationHandler::DefaultNavigationHandler(IDisplay *display, ITourDuMondeDocumentController *docCtrl, QObject *parent)
+CoordsTracker::CoordsTracker(IDisplay *display, QStatusBar *statusBar, QObject *parent)
     : QObject(parent)
     , BaseInputReceiver()
     , m_display(display)
-    , m_docCtrl(docCtrl)
+    , m_statusBar(statusBar)
     , m_dispatcher(new InputDispatcher())
-    , m_tracked(false)
 {
     m_dispatcher->setReceiver(this);
     m_dispatcher->setSender(m_display->attachedWidget());
     m_dispatcher->activate();
 }
 
-bool DefaultNavigationHandler::onMouseMove(QMouseEvent *event)
+bool CoordsTracker::onMouseMove(QMouseEvent *event)
 {
-    BaseInputReceiver::onMouseMove(event);
-    if (!m_tracked)
-        return false;
+    const DisplayTransformation* transform = m_display->transformation();
+    QPointF mapPoint = transform->toMapPoint(event->pos());
 
-    m_display->panMoveTo(event->pos());
+    m_statusBar->showMessage(QString("x: %1, y: %2").arg(mapPoint.x()).arg(mapPoint.y()), 2000);
 
     // let's other objects to continue with this event
     return false;
 }
 
-bool DefaultNavigationHandler::onMouseDown(QMouseEvent *event)
-{
-    if (event->button() != Qt::MiddleButton)
-        return false;
 
-    m_tracked = true;
-    m_display->panStart(event->pos());
-
-    // let's other objects to continue with this event
-    return false;
-}
-
-bool DefaultNavigationHandler::onMouseUp(QMouseEvent *event)
-{
-    if (event->button() != Qt::MiddleButton)
-        return false;
-
-    m_tracked = false;
-    m_display->panStop();
-
-    ITourDuMondeDocument *doc = m_docCtrl->document();
-    IMap *map = doc->map();
-    map->refresh();
-
-    // let's other objects to continue with this event
-    return false;
-}
 
 

@@ -1,6 +1,7 @@
 include(../shared.pri)
 
-QT       += core widgets qml
+QT       += core gui qml
+QT       -= widgets
 
 TARGET = org.carousel.demos.Display
 
@@ -13,7 +14,6 @@ ROOT_DIR = $${DESTDIR}
 DESTDIR = $${DESTDIR}/externalSource
 
 LIBS += -L$${CAROUSEL_BIN} -lCarousel \
-                           -lorg.carousel.Interactivity \
                            -lorg.carousel.QmlScripting \
 
 LIBS += -L$${DESTDIR} -lorg.carousel.demos.Geometry \

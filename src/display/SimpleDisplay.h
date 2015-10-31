@@ -33,7 +33,7 @@ class SimpleDisplay :  public IDisplay
 {
     Q_OBJECT
 public:
-    SimpleDisplay(QWidget *parent = nullptr);
+    SimpleDisplay(QObject *parent = nullptr);
     ~SimpleDisplay();
 
     void startDrawing(const DispayCache inCache) override;
@@ -48,25 +48,18 @@ public:
     void panMoveTo(const QPoint &screenPoint) override;
     void panStart(const QPoint &screenPoint) override;
     QRectF panStop() override;
-    void updateWindow() override;
 
     void postDrawingTask(IDrawingTaskPtr task) override;
     QPixmapPtr createPixmap(const QColor &fillColor = Qt::transparent) const override;
 
     void drawOut(QPainter* toPainter) const override;
 
-protected:
-    void mouseMoveEvent(QMouseEvent *event) override;
-    void resizeEvent(QResizeEvent *event) override;
-    void paintEvent(QPaintEvent *event) override;
-    void showEvent(QShowEvent * event) override;
-
-signals:
-    void needChange();
+    QWidget* attachedWidget() const override;
+    void setAttachedWidget(QWidget* attachedWidget) override;
 
 private slots:
-    void emitChanged();
     void onVisibleBoundChanged(const QRectF &visibleBounds);
+    void onDeviceFrameChanged(const QRectF &deviceFrame);
 
 private:
     Q_DISABLE_COPY(SimpleDisplay)
@@ -85,6 +78,7 @@ private:
     DisplayTransformation *m_transform;
     QPixmapPtr m_pixmap;
     QVector<QPixmapPtr> m_draftPixmaps;
+    QWidget* m_attachedWidget;
 
     mutable QMutex m_pixmapMutex;
 };

@@ -26,11 +26,8 @@
 
 #include "cartoUI/CartoUIComponent.h"
 #include "cartoUI/CartoUIInteractiveExtension.h"
-#include "cartoUI/CoordsTracker.h"
-#include "cartoUI/DefaultNavigationHandler.h"
+#include "cartoUI/MapView.h"
 
-#include <carto/ITourDuMondeDocument.h>
-#include <carto/ITourDuMondeDocumentController.h>
 #include <display/IDisplay.h>
 
 #include <carousel/componentsystem/ComponentDefinition.h>
@@ -65,20 +62,17 @@ CartoUIComponent::~CartoUIComponent()
 
 bool CartoUIComponent::onStartup(IServiceLocator *serviceLocator)
 {
-    IDisplay *display = serviceLocator->locate<IDisplay>();
-    ITourDuMondeDocumentController* controller = serviceLocator->locate<ITourDuMondeDocumentController>();
-    DefaultNavigationHandler* defaultNavigationHandler = new DefaultNavigationHandler(display, controller, this);
-    Q_UNUSED(defaultNavigationHandler)
-
+    //------ Map view
     QMainWindow *mainWindow = serviceLocator->locate<QMainWindow>();
+    IDisplay *display = serviceLocator->locate<IDisplay>();
+    MapView* mapView = new MapView(*display, mainWindow);
+    mainWindow->setCentralWidget(mapView);
 
+    // -------------
     IInteractionService* interactionService = serviceLocator->locate<IInteractionService>();
     interactionService->setDispatcher(new InputDispatcher());
-    interactionService->dispatcher()->setSender(display);
+    interactionService->dispatcher()->setSender(mapView);
     interactionService->dispatcher()->activate();
-
-    CoordsTracker* tracker = new CoordsTracker(display, mainWindow->statusBar(), this);
-    Q_UNUSED(tracker)
 
     return true;
 }
@@ -87,6 +81,14 @@ void CartoUIComponent::onShutdown(IServiceLocator *serviceLocator)
 {
     IInteractionService* interactionService = serviceLocator->locate<IInteractionService>();
     interactionService->setDispatcher(nullptr);
+
+    QMainWindow *mainWindow = serviceLocator->locate<QMainWindow>();
+    QWidget* centralWidget = mainWindow->centralWidget();
+    if (MapView* mapView = dynamic_cast<MapView*>(centralWidget))
+    {
+        mainWindow->setCentralWidget(nullptr);
+        delete mapView;
+    }
 }
 
 EXPORT_COMPONENT(CartoUIComponent)

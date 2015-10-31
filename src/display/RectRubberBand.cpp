@@ -50,7 +50,7 @@ bool RectRubberBand::newRect(IDisplay *display, const QPoint &start, QRect *out)
     m_display = display;
     m_dispatcher.reset(new InputDispatcher(this));
     m_dispatcher->setReceiver(this);
-    m_dispatcher->setSender(m_display);
+    m_dispatcher->setSender(m_display->attachedWidget());
     m_dispatcher->activate();
 
     m_eventLoop.exec();

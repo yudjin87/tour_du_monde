@@ -44,6 +44,7 @@ HEADERS += \
     RendererCategoryCollectionModel.h \
     DefaultNavigationHandler.h \
     CoordsTracker.h \
+    MapView.h
 
 SOURCES += \
     CartoUIComponent.cpp \
@@ -67,11 +68,13 @@ SOURCES += \
     RendererCategoryCollectionModel.cpp \
     DefaultNavigationHandler.cpp \
     CoordsTracker.cpp \
+    MapView.cpp
 
 FORMS += \
     FeatureLayerPropertiesWidget.ui \
     SimpleRendererWidget.ui \
-    CategorizedRendererWidget.ui
+    CategorizedRendererWidget.ui \
+    MapView.ui
 
 OTHER_FILES += \
     org.carousel.demos.CartoUI.definition

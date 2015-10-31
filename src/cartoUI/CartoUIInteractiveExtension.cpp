@@ -24,14 +24,21 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "CartoUIInteractiveExtension.h"
-#include "LayerTreeModel.h"
-#include "LayerTreeView.h"
-#include "AddShapeOperation.h"
+#include "cartoUI/CartoUIInteractiveExtension.h"
+#include "cartoUI/LayerTreeModel.h"
+#include "cartoUI/LayerTreeView.h"
+#include "cartoUI/AddShapeOperation.h"
+#include "cartoUI/MapView.h"
+#include "cartoUI/CoordsTracker.h"
+#include "cartoUI/DefaultNavigationHandler.h"
 
+#include <carto/ITourDuMondeDocumentController.h>
 #include <carto/ITourDuMondeDocument.h>
 #include <carto/ITourDuMondeDocumentController.h>
+#include <display/IDisplay.h>
 
+#include <components/interactivity/IInteractionService.h>
+#include <components/interactivity/InputDispatcher.h>
 #include <components/interactivity/ICatalogs.h>
 #include <components/interactivity/IDockWidgetCatalog.h>
 #include <components/interactivity/IMenuCatalog.h>
@@ -40,6 +47,7 @@
 #include <components/interactivity/ToggleActionWrapper.h>
 #include <carousel/utils/IServiceLocator.h>
 
+#include <QtWidgets/QMainWindow>
 #include <QtWidgets/QDockWidget>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QListView>
@@ -74,7 +82,7 @@ void CartoUIInteractiveExtension::configureGui(ICatalogs &inCatalogs, IServiceLo
     QMenu *viewMenu = inCatalogs.menuCatalog().addMenu("View");
     viewMenu->addAction(toogleTree);
 
-    //
+    //------
     IOperationCatalog &operationCatalog = inCatalogs.operationCatalog();
     Operation *addShape = operationCatalog.add(new AddShapeOperation());
 
@@ -84,6 +92,17 @@ void CartoUIInteractiveExtension::configureGui(ICatalogs &inCatalogs, IServiceLo
 
     QMenu *toolMenu = menuCatalog.addMenu("Tools");
     toolMenu->addAction(addShape);
+
+    //------ Map view
+    QMainWindow *mainWindow = serviceLocator->locate<QMainWindow>();
+    IDisplay *display = serviceLocator->locate<IDisplay>();
+
+    CoordsTracker* tracker = new CoordsTracker(display, mainWindow->statusBar(), this);
+    Q_UNUSED(tracker)
+
+    ITourDuMondeDocumentController* controller = serviceLocator->locate<ITourDuMondeDocumentController>();
+    DefaultNavigationHandler* defaultNavigationHandler = new DefaultNavigationHandler(display, controller, this);
+    Q_UNUSED(defaultNavigationHandler)
 }
 
 void CartoUIInteractiveExtension::onActiveDocumentChanged(ITourDuMondeDocument *document)

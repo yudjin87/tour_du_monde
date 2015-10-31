@@ -40,7 +40,7 @@ static LoggerFacade Log = LoggerFacade::createLogger("SimpleDisplay");
 
 static const int flipY = -1;
 
-SimpleDisplay::SimpleDisplay(QWidget *parent)
+SimpleDisplay::SimpleDisplay(QObject *parent)
     : IDisplay()
     , m_initialized(false)
     , m_moveVisibleBound(true)
@@ -51,13 +51,12 @@ SimpleDisplay::SimpleDisplay(QWidget *parent)
     , m_transform(new DisplayTransformation())
     , m_pixmap(createPixmap())
     , m_draftPixmaps(3)
+    , m_attachedWidget(nullptr)
 {
-    setMouseTracking(true);
     setParent(parent);
 
-    connect(this, &SimpleDisplay::needChange, this, &SimpleDisplay::emitChanged);
-
     m_conn = connect(m_transform, &DisplayTransformation::visibleBoundsChanged, this, &SimpleDisplay::onVisibleBoundChanged);
+    connect(m_transform, &DisplayTransformation::deviceFrameChanged, this, &SimpleDisplay::onDeviceFrameChanged);
 
     // retransmission to clients
     connect(m_transform, &DisplayTransformation::boundsChanged, this, &SimpleDisplay::boundsChanged);
@@ -69,18 +68,24 @@ SimpleDisplay::~SimpleDisplay()
 {
 }
 
-void SimpleDisplay::paintEvent(QPaintEvent *event)
-{
-    Q_UNUSED(event)
-
-    QPainter painter(this);
-    drawOut(&painter);
-}
-
 void SimpleDisplay::drawOut(QPainter *toPainter) const
 {
     QMutexLocker guard(&m_pixmapMutex);
     toPainter->drawPixmap(m_offset.x(), m_offset.y(), m_pixmap->width(), m_pixmap->height(), *m_pixmap);
+}
+
+QWidget *SimpleDisplay::attachedWidget() const
+{
+    return m_attachedWidget;
+}
+
+void SimpleDisplay::setAttachedWidget(QWidget *attachedWidget)
+{
+    if (m_attachedWidget == attachedWidget)
+        return;
+
+    m_attachedWidget = attachedWidget;
+    emit attachedWidgetChanged(attachedWidget);
 }
 
 void SimpleDisplay::dumpDraft(const DispayCache inCache)
@@ -98,7 +103,7 @@ void SimpleDisplay::dumpDraft(const DispayCache inCache)
     }
 
     m_pixmapMutex.unlock();
-    update();
+    emit needChange();
     m_wasDrawing = true;
 }
 
@@ -176,7 +181,7 @@ const DisplayTransformation *SimpleDisplay::transformation() const
 void SimpleDisplay::panMoveTo(const QPoint &screenPoint)
 {
     m_offset = (screenPoint - m_startPan);
-    update();
+    emit needChange();
 }
 
 void SimpleDisplay::panStart(const QPoint &screenPoint)
@@ -187,19 +192,8 @@ void SimpleDisplay::panStart(const QPoint &screenPoint)
 QRectF SimpleDisplay::panStop()
 {
     moveVisibleBounds(m_offset.x(), m_offset.y());
-    update(); // TODO: remove
     emit needChange(); // TODO: don't neet this signal
     return QRectF();
-}
-
-void SimpleDisplay::emitChanged()
-{
-    update();
-}
-
-void SimpleDisplay::updateWindow()
-{
-    update();
 }
 
 void SimpleDisplay::postDrawingTask(IDrawingTaskPtr task)
@@ -215,28 +209,15 @@ QPixmapPtr SimpleDisplay::createPixmap(const QColor &fillColor) const
     return pixmap;
 }
 
-void SimpleDisplay::mouseMoveEvent(QMouseEvent *event)
-{
-    Q_UNUSED(event)
-}
-
-void SimpleDisplay::showEvent(QShowEvent *event)
-{
-    Q_UNUSED(event)
-    emitChanged();
-}
-
-void SimpleDisplay::resizeEvent(QResizeEvent *event)
-{
-    transformation()->setDeviceFrame(QRectF(QPointF(0, 0), event->size()));
-    transformation()->setVisibleBounds(transformation()->visibleBounds());
-    m_pixmap = createPixmap();
-}
-
 void SimpleDisplay::onVisibleBoundChanged(const QRectF &visibleBounds)
 {
     Q_UNUSED(visibleBounds)
     emit needChange();
+}
+
+void SimpleDisplay::onDeviceFrameChanged(const QRectF &deviceFrame)
+{
+    m_pixmap = createPixmap();
 }
 
 void SimpleDisplay::moveVisibleBounds(int dx, int dy)
