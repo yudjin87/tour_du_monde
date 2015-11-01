@@ -74,6 +74,8 @@ void MultithreadDisplay::startDrawing(const DispayCache inCache)
         return;
     }
 
+    m_taskQueue.clean();
+
     if (inCache == DispayCache::Geometry) {
         // TODO: abort drawings and crear queue, when new "startDrawing" is called before finishing
         Log.d("Start drawing: create StartDrawingTask");

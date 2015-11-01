@@ -60,6 +60,15 @@ public:
         return m_queue.size();
     }
 
+    void clean()
+    {
+        std::unique_lock<std::mutex> clean_guard(m_mtx);
+        while (!m_queue.empty())
+        {
+            m_queue.pop();
+        }
+    }
+
 private:
     std::queue<T> m_queue;
     std::mutex m_mtx;
