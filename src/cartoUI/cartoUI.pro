@@ -1,6 +1,6 @@
 include(../shared.pri)
 
-QT       += core widgets gui
+QT       += core widgets gui qml
 
 TARGET = org.carousel.demos.CartoUI
 
@@ -13,6 +13,7 @@ DESTDIR = $${DESTDIR}/externalSource
 
 LIBS += -L$${CAROUSEL_BIN} -lCarousel \
                            -lorg.carousel.Interactivity \
+                           -lorg.carousel.QmlScripting \
 
 LIBS += -L$${DESTDIR} -lorg.carousel.demos.Display \
                       -lorg.carousel.demos.DisplayWidgets \
