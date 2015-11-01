@@ -69,6 +69,11 @@ MultithreadDisplay::~MultithreadDisplay()
 
 void MultithreadDisplay::startDrawing(const DispayCache inCache)
 {
+    if (!isReady())
+    {
+        return;
+    }
+
     if (inCache == DispayCache::Geometry) {
         // TODO: abort drawings and crear queue, when new "startDrawing" is called before finishing
         Log.d("Start drawing: create StartDrawingTask");
@@ -81,6 +86,11 @@ void MultithreadDisplay::startDrawing(const DispayCache inCache)
 
 void MultithreadDisplay::finishDrawing(const DispayCache inCache)
 {
+    if (!isReady())
+    {
+        return;
+    }
+
     if (inCache == DispayCache::Geometry) {
         Log.d("Finish drawing: create UpdateTask");
         m_taskQueue.push(IDrawingTaskPtr(new UpdateTask(this)));
@@ -113,6 +123,11 @@ void MultithreadDisplay::unlockPixmap(const DispayCache inCache)
 
 void MultithreadDisplay::postDrawingTask(IDrawingTaskPtr task)
 {
+    if (!isReady())
+    {
+        return;
+    }
+
     Q_ASSERT(task != nullptr && "Null pointer is not allowed");
     m_taskQueue.push(std::move(task));
 }

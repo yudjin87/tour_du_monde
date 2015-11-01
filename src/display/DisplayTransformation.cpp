@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- 
+
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -84,6 +84,12 @@ void DisplayTransformation::setDeviceFrame(const QRectF &deviceFrame)
     if (m_deviceFrame == deviceFrame)
         return;
 
+    Log.d(QString("New device frame: (%1;%2) (%3;%4)")
+          .arg(deviceFrame.left())
+          .arg(deviceFrame.top())
+          .arg(deviceFrame.right())
+          .arg(deviceFrame.bottom()));
+
     m_deviceFrame = deviceFrame;
     emit deviceFrameChanged(m_deviceFrame);
 }
@@ -122,13 +128,18 @@ void DisplayTransformation::setVisibleBounds(const QRectF &visibleBounds)
     // TODO: Use fitted bounds (e.g. adjusted(-20, -20, 20, 20))
     m_visibleBounds = visibleBounds;
 
-    double relY = m_deviceFrame.height() / visibleBounds.height();
-    double relX = m_deviceFrame.width() / visibleBounds.width();
+    // TODO: hack. Visible bounds could be set, while deviceFrame wasn't set yet,
+    // e.g. in Qml application...
+    if (!m_deviceFrame.isEmpty())
+    {
+        double relY = m_deviceFrame.height() / visibleBounds.height();
+        double relX = m_deviceFrame.width() / visibleBounds.width();
 
-    if (relX > relY)
-        m_visibleBounds.setWidth(m_deviceFrame.width() / scale());
-    else
-        m_visibleBounds.setHeight(m_deviceFrame.height() / scale());
+        if (relX > relY)
+            m_visibleBounds.setWidth(m_deviceFrame.width() / scale());
+        else
+            m_visibleBounds.setHeight(m_deviceFrame.height() / scale());
+    }
 
     emit visibleBoundsChanged(m_visibleBounds);
 }

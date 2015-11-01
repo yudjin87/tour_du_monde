@@ -88,6 +88,11 @@ void SimpleDisplay::setAttachedWidget(QObject *attachedWidget)
     emit attachedWidgetChanged(attachedWidget);
 }
 
+bool SimpleDisplay::isReady() const
+{
+    return !m_transform->deviceFrame().isEmpty();
+}
+
 void SimpleDisplay::dumpDraft(const DispayCache inCache)
 {
     Q_UNUSED(inCache)
@@ -109,6 +114,11 @@ void SimpleDisplay::dumpDraft(const DispayCache inCache)
 
 void SimpleDisplay::startDrawing(const DispayCache inCache)
 {
+    if (!isReady())
+    {
+        return;
+    }
+
     m_wasDrawing = false;
 
     delete m_draftPixmaps[(int)inCache];
@@ -149,6 +159,11 @@ void SimpleDisplay::startDrawing(const DispayCache inCache)
 
 void SimpleDisplay::finishDrawing(const DispayCache inCache)
 {
+    if (!isReady())
+    {
+        return;
+    }
+
     if (!m_wasDrawing) // there wasn't any drawing between "start" and "finish" - because all layers were removed. So, clear background
     {
         dumpDraft(inCache);
@@ -199,6 +214,11 @@ QRectF SimpleDisplay::panStop()
 void SimpleDisplay::postDrawingTask(IDrawingTaskPtr task)
 {
     Q_ASSERT(task != nullptr && "Null pointer is not allowed");
+    if (!isReady())
+    {
+        return;
+    }
+
     task->draw(*this);
 }
 

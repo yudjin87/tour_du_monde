@@ -57,6 +57,9 @@ public:
     QObject* attachedWidget() const override;
     void setAttachedWidget(QObject* attachedWidget) override;
 
+protected:
+    bool isReady() const;
+
 private slots:
     void onVisibleBoundChanged(const QRectF &visibleBounds);
     void onDeviceFrameChanged(const QRectF &deviceFrame);
