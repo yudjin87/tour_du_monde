@@ -33,6 +33,7 @@ enum class SymbolType
 {
     SimpleFillSymbol = 0,
     PictureFillSymbol,
+    GradientFillSymbol,
     SimpleLineSymbol,
     SimpleMarkerSymbol,
     PictureMarkerSymbol

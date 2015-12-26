@@ -26,6 +26,7 @@
 
 #include "cartoPersist/SymbolPersistCreator.h"
 #include "cartoPersist/SimpleFillSymbolPersist.h"
+#include "cartoPersist/GradientFillSymbolPersist.h"
 #include "cartoPersist/PictureFillSymbolPersist.h"
 #include "cartoPersist/SimpleLineSymbolPersist.h"
 #include "cartoPersist/SimpleMarkerSymbolPersist.h"
@@ -33,6 +34,7 @@
 
 #include <display/SimpleFillSymbol.h>
 #include <display/PictureFillSymbol.h>
+#include <display/GradientFillSymbol.h>
 #include <display/SimpleLineSymbol.h>
 #include <display/SimpleMarkerSymbol.h>
 #include <display/PictureMarkerSymbol.h>
@@ -57,6 +59,8 @@ ISymbolPersistUPtr SymbolPersistCreator::create(const SymbolType type)
         return ISymbolPersistUPtr(new SimpleFillSymbolPersist());
     case SymbolType::PictureFillSymbol:
         return ISymbolPersistUPtr(new PictureFillSymbolPersist());
+    case SymbolType::GradientFillSymbol:
+        return ISymbolPersistUPtr(new GradientFillSymbolPersist());
     case SymbolType::SimpleLineSymbol:
         return ISymbolPersistUPtr(new SimpleLineSymbolPersist());
     case SymbolType::SimpleMarkerSymbol:
@@ -76,6 +80,11 @@ void SymbolPersistCreator::visit(SimpleFillSymbol &symbol)
 void SymbolPersistCreator::visit(PictureFillSymbol &symbol)
 {
     m_persist.reset(new PictureFillSymbolPersist(symbol));
+}
+
+void SymbolPersistCreator::visit(GradientFillSymbol &symbol)
+{
+    m_persist.reset(new GradientFillSymbolPersist(symbol));
 }
 
 void SymbolPersistCreator::visit(SimpleLineSymbol &symbol)

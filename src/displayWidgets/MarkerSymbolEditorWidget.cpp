@@ -79,6 +79,11 @@ void MarkerSymbolEditorWidget::visit(PictureFillSymbol &symbol)
     Q_ASSERT(false && "This is a marker symbol editor!");
 }
 
+void MarkerSymbolEditorWidget::visit(GradientFillSymbol &symbol)
+{
+    Q_ASSERT(false && "This is a marker symbol editor!");
+}
+
 void MarkerSymbolEditorWidget::visit(SimpleLineSymbol &)
 {
     Q_ASSERT(false && "This is a marker symbol editor!");

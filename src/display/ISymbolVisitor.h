@@ -30,6 +30,7 @@
 
 class SimpleFillSymbol;
 class PictureFillSymbol;
+class GradientFillSymbol;
 class SimpleLineSymbol;
 class SimpleMarkerSymbol;
 class PictureMarkerSymbol;
@@ -41,6 +42,7 @@ public:
 
     virtual void visit(SimpleFillSymbol& symbol) = 0;
     virtual void visit(PictureFillSymbol& symbol) = 0;
+    virtual void visit(GradientFillSymbol& symbol) = 0;
     virtual void visit(SimpleLineSymbol& symbol) = 0;
     virtual void visit(SimpleMarkerSymbol& symbol) = 0;
     virtual void visit(PictureMarkerSymbol& symbol) = 0;

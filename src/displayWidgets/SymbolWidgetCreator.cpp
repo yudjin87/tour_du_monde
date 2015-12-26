@@ -27,12 +27,14 @@
 #include "displayWidgets/SymbolWidgetCreator.h"
 #include <display/SimpleFillSymbol.h>
 #include <display/PictureFillSymbol.h>
+#include <display/GradientFillSymbol.h>
 #include <display/SimpleLineSymbol.h>
 #include <display/SimpleMarkerSymbol.h>
 #include <display/PictureMarkerSymbol.h>
 
 #include "displayWidgets/SimpleFillSymbolWidget.h"
 #include "displayWidgets/PictureFillSymbolWidget.h"
+#include "displayWidgets/GradientFillSymbolWidget.h"
 #include "displayWidgets/SimpleLineSymbolWidget.h"
 #include "displayWidgets/SimpleMarkerSymbolWidget.h"
 #include "displayWidgets/PictureMarkerSymbolWidget.h"
@@ -115,6 +117,28 @@ void SymbolWidgetCreator::visit(PictureFillSymbol &symbol)
         lineWidget->prepareForEmbedding();
 
         m_widget = new PictureFillSymbolWidget(&symbol, lineWidget);
+        break;
+    }
+
+    case CreationState::Editor:
+        delete m_editor;
+        m_editor = new FillSymbolEditorWidget(&symbol);
+        break;
+    }
+}
+
+void SymbolWidgetCreator::visit(GradientFillSymbol &symbol)
+{
+    switch (m_state)
+    {
+    case CreationState::Widget:
+    {
+        delete m_widget;
+        SymbolWidgetCreator lineWidgetCreator;
+        SymbolWidget *lineWidget = lineWidgetCreator.createWidget(symbol.outline(), nullptr);
+        lineWidget->prepareForEmbedding();
+
+        m_widget = new GradientFillSymbolWidget(&symbol, lineWidget);
         break;
     }
 

@@ -25,32 +25,45 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
-#include <displayWidgets/SymbolEditorWidget.h>
-#include <display/MarkerSymbol.h>
-#include <display/ISymbolVisitor.h>
-
-#include <QtCore/QStringListModel>
+#include <displayWidgets/SymbolWidget.h>
 #include <memory>
 
-class MarkerSymbolEditorWidget : public SymbolEditorWidget, private ISymbolVisitor
+namespace Ui
+{
+class GradientFillSymbolWidget;
+}
+
+class GradientFillSymbol;
+
+class DISPLAY_WIDGETS_API GradientFillSymbolWidget : public SymbolWidget
 {
     Q_OBJECT
+
 public:
-    explicit MarkerSymbolEditorWidget(const MarkerSymbol *initialSymbol, QWidget *parent = nullptr);
-    ~MarkerSymbolEditorWidget();
+    explicit GradientFillSymbolWidget(const GradientFillSymbol* symbol, SymbolWidget* lineWidget, QWidget *parent = nullptr);
+    ~GradientFillSymbolWidget();
 
-protected slots:
-    void onSymbolStyleChanged(const int index) override;
+    void prepareForEmbedding() override;
+    const ISymbol *symbol() const override;
+    bool wasChanged() const override;
+
+protected:
+    void insertSampleWidget(QWidget* sample) override;
+    ISymbol* symbol() override;
+
+private slots:
+    void onCentralColorChanged(const QColor& newColor);
+    void onSurroundColorChanged(const QColor& newColor);
+    void onOutlineSymbolChanged(const ISymbol* newSymbol);
+    void onGradientSettingsChanged(int value);
 
 private:
-    void visit(SimpleFillSymbol& symbol) override;
-    void visit(PictureFillSymbol& symbol) override;
-    void visit(GradientFillSymbol& symbol) override;
-    void visit(SimpleLineSymbol& symbol) override;
-    void visit(SimpleMarkerSymbol& symbol) override;
-    void visit(PictureMarkerSymbol& symbol) override;
+    void notifySymbolChanged();
 
 private:
-    QStringListModel m_symbols;
-    std::unique_ptr<MarkerSymbol> m_symbol;
+    Ui::GradientFillSymbolWidget *m_ui;
+    SymbolWidget* m_lineWidget;
+    std::unique_ptr<GradientFillSymbol> m_symbol;
+    bool m_wasChanged;
+
 };

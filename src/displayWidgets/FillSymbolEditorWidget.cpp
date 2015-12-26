@@ -28,6 +28,7 @@
 
 #include <display/SimpleFillSymbol.h>
 #include <display/PictureFillSymbol.h>
+#include <display/GradientFillSymbol.h>
 
 #include <QtCore/QCoreApplication>
 #include <QtCore/QDir>
@@ -35,7 +36,7 @@
 
 FillSymbolEditorWidget::FillSymbolEditorWidget(const FillSymbol *initialSymbol, QWidget *parent)
     : SymbolEditorWidget(parent)
-    , m_symbols({"Simple fill symbol", "Picture fill symbol"})
+    , m_symbols({"Simple fill symbol", "Picture fill symbol", "Gradient fill symbol"})
     , m_symbol(static_cast<FillSymbol*>(initialSymbol->clone()))
 {
     symbolsCbox()->setModel(&m_symbols);
@@ -55,14 +56,22 @@ void FillSymbolEditorWidget::onSymbolStyleChanged(const int index)
     switch (index)
     {
     case 0:
+    {
         m_symbol.reset(new SimpleFillSymbol());
         break;
+    }
     case 1:
+    {
         QDir appDir(QCoreApplication::applicationDirPath());
         appDir.cd("brushes");
         m_symbol.reset(PictureFillSymbol::createFromFilePicture(appDir.absoluteFilePath("forest.png")));
-        m_symbol.reset(new PictureFillSymbol());
         break;
+    }
+    case 2:
+    {
+        m_symbol.reset(new GradientFillSymbol());
+        break;
+    }
     }
 
     installSymbolWidget(m_symbol.get());
@@ -77,6 +86,11 @@ void FillSymbolEditorWidget::visit(SimpleFillSymbol &)
 void FillSymbolEditorWidget::visit(PictureFillSymbol &)
 {
     symbolsCbox()->setCurrentIndex(1);
+}
+
+void FillSymbolEditorWidget::visit(GradientFillSymbol &)
+{
+    symbolsCbox()->setCurrentIndex(2);
 }
 
 void FillSymbolEditorWidget::visit(SimpleLineSymbol &)

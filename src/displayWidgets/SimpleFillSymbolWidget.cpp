@@ -29,10 +29,6 @@
 #include <display/LineSymbol.h>
 #include "ui_SimpleFillSymbolWidget.h"
 
-#include <QtGui/QPixmap>
-#include <QtGui/QIcon>
-#include <QtGui/QDoubleValidator>
-
 SimpleFillSymbolWidget::SimpleFillSymbolWidget(const SimpleFillSymbol *symbol, SymbolWidget *lineWidget, QWidget *parent)
     : SymbolWidget(Geometry::Type::Polygon, parent)
     , m_ui(new Ui::SimpleFillSymbolWidget)

@@ -57,27 +57,30 @@ void LineSymbolEditorWidget::onSymbolStyleChanged(const int index)
 
 void LineSymbolEditorWidget::visit(SimpleFillSymbol &)
 {
-    Q_ASSERT(false && "This is a marker symbol editor!");
+    Q_ASSERT(false && "This is a line symbol editor!");
 }
 
-void LineSymbolEditorWidget::visit(PictureFillSymbol &symbol)
+void LineSymbolEditorWidget::visit(PictureFillSymbol &)
 {
-    Q_ASSERT(false && "This is a marker symbol editor!");
+    Q_ASSERT(false && "This is a line symbol editor!");
+}
+
+void LineSymbolEditorWidget::visit(GradientFillSymbol &)
+{
+    Q_ASSERT(false && "This is a line symbol editor!");
 }
 
 void LineSymbolEditorWidget::visit(SimpleLineSymbol &)
 {
+    symbolsCbox()->setCurrentIndex(0);
 }
 
 void LineSymbolEditorWidget::visit(SimpleMarkerSymbol &)
 {
-    Q_ASSERT(false && "This is a marker symbol editor!");
+    Q_ASSERT(false && "This is a line symbol editor!");
 }
 
 void LineSymbolEditorWidget::visit(PictureMarkerSymbol &)
 {
-    Q_ASSERT(false && "This is a marker symbol editor!");
+    Q_ASSERT(false && "This is a line symbol editor!");
 }
-
-
-

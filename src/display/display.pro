@@ -13,6 +13,8 @@ ROOT_DIR = $${DESTDIR}
 
 DESTDIR = $${DESTDIR}/externalSource
 
+win32:LIBS += -lGdiplus # for the GradientBrush
+
 LIBS += -L$${CAROUSEL_BIN} -lCarousel \
                            -lorg.carousel.QmlScripting \
 
@@ -44,7 +46,9 @@ HEADERS += \
     ISymbolVisitor.h \
     PictureMarkerSymbol.h \
     SymbolType.h \
-    PictureFillSymbol.h
+    PictureFillSymbol.h \
+    GradientFillSymbol.h \
+    GradientPathBrush.h
 
 SOURCES += \
     DisplayComponent.cpp \
@@ -67,7 +71,13 @@ SOURCES += \
     SymbolThumbnail.cpp \
     PictureMarkerSymbol.cpp \
     SymbolType.cpp \
-    PictureFillSymbol.cpp
+    PictureFillSymbol.cpp \
+    GradientFillSymbol.cpp \
+
+win32 {
+    SOURCES += \
+       GradientPathBrush_windows.cpp
+}
 
 MARKERS += \
     markers/Education/* \

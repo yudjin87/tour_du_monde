@@ -33,6 +33,7 @@ HEADERS += \
     LineSymbolEditorWidget.h \
     FillSymbolEditorWidget.h \
     PictureFillSymbolWidget.h \
+    GradientFillSymbolWidget.h
 
 SOURCES += \
     DisplayWidgetsComponent.cpp \
@@ -48,6 +49,7 @@ SOURCES += \
     LineSymbolEditorWidget.cpp \
     FillSymbolEditorWidget.cpp \
     PictureFillSymbolWidget.cpp \
+    GradientFillSymbolWidget.cpp
 
 FORMS += \
     SimpleLineSymbolWidget.ui \
@@ -55,7 +57,8 @@ FORMS += \
     SimpleMarkerSymbolWidget.ui \
     PictureMarkerSymbolWidget.ui \
     SymbolEditorWidget.ui \
-    PictureFillSymbolWidget.ui
+    PictureFillSymbolWidget.ui \
+    GradientFillSymbolWidget.ui
 
 DEFINITION = org.carousel.demos.DisplayWidgets.definition
 

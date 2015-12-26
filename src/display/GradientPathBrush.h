@@ -25,32 +25,30 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
-#include <displayWidgets/SymbolEditorWidget.h>
-#include <display/MarkerSymbol.h>
-#include <display/ISymbolVisitor.h>
 
-#include <QtCore/QStringListModel>
-#include <memory>
+#include <QtCore/QObject>
 
-class MarkerSymbolEditorWidget : public SymbolEditorWidget, private ISymbolVisitor
+class GradientFillSymbol;
+class QPainter;
+
+class Ring;
+typedef QVector<Ring *> RingList;
+
+class GradientPathBrush : public QObject
 {
     Q_OBJECT
 public:
-    explicit MarkerSymbolEditorWidget(const MarkerSymbol *initialSymbol, QWidget *parent = nullptr);
-    ~MarkerSymbolEditorWidget();
+    explicit GradientPathBrush(GradientFillSymbol &symbol);
 
-protected slots:
-    void onSymbolStyleChanged(const int index) override;
+    GradientPathBrush* clone(GradientFillSymbol &symbol) const;
 
-private:
-    void visit(SimpleFillSymbol& symbol) override;
-    void visit(PictureFillSymbol& symbol) override;
-    void visit(GradientFillSymbol& symbol) override;
-    void visit(SimpleLineSymbol& symbol) override;
-    void visit(SimpleMarkerSymbol& symbol) override;
-    void visit(PictureMarkerSymbol& symbol) override;
+    void prepare(QPainter *painter);
+    void drawingFinished(QPainter *painter);
+    void drawPolygon(const RingList &rings, QPainter &painter);
 
 private:
-    QStringListModel m_symbols;
-    std::unique_ptr<MarkerSymbol> m_symbol;
+    GradientPathBrush(const GradientPathBrush& o, GradientFillSymbol &symbol);
+
+private:
+    GradientFillSymbol& m_symbol;
 };

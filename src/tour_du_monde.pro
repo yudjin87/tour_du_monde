@@ -13,5 +13,3 @@ SUBDIRS += \
     styles \
     geodatabase_test \
     navigationOperations \
-
-
