@@ -62,7 +62,6 @@ private:
 
 private:
     std::unique_ptr<std::istream> m_binaryStream;
-    const uint8_t* m_buffer; // doesn't take the ownership
     const size_t m_bufferSize;
 
     size_t m_byteIter;

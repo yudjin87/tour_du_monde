@@ -45,6 +45,7 @@
 #include <QtCore/QCoreApplication>
 #include <QtGui/QPolygonF>
 #include <QtTest/QTest>
+#include <QtDebug>/QDebug>
 
 GeodatabaseTest::GeodatabaseTest(QObject *parent)
     : QObject(parent)
@@ -106,6 +107,26 @@ void GeodatabaseTest::shouldLoadLineShapes()
     const Point* point = points[3];
     QCOMPARE(point->x(), -0.7002893);
     QCOMPARE(point->y(), 52.1521591);
+}
+
+void GeodatabaseTest::shouldLoadMupltiPartLineShapes()
+{
+    ShapeFileFeatureWorkspace workspace(m_workspace);
+    IFeatureClassUPtr polylinesClass(workspace.openFeatureClass("multi-lines"));
+    QVERIFY(polylinesClass->shapeType() == Geometry::Type::Polyline);
+    QCOMPARE(polylinesClass->featuresCount(), 6);
+
+    const int FEATURE_ID = 5;
+    const IFeature* feature = polylinesClass->featureById(FEATURE_ID);
+
+    const Polyline* line = static_cast<const Polyline*>(feature->geometry());
+    QCOMPARE(line->paths().size(), 5);                 // paths
+
+    QCOMPARE(line->paths()[0]->points().size(), 2);
+    QCOMPARE(line->paths()[1]->points().size(), 19);
+    QCOMPARE(line->paths()[2]->points().size(), 5);
+    QCOMPARE(line->paths()[3]->points().size(), 6);
+    QCOMPARE(line->paths()[4]->points().size(), 2);
 }
 
 void GeodatabaseTest::shouldLoadPolygonShapes()

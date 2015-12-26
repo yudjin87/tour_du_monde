@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- 
+
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -113,30 +113,25 @@ void GeometryFactory::createPolygon(BinaryReader &reader, Polygon *polygon)
     }
 
     RingList &rings = polygon->rings();
-//    for (int i = 0; i < numParts; ++i)
-//    {
+    //SegmentList &segments = path->segments();
+    for (int partN = 0; partN < numParts; ++partN)
+    {
+        int start = parts[partN];
+        int end = ((partN + 1) == numParts) ? numPoints : parts[partN + 1];
 
+        Ring *ring = new Ring();
+        rings.push_back(ring);
 
-        //SegmentList &segments = path->segments();
-        for (int partN = 0; partN < numParts; ++partN)
+        PointList &points = ring->points();
+
+        //QPolygonF polygon;//(end - start);
+        for (int i = start; i < end; ++i)
         {
-            int start = parts[partN];
-            int end = ((partN + 1) == numParts) ? numPoints : parts[partN + 1];
-
-            Ring *ring = new Ring();
-            rings.push_back(ring);
-
-            PointList &points = ring->points();
-
-            //QPolygonF polygon;//(end - start);
-            for (int i = start; i < end; ++i)
-            {
-                double x = reader.readDouble();
-                double y = reader.readDouble();
-                points.push_back(new Point(x, y));
-            }
+            double x = reader.readDouble();
+            double y = reader.readDouble();
+            points.push_back(new Point(x, y));
         }
-//    }
+    }
 
     delete[] parts;
 }
@@ -153,25 +148,20 @@ void GeometryFactory::createPolyline(BinaryReader &reader, Polyline *polyline)
     }
 
     PathList &paths = polyline->paths();
-    for (int i = 0; i < numParts; ++i)
+    for (int partN = 0; partN < numParts; ++partN)
     {
         Path *path = new Path();
         paths.push_back(path);
+        PointList &points = path->points();
+        int start = parts[partN];
+        int end = ((partN + 1) == numParts) ? numPoints : parts[partN + 1];
 
-        //SegmentList &segments = path->segments();
-        for (int partN = 0; partN < numParts; ++partN)
+        //QPolygonF polygon;//(end - start);
+        for (int i = start; i < end; ++i)
         {
-            PointList &points = path->points();
-            int start = parts[partN];
-            int end = ((partN + 1) == numParts) ? numPoints : parts[partN + 1];
-
-            //QPolygonF polygon;//(end - start);
-            for (int i = start; i < end; ++i)
-            {
-                double x = reader.readDouble();
-                double y = reader.readDouble();
-                points.push_back(new Point(x, y));
-            }
+            double x = reader.readDouble();
+            double y = reader.readDouble();
+            points.push_back(new Point(x, y));
         }
     }
 

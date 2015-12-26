@@ -37,6 +37,7 @@ public:
 private slots:
     void shouldLoadPointShapes();
     void shouldLoadLineShapes();
+    void shouldLoadMupltiPartLineShapes();
     void shouldLoadPolygonShapes();
     void shouldProvideFieldsInfo();
     void shouldClassifyColumnValues();

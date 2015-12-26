@@ -41,7 +41,7 @@ static LoggerFacade Log = LoggerFacade::createLogger("FeatureClassLoader");
 
 namespace
 {
-static const char* SHAPE_FILE_EXT = "shp";
+static const char* SHAPE_FILE_EXT = ".shp";
 const int32_t SHAPE_FILE_CODE = 9994;
 const int32_t SHAPE_FILE_VERSION = 1000;
 }
@@ -73,7 +73,11 @@ IFeatureClassLoader::LoadResult FeatureClassLoader::open(const QString &name)
     m_file = QFileInfo(shapeFileName);
     if (m_file.suffix().isEmpty())
     {
-        m_file = shapeFileName + "." + SHAPE_FILE_EXT;
+        m_file = shapeFileName + SHAPE_FILE_EXT;
+    }
+    if (m_file.suffix() != SHAPE_FILE_EXT)
+    {
+        m_file = shapeFileName + SHAPE_FILE_EXT;
     }
 
     std::unique_ptr<std::ifstream> stream(new std::ifstream());

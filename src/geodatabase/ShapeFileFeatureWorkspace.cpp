@@ -41,7 +41,7 @@
 namespace
 {
 static LoggerFacade Log = LoggerFacade::createLogger("ShapeFileWorkspace");
-static const char* DBF_FILE_EXT = "dbf";
+static const char* DBF_FILE_EXT = ".dbf";
 }
 
 ShapeFileFeatureWorkspace::ShapeFileFeatureWorkspace(const QString &workspacePath)
@@ -119,21 +119,21 @@ ITable *ShapeFileFeatureWorkspace::createTable(const QString &name)
     }
 
     const QDir dir(m_workspacePath);
+    if (!dir.exists())
+    {
+        Log.w(QString("Can't open \"%1\" table, because provided directory path \"%2\" doesn't exist").arg(name).arg(m_workspacePath));
+        return nullptr;
+    }
+
     const QString dbfFileName = dir.absoluteFilePath(name);
     QFileInfo file = QFileInfo(dbfFileName);
     if (file.suffix().isEmpty())
     {
-        file = dbfFileName + "." + DBF_FILE_EXT;
+        file = dbfFileName + DBF_FILE_EXT;
     }
-
-    if (!file.exists())
+    if (file.suffix() != DBF_FILE_EXT)
     {
-        return nullptr;
-    }
-
-    if (!file.isReadable())
-    {
-        return nullptr;
+        file = dbfFileName + DBF_FILE_EXT;
     }
 
     // TODO: refactor me
@@ -156,6 +156,17 @@ ITable *ShapeFileFeatureWorkspace::createTable(const QString &name)
         }
         else
         {
+            if (!file.exists())
+            {
+                Log.w(QString("Can't open \"%1\" table, because file path \"%2\" doesn't exist").arg(name).arg(file.absoluteFilePath()));
+                return nullptr;
+            }
+
+            if (!file.isReadable())
+            {
+                return nullptr;
+            }
+
             QString error;
             QString shortPathName = utils::getShortPathName(pathName(), &error); // Windows workaround for long names for dBase
             if (shortPathName.isEmpty())
