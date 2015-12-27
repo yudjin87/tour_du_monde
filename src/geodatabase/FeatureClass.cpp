@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- 
+
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -106,7 +106,8 @@ IFeatureCollection FeatureClass::search(const ISpatialFilter &filter) const
     for(int i = 0, end = m_features.size(); i != end; ++i)
     {
         IFeature *feature = m_features[i];
-        if (extent.intersects(feature->geometry()->extent()))
+        const QRectF &featureExtent = feature->geometry()->extent();
+        if (featureExtent.intersects(extent))
             toReturn.push_back(feature);
     }
 

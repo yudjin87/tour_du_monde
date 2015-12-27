@@ -25,6 +25,7 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "geometry/GeometryBase.h"
+#include <climits>
 
 GeometryBase::GeometryBase()
     : IGeometry()
@@ -34,8 +35,9 @@ GeometryBase::GeometryBase()
 
 GeometryBase::GeometryBase(const QRectF &extent)
     : IGeometry()
-    , m_extent(extent)
+    , m_extent()
 {
+    setExtent(extent);
 }
 
 GeometryBase::~GeometryBase()
@@ -49,6 +51,17 @@ const QRectF &GeometryBase::extent() const
 
 void GeometryBase::setExtent(const QRectF &extent)
 {
-    m_extent = extent;
+    m_extent = extent.normalized();
+
+    // adjust extent. Otherwise, for horisontal or vertical linex W or H are 0, and filters fail to find them
+    if (std::abs(m_extent.width()) < std::numeric_limits<double>::min())
+    {
+        m_extent.setWidth(0.000001);
+    }
+
+    if (std::abs(m_extent.height()) < std::numeric_limits<float>::min())
+    {
+        m_extent.setHeight(0.000001);
+    }
 }
 
