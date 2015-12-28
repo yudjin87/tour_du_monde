@@ -56,6 +56,7 @@ GradientPathBrush *GradientPathBrush::clone(GradientFillSymbol &symbol) const
 void GradientPathBrush::prepare(QPainter *painter)
 {
     QBrush brush;
+    brush.setStyle(Qt::SolidPattern);
     brush.setMatrix(painter->matrix().inverted()); // like setCosmetic
     brush.setColor(m_symbol.centralColor());
 
@@ -71,15 +72,15 @@ void GradientPathBrush::drawingFinished(QPainter *painter)
 void GradientPathBrush::drawPolygon(const RingList &rings, QPainter &painter)
 {
     QPainterPath path;
-     for (const Ring *ring : rings)
-     {
-         QPolygonF poly;
-         for (const Point* point : ring->points())
-         {
-             poly.push_back(QPointF(point->x(), point->y()));
-         }
-         path.addPolygon(poly);
-     }
+    for (const Ring *ring : rings)
+    {
+        QPolygonF poly;
+        for (const Point* point : ring->points())
+        {
+            poly.push_back(QPointF(point->x(), point->y()));
+        }
+        path.addPolygon(poly);
+    }
 
-     painter.drawPath(path);
+    painter.drawPath(path);
 }

@@ -40,6 +40,12 @@ GradientFillSymbolWidget::GradientFillSymbolWidget(const GradientFillSymbol *sym
     connect(lineWidget, &SymbolWidget::symbolChanged, this, &GradientFillSymbolWidget::onOutlineSymbolChanged);
 
     m_ui->setupUi(this);
+#ifdef WIN32
+    m_ui->warningLbl->hide();
+#else
+    m_ui->warningLbl->show();
+#endif
+
     m_ui->gridLayout->setColumnMinimumWidth(0, LABEL_COLUMN_WIDHT);
     const int SECOND_COLUMN_WEIGHT = 100;
     m_ui->gridLayout->setColumnStretch(1, SECOND_COLUMN_WEIGHT);
