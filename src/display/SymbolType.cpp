@@ -34,6 +34,8 @@ QString toString(const SymbolType type)
         return "SimpleFillSymbol";
     case SymbolType::PictureFillSymbol:
         return "PictureFillSymbol";
+    case SymbolType::GradientFillSymbol:
+        return "GradientFillSymbol";
     case SymbolType::SimpleLineSymbol:
         return "SimpleLineSymbol";
     case SymbolType::SimpleMarkerSymbol:
@@ -52,6 +54,7 @@ bool verifyEnum(const SymbolType type)
     {
     case SymbolType::SimpleFillSymbol:
     case SymbolType::PictureFillSymbol:
+    case SymbolType::GradientFillSymbol:
     case SymbolType::SimpleLineSymbol:
     case SymbolType::SimpleMarkerSymbol:
     case SymbolType::PictureMarkerSymbol:

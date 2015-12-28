@@ -72,11 +72,16 @@ SOURCES += \
     PictureMarkerSymbol.cpp \
     SymbolType.cpp \
     PictureFillSymbol.cpp \
-    GradientFillSymbol.cpp \
+    GradientFillSymbol.cpp
 
 win32 {
     SOURCES += \
        GradientPathBrush_windows.cpp
+}
+
+!win32 {
+    SOURCES += \
+       GradientPathBrush_stub.cpp
 }
 
 MARKERS += \
