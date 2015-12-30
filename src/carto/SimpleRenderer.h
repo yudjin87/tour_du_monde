@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- 
+
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -42,8 +42,6 @@ public:
     ~SimpleRenderer();
 
     RendererType type() const override;
-
-    static ISymbol *defaultSymbol(Geometry::Type forType);
 
     void draw(const QVector<IFeature *> &features, QPainter *painter) override;
 

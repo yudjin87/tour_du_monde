@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- 
+
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -28,8 +28,8 @@
 #include "carto/LegendGroup.h"
 #include "carto/LegendClass.h"
 #include "carto/IFeatureRendererVisitor.h"
-#include "carto/DefaultSymbol.h"
 
+#include <display/DefaultSymbol.h>
 #include <display/ISymbol.h>
 #include <geodatabase/IFeature.h>
 
@@ -45,7 +45,7 @@ SimpleRenderer::SimpleRenderer(const Geometry::Type forType, QObject *parent)
     : IFeatureRenderer(parent)
     , m_legend(new LegendGroup())
 {
-    ISymbol* defaultSymbol = StyleGallery::defaultSymbol(forType);
+    ISymbol* defaultSymbol = Display::defaultSymbol(forType);
     setSymbol(defaultSymbol);
 }
 

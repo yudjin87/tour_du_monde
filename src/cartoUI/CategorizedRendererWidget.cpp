@@ -28,7 +28,7 @@
 #include "cartoUI/RendererCategoryCollectionModel.h"
 #include "ui_CategorizedRendererWidget.h"
 
-#include <carto/DefaultSymbol.h>
+#include <display/DefaultSymbol.h>
 #include <displayWidgets/SymbolWidgetCreator.h>
 #include <displayWidgets/SymbolEditorWidget.h>
 #include <geodatabase/IFeatureClass.h>
@@ -119,7 +119,7 @@ void CategorizedRendererWidget::onClassifyBtnClicked()
 
     for (const QString& uniqueValue : columnValues)
     {
-        m_renderer->addCategory(uniqueValue, uniqueValue, StyleGallery::defaultSymbol(m_layer.shapeType()));
+        m_renderer->addCategory(uniqueValue, uniqueValue, Display::defaultSymbol(m_layer.shapeType()));
     }
 
     emit rendererChanged(m_renderer.get());

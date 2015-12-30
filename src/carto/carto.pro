@@ -45,7 +45,6 @@ HEADERS += \
     IFeatureRendererVisitor.h \
     commands/ChangeLayerStyleCommand.h \
     CategorizedRenderer.h \
-    DefaultSymbol.h \
     RendererCategory.h \
     RendererCategoryCollection.h \
     IRendererCategory.h \
@@ -74,7 +73,6 @@ SOURCES += \
     SimpleRenderer.cpp \
     commands/ChangeLayerStyleCommand.cpp \
     CategorizedRenderer.cpp \
-    DefaultSymbol.cpp \
     RendererCategory.cpp \
     RendererCategoryCollection.cpp \
     LayerType.cpp \

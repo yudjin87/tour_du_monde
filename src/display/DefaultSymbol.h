@@ -24,29 +24,16 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "carto/DefaultSymbol.h"
+#pragma once
 
-#include <display/SimpleFillSymbol.h>
-#include <display/SimpleMarkerSymbol.h>
-#include <display/SimpleLineSymbol.h>
+#include <display/display_api.h>
+#include <display/ISymbol.h>
+#include <geometry/GeometryType.h>
 
-namespace StyleGallery
+namespace Display
 {
 
-ISymbol *defaultSymbol(Geometry::Type forType)
-{
-    switch (forType)
-    {
-    case Geometry::Type::Point:
-        return new SimpleMarkerSymbol();
-    case Geometry::Type::Polyline:
-        return new SimpleLineSymbol();
-    case Geometry::Type::Polygon:
-        return new SimpleFillSymbol();
-    }
+DISPLAY_API ISymbol *defaultSymbol(const Geometry::Type forType);
 
-    return nullptr;
-}
-
-} // namespace StyleGallery
+} // namespace Display
 

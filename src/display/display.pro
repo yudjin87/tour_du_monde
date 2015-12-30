@@ -50,7 +50,8 @@ HEADERS += \
     GradientFillSymbol.h \
     GradientPathBrush.h \
     TextSymbol.h \
-    SimpleTextSymbol.h
+    SimpleTextSymbol.h \
+    DefaultSymbol.h \
 
 SOURCES += \
     DisplayComponent.cpp \
@@ -76,7 +77,8 @@ SOURCES += \
     PictureFillSymbol.cpp \
     GradientFillSymbol.cpp \
     TextSymbol.cpp \
-    SimpleTextSymbol.cpp
+    SimpleTextSymbol.cpp \
+    DefaultSymbol.cpp \
 
 win32 {
     SOURCES += \
