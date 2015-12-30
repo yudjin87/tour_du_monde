@@ -34,6 +34,7 @@ class GradientFillSymbol;
 class SimpleLineSymbol;
 class SimpleMarkerSymbol;
 class PictureMarkerSymbol;
+class SimpleTextSymbol;
 
 class DISPLAY_API ISymbolVisitor
 {
@@ -46,6 +47,7 @@ public:
     virtual void visit(SimpleLineSymbol& symbol) = 0;
     virtual void visit(SimpleMarkerSymbol& symbol) = 0;
     virtual void visit(PictureMarkerSymbol& symbol) = 0;
+    virtual void visit(SimpleTextSymbol& symbol) = 0;
 };
 
 

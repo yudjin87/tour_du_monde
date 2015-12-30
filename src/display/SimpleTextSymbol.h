@@ -25,33 +25,38 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
-#include <displayWidgets/SymbolEditorWidget.h>
-#include <display/ISymbol.h>
-#include <display/ISymbolVisitor.h>
+#include "display/TextSymbol.h"
 
-#include <QtCore/QStringListModel>
-#include <memory>
+#include <QtGui/QBrush>
 
-class MarkerSymbolEditorWidget : public SymbolEditorWidget, private ISymbolVisitor
+class DISPLAY_API SimpleTextSymbol : public TextSymbol
 {
     Q_OBJECT
 public:
-    explicit MarkerSymbolEditorWidget(const ISymbol *initialSymbol, QWidget *parent = nullptr);
-    ~MarkerSymbolEditorWidget();
+    explicit SimpleTextSymbol(QObject *parent = nullptr);
 
-protected slots:
-    void onSymbolStyleChanged(const int index) override;
+    SymbolType type() const override;
+
+    void accept(ISymbolVisitor& visitor) override;
+
+    ISymbol* clone(QObject* parent = nullptr) const override;
+
+    /*!
+     * @details
+     *   Prepares the display for drawing the symbol by setting brush.
+     */
+    void setupPainter(QPainter *painter) override;
+    void resetPainter(QPainter *painter) override;
+
+protected:
+    SimpleTextSymbol(const SimpleTextSymbol& o, QObject *parent = nullptr);
+    void drawPoint(const Point &point, QPainter &painter) override;
+    void drawPolygon(const Polygon &polygon, QPainter &painter) override;
+    void drawPolyline(const Polyline &polyline, QPainter &painter) override;
 
 private:
-    void visit(SimpleFillSymbol& symbol) override;
-    void visit(PictureFillSymbol& symbol) override;
-    void visit(GradientFillSymbol& symbol) override;
-    void visit(SimpleLineSymbol& symbol) override;
-    void visit(SimpleMarkerSymbol& symbol) override;
-    void visit(PictureMarkerSymbol& symbol) override;
-    void visit(SimpleTextSymbol& symbol) override;
-
-private:
-    QStringListModel m_symbols;
-    ISymbolUPtr m_symbol;
+    QBrush m_brush;
+    QBrush m_oldBrush;
 };
+
+typedef std::unique_ptr<SimpleTextSymbol> SimpleTextSymbolUPtr;

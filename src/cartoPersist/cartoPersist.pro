@@ -40,7 +40,8 @@ HEADERS += \
     RendererCategoryCollectionPersist.h \
     RendererCategoryPersist.h \
     PictureFillSymbolPersist.h \
-    GradientFillSymbolPersist.h
+    GradientFillSymbolPersist.h \
+    SimpleTextSymbolPersist.h
 
 SOURCES += \
     CartoPersistComponent.cpp \
@@ -63,7 +64,8 @@ SOURCES += \
     RendererCategoryCollectionPersist.cpp \
     RendererCategoryPersist.cpp \
     PictureFillSymbolPersist.cpp \
-    GradientFillSymbolPersist.cpp
+    GradientFillSymbolPersist.cpp \
+    SimpleTextSymbolPersist.cpp
 
 OTHER_FILES += org.carousel.demos.CartoPersist.definition
 

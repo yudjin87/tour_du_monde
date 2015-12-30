@@ -45,8 +45,8 @@ CategorizedRendererWidget::CategorizedRendererWidget(const CategorizedRenderer *
     : FeatureRendererWidget(parent)
     , m_ui(new Ui::CategorizedRendererWidget())
     , m_renderer(static_cast<CategorizedRenderer*>(renderer->clone()))
-    , m_tableModel(new RendererCategoryCollectionModel(m_renderer->categories(), layer.featureClass()->shapeType(), this))
     , m_columns(nullptr)
+    , m_tableModel(new RendererCategoryCollectionModel(m_renderer->categories(), layer.featureClass()->shapeType(), this))
     , m_layer(layer)
 {
     const ITable* table = layer.featureClass()->table();

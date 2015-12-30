@@ -25,33 +25,20 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
-#include <displayWidgets/SymbolEditorWidget.h>
-#include <display/ISymbol.h>
-#include <display/ISymbolVisitor.h>
 
-#include <QtCore/QStringListModel>
-#include <memory>
+#include <cartoPersist/ISymbolPersist.h>
 
-class MarkerSymbolEditorWidget : public SymbolEditorWidget, private ISymbolVisitor
+class SimpleTextSymbol;
+
+class SimpleTextSymbolPersist : public ISymbolPersist
 {
-    Q_OBJECT
 public:
-    explicit MarkerSymbolEditorWidget(const ISymbol *initialSymbol, QWidget *parent = nullptr);
-    ~MarkerSymbolEditorWidget();
+    SimpleTextSymbolPersist();
+    explicit SimpleTextSymbolPersist(const SimpleTextSymbol &symbol);
 
-protected slots:
-    void onSymbolStyleChanged(const int index) override;
-
-private:
-    void visit(SimpleFillSymbol& symbol) override;
-    void visit(PictureFillSymbol& symbol) override;
-    void visit(GradientFillSymbol& symbol) override;
-    void visit(SimpleLineSymbol& symbol) override;
-    void visit(SimpleMarkerSymbol& symbol) override;
-    void visit(PictureMarkerSymbol& symbol) override;
-    void visit(SimpleTextSymbol& symbol) override;
+    void save(QJsonObject &obj) override;
+    ISymbolUPtr load(const QJsonObject &obj, QString *error) override;
 
 private:
-    QStringListModel m_symbols;
-    ISymbolUPtr m_symbol;
+    const SimpleTextSymbol *m_symbol;
 };

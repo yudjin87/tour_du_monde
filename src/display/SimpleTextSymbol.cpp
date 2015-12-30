@@ -24,7 +24,7 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "SimpleFillSymbol.h"
+#include "display/SimpleTextSymbol.h"
 #include "display/ISymbolVisitor.h"
 
 #include <geometry/Polygon.h>
@@ -34,40 +34,40 @@
 #include <QtGui/QPainter>
 #include <QtGui/QPainterPath>
 
-SimpleFillSymbol::SimpleFillSymbol(QObject *parent)
-    : FillSymbol(parent)
+SimpleTextSymbol::SimpleTextSymbol(QObject *parent)
+    : TextSymbol(parent)
     , m_brush()
     , m_oldBrush()
 {
     m_brush.setStyle(Qt::SolidPattern);
-    m_brush.setColor(QColor(rand() % 255, rand() % 255, rand() % 255));
+    m_brush.setColor(color());
 }
 
-SymbolType SimpleFillSymbol::type() const
+SymbolType SimpleTextSymbol::type() const
 {
-    return SymbolType::SimpleFillSymbol;
+    return SymbolType::SimpleTextSymbol;
 }
 
-SimpleFillSymbol::SimpleFillSymbol(const SimpleFillSymbol &o, QObject *parent)
-    : FillSymbol(o, parent)
+SimpleTextSymbol::SimpleTextSymbol(const SimpleTextSymbol &o, QObject *parent)
+    : TextSymbol(o, parent)
     , m_brush(o.m_brush)
     , m_oldBrush(o.m_oldBrush)
 {
 }
 
-void SimpleFillSymbol::accept(ISymbolVisitor &visitor)
+void SimpleTextSymbol::accept(ISymbolVisitor &visitor)
 {
     visitor.visit(*this);
 }
 
-ISymbol* SimpleFillSymbol::clone(QObject* parent) const
+ISymbol* SimpleTextSymbol::clone(QObject* parent) const
 {
-    return new SimpleFillSymbol(*this, parent);
+    return new SimpleTextSymbol(*this, parent);
 }
 
-void SimpleFillSymbol::setupPainter(QPainter *painter)
+void SimpleTextSymbol::setupPainter(QPainter *painter)
 {
-    FillSymbol::setupPainter(painter);
+    TextSymbol::setupPainter(painter);
 
     m_brush.setMatrix(painter->matrix().inverted()); // like setCosmetic
     m_brush.setColor(color());
@@ -76,51 +76,30 @@ void SimpleFillSymbol::setupPainter(QPainter *painter)
     painter->setBrush(m_brush);
 }
 
-void SimpleFillSymbol::resetPainter(QPainter *painter)
+void SimpleTextSymbol::resetPainter(QPainter *painter)
 {
-    FillSymbol::resetPainter(painter);
+    TextSymbol::resetPainter(painter);
     painter->setBrush(m_oldBrush);
 }
 
-QColor SimpleFillSymbol::color() const
+void SimpleTextSymbol::drawPoint(const Point &point, QPainter &painter)
 {
-    return m_brush.color();
+    Q_UNUSED(painter)
+    Q_UNUSED(point)
+    Q_ASSERT(false && "Not implemented");
 }
 
-void SimpleFillSymbol::setColor(const QColor &color)
+void SimpleTextSymbol::drawPolygon(const Polygon &polygon, QPainter &painter)
 {
-    m_brush.setColor(color);
+    Q_UNUSED(painter)
+    Q_UNUSED(polygon)
+    Q_ASSERT(false && "Not implemented");
 }
 
-void SimpleFillSymbol::setColor(int r, int g, int b, int a)
+void SimpleTextSymbol::drawPolyline(const Polyline &polyline, QPainter &painter)
 {
-    setColor(QColor(r, g, b, a));
-}
-
-Qt::BrushStyle SimpleFillSymbol::style() const
-{
-    return m_brush.style();
-}
-
-void SimpleFillSymbol::setStyle(Qt::BrushStyle style)
-{
-    m_brush.setStyle(style);
-}
-
-void SimpleFillSymbol::drawPolygon(const Polygon &polygon, QPainter &painter)
-{
-    QPainterPath path;
-    for (const Ring *ring : polygon.rings())
-    {
-        QPolygonF poly;
-        for (const Point* point : ring->points())
-        {
-            // bool closed = poly.isClosed(); // TODO: thumbnail is not closed, fix it
-            poly.push_back(QPointF(point->x(), point->y()));
-        }
-        path.addPolygon(poly);
-    }
-
-    painter.drawPath(path);
+    Q_UNUSED(painter)
+    Q_UNUSED(polyline)
+    Q_ASSERT(false && "Not implemented");
 }
 

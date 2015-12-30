@@ -33,10 +33,10 @@
 #include <QtCore/QDir>
 #include <QtWidgets/QComboBox>
 
-MarkerSymbolEditorWidget::MarkerSymbolEditorWidget(const MarkerSymbol *initialSymbol, QWidget *parent)
+MarkerSymbolEditorWidget::MarkerSymbolEditorWidget(const ISymbol *initialSymbol, QWidget *parent)
     : SymbolEditorWidget(parent)
     , m_symbols({"Simple marker symbol", "Picture marker symbol"})
-    , m_symbol(static_cast<MarkerSymbol*>(initialSymbol->clone()))
+    , m_symbol(initialSymbol->clone())
 {
     symbolsCbox()->setModel(&m_symbols);
     m_symbol->accept(*this);
@@ -69,33 +69,44 @@ void MarkerSymbolEditorWidget::onSymbolStyleChanged(const int index)
     emit symbolChanged(m_symbol.get());
 }
 
-void MarkerSymbolEditorWidget::visit(SimpleFillSymbol &)
+void MarkerSymbolEditorWidget::visit(SimpleFillSymbol &symbol)
 {
+    Q_UNUSED(symbol)
     Q_ASSERT(false && "This is a marker symbol editor!");
 }
 
 void MarkerSymbolEditorWidget::visit(PictureFillSymbol &symbol)
 {
+    Q_UNUSED(symbol)
     Q_ASSERT(false && "This is a marker symbol editor!");
 }
 
 void MarkerSymbolEditorWidget::visit(GradientFillSymbol &symbol)
 {
+    Q_UNUSED(symbol)
     Q_ASSERT(false && "This is a marker symbol editor!");
 }
 
-void MarkerSymbolEditorWidget::visit(SimpleLineSymbol &)
+void MarkerSymbolEditorWidget::visit(SimpleLineSymbol &symbol)
 {
+    Q_UNUSED(symbol)
     Q_ASSERT(false && "This is a marker symbol editor!");
 }
 
-void MarkerSymbolEditorWidget::visit(SimpleMarkerSymbol &)
+void MarkerSymbolEditorWidget::visit(SimpleMarkerSymbol &symbol)
 {
+    Q_UNUSED(symbol)
     symbolsCbox()->setCurrentIndex(0);
 }
 
-void MarkerSymbolEditorWidget::visit(PictureMarkerSymbol &)
+void MarkerSymbolEditorWidget::visit(PictureMarkerSymbol &symbol)
 {
+    Q_UNUSED(symbol)
     symbolsCbox()->setCurrentIndex(1);
+}
+
+void MarkerSymbolEditorWidget::visit(SimpleTextSymbol &symbol)
+{
+    Q_UNUSED(symbol)
 }
 

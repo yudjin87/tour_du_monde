@@ -25,7 +25,7 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
-#include <display/FillSymbol.h>
+#include <display/ISymbol.h>
 #include <display/ISymbolVisitor.h>
 #include <displayWidgets/SymbolEditorWidget.h>
 
@@ -36,7 +36,7 @@ class FillSymbolEditorWidget : public SymbolEditorWidget, private ISymbolVisitor
 {
     Q_OBJECT
 public:
-    explicit FillSymbolEditorWidget(const FillSymbol *initialSymbol, QWidget *parent = nullptr);
+    explicit FillSymbolEditorWidget(const ISymbol *initialSymbol, QWidget *parent = nullptr);
     ~FillSymbolEditorWidget();
 
 protected slots:
@@ -49,8 +49,9 @@ private:
     void visit(SimpleLineSymbol& symbol) override;
     void visit(SimpleMarkerSymbol& symbol) override;
     void visit(PictureMarkerSymbol& symbol) override;
+    void visit(SimpleTextSymbol& symbol) override;
 
 private:
     QStringListModel m_symbols;
-    std::unique_ptr<FillSymbol> m_symbol;
+    ISymbolUPtr m_symbol;
 };

@@ -195,3 +195,9 @@ void SymbolWidgetCreator::visit(PictureMarkerSymbol &symbol)
         break;
     }
 }
+
+void SymbolWidgetCreator::visit(SimpleTextSymbol &symbol)
+{
+    Q_UNUSED(symbol)
+    Q_ASSERT(false && "Not implemented"); // TODO implement me
+}

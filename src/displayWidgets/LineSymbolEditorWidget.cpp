@@ -31,10 +31,10 @@
 
 #include <QtWidgets/QComboBox>
 
-LineSymbolEditorWidget::LineSymbolEditorWidget(const LineSymbol *initialSymbol, QWidget *parent)
+LineSymbolEditorWidget::LineSymbolEditorWidget(const ISymbol *initialSymbol, QWidget *parent)
     : SymbolEditorWidget(parent)
     , m_symbols({"Simple line symbol"})
-    , m_symbol(static_cast<LineSymbol*>(initialSymbol->clone()))
+    , m_symbol(initialSymbol->clone())
 {
     symbolsCbox()->setModel(&m_symbols);
     m_symbol->accept(*this);
@@ -51,36 +51,49 @@ LineSymbolEditorWidget::~LineSymbolEditorWidget()
 
 void LineSymbolEditorWidget::onSymbolStyleChanged(const int index)
 {
+    Q_UNUSED(index)
     installSymbolWidget(m_symbol.get());
     emit symbolChanged(m_symbol.get());
 }
 
-void LineSymbolEditorWidget::visit(SimpleFillSymbol &)
+void LineSymbolEditorWidget::visit(SimpleFillSymbol &symbol)
 {
+    Q_UNUSED(symbol)
     Q_ASSERT(false && "This is a line symbol editor!");
 }
 
-void LineSymbolEditorWidget::visit(PictureFillSymbol &)
+void LineSymbolEditorWidget::visit(PictureFillSymbol &symbol)
 {
+    Q_UNUSED(symbol)
     Q_ASSERT(false && "This is a line symbol editor!");
 }
 
-void LineSymbolEditorWidget::visit(GradientFillSymbol &)
+void LineSymbolEditorWidget::visit(GradientFillSymbol &symbol)
 {
+    Q_UNUSED(symbol)
     Q_ASSERT(false && "This is a line symbol editor!");
 }
 
-void LineSymbolEditorWidget::visit(SimpleLineSymbol &)
+void LineSymbolEditorWidget::visit(SimpleLineSymbol &symbol)
 {
+    Q_UNUSED(symbol)
     symbolsCbox()->setCurrentIndex(0);
 }
 
-void LineSymbolEditorWidget::visit(SimpleMarkerSymbol &)
+void LineSymbolEditorWidget::visit(SimpleMarkerSymbol &symbol)
 {
+    Q_UNUSED(symbol)
     Q_ASSERT(false && "This is a line symbol editor!");
 }
 
-void LineSymbolEditorWidget::visit(PictureMarkerSymbol &)
+void LineSymbolEditorWidget::visit(PictureMarkerSymbol &symbol)
 {
+    Q_UNUSED(symbol)
+    Q_ASSERT(false && "This is a line symbol editor!");
+}
+
+void LineSymbolEditorWidget::visit(SimpleTextSymbol &symbol)
+{
+    Q_UNUSED(symbol)
     Q_ASSERT(false && "This is a line symbol editor!");
 }

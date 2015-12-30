@@ -42,11 +42,12 @@ QString toString(const SymbolType type)
         return "SimpleMarkerSymbol";
     case SymbolType::PictureMarkerSymbol:
         return "PictureMarkerSymbol";
+    case SymbolType::SimpleTextSymbol:
+        return "SimpleTextSymbol";
     }
 
     return "UNKNOWN";
 }
-
 
 bool verifyEnum(const SymbolType type)
 {
@@ -58,12 +59,12 @@ bool verifyEnum(const SymbolType type)
     case SymbolType::SimpleLineSymbol:
     case SymbolType::SimpleMarkerSymbol:
     case SymbolType::PictureMarkerSymbol:
+    case SymbolType::SimpleTextSymbol:
         return true;
     }
 
     return false;
 }
-
 
 SymbolType symbolTypeFromString(const QString &name)
 {
@@ -74,6 +75,10 @@ SymbolType symbolTypeFromString(const QString &name)
     if (name.toUpper() == QString("PictureFillSymbol").toUpper())
     {
         return SymbolType::PictureFillSymbol;
+    }
+    if (name.toUpper() == QString("GradientFillSymbol").toUpper())
+    {
+        return SymbolType::GradientFillSymbol;
     }
     if (name.toUpper() == QString("SimpleLineSymbol").toUpper())
     {
@@ -86,6 +91,10 @@ SymbolType symbolTypeFromString(const QString &name)
     if (name.toUpper() == QString("PictureMarkerSymbol").toUpper())
     {
         return SymbolType::PictureMarkerSymbol;
+    }
+    if (name.toUpper() == QString("SimpleTextSymbol").toUpper())
+    {
+        return SymbolType::SimpleTextSymbol;
     }
     return static_cast<SymbolType>(-1);
 }

@@ -49,6 +49,7 @@ private:
     void visit(SimpleLineSymbol& symbol) override;
     void visit(SimpleMarkerSymbol& symbol) override;
     void visit(PictureMarkerSymbol& symbol) override;
+    void visit(SimpleTextSymbol& symbol) override;
 
 private:
     enum class CreationState

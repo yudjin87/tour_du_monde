@@ -36,7 +36,8 @@ enum class SymbolType
     GradientFillSymbol,
     SimpleLineSymbol,
     SimpleMarkerSymbol,
-    PictureMarkerSymbol
+    PictureMarkerSymbol,
+    SimpleTextSymbol
 };
 
 DISPLAY_API bool verifyEnum(const SymbolType type);

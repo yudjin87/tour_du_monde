@@ -26,7 +26,7 @@
 
 #pragma once
 #include <displayWidgets/SymbolEditorWidget.h>
-#include <display/LineSymbol.h>
+#include <display/ISymbol.h>
 #include <display/ISymbolVisitor.h>
 
 #include <QtCore/QStringListModel>
@@ -36,7 +36,7 @@ class LineSymbolEditorWidget : public SymbolEditorWidget, private ISymbolVisitor
 {
     Q_OBJECT
 public:
-    explicit LineSymbolEditorWidget(const LineSymbol *initialSymbol, QWidget *parent = nullptr);
+    explicit LineSymbolEditorWidget(const ISymbol *initialSymbol, QWidget *parent = nullptr);
     ~LineSymbolEditorWidget();
 
 protected slots:
@@ -49,8 +49,9 @@ private:
     void visit(SimpleLineSymbol& symbol) override;
     void visit(SimpleMarkerSymbol& symbol) override;
     void visit(PictureMarkerSymbol& symbol) override;
+    void visit(SimpleTextSymbol& symbol) override;
 
 private:
     QStringListModel m_symbols;
-    std::unique_ptr<LineSymbol> m_symbol;
+    ISymbolUPtr m_symbol;
 };
