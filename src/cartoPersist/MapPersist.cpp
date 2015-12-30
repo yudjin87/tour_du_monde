@@ -25,11 +25,11 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "cartoPersist/MapPersist.h"
-#include "cartoPersist/ILayerPersist.h"
-#include "cartoPersist/LayerPersistCreator.h"
+#include "cartoPersist/layers/ILayerPersist.h"
+#include "cartoPersist/layers/LayerPersistCreator.h"
 
 #include <carto/IMap.h>
-#include <carto/AbstractLayer.h>
+#include <carto/layers/AbstractLayer.h>
 #include <carousel/utils/IServiceLocator.h>
 #include <QtCore/QJsonArray>
 #include <QtCore/QJsonObject>

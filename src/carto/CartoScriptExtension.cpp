@@ -24,12 +24,12 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#include "CartoScriptExtension.h"
-#include "AbstractLayer.h"
-#include "ITourDuMondeDocumentController.h"
-#include "ITourDuMondeDocument.h"
-#include "IMap.h"
-#include "IFeatureRenderer.h"
+#include "carto/CartoScriptExtension.h"
+#include "carto/ITourDuMondeDocumentController.h"
+#include "carto/ITourDuMondeDocument.h"
+#include "carto/IMap.h"
+#include "carto/layers/AbstractLayer.h"
+#include "carto/renderers/IFeatureRenderer.h"
 
 #include <components/qmlscripting/IScriptingService.h>
 #include <carousel/utils/IServiceLocator.h>

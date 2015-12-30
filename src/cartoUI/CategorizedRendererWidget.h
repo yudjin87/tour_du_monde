@@ -27,8 +27,8 @@
 #pragma once
 
 #include <cartoUI/FeatureRendererWidget.h>
-#include <carto/FeatureLayer.h>
-#include <carto/CategorizedRenderer.h>
+#include <carto/layers/FeatureLayer.h>
+#include <carto/renderers/CategorizedRenderer.h>
 #include <QtCore/QStringListModel>
 #include <memory>
 

@@ -27,7 +27,7 @@
 #pragma once
 
 #include <carto/carto_api.h>
-#include <carto/IFeatureRenderer.h>
+#include <carto/renderers/IFeatureRenderer.h>
 #include <carousel/commands/BaseUndoableCommand.h>
 
 class ITourDuMondeDocumentController;

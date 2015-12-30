@@ -26,7 +26,7 @@
 
 #include "styles/FeatureLayerStylePersist.h"
 #include "styles/FeatureLayerStyle.h"
-#include <cartoPersist/FeatureRendererPersistCreator.h>
+#include <cartoPersist/renderers/FeatureRendererPersistCreator.h>
 
 #include <QtCore/QJsonDocument>
 #include <QtCore/QJsonObject>
@@ -64,6 +64,8 @@ bool FeatureLayerStylePersist::save(const IFeatureLayerStyle &style, const QStri
 
 IFeatureLayerStyleUPtr FeatureLayerStylePersist::load(const QString &fileName)
 {
+    Q_UNUSED(fileName)
+    // TODO: implement me
     FeatureLayerStyleUPtr loadedStyle;
     return std::move(loadedStyle);
 }

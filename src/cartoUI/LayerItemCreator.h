@@ -25,7 +25,7 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
-#include <carto/ILayerVisitor.h>
+#include <carto/layers/ILayerVisitor.h>
 
 #include <QtCore/QObject>
 #include <QtGui/QStandardItem>

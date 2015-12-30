@@ -25,8 +25,8 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "carto/Map.h"
-#include "carto/AbstractLayer.h"
-#include "carto/ILayerCollection.h"
+#include "carto/layers/AbstractLayer.h"
+#include "carto/layers/ILayerCollection.h"
 
 #include <carousel/logging/LoggerFacade.h>
 #include <display/IDisplay.h>

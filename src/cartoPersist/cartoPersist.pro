@@ -17,55 +17,55 @@ LIBS += -L$${DESTDIR} -lorg.carousel.demos.Carto \
 
 HEADERS += \
     cartoPersist_api.h \
+    legends/LegendGroupPersist.h \
+    legends/LegendClassPersist.h \
+    layers/ILayerPersist.h \
+    layers/FeatureLayerPersist.h \
+    layers/LayerPersistCreator.h \
+    renderers/IFeatureRendererPersist.h \
+    renderers/SimpleRendererPersist.h \
+    renderers/FeatureRendererPersistCreator.h \
+    renderers/CategorizedRendererPersist.h \
+    renderers/RendererCategoryCollectionPersist.h \
+    renderers/RendererCategoryPersist.h \
+    symbols/ISymbolPersist.h \
+    symbols/SymbolPersistCreator.h \
+    symbols/SimpleFillSymbolPersist.h \
+    symbols/SimpleLineSymbolPersist.h \
+    symbols/SimpleMarkerSymbolPersist.h \
+    symbols/PictureMarkerSymbolPersist.h \
+    symbols/PictureFillSymbolPersist.h \
+    symbols/GradientFillSymbolPersist.h \
+    symbols/SimpleTextSymbolPersist.h \
     CartoPersistComponent.h \
     CartoPersistExtension.h \
     TourDuMondeDocumentPersist.h \
     MapPersist.h \
-    ILayerPersist.h \
-    FeatureLayerPersist.h \
-    LayerPersistCreator.h \
     FeatureClassPersist.h \
-    IFeatureRendererPersist.h \
-    SimpleRendererPersist.h \
-    FeatureRendererPersistCreator.h \
-    CategorizedRendererPersist.h \
-    LegendGroupPersist.h \
-    LegendClassPersist.h \
-    ISymbolPersist.h \
-    SymbolPersistCreator.h \
-    SimpleFillSymbolPersist.h \
-    SimpleLineSymbolPersist.h \
-    SimpleMarkerSymbolPersist.h \
-    PictureMarkerSymbolPersist.h \
-    RendererCategoryCollectionPersist.h \
-    RendererCategoryPersist.h \
-    PictureFillSymbolPersist.h \
-    GradientFillSymbolPersist.h \
-    SimpleTextSymbolPersist.h
 
 SOURCES += \
+    legends/LegendGroupPersist.cpp \
+    legends/LegendClassPersist.cpp \
+    layers/FeatureLayerPersist.cpp \
+    layers/LayerPersistCreator.cpp \
+    renderers/SimpleRendererPersist.cpp \
+    renderers/FeatureRendererPersistCreator.cpp \
+    renderers/CategorizedRendererPersist.cpp \
+    renderers/RendererCategoryCollectionPersist.cpp \
+    renderers/RendererCategoryPersist.cpp \
+    symbols/SymbolPersistCreator.cpp \
+    symbols/SimpleFillSymbolPersist.cpp \
+    symbols/SimpleLineSymbolPersist.cpp \
+    symbols/SimpleMarkerSymbolPersist.cpp \
+    symbols/PictureMarkerSymbolPersist.cpp \
+    symbols/PictureFillSymbolPersist.cpp \
+    symbols/GradientFillSymbolPersist.cpp \
+    symbols/SimpleTextSymbolPersist.cpp \
     CartoPersistComponent.cpp \
     CartoPersistExtension.cpp \
     TourDuMondeDocumentPersist.cpp \
     MapPersist.cpp \
-    FeatureLayerPersist.cpp \
-    LayerPersistCreator.cpp \
     FeatureClassPersist.cpp \
-    SimpleRendererPersist.cpp \
-    FeatureRendererPersistCreator.cpp \
-    CategorizedRendererPersist.cpp \
-    LegendGroupPersist.cpp \
-    LegendClassPersist.cpp \
-    SymbolPersistCreator.cpp \
-    SimpleFillSymbolPersist.cpp \
-    SimpleLineSymbolPersist.cpp \
-    SimpleMarkerSymbolPersist.cpp \
-    PictureMarkerSymbolPersist.cpp \
-    RendererCategoryCollectionPersist.cpp \
-    RendererCategoryPersist.cpp \
-    PictureFillSymbolPersist.cpp \
-    GradientFillSymbolPersist.cpp \
-    SimpleTextSymbolPersist.cpp
 
 OTHER_FILES += org.carousel.demos.CartoPersist.definition
 

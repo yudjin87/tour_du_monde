@@ -26,7 +26,7 @@
 
 #pragma once
 #include <QtCore/QObject>
-#include <carto/ILayerVisitor.h>
+#include <carto/layers/ILayerVisitor.h>
 
 class AbstractLayer;
 class PropertiesWidget;

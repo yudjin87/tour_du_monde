@@ -30,9 +30,9 @@
 
 #include <carto/commands/RenameLayerCommand.h>
 #include <carto/commands/ChangeLayerStyleCommand.h>
-#include <carto/CategorizedRenderer.h>
-#include <carto/SimpleRenderer.h>
-#include <carto/FeatureLayer.h>
+#include <carto/renderers/CategorizedRenderer.h>
+#include <carto/renderers/SimpleRenderer.h>
+#include <carto/layers/FeatureLayer.h>
 #include <geodatabase/IFeatureClass.h>
 #include <geometry/GeometryType.h>
 

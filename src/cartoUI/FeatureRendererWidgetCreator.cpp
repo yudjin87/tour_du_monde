@@ -27,8 +27,8 @@
 #include "cartoUI/FeatureRendererWidgetCreator.h"
 #include "cartoUI/SimpleRendererWidget.h"
 #include "cartoUI/CategorizedRendererWidget.h"
-#include <carto/SimpleRenderer.h>
-#include <carto/FeatureLayer.h>
+#include <carto/renderers/SimpleRenderer.h>
+#include <carto/layers/FeatureLayer.h>
 
 FeatureRendererWidgetCreator::FeatureRendererWidgetCreator()
     : IFeatureRendererVisitor()

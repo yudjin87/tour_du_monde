@@ -26,7 +26,7 @@
 
 #include "cartoUI/RendererCategoryCollectionModel.h"
 #include "cartoUI/RendererCategoryItem.h"
-#include <carto/IRendererCategory.h>
+#include <carto/renderers/IRendererCategory.h>
 
 RendererCategoryCollectionModel::RendererCategoryCollectionModel(const IRendererCategoryCollection &categories, const Geometry::Type geometry, QObject *parent)
     : QStandardItemModel(parent)

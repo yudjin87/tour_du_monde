@@ -27,7 +27,7 @@
 #include "cartoUI/LayerPropertyWidgetCreator.h"
 #include <cartoUI/FeatureLayerPropertiesWidget.h>
 
-#include <carto/FeatureLayer.h>
+#include <carto/layers/FeatureLayer.h>
 
 LayerPropertyWidgetCreator::LayerPropertyWidgetCreator(QObject *parent)
     : QObject(parent)

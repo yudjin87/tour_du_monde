@@ -20,65 +20,65 @@ LIBS += -L$${DESTDIR} -lorg.carousel.demos.Display \
 
 HEADERS += \
     carto_api.h \
-    TourDuMondeDocument.h \
-    TourDuMondeDocumentController.h \
-    ITourDuMondeDocumentController.h \
-    ITourDuMondeDocument.h \
-    AbstractLayer.h \
-    FeatureLayer.h \
-    Map.h \
-    CartoComponent.h \
-    IMap.h \
-    ILayerVisitor.h \
-    CartoScriptExtension.h \
-    FeatureLayerDrawingTask.h \
-    IFeatureRenderer.h \
-    ILegendClass.h \
-    ILegendGroup.h \
-    LegendClass.h \
     commands/AddShapesCommand.h \
     commands/RenameLayerCommand.h \
     commands/MoveLayerCommand.h \
     commands/RemoveLayerCommand.h \
-    LegendGroup.h \
-    SimpleRenderer.h \
-    IFeatureRendererVisitor.h \
     commands/ChangeLayerStyleCommand.h \
-    CategorizedRenderer.h \
-    RendererCategory.h \
-    RendererCategoryCollection.h \
-    IRendererCategory.h \
-    IRendererCategoryCollection.h \
-    LayerType.h \
-    RendererType.h \
     commands/ChangeLegendClassCommand.h \
-    ILayerCollection.h \
-    LayerCollection.h
+    layers/AbstractLayer.h \
+    layers/FeatureLayer.h \
+    layers/ILayerVisitor.h \
+    layers/FeatureLayerDrawingTask.h \
+    layers/LayerType.h \
+    layers/ILayerCollection.h \
+    layers/LayerCollection.h \
+    legends/ILegendClass.h \
+    legends/ILegendGroup.h \
+    legends/LegendClass.h \
+    legends/LegendGroup.h \
+    renderers/IFeatureRenderer.h \
+    renderers/SimpleRenderer.h \
+    renderers/IFeatureRendererVisitor.h \
+    renderers/CategorizedRenderer.h \
+    renderers/RendererCategory.h \
+    renderers/RendererCategoryCollection.h \
+    renderers/IRendererCategory.h \
+    renderers/IRendererCategoryCollection.h \
+    renderers/RendererType.h \
+    TourDuMondeDocument.h \
+    TourDuMondeDocumentController.h \
+    ITourDuMondeDocumentController.h \
+    ITourDuMondeDocument.h \
+    Map.h \
+    CartoComponent.h \
+    IMap.h \
+    CartoScriptExtension.h \
 
 SOURCES += \
-    AbstractLayer.cpp \
-    FeatureLayer.cpp \
+    commands/AddShapesCommand.cpp \
+    commands/RenameLayerCommand.cpp \
+    commands/MoveLayerCommand.cpp \
+    commands/RemoveLayerCommand.cpp \
+    commands/ChangeLayerStyleCommand.cpp \
+    commands/ChangeLegendClassCommand.cpp \
+    layers/AbstractLayer.cpp \
+    layers/FeatureLayer.cpp \
+    layers/LayerType.cpp \
+    layers/LayerCollection.cpp \
+    layers/FeatureLayerDrawingTask.cpp \
+    legends/LegendClass.cpp \
+    legends/LegendGroup.cpp \
+    renderers/SimpleRenderer.cpp \
+    renderers/CategorizedRenderer.cpp \
+    renderers/RendererCategory.cpp \
+    renderers/RendererCategoryCollection.cpp \
+    renderers/RendererType.cpp \
     Map.cpp \
     CartoComponent.cpp \
     TourDuMondeDocumentController.cpp \
     TourDuMondeDocument.cpp \
     CartoScriptExtension.cpp \
-    FeatureLayerDrawingTask.cpp \
-    LegendClass.cpp \
-    commands/AddShapesCommand.cpp \
-    commands/RenameLayerCommand.cpp \
-    commands/MoveLayerCommand.cpp \
-    commands/RemoveLayerCommand.cpp \
-    LegendGroup.cpp \
-    SimpleRenderer.cpp \
-    commands/ChangeLayerStyleCommand.cpp \
-    CategorizedRenderer.cpp \
-    RendererCategory.cpp \
-    RendererCategoryCollection.cpp \
-    LayerType.cpp \
-    RendererType.cpp \
-    commands/ChangeLegendClassCommand.cpp \
-    LayerCollection.cpp
 
 OTHER_FILES += org.carousel.demos.Carto.definition
 

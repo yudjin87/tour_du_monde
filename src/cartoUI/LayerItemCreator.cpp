@@ -27,7 +27,7 @@
 #include "LayerItemCreator.h"
 #include "FeatureLayerItem.h"
 
-#include <carto/FeatureLayer.h>
+#include <carto/layers/FeatureLayer.h>
 
 LayerItemCreator::LayerItemCreator(IServiceLocator *serviceLocator, QObject *parent)
     : QObject(parent)

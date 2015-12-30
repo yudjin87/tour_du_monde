@@ -26,7 +26,7 @@
 
 #include <carto/commands/MoveLayerCommand.h>
 #include <carto/IMap.h>
-#include <carto/AbstractLayer.h>
+#include <carto/layers/AbstractLayer.h>
 #include <carto/ITourDuMondeDocument.h>
 #include <carto/ITourDuMondeDocumentController.h>
 #include <carousel/logging/LoggerFacade.h>

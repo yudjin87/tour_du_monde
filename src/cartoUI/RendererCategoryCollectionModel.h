@@ -27,7 +27,7 @@
 #pragma once
 
 #include <geometry/GeometryType.h>
-#include <carto/IRendererCategoryCollection.h>
+#include <carto/renderers/IRendererCategoryCollection.h>
 #include <QtGui/QStandardItemModel>
 
 class RendererCategoryCollectionModel : public QStandardItemModel

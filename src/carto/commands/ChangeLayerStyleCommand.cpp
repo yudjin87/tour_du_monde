@@ -26,10 +26,10 @@
 
 #include <carto/commands/ChangeLayerStyleCommand.h>
 #include <carto/IMap.h>
-#include <carto/FeatureLayer.h>
+#include <carto/layers/FeatureLayer.h>
 #include <carto/ITourDuMondeDocument.h>
 #include <carto/ITourDuMondeDocumentController.h>
-#include <carto/IFeatureRenderer.h>
+#include <carto/renderers/IFeatureRenderer.h>
 
 ChangeLayerStyleCommand::ChangeLayerStyleCommand(IUndoStack *stack, ITourDuMondeDocumentController *docContr, QObject *parent)
     : BaseUndoableCommand(stack, parent)

@@ -26,7 +26,7 @@
 
 #include <carto/commands/AddShapesCommand.h>
 #include <carto/IMap.h>
-#include <carto/FeatureLayer.h>
+#include <carto/layers/FeatureLayer.h>
 #include <carto/ITourDuMondeDocument.h>
 #include <carto/ITourDuMondeDocumentController.h>
 

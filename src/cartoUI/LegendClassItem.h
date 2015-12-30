@@ -26,7 +26,7 @@
 
 #pragma once
 #include <geometry/GeometryType.h>
-#include <carto/ILegendClass.h>
+#include <carto/legends/ILegendClass.h>
 
 #include <QtCore/QObject>
 #include <QtGui/QStandardItem>

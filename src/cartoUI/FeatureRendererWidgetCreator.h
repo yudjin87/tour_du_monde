@@ -25,8 +25,8 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #pragma once
-#include <carto/IFeatureRenderer.h>
-#include <carto/IFeatureRendererVisitor.h>
+#include <carto/renderers/IFeatureRenderer.h>
+#include <carto/renderers/IFeatureRendererVisitor.h>
 #include <cartoUI/FeatureRendererWidget.h>
 
 class FeatureLayer;

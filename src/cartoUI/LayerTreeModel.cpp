@@ -31,10 +31,10 @@
 
 #include <display/SymbolThumbnail.h>
 #include <carto/IMap.h>
-#include <carto/FeatureLayer.h>
+#include <carto/layers/FeatureLayer.h>
 #include <carto/commands/MoveLayerCommand.h>
 #include <carto/commands/RemoveLayerCommand.h>
-#include <carto/IFeatureRenderer.h>
+#include <carto/renderers/IFeatureRenderer.h>
 #include <carousel/logging/LoggerFacade.h>
 #include <carousel/utils/IServiceLocator.h>
 #include <components/interactivity/IDialogService.h>

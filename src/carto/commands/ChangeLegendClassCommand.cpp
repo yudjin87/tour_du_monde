@@ -26,7 +26,7 @@
 
 #include <carto/commands/ChangeLegendClassCommand.h>
 #include <carto/IMap.h>
-#include <carto/ILegendClass.h>
+#include <carto/legends/ILegendClass.h>
 #include <carto/ITourDuMondeDocument.h>
 #include <carto/ITourDuMondeDocumentController.h>
 

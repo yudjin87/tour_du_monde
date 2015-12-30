@@ -25,7 +25,7 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "cartoUI/RendererCategoryItem.h"
-#include <carto/IRendererCategory.h>
+#include <carto/renderers/IRendererCategory.h>
 #include <display/SymbolThumbnail.h>
 #include <display/ISymbol.h>
 #include <QtGui/QPixmap>

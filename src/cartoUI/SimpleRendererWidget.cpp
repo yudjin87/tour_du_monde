@@ -27,7 +27,7 @@
 #include "cartoUI/SimpleRendererWidget.h"
 #include "ui_SimpleRendererWidget.h"
 
-#include <carto/SimpleRenderer.h>
+#include <carto/renderers/SimpleRenderer.h>
 #include <displayWidgets/SymbolWidgetCreator.h>
 #include <displayWidgets/SymbolEditorWidget.h>
 

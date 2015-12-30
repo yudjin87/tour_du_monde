@@ -25,16 +25,16 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include "carto/CartoComponent.h"
+#include "carto/TourDuMondeDocumentController.h"
+#include "carto/layers/FeatureLayer.h"
+#include "carto/CartoScriptExtension.h"
+#include "carto/Map.h"
 #include "carto/commands/AddShapesCommand.h"
 #include "carto/commands/RemoveLayerCommand.h"
 #include "carto/commands/RenameLayerCommand.h"
 #include "carto/commands/ChangeLayerStyleCommand.h"
 #include "carto/commands/ChangeLegendClassCommand.h"
 #include "carto/commands/MoveLayerCommand.h"
-#include "carto/TourDuMondeDocumentController.h"
-#include "carto/FeatureLayer.h"
-#include "carto/CartoScriptExtension.h"
-#include "carto/Map.h"
 #include <geodatabase/IShapeFileWorkspaceFactory.h>
 #include <display/IDisplay.h>
 

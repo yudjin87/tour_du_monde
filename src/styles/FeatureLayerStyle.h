@@ -27,7 +27,7 @@
 #pragma once
 
 #include <styles/IFeatureLayerStyle.h>
-#include <carto/IFeatureRenderer.h>
+#include <carto/renderers/IFeatureRenderer.h>
 
 class FeatureLayerStyle : public IFeatureLayerStyle
 {

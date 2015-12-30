@@ -27,10 +27,10 @@
 #include "FeatureLayerItem.h"
 #include "LegendClassItem.h"
 
-#include <carto/ILegendGroup.h>
-#include <carto/ILegendClass.h>
-#include <carto/FeatureLayer.h>
-#include <carto/IFeatureRenderer.h>
+#include <carto/legends/ILegendGroup.h>
+#include <carto/legends/ILegendClass.h>
+#include <carto/layers/FeatureLayer.h>
+#include <carto/renderers/IFeatureRenderer.h>
 #include <carto/commands/RenameLayerCommand.h>
 #include <carousel/utils/IServiceLocator.h>
 

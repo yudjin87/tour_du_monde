@@ -27,7 +27,7 @@
 #include "cartoPersist/CartoPersistExtension.h"
 #include "cartoPersist/TourDuMondeDocumentPersist.h"
 
-#include <carto/AbstractLayer.h>
+#include <carto/layers/AbstractLayer.h>
 #include <carto/ITourDuMondeDocument.h>
 #include <carto/IMap.h>
 #include <carto/ITourDuMondeDocumentController.h>
