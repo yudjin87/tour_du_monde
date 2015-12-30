@@ -44,7 +44,7 @@ public:
     /*!
      * @details
      *   Draws the specified shape, using prepared the painter.
-     *   Use setupTourDuMonde() before, and resetTourDuMonde() after this method
+     *   Use setupPainter() before, and resetPainter() after this method
      */
     virtual void draw(const IGeometry *geometry, QPainter *painter) = 0;
 
@@ -53,13 +53,13 @@ public:
      * @details
      *   Prepares the painter for drawing the symbol.
      */
-    virtual void setupTourDuMonde(QPainter *painter) = 0;
+    virtual void setupPainter(QPainter *painter) = 0;
 
     /*!
      * @details
      *   Restores painter to original state.
      */
-    virtual void resetTourDuMonde(QPainter *painter) = 0;
+    virtual void resetPainter(QPainter *painter) = 0;
 
 protected:
     ISymbol() = default;

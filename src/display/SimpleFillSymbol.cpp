@@ -65,9 +65,9 @@ ISymbol* SimpleFillSymbol::clone(QObject* parent) const
     return new SimpleFillSymbol(*this, parent);
 }
 
-void SimpleFillSymbol::setupTourDuMonde(QPainter *painter)
+void SimpleFillSymbol::setupPainter(QPainter *painter)
 {
-    FillSymbol::setupTourDuMonde(painter);
+    FillSymbol::setupPainter(painter);
 
     m_brush.setMatrix(painter->matrix().inverted()); // like setCosmetic
     m_brush.setColor(color());
@@ -76,9 +76,9 @@ void SimpleFillSymbol::setupTourDuMonde(QPainter *painter)
     painter->setBrush(m_brush);
 }
 
-void SimpleFillSymbol::resetTourDuMonde(QPainter *painter)
+void SimpleFillSymbol::resetPainter(QPainter *painter)
 {
-    FillSymbol::resetTourDuMonde(painter);
+    FillSymbol::resetPainter(painter);
     painter->setBrush(m_oldBrush);
 }
 

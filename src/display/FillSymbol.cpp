@@ -45,14 +45,14 @@ FillSymbol::~FillSymbol()
     m_outline = nullptr;
 }
 
-void FillSymbol::setupTourDuMonde(QPainter *painter)
+void FillSymbol::setupPainter(QPainter *painter)
 {
-    m_outline->setupTourDuMonde(painter);
+    m_outline->setupPainter(painter);
 }
 
-void FillSymbol::resetTourDuMonde(QPainter *painter)
+void FillSymbol::resetPainter(QPainter *painter)
 {
-    m_outline->resetTourDuMonde(painter);
+    m_outline->resetPainter(painter);
 }
 
 LineSymbol *FillSymbol::outline()

@@ -59,8 +59,8 @@ public:
      * @details
      *   Prepares the display for drawing the symbol by setting brush.
      */
-    void setupTourDuMonde(QPainter *painter) override;
-    void resetTourDuMonde(QPainter *painter) override;
+    void setupPainter(QPainter *painter) override;
+    void resetPainter(QPainter *painter) override;
 
     QColor centralColor() const;
     QColor surroundColor() const;

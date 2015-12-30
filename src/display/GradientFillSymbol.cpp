@@ -182,15 +182,15 @@ void GradientFillSymbol::setBlendPosition2(qreal blendPosition2)
     m_blendPosition2 = blendPosition2;
 }
 
-void GradientFillSymbol::setupTourDuMonde(QPainter *painter)
+void GradientFillSymbol::setupPainter(QPainter *painter)
 {
-    FillSymbol::setupTourDuMonde(painter);
+    FillSymbol::setupPainter(painter);
     m_gradientBrush->prepare(painter);
 }
 
-void GradientFillSymbol::resetTourDuMonde(QPainter *painter)
+void GradientFillSymbol::resetPainter(QPainter *painter)
 {
-    FillSymbol::resetTourDuMonde(painter);
+    FillSymbol::resetPainter(painter);
     m_gradientBrush->drawingFinished(painter);
 }
 

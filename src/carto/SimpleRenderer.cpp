@@ -90,13 +90,13 @@ void SimpleRenderer::draw(const QVector<IFeature *> &features, QPainter *painter
     }
 
     ISymbol *symb = legend->symbol();
-    symb->setupTourDuMonde(painter);
+    symb->setupPainter(painter);
     for (const IFeature *feature : features)
     {
         symb->draw(feature->geometry(), painter);
     }
 
-    symb->resetTourDuMonde(painter);
+    symb->resetPainter(painter);
 }
 
 ISymbol *SimpleRenderer::symbol()

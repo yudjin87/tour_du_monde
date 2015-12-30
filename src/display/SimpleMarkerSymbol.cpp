@@ -114,9 +114,9 @@ void SimpleMarkerSymbol::setOutlineSize(qreal outlineSize)
     m_outlineSize = outlineSize;
 }
 
-void SimpleMarkerSymbol::setupTourDuMonde(QPainter *painter)
+void SimpleMarkerSymbol::setupPainter(QPainter *painter)
 {
-    MarkerSymbol::setupTourDuMonde(painter);
+    MarkerSymbol::setupPainter(painter);
 
     m_painterTransform = painter->transform();
     painter->setWorldMatrixEnabled(false);
@@ -131,9 +131,9 @@ void SimpleMarkerSymbol::setupTourDuMonde(QPainter *painter)
     }
 }
 
-void SimpleMarkerSymbol::resetTourDuMonde(QPainter *painter)
+void SimpleMarkerSymbol::resetPainter(QPainter *painter)
 {
-    MarkerSymbol::resetTourDuMonde(painter);
+    MarkerSymbol::resetPainter(painter);
     painter->setWorldMatrixEnabled(true);
     painter->setPen(m_oldPen);
 }

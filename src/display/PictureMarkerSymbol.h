@@ -47,8 +47,8 @@ public:
      * @details
      *   Prepares the display for drawing the symbol by setting pen and brush.
      */
-    void setupTourDuMonde(QPainter *painter) override;
-    void resetTourDuMonde(QPainter *painter) override;
+    void setupPainter(QPainter *painter) override;
+    void resetPainter(QPainter *painter) override;
 
     QPixmap picture() const;
     void setPicture(const QPixmap& picture);
