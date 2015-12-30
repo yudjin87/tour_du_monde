@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- 
+
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -34,9 +34,9 @@ FillSymbol::FillSymbol(QObject *parent)
 }
 
 FillSymbol::FillSymbol(const FillSymbol &o, QObject *parent)
-    : m_outline(static_cast<LineSymbol*>(o.m_outline->clone(parent)))
+    : SymbolBase(parent)
+    , m_outline(static_cast<LineSymbol*>(o.m_outline->clone(parent)))
 {
-    setParent(parent);
 }
 
 FillSymbol::~FillSymbol()

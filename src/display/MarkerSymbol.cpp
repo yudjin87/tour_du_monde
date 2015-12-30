@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- 
+
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -39,12 +39,12 @@ MarkerSymbol::MarkerSymbol(QObject *parent)
 }
 
 MarkerSymbol::MarkerSymbol(const MarkerSymbol &o, QObject *parent)
-    : m_brush(o.m_brush)
+    : SymbolBase(parent)
+    , m_brush(o.m_brush)
     , m_oldBrush(o.m_oldBrush)
     , m_angle(o.m_angle)
     , m_size(o.m_size)
 {
-    setParent(parent);
 }
 
 double MarkerSymbol::angle() const

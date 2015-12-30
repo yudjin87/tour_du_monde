@@ -16,7 +16,7 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
- 
+
  * You should have received a copy of the GNU Lesser General
  * Public License along with this library; if not, write to the
  * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -34,10 +34,10 @@ LineSymbol::LineSymbol(QObject *parent)
 }
 
 LineSymbol::LineSymbol(const LineSymbol &o, QObject *parent)
-    : m_width(o.m_width)
+    : SymbolBase(parent)
+    , m_width(o.m_width)
     , m_color(o.m_color)
 {
-    setParent(parent);
 }
 
 QColor LineSymbol::color() const
