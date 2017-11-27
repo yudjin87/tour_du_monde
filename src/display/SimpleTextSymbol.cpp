@@ -28,6 +28,7 @@
 #include "display/ISymbolVisitor.h"
 
 #include <geometry/Polygon.h>
+#include <geometry/Polyline.h>
 #include <geometry/Point.h>
 #include <geometry/Ring.h>
 

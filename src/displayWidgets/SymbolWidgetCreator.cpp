@@ -30,6 +30,7 @@
 #include <display/GradientFillSymbol.h>
 #include <display/SimpleLineSymbol.h>
 #include <display/SimpleMarkerSymbol.h>
+#include <display/SimpleTextSymbol.h>
 #include <display/PictureMarkerSymbol.h>
 
 #include "displayWidgets/SimpleFillSymbolWidget.h"

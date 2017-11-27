@@ -27,7 +27,11 @@
 #include "displayWidgets/FillSymbolEditorWidget.h"
 
 #include <display/SimpleFillSymbol.h>
+#include <display/SimpleLineSymbol.h>
+#include <display/SimpleMarkerSymbol.h>
+#include <display/SimpleTextSymbol.h>
 #include <display/PictureFillSymbol.h>
+#include <display/PictureMarkerSymbol.h>
 #include <display/GradientFillSymbol.h>
 
 #include <QtCore/QCoreApplication>
